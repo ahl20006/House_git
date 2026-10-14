@@ -1,0 +1,23 @@
+name,x,y,w,d,angle,frame,colour
+Courtyard,7.5,15,6,5,0,M,court
+Women's majlis,8.25,10.5,6.5,4,0,M,family
+Maid bath,13,9.25,3,1.5,0,M,service
+Maid room,13,11.25,3,2.5,0,M,service
+Laundry,12.5,13.5,4,2,0,M,service
+Kitchen,12.5,17.75,4,6.5,0,M,service
+Living (double height),7.5,20.75,6,6.5,0,M,family
+Living (normal height),12.5,22.5,4,3,0,M,family
+#Air tunnel,3.25,12,6.5,1,0,M,air
+Family lobby_1,2.5,11.6,5,1.8,0,M,circ
+Family lobby_2,3.875,9.6,2.25,2.2,0,M,circ
+Lift,1.375,9.6,2.75,2.2,0,M,core
+Stair,1.375,15.35,2.75,5.7,0,M,core
+Air tower,1.375,18.8,2.75,1.2,0,M,tower
+Service shaft,1.375,20.3,2.75,1.8,0,M,core
+Family basins (2),1.375,21.95,2.75,1.5,0,M,service
+Family WC + basin,1.375,24.1,2.75,2.8,0,M,service
+Riwaq,3.625,19,1.75,13,0,M,circ
+Guest WC + basins,1.375,26.5,2.75,2,0,M,guest
+Guest foyer,3.625,27.5,1.75,4,0,M,guest
+Guest entry,1.375,28.5,2.75,2,0,M,guest
+Men's majlis,9.5,26.75,10,5.5,0,M,guest
