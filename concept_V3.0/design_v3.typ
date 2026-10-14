@@ -4,7 +4,7 @@
 #show: setup
 
 // ---------- Place the whole building ----------
-#let shift = (1.025, 3.525)  // V3 sits on site-test option Z3 (pentagon, NE corner cut parallel to the lane)
+#let shift = (0.65, 3.525)   // V3 sits on site-test option Z4 (pentagon 0.75 m wider than Z3, same centre, NE corner cut parallel to the lane)
 #let rot = 0deg               // square to the M line
 
 // ---------- Rows from the CSV (# at the start of a name switches the row off) ----------
@@ -33,7 +33,7 @@
 }
 
 // ---------- Building outline (wall centre lines, CSV coordinates): pentagon, NE corner cut along the lane ----------
-#let outline-v3 = ((0, 0), (9.301, 0), (12.25, 5.427), (12.25, 23), (0, 23)).map(p => rotp(addv(p, 1, shift)))
+#let outline-v3 = ((0, 0), (10.051, 0), (13, 5.427), (13, 23), (0, 23)).map(p => rotp(addv(p, 1, shift)))
 
 // ---------- Courtyard ----------
 #let cw = float(crow.w)
@@ -60,14 +60,14 @@
 }).fold((), (acc, m) => acc + m)
 
 // ceiling-height change inside the living room (same open room, no wall)
-#let level-marks = (((rotp(addv((8.25, 12.5), 1, shift)), rotp(addv((8.25, 18.25), 1, shift))), [ceiling height change]),)
+#let level-marks = (((rotp(addv((9, 12.5), 1, shift)), rotp(addv((9, 18.25), 1, shift))), [ceiling height change]),)
 // door: riwaq → guest wing extension, in the 1.55 m wall at x = 2.75, lockable from the family side
 #let door-marks = (((rotp(addv((2.75, 16.9), 1, shift)), rotp(addv((2.75, 18.05), 1, shift))), [door to family side, lockable]),)
 
 // air tower: polygon filling the tip of the north-east cut corner (CSV coordinates), drawn with the air list
 
 
-#let tower-pts = ((8.25, 0), (9.301, 0), (9.953, 1.2), (8.25, 1.2)).map(p => rotp(addv(p, 1, shift)))
+#let tower-pts = ((9, 0), (10.051, 0), (10.703, 1.2), (9, 1.2)).map(p => rotp(addv(p, 1, shift)))
 
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
 
@@ -77,7 +77,7 @@
 })
 
 #render(
-  title: [Design V3.0 · pentagon Z3 · north-east corner cut along the lane],
+  title: [Design V3.0 · pentagon Z4 · north-east corner cut along the lane],
   subtitle: [11 Oct 2026 · Design V3.0 · base.typ + design_v3.typ + data/rooms_v3.csv],
   court: court,
   rooms: rooms.map(rotrow),
@@ -85,7 +85,7 @@
   arrows: arrows,
   marks: inner-marks + level-marks + door-marks + tower-marks,
   limit: outline-v3,
-  note: [*V3.0* on site-test option Z3: a pentagon 12.25 × 23 m on wall centre lines (12.5 × 23.25 outside), its north-east corner cut parallel to the lane; both palms lie well beyond the south facade. The *air tower* (blue, a 4-sided polygon of about 2.8 m², ≈ 2 m² clear) fills the tip of the cut corner, taking no room space; the *maid bath* (2 × 2) and *maid room* (3.05 × 2.2) sit below it; maid access only kitchen → laundry → maid room → maid bath. *West band:* lift, stair (with a store under its landing), *utility room with the service shaft inside it* (shaft beside the family wash rooms), family basins (2), family WC, then the plumbing wall shared with the guest wing. *Family lobby + riwaq* runs as one straight strip from the front door to the men's majlis; one lockable door links it to the guest wing. *Women's majlis* 4 × 6 m · *courtyard* 4 × 6.5 m · *living* one open room 8 × 5.75 m: double-height half (4 × 5.75) on the courtyard, normal-height half (4 × 5.75) for dining beside the kitchen door; no upper floor over the double-height half or the courtyard · *men's majlis* 10 × 4.75 m. Blue outlines inside rooms are the shaft and the under-stair store (not extra area); blue lines mark the ceiling-height change in the living room and the guest door.],
+  note: [*V3.0* on site-test option Z4: a pentagon 13 × 23 m on wall centre lines (13.25 × 23.25 outside), 0.75 m wider than Z3 through the middle, its north-east corner cut parallel to the lane; both palms lie well beyond the south facade. The *air tower* (blue, a 4-sided polygon of about 2.8 m², ≈ 2 m² clear) fills the tip of the cut corner, taking no room space; the *maid bath* (2 × 2) and *maid room* (3.05 × 2.2) sit below it; maid access only kitchen → laundry → maid room → maid bath. *West band:* lift, stair (with a store under its landing), *utility room with the service shaft inside it* (shaft beside the family wash rooms), family basins (2), family WC, then the plumbing wall shared with the guest wing. *Family lobby + riwaq* runs as one straight strip from the front door to the men's majlis; one lockable door links it to the guest wing. *Women's majlis* 4.75 × 6 m · *courtyard* 4.75 × 6.5 m · *living* one open room 8.75 × 5.75 m: double-height part (4.75 × 5.75) on the courtyard, normal-height half (4 × 5.75) for dining beside the kitchen door; no upper floor over the double-height half or the courtyard · *men's majlis* 10.75 × 4.75 m. Blue outlines inside rooms are the shaft and the under-stair store (not extra area); blue lines mark the ceiling-height change in the living room and the guest door.],
 )
 
 // ---------- Design idea and philosophy (last page) ----------
@@ -129,7 +129,7 @@
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[One living room, two heights]
 
-  The living room is one open space with two ceiling heights. The half next to the courtyard is double height: it continues the courtyard's vertical space, gives the best view into it, and works as a chimney, with high operable windows that let warm air rise and leave while cool air is drawn in from the courtyard; its 4 m width is a simple roof span. The east half is normal height: a warmer, lower place for dining beside the kitchen door, easier to air-condition and light, with ducts hidden in its ceiling, and the first floor continues above it. No upper floor is built over the double-height half or the courtyard.
+  The living room is one open space with two ceiling heights. The half next to the courtyard is double height: it continues the courtyard's vertical space, gives the best view into it, and works as a chimney, with high operable windows that let warm air rise and leave while cool air is drawn in from the courtyard; its 4.75 m width is a simple roof span. The east half is normal height: a warmer, lower place for dining beside the kitchen door, easier to air-condition and light, with ducts hidden in its ceiling, and the first floor continues above it. No upper floor is built over the double-height half or the courtyard.
 
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Services built for life]
