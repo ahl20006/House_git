@@ -126,7 +126,14 @@
 
 // ---------- Rooms from CSV ----------
 // frame "M": w across the M line (x), d along it (y) · frame "N": w true E–W, d true N–S · angle in degrees
+// optional "pts" column: corner points "x y; x y; …" for a room that is not a rectangle (then x, y, w, d are for reference only)
+#let pts-of(r) = r.at("pts", default: "").split(";").map(s => s.trim()).filter(s => s != "").map(s => {
+  let v = s.split(" ").filter(t => t != "")
+  (float(v.at(0)), float(v.at(1)))
+})
 #let room-poly(r) = {
+  let P = pts-of(r)
+  if P.len() >= 3 { return P }
   let x = float(r.x)
   let y = float(r.y)
   let w = float(r.w)
