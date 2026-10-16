@@ -1,11 +1,11 @@
-"""check_v3.py · Taif / Palm House · one command to check design V3.4 before you stop or push.
+"""check.py · Taif / Palm House · one command to check the design (ground floor V4.0 + first-floor start) before you stop or push.
 
-Run from anywhere:   python concept_V3.0/tools/check_v3.py
+Run from anywhere:   python taif_house/tools/check.py
 It
-  1. compiles design_v3.typ, site_test.typ and both studies with typst (any error stops here),
+  1. compiles design_gf.typ, design_ff.typ, studies/site_test.typ and both studies into output/ (any error stops here),
   2. reads the PDFs (if pdftotext is installed) and looks for the "all checks passed" lines,
-  3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_v3.csv,
-  4. rebuilds design_v3.dxf with tools/make_dxf.py and reads it back: same rooms, same areas as the CSV,
+  3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv,
+  4. rebuilds output/taif_ground_floor_V4.dxf with tools/make_dxf.py and reads it back: same rooms, same areas as the CSV,
 and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1).
 """
 import ast
@@ -15,10 +15,10 @@ import re
 import shutil
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent          # concept_V3.0
+ROOT = Path(__file__).resolve().parent.parent          # taif_house
+OUTPUT = ROOT / "output"
 problems = []
 
 
@@ -45,19 +45,19 @@ def same_poly(P, Q, tol=0.002):
 
 # ---------- 1 + 2: compile and read the check lines ----------
 print("1. Compile")
-tmp = Path(tempfile.mkdtemp())
 jobs = [
-    ("design_v3.typ", ROOT / "design_v3.pdf", "All checks passed"),
-    ("site_test.typ", tmp / "site_test.pdf", None),
-    ("studies/guest_wing.typ", ROOT / "studies" / "guest_wing.pdf", "All rooms inside the block, no overlaps, no gaps"),
-    ("studies/east_wing.typ", ROOT / "studies" / "east_wing.pdf", "All rooms inside the block, no overlaps"),
+    ("design_gf.typ", OUTPUT / "design_gf.pdf", "All checks passed"),
+    ("design_ff.typ", OUTPUT / "design_ff.pdf", "All checks passed"),
+    ("studies/site_test.typ", OUTPUT / "site_test.pdf", None),
+    ("studies/guest_wing.typ", OUTPUT / "guest_wing.pdf", "All rooms inside the block, no overlaps, no gaps"),
+    ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", "All rooms inside the block, no overlaps"),
 ]
 typst = shutil.which("typst")
 pdftotext = shutil.which("pdftotext")
 if not typst:
     bad("typst not found on PATH")
 for src, out, must in jobs if typst else []:
-    r = subprocess.run([typst, "compile", str(ROOT / src), str(out)], capture_output=True, text=True, encoding="utf-8")
+    r = subprocess.run([typst, "compile", "--root", str(ROOT), str(ROOT / src), str(out)], capture_output=True, text=True, encoding="utf-8")
     errors = [l for l in r.stderr.splitlines() if l.startswith("error")]
     if r.returncode != 0 or errors:
         bad(f"{src} does not compile: {errors[:1] or r.stderr[:200]}")
@@ -73,8 +73,8 @@ if not pdftotext:
     print("  ..  pdftotext not installed: open the PDFs and look for the ✓ lines yourself")
 
 # ---------- 3: studies against the CSV ----------
-print("2. Studies against data/rooms_v3.csv")
-with open(ROOT / "data" / "rooms_v3.csv", encoding="utf-8", newline="") as f:
+print("2. Studies against data/rooms_gf.csv")
+with open(ROOT / "data" / "rooms_gf.csv", encoding="utf-8", newline="") as f:
     rows = {r["name"]: r for r in csv.DictReader(f) if r.get("name") and not r["name"].startswith("#")}
 
 
@@ -131,7 +131,7 @@ else:
     ok(r.stdout.strip())
     try:
         import ezdxf
-        doc = ezdxf.readfile(ROOT / "design_v3.dxf")
+        doc = ezdxf.readfile(OUTPUT / "taif_ground_floor_V4.dxf")
         seen = {}
         for e in doc.modelspace().query("LWPOLYLINE"):
             if e.has_xdata("HOUSE"):
@@ -145,7 +145,7 @@ else:
         if wrong:
             bad(f"DXF areas differ from the CSV: {wrong}")
         if not missing and not wrong:
-            ok(f"design_v3.dxf: {len(seen)} rooms, every area equals the CSV ({sum(seen.values()):.2f} m² incl. courtyard)")
+            ok(f"taif_ground_floor_V4.dxf: {len(seen)} rooms, every area equals the CSV ({sum(seen.values()):.2f} m² incl. courtyard)")
     except ImportError:
         bad("ezdxf not installed (pip install ezdxf)")
 

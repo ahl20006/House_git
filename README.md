@@ -2,16 +2,20 @@
 
 Concept design of a courtyard house in Taif, drawn with [Typst](https://typst.app) from CSV room data.
 
-Current version: **V3.4** (16 Oct 2026, git tag `v3.4`: smaller air tower, larger maid room), in the folder `concept_V3.0/`. Previous: `v3.3`, `v3.2` (Revision 02), `v3.1` (15 Oct 2026).
+**Current version: Ground floor V4.0 (final, 16 Oct 2026, git tag `v4.0`)** and the first-floor starting point. Everything is in `taif_house/`. Earlier tags: `v3.1` … `v3.4`.
 
-| File | What it is |
-|---|---|
-| `concept_V3.0/design_v3.typ` → `design_v3.pdf` | the design: plan, schedules, design idea |
-| `concept_V3.0/data/rooms_v3.csv` | every room (position, size, use) |
-| `concept_V3.0/base.typ` | site, envelope, palms, checks, drawing engine |
-| `concept_V3.0/studies/` | room-by-room layout studies of the west wash block and the east service block |
-| `concept_V3.0/design_v3.dxf` | the same plan as one DXF for CAD (see `README_DXF.md`) |
-| `concept_V3.0/notes.md` | decisions log |
-| `concept_V3.0/tools/` | `make_dxf.py` (writes the DXF), `check_v3.py` (checks everything) |
+```
+taif_house/
+  base.typ                 site, envelope, palms, checks, drawing engine (fixed)
+  design_gf.typ            ground floor V4.0           ← data/rooms_gf.csv
+  design_ff.typ            first floor, starting point ← data/rooms_ff.csv
+  studies/                 guest_wing.typ (west wash block), east_wing.typ (east service block),
+                           site_test.typ + building.csv (footprint against the site)
+  tools/                   check.py (check everything), make_dxf.py (DXF), schedule.py (room schedule)
+  docs/                    GROUND_FLOOR_V4.md (master document), FIRST_FLOOR_BRIEF.md, notes.md (decisions log), README_DXF.md
+  output/                  PDFs and taif_ground_floor_V4.dxf (all generated)
+  archive/                 superseded files
+```
 
-Compile: `typst compile concept_V3.0/design_v3.typ` · Check: `python concept_V3.0/tools/check_v3.py` (needs `pip install ezdxf`).
+- **Compile one file:** `typst compile --root taif_house taif_house/design_gf.typ taif_house/output/design_gf.pdf`. The `--root` lets the studies reach `../base.typ`.
+- **Check everything:** `python taif_house/tools/check.py` (needs `pip install ezdxf`). It must end with **ALL CHECKS PASSED**.

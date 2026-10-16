@@ -1,26 +1,23 @@
-# Taif / Palm House · Design V3.4 · decisions log
+# Taif / Palm House · decisions log
+
+The current state of the ground floor is described in full in **`docs/GROUND_FLOOR_V4.md`** (master document); the first-floor constraints are in **`docs/FIRST_FLOOR_BRIEF.md`**. This file is the running log: what was decided, version by version (newest first). Older sections keep the file names and sizes of their time.
 
 ## Files and how to check
-- `design_v3.typ` is the file you compile for the design (plan, schedules, philosophy). It reads `data/rooms_v3.csv` and the site in `base.typ`.
-- `base.typ`: site, envelope, palms, north, checks and the drawing engine. Site data changes only if the land changes.
-- `data/rooms_v3.csv`: one row per room (name, x, y, w, d, angle, frame, colour, pts). `#` at the start of a name switches a row off. `pts` ("x y; x y; …") is only for rooms that are not rectangles.
-- `studies/guest_wing.typ` (west wash block) and `studies/east_wing.typ` (east service block): stand-alone layout studies with fixtures and labelled doors. They are the source for those blocks; keep them and the CSV in step.
-- `site_test.typ` + `data/building.csv`: site-test options for the building footprint (Z3, Z4 …).
-- `tools/make_dxf.py` writes `design_v3.dxf` (one DXF with the site, the building and every room, door and fixture); `tools/check_v3.py` compiles everything and cross-checks the CSV, the two studies and the DXF. See `README_DXF.md`.
-- Check before you stop: `python tools/check_v3.py` must end with "ALL CHECKS PASSED", and the plan page must show "✓ All checks passed".
-- Versions on GitHub: tags `v3.1` (15 Oct 2026), `v3.2` (16 Oct 2026, Revision 02) `v3.3` (16 Oct 2026, six owner changes) and `v3.4` (16 Oct 2026, smaller air tower). The folder name stays `concept_V3.0`.
+- `design_gf.typ` + `data/rooms_gf.csv`: the ground floor (plan, schedules, philosophy). `design_ff.typ` + `data/rooms_ff.csv`: the first-floor starting point. Both use the site in `base.typ`.
+- `data/rooms_*.csv`: one row per room (name, x, y, w, d, angle, frame, colour, pts). `#` at the start of a name switches a row off. `pts` ("x y; x y; …") is only for rooms that are not rectangles.
+- `studies/guest_wing.typ` (west wash block), `studies/east_wing.typ` (east service block): stand-alone layout studies with fixtures and labelled doors; keep them and the CSV in step. `studies/site_test.typ` + `studies/building.csv`: the footprint against the site.
+- `tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV and rebuilds the DXF (`output/taif_ground_floor_V4.dxf`, see `docs/README_DXF.md`); it must end with "ALL CHECKS PASSED". `tools/schedule.py` prints the room schedule (axes and clear areas).
+- Versions on GitHub: tags `v3.1` … `v3.4` and `v4.0` (ground floor final). Superseded files are in `archive/`.
 
-## Current design (V3.3, 16 Oct 2026 · Revision 02 + six owner changes)
-- Site-test option Z4, extended: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside, outside footprint ≈ 318.8 m²). The north-east cut runs parallel to the lane from (10.051, 0) to (13.311, 6.0); then the east wall goes straight south. Square to the M line (rot = 0°), shift (0.91, 3.525): the north wall is where it was in V3.2, the building grew 0.5 m to the south.
-- Wall allowances: 250 mm outer walls, 200 mm inner walls, 100 mm dry block partitions in the maid wing, 150–200 mm for walls carrying pipes (clear sizes below use them; the CSV keeps wall centre lines). Outer west wall face 0.785 m from the M line; nearest outer wall face to the envelope ≈ 0.05 m (checked in design_v3.typ). Palms 6.00 / 7.95 m from the outer faces, both beyond the south facade (site_test.typ).
-- Bands west → east (CSV x): west band 0–2.75 · riwaq 2.75–4.25 · middle band 4.25–8.95 (4.70 on axes = 4.50 m clear) · east band 8.95–13.311. Main cross lines (CSV y): 6.5 (women's majlis / courtyard), 13.0 (courtyard / living), 19.25 (living / men's majlis), 24.0 (south wall).
-- Middle band: women's majlis 4.70 × 6.5 (≈ 28.2 m² clear) · courtyard 4.70 × 6.5 (4.50 × 6.30 clear), open to the sky · living (double height) 4.70 × 6.25.
-- Family lobby + riwaq: one straight strip 1.5 × 19.25 (≈ 1.30 m clear) from the front door to the men's majlis; the riwaq end stays closed to the men's majlis.
-- Living opens to the riwaq through a 1.40 m opening with no door; the rest of its west wall is a 1.20 m low partition (open above). The stair has no door either.
-- West band, north → south: future lift shaft + entry cupboard, stair (store under its landing), utility room with the service shaft inside it, then the west wash block (see below).
-- East band, north → south: air tower in the tip of the cut corner, the east service block (maid bath, laundry, maid room, kitchen; see below), then living (normal height) · dining 4.361 × 6.25.
-- South: men's majlis 10.561 × 4.75, its west wall on the west band line (x = 2.75).
-- Air: the tower catches the NW wind above the roof and brings it down to an underground tunnel that enters the courtyard through a low, closable opening. The tunnel is described, not drawn.
+## Changes in V4.0 (16 Oct 2026 · ground floor final)
+8. The 0.2 m freed by the smaller air tower goes to the maid bath, not the maid room:
+   - Air tower unchanged from V3.4: 1.0 m deep, 1.37 m² on axes, ≈ 0.88 m² clear, at least ≈ 0.93 m wide.
+   - Maid bath from the tower (y 1.0) to y 2.8, 1.8 m deep, up to the cut wall: 3.84 m² on axes, ≈ 3.03 m² clear.
+   - Maid room and laundry back to V3.3: maid room y 2.8–6.5, 7.06 m² on axes, ≈ 6.04 m² clear; laundry 1.70 × 3.7, walkway ≈ 0.95 m.
+   - Doors back to their V3.3 places: maid room → maid bath 0.70 m clear (the wall on the maid side is ≈ 0.73 m long, so it is tight: sliding or opening out); laundry → maid room at the north end of the partition. Bath vent window back to y 2.0–2.6.
+   - **Decision:** the maid room stays at ≈ 6.0 m² clear; the 6.5 m² target is dropped (the sloped cut wall makes the north part too narrow).
+- East duct (≈ 0.6 × 0.6 m) placed in the kitchen's north-east corner (CSV x 12.711–13.311, y 6.5–7.1), next to the hood and the outside wall; position to confirm with the MEP engineer.
+- Repo cleaned and frozen as V4.0: folder `taif_house/` (was `concept_V3.0/`); `design_gf.typ`, `data/rooms_gf.csv`; `docs/`, `output/`, `archive/`; `tools/check.py`, `tools/schedule.py`; master document `docs/GROUND_FLOOR_V4.md`; first-floor starting point `design_ff.typ`, `data/rooms_ff.csv`, `docs/FIRST_FLOOR_BRIEF.md`. base.typ: only two text lines changed (comment and the empty-room message), no geometry.
 
 ## Changes in V3.4 (16 Oct 2026 · change 7)
 7. Smaller air tower, the space goes to the maid wing:

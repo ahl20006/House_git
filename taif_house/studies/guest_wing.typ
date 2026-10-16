@@ -1,6 +1,6 @@
 // guest_wing.typ · Taif / Palm House · layout study of the WEST WASH BLOCK: hospitality kitchen + family basins + family WC + guest wing as one design (compile THIS file)
-// Stand-alone: all data is in this file. Source of truth for the block; ../design_v3.typ + ../data/rooms_v3.csv carry the same rooms and doors (main y = local y + 10.4).
-// V3.3 (16 Oct 2026): hospitality kitchen 2.5 m, the rest 0.5 m south; serving passage 1.4 m (no shelf); guest WC on the men's majlis line; trough basin; foyer double door + 1.8 m opening.
+// Ground floor V4.0 (final, 16 Oct 2026). Stand-alone: all data is in this file. Source of truth for the block;
+// ../design_gf.typ + ../data/rooms_gf.csv carry the same rooms and doors (main CSV y = local y + 10.4). Keep both in step.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
@@ -87,7 +87,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[West wash block · family + guest · layout study]\
-#text(8pt, fill: gray)[Taif / Palm House · Design V3.3 (Z4) · block #r2(W) × #r2(D) m = #r2(W * D) m² · scale 1 m = 1.35 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor V4.0 · block #r2(W) × #r2(D) m = #r2(W * D) m² · scale 1 m = 1.35 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: scale, {

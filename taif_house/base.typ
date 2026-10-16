@@ -1,5 +1,5 @@
 // base.typ · Taif / Palm House · site, outline, helpers, checks, rendering
-// Changes only if the land changes. Compile design.typ, not this file.
+// Changes only if the land changes. Compile design_gf.typ (ground floor) or design_ff.typ (first floor), not this file.
 // Shows the site and the buildable envelope only; the design draws everything inside it.
 #import "@preview/cetz:0.4.2"
 
@@ -306,7 +306,7 @@
   ], [
     *Rooms*
     #v(4pt)
-    #if rooms.len() == 0 [_No rooms yet. Add rows to data/rooms.csv._] else {
+    #if rooms.len() == 0 [_No rooms yet. Add rows to the room CSV._] else {
       table(columns: (1fr, auto, auto, auto), inset: 4pt, stroke: 0.4pt + grid-c,
         table.header([Name], [Frame], [w × d (m)], [Area]),
         ..rooms.zip(items).map(((r, it)) => ([#r.name], [#r.at("frame", default: "M")], [#r.w × #r.d], [#num(area(it.at(1))) m²])).flatten())

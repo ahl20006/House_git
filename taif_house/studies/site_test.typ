@@ -1,6 +1,6 @@
 // site_test.typ · Taif / Palm House · building-rectangle site test (compile THIS file for the test)
-// Uses base.typ (site, envelope, palms, north) and data/building.csv. Does not touch design.typ or rooms.csv.
-#import "base.typ": *
+// Uses ../base.typ (site, envelope, palms, north) and building.csv (outside wall faces of each option). Does not touch the design files.
+#import "../base.typ": *
 #show: setup
 
 // ---------- Controls ----------
@@ -16,14 +16,14 @@
 // pentagon (north-east corner cut): write w as "width|a|b", e.g. 12.75|2|3.68
 //   a = cut along the north facade from the NE corner, b = cut along the east facade (b ≈ 1.84 × a follows the lane)
 // final angle = row angle + rot (each rectangle turns once, around its own centre)
-#let rows = csv("data/building.csv", row-type: dictionary).filter(r => not r.name.starts-with("#")).map(r => {
+#let rows = csv("building.csv", row-type: dictionary).filter(r => not r.name.starts-with("#")).map(r => {
   let r = r
   r.insert("x", str(float(r.x) + shift.at(0)))
   r.insert("y", str(float(r.y) + shift.at(1)))
   r.insert("angle", str(float(r.at("angle", default: "0")) + rot.deg()))
   r
 })
-#assert(rows.len() > 0, message: "ERROR: no row in data/building.csv.")
+#assert(rows.len() > 0, message: "ERROR: no row in building.csv.")
 
 // ---------- Measurements ----------
 #let trunk = 0.265

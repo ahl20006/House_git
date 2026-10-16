@@ -3,9 +3,9 @@ Courtyard,6.6,9.75,4.7,6.5,0,M,court,
 Women's majlis,6.6,3.25,4.7,6.5,0,M,family,
 Living (double height),6.6,16.125,4.7,6.25,0,M,family,
 Men's majlis,8.0305,21.625,10.561,4.75,0,M,guest,
-Maid bath,10.2065,1.8,2.513,1.6,0,M,service,8.95 1; 10.594 1; 11.463 2.6; 8.95 2.6
-Maid room,11.9805,4.55,2.661,3.9,0,M,service,10.65 2.6; 11.463 2.6; 13.311 6; 13.311 6.5; 10.65 6.5
-Laundry,9.8,4.55,1.7,3.9,0,M,service,
+Maid bath,10.261,1.9,2.622,1.8,0,M,service,8.95 1; 10.594 1; 11.572 2.8; 8.95 2.8
+Maid room,11.9805,4.65,2.661,3.7,0,M,service,10.65 2.8; 11.572 2.8; 13.311 6; 13.311 6.5; 10.65 6.5
+Laundry,9.8,4.65,1.7,3.7,0,M,service,
 Kitchen,11.1305,9.75,4.361,6.5,0,M,service,
 Living (normal height) · dining,11.1305,16.125,4.361,6.25,0,M,family,
 Lift (future · shaft placeholder),1.125,1.1,2.25,2.2,0,M,core,

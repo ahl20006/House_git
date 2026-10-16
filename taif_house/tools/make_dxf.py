@@ -1,13 +1,13 @@
-"""make_dxf.py · Taif / Palm House · writes ONE DXF of design V3.4 (site, building, rooms, doors, fixtures).
+"""make_dxf.py · Taif / Palm House · writes ONE DXF of the ground floor V4.0 (site, building, rooms, doors, fixtures).
 
-Run from anywhere:   python concept_V3.0/tools/make_dxf.py
-Output:              concept_V3.0/design_v3.dxf   (units: metres, north up as on the Typst plan)
+Run from anywhere:   python taif_house/tools/make_dxf.py
+Output:              taif_house/output/taif_ground_floor_V4.dxf   (units: metres, north up as on the Typst plan)
 
 Everything is read from the same sources as the Typst drawing, nothing is typed in twice:
   base.typ            site: land, envelope, driveway, lane, north wall, palms, M pegs, north
-  design_v3.typ       building shift / rotation, outline, air tower, inner boxes, ceiling mark, entries,
-                      and the door / window / opening lines of both blocks (wash-lines, east-lines)
-  data/rooms_v3.csv   every room (rectangle from x, y, w, d, angle, or corner points from "pts")
+  design_gf.typ       building shift / rotation, outline, air tower, inner boxes, ceiling mark, entries,
+                      and the door / window / opening lines of both blocks (west-lines, east-lines)
+  data/rooms_gf.csv   every room (rectangle from x, y, w, d, angle, or corner points from "pts")
   studies/east_wing.typ   fixtures (counters, machines, bed …) and the solid wall of the east block
   studies/guest_wing.typ  fixtures of the west block (hospitality counter, basin counter, trough, shoe cabinet)
 Coordinates: the Typst design frame has y pointing south; the DXF uses y up, so a point (x, y) becomes (x, -y).
@@ -22,8 +22,8 @@ from pathlib import Path
 
 import ezdxf
 
-ROOT = Path(__file__).resolve().parent.parent          # concept_V3.0
-OUT = ROOT / "design_v3.dxf"
+ROOT = Path(__file__).resolve().parent.parent          # taif_house
+OUT = ROOT / "output" / "taif_ground_floor_V4.dxf"
 
 
 # ---------- reading the Typst sources ----------
@@ -54,19 +54,19 @@ def clean(label):
 
 
 base = (ROOT / "base.typ").read_text(encoding="utf-8")
-design = (ROOT / "design_v3.typ").read_text(encoding="utf-8")
+design = (ROOT / "design_gf.typ").read_text(encoding="utf-8")
 east = (ROOT / "studies" / "east_wing.typ").read_text(encoding="utf-8")
 
 site = {k: numbers(base, k) for k in ("land", "env", "drv", "lane", "nwall", "south", "T1", "T2", "Ms", "north")}
 shift = numbers(design, "shift")
 rot = math.radians(float(re.search(r"#let\s+rot\s*=\s*(-?[\d.]+)deg", design).group(1)))
-outline_csv = numbers(design, "outline-v3")
+outline_csv = numbers(design, "outline-gf")
 tower_csv = numbers(design, "tower-pts")
 
 PAIR = r"\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)"
 inner_boxes = [(float(a), float(b), float(c), float(d), clean(l)) for a, b, c, d, l in
                re.findall(r"\(\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*\[(.*?)\]\s*\)", grab(design, "inner-boxes"))]
-level = re.findall(r"addv\(" + PAIR, re.search(r"#let level-marks.*", design).group(0))
+level = re.findall(PAIR, re.search(r"#let level-marks.*", design).group(0))
 entries = [((float(a), float(b)), (float(c), float(d)), clean(l)) for a, b, c, d, l in
            re.findall(PAIR + r",\s*" + PAIR + r",\s*\[(.*?)\]", grab(design, "entries"))]
 
@@ -83,8 +83,8 @@ def lines_with_comments(name):
     return out
 
 
-openings = lines_with_comments("wash-lines") + lines_with_comments("east-lines")
-EAST = (8.95, 0.0)  # east_wing.typ local → CSV (V3.2: the east band starts at x 8.95)
+openings = lines_with_comments("west-lines") + lines_with_comments("east-lines")
+EAST = (8.95, 0.0)  # east_wing.typ local → CSV (the east band starts at x 8.95)
 fixtures = [((float(a) + EAST[0], float(b) + EAST[1]), (float(c) + EAST[0], float(d) + EAST[1]), clean(l)) for a, b, c, d, l in
             re.findall(r"\(\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*\[(.*?)\]\s*\)", grab(east, "fixtures"))]
 WEST = (0.0, 10.4)  # guest_wing.typ local → CSV
@@ -108,7 +108,7 @@ def room_poly(r):
     return [(x + a * u[0] + b * v[0], y + a * u[1] + b * v[1]) for a, b in ((-w / 2, -d / 2), (w / 2, -d / 2), (w / 2, d / 2), (-w / 2, d / 2))]
 
 
-with open(ROOT / "data" / "rooms_v3.csv", encoding="utf-8", newline="") as f:
+with open(ROOT / "data" / "rooms_gf.csv", encoding="utf-8", newline="") as f:
     rows = [r for r in csv.DictReader(f) if r.get("name") and not r["name"].startswith("#")]
 court_row = next(r for r in rows if r["name"] == "Courtyard")
 
@@ -278,9 +278,9 @@ msp.add_line((24, -2), (24 + 2.2 * n[0], -2 + 2.2 * n[1]), dxfattribs={"layer": 
 msp.add_mtext("N", dxfattribs={"layer": "ANNOTATION", "char_height": 0.6}).set_location((24 + 2.6 * n[0], -2 + 2.6 * n[1]))
 msp.add_line((18, -42), (28, -42), dxfattribs={"layer": "ANNOTATION"})
 msp.add_mtext("10 m", dxfattribs={"layer": "ANNOTATION", "char_height": 0.35, "attachment_point": 8}).set_location((23, -41.7))
-title = ("Taif / Palm House · Design V3.4 (site-test option Z4, Revision 02 + service wing) · 16 Oct 2026\\P"
+title = ("Taif / Palm House · Ground floor V4.0 (final, site-test option Z4) · 16 Oct 2026\\P"
          "Units: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). "
-         "Room outlines on wall centre lines. Generated by tools/make_dxf.py from design_v3.typ, data/rooms_v3.csv, base.typ and studies/.")
+         "Room outlines on wall centre lines. Generated by tools/make_dxf.py from design_gf.typ, data/rooms_gf.csv, base.typ and studies/.")
 msp.add_mtext(title, dxfattribs={"layer": "ANNOTATION", "char_height": 0.45, "width": 30}).set_location((0, -44))
 
 doc.saveas(OUT)
