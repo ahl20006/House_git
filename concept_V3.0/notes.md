@@ -1,4 +1,4 @@
-# Taif / Palm House · Design V3.3 · decisions log
+# Taif / Palm House · Design V3.4 · decisions log
 
 ## Files and how to check
 - `design_v3.typ` is the file you compile for the design (plan, schedules, philosophy). It reads `data/rooms_v3.csv` and the site in `base.typ`.
@@ -8,7 +8,7 @@
 - `site_test.typ` + `data/building.csv`: site-test options for the building footprint (Z3, Z4 …).
 - `tools/make_dxf.py` writes `design_v3.dxf` (one DXF with the site, the building and every room, door and fixture); `tools/check_v3.py` compiles everything and cross-checks the CSV, the two studies and the DXF. See `README_DXF.md`.
 - Check before you stop: `python tools/check_v3.py` must end with "ALL CHECKS PASSED", and the plan page must show "✓ All checks passed".
-- Versions on GitHub: tags `v3.1` (15 Oct 2026), `v3.2` (16 Oct 2026, Revision 02) and `v3.3` (16 Oct 2026, six owner changes). The folder name stays `concept_V3.0`.
+- Versions on GitHub: tags `v3.1` (15 Oct 2026), `v3.2` (16 Oct 2026, Revision 02) `v3.3` (16 Oct 2026, six owner changes) and `v3.4` (16 Oct 2026, smaller air tower). The folder name stays `concept_V3.0`.
 
 ## Current design (V3.3, 16 Oct 2026 · Revision 02 + six owner changes)
 - Site-test option Z4, extended: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside, outside footprint ≈ 318.8 m²). The north-east cut runs parallel to the lane from (10.051, 0) to (13.311, 6.0); then the east wall goes straight south. Square to the M line (rot = 0°), shift (0.91, 3.525): the north wall is where it was in V3.2, the building grew 0.5 m to the south.
@@ -21,6 +21,14 @@
 - East band, north → south: air tower in the tip of the cut corner, the east service block (maid bath, laundry, maid room, kitchen; see below), then living (normal height) · dining 4.361 × 6.25.
 - South: men's majlis 10.561 × 4.75, its west wall on the west band line (x = 2.75).
 - Air: the tower catches the NW wind above the roof and brings it down to an underground tunnel that enters the courtyard through a low, closable opening. The tunnel is described, not drawn.
+
+## Changes in V3.4 (16 Oct 2026 · change 7)
+7. Smaller air tower, the space goes to the maid wing:
+   - Air tower 1.2 → 1.0 m deep (its south edge 0.2 m north), still bounded by the north wall, the cut wall and the solid wall to the women's majlis: 1.37 m² on axes, ≈ 0.88 m² clear, at least ≈ 0.93 m clear wide at its narrow north end (one person can step in to clean; main cleaning from a roof hatch).
+   - Maid bath moved 0.2 m north, same 1.6 m depth (y 1.0–2.6), still up to the cut wall: 3.33 m² on axes, ≈ 2.57 m² clear (was ≈ 2.72: it sits where the slope is narrower). Door from the maid room now 0.60 m (sliding or opening out).
+   - Maid room grew 0.2 m north (north wall on the bath's new south wall, y 2.6): 7.24 m² on axes, ≈ 6.18 m² clear (was ≈ 6.04; the 6.5 m² clear target is still not reached, because the added strip is the narrowest part of the slope). Bed 0.9 × 2.0 and wardrobe still fit; both maid doors stay at the north end.
+   - Owner decision: the laundry also grows 0.2 m north (1.70 × 3.9, y 2.6–6.5) so no strip is left above it; the 100 mm partition just gets 0.2 m longer. Laundry ≈ 5.74 m² clear, walkway ≈ 0.95 m unchanged.
+   - Unchanged: kitchen, exterior walls, the windows in the cut wall (the bath vent moved 0.2 m north with the bath), the access chain kitchen → laundry → maid room → maid bath.
 
 ## Changes in V3.3 (16 Oct 2026 · six owner changes on Revision 02)
 6. Building 0.5 m longer to the south (north wall and NE cut unchanged on site). The 0.5 m goes in at y 6.0 in the middle and east columns and at the utility / coffee line (y 10.4) in the west column:
@@ -70,7 +78,7 @@
 ## Open choices
 - OPEN DECISION (not drawn): a small service door from the laundry to the east service yard, kept locked with the owner's key only, for rubbish and deliveries.
 - Foyer: accept the partial bent entry (≈ 0.75 m overlap of door and majlis opening) or add a curtain / short screen.
-- Maid room ≈ 6.0 m² clear, below the 6.5 m² target.
+- Maid room ≈ 6.2 m² clear (V3.4), still below the 6.5 m² target.
 - Stair size with the engineer (≈ 2.75 × 5.7 m for a 3.6 m storey).
 - Use of the coffee corner (open use) in the west wash block.
 - Deliveries reach the kitchen through the family entrance (no service door, to keep the kitchen isolated).
@@ -129,10 +137,10 @@
 
   | Room | Where (main CSV) | Size | m² |
   |---|---|---|---|
-  | Air tower | tip of the cut corner | polygon | 1.71 |
-  | Maid bath | y 1.2–2.8, up to the cut wall | sloped, 1.6 m on the majlis wall | 3.50 |
-  | Laundry | x 8.95–10.65, y 2.8–6.5, on the women's majlis wall | 1.70 × 3.7 | 6.29 |
-  | Maid room | x 10.65 → cut wall, y 2.8–6.5 | sloped + 0.5 m straight | 7.06 (≈ 6.04 clear) |
+  | Air tower | tip of the cut corner, 1.0 m deep (V3.4) | polygon | 1.37 |
+  | Maid bath | y 1.0–2.6, up to the cut wall | sloped, 1.6 m on the majlis wall | 3.33 (≈ 2.57 clear) |
+  | Laundry | x 8.95–10.65, y 2.6–6.5, on the women's majlis wall | 1.70 × 3.9 | 6.63 |
+  | Maid room | x 10.65 → cut wall, y 2.6–6.5 | sloped + 0.5 m straight | 7.24 (≈ 6.18 clear) |
   | Kitchen | x 8.95–13.311, y 6.5–13.0 | 4.361 × 6.5 (≈ 4.14 clear) | 28.35 |
 
 - Main cross walls on the house lines: y 6.0 (women's majlis / courtyard) and y 12.5 (dining). The kitchen runs exactly with the courtyard.
@@ -141,7 +149,7 @@
 - Maid route only kitchen → laundry → maid room → maid bath; no external door. Both maid doors sit at the north end (laundry → maid room at the north end of the laundry's east wall; maid room → maid bath in the room's north wall), so the single bed (0.9 × 2.0) takes the wide south part along the y 6.0 wall, with a wardrobe on the west wall. Make the bath door sliding or opening out so the two doors do not clash.
 - Maid room ≈ 6.21 m² on centre lines (≈ 5.10 m² clear, under the earlier 6.5 m² target, accepted); high-sill window in the cut wall (lane side). Maid bath (WC, basin, compact shower) with a vent window in the cut wall.
 - One wet line down the west side of the block: maid bath, laundry machines and kitchen sink; cleanout access in the laundry.
-- Air tower kept in the tip of the cut corner (≈ 1.71 m² on centre lines, ≈ 1.1 m² clear), cleaned from a roof hatch.
+- Air tower kept in the tip of the cut corner (V3.4: 1.0 m deep, ≈ 1.37 m² on centre lines, ≈ 0.88 m² clear; was ≈ 1.71 m² on centre lines, ≈ 1.1 m² clear), cleaned from a roof hatch.
 - Solid wall (no door, no window) between the maid wing / laundry and the women's majlis.
 - Replaces: Maid bath 1.7 × 2, Maid room 2.75 × 2.8, Laundry 4 × 1.5, Kitchen 4 × 5.
 - Drawing engine: base.typ now accepts an optional `pts` column in the room CSV ("x y; x y; …", CSV coordinates) for rooms that are not rectangles; design_v3.typ shifts and rotates those points with the building. Site data in base.typ is unchanged. The maid bath and maid room use it.

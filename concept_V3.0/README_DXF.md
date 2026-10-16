@@ -1,4 +1,4 @@
-# design_v3.dxf · Taif / Palm House · Design V3.3
+# design_v3.dxf · Taif / Palm House · Design V3.4
 
 One DXF with the whole design: the site, the building outline, every room, the doors, windows and openings, and the fixtures of the east service block. It shows the same plan as `design_v3.pdf`, for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …).
 
@@ -24,7 +24,7 @@ One DXF with the whole design: the site, the building outline, every room, the d
 | COURTYARD | courtyard, open to the sky |
 | ROOMS-FAMILY / -GUEST / -SERVICE / -CIRC / -CORE | one closed polyline per room, by use |
 | ROOM-LABELS | room name and area |
-| AIR-TOWER | air tower in the tip of the cut corner |
+| AIR-TOWER | air tower in the tip of the cut corner (1.0 m deep, ≈ 0.9 m² clear) |
 | DOORS | doors (with a short description), incl. the foyer double door and the future lift door |
 | OPENINGS | open entrances and openings without a door (hospitality kitchen, family basins, entry cupboard, living room, kitchen ↔ laundry, foyer → men's majlis) |
 | WINDOWS | windows |

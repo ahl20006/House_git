@@ -1,4 +1,4 @@
-"""check_v3.py · Taif / Palm House · one command to check design V3.3 before you stop or push.
+"""check_v3.py · Taif / Palm House · one command to check design V3.4 before you stop or push.
 
 Run from anywhere:   python concept_V3.0/tools/check_v3.py
 It
@@ -103,7 +103,7 @@ def live(block):
 
 RECT = r'\(\s*"([^"]+)",\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*"(\w+)"\s*\)'
 POLY = r'\(\s*"([^"]+)",\s*(\((?:\s*\(\s*-?[\d.]+\s*,\s*-?[\d.]+\s*\)\s*,?)+\s*\)),\s*"(\w+)"\s*\)'
-studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 45.19)}   # (dx, dy, rooms total m²)
+studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 45.54)}   # (dx, dy, rooms total m²)
 for src, (dx, dy, total) in studies.items():
     text = (ROOT / src).read_text(encoding="utf-8")
     found = []
