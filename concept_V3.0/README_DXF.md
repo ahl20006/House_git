@@ -1,4 +1,4 @@
-# design_v3.dxf · Taif / Palm House · Design V3.2
+# design_v3.dxf · Taif / Palm House · Design V3.3
 
 One DXF with the whole design: the site, the building outline, every room, the doors, windows and openings, and the fixtures of the east service block. It shows the same plan as `design_v3.pdf`, for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …).
 
@@ -6,8 +6,8 @@ One DXF with the whole design: the site, the building outline, every room, the d
 - Units: **metres** (`$INSUNITS = 6`). Draw scale 1:1.
 - Origin (0, 0) = survey peg **M1** (east post of the gate).
 - x = east, square to the M line. y = along the M line. The Typst drawings count y southwards; the DXF has y pointing **up** (north up), so a Typst point (x, y) is (x, −y) in the DXF.
-- The building sits on site-test option **Z4**, extended in Revision 02: a pentagon 13.311 × 23.5 m on wall centre lines (13.561 × 23.75 outside), its north-east corner cut along the lane down to y 6.0, shifted (0.91, 3.525) from the room coordinates in `data/rooms_v3.csv`, rotation 0°.
-- Room outlines are on **wall centre lines**. Wall thickness is not drawn yet; the clear sizes in the notes assume 250 mm outer and 200 mm inner walls.
+- The building sits on site-test option **Z4**, extended: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), its north-east corner cut along the lane down to y 6.0, shifted (0.91, 3.525) from the room coordinates in `data/rooms_v3.csv`, rotation 0°.
+- Room outlines are on **wall centre lines**. Wall thickness is not drawn yet; the clear sizes in the notes assume 250 mm outer, 200 mm inner and 100 mm dry partition walls.
 
 ## Layers
 
@@ -25,11 +25,11 @@ One DXF with the whole design: the site, the building outline, every room, the d
 | ROOMS-FAMILY / -GUEST / -SERVICE / -CIRC / -CORE | one closed polyline per room, by use |
 | ROOM-LABELS | room name and area |
 | AIR-TOWER | air tower in the tip of the cut corner |
-| DOORS | doors (with a short description) |
-| OPENINGS | open entrances and openings without a door (coffee corner, family basins, living room, kitchen ↔ laundry) |
+| DOORS | doors (with a short description), incl. the foyer double door and the future lift door |
+| OPENINGS | open entrances and openings without a door (hospitality kitchen, family basins, entry cupboard, living room, kitchen ↔ laundry, foyer → men's majlis) |
 | WINDOWS | windows |
-| WALLS-SPECIAL | solid wall to the women's majlis, coffee / basins wall, guest WC screen wall, living-room 1.20 m low partition, family / guest line |
-| FIXTURES | counters, machines, bed, wardrobe, shower (east service block), serving shelf |
+| WALLS-SPECIAL | solid wall to the women's majlis, hospitality kitchen / basins wall, guest WC screen wall, living-room 1.20 m low partition, family / guest line |
+| FIXTURES | east block: counters, washer, dryer, utility sink, bed, wardrobe, shower, WC, basin · west block: hospitality counter, basin counter, trough, shoe cabinet |
 | MARKS | service shaft, under-stair store, living-room ceiling-height change |
 | ENTRIES | family and guest entry arrows |
 | ANNOTATION | title, north arrow, 10 m scale bar |
@@ -51,4 +51,4 @@ It compiles all Typst files, compares both studies with the CSV, rebuilds the DX
 
 ## Limits
 - Concept drawing: wall centre lines only, no wall thickness, no dimensions, no first floor.
-- Fixtures are drawn for the east service block only; the west wash block shows its doors, openings and screen wall (its fixtures are described in `studies/guest_wing.typ` and `notes.md`).
+- Fixtures come from both studies (`studies/east_wing.typ` and `studies/guest_wing.typ`).
