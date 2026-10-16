@@ -2,7 +2,7 @@
 
 Concept design of a courtyard house in Taif, drawn with [Typst](https://typst.app) from CSV room data.
 
-Current version: **V3.1** (15 Oct 2026, git tag `v3.1`), in the folder `concept_V3.0/`.
+Current version: **V3.2** (16 Oct 2026, git tag `v3.2`: Concept V3.1 Revision 02), in the folder `concept_V3.0/`. Previous: `v3.1` (15 Oct 2026).
 
 | File | What it is |
 |---|---|

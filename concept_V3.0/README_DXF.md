@@ -1,4 +1,4 @@
-# design_v3.dxf · Taif / Palm House · Design V3.1
+# design_v3.dxf · Taif / Palm House · Design V3.2
 
 One DXF with the whole design: the site, the building outline, every room, the doors, windows and openings, and the fixtures of the east service block. It shows the same plan as `design_v3.pdf`, for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …).
 
@@ -6,8 +6,8 @@ One DXF with the whole design: the site, the building outline, every room, the d
 - Units: **metres** (`$INSUNITS = 6`). Draw scale 1:1.
 - Origin (0, 0) = survey peg **M1** (east post of the gate).
 - x = east, square to the M line. y = along the M line. The Typst drawings count y southwards; the DXF has y pointing **up** (north up), so a Typst point (x, y) is (x, −y) in the DXF.
-- The building sits on site-test option **Z4** (pentagon 13 × 23 m on wall centre lines, north-east corner cut along the lane), shifted (0.65, 3.525) from the room coordinates in `data/rooms_v3.csv`, rotation 0°.
-- Room outlines are on **wall centre lines**. Wall thickness is not drawn yet.
+- The building sits on site-test option **Z4**, extended in Revision 02: a pentagon 13.311 × 23.5 m on wall centre lines (13.561 × 23.75 outside), its north-east corner cut along the lane down to y 6.0, shifted (0.91, 3.525) from the room coordinates in `data/rooms_v3.csv`, rotation 0°.
+- Room outlines are on **wall centre lines**. Wall thickness is not drawn yet; the clear sizes in the notes assume 250 mm outer and 200 mm inner walls.
 
 ## Layers
 
@@ -26,10 +26,10 @@ One DXF with the whole design: the site, the building outline, every room, the d
 | ROOM-LABELS | room name and area |
 | AIR-TOWER | air tower in the tip of the cut corner |
 | DOORS | doors (with a short description) |
-| OPENINGS | open entrances and openings without a door |
+| OPENINGS | open entrances and openings without a door (coffee corner, family basins, living room, kitchen ↔ laundry) |
 | WINDOWS | windows |
-| WALLS-SPECIAL | solid wall to the women's majlis, guest WC screen wall, family / guest line |
-| FIXTURES | counters, machines, bed, wardrobe, shower (east service block) |
+| WALLS-SPECIAL | solid wall to the women's majlis, coffee / basins wall, guest WC screen wall, living-room 1.20 m low partition, family / guest line |
+| FIXTURES | counters, machines, bed, wardrobe, shower (east service block), serving shelf |
 | MARKS | service shaft, under-stair store, living-room ceiling-height change |
 | ENTRIES | family and guest entry arrows |
 | ANNOTATION | title, north arrow, 10 m scale bar |

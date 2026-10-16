@@ -1,29 +1,30 @@
 // east_wing.typ · Taif / Palm House · layout study of the EAST SERVICE BLOCK: kitchen + laundry + maid room + maid bath + air tower (compile THIS file)
-// Stand-alone: all data is in this file. Main CSV coordinates = local + (9, 0)  (block = CSV x 9–13, y 0–12.5).
+// Stand-alone: all data is in this file. Main CSV coordinates = local + (8.95, 0)  (block = CSV x 8.95–13.311, y 0–12.5).
+// V3.2 (Revision 02, 16 Oct 2026): the slope runs on to y 6.0, the east wall moved out 0.311 m, the middle band edge 0.05 m west.
 // Integrated in ../design_v3.typ + ../data/rooms_v3.csv (V3.1, 15 Oct 2026): keep both in step when you change a room here.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 
 // ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: NE corner cut by the lane wall ----------
-#let block = ((0, 0), (1.051, 0), (4, 5.427), (4, 12.5), (0, 12.5))   // wall centre lines
+#let block = ((0, 0), (1.101, 0), (4.361, 6.0), (4.361, 12.5), (0, 12.5))   // wall centre lines; one continuous slope to y 6.0
 #let scale = 1.3cm
 
 // ---------- Air tower: polygon in the tip of the cut corner ----------
-#let tower = ((0, 0), (1.051, 0), (1.703, 1.2), (0, 1.2))
+#let tower = ((0, 0), (1.101, 0), (1.753, 1.2), (0, 1.2))
 
 // ---------- Rooms: (name, x, y, w, d, colour) · x, y = centre ----------
 // put // in front of a line to switch a room off
 #let rooms-data = (
-  ("Laundry",   0.75,  4.4,    1.5,  3.2,   "laundry"),   // vertical, on the west wall (women's majlis side): x 0–1.5, y 2.8–6.0, up to the maid bath
-  ("Kitchen",   2.0,   9.25,   4.0,  6.5,   "kitchen"),   // y 6.0–12.5, exactly on the courtyard lines
+  ("Laundry",   0.775,  4.4,   1.55,  3.2,   "laundry"),   // vertical, on the west wall (women's majlis side): x 0–1.55, y 2.8–6.0, up to the maid bath
+  ("Kitchen",   2.1805, 9.25,  4.361, 6.5,   "kitchen"),   // y 6.0–12.5, exactly on the courtyard lines
 )
 
 // ---------- Rooms along the cut wall: polygons (name, corner points, colour) so they run up to the sloped wall ----------
-// cut wall: x = 1.051 + y × 2.949 / 5.427 (y 0–5.427) · at y 1.2 → 1.703, at y 2.8 → 2.572
+// cut wall: x = 1.101 + y × 2.949 / 5.427 (y 0–6.0) · at y 1.2 → 1.753, at y 2.8 → 2.622, at y 6.0 → 4.361
 #let poly-rooms = (
-  ("Maid bath", ((0, 1.2), (1.703, 1.2), (2.572, 2.8), (0, 2.8)), "wc"),           // 1.6 m deep on the women's majlis wall
-  ("Maid room", ((1.5, 2.8), (2.572, 2.8), (4, 5.427), (4, 6.0), (1.5, 6.0)), "maid"),   // east of the laundry, down to y 6.0
+  ("Maid bath", ((0, 1.2), (1.753, 1.2), (2.622, 2.8), (0, 2.8)), "wc"),           // 1.6 m deep on the women's majlis wall
+  ("Maid room", ((1.55, 2.8), (2.622, 2.8), (4.361, 6.0), (1.55, 6.0)), "maid"),     // east of the laundry; the slope reaches its south-east corner
 )
 // convex parts for the overlap check (only needed for a room that is not convex)
 #let convex-parts = (:)
@@ -31,26 +32,26 @@
 // ---------- Fixtures inside rooms (drawn thin, not counted): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
   (0.0, 7.0, 0.6, 12.2, [sink counter 0.6 · window to courtyard]),
-  (3.4, 6.1, 4.0, 10.6, [cooking counter 0.6 · hob + hood]),
-  (3.4, 10.6, 4.0, 12.3, [fridge + tall storage]),
+  (3.761, 6.1, 4.361, 10.6, [cooking counter 0.6 · hob + hood]),
+  (3.761, 10.6, 4.361, 12.3, [fridge + tall storage]),
   (0.0, 2.9, 0.6, 5.9, [washer · dryer · sink · folding]),
-  (1.6, 5.0, 3.6, 5.9, [single bed 0.9 × 2.0]),
-  (1.6, 3.9, 2.2, 4.9, [ward-\ robe]),
+  (1.65, 5.0, 3.65, 5.9, [single bed 0.9 × 2.0]),
+  (1.65, 3.9, 2.25, 4.9, [ward-\ robe]),
   (0.0, 1.2, 0.9, 1.9, [shower]),
 )
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
-  ((0.4, 12.5), (1.5, 12.5), [kitchen ↔ dining]),
+  ((0.45, 12.5), (1.55, 12.5), [kitchen ↔ dining]),
   ((0.65, 6.0), (1.45, 6.0), [open entrance kitchen ↔ laundry (no door)]),
-  ((1.5, 2.95), (1.5, 3.75), [laundry ↔ maid room]),   // at the north end: keeps the wide south part free for the bed
-  ((1.7, 2.8), (2.4, 2.8), [maid room ↔ maid bath]),
+  ((1.55, 2.95), (1.55, 3.75), [laundry ↔ maid room]),   // at the north end: keeps the wide south part free for the bed
+  ((1.75, 2.8), (2.45, 2.8), [maid room ↔ maid bath]),
 )
 #let windows = (
   ((0.0, 8.6), (0.0, 10.6), [sink window (courtyard)]),
-  ((4.0, 8.2), (4.0, 9.6), [kitchen window (east)]),
-  ((3.170, 3.9), (3.714, 4.9), [maid room window (cut wall, high sill)]),
-  ((2.138, 2.0), (2.464, 2.6), [maid bath vent window]),
+  ((4.361, 8.2), (4.361, 9.6), [kitchen window (east)]),
+  ((3.220, 3.9), (3.764, 4.9), [maid room window (cut wall, high sill)]),
+  ((2.188, 2.0), (2.514, 2.6), [maid bath vent window]),
 )
 
 // ---------- Walls that must stay solid ----------
@@ -62,7 +63,7 @@
 #let neighbours = (
   ((-2.2, 0), (0, 6.0), [Women's majlis]),
   ((-2.2, 6.0), (0, 12.5), [Courtyard]),
-  ((0, 12.5), (4, 14.2), [Living (normal height) · dining]),
+  ((0, 12.5), (4.361, 14.2), [Living (normal height) · dining]),
 )
 
 // ---------- Helpers ----------
@@ -111,7 +112,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · kitchen, laundry, maid wing, air tower · layout study]\
-#text(8pt, fill: gray)[Taif / Palm House · Design V3 (Z4) · block = CSV x 9–13, y 0–12.5 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.3 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Design V3.2 (Z4, Revision 02) · block = CSV x 8.95–13.311, y 0–12.5 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.3 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -131,7 +132,7 @@
     for (n, P, c) in poly-rooms {
       line(..P.map(p => q(..p)), close: true, fill: colours.at(c, default: luma(230)), stroke: 0.6pt + rgb("#3d4a45"))
       let m = centroid(P)
-      let m = if n == "Kitchen" { (2.0, 11.0) } else if n == "Maid room" { (2.75, 5.05) } else { (m.at(0), m.at(1) + 0.2) }
+      let m = if n == "Kitchen" { (2.0, 11.0) } else if n == "Maid room" { (2.8, 4.75) } else { (m.at(0), m.at(1) + 0.2) }
       content(q(..m), align(center, text(6.5pt)[*#n*\ #if n == "Kitchen" [L-shape] else [sloped] · #r2(area(P)) m²]))
     }
     for (x0, y0, x1, y1, l) in fixtures {
@@ -172,19 +173,19 @@
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Route]
     *Family:* living (normal height) · dining → kitchen (south door).\
     *Maid:* kitchen → laundry → maid room → maid bath. No external door and no other door: all her movement passes through the kitchen.\
-    *Cooking:* sink on the courtyard wall, hob and hood on the east (outside) wall, so heat and smoke leave the house; fridge and tall storage at the south-east, next to the dining door.
+    *Cooking:* sink on the courtyard wall, hob and hood on the east (outside) wall, so heat and smoke leave the house; fridge and tall storage at the south-east, next to the dining door, both on the new east wall face.
     #v(6pt)
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Rules]
     - Kitchen isolated: doors only to the dining area (south) and the laundry (north). No door to the courtyard, riwaq or women's majlis.
-    - Kitchen 4 × 6.5 m (26 m²), y 6.0–12.5, exactly on the courtyard lines. Sink run on the courtyard wall, hob and hood on the east wall (4.5 m), fridge and tall storage at the south-east; aisle ≈ 2.6 m. No island (only 0.6 m deep would fit); room for a small breakfast table.
-    - Laundry vertical on the west wall (women's majlis side), 1.5 × 3.2 m (x 0–1.5, y 2.8–6.0), from the kitchen up to the maid bath: open entrance from the kitchen in its south wall (no door); washer, dryer, utility sink and folding counter in one line on the west wall (solid, no opening); 0.9 m walkway; maid room door at the north end of its east wall. The maid's only route. No outside wall: needs a mechanical extract fan to the roof.
-    - Maid room east of the laundry, from y 2.8 down to y 6.0 and up to the sloped cut wall (≈ 6.1 m² on centre lines, ≈ 5.3 m² clear, under the 6.5 m² target): door from the laundry at the north end of its west wall and door to the maid bath in its north wall, both in the narrow north part; single bed 0.9 × 2.0 along the south wall (the widest part, 2.5 m) and a wardrobe on the west wall; window in the cut wall with a high sill (lane side, privacy).
+    - Kitchen 4.361 × 6.5 m on axes (28.35 m², ≈ 4.136 m clear wide), y 6.0–12.5, exactly on the courtyard lines. Sink run on the courtyard wall, hob and hood on the east wall (4.5 m), fridge and tall storage at the south-east; ≈ 2.94 m between the counter lines. No island (only 0.6 m deep would fit); room for a small breakfast table.
+    - Laundry vertical on the west wall (women's majlis side), 1.55 × 3.2 m (x 0–1.55, y 2.8–6.0), from the kitchen up to the maid bath: open entrance from the kitchen in its south wall (no door); washer, dryer, utility sink and folding counter in one line on the west wall (solid, no opening); ≈ 0.75 m clear beside the 0.6 m machines (check the real appliances); maid room door at the north end of its east wall. The maid's only route. No outside wall: needs a mechanical extract fan to the roof.
+    - Maid room east of the laundry, from y 2.8 down to y 6.0; the sloped wall runs straight on to its south-east corner (≈ 6.21 m² on centre lines, ≈ 5.10 m² clear, under the 6.5 m² target): door from the laundry at the north end of its west wall and door to the maid bath in its north wall, both in the narrow north part; single bed 0.9 × 2.0 along the south wall (the widest part, 2.81 m) and a wardrobe on the west wall; window in the cut wall with a high sill (lane side, privacy).
     - Main cross walls on the house lines: y 6.0 (women's majlis / courtyard) and y 12.5 (dining).
-    - Maid bath 1.6 m deep, running up to the cut wall (≈ 3.42 m²): WC, basin, compact shower; vent window in the cut wall; door only from the maid room.
+    - Maid bath 1.6 m deep, running up to the cut wall (≈ 3.50 m²): WC, basin, compact shower; vent window in the cut wall; door only from the maid room.
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
-    - Air tower in the tip of the cut corner, ≈ 1.1 m² clear, takes no room space; cleaning from a roof hatch.
+    - Air tower in the tip of the cut corner (≈ 1.71 m² on centre lines, ≈ 1.1 m² clear), takes no room space; cleaning from a roof hatch.
     - One east wet stack: maid bath, laundry sink and kitchen sink on one drain line down the block; cleanout access in the laundry.
     #v(6pt)
-    #text(7pt, fill: gray)[Edit the lists at the top: rooms-data, fixtures, doors, windows, solid, neighbours. Main CSV = local + (9, 0).]
+    #text(7pt, fill: gray)[Edit the lists at the top: rooms-data, fixtures, doors, windows, solid, neighbours. Main CSV = local + (8.95, 0).]
   ],
 )

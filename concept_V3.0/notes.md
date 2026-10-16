@@ -1,4 +1,4 @@
-# Taif / Palm House · Design V3.1 · decisions log
+# Taif / Palm House · Design V3.2 · decisions log
 
 ## Files and how to check
 - `design_v3.typ` is the file you compile for the design (plan, schedules, philosophy). It reads `data/rooms_v3.csv` and the site in `base.typ`.
@@ -8,17 +8,31 @@
 - `site_test.typ` + `data/building.csv`: site-test options for the building footprint (Z3, Z4 …).
 - `tools/make_dxf.py` writes `design_v3.dxf` (one DXF with the site, the building and every room, door and fixture); `tools/check_v3.py` compiles everything and cross-checks the CSV, the two studies and the DXF. See `README_DXF.md`.
 - Check before you stop: `python tools/check_v3.py` must end with "ALL CHECKS PASSED", and the plan page must show "✓ All checks passed".
+- Versions on GitHub: tags `v3.1` (15 Oct 2026) and `v3.2` (16 Oct 2026, Revision 02). The folder name stays `concept_V3.0`.
 
-## Current design (V3.1, 15 Oct 2026)
-- Site-test option Z4: a pentagon 13 × 23 m on wall centre lines (13.25 × 23.25 outside), its north-east corner cut parallel to the lane from (10.051, 0) to (13, 5.427). Square to the M line (rot = 0°), shift (0.65, 3.525). Both palms well beyond the south facade.
-- Bands west → east (CSV x): west band 0–2.75 · riwaq 2.75–4.25 · middle band 4.25–9.0 · east band 9.0–13.0. Main cross lines (CSV y): 6.0 (women's majlis / courtyard) and 12.5 (courtyard / living), 18.25 (living / men's majlis), 23 (south wall).
-- Middle band: women's majlis 4.75 × 6 (north) · courtyard 4.75 × 6.5, open to the sky · living (double height) 4.75 × 5.75 (south of it).
-- Family lobby + riwaq: one straight strip 1.5 × 18.25 from the front door to the men's majlis; closed wall with windows onto the courtyard.
+## Current design (V3.2, 16 Oct 2026 · Concept V3.1 Revision 02)
+- Site-test option Z4, extended: a pentagon 13.311 × 23.5 m on wall centre lines (13.561 × 23.75 outside, outside footprint ≈ 312 m²). The north-east cut runs parallel to the lane from (10.051, 0) all the way to (13.311, 6.0), the south end of the maid room; then the east wall goes straight south. Square to the M line (rot = 0°), shift (0.91, 3.525).
+- Wall allowances: 250 mm outer walls, 200 mm inner walls (clear sizes below use them; the CSV keeps wall centre lines). Outer west wall face 0.785 m from the M line; nearest outer wall face to the envelope ≈ 0.05 m (checked in design_v3.typ). That is a geometric margin only, not a survey allowance: confirm the setback lines on site before fixing the wall faces.
+- Bands west → east (CSV x): west band 0–2.75 · riwaq 2.75–4.25 · middle band 4.25–8.95 (4.70 on axes = 4.50 m clear) · east band 8.95–13.311. Main cross lines (CSV y): 6.0 (women's majlis / courtyard), 12.5 (courtyard / living), 18.75 (living / men's majlis), 23.5 (south wall).
+- Middle band: women's majlis 4.70 × 6 · courtyard 4.70 × 6.5 (4.50 × 6.30 clear), open to the sky · living (double height) 4.70 × 6.25.
+- Family lobby + riwaq: one straight strip 1.5 × 18.75 (≈ 1.30 m clear) from the front door to the men's majlis; closed wall with windows onto the courtyard. The riwaq end stays closed to the men's majlis.
+- Living opens to the riwaq through a 1.40 m opening with no door; the rest of its west wall is a 1.20 m low partition (200 mm, open above, behind the sofa). The stair has no door either (open access).
 - West band, north → south: lift, stair (store under its landing), utility room with the service shaft inside it, then the west wash block (see below).
-- East band, north → south: air tower in the tip of the cut corner, the east service block (maid bath, laundry, maid room, kitchen; see below), then living (normal height) · dining 4 × 5.75.
-- South: men's majlis 10.25 × 4.75, its west wall on the west band line (x = 2.75).
-- Living is one open room 8.75 × 5.75 with two ceiling heights (double height over the courtyard side, normal height for dining); no upper floor over the double-height part or the courtyard.
+- East band, north → south: air tower in the tip of the cut corner, the east service block (maid bath, laundry, maid room, kitchen; see below), then living (normal height) · dining 4.361 × 6.25.
+- South: men's majlis 10.561 × 4.75, its west wall on the west band line (x = 2.75).
+- Living is one open room 9.061 × 6.25 with two ceiling heights (double height over the courtyard side, normal height for dining); the height change follows the middle band axis (x 8.95). No upper floor over the double-height part or the courtyard.
 - Air: the tower catches the NW wind above the roof and brings it down to an underground tunnel that enters the courtyard through a low, closable opening. The tunnel is described, not drawn.
+
+## Changes in V3.2 (16 Oct 2026 · Revision 02, five owner notes)
+1. The slope runs on to the south end of the maid room (y 6.0); the east wall then goes straight south. Width on axes 13.0 → 13.311 m; the extra 0.311 m went to the kitchen, dining and men's majlis.
+2. Building moved 0.26 m east (shift 0.65 → 0.91): outer west face 0.525 → 0.785 m from the M line, inside the fixed north position and rotation.
+3. Middle band exactly 4.50 m clear: 4.75 → 4.70 m on axes (its east edge moved 0.05 m west to x 8.95; the laundry gained those 5 cm).
+4. Walls and openings: a full-height wall between the coffee corner and the family basins (each opens to the riwaq on its own); no stair door and no living-room door (open entrances); the living room's west wall becomes a 1.20 m low partition.
+5. Serving passage 1.1 → 1.6 m on axes (1.40 m between walls = 0.20 m shelf + 1.20 m clear); door 1 0.90 m, door 2 1.05 m. The guest block (guest WC, 3 basins, guest passage, foyer) moved 0.50 m south as one; the south facade moved 0.50 m south, so the living, dining and riwaq are 0.50 m longer and the men's majlis keeps 4.75 m.
+- Privacy note: with the low partition opposite serving door 1, the living room is no full screen for someone standing; family privacy now rests on the two serving doors never being open together (the V3.1 rule "solid living-room wall opposite door 1" is withdrawn).
+- Laundry: ≈ 0.75 m clear beside the 0.6 m machines (below the earlier 0.9 m aim); check the real appliances.
+- Site drawing extras of Revision 02 (garden, parking) are illustrations only and not in the model.
+- design_v3.typ now stops with an error if the outer wall face crosses the envelope, and prints the envelope and M-line gaps in the plan note.
 
 ## Changes in V3.1 (15 Oct 2026)
 - Building moved from Z3 to Z4 (0.75 m wider through the middle): courtyard, women's majlis and double-height living each 4.75 m wide; east rooms moved 0.75 m east; building 0.375 m further west.
@@ -51,14 +65,14 @@
 - Code note: the Saudi Building Code sets no fixed size for a closed pipe shaft; ≈ 0.6 × 0.6 m is the practical minimum for a pipe-only duct and ≈ 1.0 × 1.2 m is comfortable for a two-storey villa. Sources were general professional guidance, not the code text; confirm with the SBC, the municipality and the plumbing engineer.
 
 ## One living room, two heights (V3.0, 11 Oct 2026; sizes updated for Z4)
-- Living is one open room, 8.75 × 5.75 m (≈ 50 m²), split by a ceiling-height change only (no wall):
-  - Living (double height), middle band south of the courtyard, 4.75 × 5.75 m: faces the courtyard, high operable clerestory windows for stack ventilation; simple 4.75 m roof span; the riwaq opens here.
-  - Living (normal height) · dining, east band south of the kitchen, 4 × 5.75 m (23 m²): daily dining beside the kitchen door; ducts and lighting in its ceiling; the first floor continues above it (and above the kitchen and maid wing).
+- Living is one open room, 9.061 × 6.25 m in V3.2 (8.75 × 5.75 m in V3.1), split by a ceiling-height change only (no wall):
+  - Living (double height), middle band south of the courtyard, 4.70 × 6.25 m (V3.2): faces the courtyard, high operable clerestory windows for stack ventilation; simple 4.70 m roof span; open to the riwaq through a 1.40 m opening, then a 1.20 m low partition.
+  - Living (normal height) · dining, east band south of the kitchen, 4.361 × 6.25 m (27.26 m², V3.2): daily dining beside the kitchen door; ducts and lighting in its ceiling; the first floor continues above it (and above the kitchen and maid wing).
 - No upper floor over the double-height part or the courtyard.
 - Possible south clerestory windows over the men's majlis roof: first-floor decision, noted only.
 
 ## West wash block (V3.0 on Z4, 15 Oct 2026)
-- Family basins, family WC and the guest wing are now ONE section: the west wash block, x 0–2.75, y 10.4–23 (2.75 × 12.6 m = 34.65 m²), between the utility room (north), the riwaq (east, x 2.75–4.25) and the men's majlis (east, from y 18.25). Layout study: studies/guest_wing.typ (local y + 10.4 = CSV y); the same rooms are in data/rooms_v3.csv.
+- Family basins, family WC and the guest wing are now ONE section: the west wash block, x 0–2.75, y 10.4–23.5 (2.75 × 13.1 m = 36.03 m² in V3.2; 2.75 × 12.6 in V3.1), between the utility room (north), the riwaq (east, x 2.75–4.25) and the men's majlis (east, from y 18.75). Layout study: studies/guest_wing.typ (local y + 10.4 = CSV y); the same rooms are in data/rooms_v3.csv.
 - One strip of wet rooms on one drain run, north → south:
 
   | Room | w × d (m) | m² |
@@ -66,40 +80,40 @@
   | Coffee corner (open use) | 2.75 × 2.0 | 5.50 |
   | Family basins (2) | 2.75 × 1.5 | 4.13 |
   | Family WC + basin | 2.75 × 1.7 | 4.68 |
-  | Serving passage (2 doors) | 2.75 × 1.1 | 3.03 |
+  | Serving passage (2 doors) | 2.75 × 1.6 (V3.2) | 4.40 |
   | Guest WC | 1.5 × 1.7 | 2.55 |
   | Basins (3) | 1.5 × 2.0 | 3.00 |
   | Guest passage | 1.25 × 3.7 | 4.63 |
   | Foyer + entry | 2.75 × 2.6 | 7.15 |
-  | **Block** | **2.75 × 12.6** | **34.65** |
+  | **Block** | **2.75 × 13.1** | **36.03** |
 
-- Family side: coffee corner and family basins are open to the riwaq (no doors); the family WC door is off the basin niche. The coffee corner (counter, small sink, under-counter fridge) is the serving base; its final use is still open.
-- Serving passage = the ONLY link between family and guests, with only two doors (no wall or door in the middle). The family opens door 1 from the riwaq, puts coffee, trays or food on the shelf, closes door 1 and calls the host; the host opens door 2 from the guest passage, collects and closes it. The two doors are never open together. Door 1 locks from the riwaq side and door 2 from inside the passage, so the family controls both.
+- Family side: coffee corner and family basins are each open to the riwaq (no doors), with a full-height wall between them (V3.2); the family WC door is off the basin niche. The coffee corner (counter, small sink, under-counter fridge) is the serving base; its final use is still open.
+- Serving passage = the ONLY link between family and guests, with only two doors (no wall or door in the middle). V3.2: 1.6 m deep on axes, 1.40 m between walls: a 0.70 × 0.20 shelf and 1.20 m clear in front of it; door 1 0.90 m, door 2 1.05 m. The family opens door 1 from the riwaq, puts coffee, trays or food on the shelf, closes door 1 and calls the host; the host opens door 2 from the guest passage, collects and closes it. The two doors are never open together. Door 1 locks from the riwaq side and door 2 from inside the passage, so the family controls both.
 - Bent entry (majaz): an open door 2 shows only the passage, the blank south wall of the family WC and the closed door 1 at the far end. The guest side has no door onto the riwaq.
-- The living-room west wall opposite door 1 (x = 4.25, y ≈ 15.7–16.6) has NO window or opening.
-- Guest side: guest WC (WC + hand spray only), door in its south wall at the west end, opening inwards; its west wall continues 0.6 m south as a screen wall so the WC door is out of sight from the passage. Three guest basins in one row along the east wall, open to the guest passage. Guest entrance in the foyer's west wall (y ≈ 21.6), door to the men's majlis in its east wall.
+- V3.1 rule withdrawn in V3.2: the living-room west wall opposite door 1 is now a 1.20 m low partition, so privacy rests on the two serving doors.
+- Guest side: guest WC (WC + hand spray only), door in its south wall at the west end, opening inwards; its west wall continues 0.6 m south as a screen wall so the WC door is out of sight from the passage. Three guest basins in one row along the east wall, open to the guest passage. Guest entrance in the foyer's west wall (y ≈ 22.1), door to the men's majlis in its east wall. V3.2: the whole guest side moved 0.50 m south (sizes unchanged); guest passage ≈ 1.025 m clear.
 - Plumbing: the family WC and guest WC sit 1.1 m apart; the drain crosses under the serving passage floor, with a cleanout access point there. First-floor bathrooms should stack over the north part of the block, near the shaft.
 - Replaces: Family basins (2) 2.75 × 2.8, Family WC + basin 2.75 × 3.5, Guest wing 2.75 × 6.3 and the old riwaq → guest wing door. The men's majlis west wall is on the west band line (x = 2.75), 10.25 × 4.75 m.
 
 ## East service block (V3.0 on Z4, 15 Oct 2026)
-- Layout study: studies/east_wing.typ (stand-alone; main CSV = local + (9, 0)). Block = the east band x 9–13, from the north wall (y 0) to the kitchen's south wall (y 12.5); not a rectangle, the NE corner is cut by the lane wall from (10.051, 0) to (13, 5.427). Block 42 m², no leftover slivers.
+- Layout study: studies/east_wing.typ (stand-alone; main CSV = local + (8.95, 0)). Block = the east band x 8.95–13.311 (V3.2), from the north wall (y 0) to the kitchen's south wall (y 12.5); not a rectangle, the NE corner is cut by the lane wall from (10.051, 0) to (13.311, 6.0), one continuous slope to the maid room's south end. Block 44.73 m², no leftover slivers.
 - Rooms, north → south:
 
   | Room | Where (main CSV) | Size | m² |
   |---|---|---|---|
-  | Air tower | tip of the cut corner | polygon | 1.65 |
-  | Maid bath | y 1.2–2.8, up to the cut wall | sloped, 1.6 m on the majlis wall | 3.42 |
-  | Laundry | x 9–10.5, y 2.8–6.0, on the women's majlis wall | 1.5 × 3.2 | 4.80 |
-  | Maid room | x 10.5 → cut wall, y 2.8–6.0 | sloped | 6.12 |
-  | Kitchen | x 9–13, y 6.0–12.5 | 4 × 6.5 | 26.00 |
+  | Air tower | tip of the cut corner | polygon | 1.71 |
+  | Maid bath | y 1.2–2.8, up to the cut wall | sloped, 1.6 m on the majlis wall | 3.50 |
+  | Laundry | x 8.95–10.5, y 2.8–6.0, on the women's majlis wall | 1.55 × 3.2 | 4.96 |
+  | Maid room | x 10.5 → cut wall, y 2.8–6.0 | sloped, the slope reaches its SE corner | 6.21 |
+  | Kitchen | x 8.95–13.311, y 6.0–12.5 | 4.361 × 6.5 (≈ 4.14 clear) | 28.35 |
 
 - Main cross walls on the house lines: y 6.0 (women's majlis / courtyard) and y 12.5 (dining). The kitchen runs exactly with the courtyard.
-- Kitchen isolated: door only to the dining (south) and an open entrance (no door) to the laundry at its north-west corner; no door to the courtyard, riwaq or women's majlis. Sink run on the courtyard wall under the window, hob and hood on the east (outside) wall, fridge and tall storage at the south-east beside the dining door, extra window on the east wall. Aisle ≈ 2.6 m; no island (only 0.6 m deep would fit); room for a small breakfast table.
-- Laundry: washer, dryer, utility sink and folding counter in one line on the solid west wall (women's majlis side, no opening), 0.9 m walkway; no outside wall, so a mechanical extract fan to the roof.
+- Kitchen isolated: door only to the dining (south) and an open entrance (no door) to the laundry at its north-west corner; no door to the courtyard, riwaq or women's majlis. Sink run on the courtyard wall under the window, hob and hood on the east (outside) wall, fridge and tall storage at the south-east beside the dining door, extra window on the east wall. ≈ 2.94 m between the counter lines (V3.2); no island (only 0.6 m deep would fit); room for a small breakfast table.
+- Laundry: washer, dryer, utility sink and folding counter in one line on the solid west wall (women's majlis side, no opening), ≈ 0.75 m clear beside the machines (V3.2); no outside wall, so a mechanical extract fan to the roof.
 - Maid route only kitchen → laundry → maid room → maid bath; no external door. Both maid doors sit at the north end (laundry → maid room at the north end of the laundry's east wall; maid room → maid bath in the room's north wall), so the single bed (0.9 × 2.0) takes the wide south part along the y 6.0 wall, with a wardrobe on the west wall. Make the bath door sliding or opening out so the two doors do not clash.
-- Maid room ≈ 6.1 m² on centre lines (≈ 5.3 m² clear, under the earlier 6.5 m² target, accepted); high-sill window in the cut wall (lane side). Maid bath (WC, basin, compact shower) with a vent window in the cut wall.
+- Maid room ≈ 6.21 m² on centre lines (≈ 5.10 m² clear, under the earlier 6.5 m² target, accepted); high-sill window in the cut wall (lane side). Maid bath (WC, basin, compact shower) with a vent window in the cut wall.
 - One wet line down the west side of the block: maid bath, laundry machines and kitchen sink; cleanout access in the laundry.
-- Air tower kept in the tip of the cut corner (≈ 1.65 m² on centre lines, ≈ 1.1 m² clear), cleaned from a roof hatch.
+- Air tower kept in the tip of the cut corner (≈ 1.71 m² on centre lines, ≈ 1.1 m² clear), cleaned from a roof hatch.
 - Solid wall (no door, no window) between the maid wing / laundry and the women's majlis.
 - Replaces: Maid bath 1.7 × 2, Maid room 2.75 × 2.8, Laundry 4 × 1.5, Kitchen 4 × 5.
 - Drawing engine: base.typ now accepts an optional `pts` column in the room CSV ("x y; x y; …", CSV coordinates) for rooms that are not rectangles; design_v3.typ shifts and rotates those points with the building. Site data in base.typ is unchanged. The maid bath and maid room use it.
