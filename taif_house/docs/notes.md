@@ -7,7 +7,71 @@ The current state of the ground floor is described in full in **`docs/GROUND_FLO
 - `data/rooms_*.csv`: one row per room (name, x, y, w, d, angle, frame, colour, pts). `#` at the start of a name switches a row off. `pts` ("x y; x y; …") is only for rooms that are not rectangles.
 - `studies/guest_wing.typ` (west wash block), `studies/east_wing.typ` (east service block): stand-alone layout studies with fixtures and labelled doors; keep them and the CSV in step. `studies/site_test.typ` + `studies/building.csv`: the footprint against the site.
 - `tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV and rebuilds the DXF (`output/taif_ground_floor_V4.dxf`, see `docs/README_DXF.md`); it must end with "ALL CHECKS PASSED". `tools/schedule.py` prints the room schedule (axes and clear areas).
-- Versions on GitHub: tags `v3.1` … `v3.4` and `v4.0` (ground floor final). Superseded files are in `archive/`.
+- Versions on GitHub: tags `v3.1` … `v3.4`, `v4.0` (ground floor final) and `v4.1` (first-floor baseline). Superseded files are in `archive/`.
+
+## First floor V4.1 · baseline frozen (17 Oct 2026 · git tag `v4.1`)
+- The coordinated revision is frozen as **First floor V4.1**, the baseline; the ground floor stays V4.0. No geometry changed.
+- **Decisions:**
+  - suite east (the lobby distributes to the bedroom, dressing and bathroom); children west around the shared bath; family living north at the stair top; office at the stair top; bedroom 1 + bath at the east duct;
+  - men's majlis roof fully used: bedroom 3 (west), gym (middle), terrace (east), 2.0 m light strip in front of the two small clerestory windows, a railing (not a parapet) on the gym roof edge;
+  - gym kept (≈ 16 m², small family gym; the engineer checks loads and vibration);
+  - terrace kept (may be reduced later).
+- Open items and review order: `docs/FIRST_FLOOR_BRIEF.md` (V4.1 section). Next session: `docs/NEXT_SESSION.md`.
+
+## First floor · coordinated revision (17 Oct 2026)
+- **Men's majlis roof now used:** bedroom 3 (west, 3.05 × 4.75 = 14.5 m²), gym (middle, 16.2 m²) behind a 2.0 m open light strip only as wide as the double-height living's south wall (9.4 m²), suite terrace (east, 20.7 m²).
+- **Gym access:** a 1.2 m route from the end of the upper gallery (no bedroom, not the suite, not across the strip). This is why bedroom 3 is 3.05 m wide, not the 4.25 m asked for.
+- **Clerestory:** two small windows 1.0 × 1.0 m (sill +5.00, head +6.00); the main light comes from the courtyard.
+- **Light check:**
+  - gym with a parapet: 0 % winter noon sun on the windows, 42 % sky;
+  - gym with a railing: 81 % / 100 %;
+  - proposal: a railing on the gym roof.
+- **Suite:** the lobby now opens to the bedroom, dressing and bathroom; the bed is not visible from the suite door.
+- **Family living:** seating 15.75 m² outside a 0.9 m route.
+- **Office and bedroom 1:** office 10.6 m² (≈ 9.1 m² clear); bedroom 1 13.8 m² + bath 5.0 m² round the east duct.
+- **Children's study** (4.5 m²) in the freed west-band piece.
+- **Circulation:** 45.6 m² + 4.2 m² route in the family living.
+- **Not committed:** waiting for the owner's comments.
+
+## First floor · re-zoned layout (17 Oct 2026)
+- **Re-zoned** as one move, instead of fixing option A room by room: master suite east · children together in the west around the west shaft · family living north at the stair top · office north · bedroom 1 + bath at the east duct · linen in gallery cupboards · gym deferred.
+- **Results:**
+  - bedroom 2 13.3 m², bedroom 3 17.6 m², shared bath 5.5 m², 1–2 m from both bedroom doors and stacked over the ground-floor wet strip;
+  - family living 18.3 m²; office 12.2 m²; visitors' WC kept;
+  - suite: lobby 3.5, bathroom 10.0, walk-through dressing 9.7, bedroom 32.1 m²;
+  - circulation 38.5 m² (was ≈ 48).
+- **Men's majlis roof:** no room on it; open roof 29.5 m² + terrace 20.7 m².
+- **Light check** with clerestory size, sky view and reflection, three open-roof sizes compared: a 1.5 m strip blocks the winter sun; 3.5 m is the minimum; the full roof is proposed.
+- **Open:** children's rooms 2.75 m wide; bedroom 1 small; walk-through dressing in the suite.
+- **Not committed:** waiting for the owner's comments.
+
+## First floor · first room layout from option A (17 Oct 2026)
+- **Furnished test:** option A as zoned does not work. With bedrooms 2 + 3 over the women's majlis, bedroom 1 and the suite can only be reached through a bedroom.
+- **Adjusted layout:**
+  - a family gallery along the courtyard's north side, with a link to the suite door;
+  - bedroom 2 north (14.6 m²); bedroom 3 south-west (20.2 m²);
+  - family living 10.3 m² + the open gallery;
+  - bedroom 1 11.7 + bath 4.0 m² over the maid wing;
+  - master suite over the kitchen + dining (lobby / passage 7.8, bathroom 10.7, dressing 9.5, bedroom 27.3 m²) with a 20.7 m² terrace on the men's majlis roof (palm side);
+  - office, visitors' WC, shared bath and linen store in the west band.
+- **Gym deferred:** it can't be reached without crossing the open strip. The whole roof over the men's majlis middle stays open (22.3 m²).
+- **Section:** a 1.5 m open strip with a room behind blocks the winter sun on the clerestory; ≈ 3.5 m would be needed, so keep the full roof open.
+- **Plumbing rule corrected:** short sloped drain runs to the shaft / duct as coordination points. The suite bath drains in a sunken floor (not in the kitchen ceiling).
+- **Not committed:** waiting for the owner's comments.
+
+## First floor · programme and zoning options (17 Oct 2026)
+- Programme and rules recorded in `docs/FIRST_FLOOR_BRIEF.md` §7–8.
+  - Private suite: lobby, bedroom, dressing, bathroom, private terrace.
+  - Family: bedroom 1 with bath; bedrooms 2 + 3 with a shared bath; family living; gym over the men's majlis.
+  - Upper gallery.
+  - Office and visitors' WC at the stair top.
+  - No laundry upstairs.
+- Key finding: with the plumbing rule (wet rooms only at the west shaft or the east duct), bedroom 1 + bath must go over the maid wing and the master suite over the kitchen, with their bathrooms back to back at the east duct; the visitors' WC and the shared bath go at the west shaft.
+- Available first-floor area 225.6 m² on axes, programme ≈ 153.5 m² + gallery + terrace + open roof: almost no spare.
+- Two zoning options drawn in `design_ff.typ` (zones in `data/zones_ff.csv`):
+  - **A:** bedrooms 2 + 3 north, family living + gym south-west, suite with a large terrace over the men's majlis east.
+  - **B:** family living north (the hub at the stair top), bedrooms 2 + 3 south-west, gym south-east, smaller suite and terrace.
+- Waiting for the owner's choice before drawing rooms.
 
 ## Changes in V4.0 (16 Oct 2026 · ground floor final)
 8. The 0.2 m freed by the smaller air tower goes to the maid bath, not the maid room:

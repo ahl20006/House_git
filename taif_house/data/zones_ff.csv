@@ -1,0 +1,26 @@
+option,name,colour,pts
+A,Landing + upper gallery,circ,2.25 0; 4.25 0; 4.25 19.25; 2.75 19.25; 2.75 2.2; 2.25 2.2
+A,Visitors' WC (+ store),service,0 7.9; 2.75 7.9; 2.75 10.4; 1.5 10.4; 1.5 9.2; 0 9.2
+A,Shared bath (bed 2 + 3),family,0 10.4; 2.75 10.4; 2.75 12.4; 0 12.4
+A,Office,service,0 12.4; 2.75 12.4; 2.75 17.4; 0 17.4
+A,Family store,family,0 17.4; 2.75 17.4; 2.75 19.25; 0 19.25
+A,Bedrooms 2 + 3,family,4.25 0; 8.95 0; 8.95 6.5; 4.25 6.5
+A,Bedroom 1 + bath,family,8.95 1; 10.594 1; 13.311 6; 13.311 6.5; 8.95 6.5
+A,Master suite (lobby · bed · dressing · bath),guest,8.95 6.5; 12.711 6.5; 12.711 7.1; 13.311 7.1; 13.311 19.25; 8.95 19.25
+A,Private terrace (suite only),terrace,8.95 19.25; 13.311 19.25; 13.311 24; 8.95 24
+A,Open roof · light to the living,open,4.25 19.25; 8.95 19.25; 8.95 20.75; 4.25 20.75
+A,Gym,tower,4.25 20.75; 8.95 20.75; 8.95 24; 4.25 24
+A,Family living,family,0 19.25; 4.25 19.25; 4.25 24; 0 24
+B,Landing + upper gallery,circ,2.25 0; 4.25 0; 4.25 19.25; 2.75 19.25; 2.75 2.2; 2.25 2.2
+B,Visitors' WC (+ store),service,0 7.9; 2.75 7.9; 2.75 10.4; 1.5 10.4; 1.5 9.2; 0 9.2
+B,Shared bath (bed 2 + 3),family,0 10.4; 2.75 10.4; 2.75 12.4; 0 12.4
+B,Office,service,0 12.4; 2.75 12.4; 2.75 17.4; 0 17.4
+B,Family store,family,0 17.4; 2.75 17.4; 2.75 19.25; 0 19.25
+B,Family living (+ family corridor),family,4.25 0; 8.95 0; 8.95 6.5; 4.25 6.5
+B,Bedroom 1 + bath,family,8.95 1; 10.594 1; 13.311 6; 13.311 6.5; 8.95 6.5
+B,Master suite (lobby · bed · dressing · bath),guest,8.95 6.5; 12.711 6.5; 12.711 7.1; 13.311 7.1; 13.311 16.5; 8.95 16.5
+B,Private terrace (suite only),terrace,8.95 16.5; 13.311 16.5; 13.311 19.25; 8.95 19.25
+B,Gym,tower,8.95 19.25; 13.311 19.25; 13.311 24; 8.95 24
+B,Open roof · light to the living,open,4.25 19.25; 8.95 19.25; 8.95 20.75; 4.25 20.75
+B,Bedroom 3,family,4.25 20.75; 8.95 20.75; 8.95 24; 4.25 24
+B,Bedroom 2,family,0 19.25; 4.25 19.25; 4.25 24; 0 24
