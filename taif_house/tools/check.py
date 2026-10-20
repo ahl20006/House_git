@@ -1,11 +1,11 @@
-"""check.py · Taif / Palm House · one command to check the design (ground floor V4.0 + first-floor start) before you stop or push.
+"""check.py · Taif / Palm House · one command to check the design (V5.0: ground floor + first floor) before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
-  1. compiles design_gf.typ, design_ff.typ, studies/site_test.typ and both studies into output/ (any error stops here),
+  1. compiles design_gf.typ, design_ff.typ, studies/site_test.typ and the four studies into output/ (any error stops here),
   2. reads the PDFs (if pdftotext is installed) and looks for the "all checks passed" lines,
   3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv,
-  4. rebuilds output/taif_ground_floor_V4.dxf with tools/make_dxf.py and reads it back: same rooms, same areas as the CSV,
+  4. rebuilds output/taif_ground_floor_V5.dxf with tools/make_dxf.py and reads it back: same rooms, same areas as the CSV,
 and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1).
 """
 import ast
@@ -51,6 +51,9 @@ jobs = [
     ("studies/site_test.typ", OUTPUT / "site_test.pdf", None),
     ("studies/guest_wing.typ", OUTPUT / "guest_wing.pdf", "All rooms inside the block, no overlaps, no gaps"),
     ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", "All rooms inside the block, no overlaps"),
+    ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", "All rooms inside the zone"),
+    ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", "All rooms inside the zone"),
+    ("design_ff.typ", OUTPUT / "design_ff.pdf", "matches the two studies room for room"),
 ]
 typst = shutil.which("typst")
 pdftotext = shutil.which("pdftotext")
@@ -131,7 +134,7 @@ else:
     ok(r.stdout.strip())
     try:
         import ezdxf
-        doc = ezdxf.readfile(OUTPUT / "taif_ground_floor_V4.dxf")
+        doc = ezdxf.readfile(OUTPUT / "taif_ground_floor_V5.dxf")
         seen = {}
         for e in doc.modelspace().query("LWPOLYLINE"):
             if e.has_xdata("HOUSE"):
@@ -145,7 +148,7 @@ else:
         if wrong:
             bad(f"DXF areas differ from the CSV: {wrong}")
         if not missing and not wrong:
-            ok(f"taif_ground_floor_V4.dxf: {len(seen)} rooms, every area equals the CSV ({sum(seen.values()):.2f} m² incl. courtyard)")
+            ok(f"taif_ground_floor_V5.dxf: {len(seen)} rooms, every area equals the CSV ({sum(seen.values()):.2f} m² incl. courtyard)")
     except ImportError:
         bad("ezdxf not installed (pip install ezdxf)")
 

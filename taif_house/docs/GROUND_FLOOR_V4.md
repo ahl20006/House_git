@@ -1,8 +1,12 @@
-# Taif / Palm House · Ground floor V4.0 (final)
+# Taif / Palm House · Ground floor V4.0 (final) · with the V5.0 changes
 
 16 Oct 2026 · git tag `v4.0` · concept design, not for construction.
 
-This is the master description of the ground floor. Drawing: `output/design_gf.pdf` (from `design_gf.typ` + `data/rooms_gf.csv`). CAD: `output/taif_ground_floor_V4.dxf`. Room studies: `output/guest_wing.pdf`, `output/east_wing.pdf`. Site test: `output/site_test.pdf`.
+**V5.0 (20 Oct 2026, git tag `v5.0`):** two coordination changes from the first floor, nothing else moved:
+- the **east duct is removed**: the kitchen extract leaves straight through the east wall at the hood, the vent stack (and the suite bath drain from above) runs in a stack on the outside face of the east wall;
+- **three columns** (x 5.6; y 6.5 in the women's majlis south wall, y 13.0 as a pier in the courtyard / living glass, y 19.25 in the living's south wall) carry the edge beam of the first floor's 1.35 m west projection; the ground floor under the projection (x 4.25–5.6) has a normal-height ceiling. Engineer to confirm (or a plain cantilever without columns).
+
+This is the master description of the ground floor. Drawing: `output/design_gf.pdf` (from `design_gf.typ` + `data/rooms_gf.csv`). CAD: `output/taif_ground_floor_V5.dxf`. Room studies: `output/guest_wing.pdf`, `output/east_wing.pdf`. Site test: `output/site_test.pdf`.
 
 ## 1. Coordinates, site and placement
 
@@ -88,7 +92,7 @@ Areas from `tools/schedule.py` (axes = wall centre lines; clear = finished faces
 - **Utility room and west shaft:** correct in size and position. The shaft serves the west wash block and the first-floor bathrooms above or beside it.
 - **Plumbing strategy:**
   - **west:** the shaft and one drain run under the wash block, with a cleanout under the serving passage;
-  - **east:** kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard. The **east duct** (≈ 0.6 × 0.6 m, kitchen NE corner) carries the vent stack, any first-floor bathroom above and the kitchen extract;
+  - **east:** kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard. *(V5.0: the east duct is removed.)* The vent stack and the first-floor suite bath drain run in a stack on the outside face of the east wall; the kitchen extract leaves straight through the east wall at the hood;
   - **water:** from the main manifold through the ceiling, with a small secondary manifold in the laundry;
   - drain depths to be coordinated with the air tunnel (also under the east side);
   - gas, if used: a cylinder cabinet outside the east wall in the service yard.
@@ -103,10 +107,10 @@ Areas from `tools/schedule.py` (axes = wall centre lines; clear = finished faces
 1. **Locked laundry service door:** a small door from the laundry to the east service yard, for rubbish and deliveries, locked with the owner's key only. Owner decision; not drawn.
 2. **Envelope gap only 0.05 m** at the north / lane side. It must be confirmed by the official survey before the wall faces are fixed. The site test's 0.5 m allowance shows NO.
 3. **Foyer majaz only partial:** the door and opening overlap ≈ 0.75 m. Add a curtain or short screen.
-4. **`plumbing.typ` study still to do:** drain falls, manholes, east duct position, tunnel crossings.
+4. **`plumbing.typ` study still to do:** drain falls, manholes, the east-wall stack, tunnel crossings.
 5. **Review together with the first floor:** the middle column (women's majlis, courtyard, living) and the riwaq.
 6. **Engineer:** the structural grid, wall build-ups, floor-to-floor height (3.6 m assumed), stair headroom (≥ ≈ 2.1 m at the slab opening) and handrails.
-7. **East duct position** (kitchen NE corner) to confirm with the plumbing / MEP engineer.
+7. **East-wall stack and hood position** (V5.0: no east duct; hood south of y ≈ 7.5) to confirm with the plumbing / MEP engineer.
 8. **Maid bath door:** the wall on the maid side is only ≈ 0.73 m long, so the 0.70 m clear door is tight (sliding or opening out).
 
 ## 5. Changelog
@@ -120,11 +124,12 @@ Areas from `tools/schedule.py` (axes = wall centre lines; clear = finished faces
 | V3.3 | 16 Oct 2026 | Building 0.5 m longer to the south; future lift + entry cupboard; hospitality kitchen; serving 1.4 m, guest WC on the majlis line, trough basin, foyer double door + 1.8 m opening. |
 | V3.4 | 16 Oct 2026 | Air tower 1.2 → 1.0 m deep; maid wing 0.2 m north. |
 | **V4.0** | **16 Oct 2026** | **Ground floor final:** the freed 0.2 m goes to the maid bath (1.8 m deep), maid room back to V3.3 (≈ 6.0 m² clear, target dropped); east duct placed; repo cleaned (`taif_house/`, `docs/`, `output/`, `archive/`); first-floor starting point. |
+| **V5.0** | **20 Oct 2026** | **First floor designed** (studies/ff_family.typ, studies/ff_suite.typ); ground floor coordinated: east duct removed, three columns for the first-floor west projection. |
 
 ## 6. Files and how to check
 
 - **Ground floor:** `design_gf.typ` + `data/rooms_gf.csv` (site from `base.typ`).
-- **First floor:** `design_ff.typ` + `data/rooms_ff.csv`. Constraints: `docs/FIRST_FLOOR_BRIEF.md`.
+- **First floor (V5.0):** `design_ff.typ` + `data/rooms_ff.csv`, room design in `studies/ff_family.typ` and `studies/ff_suite.typ`. Brief and decisions: `docs/FIRST_FLOOR_BRIEF.md`. Construction notes: `docs/DETAILS.md`.
 - **Studies:** `studies/guest_wing.typ`, `studies/east_wing.typ`, `studies/site_test.typ` + `studies/building.csv`.
 - **Tools:**
   - `python taif_house/tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV, rebuilds the DXF, and must end with **ALL CHECKS PASSED**;

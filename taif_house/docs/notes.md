@@ -1,13 +1,26 @@
 # Taif / Palm House · decisions log
 
-The current state of the ground floor is described in full in **`docs/GROUND_FLOOR_V4.md`** (master document); the first-floor constraints are in **`docs/FIRST_FLOOR_BRIEF.md`**. This file is the running log: what was decided, version by version (newest first). Older sections keep the file names and sizes of their time.
+The current version is **V5.0** (20 Oct 2026, git tag `v5.0`). The ground floor is described in full in **`docs/GROUND_FLOOR_V4.md`** (with its V5.0 changes); the first floor in **`docs/FIRST_FLOOR_BRIEF.md`** (V5.0 section); construction notes in **`docs/DETAILS.md`**. This file is the running log: what was decided, version by version (newest first). Older sections keep the file names and sizes of their time.
 
 ## Files and how to check
-- `design_gf.typ` + `data/rooms_gf.csv`: the ground floor (plan, schedules, philosophy). `design_ff.typ` + `data/rooms_ff.csv`: the first-floor starting point. Both use the site in `base.typ`.
+- `design_gf.typ` + `data/rooms_gf.csv`: the ground floor (plan, schedules, philosophy). `design_ff.typ` + `data/rooms_ff.csv`: the whole first floor (plan, schedule, light check). Both use the site in `base.typ`.
 - `data/rooms_*.csv`: one row per room (name, x, y, w, d, angle, frame, colour, pts). `#` at the start of a name switches a row off. `pts` ("x y; x y; …") is only for rooms that are not rectangles.
-- `studies/guest_wing.typ` (west wash block), `studies/east_wing.typ` (east service block): stand-alone layout studies with fixtures and labelled doors; keep them and the CSV in step. `studies/site_test.typ` + `studies/building.csv`: the footprint against the site.
-- `tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV and rebuilds the DXF (`output/taif_ground_floor_V4.dxf`, see `docs/README_DXF.md`); it must end with "ALL CHECKS PASSED". `tools/schedule.py` prints the room schedule (axes and clear areas).
-- Versions on GitHub: tags `v3.1` … `v3.4`, `v4.0` (ground floor final) and `v4.1` (first-floor baseline). Superseded files are in `archive/`.
+- `studies/guest_wing.typ` (west wash block), `studies/east_wing.typ` (east service block): ground-floor studies. `studies/ff_family.typ` (first floor part 1: family part) and `studies/ff_suite.typ` (part 2: owner's office, gym, suite court, master suite): the first-floor design with furniture, doors, drains and checks; `design_ff.typ` checks that `data/rooms_ff.csv` matches them room for room. `studies/site_test.typ` + `studies/building.csv`: the footprint against the site.
+- `tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV and rebuilds the DXF (`output/taif_ground_floor_V5.dxf`, see `docs/README_DXF.md`); it must end with "ALL CHECKS PASSED". `tools/schedule.py` prints the room schedule (axes and clear areas).
+- Versions on GitHub: tags `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline) and **`v5.0`** (first floor designed, ground floor coordinated), each with a GitHub Release; superseded files are in `archive/`.
+
+## V5.0 · first floor designed, ground floor coordinated (20 Oct 2026 · git tag `v5.0`)
+- **First floor, family part** (`studies/ff_family.typ`):
+  - north band: *kids' room (study + gaming)* 4.7 × 3.0 and the *family living* 4.7 × 3.5 on the courtyard edge, a view not a path (the way to the family link walks behind the sofa);
+  - *west projection* 1.35 m over the courtyard and the double-height void (x 4.25–5.6) carrying the gallery; courtyard sky and void 4.70 → 3.35 m; three columns at x 5.6 (or a plain cantilever, engineer);
+  - west band 4.25 m wide: *family bath* by the west shaft (bedrooms 1, 2, family living, kids' room), *bedroom 2* 4.25 × 3.4, *bedroom 3* with its *own bath* over the GF family WC;
+  - *bedroom 1*: one room, no bath, its south wall straight on y 6.5 (the courtyard's north edge, on the GF kitchen wall);
+  - the visitors' office upstairs is gone; the WC became the family bath; linen in the gallery's north cupboard.
+- **First floor, the L** (`studies/ff_suite.typ`): *owner's office* 4.25 × 4.75 (west), *gym route*, *gym* 9.06 × 2.75 (sliding doors), the *suite court* 7.71 × 2.0 (the old light strip + terrace, walled on four sides, open to the sky, in front of the clerestory windows), and the *master suite* 55.6 m²: lobby 1.35 m (entered from the family link), *luxury bath* (freestanding tub, walk-in glass shower, double vanity, WC in its own closet), *luxury walk-in dressing*, bedroom with the king bed facing the court.
+- **East duct removed:** kitchen extract straight through the east wall; vent stack and suite bath drain to a stack outside the east wall.
+- **Ground floor V5.0** = V4.0 + the duct removal + the three projection columns (x 5.6, y 6.5 / 13.0 / 19.25). Nothing else moved.
+- **Files:** `design_ff.typ` and `data/rooms_ff.csv` rebuilt for V5.0 (the V4.1 versions and `zones_ff.csv` are in `archive/`); DXF renamed `taif_ground_floor_V5.dxf`; `docs/DETAILS.md` started (construction notes); `tools/check.py` also compiles and checks the two first-floor studies.
+- **Open:** engineer (projection, gym loads over the men's majlis, y 3.0 partition), MEP (east-wall stack, hood position), clerestory sill vs the court floor, daylight check of the narrower courtyard, bedroom 1 far from a bathroom (≈ 17 m).
 
 ## First floor V4.1 · baseline frozen (17 Oct 2026 · git tag `v4.1`)
 - The coordinated revision is frozen as **First floor V4.1**, the baseline; the ground floor stays V4.0. No geometry changed.

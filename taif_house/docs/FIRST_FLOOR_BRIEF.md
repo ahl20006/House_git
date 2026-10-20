@@ -1,10 +1,40 @@
-# Taif / Palm House · First floor brief · V4.1 baseline
+# Taif / Palm House · First floor brief · V5.0
 
-16 Oct 2026 (programme, zoning and first room layout 17 Oct 2026) · starting point for the first-floor design, set by the ground floor V4.0 (`docs/GROUND_FLOOR_V4.md`). The first floor is **not designed yet**.
+16 Oct 2026 (programme, zoning and first room layout 17 Oct 2026; **V5.0 design 18–20 Oct 2026**) · the first floor on top of the ground floor (`docs/GROUND_FLOOR_V4.md`).
+
+## V5.0 · the first floor as designed (20 Oct 2026 · git tag `v5.0`)
+
+Drawings: `output/design_ff.pdf` (whole floor, schedule, light check), `output/ff_family.pdf` (part 1, family part), `output/ff_suite.pdf` (part 2, the L). Room list: `data/rooms_ff.csv` (checked against both studies). Construction notes: `docs/DETAILS.md`.
+
+| Room | Axes (m) | m² |
+|---|---|---|
+| Kids' room (study + gaming) | 4.7 × 3.0 | 14.10 |
+| Family living (courtyard edge) | 4.7 × 3.5 | 16.45 |
+| Bedroom 1 (no bath) | polygon | 15.75 |
+| Family bath | 2.75 × 1.8 | 4.95 |
+| Bedroom 2 (+ wardrobe niche 0.9) | 4.25 × 3.4 | 14.45 |
+| Bedroom 3 + own bath | 4.25 × 4.85 (L) + 2.2 × 1.7 | 16.87 + 3.74 |
+| Owner's office | 4.25 × 4.75 | 20.19 |
+| Gym | 9.06 × 2.75 | 24.92 |
+| Suite court (open to the sky) | 7.71 × 2.0 | 15.42 |
+| Master suite: lobby · bath + WC closet · dressing · bedroom | 4.36 × 12.75 | 7.29 · 10.24 + 1.65 · 10.39 · 26.03 = 55.60 |
+| Circulation (landing, gallery on the projection, family link, gym route, suite lobby) | | 45.72 |
+
+**Decisions:**
+- *West projection* 1.35 m (x 4.25–5.6, y 6.5–19.25) carrying the gallery (≈ 1.23 m clear); west rooms 4.25 m wide; courtyard sky and void 3.35 m; edge beam on three columns in existing wall / glass lines, or a plain cantilever (engineer).
+- *Family living* is a view, not a path: the walk to the family link passes behind and beside the sofa.
+- *Bedroom 1* one room, no bath, south wall straight on y 6.5. *Bedroom 3* keeps its own bath (over the GF family WC). One *family bath* by the west shaft for the rest.
+- *The L:* owner's office (west), gym (one straight bar), suite court (walled, open to the sky, railing not parapet on the gym roof edge), master suite entered from the family link.
+- *Suite:* luxury bath (freestanding tub + walk-in glass shower + two basins + WC in its own closet), luxury walk-in dressing (his 3.25 m, hers 2.1 m, shoes and bags, make-up), doors at the north ends of their walls.
+- *East duct removed.* No drain over the master bedroom or in a kitchen ceiling (sunken bath floors).
+
+**Open items:** engineer (projection, gym loads, y 3.0 partition), MEP (east-wall stack, hood south of y ≈ 7.5), clerestory sill vs the court floor, daylight check of the narrower courtyard, bedroom 1 ≈ 17 m from the family bath, bedrooms' 10 cm partition idea (DETAILS.md).
+
+*The sections below are the history of the brief (V4.1 and earlier) and keep the names and sizes of their time.*
 
 Working files:
-- `design_ff.typ` + `data/rooms_ff.csv`, same framework and same CSV coordinates as the ground floor;
-- output: `output/design_ff.pdf`.
+- `design_ff.typ` + `data/rooms_ff.csv` (whole floor), `studies/ff_family.typ` + `studies/ff_suite.typ` (room design), same framework and same CSV coordinates as the ground floor;
+- output: `output/design_ff.pdf`, `output/ff_family.pdf`, `output/ff_suite.pdf`.
 
 The file already draws everything below as fixed elements.
 

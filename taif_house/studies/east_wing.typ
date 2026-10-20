@@ -31,7 +31,6 @@
   (0.1, 7.5, 0.7, 12.9, [sink counter 0.6 · window to courtyard]),
   (3.636, 7.2, 4.236, 11.1, [cooking counter 0.6 · hob + hood]),
   (3.636, 11.1, 4.236, 12.9, [fridge + tall storage]),
-  (3.761, 6.5, 4.361, 7.1, [east duct]),
   (0.1, 2.9, 0.7, 3.5, [washer]),
   (0.1, 3.5, 0.7, 4.1, [dryer]),
   (0.1, 4.1, 0.7, 4.7, [utility sink]),
@@ -185,7 +184,7 @@
     - Main cross walls on the house lines: y 6.5 (women's majlis / courtyard) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: 100 mm blocks for dry partitions, 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
     - Air tower in the tip of the cut corner, 1.0 m deep (≈ 1.37 m² on centre lines, ≈ 0.88 m² clear, at least ≈ 0.93 m wide): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
-    - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; the east duct (≈ 0.6 × 0.6 m, kitchen north-east corner, position to confirm) for the vent stack, any first-floor bathroom above and the kitchen extract; water from the main manifold through the ceiling to a small secondary manifold in the laundry. Coordinate drain depths with the air tunnel (also under the east side).
+    - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; V5.0: the east duct is removed; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
     - Open decision (not drawn): a small service door from the laundry to the east service yard, locked with the owner's key only. Gas (if used): cylinder cabinet outside the east wall in the service yard.
   ],
 )
