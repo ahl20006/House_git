@@ -6,6 +6,7 @@ Taif / Palm House · state on 20 Oct 2026 · git tag `v5.0` (GitHub Release "V5.
 - **V5.0:** the first floor is designed and the ground floor is coordinated with it.
   - **Ground floor V5.0** = V4.0 + east duct removed + three columns for the first-floor west projection. Drawing `design_gf.typ` + `data/rooms_gf.csv`; description `docs/GROUND_FLOOR_V4.md`.
   - **First floor V5.0:** whole floor `design_ff.typ` + `data/rooms_ff.csv`; the design room by room in `studies/ff_family.typ` (part 1: kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection) and `studies/ff_suite.typ` (part 2, the L: owner's office, gym, suite court, master suite). Decisions: `docs/FIRST_FLOOR_BRIEF.md` (V5.0 section).
+- **Presentation set** for sharing: `presentation.typ` → `output/Taif_House_V5.0_presentation.pdf` (8 sheets, both floors).
 - **Construction notes** for the engineers: `docs/DETAILS.md`. **Decisions log:** `docs/notes.md`.
 
 ## Open and compile

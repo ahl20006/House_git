@@ -54,6 +54,7 @@ jobs = [
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", "All rooms inside the zone"),
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", "All rooms inside the zone"),
     ("design_ff.typ", OUTPUT / "design_ff.pdf", "matches the two studies room for room"),
+    ("presentation.typ", OUTPUT / "Taif_House_V5.0_presentation.pdf", None),
 ]
 typst = shutil.which("typst")
 pdftotext = shutil.which("pdftotext")
