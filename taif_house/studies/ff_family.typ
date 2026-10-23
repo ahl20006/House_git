@@ -1,18 +1,18 @@
 // ff_family.typ · Taif / Palm House · FIRST FLOOR · focus study of the FAMILY PART (the whole floor except the master suite) · compile THIS file
-// First floor V5.0 VARIANT SP (split projection, 24 Oct 2026, branch v5-split-projection), part 1 of 2 (part 2: studies/ff_suite.typ) · built from V5.0 · stand-alone: all data is in this file.
+// First floor V5.1 (24 Oct 2026; the split projection of variant SP accepted), part 1 of 2 (part 2: studies/ff_suite.typ) · built from V5.0 · stand-alone: all data is in this file.
 // Local coordinates (metres, origin = the zone's NW corner, x east, y SOUTH) = the main first-floor CSV coordinates: no conversion.
-// The V5.0 room list is also in data/rooms_ff.csv (whole-floor plan: design_ff.typ).
+// The V5.1 room list is also in data/rooms_ff.csv (whole-floor plan: design_ff.typ).
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 10mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.2pt)
 
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
-// ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; variant SP: inward projection x 4.25–4.925 (y 6.5–19.25), outward x 0 → -0.675 (y 10.4–19.25 here, to 24 in the L) ----------
+// ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; V5.1: inward projection x 4.25–4.925 (y 6.5–19.25), outward x 0 → -0.675 (y 10.4–19.25 here, to 24 in the L) ----------
 #let zone = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (8.95, 6.5), (4.925, 6.5), (4.925, 19.25), (-0.675, 19.25), (-0.675, 10.4), (0, 10.4))
 #let plan-scale = 0.6cm
-#let proj-x = 4.925   // variant SP: the inward cantilever's edge, 0.675 m beyond the courtyard wall line x 4.25 (no edge beam, no columns)
-#let out-x = -0.675   // variant SP: the first-floor west wall, 0.675 m beyond the ground-floor west wall x 0 (y 10.4–24), on cantilever beams
+#let proj-x = 4.925   // V5.1: the inward cantilever's edge, 0.675 m beyond the courtyard wall line x 4.25 (no edge beam, no columns)
+#let out-x = -0.675   // V5.1: the first-floor west wall, 0.675 m beyond the ground-floor west wall x 0 (y 10.4–24), on cantilever beams
 
 // ---------- Fixed inside the zone (unchanged from V4.1) ----------
 #let fixed = (
@@ -45,7 +45,7 @@
   ([GF guest WC], rect-pts(1.25, 17.5, 2.75, 19.25)),
   ([GF men's majlis], rect-pts(2.75, 19.25, 13.311, 24.0)),
 )
-// variant SP: no columns (V5.0 had three on x 5.6); the 0.675 m inward cantilever carries only the gallery and its railing
+// V5.1: no columns (V5.0 had three on x 5.6); the 0.675 m inward cantilever carries only the gallery and its railing
 #let columns = ()
 
 // ---------- Interfaces with the master suite study (fixed) ----------
@@ -246,9 +246,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V5.0 variant SP (split projection) · 24 Oct 2026 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V5.1 (split projection) · 24 Oct 2026 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[Variant SP · part 1 of 2: family part · projection split 0.675 m in + 0.675 m out, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[First floor V5.1 · part 1 of 2: family part · projection split 0.675 m in + 0.675 m out, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -292,12 +292,12 @@
       content(q(itf.at), anchor: itf.anchor, box(width: 3.6cm, align(if itf.anchor == "east" { right } else { left }, text(4.8pt, fill: rgb("#2f8a3f"), itf.label))))
     }
     for (P, l) in drains { line(..P.map(q), stroke: (paint: rgb("#1f7a99"), thickness: 0.8pt, dash: "dashed"), mark: (end: ">", fill: rgb("#1f7a99"), scale: 0.35)) }
-    // variant SP: the GF courtyard edge x 4.25 (the inward cantilever's support line) and the GF west wall x 0 under the FF west wall on cantilever beams (grey dashed)
+    // V5.1: the GF courtyard edge x 4.25 (the inward cantilever's support line) and the GF west wall x 0 under the FF west wall on cantilever beams (grey dashed)
     line(q((4.25, 6.5)), q((4.25, 19.25)), stroke: (paint: luma(120), thickness: 1.4pt, dash: "dashed"))
     line(q((0, 10.4)), q((0, 24.0)), stroke: (paint: luma(120), thickness: 1.4pt, dash: "dashed"))
     for (x, y) in columns { rect(q((x - 0.18, y - 0.18)), q((x + 0.18, y + 0.18)), fill: luma(150), stroke: (paint: luma(90), dash: "dashed", thickness: 0.5pt)) }
-    content(q((7.0, 11.6)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[courtyard sky #r2(8.95 - proj-x) m on axes (V5.0 3.35, GF 4.70)])))
-    content(q((7.0, 17.8)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[double-height void #r2(8.95 - proj-x) m (V5.0 3.35)])))
+    content(q((7.0, 11.6)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[courtyard sky #str(calc.round(8.95 - proj-x, digits: 3)) m on axes (V5.0 3.35, GF 4.70)])))
+    content(q((7.0, 17.8)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[double-height void #str(calc.round(8.95 - proj-x, digits: 3)) m (V5.0 3.35)])))
     content(q((5.05, 13.0)), anchor: "west", text(4.4pt, fill: luma(90))[◀ inward cantilever 0.675 m · no columns])
     content(q((out-x - 0.15, 21.0)), anchor: "east", box(width: 1.3cm, align(right, text(4.4pt, fill: luma(90))[FF west wall on cantilever beams, 0.675 m beyond the GF wall (dashed)])))
     // walking line through the living to the family link (behind and beside the sofa)
@@ -325,8 +325,8 @@
     #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the routes · door swings clear · every room has a door reached from circulation · routes ≥ 1.0 m clear · suite door and gallery end on circulation] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(3pt)
     #H[Key numbers]
-    - *Variant SP · split projection:* the V5.0 1.35 m is split: *0.675 m inward* over the courtyard and the double-height void (x 4.25–#r2(proj-x), a plain cantilever, *no columns*) and *0.675 m outward* beyond the GF west wall (x 0 → #r2(out-x), y 10.4–24, the west wall on cantilever beams). The whole west band (rooms, gallery, office) moves 0.675 m west; stair, lift, landing and west shaft stay.
-    - *Courtyard sky* 4.70 (GF) → 3.35 (V5.0) → *#r2(8.95 - proj-x) m* on axes; *double-height void* the same. The ground-floor courtyard and living keep their full floor.
+    - *V5.1 · split projection:* the V5.0 1.35 m is split: *0.675 m inward* over the courtyard and the double-height void (x 4.25–#r2(proj-x), a plain cantilever, *no columns*) and *0.675 m outward* beyond the GF west wall (x 0 → #r2(out-x), y 10.4–24, the west wall on cantilever beams). The whole west band (rooms, gallery, office) moves 0.675 m west; stair, lift, landing and west shaft stay.
+    - *Courtyard sky* 4.70 (GF) → 3.35 (V5.0) → *#str(calc.round(8.95 - proj-x, digits: 3)) m* on axes; *double-height void* the same. The ground-floor courtyard and living keep their full floor.
     - *West rooms* still 4.25 m on axes (≈ 4.03 m clear). *Gallery on the projection:* 1.35 m, ≈ *1.23 m clear* (½ wall + ½ railing); 2.18 m wide at the stair top (y 6.5–9.2). *Circulation in the zone:* #r2(circ-area) m² (landing, gallery incl. the projection, family link); the walk through the living is not counted.
     - *Family living:* #r2(area(seating.pts)) m², on the courtyard edge, no separate route. *Kids' room:* #r2(area(room("Kids").pts)) m².
     - *Bedrooms:* 2 · #r2(area(room("Bedroom 2").pts)) m² (4.25 × 3.4) · 3 · #r2(area(room("Bedroom 3").pts)) m² + its own bath #r2(area(room("Bedroom 3 bath").pts)) m² · 1 · #r2(area(room("Bedroom 1").pts)) m² (no bath). *Family bath* #r2(area(room("Family bath").pts)) m² for bedrooms 1 and 2, the family living and the kids' room.
@@ -344,12 +344,12 @@
 #v(4pt)
 #grid(columns: (1fr, 1fr), column-gutter: 18pt,
   [
-    #H[Variant SP · the 1.35 m projection split: 0.675 m in, 0.675 m out]
-    - *The idea:* V5.0 put the whole 1.35 m over the courtyard and the double-height void (x 4.25–5.6, on three columns). The variant puts *half inward* (x 4.25–#r2(proj-x), y 6.5–19.25) and *half outward* beyond the GF west wall (x 0 → #r2(out-x), y 10.4–24). The whole west band (bedrooms 2 and 3, bedroom 3 bath, wardrobe niche, gallery, and in the L the office and the gym route) moves 0.675 m west; stair, lift, landing and west shaft stay where they are, so the west face steps out at y 10.4, just south of the shaft.
+    #H[V5.1 · the 1.35 m projection split: 0.675 m in, 0.675 m out]
+    - *The idea:* V5.0 put the whole 1.35 m over the courtyard and the double-height void (x 4.25–5.6, on three columns). V5.1 puts *half inward* (x 4.25–#r2(proj-x), y 6.5–19.25) and *half outward* beyond the GF west wall (x 0 → #r2(out-x), y 10.4–24). The whole west band (bedrooms 2 and 3, bedroom 3 bath, wardrobe niche, gallery, and in the L the office and the gym route) moves 0.675 m west; stair, lift, landing and west shaft stay where they are, so the west face steps out at y 10.4, just south of the shaft.
     - *Split:* the band is 4.25 (rooms) + 1.35 (gallery) = 5.6 m and stays so; rooms ≥ 4.0 m clear needs ≥ 4.225 m on axes, the gallery ≥ 1.0 m clear needs ≥ 1.125 m. Any split works for the widths; the *site* limits the outward part to 0.785 m (the GF outer face is 0.785 m from the M line). The even split 0.675 / 0.675 leaves 0.11 m to the M line.
     - *Inward part:* a plain *0.675 m cantilever* from the courtyard edge x 4.25 (back span 1.5 m to the GF riwaq wall x 2.75), carrying only the gallery and its railing: *no edge beam, no columns* (V5.0 had three on x 5.6).
     - *Outward part:* the FF west wall stands on *cantilever beams* 0.675 m beyond the GF west wall, from y 10.4 to 24 (13.6 m), back span 2.75 m to the GF wall x 2.75. It shades the GF west wall from the afternoon sun and roofs the guest entrance (foyer door, y 21.5–22.9).
-    - *Before / after:* courtyard sky 4.70 (GF) → 3.35 (V5.0) → *#r2(8.95 - proj-x) m* on axes; double-height void the same; only x 4.25–#r2(proj-x) of the GF has the lower ceiling.
+    - *Before / after:* courtyard sky 4.70 (GF) → 3.35 (V5.0) → *#str(calc.round(8.95 - proj-x, digits: 3)) m* on axes; double-height void the same; only x 4.25–#r2(proj-x) of the GF has the lower ceiling.
     - *Gallery on it:* 1.35 m (≈ 1.23 m clear) with a railing on the void edge, 2.18 m wide at the stair top; every west room door opens from it; no room opens onto the stair landing.
     #v(3pt)
     #H[Kids' room · family living · bedroom 1 (unchanged)]
@@ -396,8 +396,8 @@
   ],
   [
     #H[Engineer]
-    - *Inward cantilever (variant SP):* 0.675 m slab beyond the courtyard edge x 4.25, y 6.5–19.25, back span 1.5 m to the GF riwaq wall x 2.75; it carries only the gallery (live load) and its railing. A cantilever / back-span ratio of 0.45 and a short reach: *no columns, no edge beam* expected; the x 4.25 beam line already carries the rooms' wall in V5.0. Engineer to confirm slab depth, the x 4.25 beam and the railing fixing.
-    - *Outward cantilever (variant SP):* the FF west wall (250 mm, ≈ 3.6 m high, + the parapet) stands 0.675 m beyond the GF west wall, y 10.4–24: *wall on cantilever beams* (one at each cross wall, back span 2.75 m to x 2.75, with an edge beam under the wall). Engineer: beam depth, line load of the wall, tip deflection (a cracking limit for the wall), the corner at (#r2(out-x), 24).
+    - *Inward cantilever (V5.1):* 0.675 m slab beyond the courtyard edge x 4.25, y 6.5–19.25, back span 1.5 m to the GF riwaq wall x 2.75; it carries only the gallery (live load) and its railing. A cantilever / back-span ratio of 0.45 and a short reach: *no columns, no edge beam* expected; the x 4.25 beam line already carries the rooms' wall in V5.0. Engineer to confirm slab depth, the x 4.25 beam and the railing fixing.
+    - *Outward cantilever (V5.1):* the FF west wall (250 mm, ≈ 3.6 m high, + the parapet) stands 0.675 m beyond the GF west wall, y 10.4–24: *wall on cantilever beams* (one at each cross wall, back span 2.75 m to x 2.75, with an edge beam under the wall). Engineer: beam depth, line load of the wall, tip deflection (a cracking limit for the wall), the corner at (#r2(out-x), 24).
     - *Ground floor changes only by:* removing the three V5.0 columns (none needed), the lower ceiling under the inward 0.675 m only, and the cantilever beams' fixings in the west wall.
     #v(3pt)
     #H[Walls off the ground-floor lines]
@@ -411,15 +411,15 @@
     - *Bedroom 3 bath:* over the GF family WC: WC straight into its stack, shower ≈ 1.0 m, basin ≈ 1.1 m, both on the outward cantilever (drains in the floor build-up, nothing below but the cantilever slab). Wet room on a wet room.
     - *Bedroom 1:* no bath. The east duct is removed (suite bath to a stack outside the east wall, see ff_suite.typ).
     #v(3pt)
-    #H[What changed in variant SP (24 Oct 2026, from V5.0)]
-    - *Projection split* 0.675 in + 0.675 out; the band moves 0.675 m west (y 10.4–24); courtyard sky and void #r2(8.95 - proj-x) m (V5.0 3.35); *no columns*.
+    #H[What changed in V5.1 (24 Oct 2026, from V5.0)]
+    - *Projection split* 0.675 in + 0.675 out; the band moves 0.675 m west (y 10.4–24); courtyard sky and void #str(calc.round(8.95 - proj-x, digits: 3)) m (V5.0 3.35); *no columns*.
     - *Forced:* family bath 2.75 → 2.075 m wide (shaft fixed); wardrobe niche 1.5 → 2.175 m; gallery 2.18 m wide at the stair top; bedroom 3 bath wall x 2.2 → 1.525; all west doors, windows and furniture 0.675 m west.
     - *Unchanged:* kids' room, family living, family link, bedroom 1, landing, linen, stair, lift, west shaft; bedrooms 2 and 3 keep their size.
     #v(3pt)
     #H[Open items]
-    - *Site (variant SP):* the FF west face is 0.11 m from the M line. Municipality / engineering office to confirm that an upper-floor projection this close to the M line is allowed.
+    - *TOP OPEN ITEM (before construction drawings):* the FF west face is 0.11 m from the M line. Municipality / engineering office to confirm that an upper-floor projection this close to the M line is allowed; if not, back to the V5.0 solution (1.35 m inward on three columns at x 5.6, tag v5.0).
     - *Built-in cupboards in niches* (linen cupboard 2.0 m, bedroom 2 wardrobe niche 2.175 m): both have walls on both sides. Prefer a *joinery box* (own 18 mm sides, top and frame, scribed to the walls). Decide with the carpenter (docs/DETAILS.md).
     - *Engineer:* the outward wall on cantilever beams; the inward 0.675 m cantilever without columns.
-    - *Courtyard light:* sky #r2(8.95 - proj-x) m between ≈ 7–8 m walls; to check with a daylight study.
+    - *Courtyard light:* sky #str(calc.round(8.95 - proj-x, digits: 3)) m between ≈ 7–8 m walls; to check with a daylight study.
   ],
 )

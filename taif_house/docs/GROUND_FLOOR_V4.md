@@ -1,4 +1,4 @@
-# Taif / Palm House · Ground floor V4.0 (final) · with the V5.0 changes
+# Taif / Palm House · Ground floor V4.0 (final) · with the V5.0 and V5.1 changes
 
 16 Oct 2026 · git tag `v4.0` · concept design, not for construction.
 
@@ -6,7 +6,9 @@
 - the **east duct is removed**: the kitchen extract leaves straight through the east wall at the hood, the vent stack (and the suite bath drain from above) runs in a stack on the outside face of the east wall;
 - **three columns** (x 5.6; y 6.5 in the women's majlis south wall, y 13.0 as a pier in the courtyard / living glass, y 19.25 in the living's south wall) carry the edge beam of the first floor's 1.35 m west projection; the ground floor under the projection (x 4.25–5.6) has a normal-height ceiling. Engineer to confirm (or a plain cantilever without columns).
 
-This is the master description of the ground floor. Drawing: `output/design_gf.pdf` (from `design_gf.typ` + `data/rooms_gf.csv`). CAD: `output/taif_ground_floor_V5.dxf`. Room studies: `output/guest_wing.pdf`, `output/east_wing.pdf`. Site test: `output/site_test.pdf`.
+**V5.1 (24 Oct 2026, git tag `v5.1`):** the first-floor projection is split (0.675 m inward, 0.675 m outward), so the **three columns at x 5.6 are removed**. The ground floor under the inward part (x 4.25–4.925) has a normal-height ceiling; the first-floor west wall stands 0.675 m beyond the ground-floor west wall (south of y 10.4) on cantilever beams, shading the west wall and roofing the guest entrance. No room changes. Top open item: municipality / engineering office to confirm the first-floor projection 0.11 m from the M line; if not allowed, back to V5.0 (tag `v5.0`).
+
+This is the master description of the ground floor. Drawing: `output/design_gf.pdf` (from `design_gf.typ` + `data/rooms_gf.csv`). CAD: `output/taif_ground_floor_V5.1.dxf`. Room studies: `output/guest_wing.pdf`, `output/east_wing.pdf`. Site test: `output/site_test.pdf`.
 
 ## 1. Coordinates, site and placement
 
@@ -124,12 +126,13 @@ Areas from `tools/schedule.py` (axes = wall centre lines; clear = finished faces
 | V3.3 | 16 Oct 2026 | Building 0.5 m longer to the south; future lift + entry cupboard; hospitality kitchen; serving 1.4 m, guest WC on the majlis line, trough basin, foyer double door + 1.8 m opening. |
 | V3.4 | 16 Oct 2026 | Air tower 1.2 → 1.0 m deep; maid wing 0.2 m north. |
 | **V4.0** | **16 Oct 2026** | **Ground floor final:** the freed 0.2 m goes to the maid bath (1.8 m deep), maid room back to V3.3 (≈ 6.0 m² clear, target dropped); east duct placed; repo cleaned (`taif_house/`, `docs/`, `output/`, `archive/`); first-floor starting point. |
-| **V5.0** | **20 Oct 2026** | **First floor designed** (studies/ff_family.typ, studies/ff_suite.typ); ground floor coordinated: east duct removed, three columns for the first-floor west projection. |
+| V5.0 | 20 Oct 2026 | First floor designed (studies/ff_family.typ, studies/ff_suite.typ); ground floor coordinated: east duct removed, three columns for the first-floor west projection. |
+| **V5.1** | **24 Oct 2026** | **Split first-floor projection** (0.675 in + 0.675 out): the three columns removed; M-line approval pending. |
 
 ## 6. Files and how to check
 
 - **Ground floor:** `design_gf.typ` + `data/rooms_gf.csv` (site from `base.typ`).
-- **First floor (V5.0):** `design_ff.typ` + `data/rooms_ff.csv`, room design in `studies/ff_family.typ` and `studies/ff_suite.typ`. Brief and decisions: `docs/FIRST_FLOOR_BRIEF.md`. Construction notes: `docs/DETAILS.md`.
+- **First floor (V5.1):** `design_ff.typ` + `data/rooms_ff.csv`, room design in `studies/ff_family.typ` and `studies/ff_suite.typ`. Brief and decisions: `docs/FIRST_FLOOR_BRIEF.md`. Construction notes: `docs/DETAILS.md`.
 - **Studies:** `studies/guest_wing.typ`, `studies/east_wing.typ`, `studies/site_test.typ` + `studies/building.csv`.
 - **Tools:**
   - `python taif_house/tools/check.py` compiles everything into `output/`, cross-checks the studies and the CSV, rebuilds the DXF, and must end with **ALL CHECKS PASSED**;

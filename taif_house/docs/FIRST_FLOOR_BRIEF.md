@@ -1,6 +1,39 @@
-# Taif / Palm House · First floor brief · V5.0
+# Taif / Palm House · First floor brief · V5.1
 
-16 Oct 2026 (programme, zoning and first room layout 17 Oct 2026; **V5.0 design 18–20 Oct 2026**) · the first floor on top of the ground floor (`docs/GROUND_FLOOR_V4.md`).
+16 Oct 2026 (programme, zoning and first room layout 17 Oct 2026; V5.0 design 18–20 Oct 2026; **V5.1 24 Oct 2026**) · the first floor on top of the ground floor (`docs/GROUND_FLOOR_V4.md`).
+
+## V5.1 · split west projection, rectangular gym (24 Oct 2026 · git tag `v5.1`)
+
+V5.1 = V5.0 with two owner decisions on two study branches:
+- **Split projection, accepted** (branch `v5-split-projection`, record in `docs/VARIANT_SP.md`):
+  - the V5.0 1.35 m projection becomes 0.675 m inward over the courtyard and the double-height void (x 4.25–4.925, a plain cantilever, **no columns**) plus 0.675 m outward beyond the ground-floor west wall (x 0 → −0.675, south of y 10.4);
+  - the whole west band (bedrooms 2 and 3, bedroom 3 bath, wardrobe niche, gallery, owner's office, gym route) moves 0.675 m west; stair, lift, landing and west shaft stay, so the west face steps out at y 10.4.
+- **L-shaped gym, rejected** (branch `v5-gym-L`, kept for reference): it took 3.45 m² from the suite court and put treadmill noise against the master bedroom. The gym stays a rectangle along the south facade, not touching the suite bedroom; the treadmill moves to its west end.
+
+| Item | V5.0 | V5.1 |
+|---|---|---|
+| Courtyard sky opening, axes / ≈ clear | 3.35 / 3.15 m | **4.025 / 3.825 m** |
+| Double-height void width, axes | 3.35 m | **4.025 m** |
+| West rooms, axes / ≈ clear | 4.25 / 4.025 m | 4.25 / 4.025 m |
+| Gallery, axes / ≈ clear | 1.35 / 1.225 m | 1.35 / 1.225 m |
+| Columns in the courtyard / living | 3 on x 5.6 | none |
+| First-floor west face → M line | 0.785 m | **0.11 m** |
+| Family bath | 2.75 × 1.8 = 4.95 m² | **2.075 × 1.8 = 3.74 m²** |
+| Wardrobe niche (bedroom 2) | 1.5 m, 0.90 m² | 2.175 m, 1.31 m² |
+| Gym | 9.06 × 2.75 = 24.92 m² | 9.74 × 2.75 = 26.77 m² |
+| Suite court (open to the sky) | 7.71 × 2.0 = 15.42 m² | 8.39 × 2.0 = 16.77 m² |
+| Circulation | 45.72 m² | 43.90 m² |
+
+**Gym layout (V5.1, `studies/ff_suite.typ`):**
+- *Treadmill* (0.9 × 2.0 m) at the gym's *west end*, away from the master suite, with **0.5 m clear behind** (to the office wall) **and on each side**, on a dense rubber floor with anti-vibration pads. It runs along the gym's **length** (east–west, the user facing east), not its depth: along the depth it would take 2.5 m of the 2.525 m clear depth and block the only way from the door (also at the west end) to the rest of the gym.
+- Along the south wall to the east: barbell + rack, kettlebells, pull-up bar (wall), pilates mat, one cardio machine (bike), an *optional bench at the east end*.
+- A 1.0 m clear walkway along the north wall from the door to the east end; the door landing is free (checked).
+
+**Engineer:** the first-floor west wall on cantilever beams (beam depth, wall load, deflection); confirm that the 0.675 m inward cantilever needs no columns.
+
+**Top open item, before construction drawings:** municipality / engineering office to confirm that an upper-floor projection 0.11 m from the M line is allowed. If not, go back to the V5.0 solution (full 1.35 m inward projection on three columns at x 5.6, tag `v5.0`).
+
+*The V5.0 section below is kept as the record of V5.0; its west projection, family bath, gym and suite court sizes are superseded by the table above.*
 
 ## V5.0 · the first floor as designed (20 Oct 2026 · git tag `v5.0`)
 

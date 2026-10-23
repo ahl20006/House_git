@@ -1,7 +1,7 @@
-// presentation.typ · Taif / Palm House · V5.0 VARIANT SP (split projection) presentation set (ground floor + first floor) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V5.0-SP_presentation.pdf
-// Branch v5-split-projection (24 Oct 2026): the V5.0 set (output/Taif_House_V5.0_presentation.pdf) stays as it was; this file draws the variant.
-// Reads the V5.0 data: data/rooms_gf.csv, data/rooms_ff.csv, the ground-floor studies (fixtures) and the first-floor studies
+// presentation.typ · Taif / Palm House · V5.1 presentation set (ground floor + first floor) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V5.1_presentation.pdf
+// V5.1 (24 Oct 2026): the split west projection (V5.1) accepted, M-line approval pending; rectangular gym, treadmill at its west end.
+// Reads the V5.1 data: data/rooms_gf.csv, data/rooms_ff.csv, the ground-floor studies (fixtures) and the first-floor studies
 // (doors, windows, furniture). Walls are drawn with thickness from the room outlines (250 mm outer, 200 mm inner,
 // 100 mm dry partitions, thin balustrades on the voids). Ground-floor doors and windows that no study fixes are indicative.
 #import "@preview/cetz:0.4.2"
@@ -28,7 +28,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 8pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(9pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(7pt, fill: soft)[V5.0 · VARIANT SP (SPLIT PROJECTION) / 24 OCT 2026])
+  grid(columns: (1fr, auto), text(9pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(7pt, fill: soft)[V5.1 / 24 OCT 2026])
   v(1pt)
   text(18pt, weight: "bold")[#title]
   linebreak()
@@ -95,7 +95,7 @@
   rect-pts(x - w / 2, y - d / 2, x + w / 2, y + d / 2)
 }
 #let outline-csv = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
-#let ff-outline-csv = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (-0.675, 24.0), (-0.675, 10.4), (0, 10.4))   // variant SP: the FF west face 0.675 m out from y 10.4
+#let ff-outline-csv = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (-0.675, 24.0), (-0.675, 10.4), (0, 10.4))   // V5.1: the FF west face 0.675 m out from y 10.4
 #let outer-segs = range(5).map(i => (outline-csv.at(i), outline-csv.at(calc.rem(i + 1, 5)))) + range(7).map(i => (ff-outline-csv.at(i), ff-outline-csv.at(calc.rem(i + 1, 7))))
 #let tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))
 
@@ -201,7 +201,7 @@
     (10.4, 15.1, 12.0, 17.1, [dining table]), (9.85, 15.35, 10.3, 15.8, []), (9.85, 16.4, 10.3, 16.85, []), (12.1, 15.35, 12.55, 15.8, []), (12.1, 16.4, 12.55, 16.85, []),
   )
 )
-#let gf-columns = ()   // variant SP: the three V5.0 columns on x 5.6 are removed
+#let gf-columns = ()   // V5.1: the three V5.0 columns on x 5.6 are removed
 #let ff-doors = (fam.doors + suite.doors).map(d => (a: d.a, b: d.b, into: d.into,
   kind: if not d.open { "hinged" } else if lower(repr(d.label)).contains("sliding") { "sliding" } else { "open" }))
 #let ff-windows = fam.windows + suite.windows
@@ -346,7 +346,7 @@
 #let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (9.6, 1.9), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2))
 
 // ===================================================================================== SHEET 01 · site
-#sheet-head([V5.0 variant SP · the house on its site], [Variant SP: the first-floor projection split 0.675 m in + 0.675 m out | ground floor without columns | site-test option Z4 | shift (0.91, 3.525) m, rotation 0° | 250 mm outer / 200 mm inner walls])
+#sheet-head([V5.1 · the house on its site], [Split first-floor projection 0.675 m in + 0.675 m out (M-line approval pending) | ground floor without columns | site-test option Z4 | shift (0.91, 3.525) m, rotation 0° | 250 mm outer / 200 mm inner walls])
 #grid(columns: (auto, 1fr), column-gutter: 16pt,
   cetz.canvas(length: 0.37cm, {
     import cetz.draw: *
@@ -369,8 +369,8 @@
   }),
   [
     #ar[
-      #ah[ما هو البديل SP؟]
-      بديل للنسخة V5.0 للدراسة فقط (فرع v5-split-projection) ولم يعتمد بعد. نسخة V5.0 تجمع الدورين: الدور الأرضي V4.0 بعد تنسيقه مع الدور الأول، والدور الأول مصمم غرفة غرفة مع الأثاث والأبواب والتصريف. كل الأرقام في هذه اللوحات مأخوذة مباشرة من ملفات المشروع (data/rooms_gf.csv و data/rooms_ff.csv والدراسات)، فلا يوجد رقم مكتوب يدويا.
+      #ah[ما هو V5.1؟]
+      نسخة V5.1 تجمع الدورين: الدور الأرضي V4.0 بعد تنسيقه مع الدور الأول، والدور الأول مصمم غرفة غرفة مع الأثاث والأبواب والتصريف. كل الأرقام في هذه اللوحات مأخوذة مباشرة من ملفات المشروع (data/rooms_gf.csv و data/rooms_ff.csv والدراسات)، فلا يوجد رقم مكتوب يدويا.
 
       #ah[المبنى في الموقع]
       مخمس على خيار Z4 بأبعاد 13.311 × 24.0 م على المحاور (13.561 × 24.25 م من الخارج)، مع قطع الركن الشمالي الشرقي موازيا للزقاق حتى عمق 6 م. الإزاحة عن المرجع (0.91، 3.525) م بلا دوران. النخلتان P1 و P2 خارج الواجهة الجنوبية.
@@ -378,20 +378,20 @@
       #ah[الفكرة]
       فناء في الوسط، ومجلس النساء شماله، والصالة بارتفاع مزدوج جنوبه. شريط خدمات غربي (المصعد المستقبلي، الدرج المفتوح، الشفت، كتلة المغاسل) وكتلة خدمات شرقية (المطبخ، الغسيل، غرفة الخادمة، برج الهواء). مجلس الرجال على كامل العرض جنوبا بمدخل مستقل.
 
-      #ah[الجديد في البديل SP]
-      في V5.0 كان البروز الغربي 1.35 م كله فوق الفناء والصالة على ثلاثة أعمدة. في هذا البديل يقسم البروز: 0.675 م إلى الداخل فوق الفناء والصالة (كابولي بسيط بلا أعمدة)، و0.675 م إلى الخارج بعد الجدار الغربي للأرضي (الجدار الغربي للدور الأول على كوابيل). ينتقل الشريط الغربي كله 0.675 م غربا، فيتسع عرض السماء فوق الفناء وفراغ الصالة من 3.35 إلى #n2(sp.sp.sky) م، وتبقى الغرف 4.25 م والممر 1.35 م. الواجهة الغربية للدور الأول على بعد #n2(sp.sp.m-gap) م من خط M.
+      #ah[الجديد في V5.1]
+      في V5.0 كان البروز الغربي 1.35 م كله فوق الفناء والصالة على ثلاثة أعمدة. في V5.1 يقسم البروز: 0.675 م إلى الداخل فوق الفناء والصالة (كابولي بسيط بلا أعمدة)، و0.675 م إلى الخارج بعد الجدار الغربي للأرضي (الجدار الغربي للدور الأول على كوابيل). ينتقل الشريط الغربي كله 0.675 م غربا، فيتسع عرض السماء فوق الفناء وفراغ الصالة من 3.35 إلى #str(calc.round(sp.sp.sky, digits: 3)) م، وتبقى الغرف 4.25 م والممر 1.35 م. الواجهة الغربية للدور الأول على بعد #n2(sp.sp.m-gap) م من خط M. *شرط قبل المخططات التنفيذية:* تؤكد البلدية أو المكتب الهندسي أن هذا البروز مسموح، وإلا نعود إلى حل V5.0 (بروز داخلي 1.35 م على ثلاثة أعمدة على x 5.6).
     ]
     #v(6pt)
     #grid(columns: (1fr, 1fr, 1fr), column-gutter: 6pt, row-gutter: 6pt,
       kpi[#n2(footprint) m²][outside footprint (incl. courtyard)], kpi[#n2(gf-area) m²][ground floor rooms (axes)], kpi[#n2(ff-area) m²][first floor rooms (axes)],
-      kpi[4.50 × 6.30 m][courtyard, clear · sky #n2(sp.sp.sky) m axes above], kpi[#n2(suite-area) m²][master suite (indoors)], kpi[0.785 / #n2(sp.sp.m-gap) m][west face to the M line, GF / FF],
+      kpi[4.50 × 6.30 m][courtyard, clear · sky #str(calc.round(sp.sp.sky, digits: 3)) m axes above], kpi[#n2(suite-area) m²][master suite (indoors)], kpi[0.785 / #n2(sp.sp.m-gap) m][west face to the M line, GF / FF],
     )
   ],
 )
 
 // ===================================================================================== SHEET 02 · ground floor
 #pagebreak()
-#sheet-head([Ground floor V5.0 variant SP], [V4.0 + first-floor coordination: no east duct, no columns | orange dashed = FF cantilever edge over the courtyard (x 4.925) and the FF west wall above (x −0.675) | brown = 1.20 m low partition | doors and windows outside the two studied blocks are indicative])
+#sheet-head([Ground floor V5.1], [V4.0 + first-floor coordination: no east duct, no columns | orange dashed = FF cantilever edge over the courtyard (x 4.925) and the FF west wall above (x −0.675) | brown = 1.20 m low partition | doors and windows outside the two studied blocks are indicative])
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: 0.555cm, {
     import cetz.draw: *
@@ -418,22 +418,22 @@
       #ah[الكتلة الشرقية]
       المطبخ 4.361 × 6.5 م بخطي خزائن، والغسيل، وغرفة الخادمة وحمامها حتى الجدار المائل، وبرج الهواء في الطرف الشمالي. الوصول للخادمة من المطبخ فقط.
 
-      #ah[تغييرات V5.0 والبديل SP]
-      ألغي الشفت الشرقي في ركن المطبخ: الشفاط يخرج مباشرة من الجدار الشرقي، وماسورة التهوية على الوجه الخارجي للجدار. في البديل SP ألغيت الأعمدة الثلاثة على x 5.6: البروز الداخلي 0.675 م فقط كابولي بسيط (الخط البرتقالي على x 4.925). الجدار الغربي للدور الأول فوق الأرضي بـ 0.675 م خارج الجدار الغربي (الخط البرتقالي على x −0.675)، فيظلل الجدار الغربي من شمس العصر ويغطي مدخل الضيوف.
+      #ah[تغييرات V5.0 و V5.1]
+      ألغي الشفت الشرقي في ركن المطبخ: الشفاط يخرج مباشرة من الجدار الشرقي، وماسورة التهوية على الوجه الخارجي للجدار. في V5.1 ألغيت الأعمدة الثلاثة على x 5.6: البروز الداخلي 0.675 م فقط كابولي بسيط (الخط البرتقالي على x 4.925). الجدار الغربي للدور الأول فوق الأرضي بـ 0.675 م خارج الجدار الغربي (الخط البرتقالي على x −0.675)، فيظلل الجدار الغربي من شمس العصر ويغطي مدخل الضيوف.
     ]
   ],
 )
 
 // ===================================================================================== SHEET 03 · first floor
 #pagebreak()
-#sheet-head([First floor V5.0 variant SP], [Projection split: 0.675 m over the courtyard and the void (no columns) + 0.675 m beyond the GF west wall (y 10.4–24) | hatched = open below / to the sky | furniture from the two first-floor studies])
+#sheet-head([First floor V5.1], [Projection split: 0.675 m over the courtyard and the void (no columns) + 0.675 m beyond the GF west wall (y 10.4–24) | hatched = open below / to the sky | furniture from the two first-floor studies])
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: 0.555cm, {
     import cetz.draw: *
     draw-floor(ff-rooms, ff-walls, ff-doors, ff-windows, ff-furniture, beam: ((0, 10.4), (0, 24.0)), label-at: ff-label-at)
     dim((-0.125, 0), (13.436, 0), (0, -1.0), [13.561 m outside])
     dim((-0.8, 10.4), (-0.8, 24.125), (-0.9, 0), [13.73 m])
-    dim((4.925, 11.6), (8.95, 11.6), (0, 0), [#n2(sp.sp.sky) m sky])
+    dim((4.925, 11.6), (8.95, 11.6), (0, 0), [#str(calc.round(sp.sp.sky, digits: 3)) m sky])
     dim((3.575, 18.6), (4.925, 18.6), (0, 0), [1.35])
     dim((-0.675, 23.2), (0, 23.2), (0, 0), [0.675])
     north-arrow((14.6, 1.0))
@@ -441,8 +441,8 @@
   }),
   [
     #ar[
-      #ah[البروز المقسوم والممر العلوي (البديل SP)]
-      البروز 1.35 م مقسوم: 0.675 م إلى الداخل على حافة الفناء والصالة (من y 6.5 إلى y 19.25) كابولي بلا أعمدة، و0.675 م إلى الخارج بعد الجدار الغربي للأرضي (من y 10.4 إلى y 24، الخط البرتقالي = الجدار الغربي للأرضي تحته). الممر العلوي 1.35 م (نحو 1.23 م صافي) والغرف 4.25 م (نحو 4.0 م صافي) كما في V5.0، لكن الشريط كله انتقل 0.675 م غربا. عرض السماء فوق الفناء وفراغ الصالة #n2(sp.sp.sky) م على المحاور (كان 3.35 م). الدرج والمصعد والشفت في مكانها، لذلك تبرز الواجهة جنوب y 10.4.
+      #ah[البروز المقسوم والممر العلوي (V5.1)]
+      البروز 1.35 م مقسوم: 0.675 م إلى الداخل على حافة الفناء والصالة (من y 6.5 إلى y 19.25) كابولي بلا أعمدة، و0.675 م إلى الخارج بعد الجدار الغربي للأرضي (من y 10.4 إلى y 24، الخط البرتقالي = الجدار الغربي للأرضي تحته). الممر العلوي 1.35 م (نحو 1.23 م صافي) والغرف 4.25 م (نحو 4.0 م صافي) كما في V5.0، لكن الشريط كله انتقل 0.675 م غربا. عرض السماء فوق الفناء وفراغ الصالة #str(calc.round(sp.sp.sky, digits: 3)) م على المحاور (كان 3.35 م). الدرج والمصعد والشفت في مكانها، لذلك تبرز الواجهة جنوب y 10.4.
 
       #ah[الشريط الشمالي]
       غرفة الأطفال (دراسة وألعاب) 4.7 × 3.0 م، وجلسة العائلة 4.7 × 3.5 م على حافة الفناء: إطلالة لا ممر، والطريق إلى جناح الوالدين خلف الكنبة.
@@ -461,7 +461,7 @@
 
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
-#sheet-head([First floor / the family part · variant SP], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the inward 0.675 m; the west band 0.675 m out | furnished test from studies/ff_family.typ])
+#sheet-head([First floor / the family part · V5.1], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the inward 0.675 m; the west band 0.675 m out | furnished test from studies/ff_family.typ])
 #let fam-focus = ("Landing (stair top)", "Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair", "Lift shaft (future)", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: 0.7cm, {
@@ -493,7 +493,7 @@
 
 // ===================================================================================== SHEET 05 · the L and the master suite
 #pagebreak()
-#sheet-head([First floor / office, gym, suite court and master suite · variant SP], [The L from the gallery end to the family link; office and gym route 0.675 m west | furnished test from studies/ff_suite.typ | sliding doors to the office, gym, WC closet and court])
+#sheet-head([First floor / office, gym, suite court and master suite · V5.1], [The L from the gallery end to the family link; office and gym route 0.675 m west; treadmill at the gym's west end | furnished test from studies/ff_suite.typ | sliding doors to the office, gym, WC closet and court])
 #let l-focus = ("Gym route", "Owner's office", "Gym", "Suite court (open to the sky)", "Suite lobby", "Suite bath", "Suite WC (closet)", "Suite dressing", "Suite bedroom")
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: 0.62cm, {
@@ -521,7 +521,7 @@
       مغلق من الجهات الأربع ومفتوح للسماء أمام نافذتي الصالة العلويتين؛ على حافة سطح النادي درابزين لا دروة حتى تصل شمس الشتاء للنوافذ.
 
       #ah[المكتب والنادي]
-      مكتب المالك 4.25 × 4.75 م = 20.2 م² (جلسة ومكتبة في الشمال، ومكتب بكرسيين للزوار في الجنوب)، انتقل 0.675 م غربا وجداره الغربي على الكوابيل فوق مدخل الضيوف. النادي 9.74 × 2.75 م (كان 9.06) على طول الواجهة الجنوبية. البابان منزلقان من ممر النادي.
+      مكتب المالك 4.25 × 4.75 م = 20.2 م² (جلسة ومكتبة في الشمال، ومكتب بكرسيين للزوار في الجنوب)، انتقل 0.675 م غربا وجداره الغربي على الكوابيل فوق مدخل الضيوف. النادي مستطيل 9.74 × 2.75 م (كان 9.06) على طول الواجهة الجنوبية لا يلامس غرفة النوم الرئيسية، والبابان منزلقان من ممر النادي. جهاز المشي في الطرف الغربي للنادي بعيدا عن الجناح، بمسافة 0.5 م خلفه وعلى جانبيه، على أرضية مطاط كثيفة ووسائد ضد الاهتزاز؛ ثم الأثقال والكيتل بل وعقلة السحب وبساط البيلاتس وجهاز كارديو، ومقعد اختياري في الطرف الشرقي. رفض النادي على شكل L لأنه يصغر فناء الجناح ويضع ضجيج جهاز المشي بجوار غرفة النوم الرئيسية.
     ]
   ],
 )
@@ -572,9 +572,9 @@
   ],
 )
 
-// ===================================================================================== SHEET 07 · variant SP against V5.0
+// ===================================================================================== SHEET 07 · V5.1 against V5.0 (record of the split-projection decision)
 #pagebreak()
-#sheet-head([Variant SP against V5.0], [V5.0 from git tag v5.0 | variant read live from data/rooms_ff.csv | clear ≈ axes − ½ wall each side; sky clear = axes − 0.10 east wall − 0.10 slab edge with railing])
+#sheet-head([V5.1 against V5.0 · the split-projection decision], [Record: variant SP studied and accepted on 24 Oct 2026 | V5.0 from git tag v5.0 | V5.1 read live from data/rooms_ff.csv | clear ≈ axes − ½ wall each side; sky clear = axes − 0.10 east wall − 0.10 slab edge with railing])
 #grid(columns: (1.3fr, 1fr), column-gutter: 16pt,
   [
     #sp.compare-table(size: 7.4pt)
@@ -602,7 +602,7 @@
 
 // ===================================================================================== SHEET 08 · area schedules
 #pagebreak()
-#sheet-head([Areas / room schedules V5.0 variant SP], [Axes = wall centre lines | clear = inside the walls as drawn (250 mm outer, 200 mm inner, 100 mm partitions, thin balustrades), furniture and thresholds not deducted])
+#sheet-head([Areas / room schedules V5.1], [Axes = wall centre lines | clear = inside the walls as drawn (250 mm outer, 200 mm inner, 100 mm partitions, thin balustrades), furniture and thresholds not deducted])
 #let sched(rooms, spec) = table(columns: (auto, 1fr, auto, auto, auto), stroke: none, inset: 2.2pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   text(6.4pt, weight: "bold", fill: accent)[ID], text(6.4pt, weight: "bold", fill: accent)[Space], text(6.4pt, weight: "bold", fill: accent)[Axis size], text(6.4pt, weight: "bold", fill: accent)[Axis area], text(6.4pt, weight: "bold", fill: accent)[≈ Clear],
   ..rooms.map(r => {
@@ -622,7 +622,7 @@
 
 // ===================================================================================== SHEET 09 · for the engineer
 #pagebreak()
-#sheet-head([For the engineers / open items V5.0 variant SP], [Variant notes in docs/VARIANT_SP.md, V5.0 notes in docs/DETAILS.md | drawings: design_gf, design_ff and the studies | CAD: output/taif_ground_floor_V5.dxf])
+#sheet-head([For the engineers / open items V5.1], [Full notes in docs/DETAILS.md, study record docs/VARIANT_SP.md | drawings: design_gf, design_ff and the studies | CAD: output/taif_ground_floor_V5.1.dxf])
 #grid(columns: (auto, 1fr), column-gutter: 16pt,
   cetz.canvas(length: 0.42cm, {
     import cetz.draw: *
@@ -634,10 +634,13 @@
   }),
   [
     #ar[
-      #ah[1 · الكابولي الداخلي (البديل SP)]
+      #ah[0 · شرط قبل المخططات التنفيذية (البند الأول)]
+      تؤكد البلدية أو المكتب الهندسي أن بروز الدور العلوي على بعد #n2(sp.sp.m-gap) م من خط M مسموح. إن لم يسمح نعود إلى حل V5.0 (بروز داخلي 1.35 م على ثلاثة أعمدة على x 5.6، tag v5.0).
+
+      #ah[1 · الكابولي الداخلي (V5.1)]
       بلاطة 0.675 م بعد خط الفناء x 4.25 على طول y 6.5 إلى 19.25، تحمل الممر العلوي ودرابزينه فقط، بحر خلفي 1.5 م: لا أعمدة ولا جسر حافة (الخط المتقطع). يؤكد المهندس سماكة البلاطة وجسر x 4.25 وتثبيت الدرابزين.
 
-      #ah[8 · جدار على كوابيل (البديل SP)]
+      #ah[8 · جدار على كوابيل (V5.1)]
       الجدار الغربي للدور الأول (250 مم، نحو 3.6 م ارتفاعا مع الدروة) على بعد 0.675 م خارج الجدار الغربي للأرضي، من y 10.4 إلى y 24 (الخط البرتقالي): كوابيل عند الجدران العرضية بحر خلفي 2.75 م وجسر تحت الجدار. يحدد المهندس عمق الكوابيل وحمل الجدار والترخيم (حد التشقق). الواجهة على بعد #n2(sp.sp.m-gap) م من خط M: موافقة البلدية مطلوبة.
 
       #ah[2 · النادي فوق مجلس الرجال]

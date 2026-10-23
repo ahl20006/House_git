@@ -1,6 +1,6 @@
-# Variant SP · split projection (study, not approved)
+# Variant SP · split projection (study record · ACCEPTED in V5.1)
 
-Taif / Palm House · 24 Oct 2026 · branch `v5-split-projection`, built from V5.0 (tag `v5.0`). **Not merged into `main`; waiting for the owner's decision.** The main docs (`notes.md`, `NEXT_SESSION.md`, `DETAILS.md`, the briefs) still describe V5.0 and were not changed.
+Taif / Palm House · 24 Oct 2026 · branch `v5-split-projection`, built from V5.0 (tag `v5.0`). **Accepted by the owner on 24 Oct 2026 and merged into `main` as V5.1 (tag `v5.1`)**, on the condition that the municipality / engineering office allows the first-floor projection 0.11 m from the M line (else back to V5.0). This file is the study as made; the current design is described in `FIRST_FLOOR_BRIEF.md` (V5.1), `DETAILS.md` and `notes.md`.
 
 ## The idea
 - **V5.0:** the first-floor west band sits on a 1.35 m projection that sticks out entirely over the courtyard and the double-height void. The gallery is on the projection (x 4.25–5.6), the west rooms are 4.25 m wide, and there are three columns with an edge beam on x 5.6.

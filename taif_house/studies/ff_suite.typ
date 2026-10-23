@@ -1,7 +1,7 @@
 // ff_suite.typ · Taif / Palm House · FIRST FLOOR · focus study of the L: owner's office → gym route → gym → court → MASTER SUITE (compile THIS file)
-// First floor V5.0 VARIANT SP (split projection, 24 Oct 2026, branch v5-split-projection), part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
+// First floor V5.1 (24 Oct 2026: the split west projection of variant SP accepted; rectangular gym with the treadmill at its west end), part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, x east, y SOUTH) = the main first-floor CSV coordinates (../data/rooms_ff.csv): no conversion.
-// Starting point: the V4.1 suite, fitted to the family study (straight wall y 6.5, no east duct). V5.0: the room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ).
+// Starting point: the V4.1 suite, fitted to the family study (straight wall y 6.5, no east duct). V5.1: the room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ).
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 10mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.2pt)
@@ -9,7 +9,7 @@
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- The focus zone (wall centre lines): the suite east of the courtyard / double-height living (x 8.95–13.311, y 6.5–24) + the light strip and the gym on the men's majlis roof ----------
-#let zone = ((8.95, 6.5), (13.311, 6.5), (13.311, 24.0), (-0.675, 24.0), (-0.675, 19.25), (8.95, 19.25))   // variant SP: the west end 0.675 m beyond the GF west wall
+#let zone = ((8.95, 6.5), (13.311, 6.5), (13.311, 24.0), (-0.675, 24.0), (-0.675, 19.25), (8.95, 19.25))   // V5.1: the west end 0.675 m beyond the GF west wall
 #let plan-scale = 0.68cm
 
 // ---------- Neighbours (grey; the family part, fixed by studies/ff_family.typ) ----------
@@ -67,6 +67,20 @@
   D((3.575, 19.4), (3.575, 20.45), [office (sliding)], "Owner's office", (-1, 0), open: true),
 )
 
+// ---------- The treadmill (V5.1): west end of the gym, running along the gym's length (E–W), the user facing east ----------
+// clear zones (owner + safety standard): ≥ 0.5 m behind (to the office wall) and ≥ 0.5 m each side. Running it along the gym's depth (N–S) does not
+// fit: 2.0 + 0.5 = 2.5 m of the 2.525 m clear depth, so nobody could pass it to the rest of the gym (the gym's only door is at the west end too).
+#let tm-clear = 0.5
+#let tm-x0 = 3.575 + 0.1 + tm-clear          // the office wall (x 3.575, 200 mm) + 0.5 m behind
+#let tm-y1 = 24.0 - 0.125 - tm-clear         // the south outer wall + 0.5 m on the south side
+#let tm = (tm-x0, tm-y1 - 0.9, tm-x0 + 2.0, tm-y1)
+#let tm-zones = (
+  ("behind", (3.675, tm.at(1), tm.at(0), tm.at(3))),
+  ("north side", (tm.at(0), tm.at(1) - tm-clear, tm.at(2), tm.at(1))),
+  ("south side", (tm.at(0), tm.at(3), tm.at(2), tm.at(3) + tm-clear)),
+)
+#let gym-door-zone = (3.725, 21.35, 4.775, 22.25)   // 0.9 m inside the sliding gym door
+
 // ---------- Furniture and fixtures (x0, y0, x1, y1, label) ----------
 #let furniture = (
   // luxury bath, compact: WC in its own closet by the drain stack, walk-in glass shower on the east wall, freestanding tub by the east window, double vanity on the west (lobby) wall facing the east light, towel cupboard; the north wall kept clear as the path from the door to the WC closet
@@ -82,8 +96,11 @@
   // owner's office: desk with visitor chairs in the south-west square, sofa and bookshelves in the north bar
   (-0.075, 22.2, 1.525, 23.0, [desk 1.6 × 0.8]), (2.225, 23.3, 3.475, 23.875, [cabinet]), (2.525, 21.7, 3.475, 22.9, [meeting chairs]), (0.475, 23.15, 0.975, 23.65, []), (0.125, 21.45, 0.625, 21.95, []), (0.825, 21.45, 1.325, 21.95, []),
   (-0.55, 19.35, -0.15, 21.1, [bookshelves]), (0.325, 19.35, 2.525, 20.15, [sofa]), (0.925, 20.4, 1.925, 20.9, [table]),
-  // gym
-  (4.4, 22.15, 6.3, 23.8, [rack · weights]), (6.5, 22.15, 8.8, 23.8, [mats · pilates · pull-up]), (9.05, 22.0, 10.45, 23.8, [treadmill · cardio]), (10.65, 22.0, 11.6, 23.8, [bench]), (11.85, 22.0, 13.186, 23.8, [bike · rower]),
+  // gym (V5.1): the treadmill at the WEST end, away from the master suite, on a dense rubber floor with anti-vibration pads (see tm below);
+  // along the south wall to the east: barbell + rack, kettlebells, pull-up bar, pilates mat, one cardio machine, an optional bench at the east end
+  (tm.at(0), tm.at(1), tm.at(2), tm.at(3), [treadmill → E]),
+  (6.5, 22.45, 8.3, 23.8, [barbell · rack]), (8.45, 23.2, 9.25, 23.8, [kettlebells]), (8.45, 22.45, 9.65, 23.0, [pull-up bar (wall)]),
+  (9.8, 22.6, 11.8, 23.6, [pilates mat]), (11.95, 22.45, 12.6, 23.8, [cardio (bike)]), (12.75, 22.45, 13.15, 23.65, [bench (optional)]),
 )
 #let windows = (((-0.675, 19.6), (-0.675, 20.9)), ((-0.675, 22.0), (-0.675, 23.5)), ((-0.175, 24), (1.625, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.6), (13.311, 10.35)), ((13.311, 15.0), (13.311, 18.6)),
   ((3.825, 24), (13.0, 24)), ((2.225, 24), (3.225, 24)), ((5.9, 21.25), (8.6, 21.25)), ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))
@@ -98,6 +115,7 @@
 #let routes = (
   ("Suite lobby", rect-pts(8.95, 6.5, 10.3, 11.9), 0.2, [½ wall each side]),
   ("Gym route", rect-pts(3.575, 19.25, 4.925, 21.25), 0.2, [½ wall each side]),
+  ("Gym walkway (door → east end)", rect-pts(3.575, 21.25, 13.311, 22.35), 0.1, [½ wall on the north side; the south side is the equipment line]),
 )
 #let paths = (
   ("Suite door → bedroom door", ((9.55, 6.5), (9.5, 11.9))),
@@ -188,6 +206,14 @@
     let (x0, y0, x1, y1) = bbox(P)
     if calc.min(x1 - x0, y1 - y0) - w < 1.0 - 1e-6 { out.push("route " + n + " under 1.0 m clear") }
   }
+  // the treadmill: its clear zones inside the gym and free of furniture; the gym door's landing free
+  let gym-clear = (3.675, 21.35, 13.186, 23.875)
+  for (n, z) in tm-zones {
+    if z.at(0) < gym-clear.at(0) - 1e-6 or z.at(1) < gym-clear.at(1) - 1e-6 or z.at(2) > gym-clear.at(2) + 1e-6 or z.at(3) > gym-clear.at(3) + 1e-6 { out.push("treadmill zone " + n + " outside the gym") }
+    if calc.min(z.at(2) - z.at(0), z.at(3) - z.at(1)) < tm-clear - 1e-6 { out.push("treadmill zone " + n + " under " + str(tm-clear) + " m") }
+    for f in furniture.filter(f => f.at(4) != [treadmill → E]) { if box-overlap(z, (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push(repr(f.at(4)) + " in the treadmill's " + n + " zone") } }
+  }
+  for f in furniture { if box-overlap(gym-door-zone, (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push(repr(f.at(4)) + " blocks the gym door") } }
   // no window from the suite bedroom onto the double-height living (x 8.95, y 13–19.25)
   for (a, b) in windows { if calc.abs(a.at(0) - 8.95) < 1e-6 and calc.abs(b.at(0) - 8.95) < 1e-6 and calc.max(a.at(1), b.at(1)) > 13.0 and calc.min(a.at(1), b.at(1)) < 19.25 { out.push("window from the suite onto the double-height living") } }
   out
@@ -196,9 +222,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · the L: owner's office → gym route → gym → court → master suite]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V5.0 variant SP (split projection) · 24 Oct 2026 · CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V5.1 · 24 Oct 2026 · CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[Variant SP · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, gym, suite court and master suite · the office and the gym route 0.675 m west]
+#text(10pt, weight: "bold")[First floor V5.1 · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, gym (treadmill at the west end), suite court and master suite]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -235,6 +261,9 @@
       content(q(itf.at), anchor: itf.anchor, box(width: 3.2cm, align(if itf.anchor == "east" { right } else { left }, text(4.8pt, fill: rgb("#2f8a3f"), itf.label))))
     }
     for (P, l) in drains { line(..P.map(q), stroke: (paint: rgb("#1f7a99"), thickness: 0.8pt, dash: "dashed"), mark: (end: ">", fill: rgb("#1f7a99"), scale: 0.35)) }
+    // the treadmill's clear zones (0.5 m) and its rubber floor
+    for (n, z) in tm-zones { rect(q((z.at(0), z.at(1))), q((z.at(2), z.at(3))), fill: rgb("#fdf0d8"), stroke: (paint: rgb("#d08a00"), thickness: 0.3pt, dash: "dotted")) }
+    content(q((4.675, 23.62)), text(3.8pt, fill: rgb("#a06a00"))[0.5 clear · rubber floor])
     // the bed's view: south to the terrace and the palms
     line(q((10.0, 16.1)), q((10.0, 20.2)), stroke: (paint: rgb("#2f8a3f"), thickness: 0.6pt, dash: "dotted"), mark: (end: ">", fill: rgb("#2f8a3f"), scale: 0.4))
     content(q((7.4, 20.75)), box(width: 2.1cm, align(center, text(4.2pt, fill: luma(90))[walled on 4 sides, open to the sky · 2 clerestory windows of the DH living on the north wall])))
@@ -254,7 +283,7 @@
     )
     #text(5.8pt, fill: gray)[Clear ≈ axes minus half a wall on every edge (250 mm outer, 200 mm inner, nothing on open edges), corners ignored.]
     #v(2pt)
-    #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the lobby route · door swings clear · every room has a door reached from the lobby (or its room) · doors from the family part on the interfaces · lobby ≥ 1.0 m clear · no window onto the double-height living] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
+    #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the lobby route and the gym walkway · treadmill 0.5 m behind and each side, gym door free · door swings clear · every room has a door reached from the lobby (or its room) · doors from the family part on the interfaces · lobby ≥ 1.0 m clear · no window onto the double-height living] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(3pt)
     #H[Key numbers]
     - *Suite:* lobby #r2(area(room("Suite lobby").pts)) · bath #r2(area(room("Suite bath").pts)) + WC closet #r2(area(room("Suite WC (closet)").pts)) · dressing #r2(area(room("Suite dressing").pts)) · bedroom #r2(area(room("Suite bedroom").pts)) = *#r2(area(room("Suite lobby").pts) + area(room("Suite bath").pts) + area(room("Suite WC (closet)").pts) + area(room("Suite dressing").pts) + area(room("Suite bedroom").pts)) m² indoors* + terrace #r2(area(room("Suite terrace + light strip (open)").pts)) m².
@@ -269,7 +298,7 @@
 // ================= PAGE 2 · rooms, drains, what changed, questions =================
 #pagebreak()
 #set text(size: 6.9pt)
-#text(15pt, weight: "bold", fill: green)[Master suite + gym + light strip · rooms, drains, what changed, questions]
+#text(15pt, weight: "bold", fill: green)[Master suite + gym + suite court · rooms, drains, what changed, questions · V5.1]
 #v(4pt)
 #grid(columns: (1fr, 1fr), column-gutter: 18pt,
   [
@@ -292,14 +321,16 @@
     - *King bed* 1.8 × 2.0 on the dressing wall, east of the door line, *facing south to the terrace and the palms*; bedside tables. A sitting corner on the solid west wall.
     - *West wall solid:* the double-height living is behind it, no window (checked). Windows east and the sliding door to the terrace (south).
     #v(3pt)
-    #H[Suite terrace + light strip · one private court, 8.39 × 2.0 m (V5.0 7.71), walled on four sides, open to the sky]
+    #H[Suite court (terrace + light strip) · one private court, 8.39 × 2.0 m (V5.0 7.71), walled on four sides, open to the sky]
     - *One space:* the old light strip and the suite terrace together, #r2(area(room("Suite terrace + light strip (open)").pts)) m², from the bedroom only (sliding door). No railing between them any more; the railing / parapet question is now only on the gym edge (y 21.25).
     - *The clerestory windows* of the double-height living (two 1.0 × 1.0 m, in its south wall y 19.25) now open onto the suite terrace: their sill must stay above eye level from the terrace floor (or obscured glass), so the terrace does not look down into the living. To check against the floor levels.
     - *Walled on all four sides, open only to the sky:* north the double-height living's south wall (clerestory) and the suite bedroom (sliding door), south the gym's north wall, west a full wall to the gym route, east the outer wall. Fully private; it works as a light well for the clerestory windows.
     - *Open to the sky:* its own floor drain and waterproofing on the men's majlis roof slab; summer heat can collect in a 2.0 m deep court, so the clerestory windows and the bedroom door should open for air.
     #v(3pt)
-    #H[Gym · 9.74 × 2.75 m (V5.0 9.06), #r2(area(room("Gym").pts)) m²]
-    - *One straight bar* along the south edge (x 3.575–13.311; variant: 0.675 m longer, its west wall follows the office), door (sliding) from the gym route. Rack and weights, mats / pilates / pull-up bar, treadmill and cardio, bench, bike and rower. Windows south (long) and high windows north onto the suite court (obscured, the court is private). Engineer: loads and vibration over the men's majlis.
+    #H[Gym · 9.74 × 2.75 m, #r2(area(room("Gym").pts)) m² · a rectangle (V5.1)]
+    - *One straight bar* along the south facade (x 3.575–13.311; 0.675 m longer than V5.0, its west wall follows the office), sliding door from the gym route at its west end; it does *not* touch the suite bedroom (the suite court lies between). Windows south (long) and high windows north onto the suite court (obscured, the court is private). Engineer: loads and vibration over the men's majlis.
+    - *Treadmill at the west end* (V5.1), away from the master suite: 0.9 × 2.0 m along the gym's length, the user facing east, *0.5 m clear behind* (to the office wall) *and on each side*; a *dense rubber floor* (20–40 mm) under it and its zones, *anti-vibration pads* under its feet. Along the gym's depth (N–S) it would fill 2.5 of the 2.525 m clear depth and block the way to the rest of the gym, so it runs along the length.
+    - *Along the south wall to the east:* barbell + rack, kettlebells, pull-up bar (wall), pilates mat, one cardio machine (bike) and an *optional bench at the east end*. A 1.0 m clear walkway runs along the north wall from the door to the east end (checked: nothing in it, the door landing free).
     - *Light:* the court stays 2.0 m deep in front of the clerestory windows; the gym's north wall is its south side, so the gym roof edge should end in a *railing, not a parapet* (solid top +7.20), to keep ≈ 80 % of the winter noon sun (V4.1 light check).
   ],
   [
@@ -310,7 +341,7 @@
     #v(3pt)
     #H[Walls (engineer)]
     - *On GF lines:* y 6.5 (bedroom 1 / suite: the GF kitchen's north wall), the outer walls, x 8.95 (courtyard / double-height living). The suite bedroom spans the GF kitchen / living wall (y 13.0, dotted) with no wall above it.
-    - *Off the GF lines:* x 10.3 (lobby / bath and dressing), y 10.45 (bath / dressing), x 12.211 and y 8.0 (WC closet), y 11.9 and y 13.9 (bedroom), all over the GF kitchen; on the men's majlis roof: y 21.25 (gym / suite court), x 3.575 (office / gym route and gym), x 4.925 y 19.25–21.25 (gym route / suite court). *Variant SP:* the office's west wall (x -0.675, y 19.25–24) and the south wall's west end (x -0.675–0) stand on the *outward cantilever beams*, over the GF foyer and the guest entrance.
+    - *Off the GF lines:* x 10.3 (lobby / bath and dressing), y 10.45 (bath / dressing), x 12.211 and y 8.0 (WC closet), y 11.9 and y 13.9 (bedroom), all over the GF kitchen; on the men's majlis roof: y 21.25 (gym / suite court), x 3.575 (office / gym route and gym), x 4.925 y 19.25–21.25 (gym route / suite court). *V5.1:* the office's west wall (x -0.675, y 19.25–24) and the south wall's west end (x -0.675–0) stand on the *outward cantilever beams*, over the GF foyer and the guest entrance.
     #v(3pt)
     #H[What changed from V4.1]
     - The suite now starts at the *straight wall on y 6.5*: the lobby is a clean 1.6 × 5.4 rectangle, the bath takes bedroom 1's former tail and bath strip.
@@ -319,11 +350,12 @@
     - *Gym made L-shaped all the way east (18 Oct, undone on 20 Oct)* (10.56 × 2.75 along the south + a 1.6 × 2.0 leg up the east wall to the suite bedroom, no door to it); the terrace (20.7) moves north and joins the light strip as one open space of #r2(area(room("Suite terrace + light strip (open)").pts)) m².
     - *West projection (family study, 19 Oct):* the gallery runs on a 1.35 m projection along the courtyard and the double-height void (x 4.25–5.6); the gym route moves to its end, so the court loses its west 1.35 m (now x 5.6–11.711) and the gym door moves to x 4.45–5.35. The two clerestory windows move into the narrower void (x 6.0–7.0 and 7.6–8.6).
     - *Luxury bath (19 Oct):* the lobby narrows to 1.35 m (≈ 1.15 clear); the bath becomes a compact luxury bath with a WC closet, walk-in glass shower, freestanding tub and a 1.6 m double vanity; dressing and bedroom follow.
-    - *Variant SP (24 Oct):* the west band moves 0.675 m west: the *office* (same 4.25 × 4.75 m) is now x -0.675–3.575, its west wall on the outward cantilever, a canopy over the guest entrance; the *gym route* x 3.575–4.925; the *gym* grows to 9.74 m (its west wall follows the office), the *suite court* to 8.39 m (it starts at the gym route, x 4.925). Suite, lobby, bath, dressing and bedroom unchanged.
+    - *V5.1 · split projection (24 Oct, variant SP accepted):* the west band moves 0.675 m west: the *office* (same 4.25 × 4.75 m) is now x -0.675–3.575, its west wall on the outward cantilever, a canopy over the guest entrance; the *gym route* x 3.575–4.925; the *gym* grows to 9.74 m (its west wall follows the office), the *suite court* to 8.39 m (it starts at the gym route, x 4.925). Suite, lobby, bath, dressing and bedroom unchanged.
+    - *V5.1 · gym:* an L-shaped gym (treadmill arm up to the suite bedroom, branch v5-gym-L) was studied and *rejected*: it took 3.45 m² from the suite court and put treadmill noise against the master bedroom. The gym stays a rectangle; the treadmill moves to its west end.
     - *Clean rectangles (20 Oct, V5.0):* the office becomes one rectangle 4.25 × 4.75 m, the gym one straight bar 9.06 × 2.75 m (its L leg removed), the suite court runs the full width of the bedroom (7.71 × 2.0 m); office and gym doors are sliding, so no swing takes space.
     #v(3pt)
-    #H[Owner's office (the former freed roof) · 4.25 × 4.75 m, #r2(area(room("Owner's office").pts)) m² · gym route · variant: 0.675 m west]
-    - *Owner's decision (19 Oct 2026):* the freed south-west corner becomes the owner's office, an indoor room (walls, roof, windows) over the GF foyer / guest passage and the men's majlis; variant SP: its west 0.675 m is on the outward cantilever.
+    #H[Owner's office (the former freed roof) · 4.25 × 4.75 m, #r2(area(room("Owner's office").pts)) m² · gym route · V5.1: 0.675 m west]
+    - *Owner's decision (19 Oct 2026):* the freed south-west corner becomes the owner's office, an indoor room (walls, roof, windows) over the GF foyer / guest passage and the men's majlis; V5.1: its west 0.675 m is on the outward cantilever.
     - *One rectangle* 4.25 × 4.75 m (the whole west end): sofa, coffee table and bookshelves in the north half; desk 1.6 × 0.8 m with two visitor chairs, a meeting corner and a cabinet in the south half. Windows west (two) and south (two).
     - *Door* (sliding, lockable) from the gym route, ≈ 2 m from the end of the gallery. The gym route serves the office and the gym.
     - *Bedroom 3* loses its small south window (that wall now faces the office); it keeps its west window.

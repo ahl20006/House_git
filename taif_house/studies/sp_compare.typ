@@ -1,4 +1,4 @@
-// sp_compare.typ · Taif / Palm House · VARIANT SP (split projection) · comparison with V5.0 and the east–west sections · 24 Oct 2026
+// sp_compare.typ · Taif / Palm House · V5.1 split projection (variant SP, accepted 24 Oct 2026) · comparison with V5.0 (record of the decision) and the east–west sections
 // Imported by design_ff.typ and presentation.typ (not compiled on its own). The variant numbers are read live from ../data/rooms_ff.csv;
 // the V5.0 numbers are fixed below, taken from git tag v5.0 (data/rooms_ff.csv and design_ff.typ of that version).
 // CSV coordinates (metres): x east, square to the M line, origin = the ground floor's west wall centre line; the M line is at x = -0.91.
@@ -67,7 +67,7 @@
 #let compare-table(size: 7.4pt, head-fill: rgb("#e4eedf"), band: rgb("#f1efe8")) = {
   set text(size)
   table(columns: (auto, 1fr, 1fr, auto), stroke: none, inset: 3pt, fill: (_, y) => if y == 0 { head-fill } else if calc.even(y) { band },
-    [*Item*], [*V5.0*], [*Variant SP*], [*Change*],
+    [*Item*], [*V5.0*], [*V5.1 · split*], [*Change*],
     ..rows.flatten())
 }
 

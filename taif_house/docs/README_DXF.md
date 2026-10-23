@@ -1,6 +1,6 @@
-# taif_ground_floor_V5.dxf · Taif / Palm House · Ground floor V5.0
+# taif_ground_floor_V5.1.dxf · Taif / Palm House · Ground floor V5.1
 
-One DXF with the whole ground floor: the site, the building outline, every room, the doors, windows and openings, the special walls and the fixtures of both blocks. It shows the same plan as `output/design_gf.pdf`, for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …). File: `output/taif_ground_floor_V5.dxf`.
+One DXF with the whole ground floor: the site, the building outline, every room, the doors, windows and openings, the special walls and the fixtures of both blocks. It shows the same plan as `output/design_gf.pdf`, for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …). File: `output/taif_ground_floor_V5.1.dxf`.
 
 ## Units and coordinates
 - **Units:** metres (`$INSUNITS = 6`). Draw scale 1:1.
@@ -58,4 +58,4 @@ python taif_house/tools/check.py
 It compiles all Typst files into `output/`, compares both studies with the CSV, rebuilds the DXF and checks that every room in the DXF has the same area as the CSV. It must end with **ALL CHECKS PASSED**.
 
 ## Limits
-Concept drawing of the ground floor only (V5.0: no east duct; the three columns of the first-floor west projection are drawn as inner boxes): wall centre lines, no wall thickness, no dimensions. The first floor is not in the DXF yet; see `output/design_ff.pdf` and the two first-floor studies.
+Concept drawing of the ground floor only (V5.1: no east duct, no columns; the first-floor west wall above, 0.675 m beyond the west wall, is not drawn in the DXF): wall centre lines, no wall thickness, no dimensions. The first floor is not in the DXF yet; see `output/design_ff.pdf` and the two first-floor studies.
