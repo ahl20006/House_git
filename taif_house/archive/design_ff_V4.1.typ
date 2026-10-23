@@ -4,7 +4,7 @@
 // Same framework as design_gf.typ (same CSV coordinates, shift and rotation). Rooms: data/rooms_ff.csv. Earlier zoning options: data/zones_ff.csv.
 // Pages: 1 plan in the site with checks · 2 schedules · 3 furnished plan · 4 rooms, circulation, distances, walls, problems · 5 light-strip check
 // Brief: docs/FIRST_FLOOR_BRIEF.md
-#import "base.typ": *
+#import "../base.typ": *
 #import "@preview/cetz:0.4.2"
 #show: setup
 
@@ -40,7 +40,7 @@
 
 // ---------- First-floor rooms (data/rooms_ff.csv) ----------
 #let open-kinds = ("terrace", "open")
-#let ff-csv = csv("data/rooms_ff.csv", row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#")).map(r => (name: r.name, colour: r.colour, P: parse-pts(r.pts)))
+#let ff-csv = csv("rooms_ff_V4.1.csv", row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#")).map(r => (name: r.name, colour: r.colour, P: parse-pts(r.pts)))
 #let ff-rooms = ff-csv.filter(r => r.colour not in open-kinds)
 #let ff-open = ff-csv.filter(r => r.colour in open-kinds)
 #let circ-names = ("Landing (stair top)", "Upper gallery", "Gym route (end of gallery)", "Family link", "Suite lobby")

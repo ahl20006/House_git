@@ -1,8 +1,8 @@
-// design_gf.typ · Taif / Palm House · GROUND FLOOR V5.1 (24 Oct 2026) = V4.0 (16 Oct) + first-floor coordination:
-// the east duct is removed; V5.1: NO columns (the V5.0 three on x 5.6 are removed, the FF projection is split 0.675 in / 0.675 out) · the file you compile for the ground floor
+// design_gf.typ · Taif / Palm House · GROUND FLOOR V6.0 · the file you compile for the ground floor
 // Compact courtyard house: courtyard at the centre, west service band, east service block, air tower with an underground tunnel.
+// No columns: the first floor's west projection is split (0.675 m inward as a plain cantilever, 0.675 m outward over the west wall).
 // Reads data/rooms_gf.csv (rooms) and base.typ (site). Room studies: studies/guest_wing.typ (west wash block), studies/east_wing.typ (east service block).
-// Full description: docs/GROUND_FLOOR_V4.md
+// Full description: docs/PROJECT_V6.md · DXF: tools/make_dxf.py reads this file
 #import "base.typ": *
 #show: setup
 
@@ -44,7 +44,8 @@
 
 // ---------- Building outline (wall centre lines, CSV coordinates) ----------
 // pentagon: north-east corner cut parallel to the lane from (10.051, 0) to (13.311, 6.0), then the east wall straight south; south wall at y 24.0
-#let outline-gf = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)).map(place)
+#let outline-csv-gf = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
+#let outline-gf = outline-csv-gf.map(place)
 
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
 #let outer-wall = 0.125
@@ -70,15 +71,13 @@
 #let inner-boxes = (
   (0.0, 9.2, 1.5, 10.4, [shaft]),                 // west service shaft, inside the utility room
   (0.0, 6.9, 2.75, 7.9, [under-stair store]),
-  // V5.0: the east duct (12.711–13.311 × 6.5–7.1) is removed: kitchen extract through the east wall, vent stack outside the east wall
-  // V5.1: the three V5.0 columns on x 5.6 are removed; the FF inward projection is a plain 0.675 m cantilever from x 4.25 (gallery + railing only)
 )
 #let inner-marks = inner-boxes.map(((x0, y0, x1, y1, l)) => {
   let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)
   (((P.at(0), P.at(1)), l), ((P.at(1), P.at(2)), []), ((P.at(2), P.at(3)), []), ((P.at(3), P.at(0)), []))
 }).fold((), (acc, m) => acc + m)
 
-// ceiling-height change inside the living room (one open room, no wall)
+// ceiling-height change inside the living room (one open room, no wall), and the first-floor edges above this floor
 #let level-marks = (((place((8.95, 13.0)), place((8.95, 19.25))), [ceiling height change]), ((place((4.925, 6.5)), place((4.925, 19.25))), [FF cantilever edge above (0.675, no beam)]), ((place((-0.675, 10.4)), place((-0.675, 24.0))), [FF west wall above, on cantilever beams]))
 
 // ---------- Doors, openings, windows and special walls (CSV): ((x1, y1), (x2, y2), label) · the // comment names each line ----------
@@ -124,22 +123,22 @@
 })
 
 #render(
-  title: [Ground floor V5.1 · pentagon Z4 (V4.0 + first-floor coordination, no columns)],
-  subtitle: [24 Oct 2026 · Ground floor = V4.0 with the east duct removed; V5.1: the three V5.0 projection columns removed · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/GROUND_FLOOR_V4.md],
+  title: [Ground floor V6.0 · pentagon on site option Z4],
+  subtitle: [Taif / Palm House V6.0 · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/PROJECT_V6.md],
   court: court,
   rooms: rooms.map(rotrow),
   air: (("Air tower", tower-pts),),
   arrows: arrows,
   marks: inner-marks + level-marks + door-marks + tower-marks,
   limit: outline-gf,
-  note: [*Ground floor V5.1* (V4.0 + the first-floor coordination: no east duct; *no columns*: the FF projection is split, 0.675 m inward as a plain cantilever and 0.675 m outward over the west wall, the FF west face 0.11 m from the M line) on site-test option Z4: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (V5.0: no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft and the under-stair store (not extra area); blue lines mark the ceiling-height change, the FF cantilever edge over the courtyard (x 4.925), the FF west wall above (x -0.675, outside this floor), the low wall and the doors, openings and walls of both blocks.],
+  note: [*Ground floor V6.0* on site option Z4, *no columns* (the first-floor projection is split: 0.675 m inward as a plain cantilever, 0.675 m outward over the west wall): a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft and the under-stair store (not extra area); blue lines mark the ceiling-height change, the FF cantilever edge over the courtyard (x 4.925), the FF west wall above (x -0.675, outside this floor), the low wall and the doors, openings and walls of both blocks.],
 )
 
 // ---------- Design idea and philosophy (last page) ----------
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor V5.1 · pentagon with the north-east corner cut]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor V6.0 · pentagon with the north-east corner cut]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
@@ -176,7 +175,7 @@
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Family, guests and service, each in their place]
 
-  The family enters through the lobby; women guests use the same door to reach the women's majlis. The men's majlis has its own foyer, entered by a double door at one end and opening into the majlis at the other (a bent entry), with a shoe cabinet and hooks for the bisht and shemagh, a trough basin with three taps and a WC whose door hides behind a short screen wall, all in the south of the west wash block; the guest side has no door onto the riwaq. Its only link to the house is a short serving passage with only two doors that are never open together: the family opens door 1 from the riwaq, leaves the tray and closes it, then calls the host, who opens door 2 from the guest passage and collects. Door 1 locks from the riwaq side and door 2 from inside the passage, so the family controls both. An open door 2 shows only the passage and a blank wall, a bent entry (majaz). The hospitality kitchen just north of it, a light kitchen for coffee, tea, dates and desserts, is the serving base; the east kitchen is the heavy one. The living room opens to the riwaq without a door and only a 1.20 m low partition faces the serving door, so the family's privacy rests on the two serving doors never being open together. The kitchen stays isolated beside the courtyard, a clean 4.36 × 6.5 m room on the same lines as the courtyard, with two parallel counter runs, its only door to the dining and an open entrance to the laundry. The laundry runs north along the solid wall of the women's majlis to the maid room and maid bath, which use the sloped corner to the full; the maid wing is reached only through the kitchen. Kitchen, laundry and maid bath drain straight out to the east, to a manhole in the east service yard; the vent stack runs up the outside face of the east wall, and the kitchen extract leaves straight through the east wall at the hood (V5.0: the east duct is removed).
+  The family enters through the lobby; women guests use the same door to reach the women's majlis. The men's majlis has its own foyer, entered by a double door at one end and opening into the majlis at the other (a bent entry), with a shoe cabinet and hooks for the bisht and shemagh, a trough basin with three taps and a WC whose door hides behind a short screen wall, all in the south of the west wash block; the guest side has no door onto the riwaq. Its only link to the house is a short serving passage with only two doors that are never open together: the family opens door 1 from the riwaq, leaves the tray and closes it, then calls the host, who opens door 2 from the guest passage and collects. Door 1 locks from the riwaq side and door 2 from inside the passage, so the family controls both. An open door 2 shows only the passage and a blank wall, a bent entry (majaz). The hospitality kitchen just north of it, a light kitchen for coffee, tea, dates and desserts, is the serving base; the east kitchen is the heavy one. The living room opens to the riwaq without a door and only a 1.20 m low partition faces the serving door, so the family's privacy rests on the two serving doors never being open together. The kitchen stays isolated beside the courtyard, a clean 4.36 × 6.5 m room on the same lines as the courtyard, with two parallel counter runs, its only door to the dining and an open entrance to the laundry. The laundry runs north along the solid wall of the women's majlis to the maid room and maid bath, which use the sloped corner to the full; the maid wing is reached only through the kitchen. Kitchen, laundry and maid bath drain straight out to the east, to a manhole in the east service yard; the vent stack runs up the outside face of the east wall, and the kitchen extract leaves straight through the east wall at the hood (no east duct).
 
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Services built for life]

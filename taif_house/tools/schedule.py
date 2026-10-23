@@ -1,16 +1,20 @@
-"""schedule.py · Taif / Palm House · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
+"""schedule.py · Taif / Palm House V6.0 · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
+(The first-floor schedule with clear areas is on design_ff.pdf page 3, and both floors are on presentation sheet 08.)
 
 Run from anywhere:   python taif_house/tools/schedule.py          (prints a Markdown table)
 Clear areas: every room edge moves inwards by half its wall: 250 mm on the building outline, 100 mm on the dry
 partition between laundry and maid room (x = 10.65), 200 mm everywhere else. Concept values, not survey values.
 """
+import ast
 import csv
 import math
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUT, IN, DRY = 0.25, 0.20, 0.10
-OUTLINE = [(0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)]     # same as design_gf.typ (CSV)
+_m = re.search(r"#let outline-csv-gf\s*=\s*(\(.*\))", (ROOT / "design_gf.typ").read_text(encoding="utf-8"))
+OUTLINE = list(ast.literal_eval(_m.group(1)))                                     # read from design_gf.typ (CSV)
 DRY_X = 10.65                                                                  # laundry / maid room partition
 
 

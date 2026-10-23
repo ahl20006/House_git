@@ -1,11 +1,12 @@
-"""make_dxf.py · Taif / Palm House · writes ONE DXF of the ground floor V5.1 (site, building, rooms, doors, fixtures).
+"""make_dxf.py · Taif / Palm House V6.0 · writes the DXF of the ground floor (site, building, rooms, doors, fixtures).
 
 Run from anywhere:   python taif_house/tools/make_dxf.py
-Output:              taif_house/output/taif_ground_floor_V5.1.dxf   (units: metres, north up as on the Typst plan)
+Output:              taif_house/output/taif_ground_floor_V6.0.dxf   (units: metres, north up as on the Typst plan)
+The first floor has its own tool: tools/make_dxf_ff.py.
 
 Everything is read from the same sources as the Typst drawing, nothing is typed in twice:
   base.typ            site: land, envelope, driveway, lane, north wall, palms, M pegs, north
-  design_gf.typ       building shift / rotation, outline, air tower, inner boxes, ceiling mark, entries,
+  design_gf.typ       building shift / rotation, outline, air tower, inner boxes, level marks, entries,
                       and the door / window / opening lines of both blocks (west-lines, east-lines)
   data/rooms_gf.csv   every room (rectangle from x, y, w, d, angle, or corner points from "pts")
   studies/east_wing.typ   fixtures (counters, machines, bed …) and the solid wall of the east block
@@ -23,7 +24,7 @@ from pathlib import Path
 import ezdxf
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
-OUT = ROOT / "output" / "taif_ground_floor_V5.1.dxf"
+OUT = ROOT / "output" / "taif_ground_floor_V6.0.dxf"
 
 
 # ---------- reading the Typst sources ----------
@@ -60,13 +61,14 @@ east = (ROOT / "studies" / "east_wing.typ").read_text(encoding="utf-8")
 site = {k: numbers(base, k) for k in ("land", "env", "drv", "lane", "nwall", "south", "T1", "T2", "Ms", "north")}
 shift = numbers(design, "shift")
 rot = math.radians(float(re.search(r"#let\s+rot\s*=\s*(-?[\d.]+)deg", design).group(1)))
-outline_csv = numbers(design, "outline-gf")
+outline_csv = numbers(design, "outline-csv-gf")
 tower_csv = numbers(design, "tower-pts")
 
 PAIR = r"\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)"
 inner_boxes = [(float(a), float(b), float(c), float(d), clean(l)) for a, b, c, d, l in
                re.findall(r"\(\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*\[(.*?)\]\s*\)", grab(design, "inner-boxes"))]
-level = re.findall(PAIR, re.search(r"#let level-marks.*", design).group(0))
+level = [((float(a), float(b)), (float(c), float(d)), clean(l)) for a, b, c, d, l in re.findall(
+    r"place\(" + PAIR + r"\),\s*place\(" + PAIR + r"\)\),\s*\[(.*?)\]", re.search(r"#let level-marks.*", design).group(0))]
 entries = [((float(a), float(b)), (float(c), float(d)), clean(l)) for a, b, c, d, l in
            re.findall(PAIR + r",\s*" + PAIR + r",\s*\[(.*?)\]", grab(design, "entries"))]
 
@@ -174,7 +176,7 @@ LAYERS = {   # name: (ACI colour, linetype, description)
     "WINDOWS": (4, "CONTINUOUS", "windows"),
     "WALLS-SPECIAL": (7, "CONTINUOUS", "solid walls, coffee / basins wall, screen wall, living low partition, family / guest line"),
     "FIXTURES": (8, "DASHED", "counters, machines, bed, wardrobe, shower, WC, basins (east block); hospitality counter, basin counter, trough, shoe cabinet (west block)"),
-    "MARKS": (4, "DASHED", "shaft, under-stair store, ceiling-height change"),
+    "MARKS": (4, "DASHED", "shaft, under-stair store, ceiling-height change, first-floor edges above"),
     "ENTRIES": (30, "CONTINUOUS", "entry arrows"),
     "ANNOTATION": (7, "CONTINUOUS", "title, north arrow, scale bar"),
 }
@@ -237,10 +239,9 @@ label(place((9.5, 0.5)), "Air tower", "AIR-TOWER", h=0.12)
 for x0, y0, x1, y1, l in inner_boxes:
     pline([place(p) for p in ((x0, y0), (x1, y0), (x1, y1), (x0, y1))], "MARKS")
     label(place(((x0 + x1) / 2, (y0 + y1) / 2)), l, "MARKS", h=0.12)
-if len(level) == 2:
-    a, b = [(float(x), float(y)) for x, y in level]
+for a, b, l in level:   # ceiling-height change, and the first-floor edges above this floor
     seg(place(a), place(b), "MARKS")
-    label(place((a[0] + 0.15, (a[1] + b[1]) / 2)), "ceiling height change", "MARKS", h=0.12, attach=4)
+    label(place((a[0] + 0.15, (a[1] + b[1]) / 2)), l, "MARKS", h=0.12, attach=4)
 
 for a, b, l in openings:
     low = l.lower()
@@ -278,7 +279,7 @@ msp.add_line((24, -2), (24 + 2.2 * n[0], -2 + 2.2 * n[1]), dxfattribs={"layer": 
 msp.add_mtext("N", dxfattribs={"layer": "ANNOTATION", "char_height": 0.6}).set_location((24 + 2.6 * n[0], -2 + 2.6 * n[1]))
 msp.add_line((18, -42), (28, -42), dxfattribs={"layer": "ANNOTATION"})
 msp.add_mtext("10 m", dxfattribs={"layer": "ANNOTATION", "char_height": 0.35, "attachment_point": 8}).set_location((23, -41.7))
-title = ("Taif / Palm House · Ground floor V5.1 (V4.0 + first-floor coordination: no east duct, no columns, site-test option Z4) · 24 Oct 2026\\P"
+title = ("Taif / Palm House · Ground floor V6.0 (no east duct, no columns, site option Z4)\\P"
          "Units: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). "
          "Room outlines on wall centre lines. Generated by tools/make_dxf.py from design_gf.typ, data/rooms_gf.csv, base.typ and studies/.")
 msp.add_mtext(title, dxfattribs={"layer": "ANNOTATION", "char_height": 0.45, "width": 30}).set_location((0, -44))
