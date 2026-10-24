@@ -1,6 +1,6 @@
-# Taif / Palm House · V6.0 · master document
+# Taif / Palm House · V6.1 · master document
 
-Concept design of a two-storey courtyard house in Taif. This document describes the whole house as of **V6.0** (git tag `v6.0`, 24 Oct 2026). The open items are listed in `OPEN_ITEMS.md`, and the next steps are in `NEXT_SESSION.md`. The figures below come from the project files: `data/*.csv`, the design files and the studies. They match the presentation `output/Taif_House_V6.0_presentation.pdf` (sheet 08 is the schedules).
+Concept design of a two-storey courtyard house in Taif. This document describes the whole house as of **V6.1** (git tag `v6.1`, 24 Oct 2026). The open items are listed in `OPEN_ITEMS.md`, and the next steps are in `NEXT_SESSION.md`. The figures below come from the project files: `data/*.csv`, the design files and the studies. They match the presentation `output/Taif_House_V6.1_presentation.pdf` (sheet 08 is the schedules).
 
 *Concept design, not for construction. Structure, services, levels and the site survey still need the engineers' and the municipality's review.*
 
@@ -32,9 +32,9 @@ Concept design of a two-storey courtyard house in Taif. This document describes 
   - A pentagon whose north-east corner is cut parallel to the lane down to y 6.0; the east wall then runs straight south.
   - **13.311 × 24.0 m on axes, 13.561 × 24.25 m outside.** Outline on axes 309.68 m²; outside footprint **318.77 m²**, including the courtyard.
 - **First-floor outline:**
-  - the same, except the west face is **0.675 m further west south of y 10.4** (the split projection, §4.3);
-  - 318.86 m² on axes;
-  - the courtyard sky and the double-height void (51.32 m²) have no floor.
+  - the same as the ground floor: the first-floor outer walls stand on the ground-floor outer walls (309.68 m² on axes);
+  - the courtyard sky and the double-height void (42.71 m², 3.35 m wide) have no floor;
+  - the 1.35 m west projection over the courtyard and the void is carried by an edge beam and three columns (§4.15).
 - **Walls:**
   - allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions (maid wing), ≈ 50 mm balustrades on the void edges;
   - rooms are stored on wall centre lines; clear areas subtract half of each wall.
@@ -43,7 +43,7 @@ Concept design of a two-storey courtyard house in Taif. This document describes 
 | Gap | Value | Where it comes from |
 |---|---|---|
 | Ground-floor outer west face → M line | **0.785 m** | `design_gf.typ` (m-gap) |
-| First-floor outer west face → M line | **0.11 m** | `design_ff.typ` (approval pending, `OPEN_ITEMS.md` item 1) |
+| First-floor outer west face → M line | **0.785 m** | `design_ff.typ` (on the ground-floor wall) |
 | Nearest outer wall face → envelope (north / lane side) | **0.05 m** | `design_gf.typ` (env-gap, to confirm by survey) |
 | Palms P1 / P2 → outer walls (trunk faces) | **6.01 m / 7.99 m** | `presentation.typ` (sheet 01) |
 | Floor to floor (assumed) | **3.60 m** | `studies/sections.typ` (to confirm) |
@@ -65,9 +65,9 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 
 | No. | Room | Axes (m) | Axes m² | Clear m² | Purpose · doors · rules |
 |---|---|---|---|---|---|
-| G01 | Courtyard | 4.7 × 6.5 | 30.55 | (4.5 × 6.3) | The cool heart, open to the sky, enclosed on four sides. A low closable opening from the air tunnel. Glazed to the riwaq, the women's majlis, the living and the kitchen sink. |
+| G01 | Courtyard | 4.7 × 6.5 | 30.55 | (4.5 × 6.3) | The cool heart, open to the sky, enclosed on four sides. A low closable opening from the air tunnel. Glazed to the riwaq, the women's majlis, the living and the kitchen sink. Its west 1.35 m is under the first-floor projection, a colonnade with columns at y 6.5 and 13.0. |
 | G02 | Women's majlis | 4.7 × 6.5 | 30.55 | 28.24 | North of the courtyard. Women guests come in through the family door. Solid wall to the maid wing. |
-| G03 | Living (double height) | 4.7 × 6.25 | 29.38 | 27.83 | South of the courtyard: double height, high operable windows (a stack-ventilation chimney). Open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. |
+| G03 | Living (double height) | 4.7 × 6.25 | 29.38 | 27.83 | South of the courtyard: double height, high operable windows (a stack-ventilation chimney). Open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. Column 2 stands in the glass to the courtyard (y 13.0), column 3 in its south wall (y 19.25). |
 | G04 | Men's majlis | 10.56 × 4.75 | 50.16 | 46.77 | The full width on the south. Entered only from the foyer, through a 1.80 m opening with no door. High south windows; the main seating at the east end; AC hidden, not over the seats. |
 | G05 | Maid bath | polygon | 3.84 | 3.03 | WC, basin and compact shower in the sloped corner; vent window in the cut wall. Door from the maid room only, 0.70 m (sliding or opening out). |
 | G06 | Maid room | polygon | 7.06 | 6.04 | Behind a 100 mm partition. Door from the laundry at its north end. Single bed along the south wall. High-sill window in the cut wall. |
@@ -86,7 +86,7 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | G19 | Guest WC | 1.5 × 1.75 | 2.63 | 2.02 | WC and hand spray. Door in the south wall, hidden from the passage by a 0.6 m screen wall. |
 | G20 | Guest basins (trough · 3 taps) | 1.5 × 2.15 | 3.22 | 2.53 | One trough with three taps, open to the guest passage. |
 | G21 | Guest passage | 1.25 × 3.9 | 4.88 | 3.79 | From serving door 2 to the foyer. |
-| G22 | Foyer + entry | 2.75 × 2.6 | 7.15 | 6.00 | Double door (1.40 m, two leaves) at the north end of its west wall, under the first-floor projection. A 1.80 m opening into the men's majlis at the south end of its east wall. Shoe cabinet and bisht / shemagh hooks. |
+| G22 | Foyer + entry | 2.75 × 2.6 | 7.15 | 6.00 | Double door (1.40 m, two leaves) at the north end of its west wall. A 1.80 m opening into the men's majlis at the south end of its east wall. Shoe cabinet and bisht / shemagh hooks. |
 | – | Air tower (not a room) | polygon | 1.37 | ≈ 0.9 | In the tip of the cut corner, 1.0 m deep; cleaned from a roof hatch. |
 
 - **Rooms:** 277.76 m² on axes, excluding the courtyard and the air tower.
@@ -97,10 +97,10 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | No. | Room | Axes (m) | Axes m² | Clear m² | Purpose · doors · rules |
 |---|---|---|---|---|---|
 | F01 | Landing (stair top) | 2.75 × 1.3 | 3.57 | 3.15 | The stair arrives here. No room door opens onto it. |
-| F02 | Upper gallery (on the west projection) | polygon | 28.89 | 25.95 | The family corridor: beside the stair, then on the inward cantilever along the courtyard and the void (1.35 m, ≈ 1.225 m clear, with a railing). Every west room door opens from it. |
+| F02 | Upper gallery (on the west projection) | polygon | 30.71 | 27.68 | The family corridor: beside the stair, then on the projection along the courtyard and the void (1.35 m, ≈ 1.225 m clear, with a railing). Every west room door opens from it. |
 | F03 | Linen cupboard | 2 × 0.7 | 1.40 | 0.95 | At the gallery's north end; a joinery box. |
-| F04 | Family bath | 2.08 × 1.8 | 3.74 | 3.00 | WC on the west shaft wall, shower, basin; door from the gallery. Serves bedrooms 1 and 2, the family living and the kids' room. 2.075 m wide, because the shaft is fixed. |
-| F05 | Wardrobe niche (bedroom 2) | 2.17 × 0.6 | 1.30 | 0.78 | Beside the shaft, open to bedroom 2. |
+| F04 | Family bath | 2.75 × 1.8 | 4.95 | 4.08 | WC on the west shaft wall, shower, basin; door from the gallery. Serves bedrooms 1 and 2, the family living and the kids' room. |
+| F05 | Wardrobe niche (bedroom 2) | 1.5 × 0.6 | 0.90 | 0.51 | Beside the shaft, open to bedroom 2. |
 | F06 | Bedroom 2 | 4.25 × 3.4 | 14.45 | 12.88 | Bed with bedside tables on both sides, wardrobes, a desk under the west window. Door from the gallery. |
 | F07 | Bedroom 3 bath | 2.2 × 1.7 | 3.74 | 2.96 | En-suite, over the GF family WC (a wet room on a wet room). Shower, WC, basin. |
 | F08 | Bedroom 3 | polygon | 16.87 | 15.02 | An entry with a wardrobe, then the room: bed on the west wall, wardrobe east, desk south. Door from the gallery. |
@@ -108,17 +108,17 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | F10 | Family living | 4.7 × 3.5 | 16.45 | 15.17 | On the courtyard edge: a view, not a path. The walk to the family link passes behind and beside the sofa. |
 | F11 | Family link | 1.2 × 1.2 | 1.44 | 1.10 | From the family living to bedroom 1 and to the suite door. |
 | F12 | Bedroom 1 | polygon | 15.75 | 13.87 | One room, no bath; its south wall is straight on y 6.5. It uses the family bath. |
-| F13 | Gym route | 1.35 × 2 | 2.70 | 2.18 | From the gallery's south end to the office and the gym (sliding doors). |
-| F14 | Owner's office | 4.25 × 4.75 | 20.19 | 18.21 | Sofa and bookshelves to the north, desk with visitor chairs to the south. Windows west and south. Its west wall is on the outward cantilever. |
-| F15 | Gym | 9.74 × 2.75 | 26.77 | 24.02 | A rectangle along the south facade, not touching the suite bedroom (§4.24). |
-| F16 | Suite court (open to the sky) | 8.39 × 2 | 16.77 | – | Private, walled on four sides, in front of the clerestory windows; from the suite bedroom only. |
+| F13 | Gym route | 1.35 × 2 | 2.70 | 2.19 | From the gallery's south end to the office and the gym (sliding doors). |
+| F14 | Owner's office | 4.25 × 4.75 | 20.19 | 18.21 | Sofa and bookshelves to the north, desk with visitor chairs to the south. Windows west and south. |
+| F15 | Gym | 9.06 × 2.75 | 24.92 | 22.31 | A rectangle along the south facade, not touching the suite bedroom (§4.21). |
+| F16 | Suite court (open to the sky) | 7.71 × 2 | 15.42 | – | Private, walled on four sides, in front of the clerestory windows; from the suite bedroom only. |
 | F17 | Suite lobby | 1.35 × 5.4 | 7.29 | 5.98 | Entered from the family link; it opens to the bath, the dressing and the bedroom. |
 | F18 | Suite bath | polygon | 10.24 | 8.84 | Freestanding tub, walk-in glass shower, double vanity. A sunken floor drains to the stack outside the east wall. |
 | F19 | Suite WC (closet) | 1.1 × 1.5 | 1.65 | 1.14 | WC with shattaf at the drain stack, sliding door. |
 | F20 | Suite dressing | 3.01 × 3.45 | 10.39 | 9.05 | His and hers wardrobes (sliding), shoe and bag display, make-up table. |
 | F21 | Suite bedroom | polygon | 26.03 | 23.60 | King bed facing the suite court. Solid west wall to the double-height living (no window). |
 
-- **Rooms:** 226.97 m² on axes indoors (circulation 43.90 m²), plus the suite court 16.77 m².
+- **Rooms:** 227.75 m² on axes indoors (circulation 45.72 m²), plus the suite court 15.42 m².
 - **Master suite:** **55.60 m²** (lobby, bath, WC closet, dressing, bedroom).
 - **Fixed elements:** stair, lift shaft, west shaft and air tower rise from the ground floor.
 
@@ -143,7 +143,6 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 6. **Guest foyer and majaz.**
    - The double door is at one end of the foyer and the majlis opening at the other, so guests do not look straight in.
    - In a short foyer the door and the opening overlap, so the majaz is partial (open item: a curtain or a short screen).
-   - The first-floor projection now roofs the guest entrance.
 7. **Trough basins.** One trough with three taps lets several guests wash at once before and after the meal.
 8. **Men's majlis.** Full width on the south, entered only from the foyer. High south windows give light without views; the main seating is at the east end, away from the entrance; the AC is out of the seating zone.
 9. **East service block and maid wing.**
@@ -168,15 +167,14 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
     - **Rules:** wet rooms stack over wet rooms; nothing hangs in a kitchen ceiling; no drain over the master bedroom.
     - A separate plumbing study is still to do.
 14. **First-floor zoning.** The family part is on the north and west, around the courtyard: children near the family bath and the family living. The L is to the south and east: owner's office → gym route → gym → suite court → master suite. The suite is private behind a lobby entered from the family link.
-15. **Split west projection** (V5.1).
-    - The first-floor west band sits on a projection split **0.675 m inward** (a plain cantilever from the courtyard edge, carrying only the gallery and its railing, **no columns**) and **0.675 m outward** beyond the ground-floor west wall south of y 10.4 (the west wall on cantilever beams).
-    - *Reasons:*
-      - the courtyard sky opens from 3.35 to **4.025 m** on axes (≈ 3.825 m clear);
-      - there are no columns in the courtyard or the living;
-      - the rooms (4.25 m, ≈ 4.0 m clear) and the gallery (1.35 m, ≈ 1.225 m clear) keep their width;
-      - the outward part shades the ground-floor west wall from the afternoon sun and roofs the guest entrance.
-    - *Forced and accepted:* the family bath is 2.075 m wide (≈ 3.74 m²), because the shaft is fixed; the bedroom 2 wardrobe niche is wider; the gym and the suite court are 0.675 m longer.
-    - *Condition:* the first-floor face is **0.11 m from the M line** (`OPEN_ITEMS.md` item 1). If the municipality refuses it, the design goes back to the V5.0 solution (tag `v5.0`): the full 1.35 m inward projection on three columns at x 5.6.
+15. **West projection on columns** (V5.0; restored in V6.1).
+    - The gallery runs on a **1.35 m projection** over the west edge of the courtyard and the double-height void (x 4.25–5.6, y 6.5–19.25), so the west rooms take the full 4.25 m band (≈ 4.0 m clear) and the gallery is 1.35 m (≈ 1.225 m clear). The first-floor west wall stands directly on the ground-floor west wall, 0.785 m from the M line.
+    - It is carried by an **edge beam on x 5.6** (spans 6.5 m and 6.25 m) on **three columns**, each in an existing wall or glass line, none free-standing in a room: in the south wall of the women's majlis (y 6.5), a pier between the courtyard glass and the living (y 13.0), in the south wall of the living (y 19.25). On the ground floor it reads as a colonnade along the courtyard edge, with a normal-height ceiling under the projection.
+    - The courtyard sky and the double-height void are **3.35 m** wide on axes (≈ 3.15 m clear).
+    - *History:* V5.1 replaced it with a split projection (0.675 m inward without columns, 0.675 m outward beyond the ground-floor west wall, the west wall on cantilever beams). V6.1 reverted that, because:
+      - a wall on cantilever beams along ≈ 15 m costs more and is less direct structurally than walls stacked over walls;
+      - the outward projection, 0.11 m from the M line, needed municipal approval.
+    - The study stays on branch `v5-split-projection` and in tag `v6.0`. Page 5 of `output/design_ff.pdf` compares the two.
 16. **Kids' room.** Study and gaming in one room on the north side, away from the bedrooms. It can become a fourth bedroom.
 17. **Family living on the courtyard.** A view, not a path: nobody walks between the seats and the courtyard.
 18. **Bedrooms.**
@@ -189,7 +187,7 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
     - A lobby leads to the bath, the dressing and the bedroom. It is a bent entry: the bed is not seen from the suite door.
     - The luxury bath has a tub, a walk-in shower, two basins and a WC closet. The walk-in dressing is for two. The bedroom faces the suite court.
     - It follows the owner's programme.
-20. **Owner's office.** The south-west corner, a quiet room near the stair, door from the gym route, a canopy over the guest entrance below.
+20. **Owner's office.** The south-west corner, a quiet room near the stair, door from the gym route.
 21. **Rectangular gym** (V5.1).
     - One rectangle along the south facade, not touching the suite bedroom.
     - The treadmill is at its **west end**, away from the master suite. It runs along the gym's length, with **0.5 m clear behind and on each side**, on a dense rubber floor with anti-vibration pads. Along the gym's depth it would fill 2.5 of the 2.525 m clear depth and block the only way from the door.
@@ -202,12 +200,12 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 
 ## 5. Construction notes
 
-- **Inward cantilever (0.675 m):** a slab beyond the courtyard edge x 4.25, y 6.5–19.25, with a back span of 1.5 m to the riwaq wall x 2.75. It carries the gallery and its railing only. No edge beam and no columns are expected (engineer to confirm). The rooms' east wall (x 3.575) stands on the slab between x 2.75 and 4.25.
-- **First-floor west wall on cantilever beams:**
-  - the 250 mm wall (≈ 3.6 m high, plus the parapet) stands 0.675 m beyond the ground-floor west wall, y 10.4–24, with returns at y 10.4 and y 24 (14.95 m of wall);
-  - cantilever beams at the cross walls, back span 2.75 m, with an edge beam under the wall;
-  - to size: beam depth, line load, tip deflection (a cracking limit for the block wall), the south-west corner.
-- **Gym and office over the men's majlis:** the men's majlis has no inner wall. Walls with no wall below: y 21.25, x 3.575, x 4.925. The treadmill is a dynamic load (≈ 1.5–2 kN in use) on a rubber floor with pads.
+- **West projection (1.35 m):** a first-floor slab beyond the courtyard wall line x 4.25, along y 6.5–19.25, carrying the gallery and its railing.
+  - **Edge beam** on x 5.6, spans ≈ 6.5 m and 6.25 m. It is seen from the courtyard and the living, so it is expressed as the colonnade's beam.
+  - **Three columns**, each in an existing wall or glass line: the women's majlis south wall (y 6.5), a pier in the courtyard / living glass (y 13.0), the living's south wall (y 19.25). Each needs its own foundation.
+  - **The structural engineer sizes** the slab, the beam depth, the columns and the pads.
+  - The ground floor changes only by the columns, their foundations, the beam line and a lower ceiling under the projection. The rooms' east wall (x 4.25) stands on the ground-floor courtyard edge line; the first-floor outer walls stand on the ground-floor outer walls.
+- **Gym and office over the men's majlis:** the men's majlis has no inner wall. Walls with no wall below: y 21.25, x 4.25, x 5.6. The treadmill is a dynamic load (≈ 1.5–2 kN in use) on a rubber floor with pads.
 - **Walls on the women's majlis roof:** the y 3.0 partition (kids' room / family living) stands over the women's majlis, which has no wall below. It is a light partition on the slab, or sits on a beam.
 - **Sunken bath floors:** the suite bath (over the ground-floor kitchen) and the family bath (partly over the hospitality kitchen) carry all their pipes in the floor build-up.
 - **Suite court:** its own floor drain and waterproofing on the men's majlis roof slab; a railing (not a parapet) on the gym roof edge.
@@ -231,5 +229,6 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | V5.0 | 20 Oct 2026 | First floor designed room by room; ground floor coordinated (east duct removed, three columns for a 1.35 m inward projection); first presentation set. |
 | V5.1 | 24 Oct 2026 | Split west projection accepted (M-line approval pending, no columns); L-shaped gym rejected; treadmill at the gym's west end. |
 | V6.0 | 24 Oct 2026 | Clean release: everything labelled V6.0; A3 presentation with 10 sheets (decisions log, open items, block details); first-floor DXF; shared sections module; master document and open-items list; extended checks. No design change. |
+| V6.1 | 24 Oct 2026 | Split projection reverted to the V5.0 columns solution: the full 1.35 m inward projection on an edge beam and three columns at x 5.6, the first-floor west wall on the ground-floor wall; family bath, wardrobe niche, gym and suite court back to their V5.0 sizes; the rectangular gym with the treadmill at its west end kept. |
 
-Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.0`).
+Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.1`). The construction notes of `archive/docs/DETAILS.md` are continued in §5.

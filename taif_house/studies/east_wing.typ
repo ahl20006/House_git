@@ -1,5 +1,5 @@
 // east_wing.typ · Taif / Palm House · layout study of the EAST SERVICE BLOCK: kitchen + laundry + maid room + maid bath + air tower (compile THIS file)
-// Ground floor V6.0. Stand-alone: all data is in this file.
+// Ground floor V6.1. Stand-alone: all data is in this file.
 // Main CSV coordinates (../data/rooms_gf.csv) = local + (8.95, 0); block = CSV x 8.95–13.311, y 0–13.0. Keep both in step when you change a room here.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
@@ -113,7 +113,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · kitchen, laundry, maid wing, air tower · layout study]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.0 · block = CSV x 8.95–13.311, y 0–13.0 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.1 · block = CSV x 8.95–13.311, y 0–13.0 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {

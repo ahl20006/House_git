@@ -1,6 +1,6 @@
-// design_gf.typ · Taif / Palm House · GROUND FLOOR V6.0 · the file you compile for the ground floor
+// design_gf.typ · Taif / Palm House · GROUND FLOOR V6.1 · the file you compile for the ground floor
 // Compact courtyard house: courtyard at the centre, west service band, east service block, air tower with an underground tunnel.
-// No columns: the first floor's west projection is split (0.675 m inward as a plain cantilever, 0.675 m outward over the west wall).
+// Three columns on x 5.6 carry the edge beam of the first floor's 1.35 m west projection over the courtyard and the living (a colonnade).
 // Reads data/rooms_gf.csv (rooms) and base.typ (site). Room studies: studies/guest_wing.typ (west wash block), studies/east_wing.typ (east service block).
 // Full description: docs/PROJECT_V6.md · DXF: tools/make_dxf.py reads this file
 #import "base.typ": *
@@ -71,6 +71,9 @@
 #let inner-boxes = (
   (0.0, 9.2, 1.5, 10.4, [shaft]),                 // west service shaft, inside the utility room
   (0.0, 6.9, 2.75, 7.9, [under-stair store]),
+  (5.45, 6.35, 5.75, 6.65, [col 1]),             // three columns under the first floor's west projection edge beam (x 5.6), each in a wall / glass line:
+  (5.45, 12.85, 5.75, 13.15, [col 2]),           // the women's majlis south wall (y 6.5), the courtyard / living glass (y 13.0), the living's south wall (y 19.25)
+  (5.45, 19.1, 5.75, 19.4, [col 3]),
 )
 #let inner-marks = inner-boxes.map(((x0, y0, x1, y1, l)) => {
   let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)
@@ -78,7 +81,7 @@
 }).fold((), (acc, m) => acc + m)
 
 // ceiling-height change inside the living room (one open room, no wall), and the first-floor edges above this floor
-#let level-marks = (((place((8.95, 13.0)), place((8.95, 19.25))), [ceiling height change]), ((place((4.925, 6.5)), place((4.925, 19.25))), [FF cantilever edge above (0.675, no beam)]), ((place((-0.675, 10.4)), place((-0.675, 24.0))), [FF west wall above, on cantilever beams]))
+#let level-marks = (((place((8.95, 13.0)), place((8.95, 19.25))), [ceiling height change]), ((place((5.6, 6.5)), place((5.6, 19.25))), [FF projection edge (beam) above]))
 
 // ---------- Doors, openings, windows and special walls (CSV): ((x1, y1), (x2, y2), label) · the // comment names each line ----------
 // labels left empty at this scale; output/guest_wing.pdf and output/east_wing.pdf carry the full labels
@@ -123,22 +126,22 @@
 })
 
 #render(
-  title: [Ground floor V6.0 · pentagon on site option Z4],
-  subtitle: [Taif / Palm House V6.0 · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/PROJECT_V6.md],
+  title: [Ground floor V6.1 · pentagon on site option Z4],
+  subtitle: [Taif / Palm House V6.1 · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/PROJECT_V6.md],
   court: court,
   rooms: rooms.map(rotrow),
   air: (("Air tower", tower-pts),),
   arrows: arrows,
   marks: inner-marks + level-marks + door-marks + tower-marks,
   limit: outline-gf,
-  note: [*Ground floor V6.0* on site option Z4, *no columns* (the first-floor projection is split: 0.675 m inward as a plain cantilever, 0.675 m outward over the west wall): a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft and the under-stair store (not extra area); blue lines mark the ceiling-height change, the FF cantilever edge over the courtyard (x 4.925), the FF west wall above (x -0.675, outside this floor), the low wall and the doors, openings and walls of both blocks.],
+  note: [*Ground floor V6.1* on site option Z4, with *three columns* on x 5.6 (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall) under the edge beam of the first floor's 1.35 m west projection, a colonnade along the courtyard edge: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, open to the riwaq through a 1.40 m opening, then a 1.20 m low partition. *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft, the under-stair store and the three columns (not extra area); blue lines mark the ceiling-height change, the FF projection edge (beam) above on x 5.6, the low wall and the doors, openings and walls of both blocks.],
 )
 
 // ---------- Design idea and philosophy (last page) ----------
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor V6.0 · pentagon with the north-east corner cut]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor V6.1 · pentagon with the north-east corner cut]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)

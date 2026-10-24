@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V6.0 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.0_presentation.pdf
+// presentation.typ · Taif / Palm House V6.1 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.1_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, thin balustrades on the voids). Ground-floor doors and
@@ -25,12 +25,12 @@
     v(-4pt)
     grid(columns: (1fr, auto),
       text(8pt, fill: soft)[DESIGN DEVELOPMENT STUDY | NOT FOR CONSTRUCTION | All dimensions in metres unless stated | wall centre lines (axes) unless "clear"],
-      text(9pt, weight: "bold", fill: accent)[#numbering("01", counter(page).get().first()) / #(if sheets-total < 10 { "0" } else { "" })#sheets-total])
+      text(9pt, weight: "bold", fill: accent)[#{ let pad(n) = (if n < 10 { "0" } else { "" }) + str(n); pad(counter(page).get().first()) + " / " + pad(sheets-total) }])
   })
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.0])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.1])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -98,7 +98,7 @@
   rect-pts(x - w / 2, y - d / 2, x + w / 2, y + d / 2)
 }
 #let segs(P) = range(P.len()).map(i => (P.at(i), P.at(calc.rem(i + 1, P.len()))))
-#let outer-segs = segs(outline-csv-gf) + segs(sec.sp-outline)
+#let outer-segs = segs(outline-csv-gf)   // the first floor stands on the ground-floor outline
 
 // ================= colours by use =================
 #let fills = (
@@ -131,8 +131,8 @@
 #let tower = fam.fixed.find(f => f.name == "Air tower").pts
 #let gf-rooms = mk("G", gf-csv, ((id: "", name: "Air tower", kind: "tower", P: tower),))
 #let ff-rooms = mk("F", ff-csv, fam.fixed.map(f => (id: "", name: f.name, kind: if f.name == "Air tower" { "tower" } else { "core" }, P: f.pts)) + (
-  (id: "", name: "Courtyard (open to the sky)", kind: "void", P: rect-pts(sec.sp-in, sec.y-court, sec.x-east, 13.0)),
-  (id: "", name: "Double-height living (void)", kind: "void", P: rect-pts(sec.sp-in, 13.0, sec.x-east, sec.y-living)),
+  (id: "", name: "Courtyard (open to the sky)", kind: "void", P: rect-pts(sec.pj-edge, sec.y-court, sec.x-east, 13.0)),
+  (id: "", name: "Double-height living (void)", kind: "void", P: rect-pts(sec.pj-edge, 13.0, sec.x-east, sec.y-living)),
 ))
 #let room-of(rooms, n) = rooms.find(r => r.name == n)
 // wall types along the room outlines: open (no wall), balustrade, light partition; everything else 200 mm, outline 250 mm
@@ -142,8 +142,8 @@
   light: (((10.65, 2.8), (10.65, 6.5)),),                             // 100 mm dry block, laundry / maid room
 )
 #let ff-walls = (
-  open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.sp-wall, sec.y-living), (sec.sp-in, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.sp-in, 13.0), (sec.x-east, 13.0))),
-  rail: (((sec.sp-in, sec.y-court), (sec.sp-in, sec.y-living)), ((sec.x-court, sec.y-court), (sec.x-east, sec.y-court))),   // the cantilever's balustrade, the living's courtyard edge
+  open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0))),
+  rail: (((sec.pj-edge, sec.y-court), (sec.pj-edge, sec.y-living)), ((sec.x-court, sec.y-court), (sec.x-east, sec.y-court))),   // the projection's balustrade, the living's courtyard edge
   light: (((2.25, 0.7), (4.25, 0.7)),),                               // linen cupboard front
 )
 #let wall-t(a, b, spec) = {
@@ -204,9 +204,8 @@
   kind: if not d.open { "hinged" } else if lower(repr(d.label)).contains("sliding") { "sliding" } else { "open" }))
 #let ff-windows = fam.windows + suite.windows
 #let ff-furniture = fam.furniture + suite.furniture
-// the first-floor edges seen on the ground floor (orange dashed): the inward cantilever edge and the FF west wall above; on the first floor: the GF west wall below
-#let gf-dashed = (((sec.sp-in, sec.y-court), (sec.sp-in, sec.y-living)), ((sec.sp-out, sec.sp.step-y), (sec.sp-out, 24.0)))
-#let ff-dashed = (((0, sec.sp.step-y), (0, 24.0)),)
+// the projection's edge beam (orange dashed) on the three columns (dark squares, drawn on the ground floor)
+#let beam = (((sec.pj-edge, sec.y-court), (sec.pj-edge, sec.y-living)),)
 
 // ================= drawing =================
 #let floor-c = rgb("#f7f2e8")
@@ -220,7 +219,7 @@
    (b.at(0) - n.at(0) * half, b.at(1) - n.at(1) * half), (a.at(0) - n.at(0) * half, a.at(1) - n.at(1) * half))
 }
 #let lbl-of(l) = lower(repr(l))
-#let draw-floor(rooms, spec, doors, windows, furniture, lowwalls: (), dashed: (), focus: none, labels: true, label-at: (:), shift: (0, 0), mini: false, lsize: 6.8pt) = {
+#let draw-floor(rooms, spec, doors, windows, furniture, lowwalls: (), dashed: (), columns: (), focus: none, labels: true, label-at: (:), shift: (0, 0), mini: false, lsize: 6.8pt) = {
   import cetz.draw: *
   let S(p) = q((p.at(0) + shift.at(0), p.at(1) + shift.at(1)))
   let poly(P, ..args) = line(..P.map(S), close: true, ..args)
@@ -297,6 +296,7 @@
     line(S(a), S(b), stroke: 0.4pt + fix-line)
   }
   for (a, b) in dashed { line(S(a), S(b), stroke: (paint: orange, thickness: 1pt, dash: "dashed")) }
+  for c in columns { rect(S((c.at(0) - sec.col-half, c.at(1) - sec.col-half)), S((c.at(0) + sec.col-half, c.at(1) + sec.col-half)), fill: dark, stroke: none) }
   if labels {
     for r in rooms.filter(r => infocus(r) and (r.kind != "core" or r.name.starts-with("Stair"))) {
       let cp = clear-poly(r, spec)
@@ -346,13 +346,13 @@
 #let (gx0, gy0, gx1, gy1) = bbox(outline-csv-gf)
 // the values the decisions log and the open items quote ({key} in data/decisions.csv and data/open_items.csv)
 #let vals = (
-  "m-gap": n2(sec.sp.m-gap), "gf-m-gap": n3(sec.sp.gf-m-gap), "env-gap": n2(env-gap), "step-y": n2(sec.sp.step-y), "inward": n3(sec.sp.inward), "outward": n3(sec.sp.outward),
-  "sky": n3(sec.sp.sky), "ff-level": sec.f2(sec.ff-level), "fallback-sky": n2(sec.v50.sky), "fallback-proj": n2(sec.v50.gallery), "col-x": n2(sec.v50.col-x),
+  "m-gap": n3(sec.pj.m-gap), "env-gap": n2(env-gap), "depth": n2(sec.pj.depth), "col-x": n2(sec.pj.col-x), "spans": sec.pj.spans.map(n2).join(" and "),
+  "sky": n3(sec.pj.sky), "ff-level": sec.f2(sec.ff-level), "cant-wall": n2(sec.split.cant-wall), "split-m-gap": n2(sec.split.m-gap),
   "tm-clear": n2(suite.tm-clear), "winter": sec.pc(sec.light.winter), "maid-clear": n2(area(clear-poly(room-of(gf-rooms, "Maid room"), gf-walls))),
 )
 #let fill-in(s) = { let t = s; for (k, v) in vals { t = t.replace("{" + k + "}", v) }; t }
 #let ff-label-at = (
-  "Upper gallery (on the west projection)": (sec.sp-in - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.3, 8.9),
+  "Upper gallery (on the west projection)": (sec.pj-edge - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.3, 8.9),
   "Bedroom 1": (11.0, 4.6), "Family bath": (2.9, 9.7), "Owner's office": (1.425, 20.6), "Gym": (8.2, 22.6), "Suite court (open to the sky)": (8.0, 20.25),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
@@ -360,7 +360,7 @@
 #let plan-len = 0.8cm
 
 // ===================================================================================== SHEET 01 · site
-#sheet-head([The house on its site], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | ground floor filled, first floor orange dashed | 250 mm outer / 200 mm inner walls])
+#sheet-head([The house on its site], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls])
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: 0.52cm, {
     import cetz.draw: *
@@ -369,7 +369,6 @@
     line(..drv.map(q), close: true, fill: rgb("#d6e2ea"), stroke: 0.6pt + rgb("#2f5f8a"))
     line(..lane.map(q), stroke: 1.4pt + dark); line(..nwall.map(q), stroke: 1.4pt + dark)
     draw-floor(gf-rooms, gf-walls, (), (), (), shift: shift, labels: false, mini: true)
-    line(..sec.sp-outline.map(p => q((p.at(0) + shift.at(0), p.at(1) + shift.at(1)))), close: true, stroke: (paint: orange, thickness: 1pt, dash: "dashed"))
     for (T, n) in ((T1, [P1]), (T2, [P2])) {
       circle(q(T), radius: 1.0, fill: rgb("#cfdfc3"), stroke: 0.5pt + accent)
       circle(q(T), radius: 0.27, fill: accent, stroke: none)
@@ -385,35 +384,35 @@
   [
     #grid(columns: (1fr, 1fr, 1fr), column-gutter: 8pt, row-gutter: 8pt,
       kpi[#n2(footprint) m²][outside footprint (incl. courtyard)], kpi[#n2(gf-area) m²][ground floor rooms (axes)], kpi[#n2(ff-area) m²][first floor rooms (axes)],
-      kpi[#court-clear m][courtyard, clear · sky #n3(sec.sp.sky) m axes above], kpi[#n2(suite-area) m²][master suite (indoors)], kpi[#n3(sec.sp.gf-m-gap) / #n2(sec.sp.m-gap) m][west face to the M line, GF / FF],
+      kpi[#court-clear m][courtyard, clear · sky #n3(sec.pj.sky) m axes above], kpi[#n2(suite-area) m²][master suite (indoors)], kpi[#n3(sec.pj.m-gap) m][west face to the M line (both floors)],
       kpi[#n2(env-gap) m][nearest wall face to the envelope], kpi[#n2(palm-gap(T1)) / #n2(palm-gap(T2)) m][palms P1 / P2 to the outer walls], kpi[#n2(sec.ff-level) m][floor to floor (to confirm)],
     )
     #v(6pt)
     #en[
       *The house.* A compact courtyard house on site option Z4: a pentagon #n3(gx1 - gx0) × #n2(gy1 - gy0) m on wall centre lines, its north-east corner cut parallel to the lane, square to the M line and pushed as far north as the setbacks allow. The courtyard is the cool heart; the rooms look in, not out. A west service band and an east service block frame the middle band (women's majlis, courtyard, double-height living); the men's majlis takes the full width on the south.
 
-      *First floor.* The family part on the north and west around the courtyard; the L (owner's office, gym, suite court, master suite) to the south and east. The west band sits on a projection split #n3(sec.sp.inward) m inward and #n3(sec.sp.outward) m outward, without columns.
+      *First floor.* The family part on the north and west around the courtyard; the L (owner's office, gym, suite court, master suite) to the south and east. The gallery runs on a #n2(sec.pj.depth) m projection over the courtyard and the double-height void, on an edge beam and #sec.pj.columns columns.
 
-      *Condition:* the first-floor west face is #n2(sec.sp.m-gap) m from the M line; the municipality must confirm it before construction drawings (sheet 10).
+      *Walls on walls:* the first-floor outer walls stand on the ground-floor outer walls, #n3(sec.pj.m-gap) m from the M line; no projection beyond the ground floor.
     ]
     #ar[
       #ah[المنزل]
       منزل فناء مدمج على خيار الموقع Z4: مخمس #n3(gx1 - gx0) × #n2(gy1 - gy0) م على محاور الجدران، ركنه الشمالي الشرقي مقطوع موازيا للزقاق، متعامد مع خط M ومدفوع شمالا قدر ما تسمح الارتدادات. الفناء هو القلب البارد، والغرف تطل إلى الداخل لا إلى الخارج.
       #ah[الدور الأول]
-      جزء العائلة شمالا وغربا حول الفناء، وجزء L جنوبا وشرقا: مكتب المالك والنادي وفناء الجناح وجناح النوم الرئيسي. الشريط الغربي على بروز مقسوم #n3(sec.sp.inward) م إلى الداخل و#n3(sec.sp.outward) م إلى الخارج بلا أعمدة.
-      #ah[شرط]
-      الواجهة الغربية للدور الأول على بعد #n2(sec.sp.m-gap) م من خط M: تؤكد البلدية ذلك قبل المخططات التنفيذية (اللوحة 10).
+      جزء العائلة شمالا وغربا حول الفناء، وجزء L جنوبا وشرقا: مكتب المالك والنادي وفناء الجناح وجناح النوم الرئيسي. الممر العلوي على بروز #n2(sec.pj.depth) م فوق الفناء والصالة، على جسر حافة و#sec.pj.columns أعمدة.
+      #ah[جدار فوق جدار]
+      الجدران الخارجية للدور الأول فوق جدران الأرضي، على بعد #n3(sec.pj.m-gap) م من خط M، ولا بروز خارج الأرضي.
     ]
   ],
 )
 
 // ===================================================================================== SHEET 02 · ground floor
 #pagebreak()
-#sheet-head([Ground floor], [Room numbers G.. | brown = low partition #n2(sec.low-wall) m | orange dashed = the first-floor cantilever edge over the courtyard and the first-floor west wall above | doors and windows outside the two studied blocks are indicative])
+#sheet-head([Ground floor], [Room numbers G.. | brown = low partition #n2(sec.low-wall) m | dark squares = the #sec.pj.columns columns, orange dashed = the first-floor edge beam above (a colonnade along the courtyard) | doors and windows outside the two studied blocks are indicative])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: plan-len, {
     import cetz.draw: *
-    draw-floor(gf-rooms, gf-walls, gf-doors, gf-windows, gf-furniture, lowwalls: gf-lowwalls, dashed: gf-dashed, label-at: gf-label-at)
+    draw-floor(gf-rooms, gf-walls, gf-doors, gf-windows, gf-furniture, lowwalls: gf-lowwalls, dashed: beam, columns: sec.columns, label-at: gf-label-at)
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
     let cc = bbox(clear-poly(court-r, gf-walls))
@@ -427,7 +426,7 @@
 
       *West band:* entry cupboard and future lift, the open stair, the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
 
-      *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the air tower in the cut corner. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No columns, no east duct.
+      *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the air tower in the cut corner. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall.
     ]
     #ar[
       #ah[الوسط: مجلس النساء والفناء والصالة]
@@ -435,31 +434,31 @@
       #ah[الشريط الغربي والرواق]
       دولاب المدخل والمصعد المستقبلي والدرج المفتوح وغرفة الخدمات مع الشفت ثم كتلة المغاسل (اللوحة 06). الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
       #ah[الكتلة الشرقية ومجلس الرجال]
-      المطبخ والغسيل وغرفة الخادمة وحمامها وبرج الهواء (اللوحة 06). مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا أعمدة ولا شفت شرقي.
-      #ah[خطوط الدور الأول]
-      الخطان البرتقاليان: حافة الكابولي الداخلي فوق الفناء، والجدار الغربي للدور الأول على بعد #n3(sec.sp.outward) م خارج الجدار الغربي، يظلله ويغطي مدخل الضيوف.
+      المطبخ والغسيل وغرفة الخادمة وحمامها وبرج الهواء (اللوحة 06). مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا شفت شرقي.
+      #ah[الأعمدة والرواق]
+      #sec.pj.columns أعمدة على x #n2(sec.pj.col-x) (في جدار مجلس النساء الجنوبي، وبين زجاج الفناء والصالة، وفي جدار الصالة الجنوبي) تحمل جسر حافة البروز في الدور الأول (الخط البرتقالي المتقطع)، فيصبح على حافة الفناء رواق بأعمدة.
     ]
   ],
 )
 
 // ===================================================================================== SHEET 03 · first floor
 #pagebreak()
-#sheet-head([First floor], [Room numbers F.. | split west projection #n3(sec.sp.inward) m in + #n3(sec.sp.outward) m out, no columns | hatched = open below / to the sky | orange dashed = the GF west wall below | furniture from the two first-floor studies])
+#sheet-head([First floor], [Room numbers F.. | west projection #n2(sec.pj.depth) m over the courtyard and the void, edge beam (orange dashed) on #sec.pj.columns columns | hatched = open below / to the sky | furniture from the two first-floor studies])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: plan-len, {
     import cetz.draw: *
-    draw-floor(ff-rooms, ff-walls, ff-doors, ff-windows, ff-furniture, dashed: ff-dashed, label-at: ff-label-at)
+    draw-floor(ff-rooms, ff-walls, ff-doors, ff-windows, ff-furniture, dashed: beam, label-at: ff-label-at)
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
-    dim((sec.sp-out - sec.outer-half, sec.sp.step-y), (sec.sp-out - sec.outer-half, gy1 + sec.outer-half), (-0.9, 0), [#n2(gy1 + sec.outer-half - sec.sp.step-y) m])
-    dim((sec.sp-in, 11.6), (sec.x-east, 11.6), (0, 0), [#n3(sec.sp.sky) m sky])
-    dim((sec.sp-wall, 18.6), (sec.sp-in, 18.6), (0, 0), [#n2(sec.sp.gallery)])
-    dim((sec.sp-out, 23.2), (0, 23.2), (0, 0), [#n3(sec.sp.outward)])
+    dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
+    dim((sec.pj-edge, 11.6), (sec.x-east, 11.6), (0, 0), [#n3(sec.pj.sky) m sky])
+    dim((sec.pj-wall, 18.6), (sec.pj-edge, 18.6), (0, 0), [#n2(sec.pj.gallery)])
+    dim((sec.x-court, 6.0), (sec.pj-edge, 6.0), (0, 0), [#n2(sec.pj.depth)])
     north-arrow((14.6, 1.0))
     scale-bar((0, 25.6))
   }),
   [
     #en[
-      *Split west projection:* #n3(sec.sp.inward) m inward over the courtyard and the double-height void (a plain cantilever, no columns) and #n3(sec.sp.outward) m outward beyond the GF west wall south of y #n2(sec.sp.step-y) (the west wall on cantilever beams). Gallery #n2(sec.sp.gallery) m (≈ #n3(sec.sp.gallery-clear) m clear), west rooms #n2(sec.sp.room) m (≈ #n3(sec.sp.room-clear) m clear), courtyard sky #n3(sec.sp.sky) m (≈ #n3(sec.sp.sky-clear) m clear).
+      *West projection:* #n2(sec.pj.depth) m over the courtyard and the double-height void, on an edge beam on x #n2(sec.pj.col-x) and #sec.pj.columns columns; the first-floor west wall stands on the GF west wall. Gallery #n2(sec.pj.gallery) m (≈ #n3(sec.pj.gallery-clear) m clear), west rooms #n2(sec.pj.room) m (≈ #n3(sec.pj.room-clear) m clear), courtyard sky #n3(sec.pj.sky) m (≈ #n3(sec.pj.sky-clear) m clear).
 
       *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m².
 
@@ -468,8 +467,8 @@
       *The L:* owner's office, gym route, gym, suite court (open to the sky), master suite #n2(suite-area) m².
     ]
     #ar[
-      #ah[البروز المقسوم والممر العلوي]
-      #n3(sec.sp.inward) م إلى الداخل فوق الفناء وفراغ الصالة (كابولي بلا أعمدة) و#n3(sec.sp.outward) م إلى الخارج بعد الجدار الغربي للأرضي جنوب y #n2(sec.sp.step-y) (جدار على كوابيل). الممر #n2(sec.sp.gallery) م (نحو #n3(sec.sp.gallery-clear) م صافي)، والغرف #n2(sec.sp.room) م (نحو #n3(sec.sp.room-clear) م صافي)، والسماء فوق الفناء #n3(sec.sp.sky) م.
+      #ah[البروز الغربي والممر العلوي]
+      بروز #n2(sec.pj.depth) م فوق الفناء وفراغ الصالة على جسر حافة على x #n2(sec.pj.col-x) و#sec.pj.columns أعمدة، والجدار الغربي للدور الأول فوق الجدار الغربي للأرضي. الممر #n2(sec.pj.gallery) م (نحو #n3(sec.pj.gallery-clear) م صافي)، والغرف #n2(sec.pj.room) م (نحو #n3(sec.pj.room-clear) م صافي)، والسماء فوق الفناء #n3(sec.pj.sky) م.
       #ah[الشريط الشمالي]
       غرفة الأطفال #ffa("Kids' room (study + gaming)") م² وجلسة العائلة #ffa("Family living") م² على حافة الفناء، وغرفة النوم 1 #ffa("Bedroom 1") م².
       #ah[الشريط الغربي]
@@ -482,15 +481,15 @@
 
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
-#sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the inward cantilever | furnished test from studies/ff_family.typ])
+#sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
 #let fam-focus = ("Landing (stair top)", "Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft (future)", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *
-    draw-floor(ff-rooms.filter(r => bbox(r.P).at(1) < 19.2), ff-walls, ff-doors.filter(d => d.a.at(1) < 19.2), ff-windows.filter(w => w.at(0).at(1) < 19.2), ff-furniture.filter(f => f.at(1) < 19.2), dashed: (((0, sec.sp.step-y), (0, sec.y-living)),), focus: fam-focus, label-at: ff-label-at)
+    draw-floor(ff-rooms.filter(r => bbox(r.P).at(1) < 19.2), ff-walls, ff-doors.filter(d => d.a.at(1) < 19.2), ff-windows.filter(w => w.at(0).at(1) < 19.2), ff-furniture.filter(f => f.at(1) < 19.2), dashed: beam, focus: fam-focus, label-at: ff-label-at)
     let b2 = bbox(room-of(ff-rooms, "Bedroom 2").P)
-    dim((b2.at(0), 11.0), (b2.at(2), 11.0), (0, 0.45), [#n2(b2.at(2) - b2.at(0)) m axes · ≈ #n3(sec.sp.room-clear) m clear])
-    dim((sec.sp-out, sec.sp.step-y), (sec.sp-out, sec.y-living), (-0.8, 0), [#n2(sec.y-living - sec.sp.step-y) m])
+    dim((b2.at(0), 11.0), (b2.at(2), 11.0), (0, 0.45), [#n2(b2.at(2) - b2.at(0)) m axes · ≈ #n3(sec.pj.room-clear) m clear])
+    dim((0, 0), (0, sec.y-living), (-0.8, 0), [#n2(sec.y-living) m])
     scale-bar((0, 20.0))
   }),
   [
@@ -606,7 +605,7 @@
 
 // ===================================================================================== SHEET 07 · sections
 #pagebreak()
-#sheet-head([Sections / the split projection and the light], [Schematic sections, levels to confirm: GF ±0.00 · FF +#sec.f2(sec.ff-level) · roof +#sec.f2(sec.roof-level) | grey dashed = the fallback if the M-line projection is refused | the light figures are geometry only])
+#sheet-head([Sections / the west projection and the light], [Schematic sections, levels to confirm: GF ±0.00 · FF +#sec.f2(sec.ff-level) · roof +#sec.f2(sec.roof-level) | the column on x #n2(sec.pj.col-x) is beyond the cut | the light figures are geometry only])
 #grid(columns: (1.35fr, 1fr), column-gutter: 18pt,
   [
     #text(10pt, weight: "bold", fill: accent)[A · east–west through the courtyard (y 12.0), looking north]
@@ -619,13 +618,13 @@
   ],
   [
     #en[
-      *A · split projection:* the gallery stands on a #n3(sec.sp.inward) m cantilever over the courtyard (no column); the west rooms stand #n3(sec.sp.outward) m beyond the GF west wall, their wall on cantilever beams. Courtyard sky #n3(sec.sp.sky) m on axes (≈ #n3(sec.sp.sky-clear) m clear). The outward part shades the top of the GF west wall from the afternoon sun (#n2(sec.shade(45)) m at 45°, #n2(sec.shade(60)) m at 60°). The first-floor west face is #n2(sec.sp.m-gap) m from the M line.
+      *A · west projection:* the gallery stands on a #n2(sec.pj.depth) m slab over the courtyard, carried by an edge beam on x #n2(sec.pj.col-x) (spans #sec.pj.spans.map(n2).join(" and ") m) on #sec.pj.columns columns: on the ground floor a colonnade along the courtyard, with a normal-height ceiling under the projection. The first-floor west wall stands on the ground-floor west wall, #n3(sec.pj.m-gap) m from the M line. Courtyard sky #n3(sec.pj.sky) m on axes (≈ #n3(sec.pj.sky-clear) m clear).
 
       *B · light:* the main light of the double-height living comes from the courtyard; its #sec.clerestory.len() clerestory windows face the #n2(sec.strip) m suite court. With a railing on the gym roof edge the winter noon sun reaches #sec.pc(sec.light.winter) of the window height and the sky shows on #sec.pc(sec.light.sky); with a #n2(sec.parapet) m parapet it would be #sec.pc(sec.light.winter-parapet).
     ]
     #ar[
-      #ah[المقطع A · البروز المقسوم]
-      يقوم الممر على كابولي #n3(sec.sp.inward) م فوق الفناء بلا عمود، وتقوم الغرف الغربية #n3(sec.sp.outward) م خارج الجدار الغربي للأرضي وجدارها على كوابيل. السماء فوق الفناء #n3(sec.sp.sky) م على المحاور. البروز الخارجي يظلل أعلى الجدار الغربي من شمس العصر (#n2(sec.shade(45)) م عند 45° و#n2(sec.shade(60)) م عند 60°). الواجهة على بعد #n2(sec.sp.m-gap) م من خط M؛ وإن لم تسمح البلدية نعود إلى الحل الرمادي المتقطع.
+      #ah[المقطع A · البروز الغربي]
+      يقوم الممر على بلاطة #n2(sec.pj.depth) م فوق الفناء يحملها جسر حافة على x #n2(sec.pj.col-x) فوق #sec.pj.columns أعمدة، فيصبح في الأرضي رواق بأعمدة على حافة الفناء بسقف عادي تحت البروز. الجدار الغربي للدور الأول فوق الجدار الغربي للأرضي على بعد #n3(sec.pj.m-gap) م من خط M. السماء فوق الفناء #n3(sec.pj.sky) م على المحاور.
       #ah[المقطع B · الضوء]
       الضوء الرئيسي للصالة من زجاج الفناء. النوافذ العلوية (#sec.clerestory.len()) تطل على فناء الجناح بعرض #n2(sec.strip) م. مع درابزين على حافة سطح النادي تصل شمس ظهر الشتاء إلى #sec.pc(sec.light.winter) من ارتفاع النافذة، ومع دروة #n2(sec.parapet) م تصبح #sec.pc(sec.light.winter-parapet).
       #ah[الخصوصية]
@@ -664,19 +663,19 @@
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
-#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_ITEMS.md) | item 1 comes before construction drawings])
+#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_ITEMS.md) | orange = the edge beam and the #sec.pj.columns columns])
 #let items = csv("data/open_items.csv", row-type: dictionary)
 #let item-no(key) = items.position(o => o.key == key) + 1
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 0.55cm, {
     import cetz.draw: *
     draw-floor(ff-rooms, ff-walls, (), (), (), labels: false, mini: true)
-    line(q((sec.sp-out, sec.sp.step-y)), q((sec.sp-out, gy1)), stroke: (paint: orange, thickness: 2pt))
-    line(q((sec.sp-in, sec.y-court)), q((sec.sp-in, sec.y-living)), stroke: (paint: orange, thickness: 1.4pt, dash: "dashed"))
+    line(q((sec.pj-edge, sec.y-court)), q((sec.pj-edge, sec.y-living)), stroke: (paint: orange, thickness: 1.6pt, dash: "dashed"))
+    for c in sec.columns { rect(q((c.at(0) - 0.25, c.at(1) - 0.25)), q((c.at(0) + 0.25, c.at(1) + 0.25)), fill: orange, stroke: none) }
     line(q((sec.m-line, -0.5)), q((sec.m-line, gy1 + 0.5)), stroke: (paint: rgb("#b5452f"), thickness: 0.8pt, dash: "dash-dotted"))
-    content(q((sec.m-line - 0.25, 6.0)), angle: 90deg, text(7pt, fill: rgb("#b5452f"))[M line · #n2(sec.sp.m-gap) m])
+    content(q((sec.m-line - 0.25, 6.0)), angle: 90deg, text(7pt, fill: rgb("#b5452f"))[M line · #n3(sec.pj.m-gap) m])
     let tag(p, key) = { circle(q(p), radius: 0.6, fill: white, stroke: 0.9pt + accent); content(q(p), text(8pt, weight: "bold", fill: accent)[#item-no(key)]) }
-    tag((-2.2, 19.0), "M-line approval"); tag((-2.2, 14.5), "cantilever beams"); tag((6.9, 10.0), "no columns"); tag((8.0, 22.6), "men's majlis")
+    tag((6.9, 10.0), "edge beam and columns"); tag((8.0, 22.6), "men's majlis")
     tag((6.6, 3.0), "off ground-floor lines"); tag((14.3, 7.0), "east-wall stack"); tag((7.0, 20.25), "clerestory privacy"); tag((1.1, 1.1), "future lift")
   }),
   table(columns: (auto, auto, 1.1fr, 1fr, 1fr), stroke: none, inset: 3.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },

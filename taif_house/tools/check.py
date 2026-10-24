@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V6.0 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V6.1 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V6.0"
+VERSION = "V6.1"
 problems = []
 
 
@@ -192,13 +192,13 @@ elif lost:
     bad(f"open items not in docs/OPEN_ITEMS.md: {lost}")
 else:
     ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
-# active files: no V3.x / V4.x / V5.x label, except where the line names the fallback (the V5.0 columns solution, tag v5.0) or a decision's version
+# active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
 active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V6.md", "decisions.csv")]
 active.append(ROOT.parent / "README.md")
 old = []
 for p in active:
     for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
-        if re.search(r"\bV[345]\.\d", line) and not re.search(r"fallback|tag v5\.0|V5\.0 solution|V5\.0 columns", line, re.I):
+        if re.search(r"\bV[345]\.\d", line) and not re.search(r"fallback|tag v5\.0|tag v6\.0|V5\.0 solution|V5\.0 columns|as in V5\.0|split", line, re.I):
             old.append(f"{p.relative_to(ROOT.parent)}:{i}")
 if old:
     bad(f"old version labels in active files: {old[:8]}{' …' if len(old) > 8 else ''}")

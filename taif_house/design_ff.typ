@@ -1,10 +1,10 @@
-// design_ff.typ · Taif / Palm House · FIRST FLOOR V6.0 · compile THIS file for the whole first floor
-// Zoning: family part (kids' room, family living, bedrooms 1–3, family bath) on the north and west, around the courtyard; the gallery on the split
-// west projection (0.675 m inward over the courtyard and the double-height void, 0.675 m outward beyond the ground-floor west wall, no columns);
+// design_ff.typ · Taif / Palm House · FIRST FLOOR V6.1 · compile THIS file for the whole first floor
+// Zoning: family part (kids' room, family living, bedrooms 1–3, family bath) on the north and west, around the courtyard; the gallery on the
+// 1.35 m west projection over the courtyard and the double-height void, on an edge beam and three columns at x 5.6 (V6.1, as in V5.0);
 // the L to the south and east: owner's office → gym route → gym → suite court → master suite.
 // Rooms: data/rooms_ff.csv. Room-by-room design, furniture, doors, drains and checks: studies/ff_family.typ (part 1) and studies/ff_suite.typ (part 2);
 // this file checks that the CSV and the two studies agree. Sections and the light check: studies/sections.typ. Placement: design_gf.typ.
-// Pages: 1 plan in the site with checks · 2 schedules (envelope, rooms) · 3 room schedule with clear areas · 4 light check · 5 the split projection.
+// Pages: 1 plan in the site with checks · 2 schedules (envelope, rooms) · 3 room schedule with clear areas · 4 light check · 5 the west projection.
 // The <ff-data> metadata at the end feeds tools/make_dxf_ff.py (first-floor DXF). Full description: docs/PROJECT_V6.md
 #import "base.typ": *
 #import "design_gf.typ": place, outline-gf
@@ -16,13 +16,13 @@
 #let rect-csv(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- Outline, voids and fixed elements (CSV) ----------
-#let outline-csv = sec.sp-outline                                  // the west face 0.675 m out from y 10.4
+#let outline-csv = sec.ff-outline                                  // the first floor stands on the ground-floor walls
 #assert(sample(outline-csv.map(place), step: 0.1).all(p => inside(p, env)), message: "ERROR: the first-floor centre line leaves the envelope.")
 #let ff-env-gap = calc.min(..sample(outline-csv.map(place), step: 0.1).map(p => calc.min(..edges(env).map(e => seg-dist(p, ..e))))) - sec.outer-half
 #assert(ff-env-gap >= 0, message: "ERROR: the first-floor outer wall face crosses the envelope.")
 #let ff-m-gap = calc.min(..outline-csv.map(place).map(p => p.at(0))) - sec.outer-half
-#let court-sky = rect-csv(sec.sp-in, sec.y-court, sec.x-east, 13.0)       // courtyard, open to the sky (its west strip is under the inward cantilever)
-#let living-void = rect-csv(sec.sp-in, 13.0, sec.x-east, sec.y-living)    // double-height living, no floor
+#let court-sky = rect-csv(sec.pj-edge, sec.y-court, sec.x-east, 13.0)       // courtyard, open to the sky (its west 1.35 m is under the projection)
+#let living-void = rect-csv(sec.pj-edge, 13.0, sec.x-east, sec.y-living)    // double-height living, no floor
 #let fixed-csv = fam.fixed.filter(f => f.name != "Air tower").map(f => (f.name, f.pts))
 #let tower-csv = fam.fixed.find(f => f.name == "Air tower").pts           // the air tower rises to the roof
 #let as-row(n, P, colour) = {
@@ -60,22 +60,22 @@
 
 // ---------- PAGE 1: plan in the site, with the framework checks ----------
 #render(
-  title: [First floor V6.0 · family part + the L (office, gym, suite court, master suite)],
-  subtitle: [Taif / Palm House V6.0 · rooms in data/rooms_ff.csv · design and furniture in studies/ff_family.typ and studies/ff_suite.typ · schedule, light check and the split projection on the next pages],
+  title: [First floor V6.1 · family part + the L (office, gym, suite court, master suite)],
+  subtitle: [Taif / Palm House V6.1 · rooms in data/rooms_ff.csv · design and furniture in studies/ff_family.typ and studies/ff_suite.typ · schedule, light check and the split projection on the next pages],
   court: court-sky.map(place),
   extras: (("Void · double-height living", living-void.map(place)),) + ff-open.map(r => (r.name, r.P.map(place))),
   rooms: fixed + ff-rooms.map(r => as-row(r.name, r.P, r.colour)),
   air: (("Air tower", tower-csv.map(place)),),
   marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])),
   limit: outline-csv.map(place),
-  note: [*First floor V6.0.* The west projection is split: *#r3(sec.sp.inward) m inward* over the courtyard and the double-height void (a plain cantilever, *no columns*) and *#r3(sec.sp.outward) m outward* beyond the GF west wall (south of y #num(sec.sp.step-y), the west wall on cantilever beams). FF west wall face *#num(ff-m-gap) m from the M line* (GF #r3(sec.sp.gf-m-gap) m); courtyard sky and void *#r3(sec.sp.sky) m* on axes. West rooms #num(sec.sp.room) m and gallery #num(sec.sp.gallery) m on axes: *bedroom 2*, *bedroom 3 with its own bath*, the *family bath* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* is one room on the straight y 6.5 line. The *L*: *owner's office* (west), *gym route*, *gym* (a rectangle, treadmill at its west end), the *suite court* open to the sky in front of the clerestory windows, and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair, lift, landing and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
+  note: [*First floor V6.1.* The gallery runs on a *#num(sec.pj.depth) m west projection* along the courtyard and the double-height void (x #num(sec.x-court)–#num(sec.pj-edge), y #num(sec.y-court)–#num(sec.y-living)), on an *edge beam and #sec.pj.columns columns* at x #num(sec.pj-edge), each in an existing wall or glass line; the first-floor west wall stands on the GF west wall (#r3(ff-m-gap) m from the M line). Courtyard sky and void #r3(sec.pj.sky) m on axes. West rooms #num(sec.pj.room) m and gallery #num(sec.pj.gallery) m on axes: *bedroom 2*, *bedroom 3 with its own bath*, the *family bath* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* is one room on the straight y 6.5 line. The *L*: *owner's office* (west), *gym route*, *gym* (a rectangle, treadmill at its west end), the *suite court* open to the sky in front of the clerestory windows, and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair, lift, landing and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
     #linebreak()
     #if sync-issues.len() == 0 [*✓ data/rooms_ff.csv matches the two studies room for room.*] else [#text(fill: warn)[*CSV and studies differ:* #sync-issues.join("; ")]]],
 )
 
 // ---------- PAGE 3: room schedule ----------
 #pagebreak()
-#text(15pt, fill: accent, weight: "bold")[First floor V6.0 · room schedule]
+#text(15pt, fill: accent, weight: "bold")[First floor V6.1 · room schedule]
 #h(8pt) #text(8pt, fill: gray)[wall centre lines (axes) · clear ≈ axes minus half a wall on every edge (from the studies) · CSV coordinates]
 #v(4pt)
 #let part-of(n) = if n in suite-names or n in ("Gym route", "Owner's office", "Gym", "Suite court (open to the sky)") { [L] } else { [family] }
@@ -93,24 +93,24 @@
   #text(10pt, weight: "bold", fill: accent)[Key numbers]
   - *Master suite:* #num(suite-area) m² indoors (lobby, bath + WC closet, dressing, bedroom), + the suite court #num(used-out) m².
   - *Circulation:* #num(circulation) m² (landing, gallery, family link, gym route, suite lobby).
-  - *Courtyard sky* #r3(sec.sp.sky) × #num(13.0 - sec.y-court) m and *double-height void* #r3(sec.sp.sky) × #num(sec.y-living - 13.0) m on axes; the ground-floor courtyard and living keep their full floor.
-  - *West rooms:* #num(sec.sp.room) m on axes (≈ #r3(sec.sp.room-clear) m clear); *gallery* #num(sec.sp.gallery) m (≈ #r3(sec.sp.gallery-clear) m clear); *family bath* #r3(sec.sp.bath-w) m wide (the shaft is fixed).
-  - *FF west wall* #num(ff-m-gap) m from the M line, on cantilever beams south of y #num(sec.sp.step-y).
+  - *Courtyard sky* #r3(sec.pj.sky) × #num(13.0 - sec.y-court) m and *double-height void* #r3(sec.pj.sky) × #num(sec.y-living - 13.0) m on axes; the ground-floor courtyard and living keep their full floor.
+  - *West rooms:* #num(sec.pj.room) m on axes (≈ #r3(sec.pj.room-clear) m clear); *gallery* #num(sec.pj.gallery) m (≈ #r3(sec.pj.gallery-clear) m clear); *family bath* #num(sec.pj.bath-w) m wide.
+  - *Edge beam* on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns; the FF west wall on the GF west wall, #r3(ff-m-gap) m from the M line.
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Where the detail is]
   - *Furniture, doors, windows, drains, walking distances, routes ≥ 1.0 m and room checks:* studies/ff_family.typ (part 1) and studies/ff_suite.typ (part 2).
   - *Decisions with reasons, construction notes, changelog:* docs/PROJECT_V6.md · *open items:* docs/OPEN_ITEMS.md.
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Open items (first floor)]
-  - *Before construction drawings:* municipality / engineering office to confirm the upper-floor projection #num(ff-m-gap) m from the M line. If not allowed, fall back to the full inward projection on three columns at x #num(sec.v50.col-x) (tag v5.0).
-  - Engineer: the FF west wall on cantilever beams (beam depth, wall load, deflection); the inward cantilever with no columns; loads and vibration of the gym and the office over the men's majlis; the y 3.0 partition over the women's majlis.
+  - Engineer: the edge beam (spans #sec.pj.spans.map(num).join(" and ") m) and the #sec.pj.columns columns at x #num(sec.pj-edge): sizes and foundations.
+  - Engineer: loads and vibration of the gym and the office over the men's majlis; the y 3.0 partition over the women's majlis.
   - MEP: the stack outside the east wall (suite bath, vent stack), the kitchen extract through the east wall, the hood south of y ≈ 7.5.
   - The clerestory sill against the suite court floor (eye height, or obscured glass); a daylight check of the courtyard.
 ])
 
 // ---------- PAGE 4: light check of the clerestory windows behind the suite court ----------
 #pagebreak()
-#text(15pt, fill: accent, weight: "bold")[First floor V6.0 · light check · the double-height living's south windows]
+#text(15pt, fill: accent, weight: "bold")[First floor V6.1 · light check · the double-height living's south windows]
 #h(8pt) #text(8pt, fill: gray)[section north → south through the middle band (CSV x ≈ 7.3) · levels to confirm: GF ±0.00 · FF +#sec.f2(sec.ff-level) · roof +#sec.f2(sec.roof-level) · parapets #num(sec.parapet)]
 #v(3pt)
 #sec.ns-section(length: 0.6cm, ink: ink, warn: warn)
@@ -126,10 +126,10 @@
   - *Summer:* the sun is almost overhead; light-coloured court walls and small hoods over the windows.
 ])
 
-// ---------- PAGE 5: the split west projection · the two east–west sections · against the fallback ----------
+// ---------- PAGE 5: the west projection · the two east–west sections · against the reverted split projection ----------
 #pagebreak()
-#text(15pt, fill: accent, weight: "bold")[First floor V6.0 · the split west projection]
-#h(8pt) #text(8pt, fill: gray)[sections looking north, CSV x · grey dashed = the fallback if the M-line projection is refused (FF west wall on x 0, gallery edge beam and column on x #num(sec.v50.col-x), tag v5.0)]
+#text(15pt, fill: accent, weight: "bold")[First floor V6.1 · the west projection on three columns]
+#h(8pt) #text(8pt, fill: gray)[sections looking north, CSV x · the column on x #num(sec.pj-edge) is beyond the cut (columns at y #sec.columns.map(c => num(c.at(1))).join(", "))]
 #v(3pt)
 #grid(columns: (1fr, 1fr), column-gutter: 10pt,
   [#text(8pt, weight: "bold")[A–A · through the courtyard (y 12.0)] #sec.section("court", length: 0.62cm)],
@@ -138,13 +138,13 @@
 #v(2pt)
 #grid(columns: (1.25fr, 1fr), column-gutter: 16pt, [
   #sec.compare-table(size: 7pt)
-  #text(6pt, fill: gray)[V6.0 read from data/rooms_ff.csv; the fallback values from tag v5.0. Clear ≈ axes − ½ wall each side (250 outer, 200 inner, ≈ 50 mm railing on the void edge); sky opening clear = axes − ½ of the east wall − the slab edge with its railing.]
+  #text(6pt, fill: gray)[V6.1 read from data/rooms_ff.csv; the split projection (V5.1–V6.0) from tag v6.0. Clear ≈ axes − ½ wall each side (250 outer, 200 inner, ≈ 50 mm railing on the void edge); sky opening clear = axes − ½ of the east wall − the slab edge with its railing.]
 ], [
   #set text(7.2pt)
-  - *Split:* the band (rooms + gallery) keeps its width; rooms ≥ 4.0 m and gallery ≥ 1.0 m clear hold for any split. The site caps the outward part at the GF face's gap to the M line (#r3(sec.sp.gf-m-gap) m); the even split leaves #num(sec.sp.m-gap) m.
-  - *Structure:* the inward cantilever (back span to x 2.75) carries only the gallery and its railing: *no columns* (engineer to confirm). The FF west wall south of y #num(sec.sp.step-y) stands on *cantilever beams*: engineer to size beam depth, wall load and deflection.
-  - *Climate:* the outward part shades the top of the GF west wall from the afternoon sun (#num(sec.shade(45)) m at 45°, #num(sec.shade(60)) m at 60° profile angle) and roofs the guest entrance.
-  - *Condition:* municipality / engineering office to confirm the projection #num(sec.sp.m-gap) m from the M line; if refused, back to the fallback (grey dashed).
+  - *Projection:* #num(sec.pj.depth) m over the courtyard and the double-height void; the west rooms (#num(sec.pj.room) m) and the gallery (#num(sec.pj.gallery) m) take the band over the GF west band and riwaq.
+  - *Structure:* an edge beam on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns, each in an existing wall or glass line: the women's majlis south wall, the courtyard / living glass, the living's south wall. On the ground floor it reads as a colonnade along the courtyard. Walls stand on walls; nothing hangs on cantilever beams.
+  - *V6.1:* the split projection of V5.1–V6.0 (#num(sec.split.inward) m in + #num(sec.split.outward) m out, the west wall on cantilever beams #num(sec.split.m-gap) m from the M line) is reverted: a wall on cantilever beams along ≈ #num(sec.split.cant-wall) m costs more and is less direct than walls on walls, and the M-line projection needed municipal approval.
+  - *Cost of the revert:* courtyard sky #r3(sec.split.sky) → #r3(sec.pj.sky) m; #sec.pj.columns columns on the courtyard edge.
 ])
 
 // ---------- Data for tools/make_dxf_ff.py (typst eval --in design_ff.typ "query(<ff-data>).first().value") ----------
@@ -158,6 +158,6 @@
   doors: all-doors.map(d => (a: place(d.a), b: place(d.b), label: plain(d.label), open: d.open)),
   windows: (fam.windows + suite.windows).map(((a, b)) => (place(a), place(b))),
   furniture: (fam.furniture + suite.furniture).map(f => (a: place((f.at(0), f.at(1))), b: place((f.at(2), f.at(3))), label: plain(f.at(4)))),
-  marks: ((sec.x-court, sec.y-court), (sec.x-court, sec.y-living), (0, sec.sp.step-y), (0, 24.0)).map(place),
+  marks: ((sec.pj-edge, sec.y-court), (sec.pj-edge, sec.y-living)).map(place), columns: sec.columns.map(place),
   m-gap: ff-m-gap,
 )) <ff-data>
