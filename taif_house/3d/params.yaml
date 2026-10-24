@@ -1,0 +1,35 @@
+# params.yaml · Taif / Palm House V6.2 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
+# The geometry itself (rooms, outline, voids, projection) is read from the project files; these are only the levels and thicknesses.
+version: V6.2
+
+levels:                 # to confirm with the engineer (docs/OPEN_ITEMS.md item 6)
+  gf_floor: 0.00        # ground floor finished level ±0.00
+  ff_floor: 3.60        # first floor finished level
+  roof: 7.20            # roof slab top
+
+slab_thickness: 0.20    # ground slab, first-floor slab and roof slab; walls run from the floor to the underside of the slab above
+
+walls:
+  outer: 0.25           # outer walls, centred on the outline (wall centre lines)
+  inner: 0.20           # all interior walls, incl. the maid-wing partitions (they may become aluminium partitions later)
+  low_partition: 1.20   # height of the living room's low partition to the riwaq (brown in the plans)
+
+parapet_height: 1.10    # placeholder, built in phase 5 (railings and parapets)
+
+projection:
+  width: 1.35           # the first-floor west projection over the courtyard and the double-height void (V5.0 columns solution)
+  # its exact edge (x 5.6) is read from studies/ff_family.typ (proj-x) and checked against this width
+
+sources:                # where build_3d.py reads the geometry (paths from taif_house/)
+  rooms_gf: data/rooms_gf.csv
+  rooms_ff: data/rooms_ff.csv
+  outline: design_gf.typ            # "#let outline-csv-gf = (...)", wall centre lines, CSV frame
+  air_tower: design_gf.typ          # "#let tower-pts = (...)" (CSV frame, before placement)
+  projection_edge: studies/ff_family.typ   # "#let proj-x = 5.6"
+  ff_fixed: studies/ff_family.typ   # "#let fixed = (...)": stair, lift shaft, west shaft, air tower on the first floor
+  open_edges: 3d/open_edges.csv
+
+output:
+  glb: 3d/output/taif_house_V6.2.glb
+  viewer_data: 3d/output/taif_house_V6.2.js   # the same GLB as base64, so viewer.html works from file://
+  summary: 3d/output/model_summary.json       # what was built, for 3d/check_3d.py

@@ -14,6 +14,7 @@ Taif / Palm House · **V6.2** (git tag `v6.2`, GitHub Release "V6.2")
     - a mandatory acoustic double wall (≈ 55 dB), a floating floor or dense rubber, and anti-vibration pads.
   - **Suite court:** 5.99 × 2.0 m = 11.97 m², still open to the sky and private. The clerestory windows keep their light: 81 % winter noon sun, 100 % sky.
   - **Ground floor:** unchanged; the three columns form a colonnade along the courtyard.
+- **3D model, phases 1–2 done** (tag `3d-p2`): slabs, outer and interior walls, generated from the CSVs by `3d/build_3d.py`; open `3d/viewer.html` to see it; `3d/README_3D.md` has the phases to do (doors and windows next). The 3D is never edited by hand.
 - **Docs:**
   - master document `docs/PROJECT_V6.md`;
   - construction notes `docs/DETAILS.md`;
@@ -44,3 +45,4 @@ Tools: Typst 0.15, Python 3.12 + ezdxf, pdftotext (on Windows from Git for Windo
 3. **Plumbing study** `studies/plumbing.typ` (item 8), including the suite court drain at its west end.
 4. **Detail round** on the master suite and the owner's office: windows, built-ins, lighting.
 5. **Owner decisions:** laundry service door, foyer screen, clerestory glass, lift supplier (items 10–13).
+6. **3D phase 3:** doors and windows from the studies' door and window lists (`3d/README_3D.md`).

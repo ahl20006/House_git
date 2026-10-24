@@ -8,6 +8,7 @@ It
   3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv;
   4. rebuilds both DXFs (tools/make_dxf.py, tools/make_dxf_ff.py) and reads them back: same rooms, same areas as the two CSVs;
   5. checks that every open item of data/open_items.csv is in docs/OPEN_ITEMS.md, and that the active files carry no old version label;
+  6. rebuilds the 3D model (3d/build_3d.py) and runs its own checks (3d/check_3d.py: rooms enclosed, walls, slab areas, outline, levels);
 and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1). Needs typst, pdftotext and ezdxf.
 """
 import ast
@@ -204,6 +205,16 @@ if old:
     bad(f"old version labels in active files: {old[:8]}{' …' if len(old) > 8 else ''}")
 else:
     ok(f"no old version labels in {len(active)} active files")
+
+# ---------- 6: the 3D model ----------
+print("6. 3D model")
+for tool in ("build_3d.py", "check_3d.py"):
+    r = subprocess.run([sys.executable, str(ROOT / "3d" / tool)], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    last = (r.stdout.strip().splitlines() or [""])[-1]
+    if r.returncode != 0:
+        bad(f"3d/{tool}: {last or r.stderr.strip()[-300:]}")
+        break
+    ok(f"3d/{tool}: {last}")
 
 print()
 if problems:
