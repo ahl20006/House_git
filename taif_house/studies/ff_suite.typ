@@ -1,5 +1,5 @@
 // ff_suite.typ · Taif / Palm House · FIRST FLOOR · focus study of the L: owner's office → gym route → gym → court → MASTER SUITE (compile THIS file)
-// First floor V6.1, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
+// First floor V6.2, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, x east, y SOUTH) = the main first-floor CSV coordinates (../data/rooms_ff.csv): no conversion.
 // The room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ, which checks that both agree).
 #import "@preview/cetz:0.4.2"
@@ -47,10 +47,11 @@
   R("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9), "suite"),
   R("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25)), "suite",
     parts: (rect-pts(8.95, 11.9, 10.3, 13.9), rect-pts(8.95, 13.9, 13.311, 19.25))),
-  R("Suite court (open to the sky)", rect-pts(5.6, 19.25, 13.311, 21.25), "open"),
+  R("Suite court (open to the sky)", rect-pts(5.6, 19.25, 11.586, 21.25), "open"),
   R("Gym route", rect-pts(4.25, 19.25, 5.6, 21.25), "circ"),
   R("Owner's office", rect-pts(0, 19.25, 4.25, 24.0), "office"),
-  R("Gym", rect-pts(4.25, 21.25, 13.311, 24.0), "gym"),
+  R("Gym", ((4.25, 21.25), (11.586, 21.25), (11.586, 19.25), (13.311, 19.25), (13.311, 24.0), (4.25, 24.0)), "gym",   // an L: the long arm along the south facade + the treadmill arm up to the suite bedroom wall
+    parts: (rect-pts(4.25, 21.25, 13.311, 24.0), rect-pts(11.586, 19.25, 13.311, 21.25))),
 )
 
 // ---------- Doors: a, b, label, room, into (unit vector into that room), from ("circ", a room name, or "outside" = the family part), open = no leaf / sliding ----------
@@ -67,22 +68,28 @@
   D((4.25, 19.4), (4.25, 20.45), [office (sliding)], "Owner's office", (-1, 0), open: true),
 )
 
-// ---------- The treadmill: west end of the gym (away from the master suite), running along the gym's length (E–W), the user facing east ----------
-// clear zones (owner + safety standard): ≥ 0.5 m behind (to the office wall) and ≥ 0.5 m each side. Running it along the gym's depth (N–S) does not
-// fit: 2.0 + 0.5 = 2.5 m of the 2.525 m clear depth, so nobody could pass it to the rest of the gym (the gym's only door is at the west end too).
-#let tm-clear = 0.5
-#let gym-box = rooms.find(r => r.name == "Gym").pts.fold((99, 99, -99, -99), (b, p) => (calc.min(b.at(0), p.at(0)), calc.min(b.at(1), p.at(1)), calc.max(b.at(2), p.at(0)), calc.max(b.at(3), p.at(1))))
-#let gym-clear = (gym-box.at(0) + 0.1, gym-box.at(1) + 0.1, gym-box.at(2) - 0.125, gym-box.at(3) - 0.125)   // ½ wall (office / gym route, north), ½ outer wall (east, south)
-#let tm-x0 = gym-clear.at(0) + tm-clear      // the gym's west wall + 0.5 m behind
-#let tm-y1 = gym-clear.at(3) - tm-clear      // the south outer wall + 0.5 m on the south side
-#let tm = (tm-x0, tm-y1 - 0.9, tm-x0 + 2.0, tm-y1)
+// ---------- The gym: an L. The long arm along the south facade; the short arm at the east end turns north along the suite bedroom wall and holds ONLY the treadmill ----------
+// treadmill 0.9 × 2.0 m facing north, ≥ 0.3 m clear each side (owner), 0.1 m off the shared wall with the suite bedroom (no rigid contact), ≥ 0.5 m free
+// behind it in the long arm (the user steps off south). Arm width = 0.9 + 2 × 0.3 clear + ½ outer wall (east) + ½ wall (west, to the court).
+#let tm-clear = 0.5           // behind
+#let tm-side = 0.3            // each side
+#let tm-front = 0.1           // off the shared wall
+#let gym-pts = rooms.find(r => r.name == "Gym").pts
+#let arm-x0 = calc.min(..gym-pts.filter(p => calc.abs(p.at(1) - 19.25) < 1e-6).map(p => p.at(0)))   // the arm's west wall axis
+#let arm-y0 = calc.min(..gym-pts.map(p => p.at(1)))                                                 // the suite bedroom wall
+#let long-y0 = gym-pts.at(1).at(1)                                                                  // the long arm's north wall
+#let arm-clear = (arm-x0 + 0.1, arm-y0 + 0.1, 13.311 - 0.125, long-y0)          // inside the arm's walls (open to the long arm)
+#let long-clear = (4.25 + 0.1, long-y0 + 0.1, 13.311 - 0.125, 24.0 - 0.125)    // the long arm, inside its walls
+#let tm = (arm-clear.at(0) + tm-side, arm-clear.at(1) + tm-front, arm-clear.at(0) + tm-side + 0.9, arm-clear.at(1) + tm-front + 2.0)
+#let arm-reach = (arm-clear.at(0), arm-clear.at(1), arm-clear.at(2), long-clear.at(3))   // the arm's width, down into the long arm
 #let tm-zones = (
-  ("behind", (gym-clear.at(0), tm.at(1), tm.at(0), tm.at(3))),
-  ("north side", (tm.at(0), tm.at(1) - tm-clear, tm.at(2), tm.at(1))),
-  ("south side", (tm.at(0), tm.at(3), tm.at(2), tm.at(3) + tm-clear)),
+  ("west side", (arm-clear.at(0), tm.at(1), tm.at(0), tm.at(3)), arm-reach),
+  ("east side", (tm.at(2), tm.at(1), arm-clear.at(2), tm.at(3)), arm-reach),
+  ("behind", (tm.at(0), tm.at(3), tm.at(2), tm.at(3) + tm-clear), arm-reach),
 )
+#let acoustic-wall = ((arm-x0, arm-y0), (13.311, arm-y0))   // shared with the suite bedroom: a double wall, ≈ 55 dB airborne
 #let gym-door = doors.find(d => d.room == "Gym")
-#let gym-door-zone = (gym-door.a.at(0), gym-clear.at(1), gym-door.b.at(0), gym-clear.at(1) + 0.9)   // 0.9 m inside the sliding gym door
+#let gym-door-zone = (gym-door.a.at(0), long-clear.at(1), gym-door.b.at(0), long-clear.at(1) + 0.9)   // 0.9 m inside the sliding gym door
 
 // ---------- Furniture and fixtures (x0, y0, x1, y1, label) ----------
 #let furniture = (
@@ -99,11 +106,11 @@
   // owner's office: desk with visitor chairs in the south-west square, sofa and bookshelves in the north bar
   (0.6, 22.2, 2.2, 23.0, [desk 1.6 × 0.8]), (2.9, 23.3, 4.15, 23.875, [cabinet]), (3.2, 21.7, 4.15, 22.9, [meeting chairs]), (1.15, 23.15, 1.65, 23.65, []), (0.8, 21.45, 1.3, 21.95, []), (1.5, 21.45, 2.0, 21.95, []),
   (0.125, 19.35, 0.525, 21.1, [bookshelves]), (1.0, 19.35, 3.2, 20.15, [sofa]), (1.6, 20.4, 2.6, 20.9, [table]),
-  // gym: the treadmill at the WEST end, away from the master suite, on a dense rubber floor with anti-vibration pads (see tm below);
-  // along the south wall to the east: barbell + rack, kettlebells, pull-up bar, pilates mat, one cardio machine, an optional bench at the east end
-  (tm.at(0), tm.at(1), tm.at(2), tm.at(3), [treadmill → E]),
-  (7.0, 22.45, 8.6, 23.8, [barbell · rack]), (8.7, 23.2, 9.4, 23.8, [kettlebells]), (8.7, 22.45, 9.8, 23.0, [pull-up bar (wall)]),
-  (9.95, 22.6, 11.75, 23.6, [pilates mat]), (11.9, 22.45, 12.55, 23.8, [cardio (bike)]), (12.7, 22.45, 13.1, 23.65, [bench (optional)]),
+  // gym: ONLY the treadmill in the east arm (on a floating floor / dense rubber, anti-vibration pads, 0.1 m off the shared wall);
+  // the long arm along the south wall: barbell + rack, kettlebells, pull-up bar, pilates mat, one cardio machine
+  (tm.at(0), tm.at(1), tm.at(2), tm.at(3), [treadmill → N]),
+  (4.45, 22.45, 6.25, 23.8, [barbell · rack]), (6.4, 23.2, 7.2, 23.8, [kettlebells]), (6.4, 22.45, 7.6, 23.0, [pull-up bar (wall)]),
+  (7.8, 22.6, 9.8, 23.6, [pilates mat]), (10.0, 22.45, 10.65, 23.8, [cardio (bike)]),
 )
 #let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((0.5, 24), (2.3, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.6), (13.311, 10.35)), ((13.311, 15.0), (13.311, 18.6)),
   ((4.5, 24), (13.0, 24)), ((2.9, 24), (3.9, 24)), ((5.9, 21.25), (8.6, 21.25)), ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))
@@ -112,13 +119,14 @@
   (((12.6, 8.8), (13.05, 8.3), (13.05, 7.6), (13.311, 7.1)), []),
   (((12.3, 10.0), (13.1, 9.7), (13.1, 7.7), (13.311, 7.1)), []),
   (((10.7, 8.5), (11.6, 8.2), (12.4, 7.75), (13.311, 7.1)), []),
+  (((7.2, 20.25), (6.0, 20.25)), [suite court: floor falls west to its drain, away from the treadmill arm]),
 )
 
 // ---------- Walking routes: (name, rect, wall allowance across it, what is deducted) ----------
 #let routes = (
   ("Suite lobby", rect-pts(8.95, 6.5, 10.3, 11.9), 0.2, [½ wall each side]),
   ("Gym route", rooms.find(r => r.name == "Gym route").pts, 0.2, [½ wall each side]),
-  ("Gym walkway (door → east end)", rect-pts(gym-box.at(0), gym-box.at(1), gym-box.at(2), gym-box.at(1) + 1.1), 0.1, [½ wall on the north side; the south side is the equipment line]),
+  ("Gym walkway (door → east end)", rect-pts(4.25, long-y0, arm-x0, long-y0 + 1.1), 0.1, [½ wall on the north side; the south side is the equipment line]),
 )
 #let paths = (
   ("Suite door → bedroom door", ((9.55, 6.5), (9.5, 11.9))),
@@ -211,10 +219,12 @@
     if calc.min(x1 - x0, y1 - y0) - w < 1.0 - 1e-6 { out.push("route " + n + " under 1.0 m clear") }
   }
   // the treadmill: its clear zones inside the gym and free of furniture; the gym door's landing free
-  for (n, z) in tm-zones {
-    if z.at(0) < gym-clear.at(0) - 1e-6 or z.at(1) < gym-clear.at(1) - 1e-6 or z.at(2) > gym-clear.at(2) + 1e-6 or z.at(3) > gym-clear.at(3) + 1e-6 { out.push("treadmill zone " + n + " outside the gym") }
-    if calc.min(z.at(2) - z.at(0), z.at(3) - z.at(1)) < tm-clear - 1e-6 { out.push("treadmill zone " + n + " under " + str(tm-clear) + " m") }
-    for f in furniture.filter(f => f.at(4) != [treadmill → E]) { if box-overlap(z, (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push(repr(f.at(4)) + " in the treadmill's " + n + " zone") } }
+  if tm.at(0) < arm-clear.at(0) + tm-side - 1e-6 or tm.at(2) > arm-clear.at(2) - tm-side + 1e-6 or tm.at(1) < arm-clear.at(1) + tm-front - 1e-6 { out.push("treadmill clearances in the arm") }
+  for (n, z, within) in tm-zones {
+    if z.at(0) < within.at(0) - 1e-6 or z.at(1) < within.at(1) - 1e-6 or z.at(2) > within.at(2) + 1e-6 or z.at(3) > within.at(3) + 1e-6 { out.push("treadmill zone " + n + " outside the gym") }
+    let need = if n == "behind" { tm-clear } else { tm-side }
+    if calc.min(z.at(2) - z.at(0), z.at(3) - z.at(1)) < need - 1e-6 { out.push("treadmill zone " + n + " under " + str(need) + " m") }
+    for f in furniture.filter(f => f.at(4) != [treadmill → N]) { if box-overlap(z, (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push(repr(f.at(4)) + " in the treadmill's " + n + " zone") } }
   }
   for f in furniture { if box-overlap(gym-door-zone, (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push(repr(f.at(4)) + " blocks the gym door") } }
   // no window from the suite bedroom onto the double-height living (x 8.95, y 13–19.25)
@@ -225,9 +235,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · the L: owner's office → gym route → gym → court → master suite]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.1 · CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.2 · CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.1 · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, gym (treadmill at the west end), suite court and master suite]
+#text(10pt, weight: "bold")[First floor V6.2 · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, L-shaped gym (treadmill arm at the east end), suite court and master suite]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -265,8 +275,9 @@
     }
     for (P, l) in drains { line(..P.map(q), stroke: (paint: rgb("#1f7a99"), thickness: 0.8pt, dash: "dashed"), mark: (end: ">", fill: rgb("#1f7a99"), scale: 0.35)) }
     // the treadmill's clear zones (0.5 m) and its rubber floor
-    for (n, z) in tm-zones { rect(q((z.at(0), z.at(1))), q((z.at(2), z.at(3))), fill: rgb("#fdf0d8"), stroke: (paint: rgb("#d08a00"), thickness: 0.3pt, dash: "dotted")) }
-    content(q((4.675, 23.62)), text(3.8pt, fill: rgb("#a06a00"))[0.5 clear · rubber floor])
+    for (n, z, w) in tm-zones { rect(q((z.at(0), z.at(1))), q((z.at(2), z.at(3))), fill: rgb("#fdf0d8"), stroke: (paint: rgb("#d08a00"), thickness: 0.3pt, dash: "dotted")) }
+    line(q(acoustic-wall.at(0)), q(acoustic-wall.at(1)), stroke: 3pt + red)
+    content(q((arm-x0 - 0.1, arm-y0 - 0.25)), anchor: "east", text(4.2pt, fill: red)[double wall ≈ 55 dB ▶])
     // the bed's view: south to the suite court
     line(q((10.0, 16.1)), q((10.0, 20.2)), stroke: (paint: rgb("#2f8a3f"), thickness: 0.6pt, dash: "dotted"), mark: (end: ">", fill: rgb("#2f8a3f"), scale: 0.4))
     content(q((7.4, 20.75)), box(width: 2.1cm, align(center, text(4.2pt, fill: luma(90))[walled on 4 sides, open to the sky · 2 clerestory windows of the DH living on the north wall])))
@@ -286,7 +297,7 @@
     )
     #text(5.8pt, fill: gray)[Clear ≈ axes minus half a wall on every edge (250 mm outer, 200 mm inner, nothing on open edges), corners ignored.]
     #v(2pt)
-    #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the lobby route and the gym walkway · treadmill 0.5 m behind and each side, gym door free · door swings clear · every room has a door reached from the lobby (or its room) · doors from the family part on the interfaces · lobby ≥ 1.0 m clear · no window onto the double-height living] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
+    #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the lobby route and the gym walkway · treadmill in the arm (0.3 m each side, 0.1 m off the bedroom wall, 0.5 m free behind), gym door free · door swings clear · every room has a door reached from the lobby (or its room) · doors from the family part on the interfaces · lobby ≥ 1.0 m clear · no window onto the double-height living] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(3pt)
     #H[Key numbers]
     - *Suite:* lobby #r2(area(room("Suite lobby").pts)) · bath #r2(area(room("Suite bath").pts)) + WC closet #r2(area(room("Suite WC (closet)").pts)) · dressing #r2(area(room("Suite dressing").pts)) · bedroom #r2(area(room("Suite bedroom").pts)) = *#r2(area(room("Suite lobby").pts) + area(room("Suite bath").pts) + area(room("Suite WC (closet)").pts) + area(room("Suite dressing").pts) + area(room("Suite bedroom").pts)) m² indoors* + the suite court #r2(area(room("Suite court (open to the sky)").pts)) m².
@@ -324,15 +335,16 @@
     - *West wall solid:* the double-height living is behind it, no window (checked). Windows east and the sliding door to the court (south).
     #v(3pt)
     #H[Suite court · #wd("Suite court (open to the sky)") m, walled on four sides, open to the sky]
-    - #r2(area(room("Suite court (open to the sky)").pts)) m², from the bedroom only (sliding door). Walled on all four sides: north the double-height living (clerestory windows) and the suite bedroom, south the gym's north wall (high obscured windows), west the gym route, east the outer wall. Fully private; it works as a light well for the clerestory windows.
+    - #r2(area(room("Suite court (open to the sky)").pts)) m², from the bedroom only (sliding door). Walled on all four sides: north the double-height living (clerestory windows) and the suite bedroom, south the gym's north wall (high obscured windows), west the gym route, east the treadmill arm's west wall (solid, no window onto the court). Fully private; it works as a light well for the clerestory windows.
     - *Clerestory windows* of the double-height living (in its south wall y 19.25): their sill stays above eye level from the court floor (or obscured glass). The gym's roof edge ends in a *railing, not a parapet*, to keep the winter sun on them (light check on design_ff.pdf).
-    - *Open to the sky:* its own floor drain and waterproofing on the men's majlis roof slab; the clerestory windows and the bedroom door open for air in summer.
+    - *Open to the sky:* waterproofing on the men's majlis roof slab, the floor falling *west* to its drain (away from the treadmill arm at its east end); the clerestory windows and the bedroom door open for air in summer.
   ],
   [
-    #H[Gym · #wd("Gym") m, #r2(area(room("Gym").pts)) m² · a rectangle]
-    - *One straight bar* along the south facade, sliding door from the gym route at its west end; it does *not* touch the suite bedroom (the suite court lies between). Windows south and high windows north onto the suite court (obscured).
-    - *Treadmill at the west end*, away from the master suite: 0.9 × 2.0 m along the gym's length, the user facing east, *#r2(tm-clear) m clear behind* (to the office wall) *and on each side*; a *dense rubber floor* under it and its clear zones, *anti-vibration pads* under its feet. Along the gym's depth it would fill #r2(2.0 + tm-clear) of the #r3(gym-clear.at(3) - gym-clear.at(1)) m clear depth and block the way from the door, so it runs along the length.
-    - *Along the south wall to the east:* barbell + rack, kettlebells, pull-up bar (wall), pilates mat, one cardio machine (bike) and an *optional bench at the east end*. A clear walkway runs along the north wall from the door to the east end (checked: nothing in it, the door landing free).
+    #H[Gym · an L, #r2(area(room("Gym").pts)) m² (long arm #r2(13.311 - 4.25) × #r2(24.0 - long-y0) m + treadmill arm #r3(13.311 - arm-x0) × #r2(long-y0 - arm-y0) m)]
+    - *Owner's choice:* the long arm along the south facade, sliding door from the gym route at its west end; the *short arm at the east end* turns north along the suite bedroom wall and holds *only the treadmill*. Windows south and high obscured windows north onto the suite court.
+    - *Treadmill* 0.9 × 2.0 m in the arm, facing north, *#r2(tm-side) m clear each side*, #r2(tm-front) m off the bedroom wall, *#r2(tm-clear) m free behind it* in the long arm (the user steps off south). Arm #r3(13.311 - arm-x0) × #r2(long-y0 - arm-y0) m on axes, #r2(arm-clear.at(2) - arm-clear.at(0)) m clear.
+    - *Acoustics (mandatory):* a *double wall* between the arm and the suite bedroom (y #r2(arm-y0), red: e.g. 200 mm dense block + an independent stud lining with mineral wool, target ≈ 55 dB airborne), sealed at the top, no sockets back to back; a *floating floor* (or at least dense rubber tiles) under the arm, stopped short of the bedroom wall; *anti-vibration pads* under the treadmill; the treadmill never touches the wall.
+    - *Long arm:* barbell + rack, kettlebells, pull-up bar (wall), pilates mat, one cardio machine (bike). A clear walkway runs along its north wall from the door to the arm (checked: nothing in it, the door landing free).
     #v(3pt)
     #H[Owner's office · #wd("Owner's office") m, #r2(area(room("Owner's office").pts)) m² · gym route #wd("Gym route") m]
     - An indoor room over the GF foyer / guest passage and the men's majlis; its west wall stands on the GF west wall.
@@ -345,7 +357,7 @@
     #v(3pt)
     #H[Walls (engineer)]
     - *On GF lines:* y 6.5 (bedroom 1 / suite: the GF kitchen's north wall), the outer walls, x 8.95 (courtyard / double-height living). The suite bedroom spans the GF kitchen / living wall (y 13.0) with no wall above it.
-    - *Off the GF lines:* x 10.3, y 10.45, x 12.211 and y 8.0, y 11.9 and y 13.9, all over the GF kitchen; on the men's majlis roof: y 21.25 (gym / suite court), x #r3(bb("Gym route").at(0)) (office / gym route and gym), x #r3(bb("Gym route").at(2)) (gym route / suite court).
+    - *Off the GF lines:* x 10.3, y 10.45, x 12.211 and y 8.0, y 11.9 and y 13.9, all over the GF kitchen; on the men's majlis roof: y 21.25 (gym / suite court), x #r3(bb("Gym route").at(0)) (office / gym route and gym), x #r3(bb("Gym route").at(2)) (gym route / suite court), *x #r3(arm-x0)* (the treadmill arm's west wall, no wall below, with the treadmill's moving load ≈ 1.5–2 kN). The arm's north wall y #r2(arm-y0) is on the GF living / men's majlis wall line.
     - *Loads and vibration* of the gym (treadmill) and the office over the men's majlis: engineer.
     #v(3pt)
     #H[Questions for the owner]

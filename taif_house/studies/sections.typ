@@ -1,4 +1,4 @@
-// sections.typ · Taif / Palm House V6.1 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
+// sections.typ · Taif / Palm House V6.2 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
 // Used by design_ff.typ and presentation.typ. Geometry is read from ../data/rooms_ff.csv, ../design_gf.typ (placement, outline), ff_family.typ
 // (the projection edge and the columns) and ff_suite.typ (windows); the only fixed numbers are the levels below (to confirm with the engineer)
 // and the record of the split projection studied in V5.1–V6.0 and reverted in V6.1 (git tag v6.0, branch v5-split-projection).
@@ -35,7 +35,8 @@
 #let pj-wall = calc.max(..xs("Bedroom 2"))                                      // rooms / gallery wall
 #let y-court = calc.min(..ys("Upper gallery (on the west projection)").filter(y => y > 3))   // the courtyard's north edge (projection start)
 #let y-living = calc.max(..ys("Upper gallery (on the west projection)"))        // the living's south wall (projection end)
-#let y-gym = calc.min(..ys("Gym"))                                              // the gym's north wall
+#let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the gym's long-arm north wall = the suite court's south edge
+#let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the treadmill arm's west wall = the court's east edge
 #let columns = fam.columns
 #let ff-outline = outline-csv-gf                                                // the first floor stands on the ground-floor walls
 #let pj-void = (x-east - pj-edge) * (y-living - y-court)
@@ -56,7 +57,7 @@
   indoor: 226.97, court: 16.77, circ: 43.90, bath: 3.74, bath-w: 2.075, gym: 26.77, niche: 1.31, cant-wall: 14.95,
 )
 
-// ---------- Comparison table: V6.1 against the reverted split projection ----------
+// ---------- Comparison table: the projection on columns against the reverted split projection (gym and suite court left out: the V6.2 L-shaped gym changes them) ----------
 #let r2(v) = str(calc.round(v, digits: 2))
 #let r3(v) = str(calc.round(v, digits: 3))
 #let f2(v) = { let s = str(calc.round(v, digits: 2)); if not s.contains(".") { s + ".00" } else if s.split(".").at(1).len() == 1 { s + "0" } else { s } }   // levels: +3.60
@@ -72,15 +73,12 @@
   ([FF outline (axes)], [#r2(split.outline) m²], [#r2(pj.outline) m²], dv(split.outline, pj.outline, unit: " m²")),
   ([Courtyard sky + double-height void], [#r2(split.void) m²], [#r2(pj.void) m²], dv(split.void, pj.void, unit: " m²")),
   ([FF floor (outline − voids)], [#r2(split.floor) m²], [#r2(pj.floor) m²], dv(split.floor, pj.floor, unit: " m²")),
-  ([FF rooms indoor (incl. circulation)], [#r2(split.indoor) m²], [#r2(pj.indoor) m²], dv(split.indoor, pj.indoor, unit: " m²")),
   ([· family bath], [#r2(split.bath) m² (#r3(split.bath-w) wide)], [#r2(pj.bath) m² (#r2(pj.bath-w) wide)], dv(split.bath, pj.bath, unit: " m²")),
-  ([· gym], [#r2(split.gym) m²], [#r2(pj.gym) m²], dv(split.gym, pj.gym, unit: " m²")),
-  ([Suite court (open to the sky)], [#r2(split.court) m²], [#r2(pj.court) m²], dv(split.court, pj.court, unit: " m²")),
 )
 #let compare-table(size: 7.4pt, head-fill: rgb("#e4eedf"), band: rgb("#f1efe8")) = {
   set text(size)
   table(columns: (auto, 1fr, 1fr, auto), stroke: none, inset: 3pt, fill: (_, y) => if y == 0 { head-fill } else if calc.even(y) { band },
-    [*Item*], [*Split projection (V5.1–V6.0, reverted)*], [*V6.1 · 1.35 m inward on columns*], [*Change*],
+    [*Item*], [*Split projection (V5.1–V6.0, reverted)*], [*V6.2 · 1.35 m inward on columns*], [*Change*],
     ..rows.flatten())
 }
 
@@ -104,8 +102,9 @@
 #let pc(v) = str(calc.round(v * 100)) + " %"
 #let cases = (
   (label: [gym roof edge with a #r2(parapet) m parapet (top +#f2(roof-level + parapet))], top: roof-level + parapet, chosen: false),
-  (label: [gym roof edge with a railing only (solid top +#f2(roof-level)) · *V6.1*], top: roof-level, chosen: true),
+  (label: [gym roof edge with a railing only (solid top +#f2(roof-level)) · *V6.2*], top: roof-level, chosen: true),
 )
+#let arm-gap = arm-x - calc.max(..clerestory.map(((a, b)) => b.at(0)))   // the treadmill arm stands this far east of the east clerestory window
 #let light = (winter: sun-share(roof-level, w-alt), equinox: sun-share(roof-level, e-alt), sky: sky-share(roof-level),
   winter-parapet: sun-share(roof-level + parapet, w-alt), sky-parapet: sky-share(roof-level + parapet))
 #let light-table(size: 7.5pt) = {

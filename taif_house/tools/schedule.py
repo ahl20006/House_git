@@ -1,4 +1,4 @@
-"""schedule.py · Taif / Palm House V6.1 · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
+"""schedule.py · Taif / Palm House V6.2 · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
 (The first-floor schedule with clear areas is on design_ff.pdf page 3, and both floors are on presentation sheet 08.)
 
 Run from anywhere:   python taif_house/tools/schedule.py          (prints a Markdown table)

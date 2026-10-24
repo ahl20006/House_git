@@ -1,39 +1,46 @@
 # Next session · start here
 
-Taif / Palm House · **V6.1** (git tag `v6.1`, GitHub Release "V6.1")
+Taif / Palm House · **V6.2** (git tag `v6.2`, GitHub Release "V6.2")
 
 ## Where we are
-- **V6.1 = V6.0 with the split projection reverted to the V5.0 columns solution.** Everything else from V6.0 is kept: the repo structure, the docs, the checks, the presentation and the rectangular gym with the treadmill at its west end.
+- **V6.2 = V6.1 + the L-shaped gym** (the owner's choice). Everything else from V6.1 is kept: the V5.0 columns solution, the repo, the docs, the checks and the presentation.
   - **First floor:**
-    - the gallery runs on the full 1.35 m projection over the courtyard and the double-height void, on an edge beam and three columns at x 5.6;
-    - the first-floor west wall stands on the ground-floor west wall (0.785 m from the M line);
-    - west rooms 4.25 m (≈ 4.0 m clear), gallery ≈ 1.225 m clear, courtyard sky 3.35 m (≈ 3.15 m clear);
-    - family bath 2.75 × 1.8 m; gym 9.06 m and suite court 7.71 m long.
-  - **Ground floor:** the three columns form a colonnade along the courtyard edge (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall). No east duct.
-- **The split projection** (V5.1–V6.0) stays on branch `v5-split-projection` and in tag `v6.0`. Page 5 of `output/design_ff.pdf` compares the two.
-- **Master document:** `docs/PROJECT_V6.md`. **Open items:** `docs/OPEN_ITEMS.md` (the M-line approval is no longer needed).
+    - the gallery runs on the 1.35 m projection over the courtyard and the double-height void, on an edge beam and three columns at x 5.6;
+    - the first-floor walls stand on the ground-floor walls;
+    - west rooms 4.25 m, gallery ≈ 1.225 m clear, courtyard sky 3.35 m.
+  - **Gym (28.37 m²):**
+    - the long arm along the south facade;
+    - a 1.725 × 2.0 m treadmill arm at the east end, along the suite bedroom wall;
+    - a mandatory acoustic double wall (≈ 55 dB), a floating floor or dense rubber, and anti-vibration pads.
+  - **Suite court:** 5.99 × 2.0 m = 11.97 m², still open to the sky and private. The clerestory windows keep their light: 81 % winter noon sun, 100 % sky.
+  - **Ground floor:** unchanged; the three columns form a colonnade along the courtyard.
+- **Docs:**
+  - master document `docs/PROJECT_V6.md`;
+  - construction notes `docs/DETAILS.md`;
+  - open items `docs/OPEN_ITEMS.md`.
 
 ## What to open
 | File | What it is |
 |---|---|
-| `output/Taif_House_V6.1_presentation.pdf` | the A3 set, 10 sheets (for the owner and the engineers) |
+| `output/Taif_House_V6.2_presentation.pdf` | the A3 set, 10 sheets (for the owner and the engineers) |
 | `output/design_gf.pdf`, `output/design_ff.pdf` | both floors in the site, with checks, schedules, the light check and the projection sections |
-| `output/ff_family.pdf`, `output/ff_suite.pdf`, `output/guest_wing.pdf`, `output/east_wing.pdf` | the room studies |
-| `output/taif_ground_floor_V6.1.dxf`, `output/taif_first_floor_V6.1.dxf` | CAD, see `docs/README_DXF.md` |
+| `output/ff_family.pdf`, `output/ff_suite.pdf`, `output/guest_wing.pdf`, `output/east_wing.pdf` | the room studies (`ff_suite.pdf` has the L-shaped gym) |
+| `output/taif_ground_floor_V6.2.dxf`, `output/taif_first_floor_V6.2.dxf` | CAD, see `docs/README_DXF.md` |
 
 ## Compile and check
 ```
 python taif_house/tools/check.py      # compiles everything, rebuilds both DXFs, must end with ALL CHECKS PASSED
-typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.1_presentation.pdf
+typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.2_presentation.pdf
 ```
 Tools: Typst 0.15, Python 3.12 + ezdxf, pdftotext (on Windows from Git for Windows: `C:\Program Files\Git\ucrt64\bin`).
 
 ## Suggested next steps
-1. **Structural engineer** (items 2–5):
-   - the edge beam and the three columns (sizes, foundations);
-   - the gym over the men's majlis;
+1. **Structural engineer** (items 2–6):
+   - the edge beam and columns;
+   - the gym and the treadmill arm wall over the men's majlis;
    - walls off the ground-floor lines;
    - the levels.
-2. **Plumbing study** `studies/plumbing.typ` (item 6).
-3. **Detail round** on the master suite and the owner's office: windows, built-ins, lighting.
-4. **Owner decisions:** laundry service door, foyer screen, clerestory glass, lift supplier (items 8–11).
+2. **Acoustics** (item 7): the double wall and the floating floor of the treadmill arm.
+3. **Plumbing study** `studies/plumbing.typ` (item 8), including the suite court drain at its west end.
+4. **Detail round** on the master suite and the owner's office: windows, built-ins, lighting.
+5. **Owner decisions:** laundry service door, foyer screen, clerestory glass, lift supplier (items 10–13).

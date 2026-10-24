@@ -1,11 +1,11 @@
-# DXFs · Taif / Palm House V6.1 · ground floor and first floor
+# DXFs · Taif / Palm House V6.2 · ground floor and first floor
 
 Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …), one per floor. Both are in the same coordinate frame, so they overlay exactly.
 
 | File | Shows | Same plan as |
 |---|---|---|
-| `output/taif_ground_floor_V6.1.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
-| `output/taif_first_floor_V6.1.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
+| `output/taif_ground_floor_V6.2.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
+| `output/taif_first_floor_V6.2.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
 
 ## Units and coordinates
 - **Units:** metres (`$INSUNITS = 6`). Draw scale 1:1.
@@ -39,7 +39,7 @@ Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCA
 | VOIDS | the courtyard (open to the sky) and the double-height living (no floor) |
 | ROOMS-FAMILY / -GUEST (master suite) / -SERVICE / -CIRC / -OPEN (suite court) / -GYM / -CORE · ROOM-LABELS | one closed polyline per room · number, name and area |
 | DOORS · OPENINGS · WINDOWS | hinged doors · sliding doors and openings · windows |
-| FURNITURE | furniture and fixtures from the two first-floor studies, including the treadmill at the gym's west end |
+| FURNITURE | furniture and fixtures from the two first-floor studies, including the treadmill in the gym's east arm |
 | MARKS | the edge beam of the west projection (x 5.6) and the three columns below it |
 | ANNOTATION | title, scale bar |
 

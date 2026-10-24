@@ -1,5 +1,5 @@
 // ff_family.typ · Taif / Palm House · FIRST FLOOR · focus study of the FAMILY PART (the whole floor except the master suite) · compile THIS file
-// First floor V6.1, part 1 of 2 (part 2: studies/ff_suite.typ) · stand-alone: all data is in this file.
+// First floor V6.2, part 1 of 2 (part 2: studies/ff_suite.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, origin = the zone's NW corner, x east, y SOUTH) = the main first-floor CSV coordinates: no conversion.
 // The room list is also in data/rooms_ff.csv (whole-floor plan: design_ff.typ, which checks that both agree).
 #import "@preview/cetz:0.4.2"
@@ -246,9 +246,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.1 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.2 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.1 · part 1 of 2: family part · west projection 1.35 m on three columns, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[First floor V6.2 · part 1 of 2: family part · west projection 1.35 m on three columns, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {

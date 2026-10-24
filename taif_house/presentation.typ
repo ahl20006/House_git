@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V6.1 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.1_presentation.pdf
+// presentation.typ · Taif / Palm House V6.2 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.2_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, thin balustrades on the voids). Ground-floor doors and
@@ -30,7 +30,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.1])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.2])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -219,7 +219,7 @@
    (b.at(0) - n.at(0) * half, b.at(1) - n.at(1) * half), (a.at(0) - n.at(0) * half, a.at(1) - n.at(1) * half))
 }
 #let lbl-of(l) = lower(repr(l))
-#let draw-floor(rooms, spec, doors, windows, furniture, lowwalls: (), dashed: (), columns: (), focus: none, labels: true, label-at: (:), shift: (0, 0), mini: false, lsize: 6.8pt) = {
+#let draw-floor(rooms, spec, doors, windows, furniture, lowwalls: (), dashed: (), columns: (), acoustic: (), focus: none, labels: true, label-at: (:), shift: (0, 0), mini: false, lsize: 6.8pt) = {
   import cetz.draw: *
   let S(p) = q((p.at(0) + shift.at(0), p.at(1) + shift.at(1)))
   let poly(P, ..args) = line(..P.map(S), close: true, ..args)
@@ -296,6 +296,7 @@
     line(S(a), S(b), stroke: 0.4pt + fix-line)
   }
   for (a, b) in dashed { line(S(a), S(b), stroke: (paint: orange, thickness: 1pt, dash: "dashed")) }
+  for (a, b) in acoustic { line(S(a), S(b), stroke: 2.6pt + rgb("#b5452f")) }
   for c in columns { rect(S((c.at(0) - sec.col-half, c.at(1) - sec.col-half)), S((c.at(0) + sec.col-half, c.at(1) + sec.col-half)), fill: dark, stroke: none) }
   if labels {
     for r in rooms.filter(r => infocus(r) and (r.kind != "core" or r.name.starts-with("Stair"))) {
@@ -348,7 +349,7 @@
 #let vals = (
   "m-gap": n3(sec.pj.m-gap), "env-gap": n2(env-gap), "depth": n2(sec.pj.depth), "col-x": n2(sec.pj.col-x), "spans": sec.pj.spans.map(n2).join(" and "),
   "sky": n3(sec.pj.sky), "ff-level": sec.f2(sec.ff-level), "cant-wall": n2(sec.split.cant-wall), "split-m-gap": n2(sec.split.m-gap),
-  "tm-clear": n2(suite.tm-clear), "winter": sec.pc(sec.light.winter), "maid-clear": n2(area(clear-poly(room-of(gf-rooms, "Maid room"), gf-walls))),
+  "tm-clear": n2(suite.tm-clear), "tm-side": n2(suite.tm-side), "arm-x": n3(suite.arm-x0), "court": n2(area(room-of(ff-rooms, "Suite court (open to the sky)").P)), "winter": sec.pc(sec.light.winter), "maid-clear": n2(area(clear-poly(room-of(gf-rooms, "Maid room"), gf-walls))),
 )
 #let fill-in(s) = { let t = s; for (k, v) in vals { t = t.replace("{" + k + "}", v) }; t }
 #let ff-label-at = (
@@ -517,13 +518,13 @@
 
 // ===================================================================================== SHEET 05 · office, gym and master suite
 #pagebreak()
-#sheet-head([First floor / office, gym and master suite], [The L from the gallery end to the family link | furnished test from studies/ff_suite.typ | treadmill at the gym's west end (orange = its #n2(suite.tm-clear) m clear zones) | sliding doors to the office, gym, WC closet and court])
+#sheet-head([First floor / office, gym and master suite], [The L from the gallery end to the family link | furnished test from studies/ff_suite.typ | L-shaped gym: the treadmill alone in the east arm (orange = its clear zones, red = the double wall to the suite bedroom) | sliding doors to the office, gym, WC closet and court])
 #let l-focus = ("Gym route", "Owner's office", "Gym", "Suite court (open to the sky)", "Suite lobby", "Suite bath", "Suite WC (closet)", "Suite dressing", "Suite bedroom")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 0.95cm, {
     import cetz.draw: *
-    draw-floor(ff-rooms.filter(r => bbox(r.P).at(3) > 6.4), ff-walls, ff-doors.filter(d => d.a.at(1) >= 6.4), ff-windows.filter(w => w.at(0).at(1) >= 6.4), ff-furniture.filter(f => f.at(3) > 6.5), focus: l-focus, label-at: ff-label-at)
-    for (n, z) in suite.tm-zones { rect(q((z.at(0), z.at(1))), q((z.at(2), z.at(3))), fill: orange.transparentize(80%), stroke: (paint: orange, thickness: 0.5pt, dash: "dotted")) }
+    draw-floor(ff-rooms.filter(r => bbox(r.P).at(3) > 6.4), ff-walls, ff-doors.filter(d => d.a.at(1) >= 6.4), ff-windows.filter(w => w.at(0).at(1) >= 6.4), ff-furniture.filter(f => f.at(3) > 6.5), acoustic: (suite.acoustic-wall,), focus: l-focus, label-at: ff-label-at)
+    for (n, z, w) in suite.tm-zones { rect(q((z.at(0), z.at(1))), q((z.at(2), z.at(3))), fill: orange.transparentize(80%), stroke: (paint: orange, thickness: 0.5pt, dash: "dotted")) }
     dim((8.95, 6.5), (13.311, 6.5), (0, -0.7), [#n3(13.311 - 8.95) m axes])
     dim((13.311, 6.5), (13.311, sec.y-living), (0.8, 0), [#n2(sec.y-living - 6.5) m · master suite #n2(suite-area) m²])
     scale-bar((0, 25.0))
@@ -532,9 +533,9 @@
     #en[
       *Master suite* #n2(suite-area) m²: a lobby from the family link opens to the bath, the dressing and the bedroom (the bed is not seen from the suite door). Luxury bath #n2(suite-bath) m² with tub, walk-in shower, two basins and a WC closet; walk-in dressing #wd(ff-rooms, "Suite dressing") m; bedroom #ffa("Suite bedroom") m² facing the suite court.
 
-      *Suite court* #wd(ff-rooms, "Suite court (open to the sky)") m, walled on four sides, open to the sky, in front of the double-height living's clerestory windows.
+      *Suite court* #wd(ff-rooms, "Suite court (open to the sky)") m = #ffa("Suite court (open to the sky)") m², walled on four sides (east: the treadmill arm), open to the sky, in front of the double-height living's clerestory windows, which keep their open sky (the arm is #n2(sec.arm-gap) m east of them: winter noon sun #sec.pc(sec.light.winter), sky #sec.pc(sec.light.sky)); the floor drains west.
 
-      *Gym* #wd(ff-rooms, "Gym") m, a rectangle along the south facade, not touching the suite bedroom: the treadmill at its west end with #n2(suite.tm-clear) m clear behind and on each side (rubber floor, anti-vibration pads), then barbell and rack, kettlebells, pull-up bar, pilates mat, one cardio machine, an optional bench at the east end.
+      *Gym* #ffa("Gym") m², an *L* (owner's choice): the long arm along the south facade (barbell and rack, kettlebells, pull-up bar, pilates mat, one cardio machine) and a short arm #n3(13.311 - suite.arm-x0) × #n2(suite.long-y0 - suite.arm-y0) m at the east end, along the suite bedroom wall, holding *only the treadmill* (#n2(suite.tm-side) m clear each side, #n2(suite.tm-clear) m free behind it in the long arm). *Acoustics:* a double wall to the suite bedroom (≈ 55 dB), a floating floor or dense rubber under the arm, anti-vibration pads, the treadmill #n2(suite.tm-front) m off the wall.
 
       *Owner's office* #wd(ff-rooms, "Owner's office") m, door from the gym route.
     ]
@@ -545,8 +546,10 @@
       حمام فاخر #n2(suite-bath) م² ببانيو مستقل ودش زجاجي ومغسلتين ومرحاض في حجرة مستقلة؛ تصريفه في أرضية منخفضة إلى ماسورة خارج الجدار الشرقي. غرفة ملابس #wd(ff-rooms, "Suite dressing") م بدواليب منزلقة.
       #ah[غرفة النوم وفناء الجناح]
       غرفة النوم #ffa("Suite bedroom") م² تطل على فناء الجناح #wd(ff-rooms, "Suite court (open to the sky)") م، المغلق من الجهات الأربع والمفتوح للسماء أمام نوافذ الصالة العلوية.
-      #ah[النادي]
-      مستطيل #wd(ff-rooms, "Gym") م على الواجهة الجنوبية لا يلامس غرفة النوم. جهاز المشي في الطرف الغربي بعيدا عن الجناح، بمسافة #n2(suite.tm-clear) م خلفه وعلى جانبيه، على أرضية مطاط كثيفة ووسائد ضد الاهتزاز؛ ثم الأثقال والكيتل بل وعقلة السحب وبساط البيلاتس وجهاز كارديو، ومقعد اختياري في الطرف الشرقي.
+      #ah[النادي على شكل L]
+      مساحته #ffa("Gym") م² (اختيار المالك): الذراع الطويلة على الواجهة الجنوبية للأثقال والكيتل بل وعقلة السحب وبساط البيلاتس وجهاز كارديو، وذراع قصيرة #n3(13.311 - suite.arm-x0) × #n2(suite.long-y0 - suite.arm-y0) م في الطرف الشرقي بمحاذاة جدار غرفة النوم الرئيسية لجهاز المشي فقط، بمسافة #n2(suite.tm-side) م على جانبيه و#n2(suite.tm-clear) م خلفه في الذراع الطويلة.
+      #ah[العزل الصوتي]
+      جدار مزدوج بين ذراع جهاز المشي وغرفة النوم (نحو 55 ديسيبل، الخط الأحمر)، وأرضية عائمة أو مطاط كثيف تحت الذراع، ووسائد ضد الاهتزاز، وجهاز المشي على بعد #n2(suite.tm-front) م من الجدار. فناء الجناح صار #ffa("Suite court (open to the sky)") م² وما زالت النوافذ العلوية للصالة أمام سماء مفتوحة.
       #ah[مكتب المالك]
       #wd(ff-rooms, "Owner's office") م = #ffa("Owner's office") م²، بابه المنزلق من ممر النادي.
     ]
@@ -663,7 +666,7 @@
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
-#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_ITEMS.md) | orange = the edge beam and the #sec.pj.columns columns])
+#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_ITEMS.md) | orange = the edge beam and the #sec.pj.columns columns, red = the acoustic wall of the treadmill arm])
 #let items = csv("data/open_items.csv", row-type: dictionary)
 #let item-no(key) = items.position(o => o.key == key) + 1
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
@@ -672,11 +675,12 @@
     draw-floor(ff-rooms, ff-walls, (), (), (), labels: false, mini: true)
     line(q((sec.pj-edge, sec.y-court)), q((sec.pj-edge, sec.y-living)), stroke: (paint: orange, thickness: 1.6pt, dash: "dashed"))
     for c in sec.columns { rect(q((c.at(0) - 0.25, c.at(1) - 0.25)), q((c.at(0) + 0.25, c.at(1) + 0.25)), fill: orange, stroke: none) }
+    line(q(suite.acoustic-wall.at(0)), q(suite.acoustic-wall.at(1)), stroke: 3pt + rgb("#b5452f"))
     line(q((sec.m-line, -0.5)), q((sec.m-line, gy1 + 0.5)), stroke: (paint: rgb("#b5452f"), thickness: 0.8pt, dash: "dash-dotted"))
     content(q((sec.m-line - 0.25, 6.0)), angle: 90deg, text(7pt, fill: rgb("#b5452f"))[M line · #n3(sec.pj.m-gap) m])
     let tag(p, key) = { circle(q(p), radius: 0.6, fill: white, stroke: 0.9pt + accent); content(q(p), text(8pt, weight: "bold", fill: accent)[#item-no(key)]) }
     tag((6.9, 10.0), "edge beam and columns"); tag((8.0, 22.6), "men's majlis")
-    tag((6.6, 3.0), "off ground-floor lines"); tag((14.3, 7.0), "east-wall stack"); tag((7.0, 20.25), "clerestory privacy"); tag((1.1, 1.1), "future lift")
+    tag((6.6, 3.0), "off ground-floor lines"); tag((14.3, 7.0), "east-wall stack"); tag((7.0, 20.25), "clerestory privacy"); tag((12.45, 18.4), "acoustic wall"); tag((12.45, 22.6), "arm wall"); tag((1.1, 1.1), "future lift")
   }),
   table(columns: (auto, auto, 1.1fr, 1fr, 1fr), stroke: none, inset: 3.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
     ..([No.], [For], [Item], [Action], align(right, text(lang: "ar", dir: rtl)[البند])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),

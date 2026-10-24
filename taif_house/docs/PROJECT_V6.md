@@ -1,6 +1,6 @@
-# Taif / Palm House · V6.1 · master document
+# Taif / Palm House · V6.2 · master document
 
-Concept design of a two-storey courtyard house in Taif. This document describes the whole house as of **V6.1** (git tag `v6.1`, 24 Oct 2026). The open items are listed in `OPEN_ITEMS.md`, and the next steps are in `NEXT_SESSION.md`. The figures below come from the project files: `data/*.csv`, the design files and the studies. They match the presentation `output/Taif_House_V6.1_presentation.pdf` (sheet 08 is the schedules).
+Concept design of a two-storey courtyard house in Taif. This document describes the whole house as of **V6.2** (git tag `v6.2`, 24 Oct 2026). The open items are listed in `OPEN_ITEMS.md`, and the next steps are in `NEXT_SESSION.md`. The figures below come from the project files: `data/*.csv`, the design files and the studies. They match the presentation `output/Taif_House_V6.2_presentation.pdf` (sheet 08 is the schedules).
 
 *Concept design, not for construction. Structure, services, levels and the site survey still need the engineers' and the municipality's review.*
 
@@ -110,15 +110,15 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | F12 | Bedroom 1 | polygon | 15.75 | 13.87 | One room, no bath; its south wall is straight on y 6.5. It uses the family bath. |
 | F13 | Gym route | 1.35 × 2 | 2.70 | 2.19 | From the gallery's south end to the office and the gym (sliding doors). |
 | F14 | Owner's office | 4.25 × 4.75 | 20.19 | 18.21 | Sofa and bookshelves to the north, desk with visitor chairs to the south. Windows west and south. |
-| F15 | Gym | 9.06 × 2.75 | 24.92 | 22.31 | A rectangle along the south facade, not touching the suite bedroom (§4.21). |
-| F16 | Suite court (open to the sky) | 7.71 × 2 | 15.42 | – | Private, walled on four sides, in front of the clerestory windows; from the suite bedroom only. |
+| F15 | Gym | polygon (L) | 28.37 | 25.31 | An L: the long arm along the south facade (barbell and rack, kettlebells, pull-up bar, pilates mat, one cardio machine) and a short arm 1.725 × 2.0 m at the east end along the suite bedroom wall, holding only the treadmill (§4.21). Sliding door from the gym route. |
+| F16 | Suite court (open to the sky) | 5.99 × 2 | 11.97 | – | Private, walled on four sides (east: the treadmill arm), in front of the clerestory windows; from the suite bedroom only. Its floor falls west to its drain. |
 | F17 | Suite lobby | 1.35 × 5.4 | 7.29 | 5.98 | Entered from the family link; it opens to the bath, the dressing and the bedroom. |
 | F18 | Suite bath | polygon | 10.24 | 8.84 | Freestanding tub, walk-in glass shower, double vanity. A sunken floor drains to the stack outside the east wall. |
 | F19 | Suite WC (closet) | 1.1 × 1.5 | 1.65 | 1.14 | WC with shattaf at the drain stack, sliding door. |
 | F20 | Suite dressing | 3.01 × 3.45 | 10.39 | 9.05 | His and hers wardrobes (sliding), shoe and bag display, make-up table. |
 | F21 | Suite bedroom | polygon | 26.03 | 23.60 | King bed facing the suite court. Solid west wall to the double-height living (no window). |
 
-- **Rooms:** 227.75 m² on axes indoors (circulation 45.72 m²), plus the suite court 15.42 m².
+- **Rooms:** 231.20 m² on axes indoors (circulation 45.72 m²), plus the suite court 11.97 m².
 - **Master suite:** **55.60 m²** (lobby, bath, WC closet, dressing, bedroom).
 - **Fixed elements:** stair, lift shaft, west shaft and air tower rise from the ground floor.
 
@@ -188,31 +188,24 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
     - The luxury bath has a tub, a walk-in shower, two basins and a WC closet. The walk-in dressing is for two. The bedroom faces the suite court.
     - It follows the owner's programme.
 20. **Owner's office.** The south-west corner, a quiet room near the stair, door from the gym route.
-21. **Rectangular gym** (V5.1).
-    - One rectangle along the south facade, not touching the suite bedroom.
-    - The treadmill is at its **west end**, away from the master suite. It runs along the gym's length, with **0.5 m clear behind and on each side**, on a dense rubber floor with anti-vibration pads. Along the gym's depth it would fill 2.5 of the 2.525 m clear depth and block the only way from the door.
-    - Then barbell and rack, kettlebells, pull-up bar, pilates mat and one cardio machine, with an optional bench at the east end. A 1.0 m walkway runs along the north wall.
-    - An L-shaped gym with a treadmill arm against the suite bedroom was studied and **rejected**: it took area from the suite court and put treadmill noise next to the master bedroom. Branch `v5-gym-L` is kept for reference.
+21. **L-shaped gym** (V6.2, the owner's choice).
+    - **Long arm** along the south facade (x 4.25–13.311, y 21.25–24): barbell and rack, kettlebells, pull-up bar, pilates mat, one cardio machine. A 1.0 m walkway runs along its north wall from the sliding door to the arm.
+    - **Short arm** at the east end, turning north along the suite bedroom wall: 1.725 × 2.0 m on axes (x 11.586–13.311, y 19.25–21.25). It holds **only the treadmill** (0.9 × 2.0 m, facing north), with 0.3 m clear on each side, 0.1 m off the bedroom wall, and the 0.5 m behind it kept free in the long arm. Gym 28.37 m² in all.
+    - **Acoustic separation, mandatory:**
+      - a double wall between the arm and the suite bedroom (target ≈ 55 dB airborne);
+      - a floating floor or dense rubber under the arm;
+      - anti-vibration pads under the treadmill;
+      - the treadmill never touches the wall.
+    - **Change in the suite court:** it becomes 5.99 × 2.0 m = **11.97 m²** (was 15.42).
 22. **Suite court and clerestory light.**
-    - The private court sits in front of the double-height living's two clerestory windows (1.0 × 1.0 m, sill +5.00).
-    - The gym's roof edge ends in a **railing, not a parapet**. With the railing, ≈ 81 % of the winter noon sun reaches the windows and the sky shows on 100 % of them. With a 1.10 m parapet the figures would be 0 % and 42 %.
-    - The window sill stays above eye level from the court floor, or the glass is obscured.
+    - **The court:** private, open to the sky, enclosed on four sides (since V6.2 its east side is the treadmill arm). Its floor falls west to its drain, away from the arm. The suite bedroom's window and its sliding door to the court are unchanged; the door (x 9.3–10.7) still opens onto the court, 0.79 m from the arm's wall.
+    - **The windows:** the court sits in front of the double-height living's two clerestory windows (1.0 × 1.0 m, sill +5.00). The arm stands ≈ 2.99 m east of them, so they still face open sky.
+    - **Light:** the gym's roof edge ends in a **railing, not a parapet**. With the railing, ≈ 81 % of the winter noon sun reaches the windows and the sky shows on 100 % of them, as in V6.1. With a 1.10 m parapet the figures would be 0 % and 42 %. The noon sun stands south-south-west of the plan frame, so the arm's shadow falls to the north-east, away from the windows.
+    - **Privacy:** the window sill stays above eye level from the court floor, or the glass is obscured.
 
 ## 5. Construction notes
 
-- **West projection (1.35 m):** a first-floor slab beyond the courtyard wall line x 4.25, along y 6.5–19.25, carrying the gallery and its railing.
-  - **Edge beam** on x 5.6, spans ≈ 6.5 m and 6.25 m. It is seen from the courtyard and the living, so it is expressed as the colonnade's beam.
-  - **Three columns**, each in an existing wall or glass line: the women's majlis south wall (y 6.5), a pier in the courtyard / living glass (y 13.0), the living's south wall (y 19.25). Each needs its own foundation.
-  - **The structural engineer sizes** the slab, the beam depth, the columns and the pads.
-  - The ground floor changes only by the columns, their foundations, the beam line and a lower ceiling under the projection. The rooms' east wall (x 4.25) stands on the ground-floor courtyard edge line; the first-floor outer walls stand on the ground-floor outer walls.
-- **Gym and office over the men's majlis:** the men's majlis has no inner wall. Walls with no wall below: y 21.25, x 4.25, x 5.6. The treadmill is a dynamic load (≈ 1.5–2 kN in use) on a rubber floor with pads.
-- **Walls on the women's majlis roof:** the y 3.0 partition (kids' room / family living) stands over the women's majlis, which has no wall below. It is a light partition on the slab, or sits on a beam.
-- **Sunken bath floors:** the suite bath (over the ground-floor kitchen) and the family bath (partly over the hospitality kitchen) carry all their pipes in the floor build-up.
-- **Suite court:** its own floor drain and waterproofing on the men's majlis roof slab; a railing (not a parapet) on the gym roof edge.
-- **Built-in cupboards in niches:** a joinery box (own 18 mm sides, top and frame) scribed to the walls. Use a 10 cm block jamb only where a side is open, and then draw the niche 20 cm wider.
-- **10 cm partitions** (an idea for later): +10 cm of clear width for a room, but check any beam on the line, and the sound (plaster both sides, or an insulated drywall).
-- **Sliding doors** to the office, the gym, the suite WC closet, the suite court and the dressing wardrobes.
-- **Gas, if used:** a cylinder cabinet outside the east wall in the service yard.
+The construction and detail notes (structure, the edge beam and columns, the gym arm and its acoustic separation, drainage, joinery, doors) are in **`docs/DETAILS.md`**.
 
 ## 6. Changelog
 
@@ -230,5 +223,6 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | V5.1 | 24 Oct 2026 | Split west projection accepted (M-line approval pending, no columns); L-shaped gym rejected; treadmill at the gym's west end. |
 | V6.0 | 24 Oct 2026 | Clean release: everything labelled V6.0; A3 presentation with 10 sheets (decisions log, open items, block details); first-floor DXF; shared sections module; master document and open-items list; extended checks. No design change. |
 | V6.1 | 24 Oct 2026 | Split projection reverted to the V5.0 columns solution: the full 1.35 m inward projection on an edge beam and three columns at x 5.6, the first-floor west wall on the ground-floor wall; family bath, wardrobe niche, gym and suite court back to their V5.0 sizes; the rectangular gym with the treadmill at its west end kept. |
+| V6.2 | 24 Oct 2026 | L-shaped gym with the treadmill arm at the east end (owner's choice), along the suite bedroom wall, with acoustic separation (double wall ≈ 55 dB, floating floor, anti-vibration pads); suite court 11.97 m². The V5.1 rectangular gym had kept the treadmill at the west end because the L took area from the suite court and put treadmill noise next to the master bedroom. |
 
-Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.1`). The construction notes of `archive/docs/DETAILS.md` are continued in §5.
+Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.1`). The construction notes are in `docs/DETAILS.md`.

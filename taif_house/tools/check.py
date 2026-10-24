@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V6.1 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V6.2 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V6.1"
+VERSION = "V6.2"
 problems = []
 
 
