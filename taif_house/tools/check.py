@@ -72,6 +72,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", ["All rooms inside the zone"]),
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", ["All rooms inside the zone"]),
     ("studies/structure.typ", OUTPUT / "structure.pdf", ["Preliminary structural study"]),
+    ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study"]),
     ("presentation.typ", PRESENTATION, []),
 ]
 tmp = Path(tempfile.mkdtemp())

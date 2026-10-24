@@ -99,6 +99,7 @@ sources:                # where build_3d.py reads the geometry (paths from taif_
   sections: studies/sections.typ    # "#let cl-sill", "#let cl-head" (clerestory levels), "#let latitude"
   north: base.typ                   # "#let north = (x, y)" true north on the drawing
   fixtures_east: studies/east_wing.typ   # "#let fixtures" (kitchen counters, for the service door clash check), local + (8.95, 0)
+  air_system: studies/air_system.typ   # "#let air-*": the tower head, base box, tunnel route, water channel and outlet chamber (all assumed)
 
 output:
   glb: 3d/output/taif_house_V6.2.glb

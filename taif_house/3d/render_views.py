@@ -14,7 +14,7 @@ BROWSER = [p for p in (r"C:\Program Files (x86)\Microsoft\Edge\Application\msedg
 if not BROWSER:
     raise SystemExit("no Edge / Chrome found")
 VIEWS = {"view_nw.png": "view=nw", "view_se.png": "view=se", "plan_gf.png": "view=top_gf", "plan_ff.png": "view=top_ff",
-         "eye1.png": "view=eye1", "eye2.png": "view=eye2", "eye3.png": "view=eye3"}
+         "eye1.png": "view=eye1", "eye2.png": "view=eye2", "eye3.png": "view=eye3", "plan_air.png": "view=top_air"}
 for season in ("summer", "winter"):
     for hour in ("09", "12", "15"):
         VIEWS[f"sun_{season}_{hour}.png"] = f"view=top&sun={season}-{hour}&labels=0"

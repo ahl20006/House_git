@@ -51,7 +51,7 @@ src = (HERE / "build_3d.py").read_text(encoding="utf-8")
 ns = {"__name__": "check", "__file__": str(HERE / "build_3d.py")}
 exec(src[:src.index("# ---------- meshes ----------")] + "\n" + src[src.index("TO_GLTF = "):src.index("scene = trimesh.Scene()")], ns)
 GF, FF, OUTLINE, OPEN, PROJ_X = ns["GF"], ns["FF"], ns["OUTLINE"], ns["OPEN"], ns["PROJ_X"]
-COURT_SKY, DH_VOID, SUITE_COURT, STAIR_OPENING = ns["COURT_SKY"], ns["DH_VOID"], ns["SUITE_COURT"], ns["STAIR_OPENING"]
+COURT_SKY, DH_VOID, SUITE_COURT, STAIR_OPENING, TOWER_HOLE, AIR = ns["COURT_SKY"], ns["DH_VOID"], ns["SUITE_COURT"], ns["STAIR_OPENING"], ns["TOWER_HOLE"], ns["AIR"]
 FINISHED, STRUCT_TOP, STOREY = ns["FINISHED"], ns["STRUCT_TOP"], ns["STOREY"]
 ST, COLS, BEAMS, CL_SILL, CL_HEAD, LATITUDE = ns["ST"], ns["COLS"], ns["BEAMS"], ns["CL_SILL"], ns["CL_HEAD"], ns["LATITUDE"]
 GF_DOORS, GF_WINDOWS, FF_DOORS, FF_WINDOWS, FIXTURES_EAST = ns["GF_DOORS"], ns["GF_WINDOWS"], ns["FF_DOORS"], ns["FF_WINDOWS"], ns["FIXTURES_EAST"]
@@ -154,10 +154,10 @@ def mesh_area(name, t):
 gf_csv = sum(area(r["pts"]) for r in GF)            # 22 CSV rooms incl. the courtyard + the air tower
 ff_csv = sum(area(r["pts"]) for r in FF)            # 21 CSV rooms incl. the suite court + the 4 fixed elements
 gf_slab, ff_slab, roof = mesh_area("gf_slab", T_SLAB), mesh_area("ff_slab", T_SLAB), mesh_area("roof_slab", T_SLAB)
-ff_voids = COURT_SKY.area + DH_VOID.area + STAIR_OPENING.area
+ff_voids = COURT_SKY.area + DH_VOID.area + STAIR_OPENING.area + TOWER_HOLE.area
 for label, got, want in (("GF slab = outline + half the outer wall (the slab reaches the outer face)", gf_slab, outer_face.area),
-                         ("FF slab = outline + half the outer wall − courtyard sky − double-height void − stair opening", ff_slab, outer_face.area - ff_voids),
-                         ("roof = outline + half the outer wall − courtyard sky − suite court", roof, outer_face.area - COURT_SKY.area - SUITE_COURT.area),
+                         ("FF slab = outline + half the outer wall − courtyard sky − double-height void − stair opening − tower shaft", ff_slab, outer_face.area - ff_voids),
+                         ("roof = outline + half the outer wall − courtyard sky − suite court − tower shaft", roof, outer_face.area - COURT_SKY.area - SUITE_COURT.area - TOWER_HOLE.area),
                          ("inside the outline, GF = CSV rooms + courtyard + air tower", outline_poly.area, gf_csv),
                          ("inside the outline, FF = CSV rooms + suite court + stair, lift, shaft, air tower + the two voids", outline_poly.area, ff_csv + COURT_SKY.area + DH_VOID.area)):
     if abs(got - want) < TOL_AREA:
@@ -178,7 +178,7 @@ ok(f"stair opening in the first-floor slab: {so:.2f} m² (x {ST['x0']}–{ST['sp
 
 # ---------- 4: outline and levels ----------
 print("4. Outline and levels")
-allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col")])
+allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col") and "_air_" not in n])   # the air system (head above the roof, tunnel below the slab, cap beyond the walls) is checked in 9
 lo, hi = allv.min(axis=0), allv.max(axis=0)
 ob = outline_poly.bounds
 if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_OUT / 2), hi[0] - (ob[2] + T_OUT / 2), hi[1] - (ob[3] + T_OUT / 2))):
@@ -269,7 +269,7 @@ else:
     bad(f"stair: {st['risers']} risers × {st['riser']}")
 # arrival: the top nosing at the finished first-floor level, the slab just beyond it, the opening just before it
 top_n = [n for n in st["nosings"] if n["flight"] == 2][-1]
-ff_poly = outer_face.difference(COURT_SKY).difference(DH_VOID).difference(STAIR_OPENING)
+ff_poly = outer_face.difference(COURT_SKY).difference(DH_VOID).difference(STAIR_OPENING).difference(TOWER_HOLE)
 beyond, before = Point(top_n["x"], top_n["y"] + 0.05), Point(top_n["x"], top_n["y"] - 0.05)
 if abs(top_n["z"] - FINISHED["FF"]) < 1e-6 and ff_poly.contains(beyond) and STAIR_OPENING.contains(before):
     ok(f"arrival: the top riser lands at +{top_n['z']:.2f} on the first-floor slab (arrival strip y {st['arrival_y'][0]}–{st['arrival_y'][1]} inside the stair box, then the landing room)")
@@ -342,6 +342,42 @@ if abs(w_noon - want_w) < 0.4 and abs(s_noon - (180 - want_s)) < 0.4 and sym:
     ok(f"noon sun altitude winter {w_noon}° / summer {s_noon}° (sections.typ: {want_w:.1f}° / {180 - want_s:.1f}° from the north side), 9:00 and 15:00 symmetric; true north {summary['sun']['true_north_bearing_from_plan_north']}° east of the plans' north (base.typ)")
 else:
     bad(f"sun: winter noon {w_noon} (want {want_w:.1f}), summer noon {s_noon}, symmetric {sym}")
+
+# ---------- 9: the air system ----------
+print("9. Air system (studies/air_system.typ, all assumed)")
+air = summary["air"]
+foot = wkt.loads(air["tunnel_footprint_wkt"])
+under = sorted({r["name"] for r in GF if Polygon(r["pts"]).intersection(foot).area > 0.01})
+if set(under) <= {"Women's majlis", "Air tower", "Courtyard"}:   # the courtyard: only the mouth under its north wall, into the chamber (A3)
+    ok(f"tunnel route A ({len(air['route']) - 1} legs) runs only under: {under}: no bedroom, no wet room")
+else:
+    bad(f"the tunnel runs under {under}")
+court_poly = Polygon(next(r for r in GF if r["name"] == "Courtyard")["pts"])
+cham = Polygon([(air["chamber"][0], air["chamber"][1]), (air["chamber"][2], air["chamber"][1]), (air["chamber"][2], air["chamber"][3]), (air["chamber"][0], air["chamber"][3])])
+if court_poly.buffer(0.11).contains(cham) and cham.bounds[0] > PROJ_X:
+    ok(f"outlet chamber x {air['chamber'][0]}–{air['chamber'][2]} y {air['chamber'][1]}–{air['chamber'][3]} inside the courtyard against its north wall, east of the projection edge x {PROJ_X} (open sky)")
+else:
+    bad("outlet chamber not inside the courtyard / under the projection")
+pad = 1.5
+def padbox(cid):
+    c = COLS[cid]
+    return Polygon([(c["x"] - pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] + pad / 2), (c["x"] - pad / 2, c["y"] + pad / 2)])
+near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C21", "C25", "C26", "C17", "C24", "C30")}
+tower_poly = Polygon(air["tower"]).buffer(T_OUT / 2)
+clash = [cid for cid, d in near.items() if d < 0.1 and not tower_poly.intersects(padbox(cid))]
+if not clash:
+    ok("clear of the assumed 1.5 m pads (box to pad): " + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + " · C24 / C30 stand on the tower base box (A1)")
+else:
+    bad(f"the tunnel / chamber meets the assumed pads of {clash}: {near}")
+bt, bb = air["box"][1], air["box"][2]
+if bt <= -1.0 and bt < STRUCT_TOP["GF"] - T_SLAB - 0.9 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
+    ok(f"tunnel box top {bt:+.2f} (≥ 1.0 below the ground slab, 0.40 under the assumed tie beams), underside {bb:+.2f}; head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
+else:
+    bad(f"air levels: box {bt}…{bb}, head {air['head']}")
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.0:
+    ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
+else:
+    bad("tower shaft opening")
 
 print()
 for f in summary["flags"]:

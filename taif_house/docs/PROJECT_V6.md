@@ -153,7 +153,7 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 10. **Air tower and tunnel.**
     - The tower fills the tip of the cut corner (it takes no room space). It catches the north-west wind above the roof and brings it down to an underground tunnel.
     - The tunnel releases cool air through a low, closable opening in the courtyard. Every opening can be closed: open at night and early morning, closed in hot afternoons, dust and cold.
-    - The tunnel is described, not drawn.
+    - Studied in `studies/air_system.typ` / `docs/AIR_SYSTEM.md` (tag `air-p1`): route A under the women's majlis (not under the maid wing), a separate waterproof RC box 1.0 × 1.4 clear with its top 1.3 m below the floor, a water channel in the last 3.5 m (drained daily, no sprays), an outlet chamber with a grating and a ladder in the courtyard floor, the head 2.5 m above the roof with louvres, screen and damper. Every size assumed; 10 items for the engineers.
 11. **Future lift with two stops.**
     - The shaft is built now (walls on both floors, a covered pit clear of drains and the tunnel, a separate electrical line, a roof slab that can open later) and used as a store.
     - A standard villa lift is fitted later, with two stops: ground and first floor. The roof is reached by the stair. The final size comes from a supplier's civil drawing.
@@ -232,6 +232,7 @@ The construction and detail notes (structure, the edge beam and columns, the gym
 | V6.2 | 24 Oct 2026 | L-shaped gym with the treadmill arm at the east end (owner's choice), along the suite bedroom wall, with acoustic separation (double wall ≈ 55 dB, floating floor, anti-vibration pads); suite court 11.97 m². The V5.1 rectangular gym had kept the treadmill at the west end because the L took area from the suite court and put treadmill noise next to the master bedroom. |
 | 3D phases 1–2 | 24 Oct 2026 | 3D model generated from the CSVs (`3d/`): slabs, outer and interior walls, voids, open edges, viewer and checks; tag `3d-p2`. No design change. |
 | Structural study | 24 Oct 2026 | Preliminary structural study `studies/structure.typ` / `docs/STRUCTURE_STUDY.md` (tags `struct-p1`, `struct-p1b`): column grid, beams, slabs, sections, the stair, options and 15 items for the engineer; every size assumed. No design change. |
+| Air system study | 24 Oct 2026 | `studies/air_system.typ` / `docs/AIR_SYSTEM.md` (tag `air-p1`): malqaf head, tunnel route A under the women's majlis, water channel, outlet chamber, maintenance table, 10 items; the reservation in the structural study and the 3D volume updated (all assumed). No design change. |
 | 3D phase 3 | 24 Oct 2026 | Doors and windows, the stair, the colonnade – gallery – living zone, railings, finished / structural levels, plan views, eye-level views, sun; tag `3d-p3`. Owner decisions (§4 item 22a): X8 colonnade to the roof, B1 hidden by a gypsum ceiling, the projection edge beam upturned, the kitchen service door (east wall, north end; the cooking counter starts at y 7.7), X3 window 0.60 m. |
 
 Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.1`). The construction notes are in `docs/DETAILS.md`.
