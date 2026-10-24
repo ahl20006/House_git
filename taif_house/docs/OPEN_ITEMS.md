@@ -25,21 +25,22 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
    Acoustic / structural engineer to set the build-ups, then check on site. Details in `DETAILS.md`.
 
 ## MEP / plumbing engineer
-8. **Plumbing study (plumbing.typ) still to do:**
+8. **Main ventilation system (`docs/AIR_SYSTEM.md`, M1–M3):** the house needs a calculated system by the MEP engineer: filtered fresh air to the closed rooms (ERV / heat recovery, the bedrooms first), exhausts for the baths, WCs and the kitchen, the AC sized separately; a roof plant area over the maid wing and the west shaft as a riser are reserved, not designed; duct routes in the gypsum ceilings. The malqaf is a dry natural supplement (night ventilation) with options A / B / C to compare; no water inside the tower or the duct.
+9. **Plumbing study (plumbing.typ) still to do:**
    - drain falls and manholes;
    - the east-wall stack;
    - crossings with the air tunnel;
    - the suite court's drain at its west end.
-9. **East-wall stack:**
+10. **East-wall stack:**
    - the stack outside the east wall (suite bath, vent stack);
    - the kitchen extract through the east wall;
    - the stack between the service door and the kitchen window (y ≈ 7.8–8.3); the hood on the east wall south of y ≈ 8.4, clear of the stack.
 
 ## Owner
-10. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
-11. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
-12. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
-13. **Future lift:** take the final shaft size from a supplier's civil drawing (two stops). Ask two or three suppliers and use the largest.
+11. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
+12. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
+13. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
+14. **Future lift:** take the final shaft size from a supplier's civil drawing (two stops). Ask two or three suppliers and use the largest.
 
 ## Design (next rounds)
 14. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.

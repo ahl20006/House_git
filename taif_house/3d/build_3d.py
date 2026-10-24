@@ -173,7 +173,7 @@ def read_air(path):
             out[m.group(1)] = ast.literal_eval(m.group(2))
         except (ValueError, SyntaxError):
             pass   # expressions (air-length) are not data
-    for k in ("tower", "head", "head-opening", "base", "route", "box", "clear", "invert", "channel", "chamber", "kerb", "grating"):
+    for k in ("tower", "head", "head-opening", "base", "route", "duct", "clear", "invert", "chamber", "cover", "grille"):
         if k not in out:
             raise SystemExit(f"ERROR: air-{k} not found in {path}")
     return out
@@ -627,32 +627,32 @@ for a, b in (((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9))):       # louv
     add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), oh, h1, COLOURS["outer"], f"roof_air_head_lintel_{int(a[1] * 10)}"))
 add(extrude(head_solid, h0, h1, COLOURS["outer"], "roof_air_head"))
 add(extrude(tower_poly.buffer(0.25, join_style=2), h1, h1 + 0.15, COLOURS["slab"], "roof_air_cap"))
-# the base box under the tower (one RC box with the shaft walls), the tunnel (two legs) and the outlet chamber: walls 0.20, floor 0.25
-zb0, zb1 = A["base"][1], STRUCT_TOP["GF"] - T_SLAB      # box underside ... ground slab underside
-add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buffer(-0.1, join_style=2)), zb0 + 0.25, zb1, COLOURS["assumed"], "gf_air_base_walls"))
-add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2), zb0, zb0 + 0.25, COLOURS["assumed"], "gf_air_base_floor"))
-bw, bt, bb = A["box"]
+# the tower base pit (the shaft walls continued down), the small dry duct (two legs, 0.9 box) and the outlet chamber under the courtyard floor: walls 0.15
+zb0, zb1 = A["base"][1], STRUCT_TOP["GF"] - T_SLAB      # pit floor ... ground slab underside
+add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buffer(-0.1, join_style=2)), zb0, zb1, COLOURS["assumed"], "gf_air_base_walls"))
+add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2), zb0 - 0.2, zb0, COLOURS["assumed"], "gf_air_base_floor"))
+bw, bt, bb = A["duct"]
+tw = (bw - A["clear"][0]) / 2                           # duct wall
 legs = list(zip(A["route"][:-1], A["route"][1:]))
 foot = unary_union([seg_box(a, b, bw) for a, b in legs] + [Point(A["route"][1]).buffer(bw / 2, resolution=4)])
 inner = unary_union([seg_box(a, b, A["clear"][0]) for a, b in legs] + [Point(A["route"][1]).buffer(A["clear"][0] / 2, resolution=4)])
 tower_out = tower_poly.buffer(T_OUT / 2, join_style=2)
-add(extrude(foot.difference(inner).difference(tower_out), bb + 0.25, bt - 0.2, COLOURS["assumed"], "gf_air_tunnel_walls"))
-add(extrude(foot.difference(tower_out), bb, bb + 0.25, COLOURS["assumed"], "gf_air_tunnel_floor"))
-add(extrude(foot.difference(tower_out), bt - 0.2, bt, COLOURS["assumed"], "gf_air_tunnel_roof"))
+add(extrude(foot.difference(inner).difference(tower_out), bb + tw, bt - tw, COLOURS["assumed"], "gf_air_duct_walls"))
+add(extrude(foot.difference(tower_out), bb, bb + tw, COLOURS["assumed"], "gf_air_duct_floor"))
+add(extrude(foot.difference(tower_out), bt - tw, bt, COLOURS["assumed"], "gf_air_duct_roof"))
 cx0, cy0, cx1, cy1 = A["chamber"]
-ch_out, ch_in = box(cx0, cy0, cx1, cy1), box(cx0 + 0.2, cy0 + 0.2, cx1 - 0.2, cy1 - 0.2)
-add(extrude(ch_out.difference(ch_in), bb + 0.25, zb1, COLOURS["assumed"], "gf_air_chamber_walls"))
-add(extrude(ch_out, bb, bb + 0.25, COLOURS["assumed"], "gf_air_chamber_floor"))
-kx0, ky0, kx1, ky1, kh = A["kerb"]
-add(extrude(box(kx0, ky0, kx1, ky1), FINISHED["GF"], FINISHED["GF"] + kh, COLOURS["assumed"], "gf_air_kerb"))
-gx0, gy0, gx1, gy1 = A["grating"]
-add(extrude(box(gx0, gy0, gx1, gy1), FINISHED["GF"] - 0.02, FINISHED["GF"] + 0.005, COLOURS["rail"], "gf_air_grating"))
-c0, c1 = A["channel"]
-add(extrude(seg_box((A["route"][2][0], c0), (A["route"][2][0], c1), 0.4), A["invert"][1] - 0.02, A["invert"][1] + 0.06, [79, 159, 207, 255], "gf_air_water"))
+zc = A["invert"][1] - 0.24                               # chamber floor (−2.10)
+ch_out, ch_in = box(cx0, cy0, cx1, cy1), box(cx0 + 0.15, cy0 + 0.15, cx1 - 0.15, cy1 - 0.15)
+add(extrude(ch_out.difference(ch_in), zc, zb1, COLOURS["assumed"], "gf_air_chamber_walls"))
+add(extrude(ch_out, zc - 0.15, zc, COLOURS["assumed"], "gf_air_chamber_floor"))
+vx0, vy0, vx1, vy1 = A["cover"]
+add(extrude(box(vx0, vy0, vx1, vy1), FINISHED["GF"] - 0.02, FINISHED["GF"] + 0.005, COLOURS["rail"], "gf_air_cover"))
+gx0, gz0, gx1, gz1 = A["grille"]
+add(extrude(seg_box((gx0, 6.5 + T_IN / 2), (gx1, 6.5 + T_IN / 2), 0.03), FINISHED["GF"] + gz0, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_grille"))   # on the courtyard face of the wall y 6.5
 add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the building's outline below the ground slab, for the underground plan view
-summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "box": A["box"], "clear": A["clear"], "invert": A["invert"], "channel": A["channel"], "chamber": A["chamber"],
-                  "kerb": A["kerb"], "tunnel_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
-summary["flags"].append("Air system (studies/air_system.typ): tower head, base box, tunnel route A, water channel and outlet chamber modelled with ASSUMED sizes and levels (MEP / structural engineer)")
+summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
+                  "cover": A["cover"], "grille": A["grille"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
+summary["flags"].append("Air system v2 (studies/air_system.typ): dry tower head, base pit, small dry duct (route A), outlet chamber and wall grille modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled")
 
 # ---------- the sun (Taif) in the model frame ----------
 nx, ny = NORTH                                   # true north on the drawing: canvas x east, y up (= plan north)

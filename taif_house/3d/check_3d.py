@@ -346,12 +346,12 @@ else:
 # ---------- 9: the air system ----------
 print("9. Air system (studies/air_system.typ, all assumed)")
 air = summary["air"]
-foot = wkt.loads(air["tunnel_footprint_wkt"])
+foot = wkt.loads(air["duct_footprint_wkt"])
 under = sorted({r["name"] for r in GF if Polygon(r["pts"]).intersection(foot).area > 0.01})
 if set(under) <= {"Women's majlis", "Air tower", "Courtyard"}:   # the courtyard: only the mouth under its north wall, into the chamber (A3)
-    ok(f"tunnel route A ({len(air['route']) - 1} legs) runs only under: {under}: no bedroom, no wet room")
+    ok(f"dry duct route A ({len(air['route']) - 1} legs) runs only under: {under}: no bedroom, no wet room")
 else:
-    bad(f"the tunnel runs under {under}")
+    bad(f"the duct runs under {under}")
 court_poly = Polygon(next(r for r in GF if r["name"] == "Courtyard")["pts"])
 cham = Polygon([(air["chamber"][0], air["chamber"][1]), (air["chamber"][2], air["chamber"][1]), (air["chamber"][2], air["chamber"][3]), (air["chamber"][0], air["chamber"][3])])
 if court_poly.buffer(0.11).contains(cham) and cham.bounds[0] > PROJ_X:
@@ -368,12 +368,17 @@ clash = [cid for cid, d in near.items() if d < 0.1 and not tower_poly.intersects
 if not clash:
     ok("clear of the assumed 1.5 m pads (box to pad): " + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + " · C24 / C30 stand on the tower base box (A1)")
 else:
-    bad(f"the tunnel / chamber meets the assumed pads of {clash}: {near}")
-bt, bb = air["box"][1], air["box"][2]
-if bt <= -1.0 and bt < STRUCT_TOP["GF"] - T_SLAB - 0.9 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
-    ok(f"tunnel box top {bt:+.2f} (≥ 1.0 below the ground slab, 0.40 under the assumed tie beams), underside {bb:+.2f}; head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
+    bad(f"the duct / chamber meets the assumed pads of {clash}: {near}")
+bt, bb = air["duct"][1], air["duct"][2]
+if bt <= -0.9 - 0.05 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
+    ok(f"dry duct top {bt:+.2f} (under the assumed tie beams at −0.90), underside {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]} (assumed, to be sized); head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
 else:
-    bad(f"air levels: box {bt}…{bb}, head {air['head']}")
+    bad(f"air levels: duct {bt}…{bb}, head {air['head']}")
+gx0, gz0, gx1, gz1 = air["grille"]
+if 0.2 <= gz0 <= 0.5 and gz1 > gz0 and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
+    ok(f"outlet: a grille in the courtyard's north wall (x {gx0}–{gx1}, +{gz0:.2f} … +{gz1:.2f}); no air opening and no water in the courtyard floor (the cover is sealed)")
+else:
+    bad("outlet: grille levels / a floor opening or water left from v1")
 if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.0:
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:

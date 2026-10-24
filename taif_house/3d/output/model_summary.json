@@ -3001,7 +3001,7 @@
   "FF wall (11.586, 19.25)\u2013(11.586, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
   "R6 (0.25\u00d70.50 total, soffit +6.70, DROP (not upturned: winter light, X4)): proposed load path on the first-floor walls x 5.6 and x 11.586 over the men's majlis ribs, NOT verified (X5)",
   "X3: suite bath east window y 9.6\u201310.2 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance -0.05 m (CLASH); the column's size and orientation are for the engineer",
-  "Air system (studies/air_system.typ): tower head, base box, tunnel route A, water channel and outlet chamber modelled with ASSUMED sizes and levels (MEP / structural engineer)"
+  "Air system v2 (studies/air_system.typ): dry tower head, base pit, small dry duct (route A), outlet chamber and wall grille modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled"
  ],
  "rooms": {
   "GF": [
@@ -3103,7 +3103,7 @@
   ],
   "base": [
    -0.08,
-   -3.15
+   -1.95
   ],
   "route": [
    [
@@ -3119,37 +3119,38 @@
     6.6
    ]
   ],
-  "box": [
-   1.4,
-   -1.3,
-   -3.15
+  "duct": [
+   0.9,
+   -1.0,
+   -1.9
   ],
   "clear": [
-   1.0,
-   1.4
+   0.6,
+   0.6
   ],
   "invert": [
-   -2.8,
-   -2.9
-  ],
-  "channel": [
-   3.1,
-   6.6
+   -1.75,
+   -1.86
   ],
   "chamber": [
-   6.5,
+   6.75,
    6.6,
-   8.05,
-   8.6
+   7.95,
+   7.6
   ],
-  "kerb": [
-   6.5,
-   8.1,
-   8.05,
-   8.6,
-   0.45
+  "cover": [
+   7.0,
+   6.8,
+   7.6,
+   7.4
   ],
-  "tunnel_footprint_wkt": "POLYGON ((7.002121597344437 0.1032843272420994, 6.775025253169416 0.2550252531694167, 6.623284327242099 0.4821215973444371, 6.569999999999999 0.75, 6.569999999999999 6.6, 7.97 6.6, 7.97 1.45, 8.95 1.45, 8.95 0.05, 7.27 0.05, 7.002121597344437 0.1032843272420994))",
+  "grille": [
+   6.85,
+   0.2,
+   7.85,
+   0.8
+  ],
+  "duct_footprint_wkt": "POLYGON ((7.097792455435709 0.334254210369921, 6.951801948466053 0.4318019484660536, 6.854254210369921 0.5777924554357096, 6.819999999999999 0.75, 6.819999999999999 6.6, 7.72 6.6, 7.72 1.2, 8.95 1.2, 8.95 0.3, 7.27 0.3, 7.097792455435709 0.334254210369921))",
   "tower_shaft_area": 0.927
  },
  "sun": {

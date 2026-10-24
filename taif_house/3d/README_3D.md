@@ -12,7 +12,7 @@ The 3D model is **generated from the project files, never edited by hand**. One 
 - **The colonnade – gallery zone:** the three colonnade columns C21–C23 (Ø0.30) from the ground slab to the roof (X8), the edge beam B3 **upturned** on x 5.6 (0.25 × 0.50 total: 0.30 above the structural slab, 0.22 above the finished gallery floor) with the gallery railing on it, the dining-step beam B5 under the suite wall (soffit +2.97), the roof edge beam R11 over the gallery strip; column C33 in the east wall (for the X3 check). **R6** (the gym roof beam on the two gym walls over the men's majlis ribs) and those two walls are **red: unconfirmed** (X5).
 - **Railings** 1.10 m on the gallery edge (on the upturned beam), the family living's courtyard edge and the stair well.
 - **Coloured room plates** (by room type) with the room names in the plan views; **sun positions** for Taif at 9:00 / 12:00 / 15:00 in summer and winter with shadows; three **eye-level bookmarks**.
-- **The air system** (`studies/air_system.typ`, all assumed, orange): the tower head 2.5 m above the roof with its two louvred openings and the cap, the shaft open through both slabs, the tower base box to −3.15, the tunnel (route A, 1.4 m box, top −1.30) under the women's majlis, the water channel, the outlet chamber in the courtyard floor with its grating and the louvred kerb. View "air system (underground)" (`?view=top_air`: the cut at −0.3 shows only what lies below the ground slab) → `output/plan_air.png`.
+- **The air system v2** (`studies/air_system.typ`, all assumed, orange): the dry tower head 2.5 m above the roof with its two louvred openings and the cap, the shaft open through both slabs, the tower base pit to −1.95, the small dry duct (route A, 0.9 box, top −1.00) under the women's majlis, the outlet chamber under the courtyard floor with its sealed cover, and the grille in the courtyard's north wall (+0.2 … +0.8). No water, no floor opening. The main ventilation system (ERV, exhausts, AC) is not modelled: the MEP engineer designs it. View "air system (underground)" (`?view=top_air`: the cut at −0.3 shows only what lies below the ground slab) → `output/plan_air.png`.
 - Not yet (later phases): the rest of the structure (all columns and beams, ribbed slabs, 0.22 flat roof over the void: phase 4), lift, air tower head, parapets and the roof railing on the suite court edge (phase 5), IFC/OBJ export (6), site, materials, furniture.
 
 ## Levels: structural and finished
@@ -78,7 +78,7 @@ python taif_house/3d/render_views.py   # screenshots (Windows, Microsoft Edge)
 - `studies/ff_family.typ`, `studies/ff_suite.typ`: the first-floor doors (`doors`, `D(...)`) and windows (`windows`).
 - `studies/structure.typ`: the stair (`st`), the columns (`columns`) and the beams (`beams-ff`, `beams-roof`) used in this phase.
 - `studies/sections.typ`: the clerestory levels (`cl-sill`, `cl-head`) and the latitude; `base.typ`: true north; `studies/east_wing.typ`: the kitchen fixtures (service door check).
-- `studies/air_system.typ`: every `#let air-*` tuple (tower, head, base, route, box, clear, invert, channel, chamber, kerb, grating).
+- `studies/air_system.typ`: every `#let air-*` tuple (tower, head, base, route, duct, clear, invert, chamber, cover, grille).
 - Doors of the plans that lie on an open edge (no leaf) cut nothing; the open edges are in `open_edges.csv`.
 
 ## Checks (check_3d.py)
@@ -90,7 +90,7 @@ python taif_house/3d/render_views.py   # screenshots (Windows, Microsoft Edge)
 6. The stair: 22 risers to +3.60, the top riser on the first-floor slab (the arrival strip), the opening edged by the trimmers, the headroom over every tread ≥ 2.10 m (minimum 2.14 m under B16; the study's 2.22 m before finishes).
 7. The structure of the zone: the colonnade from the ground slab to the roof underside (X8), the upturned edge beam and the railing on it, B5's soffit, R6 and the gym walls flagged unconfirmed.
 8. The sun: the noon altitudes equal the formulas of `studies/sections.typ` (winter 45.2°, summer 88.0°), 9:00 / 15:00 symmetric.
-9. The air system: the tunnel runs only under the women's majlis and the tower (and the courtyard's north wall at its mouth); the chamber inside the courtyard east of the projection edge; clear of the assumed pads of C21, C25, C26 (C24 / C30 stand on the tower base box); the box top ≥ 1.0 m below the ground slab; the head 2.5 m above the roof; the shaft open through both slabs.
+9. The air system: the duct runs only under the women's majlis and the tower (and the courtyard's north wall at its mouth); the chamber inside the courtyard east of the projection edge; clear of the assumed pads of C21, C25, C26 (C24 / C30 stand on the tower base pit); the duct top under the assumed tie beams (−0.90); the head 2.5 m above the roof; the shaft open through both slabs; the outlet a wall grille, no floor opening and no water.
 It ends with `3D CHECKS PASSED` and the list of **flags**, or the problems. `ALL CHECKS PASSED` (tools/check.py) means the model is consistent with the files; it does not mean anything was calculated.
 
 ## Phases
