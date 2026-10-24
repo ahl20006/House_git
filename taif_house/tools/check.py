@@ -2,7 +2,7 @@
 
 Run from anywhere:   python taif_house/tools/check.py
 It
-  1. compiles every drawing into output/ (design_gf, design_ff, the studies, the presentation) and the archived first-floor drawing
+  1. compiles every drawing into output/ (design_gf, design_ff, the studies incl. the structural study, the presentation) and the archived first-floor drawing
      into a temporary folder (any error is a problem), and reads the PDFs (pdftotext) for their "all checks passed" lines;
   2. checks the presentation: A3, 10 sheets;
   3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv;
@@ -71,6 +71,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", ["All rooms inside the block, no overlaps"]),
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", ["All rooms inside the zone"]),
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", ["All rooms inside the zone"]),
+    ("studies/structure.typ", OUTPUT / "structure.pdf", ["Preliminary structural study"]),
     ("presentation.typ", PRESENTATION, []),
 ]
 tmp = Path(tempfile.mkdtemp())
