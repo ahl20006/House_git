@@ -179,6 +179,7 @@
   G((2.75, 22.15), (2.75, 23.95), (1, 0), "open"),       // foyer → men's majlis
   G((4.25, 13.1), (4.25, 14.5), (1, 0), "open"),         // living entrance
   G((9.4, 13.0), (10.5, 13.0), (0, -1), "hinged"),       // kitchen ↔ dining
+  G((13.311, 6.7), (13.311, 7.6), (1, 0), "hinged"),     // kitchen service door to the east yard, lockable (owner decision)
   G((9.7, 6.5), (10.55, 6.5), (0, -1), "open"),          // kitchen ↔ laundry
   G((10.65, 2.95), (10.65, 3.75), (1, 0), "hinged"),     // laundry ↔ maid room
   G((10.715, 2.8), (11.415, 2.8), (0, -1), "sliding"),   // maid room ↔ maid bath
@@ -660,9 +661,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 3.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 3pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(7.6pt)[#d.version], text(7.6pt, weight: "bold")[#d.topic], text(7.6pt)[#fill-in(d.decision)], text(7.6pt)[#fill-in(d.reason)], align(right, text(8pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(7.2pt)[#d.version], text(7.2pt, weight: "bold")[#d.topic], text(7.2pt)[#fill-in(d.decision)], text(7.2pt)[#fill-in(d.reason)], align(right, text(7.6pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()

@@ -13,7 +13,7 @@ An architectural coordination study, **not a structural design**: it shows how t
 - **Balanced stiffness, a proposal that is not calculated.** The west core (lift shaft, west shaft, stair walls) is matched by an east box: the solid laundry / maid wall on x 8.95, the cut wall and the kitchen's north wall, proposed as RC walls 0.20 m, so that the centre of stiffness stays near the centre of mass of the long pentagon. The engineer models the lateral system (frame + walls) and confirms it; the seismic design category for Taif and the wind case are taken from SBC 301 by the engineer, not assessed here.
 
 ## 2. Column grid
-Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer walls, the three colonnade columns Ø0.30. All continuous to the roof; the colonnade columns carry only the first-floor edge beam and stop there (option: continue two of them to the roof inside the gallery railing, X8).
+Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer walls, the three colonnade columns Ø0.30. All continuous to the roof, the three colonnade columns included (X8, owner decision: a two-storey colonnade inside the gallery railing line; the roof over the gallery strip rests on them through the roof edge beam R11, no 1.35 m cantilever).
 
 | Line | Columns at | Spans (m) |
 |---|---|---|
@@ -44,14 +44,14 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 | FF | kitchen roof y 6.5–13 and dining roof y 13–19.25 | ribbed (hollow block) 0.30 | east–west 4.36 m; the suite bath floor sunken 0.15 |
 | FF | men's majlis roof x 2.75–13.311 y 19.25–24 | ribbed 0.30, thickened ribs under the FF walls | north–south 4.75 m |
 | roof | west band, riwaq / gallery line, kids' room / family living, suite, gym route, treadmill arm | solid 0.20 / ribbed 0.30 (suite, office) | 1.5–4.75 m |
-| roof | gallery strip x 4.25–5.6 y 6.5–13 | solid 0.20 cantilever | 1.35 m from R3 |
+| roof | gallery strip x 4.25–5.6 y 6.5–13 | solid 0.20 | east–west 1.35 m, R3 → R11 on the colonnade (X8) |
 | roof | **double-height living x 4.25–8.95 y 13–19.25** | **flat solid 0.22, no beam in the void** | east–west 4.7 m, R3 → R4 |
 | roof | gym y 21.25–24 | solid 0.20 | north–south 2.75 m |
 
 ### Beams (first floor B, roof R; sizes width × total depth, assumed)
 | Beam | Where | Span (m) | Size | Drop / soffit | Carries |
 |---|---|---|---|---|---|
-| B1 | y 3.0, x 4.25–8.95 | 4.70 | 0.25 × 0.40 | 0.20 below the slab, soffit +3.20 (or hidden in a 0.30 ribbed slab) | FF kids' / family living wall, nothing below |
+| B1 | y 3.0, x 4.25–8.95 | 4.70 | 0.25 × 0.40 | 0.20 below the slab, soffit +3.20; hidden by the women's majlis gypsum ceiling at ≈ +3.05 (owner decision) | FF kids' / family living wall, nothing below |
 | B2 | y 6.5, x 4.25–8.95 | 1.35 + 3.35 | 0.25 × 0.40 | edge, soffit +3.20 | FF slab edge on the courtyard |
 | B3 | x 5.6, y 6.5–19.25 | 6.50 + 6.25 | 0.25 × 0.50 | **upturned, 0.30 above the slab (owner's preference)** or drop, 0.30 below (§4.1) | the projection and the gallery, on C21–C23 |
 | B4 | x 4.25, y 6.5–19.25 | 6.50 + 6.25 | 0.25 × 0.50 | 0.30 below, soffit +3.10 | FF west rooms' east wall over the riwaq glazing and the low wall |
@@ -64,6 +64,7 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 | B19–B21 | x 4.25, x 5.6, x 11.586 over the majlis | 4.75 / 2.0 | thickened ribs 0.30 | hidden | office wall, gym route wall, treadmill arm wall (nothing below) |
 | R1, R2 | y 6.5 and y 13.0, x 4.25–8.95 | 4.70 | 0.25 × 0.45 | soffit +6.75 | the courtyard sky hole |
 | R3, R4 | x 4.25 and x 8.95, full length | 3.0–6.5 | 0.25 × 0.50 | 0.30 above the FF walls, invisible | the roof over the void spans between them |
+| R11 | x 5.6, y 6.5–13.0 | 6.50 | 0.25 × 0.45 | soffit +6.75 | roof edge of the courtyard sky over the gallery strip, on C21–C22 (X8) |
 | R5 | y 19.25, x 4.25–13.311 | 1.35 + 3.35 + 4.36 | 0.25 × 0.50 | soffit +6.70, 0.70 above the clerestory head | the living's south wall line |
 | R6 | y 21.25, x 5.6–11.586 | 6.0 | 0.25 × 0.50 | soffit +6.70, **drop, not upturned** (X4) | the suite court hole; on the FF walls x 5.6 / x 11.586: **proposed load path, not verified** (X5) |
 | R7–R10 | north and south walls, riwaq line, air tower head | – | hidden | – | on walls |
@@ -82,7 +83,7 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 | structure | standard, the stiffest | standard (the slab hangs from the beam's bottom, routine) | a 1.35 m band 0.35 deep over 6.5 m: depth / span ≈ 1/18, deflection-sensitive, heavy |
 | cost | lowest | about the same formwork; it saves the railing base | more concrete and steel |
 
-**(b) is the owner's architectural preference** (flush colonnade soffit); (a) is an acceptable alternative; **the engineer decides.** The visible upstand follows from the total depth the engineer needs, it is not fixed in advance.
+**(b) is the owner's preference** (owner decision, 3D phase 3: the upturned beam is modelled); (a) a drop beam is acceptable if the engineer decides. The visible upstand follows from the total depth the engineer needs, it is not fixed in advance.
 
 ### 4.2 The double-height living: a clean ceiling (preferred, not a rule)
 1. **Flat solid roof slab 0.22 m spanning 4.7 m east–west** between the FF west rooms' wall (R3) and the suite wall (R4): no beam in the void, both beams invisible above walls. A common span for a 0.22 solid slab (not calculated); the cost of a normal solid slab. **Preferred.**
@@ -119,7 +120,7 @@ Beam B5, 0.25 × 0.55 total, between C27 (8.95, 13.0) and C28 (8.95, 19.25). It 
 ### 4.7 Lift shaft, air tower, roof openings
 - **Lift (future, two stops):** RC walls on x 0, y 0 and y 2.2; the east wall x 2.25 blockwork with the future door reveal. The FF slab and the roof over the shaft are framed as openings now and closed with removable panels on hidden beams, so the shaft opens later without cutting. Pit 1.2 m, clear of the air tunnel.
 - **Air tower:** rises through both slabs; openings framed by B15 / R9 (y 1.0) and the RC walls W3 / W4; a light RC frame for the head above the roof.
-- **Roof openings:** the courtyard sky framed by R1, R2, R3 (the cantilevered gallery strip) and R4; the suite court by R5, R6 and the FF walls x 5.6 / x 11.586; the west shaft framed in B13 / R10.
+- **Roof openings:** the courtyard sky framed by R1, R2, R11 (on the colonnade, X8; the gallery strip roof between R3 and R11) and R4; the suite court by R5, R6 and the FF walls x 5.6 / x 11.586; the west shaft framed in B13 / R10.
 
 ## 5. Conflicts and open questions for the structural engineer
 | No. | State | Item |
@@ -131,10 +132,10 @@ Beam B5, 0.25 × 0.55 total, between C27 (8.95, 13.0) and C28 (8.95, 19.25). It 
 | X5 | **NOT verified** | **Proposed load path, not verified:** R6 (6.0 m) carried by the first-floor walls x 5.6 and x 11.586 standing on ribs of the men's majlis roof (B20, B21), not on columns, because no column may stand in the majlis. Proposal: build those two walls as RC walls 0.20 m so the path roof → wall → rib → GF walls is explicit. **The structural engineer must confirm the supports, the sizes and the deflection of R6, B20 and B21.** In the 3D model (phase 4) R6 and these two walls are to be shown as unconfirmed (own colour / hatch) until then. Loads: a home gym (§4.4). |
 | X6 | flag | The gym's north wall (y 21.25, 7.7 m) runs across the ribs with nothing below: light partition recommended. Home gym (light equipment, one treadmill): live load as the engineer judges; the slab's vibration under the treadmill arm is not calculated and must be checked; floating floor and pads in the arm. |
 | X7 | flag | The living's south wall (y 19.25, x 5.6–8.95) is 7 m tall with the clerestory, tied at +3.6 only on its south face: its slenderness between C23 and C28 (3.35 m) is not checked here; the engineer confirms it, with RC stiffeners at the window jambs if needed. |
-| X8 | option | The colonnade columns end at the first floor; the roof over the gallery strip cantilevers 1.35 m from R3. Option: continue C21 and C22 to the roof inside the gallery railing (a two-storey colonnade). Owner / engineer. |
+| X8 | owner decided | **The colonnade columns C21–C23 continue to the roof** inside the gallery railing line (a two-storey colonnade, slender round columns ≈ Ø0.30 assumed). The roof over the gallery strip rests on the roof edge beam R11 (x 5.6, 0.25 × 0.45 total) between C21 and C22: no 1.35 m roof cantilever. The engineer sizes the columns for two storeys and the two roof beams. |
 | X9 | missing | No soil report, no soil data: footing type and depth, the lift pit, and the air tunnel under the east band crossing the tie beams and the footings of C24–C27 / W3. |
 | X10 | flag | Suite walls over the kitchen: light partitions on the ribbed slab, or hidden beams under the bath walls with pipes; the sunken suite bath floor (≈ 0.15, x 10.3–13.311, y 6.5–10.45) is a depressed-slab detail inside a ribbed bay. |
-| X11 | flag | Floor-to-floor 3.60 with 0.20 slabs and beams of 0.40–0.55 total depth gives 3.05–3.20 m clear under the beams before finishes (B4 +3.10 over the riwaq glazing, B5 +3.05 at the dining step, B1 +3.20 in the women's majlis if dropped). Acceptable; show the owner the hidden-beam option for B1. |
+| X11 | flag | Floor-to-floor 3.60 with 0.20 slabs and beams of 0.40–0.55 total depth gives 3.05–3.20 m clear under the beams before finishes (B4 +3.10 over the riwaq glazing, B5 +3.05 at the dining step, B1 +3.20 in the women's majlis if dropped). Acceptable. **Owner decision:** B1 is a drop beam hidden by a gypsum ceiling (≈ +3.05); general rule: drop beams in finished rooms are hidden by gypsum ceilings, which also carry the hidden AC and lighting. |
 | X12 | open | B4 carries the bedrooms' east wall over the riwaq glazing: with 0.25 × 0.50 total (soffit +3.10) the riwaq glazing heads are at ≤ +3.10 before finishes, the dining-side heads under B5 at ≤ +3.05; confirm the window heights. |
 | X13 | open | Which walls are RC: W1–W5 proposed plus the two gym walls of X5; the engineer confirms the lateral system under SBC 301 and the wind / seismic case for Taif (not assessed here). |
 | X14 | open | Slab types: ribbed 0.30 for the 4.36–4.75 m bays and the majlis roof, solid 0.20 elsewhere, 0.22 flat over the void. The engineer may unify them; the clean soffit over the void is the only architectural wish. |

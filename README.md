@@ -32,6 +32,7 @@ taif_house/
                            schedule.py (ground-floor room schedule in Markdown)
   docs/                    NEXT_SESSION.md (start here), PROJECT_V6.md (master document), DETAILS.md (construction notes), OPEN_ITEMS.md, README_DXF.md
   output/                  all PDFs and both DXFs (generated, committed)
+  3d/                      the 3D model, generated from the project files (build_3d.py → GLB, viewer.html, check_3d.py, README_3D.md)
   archive/                 superseded files: earlier drawings, PDFs, DXFs, room lists and docs (archive/docs/)
 ```
 
@@ -47,9 +48,10 @@ taif_house/
   - reads the PDFs' check lines and confirms the presentation has 10 A3 sheets;
   - compares the ground-floor studies with the CSV;
   - rebuilds both DXFs and compares their areas with the CSVs;
-  - checks the open items against `docs/OPEN_ITEMS.md`, and that no old version label is left in the active files.
+  - checks the open items against `docs/OPEN_ITEMS.md`, and that no old version label is left in the active files;
+  - rebuilds the 3D model and runs its checks (`3d/check_3d.py`).
 - **DXFs only:** `python taif_house/tools/make_dxf.py` and `python taif_house/tools/make_dxf_ff.py` (see `taif_house/docs/README_DXF.md`).
 
 ## Versions
-- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (current: the L-shaped gym). The changelog is in `taif_house/docs/PROJECT_V6.md` §6.
+- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (current: the L-shaped gym). The changelog is in `taif_house/docs/PROJECT_V6.md` §6. Work tags after V6.2: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`.
 - **Study branches, kept for reference:** `v5-split-projection` (the split projection: merged in V5.1, reverted in V6.1) and `v5-gym-L` (the L-shaped gym study, rejected in V5.1, adopted in V6.2).

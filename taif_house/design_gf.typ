@@ -109,6 +109,7 @@
   ((10.65, 2.95), (10.65, 3.75), []),         // laundry ↔ maid room, north end of the 100 mm partition
   ((10.715, 2.8), (11.415, 2.8), []),         // maid room ↔ maid bath, 0.70 m clear (sliding or opening out)
   ((9.4, 13.0), (10.5, 13.0), []),            // kitchen ↔ dining
+  ((13.311, 6.7), (13.311, 7.6), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall
   ((8.95, 9.1), (8.95, 11.1), []),            // sink window onto the courtyard
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
   ((12.170, 3.9), (12.714, 4.9), []),         // maid room window in the cut wall, high sill ≥ 1.5 m

@@ -44,11 +44,11 @@ House-wide building rules and details, for the engineer, the carpenter and the c
   - prefer a cushioned deck and a quiet motor.
 
 ## Drainage and services
-- **No east duct:** the kitchen extract leaves straight through the east wall; the vent stack and the suite bath drain run in one stack on the outside face of the east wall, down to the east-yard manhole. Place the hood south of y ≈ 7.5. MEP engineer to confirm.
+- **No east duct:** the kitchen extract leaves straight through the east wall; the vent stack and the suite bath drain run in one stack on the outside face of the east wall, down to the east-yard manhole. The kitchen service door (owner decision) sits at the north end of the east wall (y 6.7–7.6); the stack goes between the door and the kitchen window (y ≈ 7.8–8.3) and the hood south of y ≈ 8.4. MEP engineer to confirm.
 - **Sunken bath floors:** the suite bath (over the ground-floor kitchen) and the family bath (partly over the hospitality kitchen) carry all their pipes in the floor build-up; nothing hangs in a kitchen ceiling; no drain over the master bedroom.
 - **Stacked wet rooms:** the bedroom 3 bath stands exactly over the ground-floor family WC; the family bath WC is on the west shaft wall.
 - **Suite court:** waterproofing on the men's majlis roof slab. Since V6.2 its floor **falls west** to its drain, away from the treadmill arm at its east end. A railing (not a parapet) on the gym roof edge.
-- **Gas, if used:** a cylinder cabinet outside the east wall in the service yard.
+- **Gas, if used:** a cylinder cabinet outside the east wall in the service yard, reached through the kitchen service door.
 
 ## Joinery and doors
 - **Built-in cupboards in niches** (linen cupboard, bedroom 2 wardrobe niche):

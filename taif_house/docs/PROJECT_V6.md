@@ -72,7 +72,7 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
 | G05 | Maid bath | polygon | 3.84 | 3.03 | WC, basin and compact shower in the sloped corner; vent window in the cut wall. Door from the maid room only, 0.70 m (sliding or opening out). |
 | G06 | Maid room | polygon | 7.06 | 6.04 | Behind a 100 mm partition. Door from the laundry at its north end. Single bed along the south wall. High-sill window in the cut wall. |
 | G07 | Laundry | 1.7 × 3.7 | 6.29 | 5.42 | Open entrance from the kitchen. Machines and utility sink on the solid west wall; extract fan to the roof. The maid's only route. |
-| G08 | Kitchen | 4.36 × 6.5 | 28.35 | 26.06 | The heavy kitchen, isolated: door to the dining only, an open entrance to the laundry. Two parallel runs, no island. Sink under the courtyard window; hob and hood on the east wall, the extract straight out (no east duct). |
+| G08 | Kitchen | 4.36 × 6.5 | 28.35 | 26.06 | The heavy kitchen, isolated: door to the dining, an open entrance to the laundry, and a lockable 0.90 m service door in the east wall at its north end (y 6.7–7.6) to the east service yard (rubbish, deliveries, gas). Two parallel runs, no island. Sink under the courtyard window; hob and hood on the east wall south of the door (counter from y 7.7), the extract straight out (no east duct). |
 | G09 | Living (normal height) · dining | 4.36 × 6.25 | 27.26 | 25.63 | One room with the living; the ceiling height changes on x 8.95. Door to the kitchen. The first floor is above it. |
 | G10 | Lift (future · shaft placeholder) | 2.25 × 2.2 | 4.95 | 4.00 | Built now as a store; a two-stop lift later (§4.10). |
 | G11 | Entry cupboard | 0.5 × 2.2 | 1.10 | 0.59 | Shoes and coats on the family lobby. Its south part is removable joinery, the future lift door reveal. |
@@ -197,6 +197,12 @@ Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the
       - anti-vibration pads under the treadmill;
       - the treadmill never touches the wall.
     - **Change in the suite court:** it becomes 5.99 × 2.0 m = **11.97 m²** (was 15.42).
+22a. **Decisions of 3D phase 3** (24 Oct 2026, the owner):
+    - **X8, two-storey colonnade:** the three colonnade columns on x 5.6 continue to the roof inside the gallery railing line; the roof over the gallery strip rests on them through a roof edge beam (R11), no 1.35 m roof cantilever. Slender round columns (≈ Ø0.30, assumed).
+    - **Drop beams and gypsum ceilings:** beam B1 (women's majlis / kids' wall) is a drop beam hidden by a gypsum ceiling (≈ +3.05). General rule: drop beams in finished rooms are hidden by gypsum ceilings, which also carry the hidden AC and lighting.
+    - **Projection edge beam:** option (b) upturned (the railing base) is the owner's preference; (a) a drop beam is acceptable if the engineer decides.
+    - **Kitchen service door:** in the kitchen's east wall at its north end near the laundry (y 6.7–7.6, 0.90 m, lockable), to the east service yard; the cooking counter starts 0.1 m south of it, the east-wall stack moves between the door and the kitchen window (MEP).
+    - **X3:** column C33 stays; the suite bath east window is 0.60 m (y 9.6–10.2); the clearance depends on the column's size along the wall (engineer).
 22. **Suite court and clerestory light.**
     - **The court:** private, open to the sky, enclosed on four sides (since V6.2 its east side is the treadmill arm). Its floor falls west to its drain, away from the arm. The suite bedroom's window and its sliding door to the court are unchanged; the door (x 9.3–10.7) still opens onto the court, 0.79 m from the arm's wall.
     - **The windows:** the court sits in front of the double-height living's two clerestory windows (1.0 × 1.0 m, sill +5.00). The arm stands ≈ 2.99 m east of them, so they still face open sky.
@@ -225,5 +231,7 @@ The construction and detail notes (structure, the edge beam and columns, the gym
 | V6.1 | 24 Oct 2026 | Split projection reverted to the V5.0 columns solution: the full 1.35 m inward projection on an edge beam and three columns at x 5.6, the first-floor west wall on the ground-floor wall; family bath, wardrobe niche, gym and suite court back to their V5.0 sizes; the rectangular gym with the treadmill at its west end kept. |
 | V6.2 | 24 Oct 2026 | L-shaped gym with the treadmill arm at the east end (owner's choice), along the suite bedroom wall, with acoustic separation (double wall ≈ 55 dB, floating floor, anti-vibration pads); suite court 11.97 m². The V5.1 rectangular gym had kept the treadmill at the west end because the L took area from the suite court and put treadmill noise next to the master bedroom. |
 | 3D phases 1–2 | 24 Oct 2026 | 3D model generated from the CSVs (`3d/`): slabs, outer and interior walls, voids, open edges, viewer and checks; tag `3d-p2`. No design change. |
+| Structural study | 24 Oct 2026 | Preliminary structural study `studies/structure.typ` / `docs/STRUCTURE_STUDY.md` (tags `struct-p1`, `struct-p1b`): column grid, beams, slabs, sections, the stair, options and 15 items for the engineer; every size assumed. No design change. |
+| 3D phase 3 | 24 Oct 2026 | Doors and windows, the stair, the colonnade – gallery – living zone, railings, finished / structural levels, plan views, eye-level views, sun; tag `3d-p3`. Owner decisions (§4 item 22a): X8 colonnade to the roof, B1 hidden by a gypsum ceiling, the projection edge beam upturned, the kitchen service door (east wall, north end; the cooking counter starts at y 7.7), X3 window 0.60 m. |
 
 Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v6.1`). The construction notes are in `docs/DETAILS.md`.

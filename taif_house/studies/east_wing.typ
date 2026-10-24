@@ -29,7 +29,7 @@
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
   (0.1, 7.5, 0.7, 12.9, [sink counter 0.6 · window to courtyard]),
-  (3.636, 7.2, 4.236, 11.1, [cooking counter 0.6 · hob + hood]),
+  (3.636, 7.7, 4.236, 11.1, [cooking counter 0.6 · hob + hood]),   // starts 0.1 south of the service door
   (3.636, 11.1, 4.236, 12.9, [fridge + tall storage]),
   (0.1, 2.9, 0.7, 3.5, [washer]),
   (0.1, 3.5, 0.7, 4.1, [dryer]),
@@ -45,6 +45,7 @@
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
   ((0.45, 13.0), (1.55, 13.0), [kitchen ↔ dining]),
+  ((4.361, 6.7), (4.361, 7.6), [service door 0.90 · east yard · lockable]),   // owner decision: north end of the kitchen's east wall, near the laundry
   ((0.75, 6.5), (1.6, 6.5), [open entrance kitchen ↔ laundry (no door)]),
   ((1.7, 2.95), (1.7, 3.75), [laundry ↔ maid room]),          // at the north end: keeps the wide south part free for the bed
   ((1.765, 2.8), (2.465, 2.8), [maid room ↔ maid bath · 0.70]),
@@ -185,6 +186,6 @@
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
     - Air tower in the tip of the cut corner, 1.0 m deep (≈ 1.37 m² on centre lines, ≈ 0.88 m² clear, at least ≈ 0.93 m wide): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
     - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; no east duct; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
-    - Open decision (not drawn): a small service door from the laundry to the east service yard, locked with the owner's key only. Gas (if used): cylinder cabinet outside the east wall in the service yard.
+    - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 7.7); the stack outside the east wall sits between the door and the kitchen window (MEP to confirm). Gas (if used): cylinder cabinet outside the east wall in the service yard.
   ],
 )

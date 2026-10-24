@@ -3,29 +3,44 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.2.js (the GLB as base64, written by build_3d.py) with three.js r147 from lib/.
-     Works offline, straight from the repo (file://). Orbit: left drag · zoom: wheel · pan: right drag.
-     URL options for screenshots: ?view=nw|se|top&roof=0&ff=0&cut=5.0&ui=0 -->
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.2.js (the GLB as base64 + rooms, flags, sun and bookmarks, written by
+     build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://). Orbit: left drag · zoom: wheel · pan: right drag.
+     URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|eye1|eye2|eye3 &roof=0 &ff=0 &cut=5.0 &sun=summer-12|winter-09|… &labels=0 &ui=0 -->
 <style>
   html, body { margin: 0; height: 100%; background: #f4f2ec; font: 13px "Segoe UI", Arial, sans-serif; color: #22352e; overflow: hidden; }
-  #panel { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,.92); padding: 10px 14px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.15); min-width: 220px; }
+  #panel { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,.93); padding: 10px 14px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.15); min-width: 250px; max-width: 330px; }
   #panel h1 { font-size: 14px; margin: 0 0 6px; color: #2f6b4f; }
-  #panel label { display: block; margin: 4px 0; }
-  #panel .views button { margin: 4px 4px 0 0; padding: 3px 8px; border: 1px solid #2f6b4f; background: #fff; color: #2f6b4f; border-radius: 3px; cursor: pointer; }
+  #panel label { display: block; margin: 3px 0; }
+  #panel .views button, #panel select { margin: 4px 4px 0 0; padding: 3px 8px; border: 1px solid #2f6b4f; background: #fff; color: #2f6b4f; border-radius: 3px; cursor: pointer; font: inherit; }
   #panel .views button:hover { background: #e4eedf; }
+  #panel .views .eye { border-color: #b5452f; color: #b5452f; }
   #cut { width: 100%; }
-  #note { position: absolute; bottom: 10px; left: 12px; color: #777; font-size: 11px; }
+  #legend span { display: inline-block; width: 11px; height: 11px; margin: 0 4px -1px 0; border: 1px solid #999; }
+  #flags { font-size: 11px; color: #7a3a2a; margin: 6px 0 0; padding-left: 16px; max-height: 150px; overflow: auto; }
+  #note { position: absolute; bottom: 10px; left: 12px; right: 12px; color: #666; font-size: 11px; }
+  #roomlabels { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+  #roomlabels div { position: absolute; transform: translate(-50%, -50%); font-size: 11px; color: #22352e; background: rgba(255,255,255,.72); padding: 1px 4px; border-radius: 2px; white-space: nowrap; }
+  #north { position: absolute; right: 16px; top: 16px; width: 70px; height: 70px; }
 </style>
 </head>
 <body>
 <div id="panel">
-  <h1>Taif / Palm House · <span id="ver"></span></h1>
-  <label><input type="checkbox" id="ff" checked> first floor (walls and slab)</label>
+  <h1>Taif / Palm House · <span id="ver"></span> · 3D phase 3</h1>
+  <label><input type="checkbox" id="ff" checked> first floor (walls, slab, railings)</label>
   <label><input type="checkbox" id="roof" checked> roof</label>
+  <label><input type="checkbox" id="labels" checked> room names (plan views)</label>
   <label>section cut at <span id="cutv">—</span><br><input type="range" id="cut" min="0" max="8" step="0.1" value="8"></label>
-  <div class="views"><button data-view="nw">north-west</button><button data-view="se">south-east</button><button data-view="top">top</button></div>
+  <div class="views">
+    <button data-view="nw">north-west</button><button data-view="se">south-east</button><button data-view="top_gf">plan GF</button><button data-view="top_ff">plan FF</button><br>
+    <button class="eye" data-view="eye1">eye 1 · living → courtyard</button><button class="eye" data-view="eye2">eye 2 · courtyard → colonnade</button><button class="eye" data-view="eye3">eye 3 · landing → gallery</button>
+  </div>
+  <label>sun (Taif, true north from base.typ): <select id="sun"><option value="">off</option></select></label>
+  <div id="legend"><span style="background:#ebb032"></span>assumed, not approved by the engineer &nbsp; <span style="background:#cd372d"></span>unconfirmed load path (X5) &nbsp; <span style="background:#78b9e1"></span>glass &nbsp; <span style="background:#464650"></span>railings</div>
+  <ul id="flags"></ul>
 </div>
-<div id="note">phases 1–2: slabs, outer and interior walls (no doors, windows, columns, stair, railings yet) · X east · Z south · metres</div>
+<svg id="north" viewBox="-35 -35 70 70"><g id="northg"><line x1="0" y1="25" x2="0" y2="-22" stroke="#22352e" stroke-width="2"/><polygon points="0,-30 -6,-16 6,-16" fill="#22352e"/><text x="9" y="-18" font-size="11" fill="#22352e">N</text></g><circle r="33" fill="none" stroke="#bbb"/></svg>
+<div id="roomlabels"></div>
+<div id="note"></div>
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
@@ -35,67 +50,142 @@
   const q = new URLSearchParams(location.search);
   const data = window.TAIF_HOUSE;
   document.getElementById('ver').textContent = data.version;
-  if (q.get('ui') === '0') { document.getElementById('panel').style.display = 'none'; document.getElementById('note').style.display = 'none'; }
+  const $ = id => document.getElementById(id);
+  if (q.get('ui') === '0') { $('panel').style.display = 'none'; $('note').style.display = 'none'; }
+  (data.flags || []).forEach(f => { const li = document.createElement('li'); li.textContent = f; $('flags').appendChild(li); });
+  Object.keys(data.sun || {}).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = k.replace('-', ' ') + ':00 · alt ' + data.sun[k].elevation + '° · az ' + data.sun[k].azimuth + '°'; $('sun').appendChild(o); });
+  // the north arrow: the plans' north is up on screen in the plan views; true north is north_bearing° east of it
+  $('northg').setAttribute('transform', 'rotate(' + (data.north_bearing || 0) + ')');
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.localClippingEnabled = true;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.body.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xf4f2ec);
-  const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 500);
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a7a66, 0.9));
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x8a7a66, 0.9); scene.add(hemi);
   const sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(-20, 30, -10); scene.add(sun);
+  sun.shadow.mapSize.set(2048, 2048); sun.shadow.camera.near = 1; sun.shadow.camera.far = 200;
+  sun.shadow.camera.left = sun.shadow.camera.bottom = -24; sun.shadow.camera.right = sun.shadow.camera.top = 24; sun.shadow.bias = -0.0005;
+  const persp = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.05, 500);
+  const ortho = new THREE.OrthographicCamera(-10, 10, 10, -10, 0.1, 500);
+  let camera = persp, controls = new THREE.OrbitControls(camera, renderer.domElement), mode = 'orbit';
 
   // the GLB (Y up, X east, Z south = y of the plans)
   const bin = Uint8Array.from(atob(data.glb), c => c.charCodeAt(0)).buffer;
-  const groups = { ff: [], roof: [] };
+  const groups = { ff: [], roof: [], gf: [], col: [], room_gf: [], room_ff: [], plancut_gf: [], plancut_ff: [] };
   const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 8);
-  let centre = new THREE.Vector3(6.6, 3.6, 12);
+  let centre = new THREE.Vector3(6.6, 3.6, 12), extent = data.extent ? data.extent[0] : [0, 0, 13.3, 24];
+  const glassMat = new THREE.MeshLambertMaterial({ color: 0x78b9e1, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });
   new THREE.GLTFLoader().parse(bin, '', gltf => {
     gltf.scene.traverse(o => {
       if (!o.isMesh) return;
       o.geometry = o.geometry.toNonIndexed(); o.geometry.computeVertexNormals();   // flat shading, whatever the GLB carries
-      o.material = new THREE.MeshLambertMaterial({ vertexColors: !!o.geometry.attributes.color, side: THREE.DoubleSide, clippingPlanes: [cutPlane] });
       const n = o.name || (o.parent && o.parent.name) || '';
+      const glass = n.includes('_glass_');
+      o.material = glass ? glassMat : new THREE.MeshLambertMaterial({ vertexColors: !!o.geometry.attributes.color, side: THREE.DoubleSide, clippingPlanes: [cutPlane] });
+      o.castShadow = !glass; o.receiveShadow = true;
       if (n.startsWith('ff_')) groups.ff.push(o);
-      if (n.startsWith('roof_')) groups.roof.push(o);
+      else if (n.startsWith('roof_')) groups.roof.push(o);
+      else if (n.startsWith('all_col')) groups.col.push(o);
+      else groups.gf.push(o);
+      if (n.startsWith('gf_room_')) groups.room_gf.push(o);
+      if (n.startsWith('ff_room_')) groups.room_ff.push(o);
+      if (n.startsWith('gf_plancut')) groups.plancut_gf.push(o);
+      if (n.startsWith('ff_plancut')) groups.plancut_ff.push(o);
     });
     scene.add(gltf.scene);
     const bb = new THREE.Box3().setFromObject(gltf.scene);
     centre = bb.getCenter(new THREE.Vector3());
-    // a ground plane and a grid
-    const grid = new THREE.GridHelper(60, 60, 0xcfd3d0, 0xe3e5e0); grid.position.set(centre.x, -0.21, centre.z); scene.add(grid);
+    const grid = new THREE.GridHelper(60, 60, 0xcfd3d0, 0xe3e5e0); grid.position.set(centre.x, -0.29, centre.z); scene.add(grid);
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.3 }));
+    ground.rotation.x = -Math.PI / 2; ground.position.set(centre.x, -0.3, centre.z); ground.receiveShadow = true; scene.add(ground);
+    if (q.get('sun')) $('sun').value = q.get('sun');
     apply();
     setView(q.get('view') || 'nw');
   });
 
   function apply() {
-    const ff = document.getElementById('ff').checked, roof = document.getElementById('roof').checked;
+    const ff = $('ff').checked, roof = $('roof').checked;
     groups.ff.forEach(o => o.visible = ff);
     groups.roof.forEach(o => o.visible = roof);
-    const h = parseFloat(document.getElementById('cut').value);
+    // the plan cuts (the walls and columns sectioned 1.5 m above the floor, built by build_3d.py) show only in the plan views
+    groups.plancut_gf.forEach(o => o.visible = planFloor === 'GF');
+    groups.plancut_ff.forEach(o => o.visible = planFloor === 'FF');
+    const h = parseFloat($('cut').value);
     cutPlane.constant = h;
-    document.getElementById('cutv').textContent = h >= 8 ? 'off' : '+' + h.toFixed(1) + ' m';
+    $('cutv').textContent = h >= 8 ? 'off' : '+' + h.toFixed(1) + ' m';
+    const k = $('sun').value, s = data.sun && data.sun[k];
+    sun.castShadow = !!s;
+    if (s) { sun.position.set(centre.x + s.dir[0] * 60, centre.y + s.dir[1] * 60, centre.z + s.dir[2] * 60); sun.target.position.copy(centre); sun.target.updateMatrixWorld(); sun.intensity = 0.9; hemi.intensity = 0.55; }
+    else { sun.position.set(centre.x - 20, centre.y + 30, centre.z - 10); sun.target.position.copy(centre); sun.target.updateMatrixWorld(); sun.intensity = 0.7; hemi.intensity = 0.9; }
+    note();
+  }
+  function note() {
+    const k = $('sun').value, s = data.sun && data.sun[k];
+    $('note').textContent = 'phases 1–3: slabs and finishes, walls, doors and windows, stair, colonnade, edge beam, railings · X east · Z south · metres · finished levels GF ±0.00 / FF +' +
+      data.levels.finished.FF.toFixed(2) + ', structural slab tops ' + data.levels.structural_top.GF.toFixed(2) + ' / +' + data.levels.structural_top.FF.toFixed(2) + ' (finish ' + data.levels.finish + ')' +
+      (s ? ' · sun ' + k.replace('-', ' ') + ':00, altitude ' + s.elevation + '°, azimuth ' + s.azimuth + '° from true north' : '') + (currentTitle ? ' · ' + currentTitle : '');
+  }
+  let currentTitle = '', planFloor = '';
+  function useCamera(cam) {
+    if (cam === camera) return;
+    controls.dispose(); camera = cam; controls = new THREE.OrbitControls(camera, renderer.domElement);
+  }
+  function fitOrtho() {
+    const w = extent[2] - extent[0] + 4, d = extent[3] - extent[1] + 4, aspect = window.innerWidth / window.innerHeight;
+    let hw = w / 2, hh = d / 2;
+    if (hw / hh < aspect) hw = hh * aspect; else hh = hw / aspect;
+    ortho.left = -hw; ortho.right = hw; ortho.top = hh; ortho.bottom = -hh; ortho.updateProjectionMatrix();
   }
   function setView(v) {
-    const d = 30;
-    camera.up.set(0, 1, 0);
-    if (v === 'top') { camera.up.set(0, 0, -1); camera.position.set(centre.x, centre.y + 45, centre.z); }   // north (-Z) up, east right
-    else if (v === 'se') { camera.position.set(centre.x + d * 0.75, centre.y + d * 0.6, centre.z + d * 0.75); }
-    else { camera.position.set(centre.x - d * 0.75, centre.y + d * 0.6, centre.z - d * 0.75); }
-    controls.target.copy(centre); controls.update();
+    const d = 30, bm = (q.get('eye') && q.get('target')) ? { title: 'custom eye (URL)', eye: q.get('eye').split(',').map(Number), target: q.get('target').split(',').map(Number) } : data.bookmarks && data.bookmarks[v];   // ?eye=X,Y,Z&target=X,Y,Z (glTF frame: X east, Y up, Z south)
+    mode = v.startsWith('top') ? 'top' : (bm ? 'eye' : 'orbit');
+    currentTitle = bm ? bm.title : '';
+    const cx = (extent[0] + extent[2]) / 2, cz = (extent[1] + extent[3]) / 2;
+    if (mode === 'top') {
+      useCamera(ortho); fitOrtho();
+      camera.up.set(0, 0, -1); camera.position.set(cx, 60, cz);     // north (−Z) up, east right: the plans' orientation
+      controls.target.set(cx, 0, cz);
+      planFloor = v === 'top_gf' ? 'GF' : v === 'top_ff' ? 'FF' : '';
+      if (v === 'top_gf') { $('ff').checked = false; $('roof').checked = false; $('cut').value = (data.levels.finished.GF + 1.6).toFixed(1); }
+      if (v === 'top_ff') { $('ff').checked = true; $('roof').checked = false; $('cut').value = (data.levels.finished.FF + 1.6).toFixed(1); }
+      if (v === 'top') { $('cut').value = 8; }
+    } else if (mode === 'eye') {
+      planFloor = '';
+      useCamera(persp); camera.fov = 65; camera.up.set(0, 1, 0); camera.position.set(bm.eye[0], bm.eye[1], bm.eye[2]); controls.target.set(bm.target[0], bm.target[1], bm.target[2]);
+      $('cut').value = 8; $('ff').checked = true; $('roof').checked = true;
+    } else {
+      planFloor = '';
+      useCamera(persp); camera.fov = 40; camera.up.set(0, 1, 0);
+      if (v === 'se') camera.position.set(centre.x + d * 0.75, centre.y + d * 0.6, centre.z + d * 0.75);
+      else camera.position.set(centre.x - d * 0.75, centre.y + d * 0.6, centre.z - d * 0.75);
+      controls.target.copy(centre);
+    }
+    camera.updateProjectionMatrix(); controls.update(); apply();
   }
-  if (q.get('ff') === '0') document.getElementById('ff').checked = false;
-  if (q.get('roof') === '0') document.getElementById('roof').checked = false;
-  if (q.get('cut')) document.getElementById('cut').value = q.get('cut');
-  ['ff', 'roof', 'cut'].forEach(id => document.getElementById(id).addEventListener('input', apply));
+  function labels() {
+    const box = $('roomlabels'); box.innerHTML = '';
+    if (mode !== 'top' || !$('labels').checked) return;
+    const floor = $('ff').checked ? 'FF' : 'GF', y = data.levels.finished[floor] + 0.1;
+    const w = window.innerWidth, h = window.innerHeight;
+    (data.rooms || []).filter(r => r.floor === floor).forEach(r => {
+      const v = new THREE.Vector3(r.c[0], y, r.c[1]).project(camera);
+      if (v.z > 1) return;
+      const el = document.createElement('div'); el.textContent = r.name.replace(/ \(.*$/, ''); el.style.left = ((v.x + 1) / 2 * w) + 'px'; el.style.top = ((1 - v.y) / 2 * h) + 'px'; box.appendChild(el);
+    });
+  }
+  if (q.get('ff') === '0') $('ff').checked = false;
+  if (q.get('roof') === '0') $('roof').checked = false;
+  if (q.get('cut')) $('cut').value = q.get('cut');
+  if (q.get('labels') === '0') $('labels').checked = false;
+  ['ff', 'roof', 'cut', 'sun', 'labels'].forEach(id => $(id).addEventListener('input', apply));
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
-  window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
-  (function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
+  window.addEventListener('resize', () => { persp.aspect = window.innerWidth / window.innerHeight; persp.updateProjectionMatrix(); if (mode === 'top') fitOrtho(); renderer.setSize(window.innerWidth, window.innerHeight); });
+  (function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); labels(); })();
 })();
 </script>
 </body>

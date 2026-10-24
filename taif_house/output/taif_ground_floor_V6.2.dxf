@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461338.4375578705
+2461338.6380787035
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461338.4375578705
+2461338.6380787035
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-154
+156
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{28D0164C-BE9B-4D0E-B8B0-FBA6249ED26C}
+{72B0E86B-29F2-44E7-B39C-4BF3A9B9043D}
   9
 $VERSIONGUID
   2
-{0DB5432B-6D3A-4269-8100-C11B63E8557E}
+{234DAA86-4BAE-4430-B871-068E3609E31B}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -3833,7 +3833,7 @@ AcAecLayerStandard
   0
 APPID
   5
-151
+153
 330
 3
 100
@@ -3847,7 +3847,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-152
+154
 330
 3
 100
@@ -9309,6 +9309,54 @@ LINE
 100
 AcDbEntity
   8
+DOORS
+100
+AcDbLine
+ 10
+14.221
+ 20
+-10.225
+ 30
+0.0
+ 11
+14.221
+ 21
+-11.125
+ 31
+0.0
+  0
+MTEXT
+  5
+11E
+330
+17
+100
+AcDbEntity
+  8
+DOORS
+100
+AcDbMText
+ 10
+14.321
+ 20
+-10.795
+ 30
+0.0
+ 40
+0.08
+ 71
+1
+  1
+kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall
+  0
+LINE
+  5
+11F
+330
+17
+100
+AcDbEntity
+  8
 WINDOWS
 100
 AcDbLine
@@ -9327,7 +9375,7 @@ AcDbLine
   0
 MTEXT
   5
-11E
+120
 330
 17
 100
@@ -9351,7 +9399,7 @@ sink window onto the courtyard
   0
 LINE
   5
-11F
+121
 330
 17
 100
@@ -9375,7 +9423,7 @@ AcDbLine
   0
 MTEXT
   5
-120
+122
 330
 17
 100
@@ -9399,7 +9447,7 @@ kitchen window, east
   0
 LINE
   5
-121
+123
 330
 17
 100
@@ -9423,7 +9471,7 @@ AcDbLine
   0
 MTEXT
   5
-122
+124
 330
 17
 100
@@ -9447,7 +9495,7 @@ maid room window in the cut wall, high sill ≥ 1.5 m
   0
 LINE
   5
-123
+125
 330
 17
 100
@@ -9471,7 +9519,7 @@ AcDbLine
   0
 MTEXT
   5
-124
+126
 330
 17
 100
@@ -9495,7 +9543,7 @@ maid bath vent window in the cut wall
   0
 LINE
   5
-125
+127
 330
 17
 100
@@ -9519,7 +9567,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-126
+128
 330
 17
 100
@@ -9551,7 +9599,7 @@ AcDbPolyline
   0
 MTEXT
   5
-127
+129
 330
 17
 100
@@ -9575,62 +9623,6 @@ sink counter 0.6 · window to courtyard
   0
 LWPOLYLINE
   5
-128
-330
-17
-100
-AcDbEntity
-  8
-FIXTURES
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-13.495999999999999
- 20
--10.725
- 10
-14.096
- 20
--10.725
- 10
-14.096
- 20
--14.625
- 10
-13.495999999999999
- 20
--14.625
-  0
-MTEXT
-  5
-129
-330
-17
-100
-AcDbEntity
-  8
-FIXTURES
-100
-AcDbMText
- 10
-13.796
- 20
--12.675
- 30
-0.0
- 40
-0.07
- 71
-5
-  1
-cooking counter 0.6 · hob + hood
-  0
-LWPOLYLINE
-  5
 12A
 330
 17
@@ -9647,6 +9639,62 @@ AcDbPolyline
  10
 13.495999999999999
  20
+-11.225
+ 10
+14.096
+ 20
+-11.225
+ 10
+14.096
+ 20
+-14.625
+ 10
+13.495999999999999
+ 20
+-14.625
+  0
+MTEXT
+  5
+12B
+330
+17
+100
+AcDbEntity
+  8
+FIXTURES
+100
+AcDbMText
+ 10
+13.796
+ 20
+-12.925
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+cooking counter 0.6 · hob + hood
+  0
+LWPOLYLINE
+  5
+12C
+330
+17
+100
+AcDbEntity
+  8
+FIXTURES
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+13.495999999999999
+ 20
 -14.625
  10
 14.096
@@ -9663,7 +9711,7 @@ AcDbPolyline
   0
 MTEXT
   5
-12B
+12D
 330
 17
 100
@@ -9687,7 +9735,7 @@ fridge + tall storage
   0
 LWPOLYLINE
   5
-12C
+12E
 330
 17
 100
@@ -9719,7 +9767,7 @@ AcDbPolyline
   0
 MTEXT
   5
-12D
+12F
 330
 17
 100
@@ -9743,7 +9791,7 @@ washer
   0
 LWPOLYLINE
   5
-12E
+130
 330
 17
 100
@@ -9775,7 +9823,7 @@ AcDbPolyline
   0
 MTEXT
   5
-12F
+131
 330
 17
 100
@@ -9799,7 +9847,7 @@ dryer
   0
 LWPOLYLINE
   5
-130
+132
 330
 17
 100
@@ -9831,7 +9879,7 @@ AcDbPolyline
   0
 MTEXT
   5
-131
+133
 330
 17
 100
@@ -9855,7 +9903,7 @@ utility sink
   0
 LWPOLYLINE
   5
-132
+134
 330
 17
 100
@@ -9887,7 +9935,7 @@ AcDbPolyline
   0
 MTEXT
   5
-133
+135
 330
 17
 100
@@ -9911,7 +9959,7 @@ folding · shelves
   0
 LWPOLYLINE
   5
-134
+136
 330
 17
 100
@@ -9943,7 +9991,7 @@ AcDbPolyline
   0
 MTEXT
   5
-135
+137
 330
 17
 100
@@ -9967,7 +10015,7 @@ single bed 0.9 × 2.0
   0
 LWPOLYLINE
   5
-136
+138
 330
 17
 100
@@ -9999,7 +10047,7 @@ AcDbPolyline
   0
 MTEXT
   5
-137
+139
 330
 17
 100
@@ -10023,7 +10071,7 @@ ward- robe
   0
 LWPOLYLINE
   5
-138
+13A
 330
 17
 100
@@ -10055,7 +10103,7 @@ AcDbPolyline
   0
 MTEXT
   5
-139
+13B
 330
 17
 100
@@ -10079,7 +10127,7 @@ shower
   0
 LWPOLYLINE
   5
-13A
+13C
 330
 17
 100
@@ -10111,7 +10159,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13B
+13D
 330
 17
 100
@@ -10135,7 +10183,7 @@ WC
   0
 LWPOLYLINE
   5
-13C
+13E
 330
 17
 100
@@ -10167,7 +10215,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13D
+13F
 330
 17
 100
@@ -10191,7 +10239,7 @@ basin
   0
 LWPOLYLINE
   5
-13E
+140
 330
 17
 100
@@ -10223,7 +10271,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13F
+141
 330
 17
 100
@@ -10247,7 +10295,7 @@ counter · sink · fridge · microwave
   0
 LWPOLYLINE
   5
-140
+142
 330
 17
 100
@@ -10279,7 +10327,7 @@ AcDbPolyline
   0
 MTEXT
   5
-141
+143
 330
 17
 100
@@ -10303,7 +10351,7 @@ counter · trays
   0
 LWPOLYLINE
   5
-142
+144
 330
 17
 100
@@ -10335,7 +10383,7 @@ AcDbPolyline
   0
 MTEXT
   5
-143
+145
 330
 17
 100
@@ -10359,7 +10407,7 @@ basin counter (2)
   0
 LWPOLYLINE
   5
-144
+146
 330
 17
 100
@@ -10391,7 +10439,7 @@ AcDbPolyline
   0
 MTEXT
   5
-145
+147
 330
 17
 100
@@ -10415,7 +10463,7 @@ trough 1.8 · 3 taps
   0
 LWPOLYLINE
   5
-146
+148
 330
 17
 100
@@ -10447,7 +10495,7 @@ AcDbPolyline
   0
 MTEXT
   5
-147
+149
 330
 17
 100
@@ -10471,7 +10519,7 @@ shoes · hooks
   0
 LINE
   5
-148
+14A
 330
 17
 100
@@ -10495,7 +10543,7 @@ AcDbLine
   0
 MTEXT
   5
-149
+14B
 330
 17
 100
@@ -10519,7 +10567,7 @@ Family entry
   0
 LINE
   5
-14A
+14C
 330
 17
 100
@@ -10543,7 +10591,7 @@ AcDbLine
   0
 MTEXT
   5
-14B
+14D
 330
 17
 100
@@ -10567,7 +10615,7 @@ Guest entry
   0
 LINE
   5
-14C
+14E
 330
 17
 100
@@ -10591,7 +10639,7 @@ AcDbLine
   0
 MTEXT
   5
-14D
+14F
 330
 17
 100
@@ -10615,7 +10663,7 @@ N
   0
 LINE
   5
-14E
+150
 330
 17
 100
@@ -10639,7 +10687,7 @@ AcDbLine
   0
 MTEXT
   5
-14F
+151
 330
 17
 100
@@ -10663,7 +10711,7 @@ AcDbMText
   0
 MTEXT
   5
-150
+152
 330
 17
 100
@@ -11779,7 +11827,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-153
+155
   0
 DICTIONARYVAR
   5
@@ -11791,7 +11839,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-24T07:30:05.870830+00:00
+1.4.5 @ 2026-10-24T12:18:50.782503+00:00
   0
 VISUALSTYLE
   5
@@ -12495,7 +12543,7 @@ X-Ray
   0
 DICTIONARYVAR
   5
-153
+155
 330
 2D
 100
@@ -12503,7 +12551,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-24T07:30:05.882796+00:00
+1.4.5 @ 2026-10-24T12:18:50.793947+00:00
   0
 ENDSEC
   0

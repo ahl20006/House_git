@@ -7,15 +7,295 @@
    "ff_floor": 3.6,
    "roof": 7.2
   },
+  "finish": 0.08,
+  "roof_finish": 0.1,
   "slab_thickness": 0.2,
   "walls": {
    "outer": 0.25,
    "inner": 0.2,
    "low_partition": 1.2
   },
-  "parapet_height": 1.1,
+  "railing_height": 1.1,
+  "plan_cut": 1.5,
+  "handrail_height": 0.9,
+  "headroom_min": 2.1,
+  "stair": {
+   "waist": 0.15,
+   "balustrade": 0.04
+  },
+  "openings": {
+   "door_height": 2.1,
+   "window": {
+    "sill": 0.9,
+    "head": 2.1
+   },
+   "leaf": 0.05,
+   "glass": 0.02,
+   "glass_doors": [
+    "4.25 9.1",
+    "9.3 19.25"
+   ],
+   "skip_doors": [
+    "2.25 0.9"
+   ],
+   "windows": [
+    {
+     "floor": "GF",
+     "at": "5.1 6.5 8.1 6.5",
+     "sill": 0.0,
+     "head": 2.9,
+     "note": "women's majlis south glass to the courtyard, full height under beam B2",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "4.45 13.0 5.4 13.0",
+     "sill": 0.0,
+     "head": 2.9,
+     "note": "living glass to the courtyard, west of column C22",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "5.8 13.0 8.75 13.0",
+     "sill": 0.0,
+     "head": 2.9,
+     "note": "living glass to the courtyard, east of column C22",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "4.25 6.8 4.25 8.9",
+     "sill": 0.0,
+     "head": 2.9,
+     "note": "riwaq glass to the courtyard, north",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "4.25 10.7 4.25 12.7",
+     "sill": 0.0,
+     "head": 2.9,
+     "note": "riwaq glass to the courtyard, south",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "8.95 9.1 8.95 11.1",
+     "sill": 1.1,
+     "head": 2.1,
+     "note": "kitchen sink window onto the courtyard, over the counter",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "13.311 8.7 13.311 10.1",
+     "sill": 1.1,
+     "head": 2.1,
+     "note": "kitchen east window, over the cooking counter",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "12.17 3.9 12.714 4.9",
+     "sill": 1.5,
+     "head": 2.1,
+     "note": "maid room window in the cut wall, high sill",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "11.138 2.0 11.464 2.6",
+     "sill": 1.6,
+     "head": 2.1,
+     "note": "maid bath vent window",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "3.6 24 6.2 24",
+     "sill": 1.8,
+     "head": 2.9,
+     "note": "men's majlis high south window",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "7.2 24 9.8 24",
+     "sill": 1.8,
+     "head": 2.9,
+     "note": "men's majlis high south window",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "10.8 24 12.6 24",
+     "sill": 1.8,
+     "head": 2.9,
+     "note": "men's majlis high south window",
+     "_used": true
+    },
+    {
+     "floor": "GF",
+     "at": "5.4 0 7.8 0",
+     "sill": 0.9,
+     "head": 2.4,
+     "note": "women's majlis north window",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "0 14.6 0 15.2",
+     "sill": 1.5,
+     "head": 2.1,
+     "note": "bedroom 3 bath window",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "13.311 9.6 13.311 10.2",
+     "sill": 1.5,
+     "head": 2.1,
+     "note": "suite bath east window, 0.60 m (X3: owner decision)",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "13.311 15.0 13.311 18.6",
+     "sill": 0.9,
+     "head": 2.4,
+     "note": "suite bedroom east window",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "5.3 0 8.7 0",
+     "sill": 0.9,
+     "head": 2.4,
+     "note": "kids' room north window",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "4.5 24 13.0 24",
+     "sill": 1.2,
+     "head": 2.4,
+     "note": "gym south window band",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "6.0 19.25 7.0 19.25",
+     "sill": 1.4,
+     "head": 2.4,
+     "note": "clerestory window of the double-height living = +5.00 \u2026 +6.00 (studies/sections.typ cl-sill / cl-head)",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "7.6 19.25 8.6 19.25",
+     "sill": 1.4,
+     "head": 2.4,
+     "note": "clerestory window of the double-height living = +5.00 \u2026 +6.00",
+     "_used": true
+    }
+   ]
+  },
+  "structure": {
+   "assumed": [
+    "C21",
+    "C22",
+    "C23",
+    "C33",
+    "B3",
+    "B5",
+    "B16",
+    "B17",
+    "B18",
+    "R11"
+   ],
+   "unconfirmed": [
+    "R6"
+   ],
+   "unconfirmed_walls": [
+    [
+     5.6,
+     19.25,
+     5.6,
+     21.25
+    ],
+    [
+     11.586,
+     19.25,
+     11.586,
+     21.25
+    ]
+   ],
+   "column_to_roof": [
+    "C21",
+    "C22",
+    "C23"
+   ],
+   "edge_beam_upturned": true
+  },
   "projection": {
    "width": 1.35
+  },
+  "sun": {
+   "latitude": 21.4,
+   "days": {
+    "summer": 172,
+    "winter": 355
+   },
+   "hours": [
+    9,
+    12,
+    15
+   ]
+  },
+  "views": {
+   "eye_height": 1.6,
+   "bookmarks": {
+    "eye1": {
+     "title": "inside the double-height living, looking north to the courtyard",
+     "eye": [
+      6.6,
+      18.6,
+      1.6
+     ],
+     "target": [
+      6.6,
+      9.0,
+      2.2
+     ]
+    },
+    "eye2": {
+     "title": "from the courtyard, looking west to the colonnade and the gallery above",
+     "eye": [
+      8.8,
+      12.6,
+      1.6
+     ],
+     "target": [
+      5.2,
+      8.0,
+      2.4
+     ]
+    },
+    "eye3": {
+     "title": "from the stair landing along the first-floor gallery",
+     "eye": [
+      4.9,
+      7.0,
+      5.2
+     ],
+     "target": [
+      4.9,
+      17.0,
+      4.8
+     ]
+    }
+   }
   },
   "sources": {
    "rooms_gf": "data/rooms_gf.csv",
@@ -24,7 +304,16 @@
    "air_tower": "design_gf.typ",
    "projection_edge": "studies/ff_family.typ",
    "ff_fixed": "studies/ff_family.typ",
-   "open_edges": "3d/open_edges.csv"
+   "open_edges": "3d/open_edges.csv",
+   "gf_openings": "presentation.typ",
+   "ff_openings": [
+    "studies/ff_family.typ",
+    "studies/ff_suite.typ"
+   ],
+   "structure": "studies/structure.typ",
+   "sections": "studies/sections.typ",
+   "north": "base.typ",
+   "fixtures_east": "studies/east_wing.typ"
   },
   "output": {
    "glb": "3d/output/taif_house_V6.2.glb",
@@ -55,23 +344,28 @@
   ]
  ],
  "proj_x": 5.6,
+ "levels": {
+  "finished": {
+   "GF": 0.0,
+   "FF": 3.6
+  },
+  "structural_top": {
+   "GF": -0.08,
+   "FF": 3.52,
+   "roof": 7.2
+  },
+  "storey": {
+   "GF": [
+    -0.08,
+    3.32
+   ],
+   "FF": [
+    3.52,
+    7.0
+   ]
+  }
+ },
  "walls": [
-  {
-   "floor": "GF",
-   "kind": "outer",
-   "t": 0.25,
-   "z0": 0.0,
-   "z1": 3.4,
-   "length": 72.1904
-  },
-  {
-   "floor": "FF",
-   "kind": "outer",
-   "t": 0.25,
-   "z0": 3.6,
-   "z1": 7.0,
-   "length": 72.1904
-  },
   {
    "floor": "GF",
    "kind": "wall",
@@ -85,8 +379,8 @@
     19.85
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.35
   },
   {
@@ -102,8 +396,8 @@
     2.2
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.2
   },
   {
@@ -119,8 +413,8 @@
     0.2
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 0.2
   },
   {
@@ -136,8 +430,8 @@
     2.4
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 0.4
   },
   {
@@ -153,8 +447,8 @@
     10.6
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 3.8
   },
   {
@@ -170,8 +464,8 @@
     13.0
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 0.3
   },
   {
@@ -187,8 +481,8 @@
     22.15
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 7.85
   },
   {
@@ -204,8 +498,8 @@
     24.0
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 0.05
   },
   {
@@ -221,8 +515,8 @@
     13.1
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 13.1
   },
   {
@@ -238,7 +532,7 @@
     19.25
    ],
    "t": 0.2,
-   "z0": 0.0,
+   "z0": -0.08,
    "z1": 1.2,
    "length": 4.75
   },
@@ -255,8 +549,8 @@
     13.0
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 13.0
   },
   {
@@ -272,8 +566,8 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 3.7
   },
   {
@@ -289,8 +583,8 @@
     1.000014
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 1.1379
   },
   {
@@ -306,8 +600,8 @@
     2.8
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.0485
   },
   {
@@ -323,8 +617,8 @@
     5.999988
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 3.642
   },
   {
@@ -340,8 +634,8 @@
     21.4
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 0.1
   },
   {
@@ -357,8 +651,8 @@
     21.4
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 1.6
   },
   {
@@ -374,8 +668,8 @@
     19.25
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 12.061
   },
   {
@@ -391,8 +685,8 @@
     17.5
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -408,8 +702,8 @@
     16.1
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -425,8 +719,8 @@
     14.4
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -442,8 +736,8 @@
     13.0
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 9.061
   },
   {
@@ -459,8 +753,8 @@
     12.9
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -476,8 +770,8 @@
     10.4
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -493,8 +787,8 @@
     7.9
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -510,8 +804,8 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 5.45
   },
   {
@@ -527,8 +821,8 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.761
   },
   {
@@ -544,8 +838,8 @@
     2.8
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.622
   },
   {
@@ -561,8 +855,8 @@
     2.2
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 2.75
   },
   {
@@ -578,9 +872,18 @@
     1.0
    ],
    "t": 0.2,
-   "z0": 0.0,
-   "z1": 3.4,
+   "z0": -0.08,
+   "z1": 3.32,
    "length": 1.644
+  },
+  {
+   "floor": "GF",
+   "kind": "outer",
+   "name": "gf_outer",
+   "t": 0.25,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 72.1904
   },
   {
    "floor": "FF",
@@ -595,7 +898,7 @@
     11.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.8
   },
@@ -612,7 +915,7 @@
     16.1
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.7
   },
@@ -629,7 +932,7 @@
     2.2
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.2
   },
@@ -646,7 +949,7 @@
     3.1
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 3.1
   },
@@ -663,7 +966,7 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.0
   },
@@ -680,7 +983,7 @@
     24.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 14.8
   },
@@ -697,7 +1000,7 @@
     21.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.0
   },
@@ -714,7 +1017,7 @@
     5.3
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 5.3
   },
@@ -731,7 +1034,7 @@
     19.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 12.75
   },
@@ -748,7 +1051,7 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.2
   },
@@ -765,7 +1068,7 @@
     13.9
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 7.4
   },
@@ -782,7 +1085,7 @@
     21.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.0
   },
@@ -799,7 +1102,7 @@
     8.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.5
   },
@@ -816,7 +1119,7 @@
     1.000014
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.1379
   },
@@ -833,7 +1136,7 @@
     5.99999
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 5.6905
   },
@@ -850,7 +1153,7 @@
     21.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 7.336
   },
@@ -867,7 +1170,7 @@
     19.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 4.25
   },
@@ -884,7 +1187,7 @@
     19.25
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 7.711
   },
@@ -901,7 +1204,7 @@
     16.1
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.2
   },
@@ -918,7 +1221,7 @@
     14.4
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 4.25
   },
@@ -935,7 +1238,7 @@
     13.9
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 3.011
   },
@@ -952,7 +1255,7 @@
     11.9
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.35
   },
@@ -969,7 +1272,7 @@
     11.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 0.1
   },
@@ -986,7 +1289,7 @@
     11.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.85
   },
@@ -1003,7 +1306,7 @@
     10.45
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 3.011
   },
@@ -1020,7 +1323,7 @@
     10.4
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.5
   },
@@ -1037,7 +1340,7 @@
     9.2
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 4.25
   },
@@ -1054,7 +1357,7 @@
     8.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.1
   },
@@ -1071,7 +1374,7 @@
     6.5
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 4.361
   },
@@ -1088,7 +1391,7 @@
     5.3
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.2
   },
@@ -1105,7 +1408,7 @@
     3.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 4.7
   },
@@ -1122,7 +1425,7 @@
     2.2
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.75
   },
@@ -1139,7 +1442,7 @@
     1.0
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 1.644
   },
@@ -1156,27 +1459,36 @@
     0.7
    ],
    "t": 0.2,
-   "z0": 3.6,
+   "z0": 3.52,
    "z1": 7.0,
    "length": 2.0
+  },
+  {
+   "floor": "FF",
+   "kind": "outer",
+   "name": "ff_outer",
+   "t": 0.25,
+   "z0": 3.52,
+   "z1": 7.0,
+   "length": 72.1904
   }
  ],
  "slabs": [
   {
    "name": "gf_slab",
-   "area": 309.684,
-   "z0": -0.2,
-   "z1": 0.0
+   "area": 318.7679,
+   "z0": -0.28,
+   "z1": -0.08
   },
   {
    "name": "ff_slab",
-   "area": 266.9715,
-   "z0": 3.4,
-   "z1": 3.6
+   "area": 267.8492,
+   "z0": 3.32,
+   "z1": 3.52
   },
   {
    "name": "roof_slab",
-   "area": 275.937,
+   "area": 285.0209,
    "z0": 7.0,
    "z1": 7.2
   }
@@ -1184,13 +1496,1509 @@
  "voids": {
   "ff": {
    "courtyard_sky": 21.775,
-   "double_height_living": 20.9375
+   "double_height_living": 20.9375,
+   "stair_opening": 8.2062
   },
   "roof": {
    "courtyard_sky": 21.775,
    "suite_court": 11.972
   }
  },
+ "openings": [
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "utility room (indicative)",
+   "a": [
+    2.75,
+    8.2
+   ],
+   "b": [
+    2.75,
+    9.0
+   ],
+   "width": 0.8,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_004"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "serving door 1",
+   "a": [
+    2.75,
+    16.25
+   ],
+   "b": [
+    2.75,
+    17.15
+   ],
+   "width": 0.9,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_006"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "women's majlis (indicative)",
+   "a": [
+    4.25,
+    0.6
+   ],
+   "b": [
+    4.25,
+    1.6
+   ],
+   "width": 1.0,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_008"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "courtyard glass door (indicative)",
+   "a": [
+    4.25,
+    9.1
+   ],
+   "b": [
+    4.25,
+    10.5
+   ],
+   "width": 1.4,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_008"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "riwaq glass to the courtyard, north",
+   "a": [
+    4.25,
+    6.8
+   ],
+   "b": [
+    4.25,
+    8.9
+   ],
+   "width": 2.1,
+   "sill": 0.0,
+   "head": 2.9,
+   "wall": "gf_wall_008"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "riwaq glass to the courtyard, south",
+   "a": [
+    4.25,
+    10.7
+   ],
+   "b": [
+    4.25,
+    12.7
+   ],
+   "width": 2.0,
+   "sill": 0.0,
+   "head": 2.9,
+   "wall": "gf_wall_008"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "kitchen sink window onto the courtyard, over the counter",
+   "a": [
+    8.95,
+    9.1
+   ],
+   "b": [
+    8.95,
+    11.1
+   ],
+   "width": 2.0,
+   "sill": 1.1,
+   "head": 2.1,
+   "wall": "gf_wall_010"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "laundry \u2194 maid room",
+   "a": [
+    10.65,
+    2.95
+   ],
+   "b": [
+    10.65,
+    3.75
+   ],
+   "width": 0.8,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_011"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "maid bath vent window",
+   "a": [
+    11.137487,
+    2.000279
+   ],
+   "b": [
+    11.463487,
+    2.600279
+   ],
+   "width": 0.683,
+   "sill": 1.6,
+   "head": 2.1,
+   "wall": "gf_wall_013"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "maid room window in the cut wall, high sill",
+   "a": [
+    12.169874,
+    3.900069
+   ],
+   "b": [
+    12.71344,
+    4.900305
+   ],
+   "width": 1.138,
+   "sill": 1.5,
+   "head": 2.1,
+   "wall": "gf_wall_014"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "guest WC",
+   "a": [
+    1.3,
+    19.25
+   ],
+   "b": [
+    2.05,
+    19.25
+   ],
+   "width": 0.75,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_017"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "serving door 2",
+   "a": [
+    0.1,
+    17.5
+   ],
+   "b": [
+    1.15,
+    17.5
+   ],
+   "width": 1.05,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_018"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "family WC",
+   "a": [
+    1.6,
+    14.4
+   ],
+   "b": [
+    2.4,
+    14.4
+   ],
+   "width": 0.8,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_020"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "kitchen \u2194 dining",
+   "a": [
+    9.4,
+    13.0
+   ],
+   "b": [
+    10.5,
+    13.0
+   ],
+   "width": 1.1,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_021"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "living glass to the courtyard, west of column C22",
+   "a": [
+    4.45,
+    13.0
+   ],
+   "b": [
+    5.4,
+    13.0
+   ],
+   "width": 0.95,
+   "sill": 0.0,
+   "head": 2.9,
+   "wall": "gf_wall_021"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "living glass to the courtyard, east of column C22",
+   "a": [
+    5.8,
+    13.0
+   ],
+   "b": [
+    8.75,
+    13.0
+   ],
+   "width": 2.95,
+   "sill": 0.0,
+   "head": 2.9,
+   "wall": "gf_wall_021"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "women's majlis south glass to the courtyard, full height under beam B2",
+   "a": [
+    5.1,
+    6.5
+   ],
+   "b": [
+    8.1,
+    6.5
+   ],
+   "width": 3.0,
+   "sill": 0.0,
+   "head": 2.9,
+   "wall": "gf_wall_025"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "maid room \u2194 maid bath",
+   "a": [
+    10.715,
+    2.8
+   ],
+   "b": [
+    11.415,
+    2.8
+   ],
+   "width": 0.7,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_027"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "family entry",
+   "a": [
+    3.0,
+    0.0
+   ],
+   "b": [
+    4.0,
+    0.0
+   ],
+   "width": 1.0,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "guest entrance, two leaves",
+   "a": [
+    0.0,
+    21.5
+   ],
+   "b": [
+    0.0,
+    22.9
+   ],
+   "width": 1.4,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "kitchen service door to the east yard, lockable (owner decision)",
+   "a": [
+    13.311,
+    6.7
+   ],
+   "b": [
+    13.311,
+    7.6
+   ],
+   "width": 0.9,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "kitchen east window, over the cooking counter",
+   "a": [
+    13.311,
+    8.7
+   ],
+   "b": [
+    13.311,
+    10.1
+   ],
+   "width": 1.4,
+   "sill": 1.1,
+   "head": 2.1,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "women's majlis north window",
+   "a": [
+    5.4,
+    0.0
+   ],
+   "b": [
+    7.8,
+    0.0
+   ],
+   "width": 2.4,
+   "sill": 0.9,
+   "head": 2.4,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "men's majlis high south window",
+   "a": [
+    3.6,
+    24.0
+   ],
+   "b": [
+    6.2,
+    24.0
+   ],
+   "width": 2.6,
+   "sill": 1.8,
+   "head": 2.9,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "men's majlis high south window",
+   "a": [
+    7.2,
+    24.0
+   ],
+   "b": [
+    9.8,
+    24.0
+   ],
+   "width": 2.6,
+   "sill": 1.8,
+   "head": 2.9,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "men's majlis high south window",
+   "a": [
+    10.8,
+    24.0
+   ],
+   "b": [
+    12.6,
+    24.0
+   ],
+   "width": 1.8,
+   "sill": 1.8,
+   "head": 2.9,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "GF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    13.311,
+    14.5
+   ],
+   "b": [
+    13.311,
+    17.5
+   ],
+   "width": 3.0,
+   "sill": 0.9,
+   "head": 2.1,
+   "wall": "gf_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bath (Bedroom 3 bath (en-suite))",
+   "a": [
+    2.2,
+    15.3
+   ],
+   "b": [
+    2.2,
+    16.0
+   ],
+   "width": 0.7,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_001"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "kids' room (Kids' room (study + gaming))",
+   "a": [
+    4.25,
+    1.95
+   ],
+   "b": [
+    4.25,
+    2.85
+   ],
+   "width": 0.9,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_003"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "family bath (Family bath (bed 1 + 2, family living))",
+   "a": [
+    4.25,
+    9.4
+   ],
+   "b": [
+    4.25,
+    10.2
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_005"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bed 2 (Bedroom 2)",
+   "a": [
+    4.25,
+    11.2
+   ],
+   "b": [
+    4.25,
+    12.0
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_005"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bed 3 (Bedroom 3)",
+   "a": [
+    4.25,
+    14.6
+   ],
+   "b": [
+    4.25,
+    15.4
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_005"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "office (sliding) (Owner's office)",
+   "a": [
+    4.25,
+    19.4
+   ],
+   "b": [
+    4.25,
+    20.45
+   ],
+   "width": 1.05,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_005"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    8.95,
+    7.6
+   ],
+   "b": [
+    8.95,
+    9.6
+   ],
+   "width": 2.0,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_wall_008"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bath (Suite bath)",
+   "a": [
+    10.3,
+    6.7
+   ],
+   "b": [
+    10.3,
+    7.5
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_010"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "dressing (Suite dressing)",
+   "a": [
+    10.3,
+    10.65
+   ],
+   "b": [
+    10.3,
+    11.45
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_010"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "WC (sliding) (Suite WC (closet))",
+   "a": [
+    12.211,
+    6.85
+   ],
+   "b": [
+    12.211,
+    7.65
+   ],
+   "width": 0.8,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_012"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    10.920033,
+    1.599982
+   ],
+   "b": [
+    11.789601,
+    3.200217
+   ],
+   "width": 1.821,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_wall_014"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    12.30441,
+    4.147603
+   ],
+   "b": [
+    12.902665,
+    5.248552
+   ],
+   "width": 1.253,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_wall_014"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "gym (sliding) (Gym)",
+   "a": [
+    4.4,
+    21.25
+   ],
+   "b": [
+    5.45,
+    21.25
+   ],
+   "width": 1.05,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_015"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    5.9,
+    21.25
+   ],
+   "b": [
+    8.6,
+    21.25
+   ],
+   "width": 2.7,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_wall_015"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "court (sliding) (Suite court (open to the sky))",
+   "a": [
+    9.3,
+    19.25
+   ],
+   "b": [
+    10.7,
+    19.25
+   ],
+   "width": 1.4,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_017"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "clerestory window of the double-height living = +5.00 \u2026 +6.00 (studies/sections.typ cl-sill / cl-head)",
+   "a": [
+    6.0,
+    19.25
+   ],
+   "b": [
+    7.0,
+    19.25
+   ],
+   "width": 1.0,
+   "sill": 5.0,
+   "head": 6.0,
+   "wall": "ff_wall_017"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "clerestory window of the double-height living = +5.00 \u2026 +6.00",
+   "a": [
+    7.6,
+    19.25
+   ],
+   "b": [
+    8.6,
+    19.25
+   ],
+   "width": 1.0,
+   "sill": 5.0,
+   "head": 6.0,
+   "wall": "ff_wall_017"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bedroom (Suite bedroom)",
+   "a": [
+    9.05,
+    11.9
+   ],
+   "b": [
+    9.95,
+    11.9
+   ],
+   "width": 0.9,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_021"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "suite door (Suite lobby)",
+   "a": [
+    9.0,
+    6.5
+   ],
+   "b": [
+    10.1,
+    6.5
+   ],
+   "width": 1.1,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_028"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
+   "name": "bed 1 (Bedroom 1)",
+   "a": [
+    9.1,
+    5.3
+   ],
+   "b": [
+    10.0,
+    5.3
+   ],
+   "width": 0.9,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_029"
+  },
+  {
+   "floor": "FF",
+   "kind": "open",
+   "name": "linen (Linen cupboard)",
+   "a": [
+    2.45,
+    0.7
+   ],
+   "b": [
+    4.05,
+    0.7
+   ],
+   "width": 1.6,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_033"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "kids' room north window",
+   "a": [
+    5.3,
+    0.0
+   ],
+   "b": [
+    8.7,
+    0.0
+   ],
+   "width": 3.4,
+   "sill": 4.5,
+   "head": 6.0,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    0.0,
+    11.3
+   ],
+   "b": [
+    0.0,
+    12.6
+   ],
+   "width": 1.3,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "bedroom 3 bath window",
+   "a": [
+    0.0,
+    14.6
+   ],
+   "b": [
+    0.0,
+    15.2
+   ],
+   "width": 0.6,
+   "sill": 5.1,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    0.0,
+    17.2
+   ],
+   "b": [
+    0.0,
+    18.2
+   ],
+   "width": 1.0,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    0.0,
+    19.6
+   ],
+   "b": [
+    0.0,
+    20.9
+   ],
+   "width": 1.3,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    0.0,
+    22.0
+   ],
+   "b": [
+    0.0,
+    23.5
+   ],
+   "width": 1.5,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    0.5,
+    24.0
+   ],
+   "b": [
+    2.3,
+    24.0
+   ],
+   "width": 1.8,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "suite bath east window, 0.60 m (X3: owner decision)",
+   "a": [
+    13.311,
+    9.6
+   ],
+   "b": [
+    13.311,
+    10.2
+   ],
+   "width": 0.6,
+   "sill": 5.1,
+   "head": 5.7,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "suite bedroom east window",
+   "a": [
+    13.311,
+    15.0
+   ],
+   "b": [
+    13.311,
+    18.6
+   ],
+   "width": 3.6,
+   "sill": 4.5,
+   "head": 6.0,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "gym south window band",
+   "a": [
+    4.5,
+    24.0
+   ],
+   "b": [
+    13.0,
+    24.0
+   ],
+   "width": 8.5,
+   "sill": 4.8,
+   "head": 6.0,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    2.9,
+    24.0
+   ],
+   "b": [
+    3.9,
+    24.0
+   ],
+   "width": 1.0,
+   "sill": 4.5,
+   "head": 5.7,
+   "wall": "ff_outer"
+  }
+ ],
+ "stair": {
+  "risers": 22,
+  "riser": 0.1636,
+  "going": 0.28,
+  "per_flight": 11,
+  "landing_level": 1.8,
+  "well": [
+   0.125,
+   2.3,
+   2.65,
+   7.8
+  ],
+  "flight1_x": [
+   0.125,
+   1.3375
+  ],
+  "flight2_x": [
+   1.4375,
+   2.65
+  ],
+  "landing_y": [
+   2.3,
+   3.55
+  ],
+  "flights_y": [
+   3.55,
+   6.35
+  ],
+  "arrival_y": [
+   6.35,
+   7.8
+  ],
+  "opening_area": 8.206,
+  "opening_wkt": "POLYGON ((0.125 2.3, 0.125 4.75, 1.3875 4.75, 1.3875 6.35, 2.65 6.35, 2.65 2.3, 1.3875 2.3, 0.125 2.3))",
+  "nosings": [
+   {
+    "flight": 1,
+    "tread": 1,
+    "x": 0.7312,
+    "y": 6.35,
+    "y_mid": 6.21,
+    "z": 0.1636
+   },
+   {
+    "flight": 1,
+    "tread": 2,
+    "x": 0.7312,
+    "y": 6.07,
+    "y_mid": 5.93,
+    "z": 0.3273
+   },
+   {
+    "flight": 1,
+    "tread": 3,
+    "x": 0.7312,
+    "y": 5.79,
+    "y_mid": 5.65,
+    "z": 0.4909
+   },
+   {
+    "flight": 1,
+    "tread": 4,
+    "x": 0.7312,
+    "y": 5.51,
+    "y_mid": 5.37,
+    "z": 0.6545
+   },
+   {
+    "flight": 1,
+    "tread": 5,
+    "x": 0.7312,
+    "y": 5.23,
+    "y_mid": 5.09,
+    "z": 0.8182
+   },
+   {
+    "flight": 1,
+    "tread": 6,
+    "x": 0.7312,
+    "y": 4.95,
+    "y_mid": 4.81,
+    "z": 0.9818
+   },
+   {
+    "flight": 1,
+    "tread": 7,
+    "x": 0.7312,
+    "y": 4.67,
+    "y_mid": 4.53,
+    "z": 1.1455
+   },
+   {
+    "flight": 1,
+    "tread": 8,
+    "x": 0.7312,
+    "y": 4.39,
+    "y_mid": 4.25,
+    "z": 1.3091
+   },
+   {
+    "flight": 1,
+    "tread": 9,
+    "x": 0.7312,
+    "y": 4.11,
+    "y_mid": 3.97,
+    "z": 1.4727
+   },
+   {
+    "flight": 1,
+    "tread": 10,
+    "x": 0.7312,
+    "y": 3.83,
+    "y_mid": 3.69,
+    "z": 1.6364
+   },
+   {
+    "flight": 1,
+    "tread": 11,
+    "x": 0.7312,
+    "y": 3.55,
+    "y_mid": 3.41,
+    "z": 1.8
+   },
+   {
+    "flight": 2,
+    "tread": 1,
+    "x": 2.0438,
+    "y": 3.55,
+    "y_mid": 3.69,
+    "z": 1.9636
+   },
+   {
+    "flight": 2,
+    "tread": 2,
+    "x": 2.0438,
+    "y": 3.83,
+    "y_mid": 3.97,
+    "z": 2.1273
+   },
+   {
+    "flight": 2,
+    "tread": 3,
+    "x": 2.0438,
+    "y": 4.11,
+    "y_mid": 4.25,
+    "z": 2.2909
+   },
+   {
+    "flight": 2,
+    "tread": 4,
+    "x": 2.0438,
+    "y": 4.39,
+    "y_mid": 4.53,
+    "z": 2.4545
+   },
+   {
+    "flight": 2,
+    "tread": 5,
+    "x": 2.0438,
+    "y": 4.67,
+    "y_mid": 4.81,
+    "z": 2.6182
+   },
+   {
+    "flight": 2,
+    "tread": 6,
+    "x": 2.0438,
+    "y": 4.95,
+    "y_mid": 5.09,
+    "z": 2.7818
+   },
+   {
+    "flight": 2,
+    "tread": 7,
+    "x": 2.0438,
+    "y": 5.23,
+    "y_mid": 5.37,
+    "z": 2.9455
+   },
+   {
+    "flight": 2,
+    "tread": 8,
+    "x": 2.0438,
+    "y": 5.51,
+    "y_mid": 5.65,
+    "z": 3.1091
+   },
+   {
+    "flight": 2,
+    "tread": 9,
+    "x": 2.0438,
+    "y": 5.79,
+    "y_mid": 5.93,
+    "z": 3.2727
+   },
+   {
+    "flight": 2,
+    "tread": 10,
+    "x": 2.0438,
+    "y": 6.07,
+    "y_mid": 6.21,
+    "z": 3.4364
+   },
+   {
+    "flight": 2,
+    "tread": 11,
+    "x": 2.0438,
+    "y": 6.35,
+    "y_mid": 6.49,
+    "z": 3.6
+   }
+  ],
+  "flight_clear_width": 1.2125
+ },
+ "structure": {
+  "columns": [
+   {
+    "id": "C21",
+    "x": 5.6,
+    "y": 6.5,
+    "size": "\u00d80.30",
+    "z0": -0.08,
+    "z1": 7.0,
+    "state": "assumed",
+    "bounds": [
+     5.45,
+     6.35,
+     5.75,
+     6.65
+    ],
+    "to_roof": true
+   },
+   {
+    "id": "C22",
+    "x": 5.6,
+    "y": 13.0,
+    "size": "\u00d80.30",
+    "z0": -0.08,
+    "z1": 7.0,
+    "state": "assumed",
+    "bounds": [
+     5.45,
+     12.85,
+     5.75,
+     13.15
+    ],
+    "to_roof": true
+   },
+   {
+    "id": "C23",
+    "x": 5.6,
+    "y": 19.25,
+    "size": "\u00d80.30",
+    "z0": -0.08,
+    "z1": 7.0,
+    "state": "assumed",
+    "bounds": [
+     5.45,
+     19.1,
+     5.75,
+     19.4
+    ],
+    "to_roof": true
+   },
+   {
+    "id": "C33",
+    "x": 13.311,
+    "y": 10.45,
+    "size": "0.25\u00d70.60",
+    "z0": -0.08,
+    "z1": 7.0,
+    "state": "assumed",
+    "bounds": [
+     13.186,
+     10.15,
+     13.436,
+     10.75
+    ],
+    "to_roof": true
+   }
+  ],
+  "beams": [
+   {
+    "id": "B16",
+    "a": [
+     0.0,
+     4.85
+    ],
+    "b": [
+     1.3875,
+     4.85
+    ],
+    "w": 0.2,
+    "d": 0.4,
+    "z0": 3.12,
+    "z1": 3.32,
+    "state": "assumed",
+    "note": "stair trimmer"
+   },
+   {
+    "id": "B17",
+    "a": [
+     1.2875,
+     4.85
+    ],
+    "b": [
+     1.2875,
+     6.45
+    ],
+    "w": 0.2,
+    "d": 0.4,
+    "z0": 3.12,
+    "z1": 3.32,
+    "state": "assumed",
+    "note": "stair trimmer"
+   },
+   {
+    "id": "B18",
+    "a": [
+     1.2875,
+     6.45
+    ],
+    "b": [
+     2.75,
+     6.45
+    ],
+    "w": 0.2,
+    "d": 0.4,
+    "z0": 3.12,
+    "z1": 3.32,
+    "state": "assumed",
+    "note": "stair trimmer"
+   },
+   {
+    "id": "B3",
+    "a": [
+     5.6,
+     6.5
+    ],
+    "b": [
+     5.6,
+     19.25
+    ],
+    "w": 0.25,
+    "d": 0.5,
+    "z0": 3.32,
+    "z1": 3.82,
+    "state": "assumed",
+    "note": "0.25\u00d70.50 total \u00b7 UPTURNED (owner's preference: 0.30 above the slab = the railing base) or drop (0.30 below; the engineer decides) \u00b7 \u00a7 options"
+   },
+   {
+    "id": "B5",
+    "a": [
+     8.95,
+     13.0
+    ],
+    "b": [
+     8.95,
+     19.25
+    ],
+    "w": 0.25,
+    "d": 0.55,
+    "z0": 2.97,
+    "z1": 3.32,
+    "state": "assumed",
+    "note": "0.25\u00d70.55 total = 0.35 below the slab, soffit +3.05 (or 0.60\u00d70.40 wide-shallow, soffit +3.20)"
+   },
+   {
+    "id": "R11",
+    "a": [
+     5.6,
+     6.5
+    ],
+    "b": [
+     5.6,
+     13.0
+    ],
+    "w": 0.25,
+    "d": 0.45,
+    "z0": 6.75,
+    "z1": 7.0,
+    "state": "assumed",
+    "note": "0.25\u00d70.45 total, soffit +6.75"
+   },
+   {
+    "id": "R6",
+    "a": [
+     5.6,
+     21.25
+    ],
+    "b": [
+     11.586,
+     21.25
+    ],
+    "w": 0.25,
+    "d": 0.5,
+    "z0": 6.7,
+    "z1": 7.0,
+    "state": "unconfirmed",
+    "note": "0.25\u00d70.50 total, soffit +6.70, DROP (not upturned: winter light, X4)"
+   }
+  ]
+ },
+ "rails": [
+  {
+   "a": [
+    0.125,
+    4.75
+   ],
+   "b": [
+    1.3875,
+    4.75
+   ],
+   "z0": 3.6,
+   "z1": 4.7,
+   "note": "stair well, over flight 1"
+  },
+  {
+   "a": [
+    1.3875,
+    4.75
+   ],
+   "b": [
+    1.3875,
+    6.35
+   ],
+   "z0": 3.6,
+   "z1": 4.7,
+   "note": "stair well, between the flights"
+  },
+  {
+   "a": [
+    2.75,
+    2.3
+   ],
+   "b": [
+    2.75,
+    6.35
+   ],
+   "z0": 3.6,
+   "z1": 4.7,
+   "note": "gallery edge on the stair well"
+  },
+  {
+   "a": [
+    5.6,
+    6.5
+   ],
+   "b": [
+    5.6,
+    19.25
+   ],
+   "z0": 3.82,
+   "z1": 4.7,
+   "note": "gallery edge, on the upturned edge beam B3"
+  },
+  {
+   "a": [
+    4.25,
+    6.5
+   ],
+   "b": [
+    5.6,
+    6.5
+   ],
+   "z0": 3.6,
+   "z1": 4.7,
+   "note": "family living edge on the courtyard sky"
+  },
+  {
+   "a": [
+    5.6,
+    6.5
+   ],
+   "b": [
+    8.95,
+    6.5
+   ],
+   "z0": 3.6,
+   "z1": 4.7,
+   "note": "family living edge on the courtyard sky"
+  }
+ ],
+ "flags": [
+  "Orange elements (columns C21\u2013C23 to the roof, C33, beams B3, B5, R11, trimmers B16\u2013B18): sizes assumed in studies/structure.typ, not approved by the engineer",
+  "FF wall (5.6, 19.25)\u2013(5.6, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
+  "FF wall (11.586, 19.25)\u2013(11.586, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
+  "R6 (0.25\u00d70.50 total, soffit +6.70, DROP (not upturned: winter light, X4)): proposed load path on the first-floor walls x 5.6 and x 11.586 over the men's majlis ribs, NOT verified (X5)",
+  "X3: suite bath east window y 9.6\u201310.2 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance -0.05 m (CLASH); the column's size and orientation are for the engineer"
+ ],
  "rooms": {
   "GF": [
    "Courtyard",
@@ -1244,5 +3052,86 @@
    "West shaft",
    "Air tower"
   ]
+ },
+ "openings_note": {
+  "skipped": [
+   "GF future lift (params: skip_doors)",
+   "FF lift (Lift shaft (future)) (params: skip_doors)"
+  ],
+  "open_edges": [
+   "GF entry cupboard",
+   "GF open stair",
+   "GF hospitality kitchen",
+   "GF family basins",
+   "GF guest passage \u2194 basins",
+   "GF guest passage \u2194 foyer",
+   "GF foyer \u2192 men's majlis",
+   "GF living entrance",
+   "GF kitchen \u2194 laundry",
+   "FF living, open to the gallery (Family living)",
+   "FF wardrobe (Wardrobe niche (bed 2))",
+   "FF from the gallery (Gym route)"
+  ]
+ },
+ "x3_clearance": -0.05,
+ "sun": {
+  "latitude": 21.4,
+  "true_north_bearing_from_plan_north": 21.4,
+  "positions": {
+   "summer-09": {
+    "azimuth": 78.4,
+    "elevation": 48.5,
+    "dir": [
+     0.6528,
+     0.7492,
+     0.1124
+    ]
+   },
+   "summer-12": {
+    "azimuth": 0.0,
+    "elevation": 88.0,
+    "dir": [
+     0.013,
+     0.9994,
+     -0.0331
+    ]
+   },
+   "summer-15": {
+    "azimuth": 281.6,
+    "elevation": 48.5,
+    "dir": [
+     -0.5552,
+     0.7492,
+     -0.3612
+    ]
+   },
+   "winter-09": {
+    "azimuth": 133.1,
+    "elevation": 27.3,
+    "dir": [
+     0.3824,
+     0.4589,
+     0.802
+    ]
+   },
+   "winter-12": {
+    "azimuth": 180.0,
+    "elevation": 45.2,
+    "dir": [
+     -0.2574,
+     0.7091,
+     0.6565
+    ]
+   },
+   "winter-15": {
+    "azimuth": 226.9,
+    "elevation": 27.3,
+    "dir": [
+     -0.8256,
+     0.4589,
+     0.3284
+    ]
+   }
+  }
  }
 }

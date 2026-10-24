@@ -41,9 +41,9 @@
   ("C18", 4.25, 13.0, "courtyard line", "0.25×0.50", "roof", "courtyard / living corner (riwaq side)"),
   ("C19", 4.25, 19.25, "courtyard line · majlis north wall", "0.25×0.50", "roof", "living SW corner · FF office / bedroom 3"),
   ("C20", 4.25, 24, "courtyard line · south wall", "0.25×0.50", "roof", "in the south wall; FF office / gym wall above"),
-  ("C21", 5.6, 6.5, "colonnade", "Ø0.30", "FF (roof: option)", "in the women's majlis south wall"),
-  ("C22", 5.6, 13.0, "colonnade", "Ø0.30", "FF (roof: option)", "a pier in the courtyard / living glass (accepted)"),
-  ("C23", 5.6, 19.25, "colonnade", "Ø0.30", "FF (roof: option)", "in the living's south wall"),
+  ("C21", 5.6, 6.5, "colonnade", "Ø0.30", "roof (X8, owner)", "in the women's majlis south wall; carries B3 and the roof edge beam R11"),
+  ("C22", 5.6, 13.0, "colonnade", "Ø0.30", "roof (X8, owner)", "a pier in the courtyard / living glass (accepted); carries B3, R11 and R2's west end"),
+  ("C23", 5.6, 19.25, "colonnade", "Ø0.30", "roof (X8, owner)", "in the living's south wall; carries B3 and R5"),
   ("C24", 8.95, 0, "east line · north wall", "0.25×0.50", "roof", "women's majlis / air tower corner"),
   ("C25", 8.95, 3.0, "east line", "0.25×0.50", "roof", "in the solid laundry wall; carries beam B1"),
   ("C26", 8.95, 6.5, "east line", "0.25×0.50", "roof", "courtyard / kitchen NW corner"),
@@ -69,7 +69,7 @@
 
 // ---------- beams: (id, level, a, b, spans, size assumed, kind, carries / note) · kind: drop · hidden · upturned · edge · trimmer ----------
 #let beams-ff = (
-  ("B1", (4.25, 3.0), (8.95, 3.0), "4.70", "0.25×0.40 total = 0.20 below the slab, soffit +3.20 (or hidden in a 0.30 ribbed slab)", "drop", "FF kids' room / family living wall (y 3.0, nothing below) + the women's majlis roof"),
+  ("B1", (4.25, 3.0), (8.95, 3.0), "4.70", "0.25×0.40 total = 0.20 below the slab, soffit +3.20; hidden by the women's majlis gypsum ceiling (≈ +3.05, owner decision)", "drop", "FF kids' room / family living wall (y 3.0, nothing below) + the women's majlis roof"),
   ("B2", (4.25, 6.5), (8.95, 6.5), "1.35 + 3.35", "0.25×0.40 hidden / drop", "edge", "FF slab edge on the courtyard (family living balustrade); over the women's majlis south glazing"),
   ("B3", (5.6, 6.5), (5.6, 19.25), "6.50 + 6.25", "0.25×0.50 total · UPTURNED (owner's preference: 0.30 above the slab = the railing base) or drop (0.30 below; the engineer decides) · § options", "edge", "the 1.35 m projection and the gallery, on C21–C23"),
   ("B4", (4.25, 6.5), (4.25, 19.25), "6.50 + 6.25", "0.25×0.50 total = 0.30 below the slab, soffit +3.10", "drop", "FF west rooms' east wall (over the riwaq glazing and the low wall) + the projection back span"),
@@ -94,7 +94,8 @@
 #let beams-roof = (
   ("R1", (4.25, 6.5), (8.95, 6.5), "4.70", "0.25×0.45 drop", "edge", "courtyard sky hole, north edge (over the FF family living balustrade line)"),
   ("R2", (4.25, 13.0), (8.95, 13.0), "4.70", "0.25×0.45 drop", "edge", "courtyard sky hole, south edge = the clean double-height roof's north edge"),
-  ("R3", (4.25, 0), (4.25, 24), "3.0 + 3.5 + 6.5 + 6.25 + 4.75", "0.25×0.50 total, 0.30 above the FF wall", "drop", "on the FF west rooms' east wall / office wall; the roof over the gallery strip cantilevers 1.35 m from it (or C21–C23 to the roof)"),
+  ("R3", (4.25, 0), (4.25, 24), "3.0 + 3.5 + 6.5 + 6.25 + 4.75", "0.25×0.50 total, 0.30 above the FF wall", "drop", "on the FF west rooms' east wall / office wall; the gallery strip roof spans 1.35 m from it to R11 on the colonnade (X8)"),
+  ("R11", (5.6, 6.5), (5.6, 13.0), "6.50", "0.25×0.45 total, soffit +6.75", "edge", "roof edge of the courtyard sky over the gallery strip, on C21–C22 (X8, owner: the colonnade continues to the roof, no cantilever)"),
   ("R4", (8.95, 0), (8.95, 24), "3.0 + 3.5 + 6.5 + 6.25 + 4.75", "0.25×0.50 total, 0.30 above the FF wall", "drop", "on the FF suite west wall; the double-height roof spans to it"),
   ("R5", (4.25, 19.25), (13.311, 19.25), "1.35 + 3.35 + 4.36", "0.25×0.50 total, soffit +6.70", "drop", "over the living's south wall (clerestory head +6.00, 0.70 m below the soffit) and the suite court north wall"),
   ("R6", (5.6, 21.25), (11.586, 21.25), "6.0", "0.25×0.50 total, soffit +6.70, DROP (not upturned: winter light, X4)", "drop", "suite court hole, south edge = gym roof north edge; on the FF walls x 5.6 and x 11.586: proposed load path, NOT verified (X5)"),
@@ -121,7 +122,7 @@
   ((0, 0, 2.75, 24), "solid", "0.20", "EW", "west band and lift / shaft heads"),
   ((2.75, 0, 4.25, 24), "solid", "0.20", "EW", "riwaq / gallery line"),
   ((4.25, 0, 8.95, 6.5), "solid", "0.20", "EW", "kids' room / family living: 4.7 m, no beam on y 3.0 (light partition)"),
-  ((4.25, 6.5, 5.6, 13.0), "solid, cantilever", "0.20", "cant W", "over the gallery strip: 1.35 m cantilever from R3 (or on C21–C22 extended)"),
+  ((4.25, 6.5, 5.6, 13.0), "solid", "0.20", "EW", "over the gallery strip: 1.35 m from R3 to the roof edge beam R11 on C21–C22 (X8)"),
   ((4.25, 13.0, 8.95, 19.25), "solid, flat, no beams in the void", "0.22", "EW", "the double-height living roof: 4.7 m R3 → R4, clean soffit"),
   ((8.95, 0, 13.311, 19.25), "ribbed", "0.30", "EW", "bedroom 1 / suite: 4.36 m"),
   ((0, 19.25, 4.25, 24), "ribbed", "0.30", "NS", "office roof: 4.75 m"),
@@ -184,10 +185,10 @@
 #block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt, width: 100%)[#text(7.5pt, weight: "bold", fill: red)[ALL CHECKS PASSED means the drawings are consistent; it does not mean strength, deflection or vibration were calculated.]]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 12pt,
-  plan([Ground floor · columns (■ to the roof, ● colonnade to the FF), RC boxes (dark), tie beams on the column lines], GF, columns, (), (), (), cores: true),
+  plan([Ground floor · columns (■ in the walls, ● colonnade, all to the roof: X8), RC boxes (dark), tie beams on the column lines], GF, columns, (), (), (), cores: true),
   [
     #H[The idea: a simple RC skeleton, walls on walls]
-    - A *reinforced-concrete frame* (columns, beams, slabs) with *block infill*, as Saudi contractors build every villa. Columns stand on the existing wall lines, hidden in the walls; *every column runs from its footing to the roof* (the three colonnade columns end at the first floor, nothing starts on them except the edge beam). No transfer beam carries a column.
+    - A *reinforced-concrete frame* (columns, beams, slabs) with *block infill*, as Saudi contractors build every villa. Columns stand on the existing wall lines, hidden in the walls; *every column runs from its footing to the roof* (the three colonnade columns too, since X8: they carry the edge beam B3 and the roof edge beam R11). No transfer beam carries a column.
     - *Spans 2.2–6.5 m.* The only spans above 6 m are on the courtyard lines (x 4.25, 5.6, 8.95: 6.5 and 6.25 m), because the courtyard and the double-height living must stay free of columns; they get drop beams ≈ 0.50–0.55 total depth (0.30–0.35 below the slab).
     - *Slabs:* solid 0.20 m where spans are small (west band, riwaq, projection, roofs of 4.7 m), hollow-block *ribbed 0.30 m* (25+5) for the 4.36–4.75 m bays of the east band and the men's majlis roof. The double-height living's roof is a *flat solid slab 0.22 m spanning 4.7 m east–west* between the two long walls: *no beam crosses the void* (§ options; a common span for a 0.22 solid slab, not calculated).
     - *Foundations (assumed):* isolated pad footings ≈ 1.5 × 1.5 m under the columns, strip footings under the RC boxes, RC tie beams on the column lines at ground level; the lift pit 1.2 m deep; the air tunnel under the east band crosses the tie beams (depth to coordinate). *No soil report yet* (X9).
@@ -236,7 +237,7 @@
 // ================= PAGE 3 · roof =================
 #pagebreak()
 #text(12pt, weight: "bold", fill: green)[Roof slab (+7.00 … +7.20) · beams and slab directions]
-#h(6pt) #text(7pt, fill: gray)[the courtyard sky and the suite court are holes; the double-height living is roofed by a flat slab with no beam in the void; the gallery strip cantilevers (or C21–C22 continue to the roof)]
+#h(6pt) #text(7pt, fill: gray)[the courtyard sky and the suite court are holes; the double-height living is roofed by a flat slab with no beam in the void; the colonnade C21–C23 continues to the roof (X8), the gallery strip roof on R11]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 12pt,
   plan([Roof slab · beams R1–R10], FF, columns.filter(c => not c.at(5).starts-with("FF")), beams-roof, slabs-roof, voids-roof),
@@ -278,7 +279,7 @@
     slab(-0.125, 13.436, 0)
     for x in (0, 2.75, 4.25, 8.95, 13.311) { wall(x, 0, 3.4, t: if x == 0 or x == 13.311 { 0.25 } else { 0.2 }) }
     col(0, 0, 7.0); col(2.75, 0, 7.0); col(4.25, 0, 7.0); col(8.95, 0, 7.0); col(13.311, 0, 7.0)
-    col(5.6, 0, 3.1); T((5.6, -0.4), [C21–C23 Ø0.30], size: 4pt, fill: orange)
+    col(5.6, 0, 7.0); T((5.6, -0.4), [C21–C23 Ø0.30 to the roof (X8)], size: 4pt, fill: orange)
     // FF slab: west band to x 5.6 (projection), east from 8.95
     slab(-0.125, 5.6, 3.6); slab(8.95, 13.436, 3.6)
     beam(4.25, 3.6, 0.25, 0.5); T((4.25, 2.95), [B4 0.50 total · soffit +3.10], size: 3.8pt, fill: blue, anchor: "east")
@@ -288,10 +289,10 @@
     T((1.375, 1.7), [utility · shaft], size: 4pt); T((3.5, 1.7), [riwaq], size: 4pt); T((7.27, 1.0), [courtyard · open], size: 4.2pt, fill: blue); T((11.1, 1.7), [kitchen], size: 4pt)
     T((1.375, 5.3), [family bath], size: 4pt); T((3.5, 5.3), [gallery], size: 4pt); T((4.9, 5.0), [proj.], size: 3.6pt); T((11.1, 5.3), [suite lobby · bath], size: 4pt)
     T((7.27, 5.0), [sky 3.35], size: 4.2pt, fill: blue)
-    // roof: west to 5.6 (cantilever), east from 8.95
+    // roof: west to 5.6 (on R11 and the colonnade), east from 8.95
     slab(-0.125, 5.6, 7.2); slab(8.95, 13.436, 7.2)
     beam(4.25, 7.2, 0.25, 0.5); T((4.25, 6.55), [R3], size: 3.8pt, fill: blue, anchor: "east"); beam(8.95, 7.2, 0.25, 0.5); T((9.2, 6.55), [R4], size: 3.8pt, fill: blue, anchor: "west")
-    T((5.0, 7.5), [cant. 1.35], size: 3.6pt)
+    beam(5.6, 7.2, 0.25, 0.45); T((5.0, 7.5), [R11 on C21–C22], size: 3.6pt)
   }),
   sec([B · y 16.5: living (low wall) · double-height void · dining · suite], (slab, beam, col, wall, T, up) => {
     slab(-0.125, 13.436, 0)
@@ -476,7 +477,7 @@
     #H[7 · Lift shaft, air tower, roof openings]
     - *Lift (future, two stops):* RC walls W1 on x 0, y 0 (outer) and y 2.2, 0.20 m; the east wall x 2.25 blockwork with the future door reveal. The FF slab and the roof over the shaft (2.25 × 2.2) are *framed as openings now and closed with removable precast / lightweight panels* on hidden beams (B11 and the x 2.25 line), so the shaft opens later without cutting. Pit 1.2 m, isolated from the air tunnel.
     - *Air tower* (8.95–10.594 × 0–1.0): rises through both slabs; the openings framed by B15 / R9 (y 1.0) and the walls x 8.95 (W3) and the cut wall (W4); the head above the roof a light RC frame.
-    - *Roof openings:* courtyard sky framed by R1, R2, R3 (west, cantilever strip) and R4; suite court by R5, R6 and the FF walls x 5.6 / x 11.586 below the roof. West shaft (1.5 × 1.2) framed in B13 / R10.
+    - *Roof openings:* courtyard sky framed by R1, R2, R11 (west, on the colonnade, X8) and R4, the gallery strip roof between R3 and R11; suite court by R5, R6 and the FF walls x 5.6 / x 11.586 below the roof. West shaft (1.5 × 1.2) framed in B13 / R10.
   ],
 )
 
@@ -493,10 +494,10 @@
   ("X5", "NOT verified", [*Proposed load path, NOT verified:* R6 (6.0 m) carried by the first-floor walls x 5.6 and x 11.586, which stand on thickened ribs of the men's majlis roof (B20, B21), not on columns: a transfer (wall on a beam). Reason: no column may stand inside the men's majlis. Proposal: build those two walls as RC walls 0.20 m (2 m long, slab to roof) so the path roof → wall → rib → GF walls is explicit. *The structural engineer must confirm the supports, the sizes and the deflection of R6, B20 and B21.* In the 3D model (phase 4) R6 and these two walls are to be shown as *unconfirmed* (own colour / hatch) until then. Loads: a home gym, see § 4.]),
   ("X6", "flag", [The gym's north wall *y 21.25* (7.7 m) runs across the majlis roof ribs with nothing below: a *light partition* is recommended (100 mm block or dry wall; high obscured windows onto the court). If the owner wants a 200 mm wall, a solid band in the ribbed slab. Home gym (light equipment, one treadmill): live load as the engineer judges; the slab's vibration under the treadmill arm is *not calculated* and must be checked; floating floor and pads in the arm (DETAILS.md).]),
   ("X7", "flag", [The living's south wall (y 19.25, x 5.6–8.95) is 7 m tall with the clerestory windows, tied at +3.6 only on its south face (men's majlis roof slab) and at +7.0 by the roof: its slenderness between columns C23 and C28 (3.35 m) is *not checked here*; the engineer confirms it, with RC stiffeners at the window jambs if needed.]),
-  ("X8", "flag", [*Colonnade columns C21–C23* end at the first floor (they carry only the edge beam B3). The roof over the gallery strip (1.35 m, y 6.5–13.0) then cantilevers from R3. Option: continue C21 and C22 to the roof inside the gallery railing line (two columns in the gallery, a two-storey colonnade) with a roof edge beam on x 5.6; cleaner structure, two more columns in the upper gallery. Owner / engineer.]),
+  ("X8", "owner decided", [*Colonnade columns C21–C23 continue to the roof* inside the gallery railing line (a two-storey colonnade, slender round columns ≈ Ø0.30 assumed). The roof over the gallery strip (1.35 m, y 6.5–13.0) rests on a roof edge beam *R11* (x 5.6, 0.25 × 0.45 total) between C21 and C22: no 1.35 m roof cantilever. C22 also takes the west end of R2, C23 stands under R5. The engineer sizes the columns for two storeys and the two roof beams.]),
   ("X9", "missing", [*No soil report, no soil data:* footing type and depth (pads ≈ 1.5 × 1.5 assumed), the lift pit (1.2 m), and the *air tunnel under the east band* crossing the ground beams: tunnel depth and the footings of C24–C27 / W3 to coordinate.]),
   ("X10", "flag", [*Suite walls over the kitchen* (x 10.3, y 10.45, x 12.211, y 8.0, y 11.9, y 13.9): light partitions on the ribbed slab, or hidden beams under the bath walls that carry pipes; the *suite bath floor is sunken* (depressed slab ≈ 0.15 over x 10.3–13.311, y 6.5–10.45) with nothing in the kitchen ceiling: a depressed-slab detail inside a ribbed bay.]),
-  ("X11", "flag", [*Floor-to-floor 3.60* with a 0.20 slab and beams of 0.40–0.55 total depth gives 3.05–3.20 m clear under the beams before finishes (B4 soffit +3.10 over the riwaq glazing, B5 +3.05 at the dining step, B1 +3.20 in the women's majlis if dropped). Acceptable (≥ 2.40); the owner should still see the women's majlis option (B1 hidden in a 0.30 ribbed slab keeps a flat 3.30 m ceiling).]),
+  ("X11", "flag", [*Floor-to-floor 3.60* with a 0.20 slab and beams of 0.40–0.55 total depth gives 3.05–3.20 m clear under the beams before finishes (B4 soffit +3.10 over the riwaq glazing, B5 +3.05 at the dining step, B1 +3.20 in the women's majlis). Acceptable (≥ 2.40). *Owner decision:* B1 is a drop beam hidden by a gypsum ceiling (≈ +3.05); the general rule is that drop beams in finished rooms are hidden by gypsum ceilings, which also carry the hidden AC and lighting.]),
   ("X12", "open", [*Beam B4* (x 4.25, 6.5 + 6.25 m) carries the first-floor bedrooms' east wall over the riwaq glazing (y 6.8–8.9, 10.7–12.7) and the low wall: with 0.25 × 0.50 total (soffit +3.10) the riwaq glazing heads are at ≤ +3.10 before finishes, and the dining-side heads under B5 at ≤ +3.05; confirm the window heights with the architect.]),
   ("X13", "open", [*Which walls are RC:* this study proposes W1–W5 (lift, shaft, laundry wall, cut wall, kitchen north wall) as RC 0.20 m for stiffness, plus the two gym walls of X5. The engineer confirms the lateral system (frame + walls) under SBC 301 and the wind / seismic case for Taif.]),
   ("X14", "open", [*Slab types:* ribbed 0.30 (hollow block) for the 4.36–4.75 m bays and the men's majlis roof; solid 0.20 elsewhere and 0.22 flat over the double-height living. The engineer may unify (all ribbed, or all solid 0.20–0.25) for buildability; the clean soffit over the void is the only architectural wish.]),

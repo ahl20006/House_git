@@ -33,10 +33,10 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
 9. **East-wall stack:**
    - the stack outside the east wall (suite bath, vent stack);
    - the kitchen extract through the east wall;
-   - the hood on the east wall south of y ≈ 7.5, clear of the stack.
+   - the stack between the service door and the kitchen window (y ≈ 7.8–8.3); the hood on the east wall south of y ≈ 8.4, clear of the stack.
 
 ## Owner
-10. **Locked laundry service door:** a small door from the laundry to the east service yard, for rubbish and deliveries, locked with the owner's key only. Owner decision; not drawn.
+10. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
 11. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
 12. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
 13. **Future lift:** take the final shaft size from a supplier's civil drawing (two stops). Ask two or three suppliers and use the largest.
