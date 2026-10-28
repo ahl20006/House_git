@@ -14,7 +14,13 @@ It reads the project files through the readers of build_3d.py, the summary (3d/o
   6. the stair: 22 risers to the finished first-floor level, the arrival on the first-floor slab, the opening edged by the trimmers,
      the headroom over every tread to the underside of the beams / slab (ray cast in the GLB) ≥ params headroom_min;
   7. the structural elements of the zone: the colonnade to the roof (X8), the upturned edge beam, the flags (assumed / unconfirmed);
-  8. the sun positions: noon altitudes equal the formulas of studies/sections.typ, morning / afternoon symmetric; true north from base.typ.
+  8. the sun positions: noon altitudes equal the formulas of studies/sections.typ, morning / afternoon symmetric; true north from base.typ;
+  9. the air system (route, chamber, pads, levels, the wall grille);
+ 10. the character study (3d/character.yaml, STYLE STUDY): every chr_* mesh named and grouped, the base model untouched (the few replaced
+     meshes exist), the outer-window glazing recessed by the reveal, every mashrabiya on a window of the plans and flush with the face,
+     the stone sleeves round the colonnade, the parapet / glass railing on B3 to the railing height, the pergola leaving the sky open,
+     the roof parapet, the arches variant (bays, headroom, where the intermediate columns stand), props in the courtyard, nothing
+     beyond the outer face + the plinth / coping.
 Ends with "3D CHECKS PASSED" (plus the flagged items) or a list of problems (exit code 1).
 """
 import json
@@ -138,6 +144,10 @@ for floor in ("GF", "FF"):
         bad(f"{floor}: wall height not structural slab top → slab underside ({z0}–{z1}) or the low partition: {height[:5]}")
     if gaps:
         bad(f"{floor}: wall ends meeting nothing (a gap): {gaps[:5]}")
+    on_outline = [w["name"] for w in walls if outline_poly.exterior.distance(Point(w["a"])) < 0.003 and outline_poly.exterior.distance(Point(w["b"])) < 0.003
+                  and outline_poly.exterior.distance(LineString([w["a"], w["b"]]).interpolate(0.5, normalized=True)) < 0.003]
+    if on_outline:   # a room edge with rounded corners on the cut wall once built a 0.20 wall inside the 0.25 outer ring (and took the cut wall's windows)
+        bad(f"{floor}: interior walls lying on the outline (duplicates of the outer wall): {on_outline}")
     ring = meshes[f"{floor.lower()}_outer"]
     if abs(ring.bounds[0][2] - z0) > 1e-4 or abs(ring.bounds[1][2] - z1) > 1e-4:
         bad(f"{floor}: outer wall height {ring.bounds[:, 2].tolist()} != {z0}–{z1}")
@@ -178,7 +188,7 @@ ok(f"stair opening in the first-floor slab: {so:.2f} m² (x {ST['x0']}–{ST['sp
 
 # ---------- 4: outline and levels ----------
 print("4. Outline and levels")
-allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col") and "_air_" not in n])   # the air system (head above the roof, tunnel below the slab, cap beyond the walls) is checked in 9
+allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col") and "_air_" not in n and not n.startswith("chr_")])   # the air system (head above the roof, tunnel below the slab, cap beyond the walls) is checked in 9, the character study in 10
 lo, hi = allv.min(axis=0), allv.max(axis=0)
 ob = outline_poly.bounds
 if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_OUT / 2), hi[0] - (ob[2] + T_OUT / 2), hi[1] - (ob[3] + T_OUT / 2))):
@@ -221,7 +231,7 @@ if heads:
     bad(f"opening heads above the slab underside or doors not {P['openings']['door_height']} m: {heads[:5]}")
 else:
     ok(f"every opening head is below the slab underside; doors {P['openings']['door_height']} m above the finished floor; windows sill {P['openings']['window']['sill']} / head {P['openings']['window']['head']} unless listed in params")
-n_glass = sum(1 for n in meshes if "_glass_" in n)
+n_glass = sum(1 for n in meshes if "_glass_" in n and not n.startswith("chr_"))   # the character study's recessed panes are checked in 10
 if n_glass == len(built_win) + len(P["openings"]["glass_doors"]):
     ok(f"{n_glass} glass panes = {len(built_win)} windows + {len(P['openings']['glass_doors'])} glass doors (transparent in the viewer)")
 else:
@@ -383,6 +393,129 @@ if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 <
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:
     bad("tower shaft opening")
+
+# ---------- 10: the character study (3d/character.yaml) · STYLE STUDY, PROVISIONAL ----------
+print("10. Character study (3d/character.yaml, style study, provisional)")
+C = yaml.safe_load((HERE / "character.yaml").read_text(encoding="utf-8"))
+ch = summary.get("character", {})
+chr_meshes = {n: m for n, m in meshes.items() if n.startswith("chr_")}
+if not C.get("enabled", True) or not ch.get("enabled"):
+    ok("character study disabled in character.yaml: no chr_* meshes") if not chr_meshes else bad(f"character disabled but {len(chr_meshes)} chr_* meshes in the GLB")
+else:
+    GROUPS = {"base", "parapet", "glassrail", "pergola", "arches", "props", "light"}
+    badnames = [n for n in chr_meshes if len(n.split("_")) < 4 or n.split("_")[1] not in GROUPS or n.split("_")[2] not in C["palette"]]
+    listed = {m["name"] for m in ch["meshes"]}
+    if badnames or listed != set(chr_meshes):
+        bad(f"character meshes not named chr_<group>_<material>_<label> or not in the summary: {badnames[:5]} · {sorted(listed ^ set(chr_meshes))[:5]}")
+    else:
+        groups = {g: sum(1 for n in chr_meshes if n.split('_')[1] == g) for g in GROUPS}
+        ok(f"{len(chr_meshes)} character meshes, every one chr_<group>_<material>_<label> with a material of the palette: " + ", ".join(f"{g} {k}" for g, k in sorted(groups.items())))
+    # the base model is untouched: the meshes the viewer hides when the character is on exist, and are exactly the outer windows' glass + the B3 railing
+    want_hide = {f"{o['floor'].lower()}_glass_{i:03d}" for i, o in enumerate(ops) if o["kind"] == "window" and o["wall"].endswith("_outer")} | {ch["gallery_railing"]["replaces"]}
+    if set(ch["hide"]) == want_hide and all(n in meshes for n in ch["hide"]):
+        ok(f"the viewer replaces only {len(ch['hide'])} base meshes when the character is on: the {len(want_hide) - 1} outer windows' centre-line glass (recessed instead) and the B3 railing ({ch['gallery_railing']['replaces']}); every other mesh is only re-coloured")
+    else:
+        bad(f"hidden base meshes {sorted(ch['hide'])} != {sorted(want_hide)}")
+    # the recessed glazing: the outer face of every recessed pane lies reveal − glass/2 inside the outer wall face
+    pane = chr_meshes.get("chr_base_glass_recessed_glazing")
+    reveal, tg = C["reveal"], P["openings"]["glass"]
+    wrong = []
+    for r in ch["recessed_windows"]:
+        a, b, n = np.array(r["a"]), np.array(r["b"]), np.array(r["normal"])
+        u = (b - a) / np.linalg.norm(b - a)
+        o = ops[r["index"]]
+        v = pane.vertices
+        s = (v[:, :2] - a) @ u
+        sel = (s > -1e-3) & (s < np.linalg.norm(b - a) + 1e-3) & (v[:, 2] > o["sill"] - 1e-3) & (v[:, 2] < o["head"] + 1e-3) & (np.abs((v[:, :2] - a) @ n - r["offset"]) < tg)
+        if not sel.any():
+            wrong.append((r["name"], "no pane"))
+            continue
+        depth = T_OUT / 2 - ((v[sel, :2] - a) @ n).max()          # outer wall face → the pane's outer face
+        if abs(depth - (reveal - tg / 2)) > 1e-3:
+            wrong.append((r["name"], round(depth, 3)))
+    if pane is None or wrong:
+        bad(f"recessed glazing: {wrong[:5]}")
+    else:
+        ok(f"{len(ch['recessed_windows'])} outer-wall windows: glass set back {reveal} m from the outer wall face (deep reveals), bronze frames on all {ch['frames']} windows")
+    # mashrabiya: on windows of the plans, inside the opening, flush with the face it sits on
+    bad_ms = []
+    for m in ch["mashrabiya"]:
+        at = [float(v) for v in m["at"].split()]
+        o = next((o for o in ops if o["kind"] == "window" and o["floor"] == m["floor"] and all(abs(x - y) < 0.01 for x, y in zip((*o["a"], *o["b"]), at))), None)
+        mesh = chr_meshes.get(m["name"])
+        if o is None or mesh is None:
+            bad_ms.append((m["at"], "not a window of the plans" if o is None else "no mesh"))
+            continue
+        a, b = np.array(o["a"]), np.array(o["b"])
+        u = (b - a) / np.linalg.norm(b - a)
+        n = np.array([u[1], -u[0]])
+        v = mesh.vertices
+        s, d = (v[:, :2] - a) @ u, np.abs((v[:, :2] - a) @ n)
+        inside = s.min() > -1e-3 and s.max() < np.linalg.norm(b - a) + 1e-3 and v[:, 2].min() > o["sill"] - 1e-3 and v[:, 2].max() < o["head"] + 1e-3
+        if not inside or abs(d.max() - m["face_offset"]) > 1e-3 or abs(d.max() - d.min() - C["mashrabiya"]["depth"]) > 1e-3:
+            bad_ms.append((m["at"], "outside its opening" if not inside else f"face {d.max():.3f} / depth {d.max() - d.min():.3f}"))
+    if bad_ms:
+        bad(f"mashrabiya: {bad_ms[:5]}")
+    else:
+        ok(f"{len(ch['mashrabiya'])} mashrabiya screens, each on a window of the plans, inside its opening and flush with the wall face (depth {C['mashrabiya']['depth']}): "
+           + "; ".join(f"{m['floor']} {m['window'] if m['window'] != 'default window' else m['at']}" for m in ch["mashrabiya"]))
+    # the colonnade's stone sleeves
+    bad_sl = []
+    for s in ch["sleeves"]:
+        m = chr_meshes.get(f"chr_base_stone_column_{s['column']}")
+        if m is None or abs(m.bounds[0][2] - FINISHED["GF"]) > 1e-3 or abs(m.bounds[1][2] - (L["roof"] - T_SLAB)) > 1e-3 \
+                or abs((m.bounds[1][0] - m.bounds[0][0]) - C["colonnade"]["base"]["diameter"]) > 0.02:
+            bad_sl.append(s["column"])
+    if bad_sl or len(ch["sleeves"]) != len(P["structure"]["column_to_roof"]):
+        bad(f"colonnade sleeves: {bad_sl}")
+    else:
+        ok(f"stone sleeves Ø{C['colonnade']['diameter']} with base and capital bands on {', '.join(s['column'] for s in ch['sleeves'])} ({ch['sleeves'][0]['structural']} assumed inside), finished ground floor → roof underside")
+    # the gallery railing variants on B3
+    g = ch["gallery_railing"]
+    par, cop, gl, hr = chr_meshes.get("chr_parapet_plaster_wall"), chr_meshes.get(f"chr_parapet_{C['gallery_railing']['coping']['material']}_coping"), chr_meshes.get("chr_glassrail_glass_panel"), chr_meshes.get("chr_glassrail_bronze_handrail")
+    top = FINISHED["FF"] + P["railing_height"]
+    if all(m is not None for m in (par, cop, gl, hr)) and abs(par.bounds[0][2] - beams["B3"]["z1"]) < 1e-3 and abs(cop.bounds[1][2] - top) < 1e-3 and abs(hr.bounds[1][2] - top) < 1e-3 \
+            and abs(gl.bounds[0][2] - beams["B3"]["z1"]) < 1e-3 and abs((par.bounds[1][0] - par.bounds[0][0]) - beams["B3"]["w"]) < 1e-3:
+        ok(f"gallery railing on the upturned beam B3 (top +{beams['B3']['z1']:.2f}): variant A a {beams['B3']['w']} m plastered parapet with a stone coping to +{top:.2f}, variant B glass with a bronze handrail to +{top:.2f} (toggle; default {g['default']})")
+    else:
+        bad("gallery railing variants on B3")
+    # the pergola
+    pg = ch["pergola"]
+    pm = chr_meshes.get("chr_pergola_timber_beams")
+    cy0, cy1 = COURT_SKY.bounds[1], COURT_SKY.bounds[3]
+    if pm is not None and pg["over_y"][0] >= cy0 - EPS and pg["over_y"][1] <= cy1 + EPS and abs(pm.bounds[0][2] - (L["roof"] + P["roof_finish"])) < 1e-3 and pg["sky_covered_share"] <= 0.15:
+        ok(f"pergola: {pg['beams']} timber beams {pg['section'][0]} × {pg['section'][1]} at {pg['spacing']} m over y {pg['over_y'][0]}–{pg['over_y'][1]} of the courtyard sky (y {cy0}–{cy1}), on the roof finish; "
+           f"covers {pg['sky_covered_share'] * 100:.0f} % of the sky hole (toggle; default {'on' if pg['default'] else 'off'})")
+    else:
+        bad(f"pergola: {pg}")
+    # the roof parapet and the character meshes' plan extent
+    rp = chr_meshes.get("chr_base_plaster_roof_parapet")
+    if rp is not None and abs(rp.bounds[0][2] - (L["roof"] + P["roof_finish"])) < 1e-3 and abs(chr_meshes["chr_base_stone_roof_coping"].bounds[1][2] - ch["roof_parapet"]["z1"]) < 1e-3:
+        ok(f"roof parapet {C['roof']['parapet']['height']} m on the outer walls from the roof finish, stone coping to +{ch['roof_parapet']['z1']:.2f}; bronze railings {C['roof']['railing']['height']} m round the courtyard sky and the suite court (the gym roof edge stays a railing)")
+    else:
+        bad("roof parapet")
+    proud = max(C["plinth"]["thickness"], C["feature_walls"]["thickness"], C["roof"]["parapet"]["overhang"]) + 1e-3
+    chrv = np.vstack([m.vertices for m in chr_meshes.values()])
+    ob = outline_poly.bounds
+    if chrv[:, 0].min() > ob[0] - T_OUT / 2 - proud and chrv[:, 1].min() > ob[1] - T_OUT / 2 - proud and chrv[:, 0].max() < ob[2] + T_OUT / 2 + proud and chrv[:, 1].max() < ob[3] + T_OUT / 2 + proud:
+        ok(f"every character mesh lies within the outer wall face + {proud - 1e-3:.2f} m (plinth, cladding, coping); props and lanterns in the courtyard / under the soffit")
+    else:
+        bad(f"character meshes beyond the outer face: x {chrv[:, 0].min():.3f}–{chrv[:, 0].max():.3f}, y {chrv[:, 1].min():.3f}–{chrv[:, 1].max():.3f}")
+    # the arches variant
+    arc = ch["arches"]
+    main_y = sorted(c["y"] for c in cols.values() if c["id"] in P["structure"]["column_to_roof"])
+    want_n = sum(max(2, round((b - a) / C["arches"]["bay_target"])) - 1 for a, b in zip(main_y, main_y[1:]))
+    am, ac = chr_meshes.get("chr_arches_plaster_arches"), chr_meshes.get("chr_arches_stone_columns")
+    bays_ok = all(1.9 <= b["bay"] <= 2.4 for b in arc["bays"])
+    spring_ok = all(b["springing"] - FINISHED["GF"] >= 2.1 for b in arc["bays"])
+    soffit = STRUCT_TOP["FF"] - T_SLAB - C["soffit"]["thickness"]
+    if am is not None and ac is not None and len(arc["intermediate_columns"]) == want_n and bays_ok and spring_ok and abs(am.bounds[1][2] - soffit) < 1e-3 \
+            and all(abs(x - PROJ_X) < EPS for x, _ in arc["intermediate_columns"]) and set(arc["rooms"].values()) <= {"Courtyard", "Living (double height)"}:
+        ok(f"arches variant: {want_n} slender columns Ø{C['arches']['column_diameter']} on x {PROJ_X} at y {', '.join(str(y) for _, y in arc['intermediate_columns'])} "
+           f"(in the courtyard and the double-height living), {len(arc['bays'])} bays of {min(b['bay'] for b in arc['bays'])}–{max(b['bay'] for b in arc['bays'])} m, segmental arches under the soffit +{soffit:.2f}, "
+           f"springing ≥ {min(b['springing'] for b in arc['bays']):.2f} above the floor; decorative, toggle (default {'on' if arc['default'] else 'off'})")
+    else:
+        bad(f"arches variant: columns {len(arc['intermediate_columns'])} (want {want_n}), bays ok {bays_ok}, springing ok {spring_ok}, rooms {arc['rooms']}")
 
 print()
 for f in summary["flags"]:
