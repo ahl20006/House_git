@@ -25,7 +25,7 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
    Acoustic / structural engineer to set the build-ups, then check on site. Details in `DETAILS.md`.
 
 ## MEP / plumbing engineer
-8. **Main ventilation system (`docs/AIR_SYSTEM.md`, M1–M3):** the house needs a calculated system by the MEP engineer: filtered fresh air to the closed rooms (ERV / heat recovery, the bedrooms first), exhausts for the baths, WCs and the kitchen, the AC sized separately; a roof plant area over the maid wing and the west shaft as a riser are reserved, not designed; duct routes in the gypsum ceilings. The malqaf is a dry natural supplement (night ventilation) with options A / B / C to compare; no water inside the tower or the duct.
+8. **Main ventilation system (`docs/AIR_SYSTEM.md`, M1–M3):** the house needs a calculated system by the MEP engineer: filtered fresh air to the closed rooms (ERV / heat recovery, the bedrooms first), exhausts for the baths, WCs and the kitchen, the AC sized separately; a roof plant area over the maid wing and the west shaft as a riser are reserved, not designed; duct routes in the gypsum ceilings. The malqaf is a dry natural supplement (night ventilation) with options A / B / C to compare; no water inside the tower or the duct. Its outlet (owner, `3d-char2`) is a low grille at the north end of the courtyard's east wall (the kitchen's west wall) over the sunken seating's bench; the duct runs south under the maid bath and the laundry (their drains cross above it: A6); the women's majlis glass stays complete (A7 resolved); the sunken seating's drain and overflow for the MEP engineer.
 9. **Plumbing study (plumbing.typ) still to do:**
    - drain falls and manholes;
    - the east-wall stack;

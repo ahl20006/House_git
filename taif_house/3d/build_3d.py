@@ -170,12 +170,12 @@ def read_let_number(path, name):
 def read_air(path):
     """studies/air_system.typ: every `#let air-<name> = (...)` tuple (the tower polygon, levels, route, box, chamber, kerb, grating ...)."""
     out = {}
-    for m in re.finditer(r"^#let air-([\w-]+)\s*=\s*(\(.*?\))\s*(?://.*)?$", (ROOT / path).read_text(encoding="utf-8"), re.M):
+    for m in re.finditer(r"^#let air-([\w-]+)\s*=\s*(\(.*?\)|-?\d+(?:\.\d+)?)\s*(?://.*)?$", (ROOT / path).read_text(encoding="utf-8"), re.M):
         try:
             out[m.group(1)] = ast.literal_eval(m.group(2))
         except (ValueError, SyntaxError):
             pass   # expressions (air-length) are not data
-    for k in ("tower", "head", "head-opening", "base", "route", "duct", "clear", "invert", "chamber", "cover", "grille"):
+    for k in ("tower", "head", "head-opening", "base", "route", "duct", "clear", "invert", "chamber", "cover", "grille", "grille-x", "sunken"):
         if k not in out:
             raise SystemExit(f"ERROR: air-{k} not found in {path}")
     return out
@@ -367,12 +367,15 @@ def slab(name, poly, z0, z1):
 
 
 # ---------- slabs (structural) and floor finishes, to the outer face of the outer walls ----------
-slab("gf_slab", outer_face, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"])
+COURT_FLOOR = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)   # the courtyard floor between its wall faces: a mesh of its own (the character study's sunken seating replaces it)
+slab("gf_slab", outer_face.difference(COURT_FLOOR), STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"])
+slab("gf_slab_court", COURT_FLOOR, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"])
 ff_slab_poly = outer_face.difference(unary_union([COURT_SKY, DH_VOID, STAIR_OPENING, TOWER_HOLE]))
 slab("ff_slab", ff_slab_poly, STRUCT_TOP["FF"] - T_SLAB, STRUCT_TOP["FF"])
 roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE]))
 slab("roof_slab", roof_poly, STRUCT_TOP["roof"] - T_SLAB, STRUCT_TOP["roof"])
-add(extrude(outer_face.difference(ring), STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_floor"))
+add(extrude(outer_face.difference(ring).difference(COURT_FLOOR), STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_floor"))
+add(extrude(COURT_FLOOR, STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_court"))
 add(extrude(ff_slab_poly.difference(ring), STRUCT_TOP["FF"], FINISHED["FF"], COLOURS["finish"], "ff_finish_floor"))
 add(extrude(roof_poly, STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], COLOURS["finish"], "roof_finish_floor"))
 summary["voids"] = {"ff": {"courtyard_sky": round(COURT_SKY.area, 4), "double_height_living": round(DH_VOID.area, 4), "stair_opening": round(STAIR_OPENING.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4)},
@@ -641,8 +644,9 @@ add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2), zb0 - 0.2, zb0, COLOURS[
 bw, bt, bb = A["duct"]
 tw = (bw - A["clear"][0]) / 2                           # duct wall
 legs = list(zip(A["route"][:-1], A["route"][1:]))
-foot = unary_union([seg_box(a, b, bw) for a, b in legs] + [Point(A["route"][1]).buffer(bw / 2, resolution=4)])
-inner = unary_union([seg_box(a, b, A["clear"][0]) for a, b in legs] + [Point(A["route"][1]).buffer(A["clear"][0] / 2, resolution=4)])
+bends = A["route"][1:-1]                                # the corners between the legs (none on a straight route)
+foot = unary_union([seg_box(a, b, bw) for a, b in legs] + [Point(p).buffer(bw / 2, resolution=4) for p in bends])
+inner = unary_union([seg_box(a, b, A["clear"][0]) for a, b in legs] + [Point(p).buffer(A["clear"][0] / 2, resolution=4) for p in bends])
 tower_out = tower_poly.buffer(T_OUT / 2, join_style=2)
 add(extrude(foot.difference(inner).difference(tower_out), bb + tw, bt - tw, COLOURS["assumed"], "gf_air_duct_walls"))
 add(extrude(foot.difference(tower_out), bb, bb + tw, COLOURS["assumed"], "gf_air_duct_floor"))
@@ -654,12 +658,15 @@ add(extrude(ch_out.difference(ch_in), zc, zb1, COLOURS["assumed"], "gf_air_chamb
 add(extrude(ch_out, zc - 0.15, zc, COLOURS["assumed"], "gf_air_chamber_floor"))
 vx0, vy0, vx1, vy1 = A["cover"]
 add(extrude(box(vx0, vy0, vx1, vy1), FINISHED["GF"] - 0.02, FINISHED["GF"] + 0.005, COLOURS["rail"], "gf_air_cover"))
-gx0, gz0, gx1, gz1 = A["grille"]
-add(extrude(seg_box((gx0, 6.5 + T_IN / 2), (gx1, 6.5 + T_IN / 2), 0.03), FINISHED["GF"] + gz0, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_grille"))   # on the courtyard face of the wall y 6.5
+gy0, gz0, gy1, gz1 = A["grille"]
+gx = A["grille-x"]                                       # the courtyard's east wall (the kitchen's west wall): the grille on its courtyard face, the plenum in its base
+add(extrude(seg_box((gx - T_IN / 2, gy0), (gx - T_IN / 2, gy1), 0.03), FINISHED["GF"] + gz0, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_grille"))
+add(extrude(seg_box((gx, gy0), (gx, gy1), T_IN - 0.04), zb1, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_plenum"))   # inside the wall, from the chamber's level to the grille head
 add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the building's outline below the ground slab, for the underground plan view
 summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
-                  "cover": A["cover"], "grille": A["grille"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
-summary["flags"].append("Air system v2 (studies/air_system.typ): dry tower head, base pit, small dry duct (route A), outlet chamber and wall grille modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled")
+                  "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
+summary["flags"].append("Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall "
+                        "over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled")
 
 # ---------- the sun (Taif) in the model frame ----------
 nx, ny = NORTH                                   # true north on the drawing: canvas x east, y up (= plan north)

@@ -1392,7 +1392,13 @@
  "slabs": [
   {
    "name": "gf_slab",
-   "area": 318.7679,
+   "area": 290.4179,
+   "z0": -0.28,
+   "z1": -0.08
+  },
+  {
+   "name": "gf_slab_court",
+   "area": 28.35,
    "z0": -0.28,
    "z1": -0.08
   },
@@ -2916,8 +2922,8 @@
   "FF wall (11.586, 19.25)\u2013(11.586, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
   "R6 (0.25\u00d70.50 total, soffit +6.70, DROP (not upturned: winter light, X4)): proposed load path on the first-floor walls x 5.6 and x 11.586 over the men's majlis ribs, NOT verified (X5)",
   "X3: suite bath east window y 9.6\u201310.2 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance -0.05 m (CLASH); the column's size and orientation are for the engineer",
-  "Air system v2 (studies/air_system.typ): dry tower head, base pit, small dry duct (route A), outlet chamber and wall grille modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled",
-  "Courtyard north wall: the character study draws a stone pier x 6.4\u20138.1 round the malqaf grille (air item A7, owner: glass shortened to x 5.1\u20136.4, or a solid base under it); the glazing itself is unchanged in the model",
+  "Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled",
+  "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain pier, props; the arches variant is decorative and for a later decision"
  ],
  "rooms": {
@@ -3024,16 +3030,12 @@
   ],
   "route": [
    [
-    8.95,
-    0.75
+    10.25,
+    1.0
    ],
    [
-    7.27,
-    0.75
-   ],
-   [
-    7.27,
-    6.6
+    10.25,
+    7.4
    ]
   ],
   "duct": [
@@ -3047,27 +3049,35 @@
   ],
   "invert": [
    -1.75,
-   -1.86
+   -1.85
   ],
   "chamber": [
-   6.75,
-   6.6,
-   7.95,
-   7.6
+   9.05,
+   7.4,
+   10.7,
+   8.4
   ],
   "cover": [
-   7.0,
-   6.8,
+   10.0,
    7.6,
-   7.4
+   10.6,
+   8.2
   ],
   "grille": [
-   6.85,
-   0.2,
-   7.85,
-   0.8
+   7.7,
+   0.15,
+   8.7,
+   0.75
   ],
-  "duct_footprint_wkt": "POLYGON ((7.097792455435709 0.334254210369921, 6.951801948466053 0.4318019484660536, 6.854254210369921 0.5777924554357096, 6.819999999999999 0.75, 6.819999999999999 6.6, 7.72 6.6, 7.72 1.2, 8.95 1.2, 8.95 0.3, 7.27 0.3, 7.097792455435709 0.334254210369921))",
+  "grille_x": 8.95,
+  "sunken": [
+   -0.45,
+   6.7,
+   7.6,
+   8.85,
+   11.9
+  ],
+  "duct_footprint_wkt": "POLYGON ((9.8 7.4, 10.7 7.4, 10.7 1, 9.8 1, 9.8 7.4))",
   "tower_shaft_area": 0.927
  },
  "sun": {
@@ -3373,12 +3383,12 @@
     "bounds": [
      8.82,
      6.5,
-     -0.08,
+     -0.65,
      8.85,
      13.0,
      7.0
     ],
-    "wall": "courtyard east wall (kitchen below, suite lobby above), both floors",
+    "wall": "courtyard east wall (kitchen below, suite lobby above), both floors: the grille, the fountain and the sunken seating's bench are on it",
     "openings": 2
    },
    {
@@ -3393,7 +3403,7 @@
      6.63,
      3.52
     ],
-    "wall": "courtyard north wall: the piers beside the women's majlis glass and the band over it",
+    "wall": "courtyard north wall: the piers beside the women's majlis glass and the band over it (the glass stays complete)",
     "openings": 1
    },
    {
@@ -3608,26 +3618,24 @@
     "slats": 8
    },
    {
-    "name": "chr_base_stone_fountain_pier",
+    "name": "chr_base_stone_fountain_panel",
     "group": "base",
     "material": "stone",
     "bounds": [
-     6.4,
-     6.63,
-     -0.08,
-     8.1,
-     6.75,
-     2.9
+     8.7,
+     9.3,
+     -0.45,
+     8.82,
+     10.9,
+     1.05
     ],
-    "x": [
-     6.4,
-     8.1
+    "along": [
+     9.3,
+     10.9
     ],
-    "grille_hole": [
-     6.85,
-     7.85,
-     0.2,
-     0.8
+    "z": [
+     -0.45,
+     1.05
     ]
    },
    {
@@ -3635,12 +3643,12 @@
     "group": "base",
     "material": "stone",
     "bounds": [
-     6.6,
-     6.75,
-     0.95,
-     7.9,
-     7.1,
-     1.25
+     8.35,
+     9.45,
+     0.35,
+     8.7,
+     10.75,
+     0.65
     ]
    },
    {
@@ -3648,94 +3656,199 @@
     "group": "base",
     "material": "bronze",
     "bounds": [
-     7.15,
-     6.75,
-     1.9,
-     7.35,
-     6.9,
-     2.05
+     8.55,
+     10.0,
+     0.9,
+     8.7,
+     10.2,
+     1.0
     ]
    },
    {
-    "name": "chr_props_stone_planter",
-    "group": "props",
+    "name": "chr_sunken_stone_light_court_floor",
+    "group": "sunken",
+    "material": "stone_light",
+    "bounds": [
+     4.35,
+     6.6,
+     -0.28,
+     8.85,
+     12.9,
+     0.0
+    ],
+    "replaces": [
+     "gf_slab_court",
+     "gf_finish_court"
+    ]
+   },
+   {
+    "name": "chr_sunken_stone_light_pit_floor",
+    "group": "sunken",
+    "material": "stone_light",
+    "bounds": [
+     6.7,
+     7.6,
+     -0.65,
+     8.85,
+     11.9,
+     -0.45
+    ],
+    "level": -0.45
+   },
+   {
+    "name": "chr_sunken_stone_light_steps",
+    "group": "sunken",
+    "material": "stone_light",
+    "bounds": [
+     6.7,
+     7.6,
+     -0.45,
+     7.3,
+     11.9,
+     -0.15
+    ],
+    "risers": 3,
+    "riser": 0.15,
+    "tread": 0.3
+   },
+   {
+    "name": "chr_sunken_stone_bench",
+    "group": "sunken",
     "material": "stone",
     "bounds": [
-     7.6,
-     6.9,
-     0.0,
-     8.8,
-     8.1,
-     0.55
+     8.4,
+     7.7,
+     -0.45,
+     8.85,
+     9.1,
+     -0.09
+    ],
+    "seat": -0.05
+   },
+   {
+    "name": "chr_sunken_timber_bench_top",
+    "group": "sunken",
+    "material": "timber",
+    "bounds": [
+     8.4,
+     7.7,
+     -0.09,
+     8.85,
+     9.1,
+     -0.05
     ]
    },
    {
-    "name": "chr_props_trunk_olive_soil",
-    "group": "props",
+    "name": "chr_sunken_stone_table",
+    "group": "sunken",
+    "material": "stone",
+    "bounds": [
+     7.5,
+     9.5,
+     -0.45,
+     7.9,
+     10.1,
+     -0.1
+    ]
+   },
+   {
+    "name": "chr_sunken_bronze_drain",
+    "group": "sunken",
+    "material": "bronze",
+    "bounds": [
+     8.225,
+     11.625,
+     -0.46,
+     8.375,
+     11.775,
+     -0.445
+    ],
+    "at": [
+     8.3,
+     11.7
+    ]
+   },
+   {
+    "name": "chr_sunken_bronze_overflow",
+    "group": "sunken",
+    "material": "bronze",
+    "bounds": [
+     8.15,
+     11.88,
+     -0.4,
+     8.45,
+     11.9,
+     -0.32
+    ],
+    "level": -0.4
+   },
+   {
+    "name": "chr_sunken_stone_grille_upstand",
+    "group": "sunken",
+    "material": "stone",
+    "bounds": [
+     8.8,
+     7.65,
+     0.1,
+     8.85,
+     8.75,
+     0.16
+    ]
+   },
+   {
+    "name": "chr_sunken_stone_planter",
+    "group": "sunken",
+    "material": "stone",
+    "bounds": [
+     7.4,
+     7.7,
+     -0.45,
+     8.1,
+     8.4,
+     0.1
+    ]
+   },
+   {
+    "name": "chr_sunken_trunk_olive_soil",
+    "group": "sunken",
+    "material": "trunk",
+    "bounds": [
+     7.48,
+     7.78,
+     0.0,
+     8.02,
+     8.32,
+     0.05
+    ]
+   },
+   {
+    "name": "chr_sunken_trunk_olive_trunk",
+    "group": "sunken",
     "material": "trunk",
     "bounds": [
      7.68,
-     6.98,
-     0.45,
-     8.72,
-     8.02,
-     0.5
+     7.98,
+     0.05,
+     7.82,
+     8.12,
+     2.25
     ]
    },
    {
-    "name": "chr_props_trunk_olive_trunk",
-    "group": "props",
-    "material": "trunk",
-    "bounds": [
-     8.11,
-     7.41,
-     0.5,
-     8.29,
-     7.59,
-     3.4
-    ]
-   },
-   {
-    "name": "chr_props_foliage_olive_canopy",
-    "group": "props",
+    "name": "chr_sunken_foliage_olive_canopy",
+    "group": "sunken",
     "material": "foliage",
     "bounds": [
-     6.9,
-     6.2,
-     2.1,
-     9.5,
+     7.0,
+     7.3,
+     1.5,
+     8.5,
      8.8,
-     4.7
+     3.0
     ],
     "at": [
-     8.2,
-     7.5
-    ]
-   },
-   {
-    "name": "chr_props_timber_bench",
-    "group": "props",
-    "material": "timber",
-    "bounds": [
-     6.0,
-     12.2,
-     0.0,
-     7.8,
-     12.8,
-     0.45
-    ]
-   },
-   {
-    "name": "chr_props_stone_table",
-    "group": "props",
-    "material": "stone",
-    "bounds": [
-     6.6,
-     11.3,
-     0.0,
-     7.2,
-     11.9,
-     0.4
+     7.75,
+     8.05
     ]
    },
    {
@@ -4355,18 +4468,18 @@
    },
    {
     "name": "chr_base_stone_feature_wall_01",
-    "wall": "courtyard east wall (kitchen below, suite lobby above), both floors",
+    "wall": "courtyard east wall (kitchen below, suite lobby above), both floors: the grille, the fountain and the sunken seating's bench are on it",
     "line": "8.95 6.5 8.95 13.0",
     "z": [
-     -0.08,
+     -0.65,
      7.0
     ],
     "openings_cut": 2,
-    "area": 41.62
+    "area": 45.33
    },
    {
     "name": "chr_base_stone_feature_wall_02",
-    "wall": "courtyard north wall: the piers beside the women's majlis glass and the band over it",
+    "wall": "courtyard north wall: the piers beside the women's majlis glass and the band over it (the glass stays complete)",
     "line": "4.25 6.5 8.95 6.5",
     "z": [
      -0.08,
@@ -4406,7 +4519,7 @@
    }
   ],
   "flags": [
-   "Courtyard north wall: the character study draws a stone pier x 6.4\u20138.1 round the malqaf grille (air item A7, owner: glass shortened to x 5.1\u20136.4, or a solid base under it); the glazing itself is unchanged in the model",
+   "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
    "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain pier, props; the arches variant is decorative and for a later decision"
   ],
   "gallery_railing": {
@@ -4448,21 +4561,75 @@
    "coping": 0.05
   },
   "fountain": {
-   "pier_x": [
-    6.4,
-    8.1
+   "wall": "8.95 6.5 8.95 13.0",
+   "along": [
+    9.3,
+    10.9
    ],
-   "grille": [
-    6.85,
-    0.2,
-    7.85,
-    0.8
+   "z": [
+    -0.45,
+    1.05
    ],
    "basin_z": [
-    0.95,
-    1.25
+    0.35,
+    0.65
    ],
-   "note": "the pier shows air item A7 option 2 (the women's majlis glass shortened to x 5.1\u20136.4); the base model's glazing is unchanged until the owner decides"
+   "grille_y": [
+    7.7,
+    8.7
+   ],
+   "clear_of_grille": 0.6,
+   "below_sink_sill": 0.05,
+   "note": "decorative shape under the sink window; its water and drain are air items A8 / A6"
+  },
+  "sunken": {
+   "default": true,
+   "box": [
+    6.7,
+    7.6,
+    8.85,
+    11.9
+   ],
+   "floor": -0.45,
+   "risers": 3,
+   "riser": 0.15,
+   "tread": 0.3,
+   "bench": {
+    "y": [
+     7.7,
+     9.1
+    ],
+    "depth": 0.45,
+    "seat": -0.05
+   },
+   "grille": {
+    "y": [
+     7.7,
+     8.7
+    ],
+    "z": [
+     0.15,
+     0.75
+    ],
+    "above_floor": 0.6,
+    "above_seat": 0.2
+   },
+   "level_edges": {
+    "north": 1.0,
+    "south": 1.0,
+    "west": 2.35,
+    "east": 0.0
+   },
+   "walking_edge_min": 1.0,
+   "drain": [
+    8.3,
+    11.7
+   ],
+   "overflow_level": -0.4,
+   "replaces": [
+    "gf_slab_court",
+    "gf_finish_court"
+   ]
   },
   "lanterns": [
    [
@@ -4600,27 +4767,27 @@
   ],
   "palette": {
    "plaster": [
-    232,
-    224,
-    208,
+    242,
+    236,
+    222,
     255
    ],
    "stone": [
-    118,
-    104,
-    92,
+    186,
+    152,
+    108,
     255
    ],
    "stone_light": [
-    214,
-    206,
-    190,
+    228,
+    220,
+    202,
     255
    ],
    "timber": [
-    148,
-    100,
-    56,
+    176,
+    128,
+    78,
     255
    ],
    "bronze": [
@@ -4642,21 +4809,21 @@
     255
    ],
    "ground": [
-    216,
-    208,
-    192,
+    222,
+    214,
+    198,
     255
    ],
    "foliage": [
-    96,
-    128,
-    70,
+    104,
+    138,
+    76,
     255
    ],
    "trunk": [
-    110,
-    85,
-    60,
+    122,
+    94,
+    64,
     255
    ],
    "lantern": [
@@ -4682,6 +4849,10 @@
    [
     "_slab$",
     "plaster"
+   ],
+   [
+    "_slab_court$|finish_court$",
+    "stone_light"
    ],
    [
     "finish_floor",

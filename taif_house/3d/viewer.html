@@ -6,8 +6,9 @@
 <!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.2.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
-     URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
-       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &arches=0|1 &pergola=0|1 &railing=parapet|glass &night=0|1
+     URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
+       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &arches=0|1 &pergola=0|1 &sunken=0|1 &railing=parapet|glass &night=0|1
+     With the character on, the eye and overview views switch the sun on (character.yaml `sun`) unless the URL names one.
      The character study (3d/character.yaml) is a STYLE STUDY, PROVISIONAL: with it on, the model's meshes are re-coloured by material and
      the chr_* meshes are shown; off, the phase-3 model with its orange / red structural flags is what you see. -->
 <style>
@@ -44,6 +45,7 @@
     <label><input type="checkbox" id="character" checked> <b>character</b> · style study, provisional (3d/character.yaml)</label>
     <label class="sub"><input type="checkbox" id="arches"> arches variant (slender columns + plain arches, GF)</label>
     <label class="sub"><input type="checkbox" id="pergola"> pergola over the north part of the courtyard</label>
+    <label class="sub"><input type="checkbox" id="sunken"> sunken seating under the malqaf grille (east wall)</label>
     <label class="sub">gallery railing on B3: <select id="railing"><option value="parapet">solid parapet + coping</option><option value="glass">glass + bronze handrail</option></select></label>
     <label class="sub"><input type="checkbox" id="night"> night (lanterns and warm room lights)</label>
     <div class="small" id="chrnote"></div>
@@ -51,7 +53,7 @@
   <div class="views">
     <button data-view="nw">north-west</button><button data-view="se">south-east</button><button data-view="top_gf">plan GF</button><button data-view="top_ff">plan FF</button><button data-view="top_air">air system (underground)</button><br>
     <button class="eye" data-view="eye1">eye 1 · living → courtyard</button><button class="eye" data-view="eye2">eye 2 · courtyard → colonnade</button><button class="eye" data-view="eye3">eye 3 · landing → gallery</button><br>
-    <button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
+    <button class="chr" data-view="living">living → sunken seating</button><button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
   </div>
   <label>sun (Taif, true north from base.typ): <select id="sun"><option value="">off</option></select></label>
   <div id="legend"><span style="background:#ebb032"></span>assumed, not approved by the engineer &nbsp; <span style="background:#cd372d"></span>unconfirmed load path (X5) &nbsp; <span style="background:#78b9e1"></span>glass &nbsp; <span style="background:#464650"></span>railings<br>
@@ -80,7 +82,7 @@
   $('northg').setAttribute('transform', 'rotate(' + (data.north_bearing || 0) + ')');
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
-    $('arches').checked = !!CH.defaults.arches; $('pergola').checked = !!CH.defaults.pergola; $('railing').value = CH.defaults.railing;
+    $('arches').checked = !!CH.defaults.arches; $('pergola').checked = !!CH.defaults.pergola; $('railing').value = CH.defaults.railing; $('sunken').checked = !!CH.defaults.sunken;
     $('chrnote').textContent = CH.arches_effect;
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
@@ -109,12 +111,14 @@
   const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 10);
   let centre = new THREE.Vector3(6.6, 3.6, 12), extent = data.extent ? data.extent[0] : [0, 0, 13.3, 24];
   const glassMat = new THREE.MeshLambertMaterial({ color: 0x78b9e1, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });
+  const chrGlassMat = new THREE.MeshLambertMaterial({ color: 0xdce8ee, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });   // clearer glass in the character views
   const nightGlassMat = new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });
   const lanternMat = new THREE.MeshBasicMaterial({ color: 0xffc070, side: THREE.DoubleSide, clippingPlanes: [cutPlane] });
   const charMats = {};   // the character palette (character.yaml) as materials for the re-coloured base meshes
   if (CH) Object.keys(CH.palette).forEach(k => { charMats[k] = new THREE.MeshLambertMaterial({ color: rgb(CH.palette[k]), side: THREE.DoubleSide, clippingPlanes: [cutPlane] }); });
   const assign = CH ? CH.assign.map(([re, mat]) => [new RegExp(re), mat]) : [];
   const hidden = new Set(CH ? CH.hide : []);
+  const hiddenSunken = new Set(CH ? (CH.hide_when_sunken || []) : []);   // the base model's courtyard floor, replaced by the sunken seating while that variant is on
   const lights = [];     // the night lights: the lanterns and the warm room lights (character.yaml)
   new THREE.GLTFLoader().parse(bin, '', gltf => {
     gltf.scene.traverse(o => {
@@ -130,7 +134,7 @@
       o.castShadow = !glass; o.receiveShadow = true;
       if (chr) { const g = n.split('_')[1]; (groups.chr[g] = groups.chr[g] || []).push(o); return; }
       groups.base.push(o);
-      if (CH) { const r = assign.find(([re]) => re.test(n)); o.userData.chrMat = r ? charMats[r[1]] : null; o.userData.hidden = hidden.has(n); }
+      if (CH) { const r = assign.find(([re]) => re.test(n)); o.userData.chrMat = r ? charMats[r[1]] : null; o.userData.hidden = hidden.has(n); o.userData.hiddenSunken = hiddenSunken.has(n); }
       if (n.startsWith('ff_')) groups.ff.push(o);
       else if (n.startsWith('roof_')) groups.roof.push(o);
       else if (n.startsWith('all_col')) groups.col.push(o);
@@ -168,16 +172,18 @@
     groups.plancut_gf.forEach(o => o.visible = planFloor === 'GF');
     groups.plancut_ff.forEach(o => o.visible = planFloor === 'FF');
     // the character study: re-colour the base meshes by material, hide the few it replaces, show its own meshes by group
+    const sunken = chrOn && $('sunken').checked;
     groups.base.forEach(o => {
       if (chrOn && o.userData.hidden) o.visible = false;
-      o.material = o.userData.glass ? (night ? nightGlassMat : glassMat) : (chrOn && o.userData.chrMat ? o.userData.chrMat : o.userData.baseMat);
+      if (sunken && o.userData.hiddenSunken) o.visible = false;
+      o.material = o.userData.glass ? (night ? nightGlassMat : (chrOn ? chrGlassMat : glassMat)) : (chrOn && o.userData.chrMat ? o.userData.chrMat : o.userData.baseMat);
     });
     if (chrOn && mode !== 'top') { groups.room_gf.forEach(o => o.visible = false); groups.room_ff.forEach(o => o.visible = false); }   // the room-colour plates are for the plans: the stone floor shows instead
-    const show = { base: chrOn, props: chrOn, light: chrOn, arches: chrOn && $('arches').checked, pergola: chrOn && $('pergola').checked,
+    const show = { base: chrOn, props: chrOn, light: chrOn, arches: chrOn && $('arches').checked, pergola: chrOn && $('pergola').checked, sunken: sunken,
                    parapet: chrOn && $('railing').value === 'parapet', glassrail: chrOn && $('railing').value === 'glass' };
     Object.keys(groups.chr).forEach(g => groups.chr[g].forEach(o => {
       o.visible = !!show[g] && (!g.startsWith('ff') || ff);
-      if (o.userData.glass) o.material = night ? nightGlassMat : glassMat;
+      if (o.userData.glass) o.material = night ? nightGlassMat : chrGlassMat;
       else if (o.userData.lantern) o.material = night ? lanternMat : o.userData.baseMat;
     }));
     const h = parseFloat($('cut').value);
@@ -185,7 +191,7 @@
     $('cutv').textContent = h >= 10 ? 'off' : '+' + h.toFixed(1) + ' m';
     const k = $('sun').value, s = data.sun && data.sun[k];
     sun.castShadow = !!s && !night;
-    if (s) { sun.position.set(centre.x + s.dir[0] * 60, centre.y + s.dir[1] * 60, centre.z + s.dir[2] * 60); sun.target.position.copy(centre); sun.target.updateMatrixWorld(); sun.intensity = 0.9; hemi.intensity = 0.55; }
+    if (s) { sun.position.set(centre.x + s.dir[0] * 60, centre.y + s.dir[1] * 60, centre.z + s.dir[2] * 60); sun.target.position.copy(centre); sun.target.updateMatrixWorld(); sun.intensity = chrOn ? 0.85 : 0.9; hemi.intensity = chrOn ? 0.7 : 0.55; }   // with the character: a soft ambient under the sun, so the shaded courtyard still reads
     else { sun.position.set(centre.x - 20, centre.y + 30, centre.z - 10); sun.target.position.copy(centre); sun.target.updateMatrixWorld(); sun.intensity = chrOn ? 0.55 : 0.7; hemi.intensity = chrOn ? 0.75 : 0.9; }
     if (night) { scene.background = new THREE.Color(CH.night.background); hemi.color.set(0x5a6a90); hemi.groundColor.set(0x1a1a20); hemi.intensity = 0.22; sun.intensity = 0.04; }
     else { scene.background = DAY_BG; hemi.color.set(0xffffff); hemi.groundColor.set(0x8a7a66); }
@@ -194,7 +200,7 @@
     const dg = scene.getObjectByName('dayground'); if (dg) dg.visible = chrOn && !night && mode !== 'top';
     const gr = scene.getObjectByName('grid'); if (gr) gr.visible = !(chrOn && mode !== 'top');
     $('study').style.display = chrOn ? 'block' : 'none';
-    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ' · arches ' + ($('arches').checked ? 'on' : 'off') + ' · railing ' + $('railing').value + ($('pergola').checked ? ' · pergola' : '') + (night ? ' · night' : '') : '') + (currentTitle ? ' · ' + currentTitle : '');
+    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ' · arches ' + ($('arches').checked ? 'on' : 'off') + ' · railing ' + $('railing').value + ($('pergola').checked ? ' · pergola' : '') + (sunken ? ' · sunken seating' : '') + (night ? ' · night' : (s ? ' · sun ' + k.replace('-', ' ') + ':00' : '')) : '') + (currentTitle ? ' · ' + currentTitle : '');
     note();
   }
   function note() {
@@ -235,14 +241,14 @@
       const aerial = bm.eye[1] > 12;
       useCamera(persp); camera.fov = aerial ? 45 : 65; camera.up.set(0, 1, 0); camera.position.set(bm.eye[0], bm.eye[1], bm.eye[2]); controls.target.set(bm.target[0], bm.target[1], bm.target[2]);
       $('cut').value = 10; $('ff').checked = true; $('roof').checked = true;
-      if (CH) $('night').checked = !!bm.night;
+      if (CH) { $('night').checked = !!bm.night; if (!q.has('sun')) $('sun').value = (!bm.night && $('character').checked) ? (CH.sun || '') : ''; }   // the character views carry the sun and its shadows (character.yaml)
     } else {
       planFloor = '';
       useCamera(persp); camera.fov = 40; camera.up.set(0, 1, 0);
       if (v === 'se') camera.position.set(centre.x + d * 0.75, centre.y + d * 0.6, centre.z + d * 0.75);
       else camera.position.set(centre.x - d * 0.75, centre.y + d * 0.6, centre.z - d * 0.75);
       controls.target.copy(centre);
-      if (CH) $('night').checked = false;
+      if (CH) { $('night').checked = false; if (!q.has('sun')) $('sun').value = $('character').checked ? (CH.sun || '') : ''; }
     }
     camera.updateProjectionMatrix(); controls.update(); apply();
   }
@@ -265,10 +271,11 @@
     if (q.get('character') === '0') $('character').checked = false;
     if (q.get('arches')) $('arches').checked = q.get('arches') === '1';
     if (q.get('pergola')) $('pergola').checked = q.get('pergola') === '1';
+    if (q.get('sunken')) $('sunken').checked = q.get('sunken') === '1';
     if (q.get('railing')) $('railing').value = q.get('railing');
     if (q.get('night')) $('night').checked = q.get('night') === '1';
   }
-  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'arches', 'pergola', 'railing', 'night'].forEach(id => $(id).addEventListener('input', apply));
+  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'arches', 'pergola', 'sunken', 'railing', 'night'].forEach(id => $(id).addEventListener('input', apply));
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
     setView(b.dataset.view);
     if (CH && !b.dataset.view.startsWith('top') && q.get('character') !== '0') { $('character').checked = true; apply(); }   // the eye and overview buttons bring the character back

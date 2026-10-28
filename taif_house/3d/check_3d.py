@@ -39,7 +39,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 P = yaml.safe_load((HERE / "params.yaml").read_text(encoding="utf-8"))
-EPS, TOL_AREA = 1e-6, 0.05
+EPS, TOL_AREA, SNAP = 1e-6, 0.05, 0.02
 problems = []
 
 
@@ -163,7 +163,7 @@ def mesh_area(name, t):
     return meshes[name].volume / t
 gf_csv = sum(area(r["pts"]) for r in GF)            # 22 CSV rooms incl. the courtyard + the air tower
 ff_csv = sum(area(r["pts"]) for r in FF)            # 21 CSV rooms incl. the suite court + the 4 fixed elements
-gf_slab, ff_slab, roof = mesh_area("gf_slab", T_SLAB), mesh_area("ff_slab", T_SLAB), mesh_area("roof_slab", T_SLAB)
+gf_slab, ff_slab, roof = mesh_area("gf_slab", T_SLAB) + mesh_area("gf_slab_court", T_SLAB), mesh_area("ff_slab", T_SLAB), mesh_area("roof_slab", T_SLAB)   # the courtyard floor is a mesh of its own
 ff_voids = COURT_SKY.area + DH_VOID.area + STAIR_OPENING.area + TOWER_HOLE.area
 for label, got, want in (("GF slab = outline + half the outer wall (the slab reaches the outer face)", gf_slab, outer_face.area),
                          ("FF slab = outline + half the outer wall − courtyard sky − double-height void − stair opening − tower shaft", ff_slab, outer_face.area - ff_voids),
@@ -357,24 +357,24 @@ else:
 print("9. Air system (studies/air_system.typ, all assumed)")
 air = summary["air"]
 foot = wkt.loads(air["duct_footprint_wkt"])
-under = sorted({r["name"] for r in GF if Polygon(r["pts"]).intersection(foot).area > 0.01})
-if set(under) <= {"Women's majlis", "Air tower", "Courtyard"}:   # the courtyard: only the mouth under its north wall, into the chamber (A3)
-    ok(f"dry duct route A ({len(air['route']) - 1} legs) runs only under: {under}: no bedroom, no wet room")
+under = sorted({r["name"] for r in GF if Polygon(r["pts"]).buffer(-T_IN / 2, join_style=2).intersection(foot).area > 0.01})   # the rooms between their wall faces
+if set(under) <= {"Maid bath", "Laundry", "Kitchen", "Air tower"}:   # route E (owner, 3d-char2): south under the maid wing to the chamber under the kitchen floor; no bedroom
+    ok(f"dry duct route E ({len(air['route']) - 1} leg(s), x {air['route'][0][0]}) runs only under: {under}: no bedroom (it passes under the laundry's east partition line x 10.65 by 0.05, a light partition); the maid bath and laundry drains cross above it (A6)")
 else:
     bad(f"the duct runs under {under}")
-court_poly = Polygon(next(r for r in GF if r["name"] == "Courtyard")["pts"])
+kitchen_poly = Polygon(next(r for r in GF if r["name"] == "Kitchen")["pts"])
 cham = Polygon([(air["chamber"][0], air["chamber"][1]), (air["chamber"][2], air["chamber"][1]), (air["chamber"][2], air["chamber"][3]), (air["chamber"][0], air["chamber"][3])])
-if court_poly.buffer(0.11).contains(cham) and cham.bounds[0] > PROJ_X:
-    ok(f"outlet chamber x {air['chamber'][0]}–{air['chamber'][2]} y {air['chamber'][1]}–{air['chamber'][3]} inside the courtyard against its north wall, east of the projection edge x {PROJ_X} (open sky)")
+if kitchen_poly.buffer(0.01).contains(cham) and abs(cham.bounds[0] - (air["grille_x"] + T_IN / 2)) < 1e-6:
+    ok(f"outlet chamber x {air['chamber'][0]}–{air['chamber'][2]} y {air['chamber'][1]}–{air['chamber'][3]} under the kitchen floor against the kitchen's west wall (x {air['grille_x']}); the sealed cover in the kitchen floor")
 else:
-    bad("outlet chamber not inside the courtyard / under the projection")
+    bad("outlet chamber not under the kitchen floor against its west wall")
 pad = 1.5
 def padbox(cid):
     c = COLS[cid]
     return Polygon([(c["x"] - pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] + pad / 2), (c["x"] - pad / 2, c["y"] + pad / 2)])
-near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C21", "C25", "C26", "C17", "C24", "C30")}
+near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C25", "C26", "C31", "C27", "C24", "C30")}
 tower_poly = Polygon(air["tower"]).buffer(T_OUT / 2)
-clash = [cid for cid, d in near.items() if d < 0.1 and not tower_poly.intersects(padbox(cid))]
+clash = [cid for cid, d in near.items() if d < 0.1 - 1e-6 and not tower_poly.intersects(padbox(cid))]
 if not clash:
     ok("clear of the assumed 1.5 m pads (box to pad): " + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + " · C24 / C30 stand on the tower base box (A1)")
 else:
@@ -384,11 +384,16 @@ if bt <= -0.9 - 0.05 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2
     ok(f"dry duct top {bt:+.2f} (under the assumed tie beams at −0.90), underside {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]} (assumed, to be sized); head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
 else:
     bad(f"air levels: duct {bt}…{bb}, head {air['head']}")
-gx0, gz0, gx1, gz1 = air["grille"]
-if 0.2 <= gz0 <= 0.5 and gz1 > gz0 and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
-    ok(f"outlet: a grille in the courtyard's north wall (x {gx0}–{gx1}, +{gz0:.2f} … +{gz1:.2f}); no air opening and no water in the courtyard floor (the cover is sealed)")
+gy0, gz0, gy1, gz1 = air["grille"]
+gm = meshes.get("gf_air_grille")
+sink = next((o for o in ops if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
+grille_ok = gm is not None and abs(gm.bounds[0][0] - (air["grille_x"] - T_IN / 2 - 0.015)) < 1e-3 and gm.bounds[0][1] > air["chamber"][1] - 0.5 and gm.bounds[1][1] < air["chamber"][3] + 0.5
+clear_of_sink = sink is None or gy1 <= min(sink["a"][1], sink["b"][1]) - 0.3
+if grille_ok and 0.1 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "gf_air_plenum" in meshes and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
+    ok(f"outlet: a grille on the courtyard face of the kitchen's west wall (x {air['grille_x']}, y {gy0}–{gy1}, +{gz0:.2f} … +{gz1:.2f}) over the chamber, with the plenum in the wall base, "
+       f"{min(sink['a'][1], sink['b'][1]) - gy1:.2f} m north of the kitchen sink window; no air opening and no water in the courtyard floor (the cover is sealed, in the kitchen)")
 else:
-    bad("outlet: grille levels / a floor opening or water left from v1")
+    bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
 if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.0:
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:
@@ -402,7 +407,7 @@ chr_meshes = {n: m for n, m in meshes.items() if n.startswith("chr_")}
 if not C.get("enabled", True) or not ch.get("enabled"):
     ok("character study disabled in character.yaml: no chr_* meshes") if not chr_meshes else bad(f"character disabled but {len(chr_meshes)} chr_* meshes in the GLB")
 else:
-    GROUPS = {"base", "parapet", "glassrail", "pergola", "arches", "props", "light"}
+    GROUPS = {"base", "parapet", "glassrail", "pergola", "arches", "sunken", "props", "light"}
     badnames = [n for n in chr_meshes if len(n.split("_")) < 4 or n.split("_")[1] not in GROUPS or n.split("_")[2] not in C["palette"]]
     listed = {m["name"] for m in ch["meshes"]}
     if badnames or listed != set(chr_meshes):
@@ -501,6 +506,39 @@ else:
         ok(f"every character mesh lies within the outer wall face + {proud - 1e-3:.2f} m (plinth, cladding, coping); props and lanterns in the courtyard / under the soffit")
     else:
         bad(f"character meshes beyond the outer face: x {chrv[:, 0].min():.3f}–{chrv[:, 0].max():.3f}, y {chrv[:, 1].min():.3f}–{chrv[:, 1].max():.3f}")
+    # the sunken seating variant: replaces the base model's courtyard floor; depth, steps, level edges at every door and glass wall, the grille over the bench, the drain
+    sk = ch["sunken"]
+    court_floor = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)
+    px0, py0, px1, py1 = sk["box"]
+    pit = Polygon([(px0, py0), (px1, py0), (px1, py1), (px0, py1)])
+    pf, st_m, cf = chr_meshes.get("chr_sunken_stone_light_pit_floor"), chr_meshes.get("chr_sunken_stone_light_steps"), chr_meshes.get("chr_sunken_stone_light_court_floor")
+    base_ok = all(n in meshes for n in sk["replaces"]) and abs(mesh_area("gf_slab_court", T_SLAB) - court_floor.area) < TOL_AREA
+    floor_ok = pf is not None and abs(pf.bounds[1][2] - (FINISHED["GF"] + sk["floor"])) < 1e-3 and cf is not None and abs(cf.bounds[1][2] - FINISHED["GF"]) < 1e-3 and abs(cf.volume - (court_floor.area - pit.area) * (T_SLAB + P["finish"])) < TOL_AREA
+    tread_tops = sorted({round(float(z), 3) for z in st_m.vertices[:, 2]}) if st_m is not None else []
+    steps_ok = st_m is not None and all(abs(FINISHED["GF"] - sk["riser"] * k - t) < 1e-3 for k, t in zip(range(sk["risers"] - 1, 0, -1), [t for t in tread_tops if t > FINISHED["GF"] + sk["floor"] + 1e-3])) \
+        and abs(sk["risers"] * sk["riser"] + sk["floor"]) < 1e-6
+    # every courtyard door / full-height glass (sill at the floor) keeps a level edge ≥ walking_edge_min in front of it
+    court_edge = Polygon(court["pts"]).exterior
+    low = [o for o in ops if o["floor"] == "GF" and o["sill"] <= FINISHED["GF"] + 1e-6 and court_edge.distance(Point(o["a"])) < SNAP and court_edge.distance(Point(o["b"])) < SNAP]
+    too_close = [(o["name"], round(LineString([o["a"], o["b"]]).distance(pit), 2)) for o in low if LineString([o["a"], o["b"]]).distance(pit) < sk["walking_edge_min"] + T_IN / 2 - 1e-6]
+    edges_ok = court_floor.contains(pit) and min(sk["level_edges"]["north"], sk["level_edges"]["south"], sk["level_edges"]["west"]) >= sk["walking_edge_min"] - 1e-6 and abs(sk["level_edges"]["east"]) < 1e-6
+    g_ = sk["grille"]
+    grille_ok = g_["above_floor"] >= 0.15 and g_["above_seat"] >= 0.15 and sk["bench"]["y"][0] <= g_["y"][0] and g_["y"][1] <= sk["bench"]["y"][1] and "chr_sunken_stone_grille_upstand" in chr_meshes
+    dm = chr_meshes.get("chr_sunken_bronze_drain")
+    drain_ok = dm is not None and pit.contains(Point(sk["drain"])) and abs(dm.bounds[0][2] - (FINISHED["GF"] + sk["floor"] - 0.01)) < 1e-3 and "chr_sunken_bronze_overflow" in chr_meshes and sk["overflow_level"] > sk["floor"]
+    if base_ok and floor_ok and steps_ok and not too_close and edges_ok and grille_ok and drain_ok:
+        ok(f"sunken seating (variant, default {'on' if sk['default'] else 'off'}): the courtyard floor replaced ({', '.join(sk['replaces'])}) by a pit {-sk['floor']:.2f} deep against the east wall, x {px0}–{px1} y {py0}–{py1}, "
+           f"{sk['risers']} risers × {sk['riser']} from the west; level edges north {sk['level_edges']['north']:.2f} / south {sk['level_edges']['south']:.2f} / west {sk['level_edges']['west']:.2f} m (≥ {sk['walking_edge_min']}): "
+           f"no step at any door or glass wall ({len(low)} floor-level openings on the courtyard checked); the grille y {g_['y'][0]}–{g_['y'][1]} over the bench (y {sk['bench']['y'][0]}–{sk['bench']['y'][1]}), "
+           f"{g_['above_seat']:.2f} above the seat and {g_['above_floor']:.2f} above the sunken floor, with an upstand; a drain at the lowest point ({sk['drain'][0]}, {sk['drain'][1]}) and an overflow at {sk['overflow_level']:+.2f} (MEP, A6)")
+    else:
+        bad(f"sunken seating: base {base_ok}, floor {floor_ok}, steps {steps_ok} {tread_tops}, too close to a door {too_close}, edges {edges_ok} {sk['level_edges']}, grille {grille_ok}, drain {drain_ok}")
+    # the fountain on the east wall between the grille and the sink window
+    fo = ch["fountain"]
+    if fo["clear_of_grille"] >= 0.3 and (fo["below_sink_sill"] is None or fo["below_sink_sill"] >= 0) and "chr_base_stone_fountain_panel" in chr_meshes:
+        ok(f"wall fountain (shape only) on the courtyard's east wall y {fo['along'][0]}–{fo['along'][1]}: {fo['clear_of_grille']:.2f} m south of the malqaf grille, under the kitchen sink window with its top {fo['below_sink_sill']:.2f} m below the sill; the women's majlis glass untouched")
+    else:
+        bad(f"fountain: {fo}")
     # the arches variant
     arc = ch["arches"]
     main_y = sorted(c["y"] for c in cols.values() if c["id"] in P["structure"]["column_to_roof"])
