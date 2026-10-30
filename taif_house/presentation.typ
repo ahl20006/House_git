@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V7.0 · presentation set, A3, 12 sheets (ground floor, first floor, roof) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V7.0_presentation.pdf
+// presentation.typ · Taif / Palm House V7.1 · presentation set, A3, 12 sheets (ground floor, first floor, roof) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V7.1_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -31,7 +31,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V7.0])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V7.1])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -143,7 +143,7 @@
   light: (((10.65, 2.8), (10.65, 7.0)),),                             // 100 mm dry block, laundry / maid room
 )
 #let ff-walls = (
-  open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0))),
+  open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0)), ((sec.x-court, sec.y-court), (sec.pj-edge, sec.y-court))),   // V7.1: the family living open to the gallery's north end
   rail: (),   // V7.0: the gallery edge and the family living edge are walls with the steel windows W1 / W2 (enclosure A)ard edge
   light: (((2.25, 0.7), (4.25, 0.7)),),                               // linen cupboard front
 )
@@ -662,9 +662,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 1.7pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 1.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(5.9pt)[#d.version], text(5.9pt, weight: "bold")[#d.topic], text(5.9pt)[#fill-in(d.decision)], text(5.9pt)[#fill-in(d.reason)], align(right, text(6.3pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(5.5pt)[#d.version], text(5.5pt, weight: "bold")[#d.topic], text(5.5pt)[#fill-in(d.decision)], text(5.5pt)[#fill-in(d.reason)], align(right, text(5.9pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
@@ -691,7 +691,7 @@
 
 // ===================================================================================== SHEET 11 · roof plan (V7.0)
 #pagebreak()
-#sheet-head([Roof plan / the stair room, the set-back attic and the reserved zones], [studies/roof.typ (owner decisions 31 Oct 2026) | flat roof, no tiles | the main stair continues to the roof | the attic 1.8 m set back 1.0 m behind the main cornice | zones reserved, not designed | all sizes assumed])
+#sheet-head([Roof plan / the stair room, the set-back attic and the reserved zones], [studies/roof.typ (owner decisions 31 Oct 2026; V7.1 adds the courtyard arcade and the arched enclosure windows below the roof) | flat roof, no tiles | the main stair continues to the roof | the attic 1.8 m set back 1.0 m behind the main cornice | zones reserved, not designed | all sizes assumed])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   rf.plan(length: 0.86cm),
   [

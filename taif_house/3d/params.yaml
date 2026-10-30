@@ -1,7 +1,7 @@
-# params.yaml · Taif / Palm House V7.0 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
+# params.yaml · Taif / Palm House V7.1 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
 # The geometry itself (rooms, outline, voids, projection, doors, windows, stair, columns, beams) is read from the project files;
 # these are only the levels, thicknesses, heights and the view settings. Every value marked "assumed" is to be confirmed.
-version: V7.0
+version: V7.1
 
 levels:                 # FINISHED floor levels (the levels of the plans and sections); to confirm with the engineer (OPEN_ITEMS.md item 6)
   gf_floor: 0.00        # ground floor finished level ±0.00
@@ -64,11 +64,18 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: FF, at: "6.0 19.25 7.0 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00 (studies/sections.typ cl-sill / cl-head)"}
     - {floor: FF, at: "7.6 19.25 8.6 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00"}
     # V6.4 · courtyard enclosure option A (studies/courtyard_enclosure.typ): black steel divided-lite windows; the gallery and family living edges are no longer open edges (3d/open_edges.csv)
-    - {floor: FF, at: "5.8 6.5 5.8 19.25", sill: 0.22, head: 3.15, note: "W1 gallery edge on the B3 upstand: sill +3.82, guarding transom +4.70, head +6.75 (R11 soffit); four inward casements"}
-    - {floor: FF, at: "4.25 6.5 8.95 6.5", sill: 0.0, head: 3.15, note: "W2 family living edge on B2: floor to +6.75; two casements (the whole edge, as in studies/ff_family.typ windows)"}
+    # V7.1 (owner): the enclosure windows get semicircular heads; the base model cuts each opening to its crown, the character layer draws the spandrel and the arched frame
+    - {floor: FF, at: "5.8 6.783 5.8 8.383", sill: 0.22, head: 3.00, note: "W1 arched window 1 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "5.8 8.95 5.8 10.55", sill: 0.22, head: 3.00, note: "W1 arched window 2 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "5.8 11.117 5.8 12.717", sill: 0.22, head: 3.00, note: "W1 arched window 3 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "5.8 13.242 5.8 14.842", sill: 0.22, head: 3.00, note: "W1 arched window 4 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "5.8 15.325 5.8 16.925", sill: 0.22, head: 3.00, note: "W1 arched window 5 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "5.8 17.408 5.8 19.008", sill: 0.22, head: 3.00, note: "W1 arched window 6 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60"}
+    - {floor: FF, at: "6 6.5 7.3 6.5", sill: 0.0, head: 3.00, note: "W2 arched window 1 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95"}
+    - {floor: FF, at: "7.55 6.5 8.85 6.5", sill: 0.0, head: 3.00, note: "W2 arched window 2 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95"}
   # W3 (V7.0, enclosure option A): the living's upper courtyard side at y 13.0 east of C22: a wall piece from the ground-floor wall top (+3.32) to the R2 soffit
   # (+6.75) with the window cut in it; with the ground-floor glass to +3.32 it reads as one steel wall ±0.00 … +6.75 (build_3d.py: the void wall)
-  enclosure_w3: {at: "6.05 13.0 8.85 13.0", head: 6.75, transom: 3.82}
+  enclosure_w3: {at: "6.0 13.0 8.8 13.0", head: 6.60, transom: 3.82}   # V7.1: ONE arched window 2.80 wide (the space between C22's sleeve and the east wall), springing +5.20, crown +6.60; the tilt lites in its lower part
 
 structure:              # the elements taken from studies/structure.typ (phase 3: the stair – colonnade – living zone only); sizes ASSUMED there
   assumed: [C21, C22, C23, C33, B3, B5, B16, B17, B18, R11, R1, R2, R16, R17, R18]   # V7.0: R1 / R2 (the heads of W2 / W3), R16–R18 (the roof opening over the stair)   # orange in the model: "assumed, not approved by the engineer"
@@ -138,6 +145,6 @@ sources:                # where build_3d.py reads the geometry (paths from taif_
   air_system: studies/air_system.typ   # "#let air-*": the tower head, base box, tunnel route, water channel and outlet chamber (all assumed)
 
 output:
-  glb: 3d/output/taif_house_V7.0.glb
-  viewer_data: 3d/output/taif_house_V7.0.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
+  glb: 3d/output/taif_house_V7.1.glb
+  viewer_data: 3d/output/taif_house_V7.1.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
   summary: 3d/output/model_summary.json       # what was built, for 3d/check_3d.py

@@ -2,7 +2,7 @@
 
 One line per change made on the `work` branch since the last release, not yet folded into the documentation, the presentation, the DXFs or the 3D. Fold them in at the next version and clear this table.
 
-**Cleared at V7.0 (31 Oct 2026):** the design language, the courtyard enclosure study and its option A, the maid room, the roof study and everything listed before are in `PROJECT_V7.md` (§4.25–4.29 and the changelog), `OPEN_ITEMS.md`, `REQUIREMENTS.md`, `NEXT_SESSION.md`, the READMEs, the presentation, the DXFs and the 3D.
+**Cleared at V7.1 (31 Oct 2026):** nothing pending; the arched enclosure windows and the courtyard arcade are in `PROJECT_V7.md` (§4.30 and the changelog), `DESIGN_LANGUAGE.md`, the studies, the 3D, the presentation and the DXFs.
 
 | Date | What | Why | Files |
 |---|---|---|---|

@@ -185,6 +185,27 @@ def build(g):
     emit("base", "steel", "window_frames", frames, windows=rec["frames"])
     emit("base", "steel", "window_lites", lites, bars=rec.get("lites", 0))
 
+    # ---------- V7.1: semicircular heads on the courtyard enclosure windows: the spandrel plate (wall thickness) above the springing and the arched frame ----------
+    aw = C["arched_windows"]
+    spandrels, arch_frames = [], []
+    rec["arched_windows"] = []
+    for w in aw["windows"]:
+        i, o = match_window(w["floor"], w["at"])
+        a, b = tuple(o["a"]), tuple(o["b"])
+        (ux, uy), L = unit(a, b)
+        n = (uy, -ux)
+        t = wall_t(a, b)
+        crown = o["head"]
+        spring = crown - L / 2
+        prof = box(0, spring, L, crown).difference(disc((L / 2, spring), L / 2, 32))
+        spandrels += panel(a, b, n, -t / 2, t, prof)
+        f = aw["frame"]
+        ring = disc((L / 2, spring), L / 2, 32).difference(disc((L / 2, spring), L / 2 - f, 32)).intersection(box(0, spring, L, crown))
+        arch_frames += panel(a, b, n, -f / 2, f, ring)
+        rec["arched_windows"].append({"label": w["label"], "at": w["at"], "width": round(L, 3), "sill": o["sill"], "springing": round(spring, 3), "crown": crown, "wall_above": round(STRUCT_TOP["roof"] - 0.45 - crown, 3)})
+    emit("base", "plaster", "arch_spandrels", spandrels, windows=len(aw["windows"]))
+    emit("base", "steel", "arch_frames", arch_frames, windows=len(aw["windows"]))
+
     # ---------- mashrabiya screens: a timber lattice in the reveal, flush with the face ----------
     ms = C["mashrabiya"]
     for k, w in enumerate(ms["windows"]):
@@ -240,6 +261,30 @@ def build(g):
         sleeves.append(emit("base", "stone", f"column_{cid}", meshes, column=cid, diameter=cl["diameter"]))
         rec["sleeves"].append({"column": cid, "x": x, "y": y, "diameter": cl["diameter"], "structural": COLS[cid]["size"], "z0": gf, "z1": roof_under})
     col_holes = unary_union([disc(c, cl["diameter"] / 2 + 0.005) for c in cols.values()])
+
+    # ---------- V7.1: the courtyard arcade: two intermediate stone columns on the colonnade line and three semicircular arches under the soffit (courtyard bay only) ----------
+    ac = C["arcade"]
+    y_c21, y_c22 = cols["C21"][1], cols["C22"][1]
+    ac_cols = []
+    for k, y in enumerate(ac["columns"]["at_y"]):
+        r_ = ac["columns"]["diameter"] / 2
+        meshes = parts(disc((PROJ_X, y), r_), gf, soffit_bottom)
+        meshes += parts(disc((PROJ_X, y), ac["columns"]["base"]["diameter"] / 2), gf, gf + ac["columns"]["base"]["height"])
+        meshes += parts(disc((PROJ_X, y), ac["columns"]["capital"]["diameter"] / 2), soffit_bottom - ac["columns"]["capital"]["height"], soffit_bottom)
+        emit("base", "stone", f"arcade_column_{k}", meshes, at=[PROJ_X, y], diameter=ac["columns"]["diameter"])
+        ac_cols.append(y)
+    faces = [y_c21 + cl["diameter"] / 2] + [v for y in ac_cols for v in (y - ac["columns"]["diameter"] / 2, y + ac["columns"]["diameter"] / 2)] + [y_c22 - cl["diameter"] / 2]
+    bays = [(faces[2 * k], faces[2 * k + 1]) for k in range(len(ac_cols) + 1)]
+    arches, arch_rec = [], []
+    for y0, y1 in bays:
+        span = y1 - y0
+        spring = soffit_bottom - span / 2
+        prof = box(0, spring, span, soffit_bottom).difference(disc((span / 2, spring), span / 2, 32))
+        arches += panel((PROJ_X, y0), (PROJ_X, y1), (1.0, 0.0), -ac["arch"]["thickness"] / 2, ac["arch"]["thickness"], prof)
+        arch_rec.append({"y": [round(y0, 4), round(y1, 4)], "span": round(span, 3), "springing": round(spring, 3), "crown": round(soffit_bottom, 3)})
+    emit("base", "plaster", "arcade_arches", arches, bays=len(bays))
+    col_holes = col_holes.union(unary_union([disc((PROJ_X, y), ac["columns"]["diameter"] / 2 + 0.005) for y in ac_cols]))
+    rec["arcade"] = {"columns": [[PROJ_X, y] for y in ac_cols], "diameter": ac["columns"]["diameter"], "bays": arch_rec, "structural": ac["structural"], "bay_axes": round((y_c22 - y_c21) / (len(ac_cols) + 1), 4)}
 
     # ---------- the timber soffit under the projection and the fascia on its edge (the slab edge and the upturned beam) ----------
     b3 = BEAMS["B3"]
@@ -422,7 +467,8 @@ def build(g):
     rec["flags"].append("TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +%.2f) and the arched TV niche %.2f × %.2f m (crown +%.2f); eye-to-screen %.2f m from a sofa with its back at x %.2f; no arches between the colonnade columns" % (tw["entrance"]["head"], n_w, ni["depth"], ni["head"], eye_x - (wx + 0.08), tw["sofa_back_x"]))
     rec["flags"].append("Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, "
                         "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel "
-                        "divided-lite windows, walnut), the quoins, the roof guards; no arches between the colonnade columns (owner, V6.3)" % cl["diameter"])
+                        "divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two Ø%g stone columns, three semicircular arches under the projection, decorative) "
+                        "and semicircular heads on the enclosure windows W1–W3; the living bay keeps no arches (owner, V6.3)" % (cl["diameter"], C["arcade"]["columns"]["diameter"]))
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
     summary["flags"] += rec["flags"]
 
@@ -433,6 +479,6 @@ def build(g):
               "defaults": {"pergola": pg["default"], "sunken": sk["default"]},
               "lights": [[x, z, y] for x, y, z in lights],
               "night": {"background": C["night"]["background"], "lights": [[x, z, y, i] for x, y, z, i in C["night"]["point_lights"]]},
-              "tv_wall": rec["tv_wall"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
+              "tv_wall": rec["tv_wall"], "arcade": rec["arcade"], "arched_windows": rec["arched_windows"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
               "bookmarks": bm}
     return viewer

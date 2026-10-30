@@ -133,7 +133,7 @@
 #let sun-margin = roof + (19.25 - 13.0) * calc.tan(45.2deg)   // the winter noon ray grazing the hole's south edge passes the attic line at this height
 
 // ====================================================================================== PAGE 1 · roof plan
-#text(14pt, weight: "bold", fill: accent)[Roof study · the stair to the roof, the set-back attic, the main cornice, the reserved zones · Taif / Palm House V7.0]
+#text(14pt, weight: "bold", fill: accent)[Roof study · the stair to the roof, the set-back attic, the main cornice, the reserved zones · Taif / Palm House V7.1]
 #v(1pt)
 #text(8pt, fill: gray)[Design review F-07 (major) · owner decisions 31 Oct 2026 · flat roof, no tiles · the roof for maintenance and equipment only · no slab level changes · all sizes assumed until the engineer and the suppliers confirm]
 #v(3pt)

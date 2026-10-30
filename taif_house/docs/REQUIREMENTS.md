@@ -1,4 +1,4 @@
-# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V7.0)
+# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V7.1)
 
 The owner's brief written as numbered, testable requirements. Each has a criterion the design can be checked against; where the owner gave no number, the criterion is a reasonable measurable proxy and is marked *(proxy)*. The design review `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` checks every requirement against the project files (`data/*.csv`, the design files and the studies) and records **met / partly / not met** with evidence.
 
@@ -61,4 +61,4 @@ Sources for the criteria: the owner's brief (this file); municipal villa rules a
 | ID | Requirement | Criterion |
 |---|---|---|
 | R-34 | Quality first (high budget); luxury most important in the living room and the courtyard | The living and the courtyard get the best light, proportions, materials and acoustics; nothing cheap there |
-| R-35 | Recent decisions to respect | West living wall full height and solid with the big TV arch and the small entrance arch; no arches between the colonnade columns; colonnade columns to the roof; upturned edge beam; malqaf outlet on the kitchen wall; sunken seating; kitchen service door; **V7.0:** the courtyard enclosure option A, the maid room at y 7.0, the main stair to the roof, the flat roof with the main cornice and the set-back attic, the design language — each present in the files as decided |
+| R-35 | Recent decisions to respect | West living wall full height and solid with the big TV arch and the small entrance arch; no arches between the colonnade columns; colonnade columns to the roof; upturned edge beam; malqaf outlet on the kitchen wall; sunken seating; kitchen service door; **V7.0:** the courtyard enclosure option A, the maid room at y 7.0, the main stair to the roof, the flat roof with the main cornice and the set-back attic, the design language; **V7.1:** the arched enclosure windows and the three-arch courtyard arcade — each present in the files as decided |

@@ -10,9 +10,9 @@
 | Exterior | Cream plaster with honey stone at the base (plinth) and the corners |
 | Metal | Matte black; a few brass touches in the lighting |
 | Timber | Medium-to-dark walnut (doors, soffits, built-ins) |
-| Arches | Semicircular (Roman): the living's entrance arch and the TV arch |
-| Windows and doors to outside | Black steel with divided lites |
-| Colonnade | Round honey-stone columns (the three two-storey columns of the courtyard) |
+| Arches | Semicircular (Roman): the living's entrance arch and the TV arch; **V7.1:** the courtyard arcade with three arches under the projection (two slender stone columns between C21 and C22, courtyard bay only; the living bay keeps no arches) and arched heads on all the courtyard enclosure windows (six on the gallery edge over the arcade bays, two on the family living's edge, one large one over the living's courtyard glass): a two-tier classical arcade |
+| Windows and doors to outside | Black steel with divided lites; the courtyard enclosure windows with semicircular heads (V7.1), the arched heads fixed, the operable lites below |
+| Colonnade | Round honey-stone columns (the three two-storey columns of the courtyard) and, in the courtyard bay, two slender Ø0.25 intermediate columns of the arcade (V7.1) |
 | Stair railing | Simple black bar railing |
 | Mashrabiya | Only in one or two places (for example the malqaf grille and one courtyard window), not as a theme |
 | Lighting | Mostly hidden (coves, under shelves, in the arches); a few feature pieces (lanterns under the colonnade, one piece over the dining) |

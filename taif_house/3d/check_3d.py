@@ -626,10 +626,29 @@ w1 = [o for o in ops if o["floor"] == "FF" and abs(o["a"][0] - PROJ_X) < 1e-6 an
 w2 = [o for o in ops if o["floor"] == "FF" and abs(o["a"][1] - 6.5) < 1e-6 and abs(o["b"][1] - 6.5) < 1e-6 and o["kind"] == "window"]
 w3 = [o for o in ops if o["name"].startswith("W3")]
 b3z = beams["B3"]["z1"]
-if len(w1) == 1 and abs(w1[0]["sill"] - b3z) < 1e-6 and abs(w1[0]["head"] - 6.75) < 1e-6 and len(w2) == 1 and abs(w2[0]["head"] - 6.75) < 1e-6 and len(w3) == 1 and abs(w3[0]["head"] - 6.75) < 1e-6 and abs(w3[0]["sill"] - STOREY["GF"][1]) < 1e-6:
-    ok(f"courtyard enclosure (option A, V7.0): W1 on the gallery edge x {PROJ_X} from the B3 upstand +{b3z:.2f} to +6.75 ({w1[0]['width']:.2f} m), W2 on the family living edge +{w2[0]['sill']:.2f} … +6.75 ({w2[0]['width']:.2f} m), W3 over the living's courtyard glass +{w3[0]['sill']:.2f} … +6.75 ({w3[0]['width']:.2f} m); no railing on those edges; the sky stays open ({COURT_SKY.area:.2f} m²)")
+soffit = L["roof"] - 0.45          # the roof edge beams' soffit +6.75
+arched = ch.get("arched_windows", [])
+crowns_ok = all(a["crown"] <= soffit - 0.1 + 1e-6 and abs(a["crown"] - a["springing"] - a["width"] / 2) < 1e-6 for a in arched)
+if len(w1) == 6 and all(abs(o["sill"] - b3z) < 1e-6 and o["head"] <= soffit - 0.1 + 1e-6 for o in w1) and len(w2) == 2 and all(o["head"] <= soffit - 0.1 + 1e-6 for o in w2) and len(w3) == 1 and abs(w3[0]["sill"] - STOREY["GF"][1]) < 1e-6 and w3[0]["head"] <= soffit - 0.1 + 1e-6 and len(arched) == 9 and crowns_ok:
+    ok(f"courtyard enclosure (option A, V7.1: semicircular heads): W1 six arched windows {w1[0]['width']:.2f} m on the gallery edge x {PROJ_X} from the B3 upstand +{b3z:.2f}, springing +{arched[0]['springing']:.2f}, crown +{arched[0]['crown']:.2f} ({soffit - arched[0]['crown']:.2f} m of wall below the +{soffit:.2f} soffit); "
+       f"W2 two arched windows {w2[0]['width']:.2f} m east of C21, springing +{arched[6]['springing']:.2f}; W3 one arched window {w3[0]['width']:.2f} m over the living's courtyard glass, +{w3[0]['sill']:.2f} to the crown +{w3[0]['head']:.2f} (springing +{arched[8]['springing']:.2f}); no railing on those edges; the sky stays open ({COURT_SKY.area:.2f} m²)")
 else:
-    bad(f"enclosure windows: W1 {w1}, W2 {w2}, W3 {w3}")
+    bad(f"enclosure windows: W1 {len(w1)}, W2 {len(w2)}, W3 {len(w3)}, arched {len(arched)} crowns ok {crowns_ok}")
+# V7.1: the courtyard arcade: two intermediate columns on the colonnade line in the courtyard bay, three equal bays, arches below the soffit, clear of the sunken seating and the riwaq door
+arc = ch.get("arcade", {})
+pit = Polygon([(sk["box"][0], sk["box"][1]), (sk["box"][2], sk["box"][1]), (sk["box"][2], sk["box"][3]), (sk["box"][0], sk["box"][3])]) if ch.get("sunken") else None
+riwaq_door = next((o for o in ops if o["floor"] == "GF" and abs(o["a"][0] - 4.25) < 1e-6 and 8.0 < o["a"][1] < 12.0 and o["kind"] != "window"), None)
+if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < c[1] < 13.0 for c in arc["columns"]) and len(arc["bays"]) == 3 and all(b["springing"] >= 2.1 for b in arc["bays"]) \
+        and abs(arc["columns"][1][1] - arc["columns"][0][1] - arc["bay_axes"]) < 1e-3 and all(f"chr_base_stone_arcade_column_{k}" in chr_meshes for k in (0, 1)) and "chr_base_plaster_arcade_arches" in chr_meshes:
+    gap_pit = min(pit.distance(Point(c[0], c[1])) - arc["diameter"] / 2 for c in arc["columns"]) if pit is not None else None
+    gap_riwaq = min(Point(c[0], c[1]).distance(LineString([riwaq_door["a"], riwaq_door["b"]])) - arc["diameter"] / 2 - 0.1 for c in arc["columns"]) if riwaq_door else None
+    w1_c = [o for o in w1 if 6.5 < (o["a"][1] + o["b"][1]) / 2 < 13.0]
+    aligned = all(any(abs((o["a"][1] + o["b"][1]) / 2 - (b["y"][0] + b["y"][1]) / 2) < 0.1 for b in arc["bays"]) for o in w1_c)
+    spans_txt = " / ".join("%.2f" % b["span"] for b in arc["bays"])
+    ok(f"courtyard arcade (V7.1, {'structural' if arc['structural'] else 'decorative'}): two Ø{arc['diameter']} stone columns on x {PROJ_X} at y {arc['columns'][0][1]:.3f} / {arc['columns'][1][1]:.3f} (bays {arc['bay_axes']:.3f} m on axes), three semicircular arches under the soffit: spans {spans_txt} m, springing +{min(b['springing'] for b in arc['bays']):.2f} … +{max(b['springing'] for b in arc['bays']):.2f}, crown +{arc['bays'][0]['crown']:.2f}; "
+       f"columns {gap_pit:.2f} m clear of the sunken seating, {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= 0.6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
+else:
+    bad(f"arcade: {arc}")
 gal = [w for w in summary["walls"] if w["floor"] == "FF" and w["kind"] == "wall" and abs(w["a"][0] - PROJ_X) < 1e-6 and abs(w["b"][0] - PROJ_X) < 1e-6]
 gal_clear = PROJ_X - 0.03 - (4.25 + T_IN / 2 + 0.015)
 ok(f"gallery: the wall on x {PROJ_X} (the projection {P['projection']['width']} m) carries W1; clear ≈ {gal_clear:.3f} m between the rooms' plastered face and the window frame, {PROJ_X - 0.2 - (4.25 + T_IN / 2 + 0.015):.3f} m at the Ø0.40 column sleeves (≥ 1.20)") if gal and gal_clear >= 1.2 else bad("gallery wall / clear width")

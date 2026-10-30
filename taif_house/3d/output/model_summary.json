@@ -1,7 +1,7 @@
 {
- "version": "V7.0",
+ "version": "V7.1",
  "params": {
-  "version": "V7.0",
+  "version": "V7.1",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -216,24 +216,72 @@
     },
     {
      "floor": "FF",
-     "at": "5.8 6.5 5.8 19.25",
+     "at": "5.8 6.783 5.8 8.383",
      "sill": 0.22,
-     "head": 3.15,
-     "note": "W1 gallery edge on the B3 upstand: sill +3.82, guarding transom +4.70, head +6.75 (R11 soffit); four inward casements",
+     "head": 3.0,
+     "note": "W1 arched window 1 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
      "_used": true
     },
     {
      "floor": "FF",
-     "at": "4.25 6.5 8.95 6.5",
+     "at": "5.8 8.95 5.8 10.55",
+     "sill": 0.22,
+     "head": 3.0,
+     "note": "W1 arched window 2 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "5.8 11.117 5.8 12.717",
+     "sill": 0.22,
+     "head": 3.0,
+     "note": "W1 arched window 3 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "5.8 13.242 5.8 14.842",
+     "sill": 0.22,
+     "head": 3.0,
+     "note": "W1 arched window 4 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "5.8 15.325 5.8 16.925",
+     "sill": 0.22,
+     "head": 3.0,
+     "note": "W1 arched window 5 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "5.8 17.408 5.8 19.008",
+     "sill": 0.22,
+     "head": 3.0,
+     "note": "W1 arched window 6 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "6 6.5 7.3 6.5",
      "sill": 0.0,
-     "head": 3.15,
-     "note": "W2 family living edge on B2: floor to +6.75; two casements (the whole edge, as in studies/ff_family.typ windows)",
+     "head": 3.0,
+     "note": "W2 arched window 1 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95",
+     "_used": true
+    },
+    {
+     "floor": "FF",
+     "at": "7.55 6.5 8.85 6.5",
+     "sill": 0.0,
+     "head": 3.0,
+     "note": "W2 arched window 2 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95",
      "_used": true
     }
    ],
    "enclosure_w3": {
-    "at": "6.05 13.0 8.85 13.0",
-    "head": 6.75,
+    "at": "6.0 13.0 8.8 13.0",
+    "head": 6.6,
     "transom": 3.82
    }
   },
@@ -430,8 +478,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V7.0.glb",
-   "viewer_data": "3d/output/taif_house_V7.0.js",
+   "glb": "3d/output/taif_house_V7.1.glb",
+   "viewer_data": "3d/output/taif_house_V7.1.js",
    "summary": "3d/output/model_summary.json"
   }
  },
@@ -1446,7 +1494,7 @@
    "kind": "wall",
    "name": "ff_wall_027",
    "a": [
-    4.25,
+    5.8,
     6.5
    ],
    "b": [
@@ -1456,7 +1504,7 @@
    "t": 0.2,
    "z0": 3.52,
    "z1": 7.0,
-   "length": 9.061
+   "length": 7.511
   },
   {
    "floor": "FF",
@@ -1566,7 +1614,7 @@
    ],
    "t": 0.2,
    "z0": 3.32,
-   "z1": 6.75,
+   "z1": 6.6,
    "length": 3.15
   }
  ],
@@ -2309,18 +2357,103 @@
   {
    "floor": "FF",
    "kind": "window",
-   "name": "W1 gallery edge on the B3 upstand: sill +3.82, guarding transom +4.70, head +6.75 (R11 soffit); four inward casements",
+   "name": "W1 arched window 1 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
    "a": [
     5.8,
-    6.5
+    6.783
    ],
    "b": [
     5.8,
-    19.25
+    8.383
    ],
-   "width": 12.75,
+   "width": 1.6,
    "sill": 3.82,
-   "head": 6.75,
+   "head": 6.6,
+   "wall": "ff_wall_007"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W1 arched window 2 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+   "a": [
+    5.8,
+    8.95
+   ],
+   "b": [
+    5.8,
+    10.55
+   ],
+   "width": 1.6,
+   "sill": 3.82,
+   "head": 6.6,
+   "wall": "ff_wall_007"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W1 arched window 3 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+   "a": [
+    5.8,
+    11.117
+   ],
+   "b": [
+    5.8,
+    12.717
+   ],
+   "width": 1.6,
+   "sill": 3.82,
+   "head": 6.6,
+   "wall": "ff_wall_007"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W1 arched window 4 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+   "a": [
+    5.8,
+    13.242
+   ],
+   "b": [
+    5.8,
+    14.842
+   ],
+   "width": 1.6,
+   "sill": 3.82,
+   "head": 6.6,
+   "wall": "ff_wall_007"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W1 arched window 5 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+   "a": [
+    5.8,
+    15.325
+   ],
+   "b": [
+    5.8,
+    16.925
+   ],
+   "width": 1.6,
+   "sill": 3.82,
+   "head": 6.6,
+   "wall": "ff_wall_007"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W1 arched window 6 of 6 on the gallery edge (V7.1): sill +3.82 on the B3 upstand, springing +5.80, crown +6.60",
+   "a": [
+    5.8,
+    17.408
+   ],
+   "b": [
+    5.8,
+    19.008
+   ],
+   "width": 1.6,
+   "sill": 3.82,
+   "head": 6.6,
    "wall": "ff_wall_007"
   },
   {
@@ -2496,18 +2629,35 @@
   {
    "floor": "FF",
    "kind": "window",
-   "name": "W2 family living edge on B2: floor to +6.75; two casements (the whole edge, as in studies/ff_family.typ windows)",
+   "name": "W2 arched window 1 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95",
    "a": [
-    4.25,
+    6.0,
     6.5
    ],
    "b": [
-    8.95,
+    7.3,
     6.5
    ],
-   "width": 4.7,
+   "width": 1.3,
    "sill": 3.6,
-   "head": 6.75,
+   "head": 6.6,
+   "wall": "ff_wall_027"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "W2 arched window 2 of 2 on the family living edge (V7.1): floor to the crown +6.60, springing +5.95",
+   "a": [
+    7.55,
+    6.5
+   ],
+   "b": [
+    8.85,
+    6.5
+   ],
+   "width": 1.3,
+   "sill": 3.6,
+   "head": 6.6,
    "wall": "ff_wall_027"
   },
   {
@@ -2770,16 +2920,16 @@
    "kind": "window",
    "name": "W3 living upper courtyard side, black steel divided lites (enclosure A, V7.0)",
    "a": [
-    6.05,
+    6.0,
     13.0
    ],
    "b": [
-    8.85,
+    8.8,
     13.0
    ],
    "width": 2.8,
    "sill": 3.32,
-   "head": 6.75,
+   "head": 6.6,
    "wall": "ff_void_wall"
   }
  ],
@@ -3323,7 +3473,7 @@
   "Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled",
   "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
   "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
-  "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; no arches between the colonnade columns (owner, V6.3)"
+  "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)"
  ],
  "rooms": {
   "GF": [
@@ -3878,9 +4028,9 @@
      0.0,
      13.261,
      23.95,
-     6.75
+     6.6
     ],
-    "windows": 35
+    "windows": 41
    },
    {
     "name": "chr_base_steel_window_lites",
@@ -3892,9 +4042,37 @@
      0.05,
      13.2535,
      23.9425,
-     6.7
+     6.55
     ],
     "bars": 92
+   },
+   {
+    "name": "chr_base_plaster_arch_spandrels",
+    "group": "base",
+    "material": "plaster",
+    "bounds": [
+     5.7,
+     6.4,
+     5.2,
+     8.85,
+     19.008,
+     6.6
+    ],
+    "windows": 9
+   },
+   {
+    "name": "chr_base_steel_arch_frames",
+    "group": "base",
+    "material": "steel",
+    "bounds": [
+     5.775,
+     6.475,
+     5.2,
+     8.85,
+     19.008,
+     6.6
+    ],
+    "windows": 9
    },
    {
     "name": "chr_base_timber_mashrabiya_00",
@@ -4115,7 +4293,7 @@
      3.52
     ],
     "wall": "courtyard north wall: the piers beside the women's majlis glass and the band over it (the glass stays complete)",
-    "openings": 3
+    "openings": 4
    },
    {
     "name": "chr_base_stone_column_C21",
@@ -4161,6 +4339,56 @@
     ],
     "column": "C23",
     "diameter": 0.4
+   },
+   {
+    "name": "chr_base_stone_arcade_column_0",
+    "group": "base",
+    "material": "stone",
+    "bounds": [
+     5.635,
+     8.5017,
+     0.0,
+     5.965,
+     8.8317,
+     3.27
+    ],
+    "at": [
+     5.8,
+     8.6667
+    ],
+    "diameter": 0.25
+   },
+   {
+    "name": "chr_base_stone_arcade_column_1",
+    "group": "base",
+    "material": "stone",
+    "bounds": [
+     5.635,
+     10.6683,
+     0.0,
+     5.965,
+     10.9983,
+     3.27
+    ],
+    "at": [
+     5.8,
+     10.8333
+    ],
+    "diameter": 0.25
+   },
+   {
+    "name": "chr_base_plaster_arcade_arches",
+    "group": "base",
+    "material": "plaster",
+    "bounds": [
+     5.675,
+     6.7,
+     2.3117,
+     5.925,
+     12.8,
+     3.27
+    ],
+    "bays": 3
    },
    {
     "name": "chr_base_timber_soffit",
@@ -4789,7 +5017,7 @@
     "reveal": 0.2
    },
    {
-    "index": 51,
+    "index": 57,
     "floor": "FF",
     "name": "kids' room north window",
     "a": [
@@ -4808,7 +5036,7 @@
     "reveal": 0.2
    },
    {
-    "index": 52,
+    "index": 58,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4827,7 +5055,7 @@
     "reveal": 0.2
    },
    {
-    "index": 53,
+    "index": 59,
     "floor": "FF",
     "name": "bedroom 3 bath window",
     "a": [
@@ -4846,7 +5074,7 @@
     "reveal": 0.2
    },
    {
-    "index": 54,
+    "index": 60,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4865,7 +5093,7 @@
     "reveal": 0.2
    },
    {
-    "index": 55,
+    "index": 61,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4884,7 +5112,7 @@
     "reveal": 0.2
    },
    {
-    "index": 56,
+    "index": 62,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4903,7 +5131,7 @@
     "reveal": 0.2
    },
    {
-    "index": 57,
+    "index": 63,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4922,7 +5150,7 @@
     "reveal": 0.2
    },
    {
-    "index": 58,
+    "index": 64,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4941,7 +5169,7 @@
     "reveal": 0.2
    },
    {
-    "index": 59,
+    "index": 65,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4960,7 +5188,7 @@
     "reveal": 0.2
    },
    {
-    "index": 60,
+    "index": 66,
     "floor": "FF",
     "name": "suite bath east window, 0.55 m, y 9.50\u201310.05 (X3, V6.3: its frame clears C33 by 0.05 m)",
     "a": [
@@ -4979,7 +5207,7 @@
     "reveal": 0.2
    },
    {
-    "index": 61,
+    "index": 67,
     "floor": "FF",
     "name": "suite bedroom east window",
     "a": [
@@ -4998,7 +5226,7 @@
     "reveal": 0.2
    },
    {
-    "index": 62,
+    "index": 68,
     "floor": "FF",
     "name": "gym south window band",
     "a": [
@@ -5017,7 +5245,7 @@
     "reveal": 0.2
    },
    {
-    "index": 63,
+    "index": 69,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5036,7 +5264,7 @@
     "reveal": 0.2
    }
   ],
-  "frames": 35,
+  "frames": 41,
   "mashrabiya": [
    {
     "name": "chr_base_timber_mashrabiya_00",
@@ -5180,7 +5408,7 @@
      -0.08,
      3.52
     ],
-    "openings_cut": 3,
+    "openings_cut": 4,
     "area": 9.38
    }
   ],
@@ -5216,9 +5444,136 @@
   "flags": [
    "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
    "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
-   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; no arches between the colonnade columns (owner, V6.3)"
+   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)"
   ],
   "lites": 92,
+  "arched_windows": [
+   {
+    "label": "W1-1",
+    "at": "5.8 6.783 5.8 8.383",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W1-2",
+    "at": "5.8 8.95 5.8 10.55",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W1-3",
+    "at": "5.8 11.117 5.8 12.717",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W1-4",
+    "at": "5.8 13.242 5.8 14.842",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W1-5",
+    "at": "5.8 15.325 5.8 16.925",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W1-6",
+    "at": "5.8 17.408 5.8 19.008",
+    "width": 1.6,
+    "sill": 3.82,
+    "springing": 5.8,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W2-1",
+    "at": "6 6.5 7.3 6.5",
+    "width": 1.3,
+    "sill": 3.6,
+    "springing": 5.95,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W2-2",
+    "at": "7.55 6.5 8.85 6.5",
+    "width": 1.3,
+    "sill": 3.6,
+    "springing": 5.95,
+    "crown": 6.6,
+    "wall_above": 0.15
+   },
+   {
+    "label": "W3",
+    "at": "6 13.0 8.8 13.0",
+    "width": 2.8,
+    "sill": 3.32,
+    "springing": 5.2,
+    "crown": 6.6,
+    "wall_above": 0.15
+   }
+  ],
+  "arcade": {
+   "columns": [
+    [
+     5.8,
+     8.6667
+    ],
+    [
+     5.8,
+     10.8333
+    ]
+   ],
+   "diameter": 0.25,
+   "bays": [
+    {
+     "y": [
+      6.7,
+      8.5417
+     ],
+     "span": 1.842,
+     "springing": 2.349,
+     "crown": 3.27
+    },
+    {
+     "y": [
+      8.7917,
+      10.7083
+     ],
+     "span": 1.917,
+     "springing": 2.312,
+     "crown": 3.27
+    },
+    {
+     "y": [
+      10.9583,
+      12.8
+     ],
+     "span": 1.842,
+     "springing": 2.349,
+     "crown": 3.27
+    }
+   ],
+   "structural": false,
+   "bay_axes": 2.1667
+  },
   "pergola": {
    "beams": 5,
    "y": [
@@ -5356,19 +5711,19 @@
    "gf_glass_027",
    "gf_glass_028",
    "gf_glass_029",
-   "ff_glass_051",
-   "ff_glass_052",
-   "ff_glass_053",
-   "ff_glass_054",
-   "ff_glass_055",
-   "ff_glass_056",
    "ff_glass_057",
    "ff_glass_058",
    "ff_glass_059",
    "ff_glass_060",
    "ff_glass_061",
    "ff_glass_062",
-   "ff_glass_063"
+   "ff_glass_063",
+   "ff_glass_064",
+   "ff_glass_065",
+   "ff_glass_066",
+   "ff_glass_067",
+   "ff_glass_068",
+   "ff_glass_069"
   ],
   "palette": {
    "plaster": [
@@ -5384,9 +5739,15 @@
     255
    ],
    "stone_light": [
+    222,
+    208,
+    180,
+    255
+   ],
+   "marble": [
+    236,
+    233,
     226,
-    220,
-    206,
     255
    ],
    "timber": [
@@ -5473,7 +5834,7 @@
    ],
    [
     "finish_floor",
-    "stone_light"
+    "marble"
    ],
    [
     "_door_",

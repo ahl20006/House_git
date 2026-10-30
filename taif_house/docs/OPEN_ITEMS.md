@@ -1,4 +1,4 @@
-# Taif / Palm House · V7.0 · open items
+# Taif / Palm House · V7.1 · open items
 
 Grouped by who has to act. The numbers match `data/open_items.csv` and presentation sheet 10. `tools/check.py` checks that every item is listed here.
 

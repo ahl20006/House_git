@@ -1,4 +1,4 @@
-// review_status.typ · Taif / Palm House · the design review's status after V7.0 (compile THIS file → output/Design_Review_status_V7.pdf)
+// review_status.typ · Taif / Palm House · the design review's status after V7.1 (compile THIS file → output/Design_Review_status_V7.pdf)
 // The review itself (docs/review/design_review.typ → output/Design_Review_V6.pdf, tag review-1, written against V6.2) stays as it was.
 // This page lists every CRITICAL and MAJOR finding with its status after V7.0 (resolved / partly / open), the version that resolved it and
 // the next open items in the order to take them. The ids, places and severities are those of design_review.typ.
@@ -12,7 +12,7 @@
 
 // (id, severity, where, status, version, what was done / what is still open)
 #let rows = (
-  ("Y-01", "critical", "Courtyard · the envelope", "resolved", "V7.0", [Enclosure option A: W1 on the gallery edge (on the B3 upstand, +3.82 … +6.75), W2 on the family living's edge, W3 over the living's courtyard glass (+3.32 … +6.75), black steel divided lites; the projection 1.55 m, B3 / R11 / C21–C23 at x 5.80; the courtyard stays open to the sky (`studies/courtyard_enclosure.typ`).]),
+  ("Y-01", "critical", "Courtyard · the envelope", "resolved", "V7.0", [Enclosure option A: W1 on the gallery edge (on the B3 upstand, +3.82 … +6.75), W2 on the family living's edge, W3 over the living's courtyard glass (+3.32 … +6.75), black steel divided lites; the projection 1.55 m, B3 / R11 / C21–C23 at x 5.80; the courtyard stays open to the sky (`studies/courtyard_enclosure.typ`). V7.1: semicircular heads on all of them (W1 six, W2 two, W3 one) over the three-arch courtyard arcade.]),
   ("A-01", "critical", "Ageing · the lift", "resolved", "V6.3", [The lift is installed at construction, two stops, sliding landing doors; the shaft stays a placeholder until a supplier's drawing (open item 14, now with the headroom rule ≤ 3.40 m / ≤ 3.70 m with a raised head).]),
   ("S-03", "critical", "Site · north and lane setbacks", "partly", "V6.3", [The house moved 0.30 m south: 0.20 m to the lane setback line (was 0.05), 0.80 m to the north street line; provisional until the official survey (open item 1). *Open:* the survey, and the owner's choice if a larger margin is wanted (0.63 m south, or 0.30 south + 0.17 west).]),
   ("G-01", "major", "GF · living wall (west)", "resolved", "V6.3", [The living's west wall solid and full height with the 1.40 m entrance arch and the arched TV niche 4.40 × 0.70; sofa facing west, eye-to-screen 3.47 m; no arches between the colonnade columns.]),
@@ -45,9 +45,9 @@
 )
 #let n(st) = rows.filter(r => r.at(3) == st).len()
 
-#text(15pt, weight: "bold", fill: accent)[Design review · status after V7.0]
+#text(15pt, weight: "bold", fill: accent)[Design review · status after V7.1]
 #v(2pt)
-#text(8.5pt, fill: gray)[Taif / Palm House · the review of 30 Oct 2026 (`docs/review/design_review.typ` → `output/Design_Review_V6.pdf`, tag `review-1`, written against V6.2) · status on 31 Oct 2026 after V6.3 (quick fixes) and V7.0 (courtyard enclosure, maid room, roof access and attic, design language) · every critical and major finding: #rows.len() in all, #S("resolved") #n("resolved") · #S("partly") #n("partly") · #S("open") #n("open")]
+#text(8.5pt, fill: gray)[Taif / Palm House · the review of 30 Oct 2026 (`docs/review/design_review.typ` → `output/Design_Review_V6.pdf`, tag `review-1`, written against V6.2) · status on 31 Oct 2026 after V6.3 (quick fixes), V7.0 (courtyard enclosure, maid room, roof access and attic, design language) and V7.1 (arched enclosure windows, courtyard arcade) · every critical and major finding: #rows.len() in all, #S("resolved") #n("resolved") · #S("partly") #n("partly") · #S("open") #n("open")]
 #v(6pt)
 #table(columns: (auto, auto, 1.1fr, auto, auto, 3.2fr), inset: 3pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Id], [Sev.], [Where], [Status], [Version], [What was done · what is still open]).map(c => text(weight: "bold", fill: accent, c)),

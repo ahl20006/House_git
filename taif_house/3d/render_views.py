@@ -26,7 +26,7 @@ for season in ("summer", "winter"):
         VIEWS[f"sun_{season}_{hour}.png"] = f"view=top&sun={season}-{hour}&labels=0"
 VIEWS = {k: v + "&character=0" for k, v in VIEWS.items()}          # the plain phase-3 model
 VIEWS.update({"char_eye2.png": "view=eye2&character=1", "char_living.png": "view=living&character=1", "char_night.png": "view=night&character=1",
-              "char_north.png": "view=north&character=1", "char_aerial_sw.png": "view=aerial_sw&character=1", "char_tv.png": "view=tv&character=1"})   # the character study; V7.0: the north facade, the aerial, the TV wall
+              "char_north.png": "view=north&character=1", "char_aerial_sw.png": "view=aerial_sw&character=1", "char_tv.png": "view=tv&character=1", "char_w3.png": "view=w3&character=1"})   # the character study; V7.0: the north facade, the aerial, the TV wall
 only = sys.argv[1:]          # optional: render only these files (any char_<view>[_arches].png name works, e.g. char_street.png, char_eye1_arches.png)
 for name in only:
     m = re.fullmatch(r"char_(\w+)\.png", name)

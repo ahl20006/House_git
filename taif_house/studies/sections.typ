@@ -22,7 +22,7 @@
 #let attic-in = 0.875
 #let south-parapet = 8.4     // the south wing's parapet top
 #let guard = 1.1             // the bar guards round the roof holes
-#let w1 = (sill: 3.82, head: 6.75)   // W1 on the gallery edge, on the upstand of B3
+#let w1 = (sill: 3.82, head: 6.60)   // W1 on the gallery edge, on the upstand of B3; V7.1: arched windows 1.60 wide, springing +5.80, crown +6.60
 #let col-half = 0.15         // ½ of a column (drawing only; size by the engineer)
 #let m-line = -shift.at(0)   // the M line in CSV x
 
@@ -210,7 +210,7 @@
   // V7.0 (enclosure A): the gallery edge is a wall with the steel window W1 on the B3 upstand, head at the R11 / R2 soffit
   wall(pj-edge, ff-level, w1.sill, 0.25); wall(pj-edge, w1.head, roof-level - slab, 0.25)
   line((pj-edge, w1.sill), (pj-edge, w1.head), stroke: 2.4pt + rgb("#1f2a30"))
-  T((pj-edge + 0.12, w1.head + 0.2), [W1 +#f2(w1.sill) … +#f2(w1.head)], size: 4.2pt, anchor: "west")
+  T((pj-edge + 0.12, w1.head + 0.2), [W1 arched · +#f2(w1.sill) … crown +#f2(w1.head)], size: 4.2pt, anchor: "west")
   // roof
   rect((ff-west - outer-half, roof-level - slab), (pj-edge, roof-level), fill: ink, stroke: none)
   rect((x-east, roof-level - slab), (13.311, roof-level), fill: ink, stroke: none)
