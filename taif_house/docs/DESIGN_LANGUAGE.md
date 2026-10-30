@@ -16,5 +16,6 @@
 | Stair railing | Simple black bar railing |
 | Mashrabiya | Only in one or two places (for example the malqaf grille and one courtyard window), not as a theme |
 | Lighting | Mostly hidden (coves, under shelves, in the arches); a few feature pieces (lanterns under the colonnade, one piece over the dining) |
+| Roof and roofline (31 Oct 2026) | Flat roof, no pitched or tiled roof anywhere. A strong honey-stone **main cornice** on the outer facade edge at roof level, all round. On the north block a raised roof screen (an "attic") set back ≈ 1.0 m behind the cornice, plastered cream with a stone coping, 1.8 m high, with the stair room inside its line; the south wing (gym and office) keeps only the cornice and a plain parapet, so the roofline steps. A simple thin stone cornice between the two floors. (`studies/roof.typ`) |
 
 How to read it: black steel and divided lites wherever glass meets the outside, including the courtyard enclosure (`studies/courtyard_enclosure.typ`); stone where the hand or the eye meets the ground (plinth, columns, courtyard floor, copings); walnut where the hand meets the house (doors, handrails, the TV cabinet); nothing gilded, nothing carved.

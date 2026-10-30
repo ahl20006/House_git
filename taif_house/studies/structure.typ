@@ -102,6 +102,9 @@
   ("R8", (0, 24), (13.311, 24), "2.75 + 1.5 + 4.7 + 4.36", "hidden in the 0.25 wall", "hidden", "south wall"),
   ("R9", (8.95, 1.0), (10.594, 1.0), "1.64", "0.20×0.35 edge", "edge", "air tower head opening"),
   ("R10", (2.75, 0), (2.75, 24), "as B10", "hidden 0.20–0.30", "hidden", "riwaq line"),
+  ("R16", (0, 4.85), (1.3875, 4.85), "1.39", "0.20×0.40 total, soffit +6.80", "trimmer", "V6.4 roof access (studies/roof.typ): the roof opening over the stair, as B16 (headroom 2.22 m at tread 6 of flight 3); its east end on R17"),
+  ("R17", (1.2875, 4.85), (1.2875, 6.45), "1.60", "0.20×0.40 total, soffit +6.80", "trimmer", "V6.4: as B17, on flight 3's side of the split, never over flight 4; ends on R16 and R18"),
+  ("R18", (1.2875, 6.45), (2.75, 6.45), "1.46", "0.20×0.40 total, soffit +6.80", "trimmer", "V6.4: as B18, the roof arrival edge (top riser line y 6.35); to the riwaq line beam R10"),
 )
 // slab bays: (level, rect x0 y0 x1 y1, type, thickness, direction "EW" | "NS" | "cant W", note)
 #let slabs-ff = (
@@ -131,7 +134,7 @@
 )
 // the voids (no slab): FF courtyard sky + double-height; roof courtyard sky + suite court
 #let voids-ff = (((5.8, 6.5, 8.95, 13.0), "courtyard sky"), ((5.8, 13.0, 8.95, 19.25), "double-height void"))
-#let voids-roof = (((5.8, 6.5, 8.95, 13.0), "courtyard sky"), ((5.6, 19.25, 11.586, 21.25), "suite court"))
+#let voids-roof = (((5.8, 6.5, 8.95, 13.0), "courtyard sky"), ((5.6, 19.25, 11.586, 21.25), "suite court"), ((0, 2.2, 1.3875, 4.85), "stair well (the stair room above, V6.4)"), ((1.2875, 2.2, 2.75, 6.45), "stair well (the stair room above, V6.4)"))
 
 // ---------- helpers ----------
 #let q(p) = (p.at(0), -p.at(1))
@@ -406,7 +409,7 @@
     rect((Y(4.75), 3.2), (Y(4.95), 3.4), fill: red, stroke: none); T((Y(4.85), 3.05), [B16 soffit +3.20], size: 3.4pt, fill: red)
     rect((Y(6.35), 3.2), (Y(6.55), 3.4), fill: red.transparentize(50%), stroke: none); T((Y(6.45), 3.05), [B18 beyond], size: 3.2pt, fill: red)
     // roof
-    rect((Y(2.3), 7.0), (Y(7.8), 7.2), fill: luma(120), stroke: none)
+    rect((Y(4.75), 7.0), (Y(7.8), 7.2), fill: luma(120), stroke: none); rect((Y(4.75), 6.8), (Y(4.95), 7.0), fill: red, stroke: none); T((Y(3.5), 7.45), [V6.4: the roof opening as the FF one (R16–R18), the stair room above · studies/roof.typ], size: 3.4pt, fill: red)
     // headroom at tread 6
     let z6 = 6 * st.r
     line((Y(4.67), z6), (Y(4.67), 3.2), stroke: (paint: green, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(4.55), 2.1), [2.22 ≥ 2.10\ tread 6 → B16], size: 3.4pt, fill: green, anchor: "east")
@@ -428,7 +431,7 @@
     - *Over flight 1 only beyond tread 6:* the slab above a tread must leave ≥ 2.10 m to the *beam* soffit (+3.20 with 0.40 total trimmers), so treads with a level ≤ 1.10 m may stay under the slab: treads 1–6 (tread 6 at +0.98 → 2.22 m). The opening edge B16 is at y 4.85 (beam 4.75–4.95), north of tread 6 (y 4.67–4.95) — tread 7 (y 4.39–4.67, +1.15) is under open sky.
     - *Over flight 2 and the half landing:* fully open (x 1.39–2.65, y 2.30–6.35 and x 0.125–1.39, y 2.30–4.75).
     - *Trimmers, 0.20 × 0.40 total, soffit +3.20:* B16 (y 4.85, from the west wall to B17), B17 (x 1.29, on flight 1's side of the split so it is never over flight 2, from B16 to B18), B18 (y 6.45, the arrival edge, from B17 to the riwaq line beam B10). B16 and B18 bear on B17: one beam-on-beam zigzag, normal at a stair well; the engineer takes the torsion.
-    - *Headroom:* 2.22 m at tread 6 to B16; 2.91 m at tread 3 to the slab; under B17 (over flight 1 treads 1–5, level ≤ 0.82) ≥ 2.38 m; flight 2 and the landing are under the roof (≥ 3.4 m). *No conflict with the reservation.*
+    - *Headroom:* 2.22 m at tread 6 to B16; 2.91 m at tread 3 to the slab; under B17 (over flight 1 treads 1–5, level ≤ 0.82) ≥ 2.38 m; flight 2 and the half landing are under flight 4 and the upper half landing (≥ 3.4 m, the same geometry one storey up; V6.4: the stair continues to the roof, studies/roof.typ). *No conflict with the reservation.*
     - *Arrival:* flight 2 lands at +3.60 on the arrival strip y 6.35–7.80 inside the stair box, then the landing room (y 7.9–9.2) and the gallery.
   ],
 )
@@ -500,6 +503,8 @@
   ("X12", "open", [*Beam B4* (x 4.25, 6.5 + 6.25 m) carries the first-floor bedrooms' east wall over the riwaq glazing (y 6.8–8.9, 10.7–12.7) and the low wall: with 0.25 × 0.50 total (soffit +3.10) the riwaq glazing heads are at ≤ +3.10 before finishes, and the dining-side heads under B5 at ≤ +3.05; confirm the window heights with the architect.]),
   ("X14", "owner decided (V6.4)", [*The kitchen's north wall moves to y 7.0* (maid room to the municipal minimum): a *non-load-bearing block partition* on a thickened slab / ground beam (it crosses the malqaf duct at x 10.25 on a ground beam, air study A3). The structural grid is unchanged: the y 6.5 line keeps *B6* as a *drop beam* (0.25 × 0.45 total assumed) from C26 to the east wall, inside the laundry / maid room ceiling behind the gypsum ceiling, carrying the first-floor bedroom 1 / suite wall; the FF slab bays stay on the grid. W5 is dropped from the RC-wall proposal (X13).]),
   ("X15", "owner decided (V6.4)", [*Courtyard enclosure, option A* (studies/courtyard_enclosure.typ): the west projection is *1.55 m* (edge x 5.8); B3, R11 and C21–C23 move 0.20 m east, spans and X8 unchanged. The gallery edge, the family living's edge and the living's upper courtyard side (y 13.0, +2.90 … +6.75) are closed with black steel windows W1 / W2 / W3; W1 sits on the B3 upstand (its sill), heads at the R1 / R2 / R11 soffit +6.75; a 0.25 m fascia keeps the head line under the roof slab over the void. W3 needs a steel transom at +3.82 tied to C22 and the kitchen wall; the window loads are small. The gym route wall (B20) stays on x 5.6: a 0.20 m nib at y 19.25 (to follow to x 5.8 in the L study if the owner wants one line).]),
+  ("X16", "owner decided (V6.4)", [*The main stair continues to the roof* (studies/roof.typ): flights 3 and 4 repeat 1 and 2 in the same well; the roof opening is the first-floor L one storey up with trimmers *R16 / R17 / R18* (0.20 × 0.40, soffit +6.80, as B16–B18); a *stair room* on the well's walls (block, its own 0.12 slab or an insulated deck at +9.50 soffit / +9.62 top, 2.20 clear), door 0.90 on a 0.15 kerb to the roof. The lift stops at the first floor: headroom to the roof slab underside 3.40 m (a supplier with ≤ 3.40 m, or a raised shaft head ≤ 0.30 m hidden behind the cornice).]),
+  ("X17", "owner decided (V6.4)", [*Roofline (studies/roof.typ):* flat roof, no tiles. A *main honey-stone cornice* 0.45 × 0.30 projection at +6.90 … +7.35 all round on the slab edge (≈ 2.5 kN/m, anchored); on the north block (y 0–19.25) a 0.30 upstand with coping to +7.65 and an *attic screen wall* (200 block, 1.8 m, coping +9.10) set back 1.0 m from the facade face, i.e. 0.875 m inside the outer-wall beams: a line load ≈ 4.5 kN/m on the slab near its supports (thicken the slab edge or a small hidden beam); its south wall on R5 / B8. The *south wing* (y 19.25–24) a plain parapet to +8.40 (≈ 2.8 kN/m). *Plant loads* (reserve): AC units ≈ 1.0 kN each + ERV 1.5 kN on pads over the maid wing / suite bath roof; tank(s) up to 30 kN on ≈ 3.3 m² in the R10–R3 bay (x 2.85–4.15, y 1.0–3.5); PV ≈ 0.25 kN/m² + wind uplift on the south wing (y ≥ 22.0) and the north block east roof; maintenance live load 1.0–1.5 kN/m². All assumed.]),
   ("X13", "open", [*Which walls are RC:* this study proposes W1–W4 (lift, shaft, laundry wall, cut wall) as RC 0.20 m for stiffness (W5, the kitchen north wall, dropped in V6.4), plus the two gym walls of X5. The engineer confirms the lateral system (frame + walls) under SBC 301 and the wind / seismic case for Taif.]),
   ("X14", "open", [*Slab types:* ribbed 0.30 (hollow block) for the 4.36–4.75 m bays and the men's majlis roof; solid 0.20 elsewhere and 0.22 flat over the double-height living. The engineer may unify (all ribbed, or all solid 0.20–0.25) for buildability; the clean soffit over the void is the only architectural wish.]),
   ("X15", "open", [*Stair* (drawn on the stair page): flight widths 1.21 m clear, 22 risers × 0.164, the L-shaped opening and the trimmers B16–B18 with their torsion, the store under the half landing (≈ 1.65 m headroom), handrails; the arrival strip y 6.35–7.80 at the first floor.]),
