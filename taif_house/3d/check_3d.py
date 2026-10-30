@@ -163,7 +163,9 @@ def mesh_area(name, t):
     return meshes[name].volume / t
 gf_csv = sum(area(r["pts"]) for r in GF)            # 22 CSV rooms incl. the courtyard + the air tower
 ff_csv = sum(area(r["pts"]) for r in FF)            # 21 CSV rooms incl. the suite court + the 4 fixed elements
-gf_slab, ff_slab, roof = mesh_area("gf_slab", T_SLAB) + mesh_area("gf_slab_court", T_SLAB), mesh_area("ff_slab", T_SLAB), mesh_area("roof_slab", T_SLAB)   # the courtyard floor is a mesh of its own
+def level_area(level):   # V6.3: a slab is several meshes (its bays with their own thickness)
+    return sum(meshes[s["name"]].volume / s["t"] for s in summary["slabs"] if s["level"] == level)
+gf_slab, ff_slab, roof = level_area("gf"), level_area("ff"), level_area("roof")
 ff_voids = COURT_SKY.area + DH_VOID.area + STAIR_OPENING.area + TOWER_HOLE.area
 for label, got, want in (("GF slab = outline + half the outer wall (the slab reaches the outer face)", gf_slab, outer_face.area),
                          ("FF slab = outline + half the outer wall − courtyard sky − double-height void − stair opening − tower shaft", ff_slab, outer_face.area - ff_voids),
@@ -202,6 +204,16 @@ else:
 for n, want in (("gf_finish_floor", FINISHED["GF"]), ("ff_finish_floor", FINISHED["FF"]), ("gf_slab", STRUCT_TOP["GF"]), ("ff_slab", STRUCT_TOP["FF"]), ("roof_slab", L["roof"])):
     if abs(meshes[n].bounds[1][2] - want) > 1e-4:
         bad(f"{n} top {meshes[n].bounds[1][2]:+.3f} != {want:+.2f}")
+# V6.3: the slab bays of studies/structure.typ: every bay mesh has its study thickness and the structural top of its level
+bays = [s for s in summary["slabs"] if "_bay" in s["name"]]
+want_t = {("ff", t): [] for t in ()}
+bad_bays = [s["name"] for s in bays if abs(meshes[s["name"]].bounds[1][2] - (STRUCT_TOP["FF"] if s["level"] == "ff" else L["roof"])) > 1e-4 or abs((meshes[s["name"]].bounds[1][2] - meshes[s["name"]].bounds[0][2]) - s["t"]) > 1e-4]
+if bad_bays:
+    bad(f"slab bays not at the structural top or not their study thickness: {bad_bays}")
+else:
+    ff_t = sorted({s["t"] for s in summary["slabs"] if s["level"] == "ff"}); roof_t = sorted({s["t"] for s in summary["slabs"] if s["level"] == "roof"})
+    ok(f"slab bays from studies/structure.typ (assumed): FF {len([s for s in bays if s['level'] == 'ff'])} bays thicker than {T_SLAB} ({', '.join(f'{t:.2f}' for t in ff_t)} m), roof {len([s for s in bays if s['level'] == 'roof'])} bays ({', '.join(f'{t:.2f}' for t in roof_t)} m); "
+       f"clear heights before finishes: under the 0.20 slabs +{STRUCT_TOP['FF'] - T_SLAB:.2f}, under the 0.30 bays +{STRUCT_TOP['FF'] - 0.30:.2f} (kitchen, dining, men's majlis); roof underside +{L['roof'] - 0.22:.2f} over the void (0.22 flat), +{L['roof'] - 0.30:.2f} under the suite / office bays")
 if abs(PROJ_X - (min(p[0] for p in court["pts"]) + P["projection"]["width"])) > EPS:
     bad("projection width in params != proj-x in studies/ff_family.typ")
 
@@ -225,12 +237,13 @@ for o in ops:
         bad(f"opening {o['name']} on an unknown wall {o['wall']}")
     if o["head"] > STOREY[fl][1] + EPS:
         heads.append(o["name"])
-    if o["kind"] != "window" and abs(o["head"] - FINISHED[fl] - P["openings"]["door_height"]) > EPS:
+    special = [d["head"] for d in P["openings"].get("doors", []) if d["floor"] == fl and all(abs(float(x) - y) < 1e-6 for x, y in zip(d["at"].split(), (*o["a"], *o["b"])))]   # V6.3: the living's entrance arch
+    if o["kind"] != "window" and abs(o["head"] - FINISHED[fl] - (special[0] if special else P["openings"]["door_height"])) > EPS:
         heads.append(o["name"])
 if heads:
     bad(f"opening heads above the slab underside or doors not {P['openings']['door_height']} m: {heads[:5]}")
 else:
-    ok(f"every opening head is below the slab underside; doors {P['openings']['door_height']} m above the finished floor; windows sill {P['openings']['window']['sill']} / head {P['openings']['window']['head']} unless listed in params")
+    ok(f"every opening head is below the slab underside; doors {P['openings']['door_height']} m above the finished floor ({len(P['openings'].get('doors', []))} special: the living's entrance arch +{P['openings']['doors'][0]['head']:.2f}); windows sill {P['openings']['window']['sill']} / head {P['openings']['window']['head']} unless listed in params")
 n_glass = sum(1 for n in meshes if "_glass_" in n and not n.startswith("chr_"))   # the character study's recessed panes are checked in 10
 if n_glass == len(built_win) + len(P["openings"]["glass_doors"]):
     ok(f"{n_glass} glass panes = {len(built_win)} windows + {len(P['openings']['glass_doors'])} glass doors (transparent in the viewer)")
@@ -265,10 +278,10 @@ else:
     else:
         ok(f"kitchen service door 0.90 at the north end of the east wall (y {y0}–{y1}, head +{sd['head']:.2f}): clear of the counters and the columns · {' · '.join(notes)}")
 x3 = next(o for o in ops if o["floor"] == "FF" and "suite bath east" in o["name"])
-if abs(x3["width"] - 0.60) < 1e-3:
-    ok(f"X3: suite bath east window 0.60 m (y {min(x3['a'][1], x3['b'][1])}–{max(x3['a'][1], x3['b'][1])}), column C33 modelled {COLS['C33']['size']} along the wall: clearance {summary['x3_clearance']:+.2f} m → FLAGGED (see the flags), not shrunk")
+if abs(x3["width"] - 0.55) < 1e-3 and summary["x3_clearance"] >= 0.10 - 1e-6:
+    ok(f"X3 (V6.3): suite bath east window 0.55 m (y {min(x3['a'][1], x3['b'][1])}–{max(x3['a'][1], x3['b'][1])}), column C33 modelled {COLS['C33']['size']} along the wall (y {COLS['C33']['y'] - 0.3:.2f}–{COLS['C33']['y'] + 0.3:.2f}): opening clearance {summary['x3_clearance']:+.2f} m = 0.05 m beyond a 0.05 frame")
 else:
-    bad(f"X3: suite bath east window {x3['width']} m, expected 0.60")
+    bad(f"X3: suite bath east window {x3['width']} m (expected 0.55) or clearance {summary['x3_clearance']} < 0.10")
 
 # ---------- 6: the stair ----------
 print("6. Stair")
@@ -294,6 +307,9 @@ if edge_ok and all(abs(b["z1"] - (STRUCT_TOP["FF"] - T_SLAB)) < EPS for b in (b1
 else:
     bad("trimmers do not edge the stair opening")
 # headroom: over the middle of every tread, the lowest underside above it (slabs and beams are vertical extrusions, so a 2D test is exact)
+def slab_under(level, pt):   # V6.3: the slab underside over a point, from the bays
+    hits = [s["z0"] for s in summary["slabs"] if s["level"] == level and meshes[s["name"]].bounds[0][0] - 1e-6 <= pt.x <= meshes[s["name"]].bounds[1][0] + 1e-6 and meshes[s["name"]].bounds[0][1] - 1e-6 <= pt.y <= meshes[s["name"]].bounds[1][1] + 1e-6]
+    return min(hits) if hits else (STRUCT_TOP["FF"] - T_SLAB if level == "ff" else L["roof"] - T_SLAB)
 ff_under = STRUCT_TOP["FF"] - T_SLAB
 roof_under = L["roof"] - T_SLAB
 beam_feet = [(LineString([b["a"], b["b"]]).buffer(b["w"] / 2, cap_style=2), b["z0"], b["id"]) for b in summary["structure"]["beams"]]
@@ -302,9 +318,9 @@ for i, n in enumerate(st["nosings"]):
     if n["tread"] == st["per_flight"]:      # the top riser of each flight lands on the half landing / the first floor: no tread of its own
         continue
     pt = Point(n["x"], n["y_mid"])
-    above = [(roof_under, "roof")]
-    if ff_poly.contains(pt) and ff_under > n["z"]:
-        above.append((ff_under, "FF slab"))
+    above = [(slab_under("roof", pt), "roof")]
+    if ff_poly.contains(pt) and slab_under("ff", pt) > n["z"]:
+        above.append((slab_under("ff", pt), "FF slab"))
     above += [(z0, bid) for foot, z0, bid in beam_feet if foot.contains(pt) and z0 > n["z"]]
     z, what = min(above)
     clear[i] = (z - n["z"], what)
@@ -407,7 +423,7 @@ chr_meshes = {n: m for n, m in meshes.items() if n.startswith("chr_")}
 if not C.get("enabled", True) or not ch.get("enabled"):
     ok("character study disabled in character.yaml: no chr_* meshes") if not chr_meshes else bad(f"character disabled but {len(chr_meshes)} chr_* meshes in the GLB")
 else:
-    GROUPS = {"base", "parapet", "glassrail", "pergola", "arches", "sunken", "props", "light"}
+    GROUPS = {"base", "parapet", "glassrail", "pergola", "sunken", "props", "light"}
     badnames = [n for n in chr_meshes if len(n.split("_")) < 4 or n.split("_")[1] not in GROUPS or n.split("_")[2] not in C["palette"]]
     listed = {m["name"] for m in ch["meshes"]}
     if badnames or listed != set(chr_meshes):
@@ -539,21 +555,18 @@ else:
         ok(f"wall fountain (shape only) on the courtyard's east wall y {fo['along'][0]}–{fo['along'][1]}: {fo['clear_of_grille']:.2f} m south of the malqaf grille, under the kitchen sink window with its top {fo['below_sink_sill']:.2f} m below the sill; the women's majlis glass untouched")
     else:
         bad(f"fountain: {fo}")
-    # the arches variant
-    arc = ch["arches"]
-    main_y = sorted(c["y"] for c in cols.values() if c["id"] in P["structure"]["column_to_roof"])
-    want_n = sum(max(2, round((b - a) / C["arches"]["bay_target"])) - 1 for a, b in zip(main_y, main_y[1:]))
-    am, ac = chr_meshes.get("chr_arches_plaster_arches"), chr_meshes.get("chr_arches_stone_columns")
-    bays_ok = all(1.9 <= b["bay"] <= 2.4 for b in arc["bays"])
-    spring_ok = all(b["springing"] - FINISHED["GF"] >= 2.1 for b in arc["bays"])
-    soffit = STRUCT_TOP["FF"] - T_SLAB - C["soffit"]["thickness"]
-    if am is not None and ac is not None and len(arc["intermediate_columns"]) == want_n and bays_ok and spring_ok and abs(am.bounds[1][2] - soffit) < 1e-3 \
-            and all(abs(x - PROJ_X) < EPS for x, _ in arc["intermediate_columns"]) and set(arc["rooms"].values()) <= {"Courtyard", "Living (double height)"}:
-        ok(f"arches variant: {want_n} slender columns Ø{C['arches']['column_diameter']} on x {PROJ_X} at y {', '.join(str(y) for _, y in arc['intermediate_columns'])} "
-           f"(in the courtyard and the double-height living), {len(arc['bays'])} bays of {min(b['bay'] for b in arc['bays'])}–{max(b['bay'] for b in arc['bays'])} m, segmental arches under the soffit +{soffit:.2f}, "
-           f"springing ≥ {min(b['springing'] for b in arc['bays']):.2f} above the floor; decorative, toggle (default {'on' if arc['default'] else 'off'})")
+    # V6.3: the TV wall: the living's solid west wall with the arched entrance and the arched TV niche (owner decision)
+    tv = ch["tv_wall"]
+    entrance = next((o for o in ops if o["floor"] == "GF" and o["name"].startswith("living entrance")), None)
+    niche = chr_meshes.get("chr_base_plaster_tv_niche_frame")
+    pier = chr_meshes.get("chr_base_plaster_tv_pier")
+    wall_west = [w for w in summary["walls"] if w["kind"] != "outer" and w["floor"] == "GF" and abs(w["a"][0] - 4.25) < 1e-6 and abs(w["b"][0] - 4.25) < 1e-6 and min(w["a"][1], w["b"][1]) <= 13.0 + 1e-6 and max(w["a"][1], w["b"][1]) >= 19.25 - 1e-6]   # the wall run that covers the living's west side y 13–19.25
+    full = all(abs(w["z1"] - (STRUCT_TOP["FF"] - T_SLAB)) < 1e-6 and w["kind"] == "wall" for w in wall_west)
+    if entrance is not None and abs(entrance["head"] - FINISHED["GF"] - tv["entrance_head"]) < 1e-6 and niche is not None and pier is not None and full and wall_west and abs(tv["niche_width"] - 4.4) < 1e-6 and abs(tv["eye_to_screen"] - 3.45) < 0.06 and tv["path_north"] >= 1.0:
+        ok(f"TV wall (V6.3): the living's west wall x 4.25 is solid to the slab underside (+{STRUCT_TOP['FF'] - T_SLAB:.2f}); the entrance arch {entrance['width']:.2f} m wide, head +{entrance['head'] - FINISHED['GF']:.2f}; the TV niche {tv['niche_width']:.2f} × {tv['niche_depth']:.2f} m between the pier and the south wall, head +{tv['niche_head']:.2f}; "
+           f"sofa back x {tv['sofa_back_x']:.2f}, eye-to-screen {tv['eye_to_screen']:.2f} m, path {tv['path_north']:.2f} m at the sofa's north end to the dining; no arches between the colonnade columns")
     else:
-        bad(f"arches variant: columns {len(arc['intermediate_columns'])} (want {want_n}), bays ok {bays_ok}, springing ok {spring_ok}, rooms {arc['rooms']}")
+        bad(f"TV wall: entrance {entrance}, niche {niche is not None}, pier {pier is not None}, wall full height {full}, {tv}")
 
 print()
 for f in summary["flags"]:

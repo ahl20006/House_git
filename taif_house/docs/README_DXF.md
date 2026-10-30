@@ -1,17 +1,17 @@
-# DXFs · Taif / Palm House V6.2 · ground floor and first floor
+# DXFs · Taif / Palm House V6.3 · ground floor and first floor
 
 Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …), one per floor. Both are in the same coordinate frame, so they overlay exactly.
 
 | File | Shows | Same plan as |
 |---|---|---|
-| `output/taif_ground_floor_V6.2.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
-| `output/taif_first_floor_V6.2.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
+| `output/taif_ground_floor_V6.3.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
+| `output/taif_first_floor_V6.3.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
 
 ## Units and coordinates
 - **Units:** metres (`$INSUNITS = 6`). Draw scale 1:1.
 - **Origin:** (0, 0) = survey peg **M1** (east post of the gate).
 - **Axes:** x is east, square to the M line; y runs along the M line. The Typst drawings count y southwards; the DXFs have y pointing **up** (north up), so a Typst point (x, y) is (x, −y) in the DXF.
-- **The building** sits on site option **Z4**, shifted (0.91, 3.525) from the room coordinates in `data/rooms_*.csv`, with rotation 0°:
+- **The building** sits on site option **Z4**, shifted (0.91, 3.825) from the room coordinates (V6.3: 0.30 m further south than V6.2, provisional until the survey) in `data/rooms_*.csv`, with rotation 0°:
   - **ground floor:** a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), its north-east corner cut along the lane down to y 6.0;
   - **first floor:** the same outline (the first-floor walls stand on the ground-floor walls); the 1.35 m west projection over the courtyard and the void is carried by an edge beam on x 5.6 and three columns.
 - **Walls:** room outlines are on **wall centre lines**; wall thickness is not drawn. Clear sizes (`docs/PROJECT_V6.md`) assume 250 mm outer, 200 mm inner and 100 mm dry partition walls.
@@ -26,7 +26,7 @@ Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCA
 | BUILDING-OUTLINE · COURTYARD | ground-floor outline · courtyard, open to the sky |
 | ROOMS-FAMILY / -GUEST / -SERVICE / -CIRC / -CORE · ROOM-LABELS | one closed polyline per room, by use · name and area |
 | AIR-TOWER | air tower in the tip of the cut corner |
-| DOORS · OPENINGS · WINDOWS · WALLS-SPECIAL | doors · openings without a door · windows · solid wall to the women's majlis, kitchen / basins wall, WC screen wall, living low partition, family / guest line |
+| DOORS · OPENINGS · WINDOWS · WALLS-SPECIAL | doors · openings without a door · windows · solid wall to the women's majlis, kitchen / basins wall, WC screen wall, family / guest line |
 | FIXTURES | east block: counters, machines, bed, wardrobe, shower, WC, basin · west block: hospitality counter, basin counter, trough, shoe cabinet |
 | MARKS | service shaft, under-stair store, the three columns, the living's ceiling-height change, the first-floor edge beam above (x 5.6) |
 | ENTRIES · ANNOTATION | family and guest entry arrows · title, north arrow, scale bar |

@@ -1,4 +1,4 @@
-// sections.typ · Taif / Palm House V6.2 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
+// sections.typ · Taif / Palm House V6.3 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
 // Used by design_ff.typ and presentation.typ. Geometry is read from ../data/rooms_ff.csv, ../design_gf.typ (placement, outline), ff_family.typ
 // (the projection edge and the columns) and ff_suite.typ (windows); the only fixed numbers are the levels below (to confirm with the engineer)
 // and the record of the split projection studied in V5.1–V6.0 and reverted in V6.1 (git tag v6.0, branch v5-split-projection).
@@ -13,7 +13,6 @@
 #let roof-level = 7.2
 #let slab = 0.25
 #let parapet = 1.1
-#let low-wall = 1.2          // the living room's low partition to the riwaq
 #let outer-half = 0.125      // ½ of the 250 mm outer wall
 #let inner-half = 0.1        // ½ of a 200 mm wall
 #let rail-half = 0.025       // ½ of a ≈ 50 mm railing on the void edge
@@ -178,7 +177,7 @@
   T((11.1, 1.9), if court [kitchen (GF)] else [living · dining (GF)])
   // GF walls
   wall(0, 0, roof-level + parapet, 2 * outer-half); wall(2.75, 0, ff-level - slab, 2 * inner-half); wall(13.311, 0, roof-level + parapet, 2 * outer-half); wall(x-east, 0, roof-level, 2 * inner-half)
-  if court { line((x-court, 0), (x-court, ff-level - slab), stroke: 1.6pt + rgb("#7fb8d0")) } else { wall(x-court, 0, low-wall, 2 * inner-half); T((x-court + 0.15, low-wall + 0.15), [low wall #r2(low-wall)], size: 4.2pt, anchor: "west") }
+  if court { line((x-court, 0), (x-court, ff-level - slab), stroke: 1.6pt + rgb("#7fb8d0")) } else { wall(x-court, 0, ff-level - slab, 2 * inner-half); T((x-court + 0.15, 2.0), [TV wall · solid (V6.3)], size: 4.2pt, anchor: "west") }
   // the column beyond the cut (on the beam line) and the edge beam
   rect((pj-edge - col-half, 0), (pj-edge + col-half, ff-level - slab - 0.45), fill: luma(170), stroke: 0.5pt + ink)
   rect((pj-edge - col-half, ff-level - slab - 0.45), (pj-edge + col-half, ff-level), fill: ink, stroke: none)

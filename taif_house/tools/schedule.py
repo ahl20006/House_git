@@ -1,4 +1,4 @@
-"""schedule.py · Taif / Palm House V6.2 · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
+"""schedule.py · Taif / Palm House V6.3 · room schedule of the ground floor: axis sizes, axis areas and clear (finished-face) areas.
 (The first-floor schedule with clear areas is on design_ff.pdf page 3, and both floors are on presentation sheet 08.)
 
 Run from anywhere:   python taif_house/tools/schedule.py          (prints a Markdown table)
@@ -39,29 +39,32 @@ def wall(a, b):
     return IN
 
 
-def clip(poly, a, n, off):
-    out = []
-    for i in range(len(poly)):
-        p, q = poly[i], poly[(i + 1) % len(poly)]
-        fp = (p[0] - a[0]) * n[0] + (p[1] - a[1]) * n[1] - off
-        fq = (q[0] - a[0]) * n[0] + (q[1] - a[1]) * n[1] - off
-        if fp >= 0:
-            out.append(p)
-        if fp * fq < 0:
-            t = fp / (fp - fq)
-            out.append((p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])))
-    return out
-
-
 def clear(P):
+    """Inside the wall faces: every edge moved inward by half its wall and the adjacent offset edges intersected at each corner
+    (the presentation's offset-poly; V6.3: it also works for concave rooms such as the lobby with its lift-door notch)."""
     s = 1 if sum(P[i][0] * P[(i + 1) % len(P)][1] - P[(i + 1) % len(P)][0] * P[i][1] for i in range(len(P))) > 0 else -1
-    C = list(P)
-    for i in range(len(P)):
-        a, b = P[i], P[(i + 1) % len(P)]
+    n = len(P)
+
+    def offset_line(i):
+        a, b = P[i], P[(i + 1) % n]
         L = math.hypot(b[0] - a[0], b[1] - a[1])
-        n = (-(b[1] - a[1]) / L * s, (b[0] - a[0]) / L * s)
-        C = clip(C, a, n, wall(a, b) / 2)
-    return area(C)
+        d = ((b[0] - a[0]) / L, (b[1] - a[1]) / L)
+        nv = (-d[1] * s, d[0] * s)
+        off = wall(a, b) / 2
+        return (a[0] + nv[0] * off, a[1] + nv[1] * off), d
+
+    out = []
+    for i in range(n):
+        p1, d1 = offset_line((i - 1) % n)
+        p2, d2 = offset_line(i)
+        cr = d1[0] * d2[1] - d1[1] * d2[0]
+        if abs(cr) < 1e-9:
+            out.append(p2)
+        else:
+            w = (p2[0] - p1[0], p2[1] - p1[1])
+            t = (w[0] * d2[1] - w[1] * d2[0]) / cr
+            out.append((p1[0] + d1[0] * t, p1[1] + d1[1] * t))
+    return area(out)
 
 
 def poly(r):

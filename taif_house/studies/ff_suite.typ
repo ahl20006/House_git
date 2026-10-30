@@ -1,5 +1,5 @@
 // ff_suite.typ · Taif / Palm House · FIRST FLOOR · focus study of the L: owner's office → gym route → gym → court → MASTER SUITE (compile THIS file)
-// First floor V6.2, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
+// First floor V6.3, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, x east, y SOUTH) = the main first-floor CSV coordinates (../data/rooms_ff.csv): no conversion.
 // The room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ, which checks that both agree).
 #import "@preview/cetz:0.4.2"
@@ -55,13 +55,13 @@
 )
 
 // ---------- Doors: a, b, label, room, into (unit vector into that room), from ("circ", a room name, or "outside" = the family part), open = no leaf / sliding ----------
-#let D(a, b, label, room, into, from: "circ", open: false) = (a: a, b: b, label: label, room: room, into: into, from: from, open: open)
+#let D(a, b, label, room, into, from: "circ", open: false, out: false) = (a: a, b: b, label: label, room: room, into: into, from: from, open: open, out: out)   // out = the leaf swings away from `into` (opens out of its room)
 #let doors = (
   D((9.0, 6.5), (10.1, 6.5), [suite door], "Suite lobby", (0, 1), from: "outside"),
-  D((10.3, 6.7), (10.3, 7.5), [bath], "Suite bath", (1, 0)),
-  D((12.211, 6.85), (12.211, 7.65), [WC (sliding)], "Suite WC (closet)", (1, 0), from: "Suite bath", open: true),
-  D((10.3, 10.65), (10.3, 11.45), [dressing], "Suite dressing", (1, 0)),
-  D((9.05, 11.9), (9.95, 11.9), [bedroom], "Suite bedroom", (0, 1)),
+  D((10.3, 6.65), (10.3, 7.65), [bath], "Suite bath", (1, 0)),
+  D((12.211, 6.8), (12.211, 7.8), [WC (opens out)], "Suite WC (closet)", (1, 0), from: "Suite bath", out: true),   // 1.00 m opening (V6.3); the leaf opens out into the bath, clear of the pan
+  D((10.3, 10.6), (10.3, 11.6), [dressing], "Suite dressing", (1, 0)),
+  D((9.05, 11.9), (10.05, 11.9), [bedroom], "Suite bedroom", (0, 1)),
   D((9.3, 19.25), (10.7, 19.25), [court (sliding)], "Suite court (open to the sky)", (0, 1), from: "Suite bedroom", open: true),
   D((4.3, 19.25), (5.55, 19.25), [from the gallery], "Gym route", (0, 1), from: "outside", open: true),
   D((4.4, 21.25), (5.45, 21.25), [gym (sliding)], "Gym", (0, 1), open: true),
@@ -112,7 +112,7 @@
   (4.45, 22.45, 6.25, 23.8, [barbell · rack]), (6.4, 23.2, 7.2, 23.8, [kettlebells]), (6.4, 22.45, 7.6, 23.0, [pull-up bar (wall)]),
   (7.8, 22.6, 9.8, 23.6, [pilates mat]), (10.0, 22.45, 10.65, 23.8, [cardio (bike)]),
 )
-#let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((0.5, 24), (2.3, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.6), (13.311, 10.2)), ((13.311, 15.0), (13.311, 18.6)),
+#let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((0.5, 24), (2.3, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
   ((4.5, 24), (13.0, 24)), ((2.9, 24), (3.9, 24)), ((5.9, 21.25), (8.6, 21.25)), ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))
 #let drains = (
   (((12.86, 7.17), (13.311, 7.0)), [suite bath: WC, shower, tub and vanity to one stack outside the east wall]),
@@ -200,6 +200,7 @@
   }
   for d in doors.filter(d => not d.open) {
     let w = dist(d.a, d.b); let (ix, iy) = d.into
+    let (ix, iy) = if d.out { (-ix, -iy) } else { (ix, iy) }   // a door that opens out swings on the other side of its line
     let sq = (d.a, d.b, (d.b.at(0) + ix * w, d.b.at(1) + iy * w), (d.a.at(0) + ix * w, d.a.at(1) + iy * w))
     for f in furniture { if box-overlap(bbox(sq), (f.at(0), f.at(1), f.at(2), f.at(3))) { out.push("door " + repr(d.label) + " swing hits " + repr(f.at(4))) } }
   }
@@ -235,9 +236,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · the L: owner's office → gym route → gym → court → master suite]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.2 · CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.3 · CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.2 · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, L-shaped gym (treadmill arm at the east end), suite court and master suite]
+#text(10pt, weight: "bold")[First floor V6.3 · part 2 of 2 (part 1: studies/ff_family.typ) · owner's office, L-shaped gym (treadmill arm at the east end), suite court and master suite]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {

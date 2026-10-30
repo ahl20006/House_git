@@ -1,10 +1,8 @@
 floor,x1,y1,x2,y2,height,kind,note,source
 GF,8.95,13.0,8.95,19.25,0,open,ceiling-height change between the double-height living and the dining: one room no wall,design_gf.typ level-marks
-GF,4.25,13.1,4.25,14.5,0,open,living room entrance from the riwaq 1.40 m no door,design_gf.typ west-lines
-GF,4.25,14.5,4.25,19.25,1.20,low-wall,living room low partition 1.20 m to the riwaq open above,design_gf.typ west-lines
 GF,2.75,10.6,2.75,12.7,0,open,hospitality kitchen open to the riwaq,design_gf.typ west-lines
 GF,2.75,13.0,2.75,14.3,0,open,family basins open to the riwaq,design_gf.typ west-lines
-GF,2.75,0.2,2.75,2.0,0,open,entry cupboard open to the family lobby,design_gf.typ west-lines
+GF,2.75,0.1,2.75,0.8,0,open,entry cupboard open to the family lobby (V6.3: the cupboard keeps y 0-0.9 and the strip in front of the lift door is lobby),design_gf.typ west-lines
 GF,2.75,2.4,2.75,6.8,0,open,open stair no door (railing later phase 5),presentation.typ gf-doors
 GF,9.7,6.5,10.55,6.5,0,open,open entrance kitchen to laundry no door,design_gf.typ east-lines
 GF,2.75,22.15,2.75,23.95,0,open,foyer to men's majlis 1.80 m opening no door,design_gf.typ west-lines

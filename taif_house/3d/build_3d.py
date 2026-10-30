@@ -10,7 +10,7 @@ Reads (paths in 3d/params.yaml):
   studies/ff_family.typ                  the projection edge (proj-x) and the first-floor fixed elements (stair, lift, shaft, air tower)
   presentation.typ                       the ground-floor doors (gf-doors, with their kind) and windows (gf-windows)
   studies/ff_family.typ, ff_suite.typ    the first-floor doors (D(...)) and windows
-  studies/structure.typ                  the stair (st), the columns C21–C23 / C33, the beams B3, B5, B16–B18, R6, R11
+  studies/structure.typ                  the stair (st), the columns C21–C23 / C33, the beams B3, B5, B16–B18, R6, R11, the slab bays (slabs-ff, slabs-roof: V6.3)
   studies/sections.typ, base.typ         the clerestory levels, the latitude, true north
   3d/open_edges.csv                      room edges that have NO wall (openings, railings) or a low wall (height > 0)
   3d/params.yaml                         levels, finishes, slab and wall thicknesses, opening heights, railing heights, views, sun
@@ -157,7 +157,11 @@ def read_structure(path):
             beams[m.group(1)] = {"a": (float(m.group(2)), float(m.group(3))), "b": (float(m.group(4)), float(m.group(5))), "level": name.split("-")[1],
                                  "w": float(size.group(1)) if size else None, "d": float(size.group(2)) if size else None, "size": m.group(6),
                                  "upturned": "upturned" in m.group(6).lower() and "or drop" not in m.group(6).lower()}
-    return st, cols, beams
+    slabs = {"ff": [], "roof": []}   # V6.3: the slab bays of the study: ((x0, y0, x1, y1), type, "0.30 (25+5)", direction, note) -> thickness = the leading number
+    for level, name in (("ff", "slabs-ff"), ("roof", "slabs-roof")):
+        for m in re.finditer(r'\(\(\s*' + NUM + r'\s*,\s*' + NUM + r'\s*,\s*' + NUM + r'\s*,\s*' + NUM + r'\s*\)\s*,\s*"([^"]*)"\s*,\s*"(\d\.\d+)[^"]*"\s*,\s*"([^"]*)"\s*,\s*"([^"]*)"', live(grab(text, name))):
+            slabs[level].append({"box": tuple(float(m.group(i)) for i in (1, 2, 3, 4)), "type": m.group(5), "t": float(m.group(6)), "dir": m.group(7), "note": m.group(8)})
+    return st, cols, beams, slabs
 
 
 def read_let_number(path, name):
@@ -209,7 +213,7 @@ with open(ROOT / S["open_edges"], encoding="utf-8", newline="") as f:
             for r in csv.DictReader(f)]
 GF_DOORS, GF_WINDOWS = read_gf_openings(S["gf_openings"])
 FF_DOORS, FF_WINDOWS = read_ff_openings(S["ff_openings"])
-ST, COLS, BEAMS = read_structure(S["structure"])
+ST, COLS, BEAMS, SLABS = read_structure(S["structure"])
 CL_SILL, CL_HEAD = read_let_number(S["sections"], "cl-sill"), read_let_number(S["sections"], "cl-head")
 LATITUDE = read_let_number(S["sections"], "latitude")
 NORTH = tuple(float(v) for v in re.search(r"^#let north\s*=\s*\(\s*" + NUM + r"\s*,\s*" + NUM + r"\s*\)", (ROOT / S["north"]).read_text(encoding="utf-8"), re.M).groups())
@@ -361,19 +365,34 @@ def seg_box(a, b, t):
     return LineString([a, b]).buffer(t / 2, cap_style=2, join_style=2)
 
 
-def slab(name, poly, z0, z1):
+def slab(name, poly, z0, z1, level="gf", note=""):
     add(extrude(poly, z0, z1, COLOURS["slab"], name))
-    summary["slabs"].append({"name": name, "area": round(poly.area, 4), "z0": z0, "z1": z1})
+    summary["slabs"].append({"name": name, "level": level, "area": round(poly.area, 4), "z0": round(z0, 4), "z1": round(z1, 4), "t": round(z1 - z0, 4), "note": note})
+
+
+def zoned_slab(name, poly, top, level):
+    """V6.3: the slab in its bays with the thickness of studies/structure.typ (0.30 ribbed, 0.22 flat over the void, 0.20 elsewhere), all assumed:
+    one mesh per bay that differs from the default, the rest as one mesh; every bay keeps the structural top, the thicker ones hang lower."""
+    rest = poly
+    for i, z in enumerate(SLABS[level]):
+        if abs(z["t"] - T_SLAB) < 1e-6 or "stair" in z["type"]:
+            continue
+        part = box(*z["box"]).intersection(poly)
+        if part.is_empty or part.area < 1e-6:
+            continue
+        slab(f"{name}_bay{i:02d}", part, top - z["t"], top, level, f"{z['type']} {z['t']:.2f}: {z['note']}")
+        rest = rest.difference(part)
+    slab(name, rest, top - T_SLAB, top, level, f"solid {T_SLAB:.2f} (default)")
 
 
 # ---------- slabs (structural) and floor finishes, to the outer face of the outer walls ----------
 COURT_FLOOR = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)   # the courtyard floor between its wall faces: a mesh of its own (the character study's sunken seating replaces it)
-slab("gf_slab", outer_face.difference(COURT_FLOOR), STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"])
-slab("gf_slab_court", COURT_FLOOR, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"])
+slab("gf_slab", outer_face.difference(COURT_FLOOR), STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"], "gf", "ground slab")
+slab("gf_slab_court", COURT_FLOOR, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"], "gf", "the courtyard floor (replaced by the character study's sunken seating)")
 ff_slab_poly = outer_face.difference(unary_union([COURT_SKY, DH_VOID, STAIR_OPENING, TOWER_HOLE]))
-slab("ff_slab", ff_slab_poly, STRUCT_TOP["FF"] - T_SLAB, STRUCT_TOP["FF"])
+zoned_slab("ff_slab", ff_slab_poly, STRUCT_TOP["FF"], "ff")
 roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE]))
-slab("roof_slab", roof_poly, STRUCT_TOP["roof"] - T_SLAB, STRUCT_TOP["roof"])
+zoned_slab("roof_slab", roof_poly, STRUCT_TOP["roof"], "roof")
 add(extrude(outer_face.difference(ring).difference(COURT_FLOOR), STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_floor"))
 add(extrude(COURT_FLOOR, STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_court"))
 add(extrude(ff_slab_poly.difference(ring), STRUCT_TOP["FF"], FINISHED["FF"], COLOURS["finish"], "ff_finish_floor"))
@@ -410,6 +429,10 @@ def opening_heights(o, floor):
                 w["_used"] = True
                 return f + w["sill"], f + w["head"], w.get("note", "")
         return f + P["openings"]["window"]["sill"], f + P["openings"]["window"]["head"], "default window"
+    for d in P["openings"].get("doors", []):   # V6.3: door heads that differ from door_height (the living's entrance arch)
+        if d["floor"] == floor and all(abs(float(x) - y) < 1e-6 for x, y in zip(d["at"].split(), (*o["a"], *o["b"]))):
+            d["_used"] = True
+            return STRUCT_TOP[floor], f + d["head"], o["name"] + f" (head +{d['head']:.2f}: {d.get('note', '')})"
     return STRUCT_TOP[floor], f + P["openings"]["door_height"], o["name"]
 
 
@@ -508,9 +531,9 @@ for floor, rooms, doors, windows in (("GF", GF, GF_DOORS, GF_WINDOWS), ("FF", FF
     left = build_walls(floor, walls, ops)
     if left:
         raise SystemExit(f"ERROR: {floor} openings on no wall: {[(o['kind'], o['a'], o['b'], o['name']) for o in left]}")
-unused = [w for w in P["openings"]["windows"] if not w.get("_used")]
+unused = [w for w in P["openings"]["windows"] if not w.get("_used")] + [d for d in P["openings"].get("doors", []) if not d.get("_used")]
 if unused:
-    raise SystemExit(f"ERROR: params.yaml window heights that match no window of the plans: {[w['at'] for w in unused]}")
+    raise SystemExit(f"ERROR: params.yaml opening heights that match no opening of the plans: {[w['at'] for w in unused]}")
 summary["openings_note"] = {"skipped": skipped, "open_edges": open_doors}
 
 
@@ -665,6 +688,7 @@ add(extrude(seg_box((gx, gy0), (gx, gy1), T_IN - 0.04), zb1, FINISHED["GF"] + gz
 add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the building's outline below the ground slab, for the underground plan view
 summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
                   "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
+summary["flags"].append("Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it")
 summary["flags"].append("Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall "
                         "over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled")
 

@@ -1,5 +1,5 @@
 // ff_family.typ · Taif / Palm House · FIRST FLOOR · focus study of the FAMILY PART (the whole floor except the master suite) · compile THIS file
-// First floor V6.2, part 1 of 2 (part 2: studies/ff_suite.typ) · stand-alone: all data is in this file.
+// First floor V6.3, part 1 of 2 (part 2: studies/ff_suite.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, origin = the zone's NW corner, x east, y SOUTH) = the main first-floor CSV coordinates: no conversion.
 // The room list is also in data/rooms_ff.csv (whole-floor plan: design_ff.typ, which checks that both agree).
 #import "@preview/cetz:0.4.2"
@@ -18,7 +18,7 @@
 // ---------- Fixed inside the zone (rising from the ground floor) ----------
 #let fixed = (
   (name: "Stair (arrives at its south end)", pts: rect-pts(0, 2.2, 2.75, 7.9)),
-  (name: "Lift shaft (future)", pts: rect-pts(0, 0, 2.25, 2.2)),
+  (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
   (name: "Air tower", pts: ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)), parts: (((8.95, 0), (10.594, 0), (10.594, 1.0), (8.95, 1.0)),)),
 )
@@ -83,16 +83,16 @@
 // ---------- Doors and openings: a, b, label, room it serves, into = unit vector into that room, from = room it is reached from ("circ" = any circulation), open = no leaf ----------
 #let D(a, b, label, room, into, from: "circ", open: false) = (a: a, b: b, label: label, room: room, into: into, from: from, open: open)
 #let doors = (
-  D((2.25, 0.9), (2.25, 1.9), [lift], "Lift shaft (future)", (-1, 0), open: true),
+  D((2.25, 0.9), (2.25, 1.9), [lift (sliding)], "Lift shaft", (-1, 0), open: true),
   D((2.45, 0.7), (4.05, 0.7), [linen], "Linen cupboard", (0, -1), open: true),
-  D((4.25, 1.95), (4.25, 2.85), [kids' room], "Kids' room (study + gaming)", (1, 0)),
+  D((4.25, 1.9), (4.25, 2.9), [kids' room], "Kids' room (study + gaming)", (1, 0)),
   D((4.25, 3.1), (4.25, 4.5), [living, open to the gallery], "Family living", (1, 0), open: true),
-  D((4.25, 9.4), (4.25, 10.2), [family bath], "Family bath (bed 1 + 2, family living)", (-1, 0)),
+  D((4.25, 9.3), (4.25, 10.3), [family bath], "Family bath (bed 1 + 2, family living)", (-1, 0)),
   D((0.1, 11.0), (1.4, 11.0), [wardrobe], "Wardrobe niche (bed 2)", (0, -1), from: "Bedroom 2", open: true),
-  D((4.25, 11.2), (4.25, 12.0), [bed 2], "Bedroom 2", (-1, 0)),
-  D((4.25, 14.6), (4.25, 15.4), [bed 3], "Bedroom 3", (-1, 0)),
-  D((2.2, 15.3), (2.2, 16.0), [bath], "Bedroom 3 bath (en-suite)", (-1, 0), from: "Bedroom 3"),
-  D((9.1, 5.3), (10.0, 5.3), [bed 1], "Bedroom 1", (0, -1)),
+  D((4.25, 11.1), (4.25, 12.1), [bed 2], "Bedroom 2", (-1, 0)),
+  D((4.25, 15.2), (4.25, 16.2), [bed 3], "Bedroom 3", (-1, 0)),
+  D((2.2, 15.0), (2.2, 16.0), [bath (sliding)], "Bedroom 3 bath (en-suite)", (-1, 0), from: "Bedroom 3", open: true),
+  D((9.05, 5.3), (10.05, 5.3), [bed 1], "Bedroom 1", (0, -1)),
 )
 
 // ---------- Furniture and fixtures (x0, y0, x1, y1, label) ----------
@@ -246,9 +246,9 @@
 
 // ================= PAGE 1 · plan + rooms + checks =================
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
-#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.2 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
+#h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.3 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.2 · part 1 of 2: family part · west projection 1.35 m on three columns, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[First floor V6.3 · part 1 of 2: family part · west projection 1.35 m on three columns, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {

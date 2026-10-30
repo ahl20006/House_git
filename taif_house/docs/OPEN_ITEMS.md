@@ -1,9 +1,9 @@
-# Taif / Palm House · V6.2 · open items
+# Taif / Palm House · V6.3 · open items
 
 Grouped by who has to act. The numbers match `data/open_items.csv` and presentation sheet 10. `tools/check.py` checks that every item is listed here.
 
 ## Survey
-1. **Envelope gap 0.05 m** from the nearest outer wall face to the setback line, on the north / lane side. Confirm with the official survey before the wall faces are fixed.
+1. **Envelope gap 0.20 m** (V6.3, provisional: the house was moved 0.30 m south; the governing line is the lane, the north street line is 0.80 m away) from the nearest outer wall face to the setback line. Confirm with the official survey before the wall faces are fixed. To reach 0.35 m on the lane the house would need 0.63 m south, or 0.30 m south and 0.17 m west (the west face is 0.785 m from the M line).
 
 ## Structural engineer
 2. **Edge beam and columns:** the edge beam on x 5.6 (spans ≈ 6.5 m and 6.25 m) and the three columns at x 5.6 under the first-floor west projection. To size: beam depth, column sizes and their foundations. The columns stand in the women's majlis south wall (y 6.5), as a pier between the courtyard glass and the living (y 13.0), and in the living's south wall (y 19.25).
@@ -40,8 +40,11 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
 11. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
 12. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
 13. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
-14. **Future lift:** take the final shaft size from a supplier's civil drawing (two stops). Ask two or three suppliers and use the largest.
+14. **Lift shaft size:** the lift is installed at construction (V6.3, two stops); the shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen. Ask two or three suppliers and use the largest shaft.
 
 ## Design (next rounds)
-14. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.
-15. **Bedroom 1 bath:** bedroom 1 is far from the family bath. Accept it, or review it in the next detail round.
+15. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.
+16. **Bedroom 1 bath:** bedroom 1 is far from the family bath. Accept it, or review it in the next detail round.
+
+## From the design review (`docs/review`, tag `review-1`) · the big items, in order
+Not in `data/open_items.csv` yet; they are decisions, listed in `NEXT_SESSION.md` in the order to take them: the courtyard enclosure; the maid room; roof access; fire and escape; the serving route and bedroom 1's bath; the malqaf; the gym's treadmill clearances and vibration; the site and roof plan.

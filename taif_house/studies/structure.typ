@@ -1,4 +1,4 @@
-// structure.typ · Taif / Palm House V6.2 · PRELIMINARY STRUCTURAL STUDY (architectural coordination, not a structural design) · compile THIS file
+// structure.typ · Taif / Palm House V6.3 · PRELIMINARY STRUCTURAL STUDY (architectural coordination, not a structural design) · compile THIS file
 // Every size here is ASSUMED, to be calculated by the structural engineer. Beam depth = TOTAL depth including the slab (a 0.50 beam under a 0.20 slab drops 0.30). The room outlines come from ../data/rooms_gf.csv and
 // ../data/rooms_ff.csv; the column grid, beams and slab types are this study's proposal. Written up in ../docs/STRUCTURE_STUDY.md.
 // Coordinates: the CSV frame (metres, x east, y south, origin = the building's north-west wall corner). Levels: GF ±0.00 · FF +3.60 · roof +7.20.
@@ -72,7 +72,7 @@
   ("B1", (4.25, 3.0), (8.95, 3.0), "4.70", "0.25×0.40 total = 0.20 below the slab, soffit +3.20; hidden by the women's majlis gypsum ceiling (≈ +3.05, owner decision)", "drop", "FF kids' room / family living wall (y 3.0, nothing below) + the women's majlis roof"),
   ("B2", (4.25, 6.5), (8.95, 6.5), "1.35 + 3.35", "0.25×0.40 hidden / drop", "edge", "FF slab edge on the courtyard (family living balustrade); over the women's majlis south glazing"),
   ("B3", (5.6, 6.5), (5.6, 19.25), "6.50 + 6.25", "0.25×0.50 total · UPTURNED (owner's preference: 0.30 above the slab = the railing base) or drop (0.30 below; the engineer decides) · § options", "edge", "the 1.35 m projection and the gallery, on C21–C23"),
-  ("B4", (4.25, 6.5), (4.25, 19.25), "6.50 + 6.25", "0.25×0.50 total = 0.30 below the slab, soffit +3.10", "drop", "FF west rooms' east wall (over the riwaq glazing and the low wall) + the projection back span"),
+  ("B4", (4.25, 6.5), (4.25, 19.25), "6.50 + 6.25", "0.25×0.50 total = 0.30 below the slab, soffit +3.10", "drop", "FF west rooms' east wall (over the riwaq glazing and the living's entrance arch; on the solid TV wall from y 14.5, V6.3) + the projection back span"),
   ("B5", (8.95, 13.0), (8.95, 19.25), "6.25", "0.25×0.55 total = 0.35 below the slab, soffit +3.05 (or 0.60×0.40 wide-shallow, soffit +3.20)", "drop", "FF suite bedroom west wall + half the dining roof; over the open ceiling-height change"),
   ("B6", (8.95, 6.5), (13.311, 6.5), "4.36", "hidden 0.30", "hidden", "on the kitchen north wall; FF bedroom 1 / suite wall above"),
   ("B7", (8.95, 13.0), (13.311, 13.0), "4.36", "hidden 0.30", "hidden", "on the kitchen / dining wall; the suite dressing floor spans over it"),
@@ -106,7 +106,7 @@
 )
 // slab bays: (level, rect x0 y0 x1 y1, type, thickness, direction "EW" | "NS" | "cant W", note)
 #let slabs-ff = (
-  ((0, 0, 2.75, 2.2), "lift: FF slab panel, removable later", "0.20 solid", "NS", "future lift"),
+  ((0, 0, 2.75, 2.2), "lift: FF slab opening (the lift is installed at construction, V6.3)", "0.20 solid", "NS", "lift"),
   ((0, 2.2, 2.75, 7.9), "stair: L-shaped opening + flight slabs", "0.15 flights", "NS", "opening x 0.125–1.39 y 2.30–4.75 + x 1.39–2.65 y 2.30–6.35 (about 8.2 m2), see the stair page"),
   ((0, 7.9, 2.75, 10.4), "solid", "0.20", "EW", "utility; shaft opening 1.5×1.2 framed"),
   ((0, 10.4, 2.75, 24), "solid", "0.20", "EW", "west wash block, 2.75 m bays"),
@@ -179,7 +179,7 @@
 })
 
 // ================= PAGE 1 · approach + ground floor (columns, cores, footings) =================
-#text(14pt, weight: "bold", fill: green)[Preliminary structural study · Taif / Palm House V6.2]
+#text(14pt, weight: "bold", fill: green)[Preliminary structural study · Taif / Palm House V6.3]
 #h(6pt) #text(7.5pt, fill: gray)[architectural coordination study · every size ASSUMED, to be calculated by the structural engineer · beam depths are TOTAL depths including the slab · CSV coordinates, north up]
 #v(1pt)
 #block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt, width: 100%)[#text(7.5pt, weight: "bold", fill: red)[ALL CHECKS PASSED means the drawings are consistent; it does not mean strength, deflection or vibration were calculated.]]
@@ -229,7 +229,7 @@
     #table(columns: (1fr, 1fr), stroke: none, inset: 1.8pt, fill: (_, y) => if calc.even(y) { rgb("#efece4") },
       [*On a wall below (block infill under a hidden beam)*], [*Nothing below → beam or light partition*],
       [x 0, x 13.311, y 0, y 24, the cut wall (outer walls); x 2.75 at the lift and landing; x 2.25 lift; y 2.2, 7.9, 10.4 (shaft), 14.4, 16.1 (bath 3 = GF family WC), 19.25 (majlis north wall), x 1.5 shaft; x 8.95 y 6.5–13 (kitchen west wall); y 6.5 x 8.95–13.311 (kitchen north wall); y 13.0 line inside the suite (kitchen / dining wall)],
-      [*y 3.0* kids' / family living → *B1*; *x 4.25 y 13–19.25* bedrooms' east wall over the low wall / opening → *B4*; *x 8.95 y 13–19.25* suite bedroom west wall over the open ceiling change → *B5*; *x 4.25 y 19.25–24* office → *B19* rib; *x 5.6* gym route → *B20*; *x 11.586* treadmill arm → *B21*; *y 21.25* gym north wall (7.7 m, east–west across the ribs) → *light partition on the slab* (X6); suite walls x 10.3, y 10.45, x 12.211, y 8.0, y 11.9, y 13.9 over the kitchen → light partitions (100 mm block or dry wall) on the ribbed slab, or hidden beams under the bath walls; y 11.0 (bath / niche / bedroom 2) and y 9.2 x 1.5–4.25 (family bath north) → light partitions; x 2.2 bath 3 / bedroom 3 entry → light; y 5.3 and x 10.15 (bedroom 1 / family link) → light; linen front y 0.7 → joinery],
+      [*y 3.0* kids' / family living → *B1*; *x 4.25 y 13–19.25* bedrooms' east wall over the riwaq glazing and the entrance arch (on the solid TV wall from y 14.5) → *B4*; *x 8.95 y 13–19.25* suite bedroom west wall over the open ceiling change → *B5*; *x 4.25 y 19.25–24* office → *B19* rib; *x 5.6* gym route → *B20*; *x 11.586* treadmill arm → *B21*; *y 21.25* gym north wall (7.7 m, east–west across the ribs) → *light partition on the slab* (X6); suite walls x 10.3, y 10.45, x 12.211, y 8.0, y 11.9, y 13.9 over the kitchen → light partitions (100 mm block or dry wall) on the ribbed slab, or hidden beams under the bath walls; y 11.0 (bath / niche / bedroom 2) and y 9.2 x 1.5–4.25 (family bath north) → light partitions; x 2.2 bath 3 / bedroom 3 entry → light; y 5.3 and x 10.15 (bedroom 1 / family link) → light; linen front y 0.7 → joinery],
     )
   ],
 )
@@ -294,7 +294,7 @@
     beam(4.25, 7.2, 0.25, 0.5); T((4.25, 6.55), [R3], size: 3.8pt, fill: blue, anchor: "east"); beam(8.95, 7.2, 0.25, 0.5); T((9.2, 6.55), [R4], size: 3.8pt, fill: blue, anchor: "west")
     beam(5.6, 7.2, 0.25, 0.45); T((5.0, 7.5), [R11 on C21–C22], size: 3.6pt)
   }),
-  sec([B · y 16.5: living (low wall) · double-height void · dining · suite], (slab, beam, col, wall, T, up) => {
+  sec([B · y 16.5: living (TV wall) · double-height void · dining · suite], (slab, beam, col, wall, T, up) => {
     slab(-0.125, 13.436, 0)
     for x in (0, 2.75, 13.311) { wall(x, 0, 3.4, t: if x == 0 or x == 13.311 { 0.25 } else { 0.2 }) }
     wall(4.25, 0, 1.2); T((4.4, 1.4), [low wall 1.20], size: 3.6pt, anchor: "west")
@@ -489,7 +489,7 @@
 #let X = (
   ("X1", "accepted", [Column *C22* (5.6, 13.0) stands in the courtyard / living glazing (x 4.45–8.75): the glass is split 4.45–5.45 + 5.75–8.75. A decision of the columns solution (tag v5.0); keep the column round Ø0.30 and detail the glazing around it.]),
   ("X2", "accepted", [Beam *B5* (x 8.95, 6.25 m, 0.25 × 0.55 total) shows 0.35 m below the dining ceiling, on the ceiling-height change line, soffit +3.05 before finishes. Acceptable: it is the step between the two heights. Alternative 0.60 × 0.40 total (soffit +3.20).]),
-  ("X3", "owner decided · column size to confirm", [*C33 stays at (13.311, 10.45); the suite bath east window is shortened to y 9.6–10.2 (0.60 m).* Clearance between the column's real outline and the window: with the assumed 0.25 × 0.60 lying *along* the wall the column spans y 10.15–10.75 and *still overlaps the window by 0.05 m*; with 0.25 × 0.50 along the wall (y 10.20–10.70) the clearance is 0.00 (the jamb on the column face); with 0.25 × 0.40 or a 0.30 square (y 10.25–10.65 / 10.30–10.60) it is +0.05 / +0.10. Turning the 0.60 side into the room (0.25 along the wall: y 10.325–10.575) gives +0.125 but a 0.35 m nib in the kitchen counter and beside the suite tub. *So: no clash only if the engineer keeps C33 to ≤ 0.50 along the wall* (two storeys, light loads make that plausible); the GF kitchen window (y 8.7–10.1) is clear in every case.]),
+  ("X3", "owner decided · resolved (V6.3)", [*C33 stays at (13.311, 10.45); the suite bath east window is 0.55 m, y 9.50–10.05 (V6.3).* Its frame (0.05) clears the assumed 0.25 × 0.60 column lying along the wall (y 10.15–10.75) by 0.05 m, and any smaller column by more: no clash for any column ≤ 0.60 along the wall. The GF kitchen window (y 8.7–10.1) is clear.]),
   ("X4", "rule", [The gym roof's north edge *R6* (y 21.25) must be a *drop* beam, not upturned: the gym roof edge is a railing, not a parapet (solid top +7.20). An upstand of 0.40 would raise the solid top to +7.60 and cut the winter noon sun on the clerestory windows from ≈ 81 % to ≈ 40 %.]),
   ("X5", "NOT verified", [*Proposed load path, NOT verified:* R6 (6.0 m) carried by the first-floor walls x 5.6 and x 11.586, which stand on thickened ribs of the men's majlis roof (B20, B21), not on columns: a transfer (wall on a beam). Reason: no column may stand inside the men's majlis. Proposal: build those two walls as RC walls 0.20 m (2 m long, slab to roof) so the path roof → wall → rib → GF walls is explicit. *The structural engineer must confirm the supports, the sizes and the deflection of R6, B20 and B21.* In the 3D model (phase 4) R6 and these two walls are to be shown as *unconfirmed* (own colour / hatch) until then. Loads: a home gym, see § 4.]),
   ("X6", "flag", [The gym's north wall *y 21.25* (7.7 m) runs across the majlis roof ribs with nothing below: a *light partition* is recommended (100 mm block or dry wall; high obscured windows onto the court). If the owner wants a 200 mm wall, a solid band in the ribbed slab. Home gym (light equipment, one treadmill): live load as the engineer judges; the slab's vibration under the treadmill arm is *not calculated* and must be checked; floating floor and pads in the arm (DETAILS.md).]),

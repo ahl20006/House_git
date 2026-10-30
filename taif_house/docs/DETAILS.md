@@ -1,4 +1,4 @@
-# Taif / Palm House · V6.2 · construction and detail notes
+# Taif / Palm House · V6.3 · construction and detail notes
 
 House-wide building rules and details, for the engineer, the carpenter and the contractor. The layout decisions and their reasons are in `PROJECT_V6.md`, and the open items in `OPEN_ITEMS.md`. *Concept notes, to be confirmed by the engineers.*
 
@@ -49,6 +49,18 @@ House-wide building rules and details, for the engineer, the carpenter and the c
 - **Stacked wet rooms:** the bedroom 3 bath stands exactly over the ground-floor family WC; the family bath WC is on the west shaft wall.
 - **Suite court:** waterproofing on the men's majlis roof slab. Since V6.2 its floor **falls west** to its drain, away from the treadmill arm at its east end. A railing (not a parapet) on the gym roof edge.
 - **Gas, if used:** a cylinder cabinet outside the east wall in the service yard, reached through the kitchen service door.
+
+## The TV wall (V6.3)
+- The living's west wall on x 4.25 (y 13.0–19.25) is a full-height 200 mm wall to the projection's slab underside; beam B4 above it bears on it from y 14.5 (the engineer may treat B4 as a hidden beam there).
+- **Entrance arch** 1.40 m wide at the north end (y 13.1–14.5), head +2.60 (semicircular, springing +1.90); no leaf.
+- **TV niche** between a 0.25 m pier (y 14.5–14.75) and the south wall: 4.40 m wide, 0.70 m deep into the living (the frame projects, the wall stays 200 mm), a segmental arch with its crown at +3.10 under the soffit (+3.27); inside: a long low cabinet 3.8 × 0.5 × 0.45 (y 15.05–18.85), the 85″ TV (1.9 × 1.08) centred at y 16.95 with its bottom at +0.70, shelves 0.4 deep at both ends, hidden LED in the arch and behind the TV; conduits for the sound system to the side shelves and the ceiling.
+- Sofa 3.8 m facing west with its back at x 8.45 (eye ≈ x 7.90): eye-to-screen 3.47 m; the dining table behind it from x 10.4; a 1.9 m path at the sofa's north end from the entrance arch to the dining and the kitchen.
+
+## Doors (V6.3)
+- Every bedroom and bathroom door on both floors: a **1.00 m structural opening, 0.90 m leaf** (frame 50 mm each side, stop and leaf thickness ≈ 50 mm → ≈ 0.85 m clear), lever handles, 100 mm bottom rail for later kick plates.
+- Hinge sides: family bath hinged at its north jamb (y 9.3) so the leaf clears the basin; bedroom 3's door at y 15.2–16.2 (south of the entry wardrobe); bedroom 3's bath door sliding (y 15.0–16.0); the suite WC closet door opens out into the bath (the pan sits behind it).
+- Not reached: the guest WC (0.90 m opening, ≈ 0.75 clear: the room is 1.3 m clear wide) and the maid bath (0.70 m: column C31 and the cut wall; to revisit with the maid wing).
+- The lift: sliding landing doors (≥ 0.80 m clear) from the lobby and the gallery at y 0.9–1.9.
 
 ## Joinery and doors
 - **Built-in cupboards in niches** (linen cupboard, bedroom 2 wardrobe niche):

@@ -1,4 +1,4 @@
-# Taif / Palm House · V6.2 · preliminary structural study
+# Taif / Palm House · V6.3 · preliminary structural study
 
 > **ALL CHECKS PASSED means the drawings are consistent; it does not mean strength, deflection or vibration were calculated.**
 
@@ -33,6 +33,8 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 
 ## 3. Slabs and beams
 ### Slabs
+The 3D model carries these thicknesses per bay since V6.3 (`3d/build_3d.py` reads `slabs-ff` / `slabs-roof` from `studies/structure.typ`), all assumed: clear heights before finishes +3.32 under the 0.20 slabs, +3.22 under the 0.30 bays, roof underside +6.98 over the void and +6.90 under the suite / office bays.
+
 | Level | Bay | Type | Span |
 |---|---|---|---|
 | FF | west band x 0–2.75 (y 7.9–24), riwaq x 2.75–4.25 | solid 0.20 | east–west 2.75 / 1.5 m |
@@ -54,7 +56,7 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 | B1 | y 3.0, x 4.25–8.95 | 4.70 | 0.25 × 0.40 | 0.20 below the slab, soffit +3.20; hidden by the women's majlis gypsum ceiling at ≈ +3.05 (owner decision) | FF kids' / family living wall, nothing below |
 | B2 | y 6.5, x 4.25–8.95 | 1.35 + 3.35 | 0.25 × 0.40 | edge, soffit +3.20 | FF slab edge on the courtyard |
 | B3 | x 5.6, y 6.5–19.25 | 6.50 + 6.25 | 0.25 × 0.50 | **upturned, 0.30 above the slab (owner's preference)** or drop, 0.30 below (§4.1) | the projection and the gallery, on C21–C23 |
-| B4 | x 4.25, y 6.5–19.25 | 6.50 + 6.25 | 0.25 × 0.50 | 0.30 below, soffit +3.10 | FF west rooms' east wall over the riwaq glazing and the low wall |
+| B4 | x 4.25, y 6.5–19.25 | 6.50 + 6.25 | 0.25 × 0.50 | 0.30 below, soffit +3.10 | FF west rooms' east wall over the riwaq glazing and the living's entrance arch; on the solid TV wall from y 14.5 (V6.3) |
 | B5 | x 8.95, y 13–19.25 | 6.25 | 0.25 × 0.55 | 0.35 below the dining ceiling, soffit +3.05 | suite bedroom west wall + half the dining roof, on the ceiling-height change |
 | B6, B7 | y 6.5 and y 13.0, x 8.95–13.311 | 4.36 | hidden 0.30 | – | on the kitchen walls |
 | B8 | y 19.25, x 2.75–13.311 | 1.5 + 1.35 + 3.35 + 4.36 | 0.25 × 0.45 | 0.25 above the wall, invisible | the FF walls on the majlis north wall line |
@@ -71,7 +73,7 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 
 ### First-floor walls: what carries them
 - **On a wall below:** the outer walls; x 2.75 at the lift and the landing; x 2.25 (lift); y 2.2, 7.9, 10.4, 14.4, 16.1 (bath 3 = the GF family WC), 19.25 (majlis north wall); x 1.5 (shaft); x 8.95 y 6.5–13 and y 6.5 x 8.95–13.311 (kitchen walls).
-- **Nothing below → a beam:** y 3.0 (B1); x 4.25 y 13–19.25 (B4, over the low wall and the opening); x 8.95 y 13–19.25 (B5, over the open ceiling change); x 4.25 y 19.25–24 (B19), x 5.6 (B20), x 11.586 (B21) over the men's majlis.
+- **Nothing below → a beam:** y 3.0 (B1); x 4.25 y 13–19.25 (B4, over the entrance arch; on the solid TV wall from y 14.5, V6.3); x 8.95 y 13–19.25 (B5, over the open ceiling change); x 4.25 y 19.25–24 (B19), x 5.6 (B20), x 11.586 (B21) over the men's majlis.
 - **Nothing below → light partitions** (100 mm block or dry wall, on the slab): the gym's north wall y 21.25 (7.7 m across the ribs, X6); the suite walls over the kitchen (x 10.3, y 10.45, x 12.211, y 8.0, y 11.9, y 13.9, X10); y 11.0 (family bath / niche / bedroom 2); y 9.2 x 1.5–4.25 (family bath north); x 2.2 (bath 3 / bedroom 3 entry); y 5.3 and x 10.15 (bedroom 1 / family link); the linen cupboard front (joinery).
 
 ## 4. Special zones (options compared, none imposed)
@@ -127,7 +129,7 @@ Beam B5, 0.25 × 0.55 total, between C27 (8.95, 13.0) and C28 (8.95, 19.25). It 
 |---|---|---|
 | X1 | accepted | Column C22 (5.6, 13.0) stands in the courtyard / living glazing; the glass is split 4.45–5.45 + 5.75–8.75. Keep it round Ø0.30. |
 | X2 | accepted | Beam B5 (0.25 × 0.55 total) shows 0.35 m below the dining ceiling on the ceiling-height change line, soffit +3.05 before finishes: it is the step itself. Alternative 0.60 × 0.40 total (soffit +3.20). |
-| X3 | owner decided · column size to confirm | **C33 stays at (13.311, 10.45); the suite bath east window is shortened to y 9.6–10.2 (0.60 m).** Clearance between the column's real outline and the window: with the assumed 0.25 × 0.60 lying along the wall (y 10.15–10.75) the column **still overlaps the window by 0.05 m**; with 0.25 × 0.50 along the wall (y 10.20–10.70) the clearance is 0.00 (jamb on the column face); with 0.25 × 0.40 or a 0.30 square it is +0.05 / +0.10. Turning the 0.60 side into the room (y 10.325–10.575) gives +0.125 but a 0.35 m nib in the kitchen counter and beside the suite tub. So there is no clash only if the engineer keeps C33 to ≤ 0.50 along the wall (plausible for two storeys and light loads). The GF kitchen window (y 8.7–10.1) is clear in every case. |
+| X3 | owner decided · resolved (V6.3) | **C33 stays at (13.311, 10.45); the suite bath east window is 0.55 m, y 9.50–10.05 (V6.3).** Its frame (0.05) clears the assumed 0.25 × 0.60 column lying along the wall (y 10.15–10.75) by 0.05 m, and any smaller column by more: no clash for any column ≤ 0.60 along the wall. The GF kitchen window (y 8.7–10.1) is clear. |
 | X4 | rule | The gym roof's north edge R6 must be a drop beam, not upturned: an upstand of 0.40 would raise the solid top to +7.60 and cut the clerestory's winter noon sun from ≈ 81 % to ≈ 40 %. |
 | X5 | **NOT verified** | **Proposed load path, not verified:** R6 (6.0 m) carried by the first-floor walls x 5.6 and x 11.586 standing on ribs of the men's majlis roof (B20, B21), not on columns, because no column may stand in the majlis. Proposal: build those two walls as RC walls 0.20 m so the path roof → wall → rib → GF walls is explicit. **The structural engineer must confirm the supports, the sizes and the deflection of R6, B20 and B21.** In the 3D model (phase 4) R6 and these two walls are to be shown as unconfirmed (own colour / hatch) until then. Loads: a home gym (§4.4). |
 | X6 | flag | The gym's north wall (y 21.25, 7.7 m) runs across the ribs with nothing below: light partition recommended. Home gym (light equipment, one treadmill): live load as the engineer judges; the slab's vibration under the treadmill arm is not calculated and must be checked; floating floor and pads in the arm. |

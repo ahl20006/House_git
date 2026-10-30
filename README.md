@@ -2,16 +2,17 @@
 
 Concept design of a two-storey courtyard house in Taif, drawn with [Typst](https://typst.app) from CSV room data.
 
-**Current version: V6.2** (git tag `v6.2`, GitHub Release "V6.2").
+**Current version: V6.3** (git tag `v6.3`, GitHub Release "V6.3").
 - **Both floors are designed:**
   - the 1.35 m west projection over the courtyard and the double-height void, on an edge beam and three columns (the V5.0 columns solution, restored in V6.1 after the split projection of V5.1–V6.0 was reverted);
-  - an L-shaped gym (V6.2): the long arm along the south facade and a treadmill arm at the east end along the suite bedroom wall, with acoustic separation; the suite court is 11.97 m².
+  - an L-shaped gym: the long arm along the south facade and a treadmill arm at the east end along the suite bedroom wall, with acoustic separation; the suite court is 11.97 m².
+- **V6.3 (quick fixes from the design review, tag `review-1`):** the living's west wall solid with the TV arch and the entrance arch (no arches between the colonnade columns); the lift installed at construction; bedroom and bathroom doors 1.00 m openings; the suite bath window 0.55 m (X3 resolved); the 3D with the study's slab thicknesses; the house 0.30 m further south (provisional). The big review items still open are listed in `taif_house/docs/NEXT_SESSION.md`.
 - **Walls on walls:** the first-floor walls stand on the ground-floor walls (0.785 m from the M line), so no M-line approval is needed. The open items are in `taif_house/docs/OPEN_ITEMS.md`.
 - **Start here:** `taif_house/docs/NEXT_SESSION.md`. The whole house is described in `taif_house/docs/PROJECT_V6.md`.
 
-**For engineers and anyone without git:** open the **[Releases](../../releases)** page and download **V6.2**:
-- the A3 presentation set `Taif_House_V6.2_presentation.pdf` (10 sheets: site, both floors, the family part, the L and the master suite, the two ground-floor blocks, sections and light, area schedules, decisions log, open items);
-- the two DXFs (`taif_ground_floor_V6.2.dxf`, `taif_first_floor_V6.2.dxf`).
+**For engineers and anyone without git:** open the **[Releases](../../releases)** page and download **V6.3**:
+- the A3 presentation set `Taif_House_V6.3_presentation.pdf` (10 sheets: site, both floors, the family part, the L and the master suite, the two ground-floor blocks, sections and light, area schedules, decisions log, open items);
+- the two DXFs (`taif_ground_floor_V6.3.dxf`, `taif_first_floor_V6.3.dxf`).
 
 Each release is a frozen version; `main` always holds the latest work.
 
@@ -41,7 +42,7 @@ taif_house/
 - **Compile one file** (the `--root` lets the studies reach `../base.typ` and `../data`):
   ```
   typst compile --root taif_house taif_house/design_ff.typ taif_house/output/design_ff.pdf
-  typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.2_presentation.pdf
+  typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.3_presentation.pdf
   ```
 - **Check everything:** `python taif_house/tools/check.py` must end with **ALL CHECKS PASSED**. It:
   - compiles every drawing, the studies, the presentation and the archived first-floor drawing;
@@ -53,5 +54,5 @@ taif_house/
 - **DXFs only:** `python taif_house/tools/make_dxf.py` and `python taif_house/tools/make_dxf_ff.py` (see `taif_house/docs/README_DXF.md`).
 
 ## Versions
-- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (current: the L-shaped gym). The changelog is in `taif_house/docs/PROJECT_V6.md` §6. Work tags after V6.2: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`.
+- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (the L-shaped gym), `v6.3` (current: the quick fixes from the design review). The changelog is in `taif_house/docs/PROJECT_V6.md` §6. Work tags: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`, `air-p1`, `air-p2`, `3d-char1`, `3d-char2`, `review-1`.
 - **Study branches, kept for reference:** `v5-split-projection` (the split projection: merged in V5.1, reverted in V6.1) and `v5-gym-L` (the L-shaped gym study, rejected in V5.1, adopted in V6.2).

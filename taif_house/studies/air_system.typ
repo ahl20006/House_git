@@ -1,4 +1,4 @@
-// air_system.typ · Taif / Palm House V6.2 · AIR SYSTEM STUDY v2 (air-p2): a dry malqaf for night ventilation, a small dry duct, a wall outlet in the courtyard;
+// air_system.typ · Taif / Palm House V6.3 · AIR SYSTEM STUDY v2 (air-p2): a dry malqaf for night ventilation, a small dry duct, a wall outlet in the courtyard;
 // the house's MAIN ventilation is a calculated system (ERV, exhausts, AC) designed by the MEP engineer · compile THIS file
 // v2.1 (3d-char2, owner decision): the outlet moved from the courtyard's north wall to the north end of its EAST wall (the kitchen's west wall), over the
 // sunken seating of the character study; the duct runs south from the tower base under the maid bath and the laundry to a chamber under the kitchen floor.
@@ -58,7 +58,7 @@
 #let H(t) = text(9pt, weight: "bold", fill: green, t)
 
 // ================= PAGE 1 · the main system, the malqaf's role, the route, the plan =================
-#text(14pt, weight: "bold", fill: green)[Air system study v2 · dry malqaf for night ventilation, small dry duct, wall outlet · Taif / Palm House V6.2]
+#text(14pt, weight: "bold", fill: green)[Air system study v2 · dry malqaf for night ventilation, small dry duct, wall outlet · Taif / Palm House V6.3]
 #h(6pt) #text(7.5pt, fill: gray)[design-development study · every size and performance statement ASSUMED / NOT CALCULATED, to be designed by the MEP engineer · CSV coordinates, north up]
 #v(1pt)
 #block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt, width: 100%)[#text(7.5pt, weight: "bold", fill: red)[Nothing here is calculated: no airflow, cooling, filtration, structural or hydraulic figure. The study proves the performance of no option. ALL CHECKS PASSED means the drawings are consistent with the project files, not that the system was sized. v1 (air-p1, walk-in tunnel with a water channel) is withdrawn.]]

@@ -1,6 +1,7 @@
 // design_review.typ · Taif / Palm House V6 · full design review against the owner's requirements (docs/REQUIREMENTS.md), Saudi regulation
 // and practice, and global best practice · review only: no design file is changed · compile THIS file:
 //   typst compile --root taif_house taif_house/docs/review/design_review.typ taif_house/output/Design_Review_V6.pdf
+// Written against V6.2 (tag review-1); compiled later it shows the files' current state (V6.3 applied the quick fixes of §11's first group).
 // Every area, width, distance and glazing figure comes from the project files through the presentation's own helpers (data/*.csv, the design
 // files, the studies, 3d/params.yaml for the window heights); nothing is typed by hand. Coordinates are the CSV frame (x east, y south).
 #import "@preview/cetz:0.4.2"
@@ -181,7 +182,7 @@
   ("R-02", [Maid wing ≥ 6.5 m², ≥ 2.1 m wide, own bath, private route], "not", [#r2(gcl("Maid room")) m² clear, #r2(maid-w-north) m wide at the north end; bath #r2(gcl("Maid bath")) m²; route only through the kitchen (G-04).]),
   ("R-03", [No driver room], "met", [None drawn.]),
   ("R-04", [No GF bedroom, no prayer room], "met", [None drawn.]),
-  ("R-05", [Medium storage], "partly", [Linen #r2(fcl("Linen cupboard")) m², entry cupboard #r2(gcl("Entry cupboard")) m², under-stair store, pantry run 1.8 m; the only general store is the future lift shaft (#r2(gcl("Lift (future · shaft placeholder)")) m², temporary); no garden store.]),
+  ("R-05", [Medium storage], "partly", [Linen #r2(fcl("Linen cupboard")) m², entry cupboard #r2(gcl("Entry cupboard")) m², under-stair store, pantry run 1.8 m; the only general store is the future lift shaft (#r2(gcl("Lift (shaft placeholder)")) m², temporary); no garden store.]),
   ("R-06", [Lift at construction], "not", [Shaft placeholder only, lift "future" (A-01).]),
   ("R-07", [Doors ≥ 0.85 m, corridors ≥ 1.2 m], "partly", [Riwaq #r2(riwaq-clear) m clear ✓; gallery #r2(gallery-clear) m ✗; bedroom / bath doors 0.70–0.80 m ✗ (F-01, F-02).]),
   ("R-08", [Step-free routes], "met", [GF level, FF level from the lift / stair; thresholds to specify (A-02).]),
@@ -346,7 +347,7 @@ Findings in all: #count("critical") critical · #count("major") major · #count(
 - *Kitchen (G08), #r2(gcl("Kitchen")) m² clear:* two runs #r2(cdims(kitchen, gf-walls).at(0) - 1.2) m apart, the hob and the hood on the outer wall, the sink on the courtyard: a good heavy kitchen if the make-up air and the laundry door are added (G-03). Pantry run 1.8 m (R-18 met). The chamber of the malqaf now sits under its north-west corner (E-01).
 - *Laundry (G07), #r2(gcl("Laundry")) m² clear:* washer, dryer, sink and folding fit; it is also the maid's corridor and the kitchen's open annexe.
 - *Maid room (G06), #r2(gcl("Maid room")) m² clear, and maid bath (G05), #r2(gcl("Maid bath")) m²:* below the municipal minimum and reached only through the kitchen (G-04).
-- *West band:* lift placeholder #r2(gcl("Lift (future · shaft placeholder)")) m² (A-01), entry cupboard #r2(gcl("Entry cupboard")) m², stair (G-08), utility #r2(gcl("Utility room (shaft inside)")) m² (already full: panel, manifold, water heater, shaft; the PV / alarm / lift plant has no home, E-04), hospitality kitchen #r2(gcl("Hospitality kitchen")) m² (good), family basins and WC (no shower, G-07), serving passage #r2(gcl("Serving passage (2 doors)")) m² (the key to the separation), guest WC #r2(gcl("Guest WC")) m² (G-06), guest basins, guest passage, foyer #r2(gcl("Foyer + entry")) m² (G-09).
+- *West band:* lift placeholder #r2(gcl("Lift (shaft placeholder)")) m² (A-01), entry cupboard #r2(gcl("Entry cupboard")) m², stair (G-08), utility #r2(gcl("Utility room (shaft inside)")) m² (already full: panel, manifold, water heater, shaft; the PV / alarm / lift plant has no home, E-04), hospitality kitchen #r2(gcl("Hospitality kitchen")) m² (good), family basins and WC (no shower, G-07), serving passage #r2(gcl("Serving passage (2 doors)")) m² (the key to the separation), guest WC #r2(gcl("Guest WC")) m² (G-06), guest basins, guest passage, foyer #r2(gcl("Foyer + entry")) m² (G-09).
 - *Family lobby + riwaq (G12):* #r2(riwaq-clear) m clear and #r2(cdims(riwaq, gf-walls).at(1)) m long, lit by the courtyard glass: a good family corridor and the only link between the three bands; every ground-floor route crosses it.
 #ftable(by-prefix("G-"))
 #ar[*الدور الأرضي:* الجدار الغربي للصالة ما زال جدارا منخفضا في الملفات رغم قرار الجدار الكامل بقوس التلفاز (G-01). غرفة الخادمة #r2(gcl("Maid room")) م² صافية وعرضها #r2(maid-w-north) م في طرفها الشمالي، أقل من الحد البلدي (6.5 م² و2.1 م) ولا مخرج لها إلا عبر المطبخ (G-04). لا دوش في الدور الأرضي (G-07). المطبخ الثقيل يحتاج هواء تعويض للشفاط وبابا إلى المغسلة (G-03). المجلس يتسع لنحو #str(calc.round(majlis-seat / 0.7)) مقعدا.]

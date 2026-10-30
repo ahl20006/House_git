@@ -1,4 +1,4 @@
-# Taif / Palm House · owner's requirements (V6, 30 Oct 2026)
+# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V6.3)
 
 The owner's brief written as numbered, testable requirements. Each has a criterion the design can be checked against; where the owner gave no number, the criterion is a reasonable measurable proxy and is marked *(proxy)*. The design review `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` checks every requirement against the project files (`data/*.csv`, the design files and the studies) and records **met / partly / not met** with evidence.
 
@@ -12,8 +12,8 @@ Sources for the criteria: the owner's brief (this file); municipal villa rules a
 | R-03 | No driver room in the house (the driver lives in the farm's workers' housing) | No driver room drawn |
 | R-04 | No ground-floor bedroom; no prayer room | None drawn; a multi-use room may serve prayer informally |
 | R-05 | Medium storage | *(proxy)* one general store ≥ 4 m² that is not temporary, a linen cupboard, an entry cupboard, pantry cabinets ≥ 1.8 m run, an outdoor / garden store |
-| R-06 | Ageing in place is very important: a lift | A two-stop lift installed at construction (or, at the least, a complete shaft and pit with the lift fitted before the family moves in); car ≥ 1.1 × 1.4 m, door ≥ 0.80 m clear |
-| R-07 | Wide corridors and doors | Door clear widths ≥ 0.85 m on every daily route including bathrooms (0.80 m minimum); corridors ≥ 1.2 m clear (1.0 m minimum); a 1.5 m turning circle in at least one bathroom and at the lift |
+| R-06 | Ageing in place is very important: a lift | **Decided V6.3:** a two-stop lift installed at construction, before the family moves in; car ≥ 1.1 × 1.4 m, door ≥ 0.80 m clear; the shaft size from a supplier's civil drawing (open item) |
+| R-07 | Wide corridors and doors | Door clear widths ≥ 0.85 m on every daily route including bathrooms (0.80 m minimum) — **decided V6.3:** every bedroom and bathroom door a 1.00 m opening with a 0.90 m leaf (the guest WC 0.90 m opening and the maid bath 0.70 m are the recorded exceptions); corridors ≥ 1.2 m clear (1.0 m minimum); a 1.5 m turning circle in at least one bathroom and at the lift |
 | R-08 | Step-free routes | No step between the parking, the family entrance, the lift, the living / dining, the kitchen, the courtyard's level edge and every bedroom and bathroom; thresholds ≤ 15 mm |
 | R-09 | Safe bathrooms | Level walk-in showers (no tray step), grab-bar blocking at every WC and shower, non-slip floors; a shower reachable without stairs from the start |
 | R-10 | Stair safe for life | Handrails on both sides, risers ≤ 170 mm, goings ≥ 280 mm, flights ≥ 1.0 m, straight flights (stairlift-ready), lit at night, headroom ≥ 2.1 m |

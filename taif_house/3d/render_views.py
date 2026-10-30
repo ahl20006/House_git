@@ -4,10 +4,10 @@ Run from anywhere:   python taif_house/3d/render_views.py            (or with fi
 Writes to 3d/output/:
   the plain model (character=0): view_nw.png, view_se.png (overviews), plan_gf.png, plan_ff.png, plan_air.png (orthographic plans with the
   room names), eye1.png … eye3.png (eye-level bookmarks, 1.6 m above the floor), sun_summer_09.png … sun_winter_15.png (plans with shadows);
-  the character study (style study, provisional; the sun and its shadows from character.yaml): char_eye2_arches / char_eye2 (the courtyard
-  looking west to the colonnade, with and without the arches), char_living_arches (inside the double-height living looking to the
-  courtyard and the sunken seating), char_night_arches (the courtyard at night). Other views (street, north, aerial_sw, eye1, eye3)
-  can be rendered by name: python render_views.py char_street.png (name = char_<view>[_arches].png).
+  the character study (style study, provisional; the sun and its shadows from character.yaml): char_eye2 (the courtyard looking west
+  to the colonnade), char_living (inside the double-height living looking to the TV wall's opposite, the courtyard and the sunken
+  seating), char_night (the courtyard at night). Other views (street, north, aerial_sw, eye1, eye3) can be rendered by name:
+  python render_views.py char_street.png (name = char_<view>.png).
 Needs Edge (or Chrome: set BROWSER below). The viewer renders from the embedded GLB, so no server is needed.
 """
 import re
@@ -25,13 +25,12 @@ for season in ("summer", "winter"):
     for hour in ("09", "12", "15"):
         VIEWS[f"sun_{season}_{hour}.png"] = f"view=top&sun={season}-{hour}&labels=0"
 VIEWS = {k: v + "&character=0" for k, v in VIEWS.items()}          # the plain phase-3 model
-VIEWS.update({"char_eye2_arches.png": "view=eye2&character=1&arches=1", "char_eye2.png": "view=eye2&character=1&arches=0",   # the character study (revision 2: four views)
-              "char_living_arches.png": "view=living&character=1&arches=1", "char_night_arches.png": "view=night&character=1&arches=1"})
+VIEWS.update({"char_eye2.png": "view=eye2&character=1", "char_living.png": "view=living&character=1", "char_night.png": "view=night&character=1"})   # the character study (V6.3: no arches variant)
 only = sys.argv[1:]          # optional: render only these files (any char_<view>[_arches].png name works, e.g. char_street.png, char_eye1_arches.png)
 for name in only:
-    m = re.fullmatch(r"char_(\w+?)(_arches)?\.png", name)
+    m = re.fullmatch(r"char_(\w+)\.png", name)
     if m and name not in VIEWS:
-        VIEWS[name] = f"view={m.group(1)}&character=1&arches={1 if m.group(2) else 0}"
+        VIEWS[name] = f"view={m.group(1)}&character=1"
 for name, query in VIEWS.items():
     if only and name not in only:
         continue

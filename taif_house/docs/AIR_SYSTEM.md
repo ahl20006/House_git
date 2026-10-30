@@ -1,4 +1,4 @@
-# Taif / Palm House · V6.2 · air system study v2 (dry malqaf, small duct, wall outlet; main ventilation by the MEP engineer)
+# Taif / Palm House · V6.3 · air system study v2 (dry malqaf, small duct, wall outlet; main ventilation by the MEP engineer)
 
 > **Design-development study, not an engineering design.** Every size and performance statement is **assumed / not calculated, to be designed by the MEP engineer** (and the structural engineer for the duct, the tower base and the chamber). Nothing is calculated: no airflow, cooling, filtration, structural or hydraulic figure. **The study proves the performance of no option.** ALL CHECKS PASSED means the drawings are consistent with the project files, not that the system was sized.
 

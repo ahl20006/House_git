@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.2.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.3.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
      URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
-       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &arches=0|1 &pergola=0|1 &sunken=0|1 &railing=parapet|glass &night=0|1
+       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &pergola=0|1 &sunken=0|1 &railing=parapet|glass &night=0|1
      With the character on, the eye and overview views switch the sun on (character.yaml `sun`) unless the URL names one.
      The character study (3d/character.yaml) is a STYLE STUDY, PROVISIONAL: with it on, the model's meshes are re-coloured by material and
      the chr_* meshes are shown; off, the phase-3 model with its orange / red structural flags is what you see. -->
@@ -36,14 +36,13 @@
 </head>
 <body>
 <div id="panel">
-  <h1>Taif / Palm House · <span id="ver"></span> · 3D phase 3 + character study</h1>
+  <h1>Taif / Palm House · <span id="ver"></span> · 3D phase 3 + character study · V6.3</h1>
   <label><input type="checkbox" id="ff" checked> first floor (walls, slab, railings)</label>
   <label><input type="checkbox" id="roof" checked> roof</label>
   <label><input type="checkbox" id="labels" checked> room names (plan views)</label>
   <label>section cut at <span id="cutv">—</span><br><input type="range" id="cut" min="-4" max="10" step="0.1" value="10"></label>
   <div id="chrbox">
     <label><input type="checkbox" id="character" checked> <b>character</b> · style study, provisional (3d/character.yaml)</label>
-    <label class="sub"><input type="checkbox" id="arches"> arches variant (slender columns + plain arches, GF)</label>
     <label class="sub"><input type="checkbox" id="pergola"> pergola over the north part of the courtyard</label>
     <label class="sub"><input type="checkbox" id="sunken"> sunken seating under the malqaf grille (east wall)</label>
     <label class="sub">gallery railing on B3: <select id="railing"><option value="parapet">solid parapet + coping</option><option value="glass">glass + bronze handrail</option></select></label>
@@ -67,7 +66,7 @@
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
-<script src="output/taif_house_V6.2.js"></script>
+<script src="output/taif_house_V6.3.js"></script>
 <script>
 (function () {
   const q = new URLSearchParams(location.search);
@@ -82,8 +81,8 @@
   $('northg').setAttribute('transform', 'rotate(' + (data.north_bearing || 0) + ')');
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
-    $('arches').checked = !!CH.defaults.arches; $('pergola').checked = !!CH.defaults.pergola; $('railing').value = CH.defaults.railing; $('sunken').checked = !!CH.defaults.sunken;
-    $('chrnote').textContent = CH.arches_effect;
+    $('pergola').checked = !!CH.defaults.pergola; $('railing').value = CH.defaults.railing; $('sunken').checked = !!CH.defaults.sunken;
+    $('chrnote').textContent = 'V6.3: the living\'s west wall is solid with the entrance arch and the TV niche; no arches between the colonnade columns.';
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
 
@@ -179,7 +178,7 @@
       o.material = o.userData.glass ? (night ? nightGlassMat : (chrOn ? chrGlassMat : glassMat)) : (chrOn && o.userData.chrMat ? o.userData.chrMat : o.userData.baseMat);
     });
     if (chrOn && mode !== 'top') { groups.room_gf.forEach(o => o.visible = false); groups.room_ff.forEach(o => o.visible = false); }   // the room-colour plates are for the plans: the stone floor shows instead
-    const show = { base: chrOn, props: chrOn, light: chrOn, arches: chrOn && $('arches').checked, pergola: chrOn && $('pergola').checked, sunken: sunken,
+    const show = { base: chrOn, props: chrOn, light: chrOn, pergola: chrOn && $('pergola').checked, sunken: sunken,
                    parapet: chrOn && $('railing').value === 'parapet', glassrail: chrOn && $('railing').value === 'glass' };
     Object.keys(groups.chr).forEach(g => groups.chr[g].forEach(o => {
       o.visible = !!show[g] && (!g.startsWith('ff') || ff);
@@ -200,7 +199,7 @@
     const dg = scene.getObjectByName('dayground'); if (dg) dg.visible = chrOn && !night && mode !== 'top';
     const gr = scene.getObjectByName('grid'); if (gr) gr.visible = !(chrOn && mode !== 'top');
     $('study').style.display = chrOn ? 'block' : 'none';
-    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ' · arches ' + ($('arches').checked ? 'on' : 'off') + ' · railing ' + $('railing').value + ($('pergola').checked ? ' · pergola' : '') + (sunken ? ' · sunken seating' : '') + (night ? ' · night' : (s ? ' · sun ' + k.replace('-', ' ') + ':00' : '')) : '') + (currentTitle ? ' · ' + currentTitle : '');
+    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ' · railing ' + $('railing').value + ($('pergola').checked ? ' · pergola' : '') + (sunken ? ' · sunken seating' : '') + (night ? ' · night' : (s ? ' · sun ' + k.replace('-', ' ') + ':00' : '')) : '') + (currentTitle ? ' · ' + currentTitle : '');
     note();
   }
   function note() {
@@ -269,13 +268,12 @@
   if (q.get('labels') === '0') $('labels').checked = false;
   if (CH) {
     if (q.get('character') === '0') $('character').checked = false;
-    if (q.get('arches')) $('arches').checked = q.get('arches') === '1';
     if (q.get('pergola')) $('pergola').checked = q.get('pergola') === '1';
     if (q.get('sunken')) $('sunken').checked = q.get('sunken') === '1';
     if (q.get('railing')) $('railing').value = q.get('railing');
     if (q.get('night')) $('night').checked = q.get('night') === '1';
   }
-  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'arches', 'pergola', 'sunken', 'railing', 'night'].forEach(id => $(id).addEventListener('input', apply));
+  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'pergola', 'sunken', 'railing', 'night'].forEach(id => $(id).addEventListener('input', apply));
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
     setView(b.dataset.view);
     if (CH && !b.dataset.view.startsWith('top') && q.get('character') !== '0') { $('character').checked = true; apply(); }   // the eye and overview buttons bring the character back

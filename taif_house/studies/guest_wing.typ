@@ -1,5 +1,5 @@
 // guest_wing.typ · Taif / Palm House · layout study of the WEST WASH BLOCK: hospitality kitchen + family basins + family WC + guest wing as one design (compile THIS file)
-// Ground floor V6.2. Stand-alone: all data is in this file. Source of truth for the block;
+// Ground floor V6.3. Stand-alone: all data is in this file. Source of truth for the block;
 // ../design_gf.typ + ../data/rooms_gf.csv carry the same rooms and doors (main CSV y = local y + 10.4). Keep both in step.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
@@ -14,10 +14,10 @@
 #let doors = (
   ((2.75, 0.2), (2.75, 2.3), [open to the riwaq]),
   ((2.75, 2.6), (2.75, 3.9), [open to the riwaq]),
-  ((1.6, 4.0), (2.4, 4.0), [family WC door]),
+  ((1.5, 4.0), (2.5, 4.0), [family WC door 1.00]),
   ((2.75, 5.85), (2.75, 6.75), [door 1 · 0.90 (to the riwaq)]),
   ((0.1, 7.1), (1.15, 7.1), [door 2 · 1.05]),
-  ((1.3, 8.85), (2.05, 8.85), [WC door (south, opens in)]),
+  ((1.45, 8.85), (2.35, 8.85), [WC door 0.90 (south, opens in)]),
   ((0.0, 11.1), (0.0, 12.5), [guest door 1.40 (2 leaves)]),
   ((2.75, 11.75), (2.75, 13.55), [open 1.80 to majlis]),
 )
@@ -87,7 +87,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[West wash block · family + guest · layout study]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.2 · block #r2(W) × #r2(D) m = #r2(W * D) m² · scale 1 m = 1.35 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.3 · block #r2(W) × #r2(D) m = #r2(W * D) m² · scale 1 m = 1.35 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: scale, {
@@ -145,7 +145,7 @@
     - A full-height wall separates the hospitality kitchen from the family basins; each opens only to the riwaq.
     - Family basins (2): a straight counter, no cupboards opposite (≈ 0.75–0.8 m in front, plus the open riwaq).
     - Family WC 2.75 × 1.7: WC and basin, no shower (showers are on the first floor). Door off the basin niche.
-    - Serving passage 2.75 × 1.4 on axes, 1.20 m clear, no shelf and no fixed equipment; door 1 0.90 m to the riwaq, door 2 1.05 m to the guest passage. Opposite door 1 the living room has only a 1.20 m low partition, so privacy rests on the two doors.
+    - Serving passage 2.75 × 1.4 on axes, 1.20 m clear, no shelf and no fixed equipment; door 1 0.90 m to the riwaq, door 2 1.05 m to the guest passage. Opposite door 1 the living's west wall is solid and full height (the TV wall, V6.3); privacy rests on the two doors.20 m low partition, so privacy rests on the two doors.
     - Guest WC 1.5 × 1.75 (≈ 1.3 × 1.55 clear), its south wall on the same line as the men's majlis north wall. WC and hand spray only; door in the south wall, opening in, hidden from the passage by a 0.6 m screen wall.
     - Guest basins: one trough ≈ 1.8 m with three taps on the east wall, open to the guest passage (≈ 1.025 m clear).
     - Foyer 2.75 × 2.6: double door 1.40 m (two leaves, opening in) at the north end of the west wall; 1.80 m opening, no door, at the south end of the east wall (≈ 0.65 m of wall left at its north end for the shoe cabinet and hooks). The two openings overlap by ≈ 0.75 m along the foyer, so the bent entry is only partial: from the door a guest sees a strip of the majlis; a curtain or a short screen in front of the opening would close it.

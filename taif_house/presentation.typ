@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V6.2 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.2_presentation.pdf
+// presentation.typ · Taif / Palm House V6.3 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.3_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, thin balustrades on the voids). Ground-floor doors and
@@ -30,7 +30,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.2])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.3])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -121,7 +121,7 @@
 #let gf-csv = csv("data/rooms_gf.csv", row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#"))
 #let ff-csv = csv("data/rooms_ff.csv", row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#"))
 #let short = (
-  "Lift (future · shaft placeholder)": "Lift (future)", "Utility room (shaft inside)": "Utility · shaft", "Family lobby + riwaq": "Riwaq",
+  "Lift (shaft placeholder)": "Lift", "Utility room (shaft inside)": "Utility · shaft", "Family lobby + riwaq": "Riwaq",
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
   "Serving passage (2 doors)": "Serving", "Family WC + basin": "Family WC", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
@@ -161,18 +161,18 @@
 #let G(a, b, into, kind) = (a: a, b: b, into: into, kind: kind)
 #let gf-doors = (
   G((3.0, 0), (4.0, 0), (0, 1), "hinged"),               // family entry
-  G((2.25, 0.9), (2.25, 1.9), (-1, 0), "open"),          // future lift
-  G((2.75, 0.2), (2.75, 2.0), (-1, 0), "open"),          // entry cupboard
+  G((2.25, 0.9), (2.25, 1.9), (-1, 0), "sliding"),       // lift landing door (the lift is installed at construction, V6.3)
+  G((2.75, 0.1), (2.75, 0.8), (-1, 0), "open"),          // entry cupboard (y 0–0.9)
   G((4.25, 0.6), (4.25, 1.6), (1, 0), "hinged"),         // women's majlis (indicative)
   G((2.75, 2.4), (2.75, 6.8), (-1, 0), "open"),          // open stair
   G((2.75, 8.2), (2.75, 9.0), (-1, 0), "hinged"),        // utility room (indicative)
   G((4.25, 9.1), (4.25, 10.5), (1, 0), "sliding"),       // courtyard glass door (indicative)
   G((2.75, 10.6), (2.75, 12.7), (-1, 0), "open"),        // hospitality kitchen
   G((2.75, 13.0), (2.75, 14.3), (-1, 0), "open"),        // family basins
-  G((1.6, 14.4), (2.4, 14.4), (0, 1), "hinged"),         // family WC
+  G((1.5, 14.4), (2.5, 14.4), (0, 1), "hinged"),         // family WC, 1.00 m opening (V6.3)
   G((2.75, 16.25), (2.75, 17.15), (-1, 0), "hinged"),    // serving door 1
   G((0.1, 17.5), (1.15, 17.5), (0, -1), "hinged"),       // serving door 2
-  G((1.3, 19.25), (2.05, 19.25), (0, -1), "hinged"),     // guest WC
+  G((1.45, 19.25), (2.35, 19.25), (0, -1), "hinged"),    // guest WC, 0.90 m opening (V6.3)
   G((1.25, 19.85), (1.25, 21.4), (1, 0), "open"),        // guest passage ↔ basins
   G((0.1, 21.4), (1.15, 21.4), (0, 1), "open"),          // guest passage ↔ foyer
   G((0, 21.5), (0, 22.9), (1, 0), "double"),             // guest entrance, two leaves
@@ -181,7 +181,7 @@
   G((9.4, 13.0), (10.5, 13.0), (0, -1), "hinged"),       // kitchen ↔ dining
   G((13.311, 6.7), (13.311, 7.6), (1, 0), "hinged"),     // kitchen service door to the east yard, lockable (owner decision)
   G((9.7, 6.5), (10.55, 6.5), (0, -1), "open"),          // kitchen ↔ laundry
-  G((10.65, 2.95), (10.65, 3.75), (1, 0), "hinged"),     // laundry ↔ maid room
+  G((10.65, 2.9), (10.65, 3.9), (1, 0), "hinged"),       // laundry ↔ maid room, 1.00 m opening (V6.3)
   G((10.715, 2.8), (11.415, 2.8), (0, -1), "sliding"),   // maid room ↔ maid bath
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
@@ -190,14 +190,14 @@
   ((5.1, 6.5), (8.1, 6.5)), ((4.45, 13.0), (5.4, 13.0)), ((5.8, 13.0), (8.75, 13.0)), ((4.25, 6.8), (4.25, 8.9)), ((4.25, 10.7), (4.25, 12.7)),   // courtyard glass (indicative)
   ((5.4, 0), (7.8, 0)), ((3.6, 24), (6.2, 24)), ((7.2, 24), (9.8, 24)), ((10.8, 24), (12.6, 24)), ((13.311, 14.5), (13.311, 17.5)),          // outer (indicative)
 )
-#let gf-lowwalls = (((sec.x-court, 14.5), (sec.x-court, sec.y-living)),)   // living: low partition to the riwaq
+#let gf-lowwalls = ()   // V6.3: the living's west wall is solid and full height (the TV wall); no low partition
 #let gf-furniture = (
   ew.fixtures.map(((a, b, c, d, l)) => (a + 8.95, b, c + 8.95, d, l))
   + gw.fixtures.map(((a, b, c, d, l)) => (a, b + 10.4, c, d + 10.4, l))
   + (
     (5.2, 0.12, 8.1, 0.8, [majlis seating]), (8.15, 0.6, 8.85, 6.0, [majlis seating]), (5.9, 2.4, 7.3, 3.6, [table]),                 // women's majlis (indicative)
     (3.3, 23.2, 12.9, 23.88, [majlis seating]), (3.6, 19.37, 12.9, 20.05, [majlis seating]), (6.0, 21.15, 10.0, 22.0, [table]),       // men's majlis (indicative)
-    (4.45, 15.0, 5.25, 18.0, [sofa]), (5.9, 15.6, 6.9, 17.2, [table]), (7.6, 15.1, 8.4, 15.8, [chair]), (7.6, 17.0, 8.4, 17.7, [chair]),   // living (indicative)
+    (7.55, 15.0, 8.45, 18.8, [sofa 3.8 · faces the TV]), (6.4, 16.1, 7.2, 17.7, [table]), (4.35, 14.5, 5.05, 14.75, [pier]), (4.35, 15.05, 4.85, 18.85, [TV cabinet 3.8 × 0.5]), (4.35, 15.95, 4.45, 17.85, [TV 85″]), (4.35, 14.75, 4.75, 15.05, [shelves]), (4.35, 18.85, 4.75, 19.15, [shelves]),   // living (V6.3: the arched TV niche 4.40 × 0.70 on the solid west wall; eye-to-screen ≈ 3.45 m)
     (10.4, 15.1, 12.0, 17.1, [dining table]), (9.85, 15.35, 10.3, 15.8, []), (9.85, 16.4, 10.3, 16.85, []), (12.1, 15.35, 12.55, 15.8, []), (12.1, 16.4, 12.55, 16.85, []),
   )
 )
@@ -410,7 +410,7 @@
 
 // ===================================================================================== SHEET 02 · ground floor
 #pagebreak()
-#sheet-head([Ground floor], [Room numbers G.. | brown = low partition #n2(sec.low-wall) m | dark squares = the #sec.pj.columns columns, orange dashed = the first-floor edge beam above (a colonnade along the courtyard) | doors and windows outside the two studied blocks are indicative])
+#sheet-head([Ground floor], [Room numbers G.. | dark squares = the #sec.pj.columns columns, orange dashed = the first-floor edge beam above (a colonnade along the courtyard) | doors and windows outside the two studied blocks are indicative])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: plan-len, {
     import cetz.draw: *
@@ -424,15 +424,15 @@
   }),
   [
     #en[
-      *Middle band:* the women's majlis #wd(gf-rooms, "Women's majlis") m, the courtyard #wd(gf-rooms, "Courtyard") m (#court-clear m clear, open to the sky) and the living room in two heights: double height on the courtyard, normal height with the dining to the east. The living opens to the riwaq through a #dw((4.25, 13.1)) m opening, then a #n2(sec.low-wall) m low partition.
+      *Middle band:* the women's majlis #wd(gf-rooms, "Women's majlis") m, the courtyard #wd(gf-rooms, "Courtyard") m (#court-clear m clear, open to the sky) and the living room in two heights: double height on the courtyard, normal height with the dining to the east. The living is entered from the riwaq through a #dw((4.25, 13.1)) m arched opening; its west wall is solid and full height with the arched TV niche (V6.3).
 
-      *West band:* entry cupboard and future lift, the open stair, the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
+      *West band:* entry cupboard and the lift (installed at construction, V6.3), the open stair, the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
 
       *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the air tower in the cut corner. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall.
     ]
     #ar[
       #ah[الوسط: مجلس النساء والفناء والصالة]
-      الفناء #wd(gf-rooms, "Courtyard") م على المحاور و#court-clear م صافيا مفتوح للسماء. الصالة بسقفين: ارتفاع مزدوج على الفناء وارتفاع عادي مع الطعام شرقا، وتفتح على الرواق بفتحة #dw((4.25, 13.1)) م ثم جدار منخفض #n2(sec.low-wall) م.
+      الفناء #wd(gf-rooms, "Courtyard") م على المحاور و#court-clear م صافيا مفتوح للسماء. الصالة بسقفين: ارتفاع مزدوج على الفناء وارتفاع عادي مع الطعام شرقا، وتُدخل من الرواق عبر فتحة مقوسة #dw((4.25, 13.1)) م؛ جدارها الغربي مصمت كامل الارتفاع مع كوة التلفاز المقوسة (V6.3).
       #ah[الشريط الغربي والرواق]
       دولاب المدخل والمصعد المستقبلي والدرج المفتوح وغرفة الخدمات مع الشفت ثم كتلة المغاسل (اللوحة 06). الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
       #ah[الكتلة الشرقية ومجلس الرجال]
@@ -484,7 +484,7 @@
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
 #sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
-#let fam-focus = ("Landing (stair top)", "Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft (future)", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
+#let fam-focus = ("Landing (stair top)", "Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *
@@ -661,9 +661,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 3pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 2.1pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(7.2pt)[#d.version], text(7.2pt, weight: "bold")[#d.topic], text(7.2pt)[#fill-in(d.decision)], text(7.2pt)[#fill-in(d.reason)], align(right, text(7.6pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(6.3pt)[#d.version], text(6.3pt, weight: "bold")[#d.topic], text(6.3pt)[#fill-in(d.decision)], text(6.3pt)[#fill-in(d.reason)], align(right, text(6.7pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
@@ -681,7 +681,7 @@
     content(q((sec.m-line - 0.25, 6.0)), angle: 90deg, text(7pt, fill: rgb("#b5452f"))[M line · #n3(sec.pj.m-gap) m])
     let tag(p, key) = { circle(q(p), radius: 0.6, fill: white, stroke: 0.9pt + accent); content(q(p), text(8pt, weight: "bold", fill: accent)[#item-no(key)]) }
     tag((6.9, 10.0), "edge beam and columns"); tag((8.0, 22.6), "men's majlis")
-    tag((6.6, 3.0), "off ground-floor lines"); tag((14.3, 7.0), "east-wall stack"); tag((7.0, 20.25), "clerestory privacy"); tag((12.45, 18.4), "acoustic wall"); tag((12.45, 22.6), "arm wall"); tag((1.1, 1.1), "future lift")
+    tag((6.6, 3.0), "off ground-floor lines"); tag((14.3, 7.0), "east-wall stack"); tag((7.0, 20.25), "clerestory privacy"); tag((12.45, 18.4), "acoustic wall"); tag((12.45, 22.6), "arm wall"); tag((1.1, 1.1), "lift")
   }),
   table(columns: (auto, auto, 1.1fr, 1fr, 1fr), stroke: none, inset: 3.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
     ..([No.], [For], [Item], [Action], align(right, text(lang: "ar", dir: rtl)[البند])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),

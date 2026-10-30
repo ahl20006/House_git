@@ -1,7 +1,7 @@
 {
- "version": "V6.2",
+ "version": "V6.3",
  "params": {
-  "version": "V6.2",
+  "version": "V6.3",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -35,9 +35,16 @@
     "4.25 9.1",
     "9.3 19.25"
    ],
-   "skip_doors": [
-    "2.25 0.9"
+   "doors": [
+    {
+     "floor": "GF",
+     "at": "4.25 13.1 4.25 14.5",
+     "head": 2.6,
+     "note": "the living's arched entrance from the riwaq (V6.3), no leaf; the arch head in the character layer",
+     "_used": true
+    }
    ],
+   "skip_doors": [],
    "windows": [
     {
      "floor": "GF",
@@ -153,10 +160,10 @@
     },
     {
      "floor": "FF",
-     "at": "13.311 9.6 13.311 10.2",
+     "at": "13.311 9.5 13.311 10.05",
      "sill": 1.5,
      "head": 2.1,
-     "note": "suite bath east window, 0.60 m (X3: owner decision)",
+     "note": "suite bath east window, 0.55 m, y 9.50\u201310.05 (X3, V6.3: its frame clears C33 by 0.05 m)",
      "_used": true
     },
     {
@@ -317,8 +324,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V6.2.glb",
-   "viewer_data": "3d/output/taif_house_V6.2.js",
+   "glb": "3d/output/taif_house_V6.3.glb",
+   "viewer_data": "3d/output/taif_house_V6.3.js",
    "summary": "3d/output/model_summary.json"
   }
  },
@@ -411,7 +418,41 @@
    ],
    "b": [
     2.75,
-    0.2
+    0.1
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 0.1
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_003",
+   "a": [
+    2.75,
+    0.8
+   ],
+   "b": [
+    2.75,
+    0.9
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 0.1
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_004",
+   "a": [
+    2.75,
+    2.2
+   ],
+   "b": [
+    2.75,
+    2.4
    ],
    "t": 0.2,
    "z0": -0.08,
@@ -421,24 +462,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_003",
-   "a": [
-    2.75,
-    2.0
-   ],
-   "b": [
-    2.75,
-    2.4
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 0.4
-  },
-  {
-   "floor": "GF",
-   "kind": "wall",
-   "name": "gf_wall_004",
+   "name": "gf_wall_005",
    "a": [
     2.75,
     6.8
@@ -455,7 +479,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_005",
+   "name": "gf_wall_006",
    "a": [
     2.75,
     12.7
@@ -472,7 +496,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_006",
+   "name": "gf_wall_007",
    "a": [
     2.75,
     14.3
@@ -489,7 +513,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_007",
+   "name": "gf_wall_008",
    "a": [
     2.75,
     23.95
@@ -506,27 +530,10 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_008",
+   "name": "gf_wall_009",
    "a": [
     4.25,
     0.0
-   ],
-   "b": [
-    4.25,
-    13.1
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 13.1
-  },
-  {
-   "floor": "GF",
-   "kind": "low",
-   "name": "gf_low_009",
-   "a": [
-    4.25,
-    14.5
    ],
    "b": [
     4.25,
@@ -534,8 +541,8 @@
    ],
    "t": 0.2,
    "z0": -0.08,
-   "z1": 1.2,
-   "length": 4.75
+   "z1": 3.32,
+   "length": 19.25
   },
   {
    "floor": "GF",
@@ -825,6 +832,23 @@
    "z0": -0.08,
    "z1": 3.32,
    "length": 1.644
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_027",
+   "a": [
+    2.25,
+    0.9
+   ],
+   "b": [
+    2.75,
+    0.9
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 0.5
   },
   {
    "floor": "GF",
@@ -1392,27 +1416,93 @@
  "slabs": [
   {
    "name": "gf_slab",
+   "level": "gf",
    "area": 290.4179,
    "z0": -0.28,
-   "z1": -0.08
+   "z1": -0.08,
+   "t": 0.2,
+   "note": "ground slab"
   },
   {
    "name": "gf_slab_court",
+   "level": "gf",
    "area": 28.35,
    "z0": -0.28,
-   "z1": -0.08
+   "z1": -0.08,
+   "t": 0.2,
+   "note": "the courtyard floor (replaced by the character study's sunken seating)"
+  },
+  {
+   "name": "ff_slab_bay08",
+   "level": "ff",
+   "area": 28.3465,
+   "z0": 3.22,
+   "z1": 3.52,
+   "t": 0.3,
+   "note": "ribbed (hollow block) 0.30: kitchen roof; suite bath sunken 0.15 (depressed zone x 10.3\u201313.311 y 6.5\u201310.45)"
+  },
+  {
+   "name": "ff_slab_bay09",
+   "level": "ff",
+   "area": 27.2563,
+   "z0": 3.22,
+   "z1": 3.52,
+   "t": 0.3,
+   "note": "ribbed 0.30: dining roof; half on beam B5"
+  },
+  {
+   "name": "ff_slab_bay10",
+   "level": "ff",
+   "area": 50.1647,
+   "z0": 3.22,
+   "z1": 3.52,
+   "t": 0.3,
+   "note": "ribbed 0.30: men's majlis roof, 4.75 m; thickened ribs B19\u2013B21 under the FF walls; gym live load"
   },
   {
    "name": "ff_slab",
-   "area": 266.9222,
+   "level": "ff",
+   "area": 161.1547,
    "z0": 3.32,
-   "z1": 3.52
+   "z1": 3.52,
+   "t": 0.2,
+   "note": "solid 0.20 (default)"
+  },
+  {
+   "name": "roof_slab_bay04",
+   "level": "roof",
+   "area": 29.375,
+   "z0": 6.98,
+   "z1": 7.2,
+   "t": 0.22,
+   "note": "solid, flat, no beams in the void 0.22: the double-height living roof: 4.7 m R3 \u2192 R4, clean soffit"
+  },
+  {
+   "name": "roof_slab_bay05",
+   "level": "roof",
+   "area": 74.0772,
+   "z0": 6.9,
+   "z1": 7.2,
+   "t": 0.3,
+   "note": "ribbed 0.30: bedroom 1 / suite: 4.36 m"
+  },
+  {
+   "name": "roof_slab_bay06",
+   "level": "roof",
+   "area": 20.1875,
+   "z0": 6.9,
+   "z1": 7.2,
+   "t": 0.3,
+   "note": "ribbed 0.30: office roof: 4.75 m"
   },
   {
    "name": "roof_slab",
-   "area": 284.094,
+   "level": "roof",
+   "area": 160.4543,
    "z0": 7.0,
-   "z1": 7.2
+   "z1": 7.2,
+   "t": 0.2,
+   "note": "solid 0.20 (default)"
   }
  ],
  "voids": {
@@ -1432,6 +1522,23 @@
   {
    "floor": "GF",
    "kind": "door",
+   "name": "lift landing door (the lift is installed at construction, V6.3)",
+   "a": [
+    2.25,
+    0.9
+   ],
+   "b": [
+    2.25,
+    1.9
+   ],
+   "width": 1.0,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_001"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
    "name": "utility room (indicative)",
    "a": [
     2.75,
@@ -1444,7 +1551,7 @@
    "width": 0.8,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_004"
+   "wall": "gf_wall_005"
   },
   {
    "floor": "GF",
@@ -1461,7 +1568,7 @@
    "width": 0.9,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_006"
+   "wall": "gf_wall_007"
   },
   {
    "floor": "GF",
@@ -1478,7 +1585,7 @@
    "width": 1.0,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_008"
+   "wall": "gf_wall_009"
   },
   {
    "floor": "GF",
@@ -1495,7 +1602,24 @@
    "width": 1.4,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_008"
+   "wall": "gf_wall_009"
+  },
+  {
+   "floor": "GF",
+   "kind": "open",
+   "name": "living entrance",
+   "a": [
+    4.25,
+    13.1
+   ],
+   "b": [
+    4.25,
+    14.5
+   ],
+   "width": 1.4,
+   "sill": -0.08,
+   "head": 2.6,
+   "wall": "gf_wall_009"
   },
   {
    "floor": "GF",
@@ -1512,7 +1636,7 @@
    "width": 2.1,
    "sill": 0.0,
    "head": 2.9,
-   "wall": "gf_wall_008"
+   "wall": "gf_wall_009"
   },
   {
    "floor": "GF",
@@ -1529,7 +1653,7 @@
    "width": 2.0,
    "sill": 0.0,
    "head": 2.9,
-   "wall": "gf_wall_008"
+   "wall": "gf_wall_009"
   },
   {
    "floor": "GF",
@@ -1551,16 +1675,16 @@
   {
    "floor": "GF",
    "kind": "door",
-   "name": "laundry \u2194 maid room",
+   "name": "laundry \u2194 maid room, 1.00 m opening (V6.3)",
    "a": [
     10.65,
-    2.95
+    2.9
    ],
    "b": [
     10.65,
-    3.75
+    3.9
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": -0.08,
    "head": 2.1,
    "wall": "gf_wall_011"
@@ -1568,16 +1692,16 @@
   {
    "floor": "GF",
    "kind": "door",
-   "name": "guest WC",
+   "name": "guest WC, 0.90 m opening (V6.3)",
    "a": [
-    1.3,
+    1.45,
     19.25
    ],
    "b": [
-    2.05,
+    2.35,
     19.25
    ],
-   "width": 0.75,
+   "width": 0.9,
    "sill": -0.08,
    "head": 2.1,
    "wall": "gf_wall_014"
@@ -1602,16 +1726,16 @@
   {
    "floor": "GF",
    "kind": "door",
-   "name": "family WC",
+   "name": "family WC, 1.00 m opening (V6.3)",
    "a": [
-    1.6,
+    1.5,
     14.4
    ],
    "b": [
-    2.4,
+    2.5,
     14.4
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": -0.08,
    "head": 2.1,
    "wall": "gf_wall_017"
@@ -1891,16 +2015,16 @@
   {
    "floor": "FF",
    "kind": "door",
-   "name": "bath (Bedroom 3 bath (en-suite))",
+   "name": "bath (sliding) (Bedroom 3 bath (en-suite))",
    "a": [
     2.2,
-    15.3
+    15.0
    ],
    "b": [
     2.2,
     16.0
    ],
-   "width": 0.7,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_001"
@@ -1908,16 +2032,33 @@
   {
    "floor": "FF",
    "kind": "door",
+   "name": "lift (sliding) (Lift shaft)",
+   "a": [
+    2.25,
+    0.9
+   ],
+   "b": [
+    2.25,
+    1.9
+   ],
+   "width": 1.0,
+   "sill": 3.52,
+   "head": 5.7,
+   "wall": "ff_wall_002"
+  },
+  {
+   "floor": "FF",
+   "kind": "door",
    "name": "kids' room (Kids' room (study + gaming))",
    "a": [
     4.25,
-    1.95
+    1.9
    ],
    "b": [
     4.25,
-    2.85
+    2.9
    ],
-   "width": 0.9,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_003"
@@ -1928,13 +2069,13 @@
    "name": "family bath (Family bath (bed 1 + 2, family living))",
    "a": [
     4.25,
-    9.4
+    9.3
    ],
    "b": [
     4.25,
-    10.2
+    10.3
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_005"
@@ -1945,13 +2086,13 @@
    "name": "bed 2 (Bedroom 2)",
    "a": [
     4.25,
-    11.2
+    11.1
    ],
    "b": [
     4.25,
-    12.0
+    12.1
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_005"
@@ -1962,13 +2103,13 @@
    "name": "bed 3 (Bedroom 3)",
    "a": [
     4.25,
-    14.6
+    15.2
    ],
    "b": [
     4.25,
-    15.4
+    16.2
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_005"
@@ -2013,13 +2154,13 @@
    "name": "bath (Suite bath)",
    "a": [
     10.3,
-    6.7
+    6.65
    ],
    "b": [
     10.3,
-    7.5
+    7.65
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_010"
@@ -2030,33 +2171,16 @@
    "name": "dressing (Suite dressing)",
    "a": [
     10.3,
-    10.65
+    10.6
    ],
    "b": [
     10.3,
-    11.45
+    11.6
    ],
-   "width": 0.8,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_010"
-  },
-  {
-   "floor": "FF",
-   "kind": "door",
-   "name": "WC (sliding) (Suite WC (closet))",
-   "a": [
-    12.211,
-    6.85
-   ],
-   "b": [
-    12.211,
-    7.65
-   ],
-   "width": 0.8,
-   "sill": 3.52,
-   "head": 5.7,
-   "wall": "ff_wall_012"
   },
   {
    "floor": "FF",
@@ -2152,10 +2276,10 @@
     11.9
    ],
    "b": [
-    9.95,
+    10.05,
     11.9
    ],
-   "width": 0.9,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_019"
@@ -2182,14 +2306,14 @@
    "kind": "door",
    "name": "bed 1 (Bedroom 1)",
    "a": [
-    9.1,
+    9.05,
     5.3
    ],
    "b": [
-    10.0,
+    10.05,
     5.3
    ],
-   "width": 0.9,
+   "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
    "wall": "ff_wall_027"
@@ -2367,16 +2491,16 @@
   {
    "floor": "FF",
    "kind": "window",
-   "name": "suite bath east window, 0.60 m (X3: owner decision)",
+   "name": "suite bath east window, 0.55 m, y 9.50\u201310.05 (X3, V6.3: its frame clears C33 by 0.05 m)",
    "a": [
     13.311,
-    9.6
+    9.5
    ],
    "b": [
     13.311,
-    10.2
+    10.05
    ],
-   "width": 0.6,
+   "width": 0.55,
    "sill": 5.1,
    "head": 5.7,
    "wall": "ff_outer"
@@ -2921,10 +3045,12 @@
   "FF wall (5.6, 19.25)\u2013(5.6, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
   "FF wall (11.586, 19.25)\u2013(11.586, 21.25) carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)",
   "R6 (0.25\u00d70.50 total, soffit +6.70, DROP (not upturned: winter light, X4)): proposed load path on the first-floor walls x 5.6 and x 11.586 over the men's majlis ribs, NOT verified (X5)",
-  "X3: suite bath east window y 9.6\u201310.2 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance -0.05 m (CLASH); the column's size and orientation are for the engineer",
+  "X3: suite bath east window y 9.5\u201310.05 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance +0.10 m (clear); the column's size and orientation are for the engineer",
+  "Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it",
   "Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled",
   "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
-  "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain pier, props; the arches variant is decorative and for a later decision"
+  "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
+  "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain, props; no arches between the colonnade columns (owner, V6.3)"
  ],
  "rooms": {
   "GF": [
@@ -2937,7 +3063,7 @@
    "Laundry",
    "Kitchen",
    "Living (normal height) \u00b7 dining",
-   "Lift (future \u00b7 shaft placeholder)",
+   "Lift (shaft placeholder)",
    "Entry cupboard",
    "Family lobby + riwaq",
    "Stair",
@@ -2975,32 +3101,28 @@
    "Suite dressing",
    "Suite bedroom",
    "Stair (arrives at its south end)",
-   "Lift shaft (future)",
+   "Lift shaft",
    "West shaft",
    "Air tower"
   ]
  },
  "openings_note": {
-  "skipped": [
-   "GF future lift (params: skip_doors)",
-   "FF lift (Lift shaft (future)) (params: skip_doors)"
-  ],
+  "skipped": [],
   "open_edges": [
-   "GF entry cupboard",
+   "GF entry cupboard (y 0\u20130.9)",
    "GF open stair",
    "GF hospitality kitchen",
    "GF family basins",
    "GF guest passage \u2194 basins",
    "GF guest passage \u2194 foyer",
    "GF foyer \u2192 men's majlis",
-   "GF living entrance",
    "GF kitchen \u2194 laundry",
    "FF living, open to the gallery (Family living)",
    "FF wardrobe (Wardrobe niche (bed 2))",
    "FF from the gallery (Gym route)"
   ]
  },
- "x3_clearance": -0.05,
+ "x3_clearance": 0.1,
  "air": {
   "tower": [
    [
@@ -3912,37 +4034,97 @@
     ]
    },
    {
-    "name": "chr_arches_stone_columns",
-    "group": "arches",
-    "material": "stone",
-    "bounds": [
-     5.425,
-     8.4917,
-     0.0,
-     5.775,
-     17.3417,
-     3.27
-    ],
-    "columns": 4
-   },
-   {
-    "name": "chr_arches_plaster_arches",
-    "group": "arches",
+    "name": "chr_base_plaster_entrance_arch_head",
+    "group": "base",
     "material": "plaster",
     "bounds": [
-     5.475,
-     6.5,
-     2.52,
-     5.725,
-     19.25,
+     4.15,
+     13.1,
+     1.9,
+     4.35,
+     14.5,
+     2.6
+    ],
+    "width": 1.4000000000000004,
+    "head": 2.6,
+    "springing": 1.9
+   },
+   {
+    "name": "chr_base_plaster_tv_pier",
+    "group": "base",
+    "material": "plaster",
+    "bounds": [
+     4.35,
+     14.5,
+     0.0,
+     5.05,
+     14.75,
+     3.27
+    ]
+   },
+   {
+    "name": "chr_base_plaster_tv_niche_frame",
+    "group": "base",
+    "material": "plaster",
+    "bounds": [
+     4.35,
+     14.75,
+     2.65,
+     5.05,
+     19.15,
      3.27
     ],
-    "bays": 6
+    "width": 4.399999999999999,
+    "depth": 0.7,
+    "head": 3.1
+   },
+   {
+    "name": "chr_base_timber_tv_cabinet",
+    "group": "base",
+    "material": "timber",
+    "bounds": [
+     4.35,
+     15.05,
+     0.0,
+     4.85,
+     18.85,
+     0.45
+    ]
+   },
+   {
+    "name": "chr_base_bronze_tv_screen",
+    "group": "base",
+    "material": "bronze",
+    "bounds": [
+     4.36,
+     16.0,
+     0.7,
+     4.43,
+     17.9,
+     1.78
+    ],
+    "size": [
+     1.9,
+     1.08
+    ]
+   },
+   {
+    "name": "chr_base_timber_tv_shelves",
+    "group": "base",
+    "material": "timber",
+    "bounds": [
+     4.35,
+     14.75,
+     0.0,
+     4.75,
+     19.15,
+     2.2
+    ]
    }
   ],
   "recessed_windows": [
    {
-    "index": 19,
+    "index": 21,
     "floor": "GF",
     "name": "kitchen east window, over the cooking counter",
     "a": [
@@ -3961,7 +4143,7 @@
     "reveal": 0.2
    },
    {
-    "index": 20,
+    "index": 22,
     "floor": "GF",
     "name": "maid room window in the cut wall, high sill",
     "a": [
@@ -3980,7 +4162,7 @@
     "reveal": 0.2
    },
    {
-    "index": 21,
+    "index": 23,
     "floor": "GF",
     "name": "maid bath vent window",
     "a": [
@@ -3999,7 +4181,7 @@
     "reveal": 0.2
    },
    {
-    "index": 22,
+    "index": 24,
     "floor": "GF",
     "name": "women's majlis north window",
     "a": [
@@ -4018,7 +4200,7 @@
     "reveal": 0.2
    },
    {
-    "index": 23,
+    "index": 25,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -4037,7 +4219,7 @@
     "reveal": 0.2
    },
    {
-    "index": 24,
+    "index": 26,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -4056,7 +4238,7 @@
     "reveal": 0.2
    },
    {
-    "index": 25,
+    "index": 27,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -4075,7 +4257,7 @@
     "reveal": 0.2
    },
    {
-    "index": 26,
+    "index": 28,
     "floor": "GF",
     "name": "default window",
     "a": [
@@ -4094,7 +4276,7 @@
     "reveal": 0.2
    },
    {
-    "index": 46,
+    "index": 48,
     "floor": "FF",
     "name": "kids' room north window",
     "a": [
@@ -4113,7 +4295,7 @@
     "reveal": 0.2
    },
    {
-    "index": 47,
+    "index": 49,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4132,7 +4314,7 @@
     "reveal": 0.2
    },
    {
-    "index": 48,
+    "index": 50,
     "floor": "FF",
     "name": "bedroom 3 bath window",
     "a": [
@@ -4151,7 +4333,7 @@
     "reveal": 0.2
    },
    {
-    "index": 49,
+    "index": 51,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4170,7 +4352,7 @@
     "reveal": 0.2
    },
    {
-    "index": 50,
+    "index": 52,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4189,7 +4371,7 @@
     "reveal": 0.2
    },
    {
-    "index": 51,
+    "index": 53,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4208,7 +4390,7 @@
     "reveal": 0.2
    },
    {
-    "index": 52,
+    "index": 54,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4227,7 +4409,7 @@
     "reveal": 0.2
    },
    {
-    "index": 53,
+    "index": 55,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4246,7 +4428,7 @@
     "reveal": 0.2
    },
    {
-    "index": 54,
+    "index": 56,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4265,16 +4447,16 @@
     "reveal": 0.2
    },
    {
-    "index": 55,
+    "index": 57,
     "floor": "FF",
-    "name": "suite bath east window, 0.60 m (X3: owner decision)",
+    "name": "suite bath east window, 0.55 m, y 9.50\u201310.05 (X3, V6.3: its frame clears C33 by 0.05 m)",
     "a": [
      13.311,
-     9.6
+     9.5
     ],
     "b": [
      13.311,
-     10.2
+     10.05
     ],
     "normal": [
      1.0,
@@ -4284,7 +4466,7 @@
     "reveal": 0.2
    },
    {
-    "index": 56,
+    "index": 58,
     "floor": "FF",
     "name": "suite bedroom east window",
     "a": [
@@ -4303,7 +4485,7 @@
     "reveal": 0.2
    },
    {
-    "index": 57,
+    "index": 59,
     "floor": "FF",
     "name": "gym south window band",
     "a": [
@@ -4322,7 +4504,7 @@
     "reveal": 0.2
    },
    {
-    "index": 58,
+    "index": 60,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -4520,7 +4702,8 @@
   ],
   "flags": [
    "Sunken seating (style study, variant on by default): the courtyard floor \u22120.45 against the east wall under the malqaf grille (grille 0.20 above the bench seat, 0.60 above the sunken floor); its floor drain and overflow at the lowest point are for the MEP engineer (air item A6)",
-   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain pier, props; the arches variant is decorative and for a later decision"
+   "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
+   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain, props; no arches between the colonnade columns (owner, V6.3)"
   ],
   "gallery_railing": {
    "on": "B3 upturned, top +3.82",
@@ -4643,115 +4826,28 @@
     2.47
    ]
   ],
-  "arches": {
-   "default": false,
-   "intermediate_columns": [
-    [
-     5.6,
-     8.6667
-    ],
-    [
-     5.6,
-     10.8333
-    ],
-    [
-     5.6,
-     15.0833
-    ],
-    [
-     5.6,
-     17.1667
-    ]
-   ],
-   "rooms": {
-    "5.6 8.6667": "Courtyard",
-    "5.6 10.8333": "Courtyard",
-    "5.6 15.0833": "Living (double height)",
-    "5.6 17.1667": "Living (double height)"
-   },
-   "bays": [
-    {
-     "from": "C21",
-     "y": [
-      6.5,
-      8.667
-     ],
-     "bay": 2.167,
-     "clear": 1.842,
-     "springing": 2.52,
-     "rise": 0.5
-    },
-    {
-     "from": "intermediate",
-     "y": [
-      8.667,
-      10.833
-     ],
-     "bay": 2.167,
-     "clear": 1.917,
-     "springing": 2.52,
-     "rise": 0.5
-    },
-    {
-     "from": "intermediate",
-     "y": [
-      10.833,
-      13.0
-     ],
-     "bay": 2.167,
-     "clear": 1.842,
-     "springing": 2.52,
-     "rise": 0.5
-    },
-    {
-     "from": "C22",
-     "y": [
-      13.0,
-      15.083
-     ],
-     "bay": 2.083,
-     "clear": 1.758,
-     "springing": 2.52,
-     "rise": 0.5
-    },
-    {
-     "from": "intermediate",
-     "y": [
-      15.083,
-      17.167
-     ],
-     "bay": 2.083,
-     "clear": 1.833,
-     "springing": 2.52,
-     "rise": 0.5
-    },
-    {
-     "from": "intermediate",
-     "y": [
-      17.167,
-      19.25
-     ],
-     "bay": 2.083,
-     "clear": 1.758,
-     "springing": 2.52,
-     "rise": 0.5
-    }
-   ],
-   "x": 5.6,
-   "effect": "arches variant: 4 slender columns \u00d80.25 on the ground floor between the three main ones \u2192 7 columns on x 5.6, bays 2.083, 2.167 m instead of 6.5, 6.25 m; the intermediate columns stand in: (5.6 8.6667) Courtyard, (5.6 10.8333) Courtyard, (5.6 15.0833) Living (double height), (5.6 17.1667) Living (double height); from the living the courtyard glass is seen through 3 arches with two columns on the living floor; from the courtyard the colonnade reads as a 6-bay arcade; decorative, not structural; a variant for a later decision"
+  "tv_wall": {
+   "entrance_head": 2.6,
+   "entrance_width": 1.4000000000000004,
+   "niche_width": 4.4,
+   "niche_depth": 0.7,
+   "niche_head": 3.1,
+   "niche_springing": 2.65,
+   "sofa_back_x": 8.45,
+   "eye_to_screen": 3.47,
+   "path_north": 1.9,
+   "tv_centre_y": 16.95
   },
   "enabled": true,
   "hide": [
-   "gf_glass_019",
-   "gf_glass_020",
    "gf_glass_021",
    "gf_glass_022",
    "gf_glass_023",
    "gf_glass_024",
    "gf_glass_025",
    "gf_glass_026",
-   "ff_glass_046",
-   "ff_glass_047",
+   "gf_glass_027",
+   "gf_glass_028",
    "ff_glass_048",
    "ff_glass_049",
    "ff_glass_050",
@@ -4763,6 +4859,8 @@
    "ff_glass_056",
    "ff_glass_057",
    "ff_glass_058",
+   "ff_glass_059",
+   "ff_glass_060",
    "ff_rail_03"
   ],
   "palette": {

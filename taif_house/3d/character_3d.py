@@ -7,7 +7,8 @@ and adds the character meshes, named chr_<group>_<material>_<label> so the viewe
   group parapet   variant A of the gallery railing: a plastered parapet on the upturned beam B3 with a stone coping
   group glassrail variant B: a glass railing with a bronze handrail
   group pergola   timber beams over the north part of the courtyard sky (toggle)
-  group arches    the arches variant: slender intermediate columns on the ground floor and plain arches under the projection (toggle)
+  (V6.3: the arches variant is removed, the owner wants no arches between the colonnade columns; the group base now also holds the
+  living's TV wall: the entrance arch head, the arched TV niche with its pier, cabinet, TV and shelves)
   group sunken    the sunken seating (variant, default on): the courtyard floor with a pit 0.45 deep against the east wall under the
                   malqaf grille, three steps, a built-in bench, a table, the drain and overflow, the grille's upstand, an olive in a planter;
                   it replaces the base model's courtyard floor meshes gf_slab_court / gf_finish_court while it is on
@@ -383,45 +384,38 @@ def build(g):
         lights.append([x, y, round(z1 - lh / 2, 3)])
     rec["lanterns"] = lights
 
-    # ---------- the arches variant: slender ground-floor columns between the main ones, plain arches under the projection ----------
-    ar = C["arches"]
-    main = sorted(cols.items(), key=lambda kv: kv[1][1])                      # C21, C22, C23 by y
-    x_line = main[0][1][0]
-    inter, plates, bays = [], [], []
-    rise, crown = ar["rise"], ar["crown"]
-    r_main, r_int = cl["diameter"] / 2, ar["column_diameter"] / 2
-    for (ca, (xa, ya)), (cb, (xb, yb)) in zip(main, main[1:]):
-        L = yb - ya
-        n_bays = max(2, round(L / ar["bay_target"]))
-        pts = [(ya, r_main)] + [(ya + L * k / n_bays, r_int) for k in range(1, n_bays)] + [(yb, r_main)]
-        for y, _ in pts[1:-1]:
-            inter.append((x_line, round(y, 4)))
-        for (y_l, r_l), (y_r, r_r) in zip(pts, pts[1:]):
-            s0, s1 = y_l + r_l, y_r - r_r                                     # the clear bay between the column faces
-            c, h = (s1 - s0) / 2, min(rise, (s1 - s0) / 2 - 0.05)
-            rho = (c * c + h * h) / (2 * h)                                   # a segmental arch: chord 2c, rise h
-            spring = soffit_bottom - crown - h
-            mid = (s0 + s1) / 2
-            hole = disc((mid, spring + h - rho), rho, 32).intersection(box(s0, spring, s1, soffit_bottom))
-            plates.append(box(y_l, spring, y_r, soffit_bottom).difference(hole))
-            bays.append({"from": ca if (y_l, r_l) == pts[0] else "intermediate", "y": [round(y_l, 3), round(y_r, 3)], "bay": round(y_r - y_l, 3), "clear": round(s1 - s0, 3), "springing": round(spring, 3), "rise": round(h, 3)})
-    rooms_under = {}
-    for (x, y) in inter:
-        rooms_under[f"{x} {y}"] = next((r["name"] for r in GF if Polygon(r["pts"]).buffer(0.01).contains(Point(x, y))), "?")
-    col_meshes = []
-    for (x, y) in inter:
-        col_meshes += parts(disc((x, y), r_int), gf, soffit_bottom) + parts(disc((x, y), r_int + 0.05), gf, gf + 0.12)
-    emit("arches", "stone", "columns", col_meshes, columns=len(inter))
-    emit("arches", ar["material"], "arches", panel((x_line, 0.0), (x_line, 1.0), (1.0, 0.0), -ar["thickness"] / 2, ar["thickness"], unary_union(plates)), bays=len(bays))
-    effect = (f"arches variant: {len(inter)} slender columns Ø{ar['column_diameter']} on the ground floor between the three main ones → {len(cols) + len(inter)} columns on x {x_line}, "
-              f"bays {', '.join(sorted({str(b['bay']) for b in bays}))} m instead of {', '.join(str(round(b[1][1] - a[1][1], 2)) for a, b in zip(main, main[1:]))} m; "
-              f"the intermediate columns stand in: {', '.join(f'({k}) {v}' for k, v in rooms_under.items())}; "
-              f"from the living the courtyard glass is seen through {sum(1 for b in bays if b['y'][0] >= main[1][1][1] - EPS)} arches with two columns on the living floor; "
-              f"from the courtyard the colonnade reads as a {len(bays)}-bay arcade; decorative, not structural; a variant for a later decision")
-    rec["arches"] = {"default": ar["default"], "intermediate_columns": inter, "rooms": rooms_under, "bays": bays, "x": x_line, "effect": effect}
+    # ---------- V6.3: the TV wall: the living's solid west wall (x 4.25, y 13–19.25) with the arched entrance and the arched TV niche ----------
+    tw = C["tv_wall"]
+    wx = 4.25 + T_IN / 2                                                    # the wall's living face
+    x1_, y1_, x2_, y2_ = (float(v) for v in tw["entrance"]["at"].split())
+    ea, eb = (x1_, y1_), (x2_, y2_)
+    ew = abs(y2_ - y1_)
+    e_head = gf + tw["entrance"]["head"]
+    spring = e_head - ew / 2                                                 # a semicircular head
+    prof = box(0, spring, ew, e_head).difference(disc((ew / 2, spring), ew / 2, 24))
+    emit("base", "plaster", "entrance_arch_head", panel(ea, eb, (1.0, 0.0), -T_IN / 2, T_IN, prof), width=ew, head=tw["entrance"]["head"], springing=round(spring - gf, 3))
+    ni, pr = tw["niche"], tw["pier"]
+    emit("base", "plaster", "tv_pier", parts(box(wx, pr["y"][0], wx + ni["depth"], pr["y"][1]), gf, soffit_bottom))
+    n_w = ni["y"][1] - ni["y"][0]
+    c, h = n_w / 2, ni["rise"]
+    rho = (c * c + h * h) / (2 * h)
+    n_spring = gf + ni["head"] - h
+    arch = box(ni["y"][0], n_spring, ni["y"][1], soffit_bottom).difference(disc((ni["y"][0] + c, n_spring + h - rho), rho, 48).intersection(box(ni["y"][0], n_spring, ni["y"][1], soffit_bottom)))
+    frame = panel((wx + ni["depth"] - 0.1, 0.0), (wx + ni["depth"] - 0.1, 1.0), (1.0, 0.0), 0.0, 0.1, arch)   # the arched face plate at the niche front, 0.1 thick
+    frame += parts(box(wx, ni["y"][0], wx + ni["depth"], ni["y"][1]), gf + ni["head"], soffit_bottom)       # the niche soffit above the arch's crown
+    emit("base", "plaster", "tv_niche_frame", frame, width=n_w, depth=ni["depth"], head=ni["head"])
+    cb, tv_, sh = tw["cabinet"], tw["tv"], tw["shelves"]
+    emit("base", "timber", "tv_cabinet", parts(box(wx, cb["y"][0], wx + cb["depth"], cb["y"][1]), gf, gf + cb["height"]))
+    tv_c = (ni["y"][0] + ni["y"][1]) / 2
+    emit("base", "bronze", "tv_screen", parts(box(wx + 0.01, tv_c - tv_["width"] / 2, wx + 0.08, tv_c + tv_["width"] / 2), gf + tv_["bottom"], gf + tv_["bottom"] + tv_["height"]), size=[tv_["width"], tv_["height"]])
+    emit("base", "timber", "tv_shelves", parts(box(wx, ni["y"][0], wx + sh["depth"], cb["y"][0]), gf, gf + sh["height"]) + parts(box(wx, cb["y"][1], wx + sh["depth"], ni["y"][1]), gf, gf + sh["height"]))
+    eye_x = tw["sofa_back_x"] - 0.55
+    rec["tv_wall"] = {"entrance_head": tw["entrance"]["head"], "entrance_width": ew, "niche_width": round(n_w, 3), "niche_depth": ni["depth"], "niche_head": ni["head"], "niche_springing": round(n_spring - gf, 3),
+                      "sofa_back_x": tw["sofa_back_x"], "eye_to_screen": round(eye_x - (wx + 0.08), 3), "path_north": round(15.0 - (13.0 + T_IN / 2), 3), "tv_centre_y": tv_c}
+    rec["flags"].append("TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +%.2f) and the arched TV niche %.2f × %.2f m (crown +%.2f); eye-to-screen %.2f m from a sofa with its back at x %.2f; no arches between the colonnade columns" % (tw["entrance"]["head"], n_w, ni["depth"], ni["head"], eye_x - (wx + 0.08), tw["sofa_back_x"]))
     rec["flags"].append("Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, "
-                        "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain pier, props; "
-                        "the arches variant is decorative and for a later decision" % cl["diameter"])
+                        "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain, props; "
+                        "no arches between the colonnade columns (owner, V6.3)" % cl["diameter"])
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
     summary["flags"] += rec["flags"]
 
@@ -429,9 +423,9 @@ def build(g):
     bm = {k: {"title": v["title"], "eye": [v["eye"][0], v["eye"][2], v["eye"][1]], "target": [v["target"][0], v["target"][2], v["target"][1]], "night": bool(v.get("night"))}
           for k, v in C["views"].items()}
     viewer = {"enabled": True, "note": C["note"], "palette": pal, "assign": C["assign"], "hide": hide, "hide_when_sunken": rec["sunken"]["replaces"], "sun": C.get("sun", ""),
-              "defaults": {"arches": ar["default"], "pergola": pg["default"], "railing": gr["default"], "sunken": sk["default"]},
+              "defaults": {"pergola": pg["default"], "railing": gr["default"], "sunken": sk["default"]},
               "lights": [[x, z, y] for x, y, z in lights],
               "night": {"background": C["night"]["background"], "lights": [[x, z, y, i] for x, y, z, i in C["night"]["point_lights"]]},
-              "arches_effect": effect, "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
+              "tv_wall": rec["tv_wall"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
               "bookmarks": bm}
     return viewer
