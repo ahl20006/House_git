@@ -249,7 +249,7 @@
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
 #h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.3 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.3 + work (V6.4 enclosure A) · part 1 of 2: family part · west projection 1.55 m on three columns, the gallery and the family living glazed to the courtyard (W1, W2), west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[First floor V7.0 · part 1 of 2: family part · west projection 1.55 m on three columns, the gallery and the family living glazed to the courtyard (W1, W2), west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {

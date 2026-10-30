@@ -1,43 +1,46 @@
 # Next session · start here
 
-Taif / Palm House · **V6.3** (git tag `v6.3`, GitHub Release "V6.3")
+Taif / Palm House · **V7.0** (git tag `v7.0`, GitHub Release "V7.0"; the branch `work` is kept for the next round)
 
 ## Where we are
-- **V6.3 = V6.2 + the quick fixes from the design review** (`docs/review/design_review.typ` → `output/Design_Review_V6.pdf`, tag `review-1`; the owner's requirements in `docs/REQUIREMENTS.md`). The fixes, all owner decisions (`PROJECT_V6.md` §4.23, `data/decisions.csv` V6.3):
-  - **TV wall:** the living's west wall on x 4.25 is solid and full height; a 1.40 m arched entrance from the riwaq at its north end (head +2.60), then an arched TV niche 4.40 × 0.70 m (crown +3.10) with the 85″ TV centred, a low cabinet and side shelves; the sofa (3.8 m) faces west with its back at x 8.45, eye-to-screen 3.47 m, the dining behind it, a 1.9 m path at the sofa's north end. No arches between the colonnade columns (the 3D's arches variant removed).
-  - **Lift at construction:** two stops, sliding landing doors from the family lobby (y 0.9–1.9) and the gallery; the entry cupboard is 0.5 × 0.9 and the strip in front of the lift door is lobby. The shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen (open item 14).
-  - **Doors:** every bedroom and bathroom door is a 1.00 m opening with a 0.90 m leaf (≥ 0.85 m clear); the suite WC closet door opens out into the bath; bedroom 3's door at y 15.2–16.2 (south of its entry wardrobe), its bath door sliding. Not reached: the guest WC (0.90 m opening, the room is 1.3 m clear) and the maid bath (0.70 m: column C31 and the cut wall) — both wait for the maid wing / wash block decisions.
-  - **X3 resolved:** the suite bath's east window 0.55 m at y 9.50–10.05, its frame 0.05 m clear of column C33 (assumed 0.25 × 0.60 along the wall).
-  - **Slabs in the 3D:** the first-floor and roof bays carry the structural study's thicknesses (0.30 ribbed over the kitchen, dining, men's majlis, suite and office; 0.22 flat over the void; 0.20 elsewhere), assumed. Clear heights before finishes: +3.32 under the 0.20 slabs, +3.22 under the 0.30 bays, +3.05 under B5, +3.10 under B4, +3.20 under B1; the stair headroom stays 2.14 m (under B16).
-  - **House 0.30 m further south** (shift (0.91, 3.825), provisional until the official survey): the nearest outer face is 0.20 m from the lane setback line (it governs; the north street line is 0.80 m away) instead of 0.05 m; the palms 5.99 / 7.84 m from the walls; the south garden 7.2 m deep at the middle of the south facade. To reach 0.35 m on the lane the house would need 0.63 m south, or 0.30 m south + 0.17 m west.
-  - **Two-children test** (`tools/bedroom_test.py`, a randomized wall-hugging search with 0.75 m clearances and the door swing): bedroom 3 (15.02 m² clear) takes two beds, two wardrobes and two desks with every clearance; bedroom 2 (12.88 m²) takes two beds, two wardrobes and one desk (no wall left for the second). Details in `PROJECT_V6.md` §4.24. No layout change was made.
-- **Everything else as in V6.2:** the L-shaped gym, the two-storey colonnade, the upturned edge beam, the malqaf outlet on the kitchen wall (air study v2.1), the 3D character study r2 (style, provisional), the structural study (X5 unverified, X9 no soil report).
+- **V7.0 = V6.3 + the big decisions of the design review**, all owner decisions (`PROJECT_V7.md` §4.25–4.29, `data/decisions.csv`, the status of every critical and major finding in `output/Design_Review_status_V7.pdf`):
+  - **Courtyard enclosure, option A:** the conditioned house is closed round the open courtyard by black steel divided-lite windows: W1 on the gallery edge (on the B3 upstand, +3.82 … +6.75), W2 on the family living's edge, W3 over the living's courtyard glass; the projection 1.55 m (B3, R11, C21–C23 at x 5.80), the gallery 1.405 m clear (1.235 at the columns), the sky 3.15 m (`studies/courtyard_enclosure.typ`).
+  - **Maid room:** the kitchen's north wall at y 7.0 (a partition; the y 6.5 beam stays): maid room 7.28 m² clear, 2.49 m at the bed; laundry 6.2 m²; kitchen 24.0 m² clear (`studies/east_wing.typ`).
+  - **Roof access and the roofline:** the main stair continues to the roof (flights 3 / 4, trimmers R16–R18, a stair room 2.20 m clear); flat roof with a honey-stone main cornice all round, the north block's coping +7.65, the attic screen 1.8 m set back 1.0 m (coping +9.10), the south wing's parapet +8.40; the reserved roof zones (plant, tank, PV, strip, outlets, walkways, guards) (`studies/roof.typ`, `output/taif_roof_V7.0.dxf`).
+  - **Design language:** `DESIGN_LANGUAGE.md` (cream plaster, honey stone, black steel divided lites, walnut, Roman arches, round stone columns, black bar railing, little mashrabiya, hidden lighting, the roofline).
+  - **3D:** generated with all of it (the enclosure windows W1–W3, the stair to the roof and the stair room, the attic, the cornice, the band, the parapets, the quoins, the guards, the design-language colours); four renders in `3d/output/`: `char_north.png`, `char_aerial_sw.png`, `char_eye2.png`, `char_tv.png`.
+- **Everything else as in V6.3:** the TV wall, the lift at construction, the door widths, the 0.30 m south (provisional), the L-shaped gym, the structural study (X5 unverified, X9 no soil report), the air study v2.1.
 
-## The big items still open, in this order (from the design review)
-1. **Courtyard enclosure** (review Y-01, critical): the first-floor gallery and family living are railings on the open sky, and the double-height living has nothing above its courtyard glass. Decide: an open sky well with glazed first-floor edges, or an atrium with an operable glass roof. It settles the dust strategy, the malqaf, the light of the living, the pergola and the first-floor plan.
-2. **Maid room** (G-04): 6.04 m² clear and 0.7 m wide at its north end against the municipal ≥ 6.5 m² / ≥ 2.1 m; exit only through the kitchen; the maid bath door 0.70 m. Redesign the maid wing (where does the laundry go?).
-3. **Roof access** (F-07): no stair or hatch to the roof (plant, malqaf hatch, PV, tank). A third flight in the stair well with a roof pavilion, or an external stair.
-4. **Fire and escape** (E-08): the single stair opens onto the riwaq and the gallery onto the living void; no alarms, no sprinklers; the maid's window sill 1.50 m. Interconnected alarms, a smoke vent at the top of the void, sprinklers to decide.
-5. **Serving route and bedroom 1's bath** (X-01, F-05): the weekly meal crosses the family's TV room (17.5 m, four doors); an outside service path to a majlis serving door, or accept. Bedroom 1 is 6.9 m from the family bath.
-6. **Malqaf** (E-01): a dry malqaf into an open courtyard adds nothing to a closed filtered house; keep as a feature, make the tower the ERV intake, or ventilate an atrium with it. Decide with item 1.
-7. **Gym: treadmill clearances and vibration** (F-09, X6): the arm's clearances and the majlis roof's vibration with the engineer; rubber floor over the whole gym.
-8. **Site and roof plan** (S-01 … S-08, E-04 … E-06): parking (two shaded spaces), the guest / family approach, the garden door and the family terrace, the service yard, the outdoor kitchen path, tanks, septic, generator, PV, security and the safe room.
+## The next open items, in this order (from the review status)
+1. **Fire and escape** (E-08, critical): interconnected alarms, a smoke vent at the top of the double-height void, the escape strategy from the first floor (the single stair opens onto the riwaq; the stair room door to the roof is a way out upwards), sprinklers to decide, the maid's window sill.
+2. **Courtyard: the sunken seating, the level play zone and the drainage outfall** (Y-03, Y-02, Y-04, E-03): a guard or a shallower pit, a level play zone ≥ 3 × 3 m, the hose point, where the courtyard, the roof and the suite court drain to.
+3. **The malqaf's value in the sealed house and the pergola** (E-01; open items 17, 18): a feature only, the ERV's filtered intake, or drop it; the pergola kept, lightened or dropped.
+4. **Gym: the treadmill clearances and vibration** (F-09, X6, X5): with the engineer; rubber floor over the whole gym.
+5. **Bedroom 1's bathroom route** (F-05, open item 16).
+6. **The food route from the kitchen to the men's majlis** (X-01): an outside service path to a majlis serving door, or accept.
+7. **The site and roof services plan** (S-01 … S-08, E-04 … E-06): parking, the guest approach, the garden door, the service yard, the outdoor kitchen path, tanks, septic, generator, inverter room, security, the safe room; the roof zones tie into it.
+8. **Structure X5 and the soil report** (T-01, T-03, the engineers).
+9. **The legal survey** (S-03, open item 1).
+
+Small things noted on the way: the gym route's east wall stays on x 5.6 (a 0.20 m nib at y 19.25 against the gallery edge x 5.8: follow to x 5.8 in the L study if one line is wanted); the plan views of the 3D (`view_*.png`, `plan_*.png`, `eye*.png`, `sun_*.png`, `char_living.png`, `char_night.png`) were not re-rendered for V7.0: run `python taif_house/3d/render_views.py` to refresh them.
 
 ## What to open
 | File | What it is |
 |---|---|
-| `output/Taif_House_V6.3_presentation.pdf` | the A3 set, 10 sheets (for the owner and the engineers) |
-| `output/Design_Review_V6.pdf` | the design review (written against V6.2; compiled again it shows the V6.3 files) |
+| `output/Taif_House_V7.0_presentation.pdf` | the A3 set, 12 sheets (for the owner and the engineers): site, both floors, the family part, the L and the suite, the two ground-floor blocks, sections and light, schedules, decisions, open items, the roof plan, the elevations |
+| `output/Design_Review_status_V7.pdf` | the status of the design review after V7.0; the review itself: `output/Design_Review_V6.pdf` |
+| `output/roof.pdf`, `output/courtyard_enclosure.pdf` | the roof study and the enclosure study (decided) |
 | `output/design_gf.pdf`, `output/design_ff.pdf` | both floors in the site, with checks, schedules, the light check and the projection sections |
 | `output/ff_family.pdf`, `output/ff_suite.pdf`, `output/guest_wing.pdf`, `output/east_wing.pdf` | the room studies |
 | `output/structure.pdf`, `output/air_system.pdf` | the structural and air studies |
-| `output/taif_ground_floor_V6.3.dxf`, `output/taif_first_floor_V6.3.dxf` | CAD, see `docs/README_DXF.md` |
-| `3d/viewer.html` | the 3D (plain model and the character study) |
+| `output/taif_ground_floor_V7.0.dxf`, `output/taif_first_floor_V7.0.dxf`, `output/taif_roof_V7.0.dxf` | CAD, see `docs/README_DXF.md` |
+| `3d/viewer.html` | the 3D (plain model and the character study with the design-language colours) |
 
 ## Compile and check
 ```
-python taif_house/tools/check.py      # compiles everything, rebuilds both DXFs and the 3D, must end with ALL CHECKS PASSED
-typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.3_presentation.pdf
-python taif_house/tools/bedroom_test.py   # the two-children test (no file changed)
+python taif_house/tools/check.py      # compiles everything, rebuilds the three DXFs and the 3D, must end with ALL CHECKS PASSED
+typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V7.0_presentation.pdf
+typst compile --root taif_house taif_house/docs/review/review_status.typ taif_house/output/Design_Review_status_V7.pdf
+python taif_house/3d/render_views.py char_north.png char_aerial_sw.png char_eye2.png char_tv.png   # the four V7.0 renders (headless Edge)
 ```
 Tools: Typst 0.15, Python 3.10+ with ezdxf, shapely, trimesh, pyyaml, mapbox_earcut, pdftotext (on Windows from Git for Windows: `C:\Program Files\Git\ucrt64\bin`). The 3D renders need headless Edge outside a sandbox (`3d/README_3D.md`).

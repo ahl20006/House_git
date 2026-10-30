@@ -1,4 +1,4 @@
-# Taif / Palm House · V6.3 · open items
+# Taif / Palm House · V7.0 · open items
 
 Grouped by who has to act. The numbers match `data/open_items.csv` and presentation sheet 10. `tools/check.py` checks that every item is listed here.
 
@@ -14,7 +14,7 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
    - the suite walls over the kitchen;
    - the gym and office walls over the men's majlis.
    Use light partitions on the slab, or beams.
-6. **Floor-to-floor height 3.6 m** (assumed): confirm the levels, the stair headroom at the slab opening (≥ ≈ 2.1 m) and the handrails.
+6. **Floor-to-floor height 3.6 m** (assumed): confirm the levels, the stair headroom at the slab openings (≥ ≈ 2.1 m; the stair continues to the roof since V7.0, trimmers R16–R18) and the handrails; the attic walls, the cornice and the stair room loads (`STRUCTURE_STUDY.md` X16, X17).
 
 ## Acoustics
 7. **Acoustic wall and floor** between the treadmill arm and the suite bedroom:
@@ -40,13 +40,13 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
 11. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
 12. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
 13. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
-14. **Lift shaft size:** the lift is installed at construction (V6.3, two stops); the shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen. Ask two or three suppliers and use the largest shaft.
+14. **Lift shaft size and headroom:** the lift is installed at construction (V6.3, two stops); the shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen. Ask two or three suppliers and use the largest shaft. **V7.0 (roof study):** the lift does not serve the roof; its headroom above the first-floor stop must be **≤ 3.40 m** (the roof slab underside), or **≤ 3.70 m with a 0.30 m raised shaft head** hidden behind the main cornice's coping (+7.65); the shaft lies in the strip in front of the attic, so nothing higher is possible.
 
 ## Design (next rounds)
 15. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.
 16. **Bedroom 1 bath:** bedroom 1 is far from the family bath. Accept it, or review it in the next detail round.
-17. **Malqaf role after the enclosure** (review E-01; work branch, V6.4): the house is sealed round the courtyard (option A), so the grille serves only the courtyard unless the casements of W1 / W2 and the tilt lites of W3 are open (night mode). Decide: a courtyard feature only, the ERV's filtered intake, or drop it (with the MEP engineer).
-18. **Pergola** (work branch, V6.4): reconsider after the enclosure (the sky opening is 3.15 m and the edges are glazed): keep, lighten or drop.
+17. **Malqaf role after the enclosure** (review E-01; V7.0): the house is sealed round the courtyard (option A), so the grille serves only the courtyard unless the casements of W1 / W2 and the tilt lites of W3 are open (night mode). Decide: a courtyard feature only, the ERV's filtered intake, or drop it (with the MEP engineer).
+18. **Pergola** (V7.0): reconsider after the enclosure (the sky opening is 3.15 m and the edges are glazed): keep, lighten or drop.
 
 ## From the design review (`docs/review`, tag `review-1`) · the big items, in order
-Not in `data/open_items.csv` yet; they are decisions, listed in `NEXT_SESSION.md` in the order to take them: the courtyard enclosure; the maid room; roof access; fire and escape; the serving route and bedroom 1's bath; the malqaf; the gym's treadmill clearances and vibration; the site and roof plan.
+The status of every critical and major finding after V7.0 is in `output/Design_Review_status_V7.pdf` (`docs/review/review_status.typ`). Resolved in V6.3 / V7.0: the courtyard enclosure, the maid room, roof access, the gallery width, the TV wall, the lift, the door widths. Still open, in the order to take them (also in `NEXT_SESSION.md`): fire and escape (critical); the courtyard's sunken seating, the level play zone and the drainage outfall; the malqaf's value in the sealed house (item 17) and the pergola (item 18); the gym's treadmill clearances and vibration; bedroom 1's bathroom route (item 16); the food route from the kitchen to the men's majlis; the site and roof services plan; structure X5 and the soil report; the legal survey (item 1).

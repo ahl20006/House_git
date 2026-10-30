@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V6.3.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V7.0.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
      URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
-       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &pergola=0|1 &sunken=0|1 &railing=parapet|glass &night=0|1
+       &sun=summer-12|winter-09|… &labels=0 &ui=0 &character=0|1 &pergola=0|1 &sunken=0|1 &night=0|1
      With the character on, the eye and overview views switch the sun on (character.yaml `sun`) unless the URL names one.
      The character study (3d/character.yaml) is a STYLE STUDY, PROVISIONAL: with it on, the model's meshes are re-coloured by material and
      the chr_* meshes are shown; off, the phase-3 model with its orange / red structural flags is what you see. -->
@@ -36,7 +36,7 @@
 </head>
 <body>
 <div id="panel">
-  <h1>Taif / Palm House · <span id="ver"></span> · 3D phase 3 + character study · V6.3</h1>
+  <h1>Taif / Palm House · <span id="ver"></span> · 3D phase 3 + character study · V7.0</h1>
   <label><input type="checkbox" id="ff" checked> first floor (walls, slab, railings)</label>
   <label><input type="checkbox" id="roof" checked> roof</label>
   <label><input type="checkbox" id="labels" checked> room names (plan views)</label>
@@ -45,14 +45,13 @@
     <label><input type="checkbox" id="character" checked> <b>character</b> · style study, provisional (3d/character.yaml)</label>
     <label class="sub"><input type="checkbox" id="pergola"> pergola over the north part of the courtyard</label>
     <label class="sub"><input type="checkbox" id="sunken"> sunken seating under the malqaf grille (east wall)</label>
-    <label class="sub">gallery railing on B3: <select id="railing"><option value="parapet">solid parapet + coping</option><option value="glass">glass + bronze handrail</option></select></label>
     <label class="sub"><input type="checkbox" id="night"> night (lanterns and warm room lights)</label>
     <div class="small" id="chrnote"></div>
   </div>
   <div class="views">
     <button data-view="nw">north-west</button><button data-view="se">south-east</button><button data-view="top_gf">plan GF</button><button data-view="top_ff">plan FF</button><button data-view="top_air">air system (underground)</button><br>
     <button class="eye" data-view="eye1">eye 1 · living → courtyard</button><button class="eye" data-view="eye2">eye 2 · courtyard → colonnade</button><button class="eye" data-view="eye3">eye 3 · landing → gallery</button><br>
-    <button class="chr" data-view="living">living → sunken seating</button><button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
+    <button class="chr" data-view="living">living → sunken seating</button><button class="chr" data-view="tv">living → TV wall</button><button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
   </div>
   <label>sun (Taif, true north from base.typ): <select id="sun"><option value="">off</option></select></label>
   <div id="legend"><span style="background:#ebb032"></span>assumed, not approved by the engineer &nbsp; <span style="background:#cd372d"></span>unconfirmed load path (X5) &nbsp; <span style="background:#78b9e1"></span>glass &nbsp; <span style="background:#464650"></span>railings<br>
@@ -66,7 +65,7 @@
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
-<script src="output/taif_house_V6.3.js"></script>
+<script src="output/taif_house_V7.0.js"></script>
 <script>
 (function () {
   const q = new URLSearchParams(location.search);
@@ -81,8 +80,8 @@
   $('northg').setAttribute('transform', 'rotate(' + (data.north_bearing || 0) + ')');
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
-    $('pergola').checked = !!CH.defaults.pergola; $('railing').value = CH.defaults.railing; $('sunken').checked = !!CH.defaults.sunken;
-    $('chrnote').textContent = 'V6.3: the living\'s west wall is solid with the entrance arch and the TV niche; no arches between the colonnade columns.';
+    $('pergola').checked = !!CH.defaults.pergola; $('sunken').checked = !!CH.defaults.sunken;
+    $('chrnote').textContent = 'V7.0: the design language (cream plaster, honey stone, black steel divided lites, walnut); the courtyard enclosure W1–W3; the stair to the roof; the set-back attic and the main cornice.';
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
 
@@ -178,8 +177,7 @@
       o.material = o.userData.glass ? (night ? nightGlassMat : (chrOn ? chrGlassMat : glassMat)) : (chrOn && o.userData.chrMat ? o.userData.chrMat : o.userData.baseMat);
     });
     if (chrOn && mode !== 'top') { groups.room_gf.forEach(o => o.visible = false); groups.room_ff.forEach(o => o.visible = false); }   // the room-colour plates are for the plans: the stone floor shows instead
-    const show = { base: chrOn, props: chrOn, light: chrOn, pergola: chrOn && $('pergola').checked, sunken: sunken,
-                   parapet: chrOn && $('railing').value === 'parapet', glassrail: chrOn && $('railing').value === 'glass' };
+    const show = { base: chrOn, props: chrOn, light: chrOn, pergola: chrOn && $('pergola').checked, sunken: sunken };
     Object.keys(groups.chr).forEach(g => groups.chr[g].forEach(o => {
       o.visible = !!show[g] && (!g.startsWith('ff') || ff);
       if (o.userData.glass) o.material = night ? nightGlassMat : chrGlassMat;
@@ -199,7 +197,7 @@
     const dg = scene.getObjectByName('dayground'); if (dg) dg.visible = chrOn && !night && mode !== 'top';
     const gr = scene.getObjectByName('grid'); if (gr) gr.visible = !(chrOn && mode !== 'top');
     $('study').style.display = chrOn ? 'block' : 'none';
-    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ' · railing ' + $('railing').value + ($('pergola').checked ? ' · pergola' : '') + (sunken ? ' · sunken seating' : '') + (night ? ' · night' : (s ? ' · sun ' + k.replace('-', ' ') + ':00' : '')) : '') + (currentTitle ? ' · ' + currentTitle : '');
+    $('study').textContent = 'STYLE STUDY · provisional · character from 3d/character.yaml' + (chrOn ? ($('pergola').checked ? ' · pergola' : '') + (sunken ? ' · sunken seating' : '') + (night ? ' · night' : (s ? ' · sun ' + k.replace('-', ' ') + ':00' : '')) : '') + (currentTitle ? ' · ' + currentTitle : '');
     note();
   }
   function note() {
@@ -270,10 +268,9 @@
     if (q.get('character') === '0') $('character').checked = false;
     if (q.get('pergola')) $('pergola').checked = q.get('pergola') === '1';
     if (q.get('sunken')) $('sunken').checked = q.get('sunken') === '1';
-    if (q.get('railing')) $('railing').value = q.get('railing');
     if (q.get('night')) $('night').checked = q.get('night') === '1';
   }
-  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'pergola', 'sunken', 'railing', 'night'].forEach(id => $(id).addEventListener('input', apply));
+  ['ff', 'roof', 'cut', 'sun', 'labels', 'character', 'pergola', 'sunken', 'night'].forEach(id => $(id).addEventListener('input', apply));
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
     setView(b.dataset.view);
     if (CH && !b.dataset.view.startsWith('top') && q.get('character') !== '0') { $('character').checked = true; apply(); }   // the eye and overview buttons bring the character back

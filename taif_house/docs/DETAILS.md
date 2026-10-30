@@ -1,4 +1,6 @@
-# Taif / Palm House · V6.3 · construction and detail notes
+# Taif / Palm House · V7.0 · construction and detail notes
+
+*V7.0:* the courtyard enclosure windows W1–W3, the stair to the roof and the stair room, the main cornice, the band, the attic and the parapets are described in `studies/courtyard_enclosure.typ` and `studies/roof.typ` (and `PROJECT_V7.md` §4.25–4.28); their details join this file at the detail round.
 
 House-wide building rules and details, for the engineer, the carpenter and the contractor. The layout decisions and their reasons are in `PROJECT_V6.md`, and the open items in `OPEN_ITEMS.md`. *Concept notes, to be confirmed by the engineers.*
 

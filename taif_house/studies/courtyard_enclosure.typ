@@ -100,11 +100,11 @@
 #let all-ok = checks.all(c => c.at(1))
 
 // ====================================================================================== PAGE 1
-#text(14pt, weight: "bold", fill: accent)[Courtyard enclosure study · closing the conditioned house around the open courtyard · Taif / Palm House V6.3]
+#text(14pt, weight: "bold", fill: accent)[Courtyard enclosure study · closing the conditioned house around the open courtyard · Taif / Palm House V7.0]
 #v(1pt)
 #text(8pt, fill: gray)[Design review Y-01 (critical) · 30 Oct 2026 · the windows follow `docs/DESIGN_LANGUAGE.md` (black steel, divided lites)]
 #v(2pt)
-#block(fill: rgb("#e4eedf"), inset: 5pt, radius: 2pt, width: 100%)[#text(9pt, weight: "bold", fill: accent)[DECIDED: option A] (owner, 30 Oct 2026, applied on the work branch for V6.4): the projection 1.55 m, B3 / R11 / C21–C23 at x 5.80, W1 / W2 / W3 as in § 2. The "now" column below is the V6.3 state (edge x 5.60), kept as the record of the comparison.]
+#block(fill: rgb("#e4eedf"), inset: 5pt, radius: 2pt, width: 100%)[#text(9pt, weight: "bold", fill: accent)[DECIDED: option A] (owner, 30 Oct 2026, applied in V7.0): the projection 1.55 m, B3 / R11 / C21–C23 at x 5.80, W1 / W2 / W3 as in § 2. The "now" column below is the V6.3 state (edge x 5.60), kept as the record of the comparison.]
 #v(4pt)
     #H[1 · What is open today]
 The courtyard (#r2(x-east - x-wall) × #r2(sky-depth) m on axes, the sky opening #r2(sky-axes(NOW)) × #r2(sky-depth) m east of the projection) is outdoors, as the owner wants. But three edges of the *conditioned* house are open to its air, so the "closed, filtered house" (R-25) cannot be closed:

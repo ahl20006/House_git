@@ -4,9 +4,9 @@ Run from anywhere:   python taif_house/tools/check.py
 It
   1. compiles every drawing into output/ (design_gf, design_ff, the studies incl. the structural study, the presentation) and the archived first-floor drawing
      into a temporary folder (any error is a problem), and reads the PDFs (pdftotext) for their "all checks passed" lines;
-  2. checks the presentation: A3, 10 sheets;
+  2. checks the presentation: A3, 12 sheets;
   3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv;
-  4. rebuilds both DXFs (tools/make_dxf.py, tools/make_dxf_ff.py) and reads them back: same rooms, same areas as the two CSVs;
+  4. rebuilds the three DXFs (tools/make_dxf.py, make_dxf_ff.py, make_dxf_roof.py) and reads the floor ones back: same rooms, same areas as the two CSVs;
   5. checks that every open item of data/open_items.csv is in docs/OPEN_ITEMS.md, and that the active files carry no old version label;
   6. rebuilds the 3D model (3d/build_3d.py) and runs its own checks (3d/check_3d.py: rooms enclosed, walls, slab areas, outline, levels);
 and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1). Needs typst, pdftotext and ezdxf.
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V6.3"
+VERSION = "V7.0"
 problems = []
 
 
@@ -113,10 +113,10 @@ if PRESENTATION.exists() and pdftotext:
     pages = pdf_text(PRESENTATION, layout=False).count("\f")
     info = PRESENTATION.read_bytes()
     a3 = re.search(rb"/MediaBox\s*\[\s*0\s+0\s+(1190\.\d+|1191(\.\d+)?)\s+(841\.\d+|842(\.\d+)?)\s*\]", info) is not None
-    if pages == 10 and a3:
-        ok(f"{PRESENTATION.name}: 10 sheets, A3 landscape")
+    if pages == 12 and a3:
+        ok(f"{PRESENTATION.name}: 12 sheets, A3 landscape")
     else:
-        bad(f"{PRESENTATION.name}: {pages} sheets, A3 landscape: {a3} (expected 10 sheets, A3)")
+        bad(f"{PRESENTATION.name}: {pages} sheets, A3 landscape: {a3} (expected 12 sheets, A3)")
 
 # ---------- 3: ground-floor studies against the CSV ----------
 print("3. Studies against data/rooms_gf.csv")
@@ -164,13 +164,15 @@ try:
 except ImportError:
     ezdxf = None
     bad("ezdxf not installed (pip install ezdxf)")
-for tool, out, csv_name in (("make_dxf.py", f"taif_ground_floor_{VERSION}.dxf", "rooms_gf.csv"), ("make_dxf_ff.py", f"taif_first_floor_{VERSION}.dxf", "rooms_ff.csv")):
+for tool, out, csv_name in (("make_dxf.py", f"taif_ground_floor_{VERSION}.dxf", "rooms_gf.csv"), ("make_dxf_ff.py", f"taif_first_floor_{VERSION}.dxf", "rooms_ff.csv"), ("make_dxf_roof.py", f"taif_roof_{VERSION}.dxf", None)):
     r = subprocess.run([sys.executable, str(ROOT / "tools" / tool)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         bad(f"{tool} failed: " + r.stderr.strip()[-300:])
         continue
     ok(r.stdout.strip())
     if ezdxf is None:
+        continue
+    if csv_name is None:
         continue
     want = {r["name"]: area(csv_poly(r)) for r in read_csv(csv_name)}
     seen = {}
@@ -198,7 +200,7 @@ elif lost:
 else:
     ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
 # active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
-active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V6.md", "decisions.csv")]
+active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V7.md", "decisions.csv", "review_status.typ")]
 active.append(ROOT.parent / "README.md")
 old = []
 for p in active:

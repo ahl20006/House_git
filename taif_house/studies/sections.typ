@@ -1,4 +1,4 @@
-// sections.typ · Taif / Palm House V6.3 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
+// sections.typ · Taif / Palm House V7.0 · levels, the west projection, the light check and the two sections (imported, not compiled on its own)
 // Used by design_ff.typ and presentation.typ. Geometry is read from ../data/rooms_ff.csv, ../design_gf.typ (placement, outline), ff_family.typ
 // (the projection edge and the columns) and ff_suite.typ (windows); the only fixed numbers are the levels below (to confirm with the engineer)
 // and the record of the split projection studied in V5.1–V6.0 and reverted in V6.1 (git tag v6.0, branch v5-split-projection).
@@ -15,7 +15,14 @@
 #let parapet = 1.1
 #let outer-half = 0.125      // ½ of the 250 mm outer wall
 #let inner-half = 0.1        // ½ of a 200 mm wall
-#let rail-half = 0.025       // ½ of a ≈ 50 mm railing on the void edge
+#let rail-half = 0.025       // ½ of a ≈ 50 mm railing on the void edge (the reverted split projection)
+#let frame-half = 0.03       // ½ of the steel window frame W1 on the gallery edge (V7.0, enclosure A)
+#let coping-top = 7.65       // V7.0 roofline (studies/roof.typ): the north block's facade top (the main cornice +6.90 … +7.35 and its coped upstand)
+#let attic-top = 9.1         // the attic screen's coping, set back 1.0 m from the facade face (0.875 from the wall centre lines)
+#let attic-in = 0.875
+#let south-parapet = 8.4     // the south wing's parapet top
+#let guard = 1.1             // the bar guards round the roof holes
+#let w1 = (sill: 3.82, head: 6.75)   // W1 on the gallery edge, on the upstand of B3
 #let col-half = 0.15         // ½ of a column (drawing only; size by the engineer)
 #let m-line = -shift.at(0)   // the M line in CSV x
 
@@ -42,7 +49,7 @@
 #let spans = range(columns.len() - 1).map(i => columns.at(i + 1).at(1) - columns.at(i).at(1))
 #let pj = (
   depth: pj-edge - x-court, sky: x-east - pj-edge, sky-clear: x-east - pj-edge - 2 * inner-half,
-  room: pj-wall - ff-west, room-clear: pj-wall - ff-west - outer-half - inner-half, gallery: pj-edge - pj-wall, gallery-clear: pj-edge - pj-wall - inner-half - rail-half,
+  room: pj-wall - ff-west, room-clear: pj-wall - ff-west - outer-half - inner-half, gallery: pj-edge - pj-wall, gallery-clear: pj-edge - pj-wall - inner-half - frame-half,
   m-gap: ff-west - m-line - outer-half, columns: columns.len(), col-x: pj-edge, spans: spans,
   outline: area(ff-outline), void: pj-void, floor: area(ff-outline) - pj-void,
   indoor: ff.filter(r => r.colour not in ("open", "terrace")).map(r => area(r.P)).sum(), court: ff.filter(r => r.colour in ("open", "terrace")).map(r => area(r.P)).sum(),
@@ -118,24 +125,26 @@
 #let ns-section(length: 0.6cm, ink: rgb("#3d4a45"), warn: rgb("#b5452f")) = cetz.canvas(length: length, {
   import cetz.draw: *
   let T(p, body, size: 6pt, fill: ink, anchor: "center") = content(p, anchor: anchor, text(size, fill: fill, body))
-  let wall-top = roof-level + parapet
+  let wall-top = coping-top
   line((-1.5, 0), (30, 0), stroke: 1pt + ink)
   rect((0, 0), (y-court, ff-level), fill: rgb("#f6e3c0"), stroke: 0.6pt + ink); T((y-court / 2, ff-level / 2), [Women's majlis (GF)])
   rect((0, ff-level), (y-court, roof-level), fill: rgb("#fbf2e2"), stroke: 0.6pt + ink); T((y-court / 2, (ff-level + roof-level) / 2), [Kids' room / family living (FF)])
-  line((0, roof-level), (0, wall-top), stroke: 0.6pt + ink); line((y-court, roof-level), (y-court, wall-top), stroke: 0.6pt + ink)
+  line((0, roof-level), (0, wall-top), stroke: 0.6pt + ink); line((y-court, roof-level), (y-court, roof-level + guard), stroke: (paint: ink, thickness: 0.6pt, dash: "dotted"))
+  rect((attic-in - 0.1, roof-level), (attic-in + 0.1, attic-top), fill: ink, stroke: none); T((attic-in + 0.25, roof-level + 1.2), [attic +#f2(attic-top)], size: 4.6pt, anchor: "west")
+  rect((y-living - 0.1, roof-level), (y-living + 0.1, attic-top), fill: ink, stroke: none); T((y-living - 0.25, roof-level + 1.2), [attic +#f2(attic-top)], size: 4.6pt, anchor: "east")
   let y-dh = 13.0
   T(((y-court + y-dh) / 2, 1.5), [COURTYARD · open to the sky], fill: rgb("#2f5f8a"))
   rect((y-dh, 0), (y-living, roof-level), fill: rgb("#fbf2e2"), stroke: 0.6pt + ink)
   line((y-dh, 0.9), (y-dh, 6.6), stroke: 3pt + rgb("#7fb8d0"))
   T((y-dh + 0.3, 0.6), [main light: courtyard glazing], size: 5.3pt, fill: rgb("#2f5f8a"), anchor: "west")
   T((eye.at(0), 4.4), [Living (double height)])
-  line((y-dh, roof-level), (y-dh, wall-top), stroke: 0.6pt + ink); line((y-living, roof-level), (y-living, wall-top), stroke: 0.6pt + ink)
+  line((y-dh, roof-level), (y-dh, roof-level + guard), stroke: (paint: ink, thickness: 0.6pt, dash: "dotted"))
   line((y-living, cl-sill), (y-living, cl-head), stroke: 3pt + rgb("#1f7a99"))
   T((y-living - 0.15, cl-head + 0.6), [#clerestory.len() windows #r2(cl-size.at(0)) × #r2(cl-size.at(1)) · sill +#f2(cl-sill) · head +#f2(cl-head)], size: 5.3pt, fill: rgb("#1f7a99"), anchor: "east")
   rect((y-living, 0), (24, ff-level), fill: rgb("#e9d9c4"), stroke: 0.6pt + ink); T(((y-living + 24) / 2, ff-level / 2), [Men's majlis (GF)])
   line((y-living, ff-level), (y-gym, ff-level), stroke: 2pt + rgb("#e0c060")); T(((y-living + y-gym) / 2, ff-level + 0.35), [suite court #r2(strip) m], size: 5pt)
   rect((y-gym, ff-level), (24, roof-level), fill: rgb("#cfe3f3"), stroke: 0.6pt + ink); T(((y-gym + 24) / 2, (ff-level + roof-level) / 2), [Gym (FF)])
-  line((y-gym, roof-level), (y-gym, wall-top), stroke: (paint: warn, thickness: 0.8pt, dash: "dotted")); line((24, roof-level), (24, wall-top), stroke: (paint: warn, thickness: 0.8pt, dash: "dotted"))
+  line((y-gym, roof-level), (y-gym, roof-level + guard), stroke: (paint: warn, thickness: 0.8pt, dash: "dotted")); line((24, roof-level), (24, south-parapet), stroke: 0.6pt + ink); T((23.8, south-parapet + 0.3), [parapet +#f2(south-parapet)], size: 4.6pt, anchor: "east")
   T(((y-gym + 24) / 2, wall-top + 0.3), [railing (not a parapet)], size: 5pt, fill: warn)
   circle(eye, radius: 0.12, fill: ink); T((eye.at(0), eye.at(1) - 0.4), [eye +#f2(eye.at(1))], size: 5pt)
   for h in (cl-sill, cl-head) { line(eye, (eye.at(0) + (y-living - eye.at(0)) * 2.0, eye.at(1) + (h - eye.at(1)) * 2.0), stroke: (paint: luma(150), thickness: 0.5pt, dash: "dotted")) }
@@ -176,7 +185,9 @@
   T(((pj-edge + x-east) / 2, if court { 1.2 } else { 2.4 }), if court [COURTYARD (GF)] else [living · double height], fill: if court { sky } else { ink })
   T((11.1, 1.9), if court [kitchen (GF)] else [living · dining (GF)])
   // GF walls
-  wall(0, 0, roof-level + parapet, 2 * outer-half); wall(2.75, 0, ff-level - slab, 2 * inner-half); wall(13.311, 0, roof-level + parapet, 2 * outer-half); wall(x-east, 0, roof-level, 2 * inner-half)
+  wall(0, 0, coping-top, 2 * outer-half); wall(2.75, 0, ff-level - slab, 2 * inner-half); wall(13.311, 0, coping-top, 2 * outer-half); wall(x-east, 0, roof-level, 2 * inner-half)
+  wall(attic-in, roof-level, attic-top, 0.2); wall(13.311 - attic-in, roof-level, attic-top, 0.2)   // V7.0: the attic screen, set back 1.0 m from the facade face
+  T((attic-in + 0.2, roof-level + 1.0), [attic\ +#f2(attic-top)], size: 4pt, anchor: "west"); T((13.311 - attic-in - 0.2, roof-level + 1.0), [attic\ +#f2(attic-top)], size: 4pt, anchor: "east")
   if court { line((x-court, 0), (x-court, ff-level - slab), stroke: 1.6pt + rgb("#7fb8d0")) } else { wall(x-court, 0, ff-level - slab, 2 * inner-half); T((x-court + 0.15, 2.0), [TV wall · solid (V6.3)], size: 4.2pt, anchor: "west") }
   // the column beyond the cut (on the beam line) and the edge beam
   rect((pj-edge - col-half, 0), (pj-edge + col-half, ff-level - slab - 0.45), fill: luma(170), stroke: 0.5pt + ink)
@@ -194,9 +205,12 @@
   T(((pj-wall + pj-edge) / 2, 5.6), [gallery], size: 4.6pt)
   T(((pj-wall + pj-edge) / 2, 5.2), [#r2(pj.gallery)], size: 4.2pt)
   T((11.1, 5.4), if court [suite lobby · dressing] else [suite bedroom])
-  wall(pj-wall, ff-level, roof-level - slab, 2 * inner-half); wall(x-east, ff-level, roof-level + if court { parapet } else { 0 }, 2 * inner-half)
-  line((pj-edge, ff-level), (pj-edge, ff-level + parapet), stroke: 1.2pt + ink)
-  T((pj-edge + 0.1, ff-level + parapet + 0.15), [railing], size: 4.2pt, anchor: "west")
+  wall(pj-wall, ff-level, roof-level - slab, 2 * inner-half); wall(x-east, ff-level, roof-level, 2 * inner-half)
+  if court { line((x-east, roof-level), (x-east, roof-level + guard), stroke: (paint: ink, thickness: 0.8pt, dash: "dotted")) }
+  // V7.0 (enclosure A): the gallery edge is a wall with the steel window W1 on the B3 upstand, head at the R11 / R2 soffit
+  wall(pj-edge, ff-level, w1.sill, 0.25); wall(pj-edge, w1.head, roof-level - slab, 0.25)
+  line((pj-edge, w1.sill), (pj-edge, w1.head), stroke: 2.4pt + rgb("#1f2a30"))
+  T((pj-edge + 0.12, w1.head + 0.2), [W1 +#f2(w1.sill) … +#f2(w1.head)], size: 4.2pt, anchor: "west")
   // roof
   rect((ff-west - outer-half, roof-level - slab), (pj-edge, roof-level), fill: ink, stroke: none)
   rect((x-east, roof-level - slab), (13.311, roof-level), fill: ink, stroke: none)

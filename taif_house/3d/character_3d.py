@@ -4,8 +4,8 @@ and adds the character meshes, named chr_<group>_<material>_<label> so the viewe
   group base      stone plinth, feature-wall cladding, recessed outer-window glazing with bronze frames, mashrabiya screens, the
                   colonnade's stone sleeves (base and capital bands), the timber soffit and fascia under the projection, the roof
                   parapet with its coping and the roof railings, the malqaf head's timber louvres, the courtyard fountain pier
-  group parapet   variant A of the gallery railing: a plastered parapet on the upturned beam B3 with a stone coping
-  group glassrail variant B: a glass railing with a bronze handrail
+  (V7.0: the gallery railing variants are gone: the gallery edge is the wall with the steel window W1; the roof parapets, the cornice,
+  the attic and the stair room are base-model meshes of build_3d.py, re-coloured here; the windows get black steel frames and divided lites)
   group pergola   timber beams over the north part of the courtyard sky (toggle)
   (V6.3: the arches variant is removed, the owner wants no arches between the colonnade columns; the group base now also holds the
   living's TV wall: the entrance arch head, the arched TV niche with its pier, cabinet, TV and shelves)
@@ -14,7 +14,7 @@ and adds the character meshes, named chr_<group>_<material>_<label> so the viewe
                   it replaces the base model's courtyard floor meshes gf_slab_court / gf_finish_court while it is on
   group light     the hanging lanterns (point lights in the night view)
 Existing meshes are not changed here: the viewer re-colours them by name (character.yaml `assign`) when the character is on and
-hides the few they replace (the outer windows' centre-line glass, the B3 railing). Nothing is edited by hand: change character.yaml
+hides the few they replace (the outer windows' centre-line glass). Nothing is edited by hand: change character.yaml
 and run build_3d.py again. Nothing here is a design decision; the structure keeps its assumed sizes underneath (the Ø0.30 columns
 inside the Ø0.40 stone sleeves).
 """
@@ -26,6 +26,7 @@ import trimesh
 import yaml
 from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
+from shapely.wkt import loads as wkt_loads
 
 HERE = Path(__file__).resolve().parent
 EPS = 1e-6
@@ -148,7 +149,7 @@ def build(g):
 
     # ---------- windows: bronze frames on every window; outer-wall glazing set back into a deep reveal ----------
     fr, reveal = C["frame"], C["reveal"]
-    frames, panes = [], []
+    frames, panes, lites = [], [], []
     for i, o in enumerate(summary["openings"]):
         if o["kind"] != "window":
             continue
@@ -168,8 +169,21 @@ def build(g):
         frames += parts(seg_box(a2, b2, fr), o["head"] - fr, o["head"]) + parts(seg_box(a2, b2, fr), o["sill"], o["sill"] + fr)
         frames += parts(seg_box(a2, shift(a2, (ux, uy), fr), fr), o["sill"], o["head"]) + parts(seg_box(shift(b2, (ux, uy), -fr), b2, fr), o["sill"], o["head"])
         rec["frames"] += 1
+        # V7.0: divided lites (docs/DESIGN_LANGUAGE.md): mullions at ≈ `lites.pitch` on windows wider than one lite, transoms in rows of ≈ `lites.row` on the tall ones
+        dl = C["lites"]
+        h = o["head"] - o["sill"]
+        n_m = max(1, round(L / dl["pitch"]))
+        for k in range(1, n_m):
+            s = L * k / n_m
+            lites += parts(seg_box(shift(a2, (ux, uy), s - dl["bar"] / 2), shift(a2, (ux, uy), s + dl["bar"] / 2), dl["bar"]), o["sill"] + fr, o["head"] - fr)
+        n_t = max(1, round(h / dl["row"]))
+        for k in range(1, n_t):
+            z = o["sill"] + h * k / n_t
+            lites += parts(seg_box(a2, b2, dl["bar"]), z - dl["bar"] / 2, z + dl["bar"] / 2)
+        rec["lites"] = rec.get("lites", 0) + (n_m - 1) + (n_t - 1)
     emit("base", "glass", "recessed_glazing", panes, windows=len(rec["recessed_windows"]))
-    emit("base", "bronze", "window_frames", frames, windows=rec["frames"])
+    emit("base", "steel", "window_frames", frames, windows=rec["frames"])
+    emit("base", "steel", "window_lites", lites, bars=rec.get("lites", 0))
 
     # ---------- mashrabiya screens: a timber lattice in the reveal, flush with the face ----------
     ms = C["mashrabiya"]
@@ -236,19 +250,16 @@ def build(g):
     emit("base", "timber", "soffit", parts(box(riwaq_x, y0, edge_x, y1).difference(col_holes), soffit_bottom, ff_under), z=[soffit_bottom, ff_under])
     emit("base", "timber", "fascia", parts(box(edge_x, y0, edge_x + so["fascia"], y1).difference(col_holes), soffit_bottom, b3_top), z=[soffit_bottom, b3_top])
 
-    # ---------- the gallery railing on B3: variant A a plastered parapet with a coping, variant B a glass railing with a handrail ----------
-    gr = C["gallery_railing"]
-    top = FINISHED["FF"] + P["railing_height"]
-    cop = gr["coping"]
-    line = seg_box(b3["a"], b3["b"], b3["w"])
-    emit("parapet", "plaster", "wall", parts(line.difference(col_holes), b3_top, top - cop["thickness"]), z=[b3_top, top - cop["thickness"]])
-    emit("parapet", cop["material"], "coping", parts(seg_box(b3["a"], b3["b"], b3["w"] + 2 * cop["overhang"]).difference(col_holes), top - cop["thickness"], top))
-    emit("glassrail", "glass", "panel", parts(seg_box(b3["a"], b3["b"], P["openings"]["glass"]).difference(col_holes), b3_top, top - gr["glass"]["handrail"]))
-    emit("glassrail", "bronze", "handrail", parts(seg_box(b3["a"], b3["b"], gr["glass"]["handrail"]).difference(col_holes), top - gr["glass"]["handrail"], top))
-    b3_rail = next((i for i, r in enumerate(summary["rails"]) if "B3" in r["note"]), None)
-    if b3_rail is not None:
-        hide.append(f"ff_rail_{b3_rail:02d}")
-    rec["gallery_railing"] = {"on": "B3 upturned, top %+.2f" % b3_top, "z0": round(b3_top, 3), "z1": round(top, 3), "thickness": b3["w"], "default": gr["default"], "replaces": f"ff_rail_{b3_rail:02d}" if b3_rail is not None else None}
+    # ---------- V7.0: stone quoins at the outer corners (docs/DESIGN_LANGUAGE.md: honey stone at the base and the corners) ----------
+    qn = C["quoins"]
+    quoins = []
+    for a, b in zip(OUTLINE, OUTLINE[1:] + OUTLINE[:1]):
+        (ux, uy), L = unit(a, b)
+        n = outward(a, b)
+        for p, sgn in ((a, 1), (b, -1)):
+            q0, q1 = shift(p, n, T_OUT / 2), shift(shift(p, n, T_OUT / 2), (ux, uy), sgn * qn["width"])
+            quoins += parts(seg_box(q0, q1, qn["thickness"] * 2).intersection(outer_face.buffer(qn["thickness"], join_style=2).difference(outer_face)), gf + C["plinth"]["height"], qn["top"])
+    emit("base", "stone", "quoins", quoins, corners=len(OUTLINE))
 
     # ---------- pergola: timber beams over part of the courtyard sky, on the roof finish ----------
     pg = C["pergola"]
@@ -264,30 +275,26 @@ def build(g):
     rec["pergola"] = {"beams": len(ys), "y": ys, "section": pg["section"], "spacing": pg["spacing"], "over_y": pg["over_y"], "z": [roof_fin, roof_fin + d],
                       "sky_covered_share": round(covered / COURT_SKY.area, 3), "default": pg["default"]}
 
-    # ---------- roof: the parapet with its coping on the outer walls; bronze railings round the two roof holes ----------
-    rf = C["roof"]
-    tower_out = Polygon(AIR["tower"]).buffer(T_OUT / 2 + 0.01, join_style=2)       # the malqaf head rises through the parapet here
-    par = rf["parapet"]
-    body_top = roof_fin + par["height"] - par["coping"]
-    emit("base", "plaster", "roof_parapet", parts(ring.difference(tower_out), roof_fin, body_top), z=[roof_fin, body_top])
-    coping = outer_face.buffer(par["overhang"], join_style=2).difference(outline_poly.buffer(-T_OUT / 2 - par["overhang"], join_style=2)).difference(tower_out)
-    emit("base", "stone", "roof_coping", parts(coping, body_top, roof_fin + par["height"]), z=[body_top, roof_fin + par["height"]])
-    rec["roof_parapet"] = {"z0": roof_fin, "z1": round(roof_fin + par["height"], 3), "coping": par["coping"]}
-    rl = rf["railing"]
+    # ---------- roof: black steel bar guards round the two roof holes (the parapets, the cornice and the attic are base-model meshes since V7.0) ----------
+    rl = P["roof_design"]["guard"]
+    attic_wall = wkt_loads(summary["roof_design"]["attic"]["line_wkt"])
+    attic_wall = attic_wall.difference(attic_wall.buffer(-P["roof_design"]["attic"]["thickness"] - 0.02, join_style=2)).buffer(0.02)
     rails = []
     for hole in (COURT_SKY, SUITE_COURT):
         hx0, hy0, hx1, hy1 = hole.bounds
         inner = box(hx0 - 0.05 - rl["bar"], hy0 - 0.05 - rl["bar"], hx1 + 0.05 + rl["bar"], hy1 + 0.05 + rl["bar"])
         ringr = inner.difference(box(hx0 - 0.05, hy0 - 0.05, hx1 + 0.05, hy1 + 0.05))
-        rails += parts(ringr, roof_fin + rl["height"] - rl["bar"], roof_fin + rl["height"]) + parts(ringr, roof_fin + rl["height"] / 2 - rl["bar"] / 2, roof_fin + rl["height"] / 2 + rl["bar"] / 2)
+        rails += parts(ringr.difference(attic_wall), roof_fin + rl["height"] - rl["bar"], roof_fin + rl["height"]) + parts(ringr.difference(attic_wall), roof_fin + rl["height"] / 2 - rl["bar"] / 2, roof_fin + rl["height"] / 2 + rl["bar"] / 2)
         corners = list(inner.exterior.coords)[:-1]
         for p, q in zip(corners, corners[1:] + corners[:1]):
             (ux, uy), L = unit(p, q)
             n = max(1, math.ceil(L / rl["post_spacing"]))
             for k in range(n + 1):
                 c = (p[0] + ux * L * k / n, p[1] + uy * L * k / n)
-                rails += parts(box(c[0] - rl["bar"] / 2, c[1] - rl["bar"] / 2, c[0] + rl["bar"] / 2, c[1] + rl["bar"] / 2).intersection(ringr.buffer(rl["bar"])), roof_fin, roof_fin + rl["height"])
-    emit("base", "bronze", "roof_railings", rails, height=rl["height"])
+                rails += parts(box(c[0] - rl["bar"] / 2, c[1] - rl["bar"] / 2, c[0] + rl["bar"] / 2, c[1] + rl["bar"] / 2).intersection(ringr.buffer(rl["bar"])).difference(attic_wall), roof_fin, roof_fin + rl["height"])
+    rails = [m for m in rails if m is not None]
+    emit("base", "steel", "roof_railings", rails, height=rl["height"])
+    rec["roof_guards"] = {"height": rl["height"], "holes": ["courtyard sky", "suite court (west and east edges; the north edge is the attic wall, the south the gym roof railing)"]}
 
     # ---------- the malqaf head: timber louvre slats in its two openings (the head itself is re-coloured stone in the viewer) ----------
     lv = C["malqaf_louvres"]
@@ -379,7 +386,7 @@ def build(g):
     lights = []
     for k, (x, y) in enumerate(la["at"]):
         z1 = soffit_bottom - la["drop"]
-        emit("light", "bronze", f"lantern_rod_{k}", parts(disc((x, y), 0.01, 4), z1, soffit_bottom))
+        emit("light", "brass", f"lantern_rod_{k}", parts(disc((x, y), 0.01, 4), z1, soffit_bottom))
         emit("light", "lantern", f"lantern_{k}", parts(box(x - lw / 2, y - ld / 2, x + lw / 2, y + ld / 2), z1 - lh, z1), at=[x, y])
         lights.append([x, y, round(z1 - lh / 2, 3)])
     rec["lanterns"] = lights
@@ -414,8 +421,8 @@ def build(g):
                       "sofa_back_x": tw["sofa_back_x"], "eye_to_screen": round(eye_x - (wx + 0.08), 3), "path_north": round(15.0 - (13.0 + T_IN / 2), 3), "tv_centre_y": tv_c}
     rec["flags"].append("TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +%.2f) and the arched TV niche %.2f × %.2f m (crown +%.2f); eye-to-screen %.2f m from a sofa with its back at x %.2f; no arches between the colonnade columns" % (tw["entrance"]["head"], n_w, ni["depth"], ni["head"], eye_x - (wx + 0.08), tw["sofa_back_x"]))
     rec["flags"].append("Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, "
-                        "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, parapet or glass railing on B3, pergola, roof parapet, fountain, props; "
-                        "no arches between the colonnade columns (owner, V6.3)" % cl["diameter"])
+                        "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, pergola, fountain, props; V7.0: the design language (cream plaster, honey stone, black steel "
+                        "divided-lite windows, walnut), the quoins, the roof guards; no arches between the colonnade columns (owner, V6.3)" % cl["diameter"])
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
     summary["flags"] += rec["flags"]
 
@@ -423,7 +430,7 @@ def build(g):
     bm = {k: {"title": v["title"], "eye": [v["eye"][0], v["eye"][2], v["eye"][1]], "target": [v["target"][0], v["target"][2], v["target"][1]], "night": bool(v.get("night"))}
           for k, v in C["views"].items()}
     viewer = {"enabled": True, "note": C["note"], "palette": pal, "assign": C["assign"], "hide": hide, "hide_when_sunken": rec["sunken"]["replaces"], "sun": C.get("sun", ""),
-              "defaults": {"pergola": pg["default"], "railing": gr["default"], "sunken": sk["default"]},
+              "defaults": {"pergola": pg["default"], "sunken": sk["default"]},
               "lights": [[x, z, y] for x, y, z in lights],
               "night": {"background": C["night"]["background"], "lights": [[x, z, y, i] for x, y, z, i in C["night"]["point_lights"]]},
               "tv_wall": rec["tv_wall"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],

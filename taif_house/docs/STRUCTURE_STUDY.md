@@ -1,4 +1,6 @@
-# Taif / Palm House · V6.3 · preliminary structural study
+# Taif / Palm House · V7.0 · preliminary structural study
+
+*V7.0 additions (in `studies/structure.typ`):* the colonnade C21–C23, the edge beam B3 and the roof edge beam R11 at x 5.80 (the projection 1.55 m); B6 a drop beam on the y 6.5 line (the kitchen's north wall moved to y 7.0 as a partition, W5 dropped: X14); the enclosure windows W1–W3 and their supports (X15); the roof opening over the stair with the trimmers R16 / R17 / R18 and the stair room (X16); the attic walls, the parapets, the cornice and the plant loads (X17). All assumed.
 
 > **ALL CHECKS PASSED means the drawings are consistent; it does not mean strength, deflection or vibration were calculated.**
 

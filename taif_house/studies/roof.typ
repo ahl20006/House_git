@@ -1,4 +1,4 @@
-// roof.typ · Taif / Palm House · ROOF STUDY (design review F-07): the main stair continues to the roof, the roof screen ("attic") set back
+// roof.typ · Taif / Palm House V7.0 · ROOF STUDY (design review F-07): the main stair continues to the roof, the roof screen ("attic") set back
 // behind a main stone cornice on the north block, the south wing with a plain parapet (a stepped roofline), the reserved roof zones.
 // Owner decisions (31 Oct 2026, branch work / V6.4): roof for maintenance and equipment only; the MAIN stair goes up (same well, same
 // geometry, two more flights); the lift does not; flat roof, no tiles; classical roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes.
@@ -49,7 +49,7 @@
 #let sr-soffit = roof-fin + sr-clear               // +9.50
 #let sr-roof = sr-soffit + sr-slab                 // +9.62 (top of its slab)
 #let sr-top = sr-roof + 0.08                       // +9.70 with its edge / coping
-#let sr-door = (0.9, 1.8)                          // in the south wall y 7.9, x 0.9–1.8 (0.90 opening), opening out onto the roof
+#let sr-door = (0.9, 1.8)                          // in the south wall y 7.9, x 0.9–1.8 (0.90 opening, 2.00 high on the kerb: head +9.45 under the +9.50 soffit), opening out onto the roof
 #let sr-kerb = 0.15                                // the threshold upstand above the roof finish (rain and dust)
 #let trimmers = (("R16", "y 4.85, x 0 → R17"), ("R17", "x 1.2875, y 4.85 → 6.45"), ("R18", "y 6.45, x 1.2875 → 2.75"))   // 0.20 × 0.40 total, soffit +6.80 (as B16–B18)
 #let headroom-f3 = roof - 0.40 - (ff + 6 * st.r)   // over tread 6 of flight 3 (+3.60 + 6 risers) to the R16 soffit (+6.80): as B16 over flight 1
@@ -133,7 +133,7 @@
 #let sun-margin = roof + (19.25 - 13.0) * calc.tan(45.2deg)   // the winter noon ray grazing the hole's south edge passes the attic line at this height
 
 // ====================================================================================== PAGE 1 · roof plan
-#text(14pt, weight: "bold", fill: accent)[Roof study · the stair to the roof, the set-back attic, the main cornice, the reserved zones · Taif / Palm House V6.3 + work (V6.4)]
+#text(14pt, weight: "bold", fill: accent)[Roof study · the stair to the roof, the set-back attic, the main cornice, the reserved zones · Taif / Palm House V7.0]
 #v(1pt)
 #text(8pt, fill: gray)[Design review F-07 (major) · owner decisions 31 Oct 2026 · flat roof, no tiles · the roof for maintenance and equipment only · no slab level changes · all sizes assumed until the engineer and the suppliers confirm]
 #v(3pt)
@@ -268,7 +268,7 @@
   T((Y(7.1), ff + 0.3), [FF arrival], size: 3.4pt); T((Y(7.1), roof + 0.3), [roof arrival #lv(roof-fin)], size: 3.4pt)
   // the stair room roof and the door
   rect((Y(2.1), sr-soffit), (Y(8.0), sr-roof), fill: luma(120), stroke: none); T((Y(5.0), sr-roof + 0.3), [stair room roof · soffit #lv(sr-soffit) · top #lv(sr-roof) (slab #r2(sr-slab), assumed)], size: 3.8pt)
-  rect((Y(7.8), roof + 0.25), (Y(8.0), roof + 0.25 + 2.1), fill: red, stroke: none); T((Y(8.2), roof + 1.3), [door 2.10 on a #r2(sr-kerb) kerb], size: 3.4pt, fill: red, anchor: "west", angle: 90deg)
+  rect((Y(7.8), roof + 0.25), (Y(8.0), roof + 0.25 + 2.0), fill: red, stroke: none); T((Y(8.2), roof + 1.3), [door 2.00 on a #r2(sr-kerb) kerb], size: 3.4pt, fill: red, anchor: "west", angle: 90deg)
   // headroom
   let yh = 5.0; let z2 = 1.8 + (yh - st.land) / st.g * st.r; let z4 = ff + z2 - 0.17
   line((Y(yh), z2), (Y(yh), z4), stroke: (paint: accent, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(yh - 0.1), (z2 + z4) / 2), [#r2(z4 - z2) over flight 2\ under flight 4], size: 3.4pt, fill: accent, anchor: "east")
@@ -283,7 +283,7 @@
     #H[2 · The stair, one storey up]
     - *Flights 3 and 4* repeat flights 1 and 2: 11 risers each × #r2(st.r), goings #r2(st.g); flight 3 (west) up from the first-floor arrival strip (y 6.35–7.80, #lv(ff)) to the upper half landing (y 2.30–3.55, #lv(ff + 1.8)); flight 4 (east) up to the roof arrival (#lv(roof-fin)) on y 6.35–7.80. Flight widths 1.21 m, the 0.10 gap with the central handrail; wall handrails on the west wall (flight 3) and on flight 4's east edge a balustrade (its east side is the well, open to the first-floor gallery): *handrails on both sides of every flight*.
     - *Roof opening:* the same L as the first floor, one storey up: over flight 4 and the half landing (x 1.39–2.65, y 2.30–6.35), over flight 3 beyond tread 6 (x 0.125–1.39, y 2.30–4.75). Trimmers *R16 / R17 / R18* 0.20 × 0.40 total, soffit +6.80, laid out as B16 / B17 / B18 (R16 and R18 bear on R17, R17 on R16 and R18's ends on the walls / R10). Headroom over flight 3 at tread 6: *#r2(headroom-f3) m* to R16 (as 2.22 to B16); over flight 2 under flight 4: #r2(ff - 0.17) m; over flight 4 to the stair room soffit ≥ #r2(sr-soffit - roof) m.
-    - *Stair room:* on the well's walls (x 0 outer 250, x 2.75, y 2.2, y 7.9: 200 mm block, plastered cream, honey stone plinth outside), inside *2.525 × 5.50 m*; floor = the roof slab round the opening (the arrival y 6.35–7.80 and the strip x 0.125–1.29, y 4.85–6.35); roof slab 0.12 (or an insulated steel deck) with its soffit at *#lv(sr-soffit)* = *#r2(sr-clear) m clear* over the arrival; top #lv(sr-roof), edge #lv(sr-top). Door 0.90 × 2.10 in the south wall opening out, on a #r2(sr-kerb) m kerb with a drip canopy, weather-stripped, a brush seal and a storm sill (rain and dust); a 0.90 × 0.60 window in the east wall (sill +8.50) and a louvre high in the north wall for light and cross-ventilation; a light and a socket.
+    - *Stair room:* on the well's walls (x 0 outer 250, x 2.75, y 2.2, y 7.9: 200 mm block, plastered cream, honey stone plinth outside), inside *2.525 × 5.50 m*; floor = the roof slab round the opening (the arrival y 6.35–7.80 and the strip x 0.125–1.29, y 4.85–6.35); roof slab 0.12 (or an insulated steel deck) with its soffit at *#lv(sr-soffit)* = *#r2(sr-clear) m clear* over the arrival; top #lv(sr-roof), edge #lv(sr-top). Door 0.90 × 2.00 in the south wall opening out, on a #r2(sr-kerb) m kerb (head +9.45) with a drip canopy, weather-stripped, a brush seal and a storm sill (rain and dust); a 0.90 × 0.60 window in the east wall (sill +8.50) and a louvre high in the north wall for light and cross-ventilation; a light and a socket.
     - *First floor:* nothing changes: the rooms, the landing (y 7.9–9.2), the gallery and the family living stay; the first-floor arrival strip becomes the foot of flight 3 as in any multi-storey stair; the floor strip x 0.125–1.29, y 4.85–6.35 (already inside the stair box, not a room) lies under flight 3's first treads (a closed triangle). The x 2.75 edge of the well stays open to the gallery with its railing.
     - *Lift:* no change to the shaft (2.25 × 2.2, placeholder) and no overrun above the roof: see § 5.
   ],
@@ -478,3 +478,9 @@
     #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
 )
+
+// ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
+#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: rect-pts(..court-hole), tower: tower, attic: attic, stair_room: rect-pts(sr.x0, sr.y0, sr.x1, sr.y1),
+  lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2 plant: AC + ERV", z-plant), ("Z3 water tank", z-tank), ("Z4 PV south wing", z-pv1), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
+  outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step))),
+  levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: sr-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

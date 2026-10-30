@@ -2,6 +2,10 @@
 Phases 1–3: slabs and finishes, outer and interior walls, doors and windows (glass), the stair with its opening, trimmers and
 balustrades, the colonnade columns, the edge beam, beam B5, the roof beams R6 / R11 (marked assumed / unconfirmed), railings,
 coloured room plates, the sun positions and the eye-level bookmarks for the viewer.
+V7.0: the courtyard enclosure (W1 / W2 as windows in the walls on the former open edges, W3 as a wall piece over the living's courtyard
+glass), the stair to the roof (flights 3 / 4, the roof opening with R16–R18, the stair room), the roofline of studies/roof.typ (the main
+cornice, the band between the floors, the north-block coping, the south-wing parapet, the set-back attic with its doors and coping) and the
+roof guards; all from 3d/params.yaml `roof_design` / `enclosure_w3` and the project files.
 
 Run from anywhere:   python taif_house/3d/build_3d.py
 Reads (paths in 3d/params.yaml):
@@ -391,14 +395,14 @@ slab("gf_slab", outer_face.difference(COURT_FLOOR), STRUCT_TOP["GF"] - T_SLAB, S
 slab("gf_slab_court", COURT_FLOOR, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"], "gf", "the courtyard floor (replaced by the character study's sunken seating)")
 ff_slab_poly = outer_face.difference(unary_union([COURT_SKY, DH_VOID, STAIR_OPENING, TOWER_HOLE]))
 zoned_slab("ff_slab", ff_slab_poly, STRUCT_TOP["FF"], "ff")
-roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE]))
+roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE, STAIR_OPENING]))   # V7.0: the stair well is open through the roof too (the stair room above it)
 zoned_slab("roof_slab", roof_poly, STRUCT_TOP["roof"], "roof")
 add(extrude(outer_face.difference(ring).difference(COURT_FLOOR), STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_floor"))
 add(extrude(COURT_FLOOR, STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_court"))
 add(extrude(ff_slab_poly.difference(ring), STRUCT_TOP["FF"], FINISHED["FF"], COLOURS["finish"], "ff_finish_floor"))
 add(extrude(roof_poly, STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], COLOURS["finish"], "roof_finish_floor"))
 summary["voids"] = {"ff": {"courtyard_sky": round(COURT_SKY.area, 4), "double_height_living": round(DH_VOID.area, 4), "stair_opening": round(STAIR_OPENING.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4)},
-                    "roof": {"courtyard_sky": round(COURT_SKY.area, 4), "suite_court": round(SUITE_COURT.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4)}}
+                    "roof": {"courtyard_sky": round(COURT_SKY.area, 4), "suite_court": round(SUITE_COURT.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4), "stair_opening": round(STAIR_OPENING.area, 4)}}
 
 # ---------- room plates (colour by room type, for the plan views) ----------
 for floor, rooms in (("GF", GF), ("FF", FF_CSV)):
@@ -535,6 +539,18 @@ unused = [w for w in P["openings"]["windows"] if not w.get("_used")] + [d for d 
 if unused:
     raise SystemExit(f"ERROR: params.yaml opening heights that match no opening of the plans: {[w['at'] for w in unused]}")
 summary["openings_note"] = {"skipped": skipped, "open_edges": open_doors}
+# V7.0 · W3: the living's upper courtyard side (y 13.0, from the colonnade line to the east wall) is closed from the ground-floor wall top to the
+# R2 soffit; a wall piece beside the column and against the east wall, the steel window between (enclosure option A, studies/courtyard_enclosure.typ)
+W3 = P["openings"]["enclosure_w3"]
+w3x0, w3y, w3x1, _ = (float(v) for v in W3["at"].split())
+w3_zs, w3_zh = STOREY["GF"][1], W3["head"]
+w3_east = max(p[0] for p in court["pts"])
+w3_solid = seg_box((PROJ_X, w3y), (w3x0, w3y), T_IN).union(seg_box((w3x1, w3y), (w3_east + T_IN / 2, w3y), T_IN))
+add(extrude(w3_solid, w3_zs, w3_zh, COLOURS["wall"], "ff_void_wall"))
+add(extrude(seg_box((w3x0, w3y), (w3x1, w3y), P["openings"]["glass"]), w3_zs, w3_zh, COLOURS["glass"], "ff_glass_w3"))
+summary["walls"].append({"floor": "FF", "kind": "void", "name": "ff_void_wall", "a": (PROJ_X, w3y), "b": (w3_east, w3y), "t": T_IN, "z0": w3_zs, "z1": w3_zh, "length": round(w3_east - PROJ_X, 4)})
+summary["openings"].append({"floor": "FF", "kind": "window", "name": "W3 living upper courtyard side, black steel divided lites (enclosure A, V7.0)", "a": (w3x0, w3y), "b": (w3x1, w3y),
+                            "width": round(w3x1 - w3x0, 3), "sill": round(w3_zs, 3), "head": round(w3_zh, 3), "wall": "ff_void_wall"})
 
 
 # ---------- the stair (studies/structure.typ · st): two flights side by side, half landing at the north end, arrival at the south end ----------
@@ -598,13 +614,81 @@ summary["stair"] = {"risers": risers, "riser": round(r, 4), "going": g, "per_fli
 b3 = BEAMS["B3"]
 upturned = P["structure"]["edge_beam_upturned"]
 b3_top = STRUCT_TOP["FF"] - T_SLAB + b3["d"] if upturned else STRUCT_TOP["FF"]
-rails_ff.append((b3["a"], b3["b"], "gallery edge, on the upturned edge beam B3" if upturned else "gallery edge"))
-rails_ff.append(((4.25, 6.5), (PROJ_X, 6.5), "family living edge on the courtyard sky"))
-rails_ff.append(((PROJ_X, 6.5), (8.95, 6.5), "family living edge on the courtyard sky"))
+# V7.0: the gallery edge and the family living edge are walls with the steel windows W1 / W2 (enclosure A): no railings there any more; the stair well keeps its
 for i, (a, b, note) in enumerate(rails_ff):
     base = b3_top if "B3" in note else FINISHED["FF"]
     add(extrude(seg_box(a, b, bt), base, FINISHED["FF"] + rh, COLOURS["rail"], f"ff_rail_{i:02d}"))
     summary["rails"].append({"a": a, "b": b, "z0": round(base, 3), "z1": round(FINISHED["FF"] + rh, 3), "note": note})
+
+# ---------- V7.0 · the stair to the roof (studies/roof.typ): flights 3 and 4 repeat 1 and 2 one storey up, the roof opening with R16–R18, the stair room ----------
+RD = P["roof_design"]
+SR = RD["stair_room"]
+zF = FINISHED["FF"] - FINISHED["GF"]
+add(profile_mesh([(y, z + zF) for y, z in p1], *f1x, COLOURS["stair"], "ff_stair_flight3"))
+add(profile_mesh([(y, z + zF) for y, z in p2], *f2x, COLOURS["stair"], "ff_stair_flight4"))
+add(extrude(box(ST["x0"], ST["y0"], ST["x1"], ST["land"]), zF + land_level - waist - FIN, zF + land_level, COLOURS["stair"], "ff_stair_landing"))
+for bid in ("R16", "R17", "R18"):
+    b = BEAMS[bid]
+    add(extrude(seg_box(b["a"], b["b"], b["w"]), STRUCT_TOP["roof"] - b["d"], STRUCT_TOP["roof"] - T_SLAB, COLOURS["assumed"], f"roof_beam_{bid}"))
+    summary["structure"]["beams"].append({"id": bid, "a": b["a"], "b": b["b"], "w": b["w"], "d": b["d"], "z0": round(STRUCT_TOP["roof"] - b["d"], 3), "z1": round(STRUCT_TOP["roof"] - T_SLAB, 3), "state": "assumed", "note": "roof stair trimmer (V7.0)"})
+z3 = lambda y: zF + z1(y)
+z4 = lambda y: zF + z2(y)
+add(profile_mesh([(ST["land"], z3(ST["land"])), (ST["top"], z3(ST["top"])), (ST["top"], z4(ST["top"]) + hr), (ST["land"], z4(ST["land"]) + hr)], ST["split"] - bt / 2, ST["split"] + bt / 2, COLOURS["rail"], "ff_rail_stair_centre"))
+add(profile_mesh([(ST["land"], z4(ST["land"])), (ST["top"], z4(ST["top"])), (ST["top"], z4(ST["top"]) + hr), (ST["land"], z4(ST["land"]) + hr)], ST["x1"] - bt, ST["x1"], COLOURS["rail"], "ff_rail_stair_east"))
+add(extrude(box(ST["x1"] - bt, ST["y0"], ST["x1"], ST["land"]), zF + land_level, zF + land_level + hr, COLOURS["rail"], "ff_rail_stair_landing"))
+summary["stair_upper"] = {"landing_level": round(zF + land_level, 3), "arrival_level": round(FINISHED["FF"] + zF, 3),
+                          "nosings": [{"flight": 3, "tread": i, "x": round(sum(f1x) / 2, 4), "y": round(ST["top"] - (i - 1) * g, 4), "y_mid": round(ST["top"] - (i - 0.5) * g, 4), "z": round(FINISHED["FF"] + i * r, 4)} for i in range(1, per_flight + 1)]
+                                     + [{"flight": 4, "tread": i, "x": round(sum(f2x) / 2, 4), "y": round(ST["land"] + (i - 1) * g, 4), "y_mid": round(ST["land"] + (i - 0.5) * g, 4), "z": round(zF + land_level + i * r, 4)} for i in range(1, per_flight + 1)]}
+# the stair room on the well's walls: block walls to its soffit, a light roof slab with an edge, the door to the roof on a kerb, a window east
+bx0, by0, bx1, by1 = SR["box"]
+sr_out = box(bx0 - T_OUT / 2, by0 - T_IN / 2, bx1 + T_IN / 2, by1 + T_IN / 2)
+sr_in = box(bx0 + T_OUT / 2, by0 + T_IN / 2, bx1 - T_IN / 2, by1 - T_IN / 2)
+sr_walls = sr_out.difference(sr_in)
+zr, rfin, leaf, glass_t = STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], P["openings"]["leaf"], P["openings"]["glass"]
+sr_door = seg_box((SR["door"][0], by1), (SR["door"][1], by1), T_IN + 0.02)
+sr_win = seg_box((bx1, SR["window"][0]), (bx1, SR["window"][1]), T_IN + 0.02)
+add(extrude(sr_walls.difference(sr_door).difference(sr_win), zr, SR["soffit"], COLOURS["wall"], "roof_stair_wall"))
+add(extrude(sr_walls.intersection(sr_door), zr, rfin + SR["kerb"], COLOURS["wall"], "roof_stair_wall_kerb"))
+add(extrude(sr_walls.intersection(sr_door), SR["door_head"], SR["soffit"], COLOURS["wall"], "roof_stair_wall_doorhead"))
+add(extrude(sr_walls.intersection(sr_win), zr, SR["window_sill"], COLOURS["wall"], "roof_stair_wall_sill"))
+add(extrude(sr_walls.intersection(sr_win), SR["window_head"], SR["soffit"], COLOURS["wall"], "roof_stair_wall_winhead"))
+add(extrude(seg_box((SR["door"][0], by1), (SR["door"][1], by1), leaf), rfin + SR["kerb"], SR["door_head"], COLOURS["door"], "roof_stair_door"))
+add(extrude(seg_box((bx1, SR["window"][0]), (bx1, SR["window"][1]), glass_t), SR["window_sill"], SR["window_head"], COLOURS["glass"], "roof_stair_glazing"))
+add(extrude(sr_out, SR["soffit"], SR["soffit"] + SR["slab"], COLOURS["slab"], "roof_stair_slab"))
+add(extrude(sr_out.difference(sr_out.buffer(-0.1, join_style=2)), SR["soffit"] + SR["slab"], SR["edge"], COLOURS["wall"], "roof_stair_edge"))
+summary["stair_room"] = {"box": SR["box"], "walls_z": [zr, SR["soffit"]], "slab": [SR["soffit"], SR["soffit"] + SR["slab"]], "edge": SR["edge"], "clear": round(SR["soffit"] - rfin, 3),
+                         "door": {"x": SR["door"], "y": by1, "kerb": SR["kerb"], "sill": round(rfin + SR["kerb"], 3), "head": SR["door_head"]}, "window": {"y": SR["window"], "x": bx1, "sill": SR["window_sill"], "head": SR["window_head"]}}
+
+# ---------- V7.0 · the roofline (studies/roof.typ): the main cornice, the band between the floors, the north-block coping, the south-wing parapet, the set-back attic ----------
+tower_poly0 = Polygon(AIR["tower"])
+tower_out2 = tower_poly0.buffer(T_OUT / 2 + 0.01, join_style=2)
+cn, bd = RD["cornice"], RD["band"]
+add(extrude(outer_face.buffer(cn["proj"], join_style=2).difference(outer_face).difference(tower_out2), cn["z0"], cn["z0"] + cn["h"], COLOURS["outer"], "roof_cornice"))
+add(extrude(outer_face.buffer(bd["proj"], join_style=2).difference(outer_face).difference(tower_out2), bd["z0"], bd["z0"] + bd["h"], COLOURS["outer"], "ff_band"))
+y_step = RD["attic"]["y_south"]
+north_half, south_half = box(-10, -10, 40, y_step), box(-10, y_step, 40, 60)
+cop_n, par_s = RD["coping_north"], RD["parapet_south"]
+coping_ring = lambda ov: outer_face.buffer(ov, join_style=2).difference(outline_poly.buffer(-T_OUT / 2 - ov, join_style=2))
+add(extrude(ring.intersection(north_half).difference(tower_out2), rfin, cop_n["wall_top"], COLOURS["outer"], "roof_parapet_n"))
+add(extrude(coping_ring(cop_n["overhang"]).intersection(north_half).difference(tower_out2), cop_n["wall_top"], cop_n["top"], COLOURS["outer"], "roof_coping_n"))
+add(extrude(ring.intersection(south_half), rfin, par_s["wall_top"], COLOURS["outer"], "roof_parapet_s"))
+add(extrude(coping_ring(par_s["overhang"]).intersection(south_half), par_s["wall_top"], par_s["top"], COLOURS["outer"], "roof_coping_s"))
+AT = RD["attic"]
+attic_in = outline_poly.buffer(-(AT["setback"] - T_OUT / 2), join_style=2).intersection(north_half)      # the attic line = the screen wall's outer face
+attic_ring = attic_in.difference(attic_in.buffer(-AT["thickness"], join_style=2)).difference(sr_out).difference(tower_out2)
+attic_doors = [seg_box(((lambda v: (v[0], v[1]))(tuple(float(x) for x in d[0].split()[:2]))), tuple(float(x) for x in d[0].split()[2:]), AT["thickness"] + 0.02) for d in AT["doors"]]
+attic_solid = attic_ring
+for dbox in attic_doors:
+    attic_solid = attic_solid.difference(dbox)
+add(extrude(attic_solid, zr, AT["wall_top"], COLOURS["wall"], "roof_attic_wall"))
+for i, dbox in enumerate(attic_doors):
+    add(extrude(attic_ring.intersection(dbox), rfin + 2.0, AT["wall_top"], COLOURS["wall"], f"roof_attic_wall_doorhead{i}"))
+attic_cop = attic_in.buffer(AT["overhang"], join_style=2).difference(attic_in.buffer(-AT["thickness"] - AT["overhang"], join_style=2)).difference(sr_out).difference(tower_out2)
+add(extrude(attic_cop, AT["wall_top"], AT["top"], COLOURS["outer"], "roof_attic_coping"))
+summary["roof_design"] = {"cornice": cn, "band": bd, "coping_north": cop_n, "parapet_south": par_s, "attic": {**AT, "line_wkt": attic_in.wkt, "length": round(attic_in.exterior.length - (bx1 - bx0 + T_OUT / 2 + T_IN / 2), 3)},
+                          "stair_room": summary["stair_room"]}
+summary["flags"].append("Roofline (V7.0, studies/roof.typ): the main stone cornice %.2f × %.2f at +%.2f, the north block's coping +%.2f, the attic screen %.1f m high (coping +%.2f) set back %.1f m, the south wing's parapet +%.2f, the stair room on the well (roof +%.2f, %.2f clear), all ASSUMED"
+                        % (cn["h"], cn["proj"], cn["z0"], cop_n["top"], AT["wall_top"] - zr, AT["top"], AT["setback"], par_s["top"], SR["soffit"] + SR["slab"], SR["soffit"] - rfin))
 
 # ---------- the structure of the zone (assumed / unconfirmed): columns C21–C23 (to the roof, X8) and C33, beams B3, B5, R11, R6 ----------
 for cid in P["structure"]["assumed"]:
@@ -620,7 +704,7 @@ for cid in P["structure"]["assumed"]:
         add(extrude(foot, STRUCT_TOP["GF"], STRUCT_TOP["roof"] - T_SLAB, COLOURS["assumed"], f"all_col_{cid}"))
         summary["structure"]["columns"].append({"id": cid, "x": c["x"], "y": c["y"], "size": c["size"], "z0": STRUCT_TOP["GF"], "z1": STRUCT_TOP["roof"] - T_SLAB, "state": "assumed",
                                                 "bounds": [round(v, 4) for v in foot.bounds], "to_roof": to_roof})
-for bid, state in [(b, "assumed") for b in P["structure"]["assumed"] if b in BEAMS and b not in ("B16", "B17", "B18")] + [(b, "unconfirmed") for b in P["structure"]["unconfirmed"]]:
+for bid, state in [(b, "assumed") for b in P["structure"]["assumed"] if b in BEAMS and b not in ("B16", "B17", "B18", "R16", "R17", "R18")] + [(b, "unconfirmed") for b in P["structure"]["unconfirmed"]]:
     b = BEAMS[bid]
     top = STRUCT_TOP["FF"] if b["level"] == "ff" else STRUCT_TOP["roof"]
     if bid == "B3" and upturned:

@@ -1,7 +1,7 @@
-# params.yaml · Taif / Palm House V6.3 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
+# params.yaml · Taif / Palm House V7.0 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
 # The geometry itself (rooms, outline, voids, projection, doors, windows, stair, columns, beams) is read from the project files;
 # these are only the levels, thicknesses, heights and the view settings. Every value marked "assumed" is to be confirmed.
-version: V6.3
+version: V7.0
 
 levels:                 # FINISHED floor levels (the levels of the plans and sections); to confirm with the engineer (OPEN_ITEMS.md item 6)
   gf_floor: 0.00        # ground floor finished level ±0.00
@@ -42,9 +42,10 @@ openings:               # heights above the FINISHED floor of the storey (assume
   skip_doors: []                         # (V6.3: the lift is installed at construction; its sliding landing door is cut on both floors)
   # window heights that differ from the default: floor, the window as in the plans "x1 y1 x2 y2", sill, head, note
   windows:
-    - {floor: GF, at: "5.1 6.5 8.1 6.5", sill: 0.0, head: 2.9, note: "women's majlis south glass to the courtyard, full height under beam B2"}
-    - {floor: GF, at: "4.45 13.0 5.55 13.0", sill: 0.0, head: 2.9, note: "living glass to the courtyard, west of column C22 (x 5.8, V6.4)"}
-    - {floor: GF, at: "6.05 13.0 8.75 13.0", sill: 0.0, head: 2.9, note: "living glass to the courtyard, east of column C22 (x 5.8, V6.4)"}
+    - {floor: GF, at: "5.1 6.5 5.6 6.5", sill: 0.0, head: 2.9, note: "women's majlis south glass to the courtyard, west of column C21 (x 5.8, V7.0)"}
+    - {floor: GF, at: "6.0 6.5 8.1 6.5", sill: 0.0, head: 2.9, note: "women's majlis south glass to the courtyard, east of column C21"}
+    - {floor: GF, at: "4.45 13.0 5.55 13.0", sill: 0.0, head: 3.32, note: "living glass to the courtyard, west of column C22 (x 5.8); V7.0: to the slab underside, one steel wall with W3 above"}
+    - {floor: GF, at: "6.05 13.0 8.75 13.0", sill: 0.0, head: 3.32, note: "living glass to the courtyard, east of column C22 (x 5.8); V7.0: to the slab underside, W3 continues above it to +6.75"}
     - {floor: GF, at: "4.25 6.8 4.25 8.9", sill: 0.0, head: 2.9, note: "riwaq glass to the courtyard, north"}
     - {floor: GF, at: "4.25 10.7 4.25 12.7", sill: 0.0, head: 2.9, note: "riwaq glass to the courtyard, south"}
     - {floor: GF, at: "8.95 9.1 8.95 11.1", sill: 1.1, head: 2.1, note: "kitchen sink window onto the courtyard, over the counter"}
@@ -64,13 +65,13 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: FF, at: "7.6 19.25 8.6 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00"}
     # V6.4 · courtyard enclosure option A (studies/courtyard_enclosure.typ): black steel divided-lite windows; the gallery and family living edges are no longer open edges (3d/open_edges.csv)
     - {floor: FF, at: "5.8 6.5 5.8 19.25", sill: 0.22, head: 3.15, note: "W1 gallery edge on the B3 upstand: sill +3.82, guarding transom +4.70, head +6.75 (R11 soffit); four inward casements"}
-    - {floor: FF, at: "4.35 6.5 8.85 6.5", sill: 0.0, head: 3.15, note: "W2 family living edge on B2: floor to +6.75; two casements"}
-  # W3 (V6.4): the living's upper courtyard side at y 13.0, x 6.05–8.85 (east of C22), +2.90 … +6.75, two motorised tilt lites at +3.82–5.40. There is no first-floor wall on that line (it is the void),
-  # so build_3d.py must raise the ground-floor glass wall y 13.0 to +6.75 and cut W3 in it (TO DO at the next 3D build); data only here:
-  enclosure_w3: {at: "6.05 13.0 8.85 13.0", sill: 2.9, head: 6.75, transom: 3.82}
+    - {floor: FF, at: "4.25 6.5 8.95 6.5", sill: 0.0, head: 3.15, note: "W2 family living edge on B2: floor to +6.75; two casements (the whole edge, as in studies/ff_family.typ windows)"}
+  # W3 (V7.0, enclosure option A): the living's upper courtyard side at y 13.0 east of C22: a wall piece from the ground-floor wall top (+3.32) to the R2 soffit
+  # (+6.75) with the window cut in it; with the ground-floor glass to +3.32 it reads as one steel wall ±0.00 … +6.75 (build_3d.py: the void wall)
+  enclosure_w3: {at: "6.05 13.0 8.85 13.0", head: 6.75, transom: 3.82}
 
 structure:              # the elements taken from studies/structure.typ (phase 3: the stair – colonnade – living zone only); sizes ASSUMED there
-  assumed: [C21, C22, C23, C33, B3, B5, B16, B17, B18, R11]   # orange in the model: "assumed, not approved by the engineer"
+  assumed: [C21, C22, C23, C33, B3, B5, B16, B17, B18, R11, R1, R2, R16, R17, R18]   # V7.0: R1 / R2 (the heads of W2 / W3), R16–R18 (the roof opening over the stair)   # orange in the model: "assumed, not approved by the engineer"
   unconfirmed: [R6]                                            # red: proposed load path, NOT verified (X5)
   unconfirmed_walls:                                           # the two first-floor gym walls that carry R6 (X5), red
     - [5.6, 19.25, 5.6, 21.25]
@@ -81,6 +82,32 @@ structure:              # the elements taken from studies/structure.typ (phase 3
 projection:
   width: 1.55           # the first-floor west projection over the courtyard and the double-height void (V5.0 columns solution; V6.4: +0.20 m, enclosure option A)
   # its exact edge (x 5.8) is read from studies/ff_family.typ (proj-x) and checked against this width
+
+roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): the roofline and the stair to the roof, all sizes assumed
+  cornice: {z0: 6.90, h: 0.45, proj: 0.30}          # the main honey-stone cornice on the facade edge all round
+  band: {z0: 3.40, h: 0.12, proj: 0.08}             # the thin stone cornice between the floors
+  coping_north: {wall_top: 7.57, top: 7.65, overhang: 0.03}   # the north block: a 0.30 upstand on the cornice with its coping (the facade top)
+  parapet_south: {wall_top: 8.32, top: 8.40, overhang: 0.03}  # the south wing (y ≥ 19.25): a plain parapet 1.10 above the roof finish
+  attic:                                              # the roof screen on the north block, set back from the facade face; its south wall on the y 19.25 line
+    setback: 1.0
+    thickness: 0.20
+    wall_top: 9.00
+    top: 9.10
+    overhang: 0.03
+    y_south: 19.25
+    doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the south wing roof"]]   # 0.80 openings, 2.0 high
+  stair_room:                                         # on the well's walls (x 0 outer, x 2.75, y 2.2, y 7.9), its own light roof slab
+    box: [0, 2.2, 2.75, 7.9]
+    soffit: 9.50                                      # 2.20 clear over the roof arrival (+7.30)
+    slab: 0.12
+    edge: 9.70
+    door: [0.9, 1.8]                                  # in the south wall, 0.90, opening out onto the roof
+    door_head: 9.45                                   # 2.00 above the kerb
+    kerb: 0.15                                        # above the roof finish: rain and dust
+    window: [6.6, 7.5]                                # in the east wall
+    window_sill: 8.50
+    window_head: 9.10
+  guard: {height: 1.10, post_spacing: 1.5, bar: 0.04}   # black steel bar guards round the courtyard sky hole and the suite court's open edges
 
 sun:                    # Taif; true north from base.typ (#let north), the plans' north is 21.4° west of true north
   latitude: 21.4
@@ -111,6 +138,6 @@ sources:                # where build_3d.py reads the geometry (paths from taif_
   air_system: studies/air_system.typ   # "#let air-*": the tower head, base box, tunnel route, water channel and outlet chamber (all assumed)
 
 output:
-  glb: 3d/output/taif_house_V6.3.glb
-  viewer_data: 3d/output/taif_house_V6.3.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
+  glb: 3d/output/taif_house_V7.0.glb
+  viewer_data: 3d/output/taif_house_V7.0.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
   summary: 3d/output/model_summary.json       # what was built, for 3d/check_3d.py

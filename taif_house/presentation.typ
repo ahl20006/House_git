@@ -1,8 +1,8 @@
-// presentation.typ · Taif / Palm House V6.3 · presentation set, A3, 10 sheets (ground floor + first floor) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V6.3_presentation.pdf
+// presentation.typ · Taif / Palm House V7.0 · presentation set, A3, 12 sheets (ground floor, first floor, roof) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V7.0_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
-// thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, thin balustrades on the voids). Ground-floor doors and
+// thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
 // windows outside the two studied blocks are indicative.
 #import "@preview/cetz:0.4.2"
 #import "base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, accent, edges, seg-dist
@@ -12,13 +12,14 @@
 #import "studies/east_wing.typ" as ew
 #import "studies/guest_wing.typ" as gw
 #import "studies/sections.typ" as sec
+#import "studies/roof.typ" as rf
 
 // ================= sheet look (A3 landscape) =================
 #let dark = rgb("#22352e")
 #let paper = rgb("#f9f8f4")
 #let soft = luma(120)
 #let orange = rgb("#c25b00")
-#let sheets-total = 10
+#let sheets-total = 12
 #set page(paper: "a3", flipped: true, margin: (x: 16mm, top: 14mm, bottom: 18mm), fill: paper,
   footer: context {
     line(length: 100%, stroke: 0.5pt + luma(200))
@@ -30,7 +31,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V6.3])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V7.0])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -139,11 +140,11 @@
 #let gf-walls = (
   open: (((sec.x-east, 13.0), (sec.x-east, sec.y-living)),),          // living ↔ dining: one room, ceiling change only
   rail: (),
-  light: (((10.65, 2.8), (10.65, 6.5)),),                             // 100 mm dry block, laundry / maid room
+  light: (((10.65, 2.8), (10.65, 7.0)),),                             // 100 mm dry block, laundry / maid room
 )
 #let ff-walls = (
   open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0))),
-  rail: (((sec.pj-edge, sec.y-court), (sec.pj-edge, sec.y-living)), ((sec.x-court, sec.y-court), (sec.x-east, sec.y-court))),   // the projection's balustrade, the living's courtyard edge
+  rail: (),   // V7.0: the gallery edge and the family living edge are walls with the steel windows W1 / W2 (enclosure A)ard edge
   light: (((2.25, 0.7), (4.25, 0.7)),),                               // linen cupboard front
 )
 #let wall-t(a, b, spec) = {
@@ -179,15 +180,15 @@
   G((2.75, 22.15), (2.75, 23.95), (1, 0), "open"),       // foyer → men's majlis
   G((4.25, 13.1), (4.25, 14.5), (1, 0), "open"),         // living entrance
   G((9.4, 13.0), (10.5, 13.0), (0, -1), "hinged"),       // kitchen ↔ dining
-  G((13.311, 6.7), (13.311, 7.6), (1, 0), "hinged"),     // kitchen service door to the east yard, lockable (owner decision)
-  G((9.7, 6.5), (10.55, 6.5), (0, -1), "open"),          // kitchen ↔ laundry
+  G((13.311, 7.2), (13.311, 8.1), (1, 0), "hinged"),     // kitchen service door to the east yard, lockable (owner decision)
+  G((9.7, 7.0), (10.55, 7.0), (0, -1), "open"),          // kitchen ↔ laundry
   G((10.65, 2.9), (10.65, 3.9), (1, 0), "hinged"),       // laundry ↔ maid room, 1.00 m opening (V6.3)
   G((10.715, 2.8), (11.415, 2.8), (0, -1), "sliding"),   // maid room ↔ maid bath
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
 #let gf-windows = (
   ((8.95, 9.1), (8.95, 11.1)), ((13.311, 8.7), (13.311, 10.1)), ((12.170, 3.9), (12.714, 4.9)), ((11.138, 2.0), (11.464, 2.6)),   // studied
-  ((5.1, 6.5), (8.1, 6.5)), ((4.45, 13.0), (5.4, 13.0)), ((5.8, 13.0), (8.75, 13.0)), ((4.25, 6.8), (4.25, 8.9)), ((4.25, 10.7), (4.25, 12.7)),   // courtyard glass (indicative)
+  ((5.1, 6.5), (5.6, 6.5)), ((6.0, 6.5), (8.1, 6.5)), ((4.45, 13.0), (5.55, 13.0)), ((6.05, 13.0), (8.75, 13.0)), ((4.25, 6.8), (4.25, 8.9)), ((4.25, 10.7), (4.25, 12.7)),   // courtyard glass (indicative)
   ((5.4, 0), (7.8, 0)), ((3.6, 24), (6.2, 24)), ((7.2, 24), (9.8, 24)), ((10.8, 24), (12.6, 24)), ((13.311, 14.5), (13.311, 17.5)),          // outer (indicative)
 )
 #let gf-lowwalls = ()   // V6.3: the living's west wall is solid and full height (the TV wall); no low partition
@@ -639,7 +640,7 @@
 
 // ===================================================================================== SHEET 08 · area schedules
 #pagebreak()
-#sheet-head([Areas / room schedules], [Axes = wall centre lines | clear = inside the walls as drawn (250 mm outer, 200 mm inner, 100 mm partitions, thin balustrades), furniture and thresholds not deducted])
+#sheet-head([Areas / room schedules], [Axes = wall centre lines | clear = inside the walls as drawn (250 mm outer, 200 mm inner, 100 mm partitions, the steel windows on the courtyard edges), furniture and thresholds not deducted])
 #let sched(rooms, spec) = table(columns: (auto, 1fr, auto, auto, auto), stroke: none, inset: 2.8pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([No.], [Space], [Axis size], [Axis area], [≈ Clear]).map(c => text(8pt, weight: "bold", fill: accent, c)),
   ..rooms.map(r => {
@@ -661,9 +662,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 2.1pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.25fr, 1fr, 1.2fr), stroke: none, inset: 1.7pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(6.3pt)[#d.version], text(6.3pt, weight: "bold")[#d.topic], text(6.3pt)[#fill-in(d.decision)], text(6.3pt)[#fill-in(d.reason)], align(right, text(6.7pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(5.9pt)[#d.version], text(5.9pt, weight: "bold")[#d.topic], text(5.9pt)[#fill-in(d.decision)], text(5.9pt)[#fill-in(d.reason)], align(right, text(6.3pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
@@ -686,6 +687,49 @@
   table(columns: (auto, auto, 1.1fr, 1fr, 1fr), stroke: none, inset: 3.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
     ..([No.], [For], [Item], [Action], align(right, text(lang: "ar", dir: rtl)[البند])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
     ..items.enumerate().map(((i, o)) => (text(8pt, weight: "bold")[#(i + 1)], text(8pt)[#o.group], text(8pt)[#fill-in(o.item)], text(8pt)[#fill-in(o.action)], align(right, text(8.4pt, lang: "ar", dir: rtl)[#fill-in(o.ar)]))).flatten()),
+)
+
+// ===================================================================================== SHEET 11 · roof plan (V7.0)
+#pagebreak()
+#sheet-head([Roof plan / the stair room, the set-back attic and the reserved zones], [studies/roof.typ (owner decisions 31 Oct 2026) | flat roof, no tiles | the main stair continues to the roof | the attic 1.8 m set back 1.0 m behind the main cornice | zones reserved, not designed | all sizes assumed])
+#grid(columns: (auto, 1fr), column-gutter: 18pt,
+  rf.plan(length: 0.86cm),
+  [
+    #en[
+      *Access:* the main stair's two extra flights (the same well and geometry) arrive in the *stair room* on the well (x 0–2.75, y 2.2–7.9; 2.525 × 5.50 inside, #n2(rf.sr-clear) m clear, roof +#rf.f2(rf.sr-roof)); its door (0.90, opening out, on a #n2(rf.sr-kerb) m kerb) opens south onto the roof. The lift stops at the first floor: headroom to the roof slab underside #n2(rf.lift-avail) m (a lift with ≤ 3.40 m, or ≤ 3.70 m with a 0.30 m raised head hidden behind the cornice; open item 14).
+
+      *Roofline:* a honey-stone *main cornice* #n2(rf.cornice.h) × #n2(rf.cornice.proj) m at +#rf.f2(rf.cornice.z0) … +#rf.f2(rf.cornice.z0 + rf.cornice.h) all round; on the north block a coped upstand to +#rf.f2(rf.coping-top) and the *attic screen* (200 mm block, #n2(rf.attic-h) m, coping +#rf.f2(rf.attic-top)) set back #n2(rf.setback) m from the facade face, its south wall on y #n2(rf.y-step); the *south wing* a plain parapet to +#rf.f2(rf.south-top): the roofline steps #n2(rf.step) m. From the north boundary (#n2(rf.D-north) m) the attic hides behind the cornice and the stair room behind the attic; the stair room shows #n2(rf.sr-top - rf.attic-top) m above the attic only beyond #rf.r1(rf.D-limit) m from the facade (across the street). The attic never cuts the courtyard's sky or sun (it lies 10–20° below the hole's own edges from every point of the courtyard floor).
+
+      *Zones (reserved):* plant for the AC units and the ERV behind the cut / east attic wall; water tank(s) between the roof beams R10 and R3; PV on the south wing south of y #n2(rf.z-pv1.at(0).at(1)) (clear of the clerestories' winter sun) and, later, on the north block's east roof; the malqaf head (+#rf.f2(rf.tower-top)) the one element above the attic; the 1.0 m strip in front of the attic with its own outlets; #rf.outlets.len() roof outlets to internal downpipes, falls 1.5 %; 0.9 m walkways from the stair room to every zone; black steel bar guards 1.10 m round the courtyard sky hole and the suite court's open edges.
+    ]
+    #table(columns: (1.4fr, auto, 2.4fr), inset: 3pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Zone], [m²], [Note]).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
+      ..rf.zones.map(((n, a, note)) => (text(8pt, n), text(8pt)[#rf.r1(a)], text(8pt, note))).flatten())
+    #ar[
+      #ah[السطح]
+      يستمر الدرج الرئيسي إلى السطح في البئر نفسه إلى غرفة درج فوقه (صافي #n2(rf.sr-clear) م)؛ المصعد يقف في الدور الأول. كورنيش رئيسي من الحجر العسلي حول البيت عند السطح، وعلى الكتلة الشمالية حاجز سطح بارتفاع #n2(rf.attic-h) م مرتدّ #n2(rf.setback) م خلف الكورنيش يخفي غرفة الدرج والمعدات؛ الجناح الجنوبي بدرابزين مصمت فقط فيتدرّج خط السطح #n2(rf.step) م. مناطق محجوزة: وحدات التكييف والتهوية، الخزان، الألواح الشمسية، رأس الملقف، الممرات والمصارف والحواجز.
+    ]
+  ],
+)
+
+// ===================================================================================== SHEET 12 · elevations and the sight lines (V7.0)
+#pagebreak()
+#sheet-head([Elevations / the roofline and the sight lines], [studies/roof.typ | cream plaster, honey stone at the plinth, the corners, the band between the floors and the main cornice | black steel divided-lite windows | the attic set back 1.0 m | openings indicative])
+#grid(columns: (auto, auto), column-gutter: 24pt, rf.north-elev(length: 0.6cm), rf.west-elev(length: 0.6cm))
+#v(6pt)
+#grid(columns: (auto, 1fr), column-gutter: 18pt,
+  rf.sight(length: 0.5cm),
+  [
+    #en[
+      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))°, the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))° and the stair room's top at #rf.r1(rf.ang(rf.D-north, rf.sr-s-north, rf.sr-top))°: both hidden. From 10 m the attic shows (as intended) and still hides the stair room; from #rf.r1(rf.D-limit) m on the stair room shows #n2(rf.sr-top - rf.attic-top) m above the attic line. From the lane boundary (#n2(rf.D-lane) m) the plant behind the cut attic is hidden, and from any distance, being lower than the attic.
+
+      *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; on the west the stair room stands on the facade line (the well is on the west wall) and rises to +#rf.f2(rf.sr-top); the south wing's parapet +#rf.f2(rf.south-top); the malqaf head +#rf.f2(rf.tower-top) in the cut tip.
+    ]
+    #ar[
+      #ah[الواجهات وخطوط النظر]
+      من حدّ الأرض الشمالي تختفي العِلّية خلف الكورنيش وغرفة الدرج خلف العِلّية؛ من بعد #rf.r1(rf.D-limit) م تظهر غرفة الدرج #n2(rf.sr-top - rf.attic-top) م فوق خط العِلّية. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
+    ]
+  ],
 )
 
 // ---------- the two room schedules as data (typst eval --in presentation.typ "query(<schedules>).first().value"; used for docs/PROJECT_V6.md) ----------

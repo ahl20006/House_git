@@ -1,4 +1,6 @@
-# Taif / Palm House · V6.3 · air system study v2 (dry malqaf, small duct, wall outlet; main ventilation by the MEP engineer)
+# Taif / Palm House · V7.0 · air system study v2
+
+*V7.0:* the house is now closed round the courtyard (enclosure option A), so the malqaf's grille serves only the courtyard unless the casements of W1 / W2 and the tilt lites of W3 are open (night mode): its role is open item 17; the laundry / kitchen partition over the duct is at y 7.0 (A3). (dry malqaf, small duct, wall outlet; main ventilation by the MEP engineer)
 
 > **Design-development study, not an engineering design.** Every size and performance statement is **assumed / not calculated, to be designed by the MEP engineer** (and the structural engineer for the duct, the tower base and the chamber). Nothing is calculated: no airflow, cooling, filtration, structural or hydraulic figure. **The study proves the performance of no option.** ALL CHECKS PASSED means the drawings are consistent with the project files, not that the system was sized.
 
