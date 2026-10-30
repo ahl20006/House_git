@@ -1,7 +1,8 @@
 // courtyard_enclosure.typ · Taif / Palm House V6.3 · STUDY: closing the conditioned house around the courtyard (design review Y-01, critical)
 // The courtyard stays OPEN TO THE SKY; the three places where the house is open to the courtyard air are closed with black steel windows
 // (docs/DESIGN_LANGUAGE.md) on one continuous air / thermal line. Two options for the gallery (≥ 1.20 m clear): A widen the projection,
-// B keep it and set the columns outside the window line. STUDY ONLY: no room CSV, plan or 3D file is changed; the owner decides.
+// B keep it and set the columns outside the window line. DECIDED: option A (owner, 30 Oct 2026, branch work / V6.4): applied to the room CSVs, the studies,
+// the structural study and the 3D data. This file stays as the record of the comparison; its "now" column is the V6.3 state (edge x 5.60).
 // Stand-alone: the geometry below is copied from data/rooms_gf.csv, data/rooms_ff.csv, studies/structure.typ, studies/sections.typ and 3d/params.yaml
 // (CSV frame: x east, y south, wall centre lines; levels above the ground floor's finished level ±0.00).
 #import "@preview/cetz:0.4.2"
@@ -101,7 +102,9 @@
 // ====================================================================================== PAGE 1
 #text(14pt, weight: "bold", fill: accent)[Courtyard enclosure study · closing the conditioned house around the open courtyard · Taif / Palm House V6.3]
 #v(1pt)
-#text(8pt, fill: gray)[Design review Y-01 (critical) · study only: no CSV, plan or 3D file changed · the owner decides · 30 Oct 2026 · the windows follow `docs/DESIGN_LANGUAGE.md` (black steel, divided lites)]
+#text(8pt, fill: gray)[Design review Y-01 (critical) · 30 Oct 2026 · the windows follow `docs/DESIGN_LANGUAGE.md` (black steel, divided lites)]
+#v(2pt)
+#block(fill: rgb("#e4eedf"), inset: 5pt, radius: 2pt, width: 100%)[#text(9pt, weight: "bold", fill: accent)[DECIDED: option A] (owner, 30 Oct 2026, applied on the work branch for V6.4): the projection 1.55 m, B3 / R11 / C21–C23 at x 5.80, W1 / W2 / W3 as in § 2. The "now" column below is the V6.3 state (edge x 5.60), kept as the record of the comparison.]
 #v(4pt)
     #H[1 · What is open today]
 The courtyard (#r2(x-east - x-wall) × #r2(sky-depth) m on axes, the sky opening #r2(sky-axes(NOW)) × #r2(sky-depth) m east of the projection) is outdoors, as the owner wants. But three edges of the *conditioned* house are open to its air, so the "closed, filtered house" (R-25) cannot be closed:

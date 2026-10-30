@@ -45,6 +45,8 @@ Grouped by who has to act. The numbers match `data/open_items.csv` and presentat
 ## Design (next rounds)
 15. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.
 16. **Bedroom 1 bath:** bedroom 1 is far from the family bath. Accept it, or review it in the next detail round.
+17. **Malqaf role after the enclosure** (review E-01; work branch, V6.4): the house is sealed round the courtyard (option A), so the grille serves only the courtyard unless the casements of W1 / W2 and the tilt lites of W3 are open (night mode). Decide: a courtyard feature only, the ERV's filtered intake, or drop it (with the MEP engineer).
+18. **Pergola** (work branch, V6.4): reconsider after the enclosure (the sky opening is 3.15 m and the edges are glazed): keep, lighten or drop.
 
 ## From the design review (`docs/review`, tag `review-1`) · the big items, in order
 Not in `data/open_items.csv` yet; they are decisions, listed in `NEXT_SESSION.md` in the order to take them: the courtyard enclosure; the maid room; roof access; fire and escape; the serving route and bedroom 1's bath; the malqaf; the gym's treadmill clearances and vibration; the site and roof plan.

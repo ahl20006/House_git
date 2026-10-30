@@ -15,27 +15,29 @@
 // ---------- Rooms: (name, x, y, w, d, colour) · x, y = centre ----------
 // put // in front of a line to switch a room off
 #let rooms-data = (
-  ("Laundry",   0.85,   4.65,  1.70,  3.7,   "laundry"),   // vertical, on the west wall (women's majlis side): x 0–1.70, y 2.8–6.5
-  ("Kitchen",   2.1805, 9.75,  4.361, 6.5,   "kitchen"),   // y 6.5–13.0, exactly on the courtyard lines
+  ("Laundry",   0.85,   4.9,   1.70,  4.2,   "laundry"),   // vertical, on the west wall (women's majlis side): x 0–1.70, y 2.8–7.0 (V6.4: +0.5 south with the kitchen wall)
+  ("Kitchen",   2.1805, 10.0,  4.361, 6.0,   "kitchen"),   // y 7.0–13.0 (V6.4: the north wall 0.5 m south of the structural line y 6.5, a non-load-bearing partition)
 )
 
 // ---------- Rooms along the cut wall: polygons (name, corner points, colour) so they run up to the sloped wall ----------
 // cut wall: x = 1.101 + y × 2.949 / 5.427 (y 0–6.0) · at y 1.0 → 1.644, at y 2.8 → 2.622, at y 6.0 → 4.361
 #let poly-rooms = (
   ("Maid bath", ((0, 1.0), (1.644, 1.0), (2.622, 2.8), (0, 2.8)), "wc"),                       // 1.8 m deep: from the tower to y 2.8
-  ("Maid room", ((1.7, 2.8), (2.622, 2.8), (4.361, 6.0), (4.361, 6.5), (1.7, 6.5)), "maid"),   // the slope ends at y 6.0, then 0.5 m of straight east wall
+  ("Maid room", ((1.7, 2.8), (2.622, 2.8), (4.361, 6.0), (4.361, 7.0), (1.7, 7.0)), "maid"),   // the slope ends at y 6.0, then 1.0 m of straight east wall (V6.4: to y 7.0)
 )
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
   (0.1, 7.5, 0.7, 12.9, [sink counter 0.6 · window to courtyard]),
-  (3.636, 7.7, 4.236, 11.1, [cooking counter 0.6 · hob + hood]),   // starts 0.1 south of the service door
-  (3.636, 11.1, 4.236, 12.9, [fridge + tall storage]),
+  (3.636, 8.2, 4.236, 10.2, [cooking counter 0.6]),   // starts 0.1 south of the service door (V6.4)
+  (3.636, 10.2, 4.236, 11.2, [hob + hood · extract through the east wall]),   // the hood south of the east window (y 8.7–10.1), 2.1 m from the service door, 4.2 m from C32
+  (3.636, 11.2, 4.236, 12.9, [fridge + tall storage]),
   (0.1, 2.9, 0.7, 3.5, [washer]),
   (0.1, 3.5, 0.7, 4.1, [dryer]),
   (0.1, 4.1, 0.7, 4.7, [utility sink]),
   (0.1, 4.7, 0.7, 5.7, [folding · shelves]),
-  (1.75, 5.5, 3.75, 6.4, [single bed 0.9 × 2.0]),
+  (0.1, 5.7, 0.7, 6.9, [drying rail · ironing]),   // V6.4: the extra 0.5 m
+  (1.75, 6.0, 3.75, 6.9, [single bed 0.9 × 2.0]),   // V6.4: along the new south wall, in the 2.49 m clear straight part
   (1.75, 4.1, 2.35, 5.3, [ward-\ robe]),
   (0.1, 1.1, 0.9, 1.9, [shower]),
   (1.0, 1.1, 1.5, 1.7, [WC]),
@@ -45,8 +47,8 @@
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
   ((0.45, 13.0), (1.55, 13.0), [kitchen ↔ dining]),
-  ((4.361, 6.7), (4.361, 7.6), [service door 0.90 · east yard · lockable]),   // owner decision: north end of the kitchen's east wall, near the laundry
-  ((0.75, 6.5), (1.6, 6.5), [open entrance kitchen ↔ laundry (no door)]),
+  ((4.361, 7.2), (4.361, 8.1), [service door 0.90 · east yard · lockable]),   // owner decision: north end of the kitchen's east wall, near the laundry (V6.4: moved 0.5 with the wall)
+  ((0.75, 7.0), (1.6, 7.0), [open entrance kitchen ↔ laundry (no door)]),
   ((1.7, 2.9), (1.7, 3.9), [laundry ↔ maid room 1.00]),          // at the north end: keeps the wide south part free for the bed
   ((1.765, 2.8), (2.465, 2.8), [maid room ↔ maid bath · 0.70]),
 )
@@ -114,7 +116,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · kitchen, laundry, maid wing, air tower · layout study]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.3 · block = CSV x 8.95–13.311, y 0–13.0 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor V6.3 + work (V6.4 maid wing) · block = CSV x 8.95–13.311, y 0–13.0 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -178,14 +180,15 @@
     #v(6pt)
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Rules]
     - Kitchen isolated: doors only to the dining area (south) and the laundry (north). No door to the courtyard, riwaq or women's majlis.
-    - Kitchen 4.361 × 6.5 m on axes (28.35 m², ≈ 26.1 m² clear, ≈ 4.136 m clear wide), y 6.5–13.0, exactly on the courtyard lines. No island: two parallel counter runs, the sink run on the courtyard wall and the hob, hood and fridge run on the east outside wall; ≈ 2.94 m between the counter fronts. The heavy (dirty) kitchen; the hospitality kitchen in the west block is the light one.
-    - Laundry vertical on the west wall (women's majlis side), 1.70 × 3.7 m (x 0–1.70, y 2.8–6.5), from the kitchen up to the maid bath: open entrance from the kitchen in its south wall (no door); washer, dryer, utility sink and folding shelves in one line on the west wall (solid, no opening, the wet wall 200 mm); ≈ 0.95 m clear beside the 0.6 m machines; maid room door at the north end of its east wall. The maid's only route. No outside wall: a mechanical extract fan to the roof.
-    - Maid room east of the laundry behind a 100 mm dry block partition, y 2.8–6.5; the slope ends at y 6.0, then 0.5 m of straight east wall (≈ 7.06 m² on centre lines, ≈ 6.04 m² clear; the earlier 6.5 m² target is dropped: the sloped cut wall makes the north part too narrow). Doors from the laundry and to the maid bath both in the north part; single bed 0.9 × 2.0 along the south wall and a wardrobe on the west wall; window in the cut wall with a sill ≥ 1.5 m (privacy from the lane).
+    - Kitchen 4.361 × 6.0 m on axes (26.17 m², ≈ 24.0 m² clear, ≈ 4.136 m clear wide), y 7.0–13.0 (V6.4: its north wall is a non-load-bearing partition 0.5 m south of the structural line y 6.5, so the maid room reaches the municipal minimum). No island: two parallel counter runs, the sink run 5.4 m on the courtyard wall and the cooking run 3.0 m (y 8.2–11.2, the hob and hood at y 10.2–11.2 south of the east window) plus the fridge and tall storage on the east outside wall; ≈ 2.94 m between the counter fronts. The heavy (dirty) kitchen; the hospitality kitchen in the west block is the light one.
+    - Laundry vertical on the west wall (women's majlis side), 1.70 × 4.2 m (x 0–1.70, y 2.8–7.0; ≈ 6.2 m² clear), from the kitchen up to the maid bath: open entrance from the kitchen in its south wall (no door); washer, dryer, utility sink, folding shelves and a drying rail in one line on the west wall (solid, no opening, the wet wall 200 mm); 0.95 m clear walkway beside the 0.6 m machines; maid room door at the north end of its east wall. The maid's only route. No outside wall: a mechanical extract fan to the roof.
+    - Maid room east of the laundry behind a 100 mm partition (insulated gypsum board or 100 mm block, the owner may change it later), y 2.8–7.0; the slope ends at y 6.0, then 1.0 m of straight east wall (≈ 8.39 m² on centre lines, *≈ 7.28 m² clear, 2.49 m clear wide at the bed* (y 6.0–7.0), 2.22 m at y 6.0: the municipal ≥ 6.5 m² and ≥ 2.1 m are met, V6.4). Doors from the laundry and to the maid bath both in the north part (the laundry door's swing y 2.9–3.9 stays clear of the wardrobe at y 4.1–5.3); single bed 0.9 × 2.0 along the south wall and a wardrobe on the west wall; window in the cut wall with a sill ≥ 1.5 m (privacy from the lane).
     - Maid bath 1.8 m deep (y 1.0–2.8, from the air tower to the maid room), running up to the cut wall (≈ 3.84 m², ≈ 3.03 m² clear): WC, basin, compact shower; vent window in the cut wall; door only from the maid room, 0.70 m clear (sliding or opening out; the wall there is only ≈ 0.73 m long).
-    - Main cross walls on the house lines: y 6.5 (women's majlis / courtyard) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: 100 mm blocks for dry partitions, 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
+    - Main cross walls: y 7.0 (kitchen / maid wing, V6.4: a straight non-load-bearing block partition on a thickened slab or ground beam; the structural line y 6.5 keeps its beam B6 inside the laundry / maid room ceiling, hidden by the gypsum ceiling, carrying the first-floor wall above) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: the maid bath block with waterproofing (wet room); 100 mm for the dry laundry / maid partition; 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
+    - Malqaf duct (studies/air_system.typ): route E on x 1.3 (CSV 10.25) under the maid bath and the laundry to the chamber under the kitchen floor (CSV y 7.4–8.4); the new wall y 7.0 crosses it on a ground beam (A3); the grille stays at the kitchen part of the courtyard wall (CSV y 7.7–8.7).
     - Air tower in the tip of the cut corner, 1.0 m deep (≈ 1.37 m² on centre lines, ≈ 0.88 m² clear, at least ≈ 0.93 m wide): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
     - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; no east duct; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
-    - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 7.7); the stack outside the east wall sits between the door and the kitchen window (MEP to confirm). Gas (if used): cylinder cabinet outside the east wall in the service yard.
+    - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 7.2–8.1, V6.4), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 8.2); the stack outside the east wall sits between the door and the kitchen window (y 8.1–8.7, 0.6 m: MEP to confirm); the hood (y 10.2–11.2) is clear of the door and of column C32 (y 5.7–6.3). Gas (if used): cylinder cabinet outside the east wall in the service yard.
   ],
 )

@@ -1,6 +1,6 @@
 // design_ff.typ · Taif / Palm House · FIRST FLOOR V6.3 · compile THIS file for the whole first floor
 // Zoning: family part (kids' room, family living, bedrooms 1–3, family bath) on the north and west, around the courtyard; the gallery on the
-// 1.35 m west projection over the courtyard and the double-height void, on an edge beam and three columns at x 5.6 (as in V5.0, restored in V6.1);
+// 1.55 m west projection over the courtyard and the double-height void, on an edge beam and three columns at x 5.8 (V6.4: enclosure option A; 1.35 m / x 5.6 in V5.0–V6.3);
 // the L to the south and east: owner's office → gym route → gym → suite court → master suite.
 // Rooms: data/rooms_ff.csv. Room-by-room design, furniture, doors, drains and checks: studies/ff_family.typ (part 1) and studies/ff_suite.typ (part 2);
 // this file checks that the CSV and the two studies agree. Sections and the light check: studies/sections.typ. Placement: design_gf.typ.
@@ -138,7 +138,7 @@
 #v(2pt)
 #grid(columns: (1.25fr, 1fr), column-gutter: 16pt, [
   #sec.compare-table(size: 7pt)
-  #text(6pt, fill: gray)[V6.3 read from data/rooms_ff.csv; the split projection (V5.1–V6.0) from tag v6.0. Clear ≈ axes − ½ wall each side (250 outer, 200 inner, ≈ 50 mm railing on the void edge); sky opening clear = axes − ½ of the east wall − the slab edge with its railing.]
+  #text(6pt, fill: gray)[V6.3 read from data/rooms_ff.csv; the split projection (V5.1–V6.0) from tag v6.0. Clear ≈ axes − ½ wall each side (250 outer, 200 inner, ≈ 50 mm for the steel window W1 on the void edge, V6.4); sky opening clear = axes − ½ of the east wall − the slab edge with its upstand.]
 ], [
   #set text(7.2pt)
   - *Projection:* #num(sec.pj.depth) m over the courtyard and the double-height void; the west rooms (#num(sec.pj.room) m) and the gallery (#num(sec.pj.gallery) m) take the band over the GF west band and riwaq.

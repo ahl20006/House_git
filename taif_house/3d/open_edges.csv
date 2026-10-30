@@ -4,7 +4,7 @@ GF,2.75,10.6,2.75,12.7,0,open,hospitality kitchen open to the riwaq,design_gf.ty
 GF,2.75,13.0,2.75,14.3,0,open,family basins open to the riwaq,design_gf.typ west-lines
 GF,2.75,0.1,2.75,0.8,0,open,entry cupboard open to the family lobby (V6.3: the cupboard keeps y 0-0.9 and the strip in front of the lift door is lobby),design_gf.typ west-lines
 GF,2.75,2.4,2.75,6.8,0,open,open stair no door (railing later phase 5),presentation.typ gf-doors
-GF,9.7,6.5,10.55,6.5,0,open,open entrance kitchen to laundry no door,design_gf.typ east-lines
+GF,9.7,7.0,10.55,7.0,0,open,open entrance kitchen to laundry no door (V6.4: the kitchen's north wall at y 7.0),design_gf.typ east-lines
 GF,2.75,22.15,2.75,23.95,0,open,foyer to men's majlis 1.80 m opening no door,design_gf.typ west-lines
 GF,1.25,19.85,1.25,21.4,0,open,guest passage open to the guest basins,presentation.typ gf-doors
 GF,0.1,21.4,1.15,21.4,0,open,guest passage open to the foyer,presentation.typ gf-doors
@@ -13,7 +13,5 @@ FF,2.75,7.9,2.75,9.2,0,open,landing open to the gallery,studies/ff_family.typ op
 FF,2.75,2.2,2.75,7.9,0,open,gallery beside the stair well (railing later phase 5),studies/ff_family.typ gallery / stair
 FF,4.25,3.1,4.25,4.5,0,open,family living open to the gallery,studies/ff_family.typ doors
 FF,8.95,5.3,8.95,6.5,0,open,family link open to the family living,studies/ff_family.typ open-edges
-FF,4.25,6.5,8.95,6.5,0,open,family living edge on the courtyard sky (balustrade later phase 5),presentation.typ ff-walls rail
-FF,5.6,6.5,5.6,19.25,0,open,gallery edge on the courtyard sky and the double-height void (railing later phase 5),presentation.typ ff-walls rail
 FF,4.25,19.25,5.6,19.25,0,open,gallery south end to the gym route,studies/ff_family.typ open-edges
 FF,0.1,11.0,1.4,11.0,0,open,wardrobe niche open to bedroom 2,studies/ff_family.typ doors

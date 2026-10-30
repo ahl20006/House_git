@@ -42,7 +42,7 @@
 #let GF = read("../data/rooms_gf.csv")
 #let outline = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 // the columns near the route (studies/structure.typ) with their ASSUMED 1.5 × 1.5 pad footings
-#let pads = (("C15", 4.25, 0), ("C16", 4.25, 3.0), ("C17", 4.25, 6.5), ("C21", 5.6, 6.5), ("C24", 8.95, 0), ("C25", 8.95, 3.0), ("C26", 8.95, 6.5), ("C30", 10.051, 0), ("C31", 11.572, 2.8), ("C18", 4.25, 13.0), ("C27", 8.95, 13.0), ("C22", 5.6, 13.0))
+#let pads = (("C15", 4.25, 0), ("C16", 4.25, 3.0), ("C17", 4.25, 6.5), ("C21", 5.8, 6.5), ("C24", 8.95, 0), ("C25", 8.95, 3.0), ("C26", 8.95, 6.5), ("C30", 10.051, 0), ("C31", 11.572, 2.8), ("C18", 4.25, 13.0), ("C27", 8.95, 13.0), ("C22", 5.8, 13.0))
 #let pad = 1.5
 #let plant = (9.6, 2.6, 13.0, 6.0)      // reserved plant area on the roof over the maid wing (ERV / AC outdoor units), ASSUMED, not designed
 
@@ -125,7 +125,7 @@
     - *Why v1 was withdrawn:* water inside a dark underground duct adds condensation, mould and bacteria risks; a short, shallow tunnel gives little ground cooling; a walk-in tunnel (deep excavation, waterproofing, pumps, footings) is too complex for a house; passing air over water does not clean it, and a screen is not a rated filter.
     - *Now:* the tower stays *dry*; a washable insect / dust screen *plus a slot for a proper rated filter* (MEP: class and pressure drop); a *closable damper* (closed in dust storms, cold weather and the hot daytime hours; motorised with a manual override); a roof access hatch. *Main use: night ventilation* — Taif's cool nights: open at night to cool the thermal mass of the courtyard walls and floors, closed by day. *No water anywhere inside the tower or the duct.*
     - *Duct:* a short, small, *dry* duct from the tower base *south under the maid bath and the laundry* (route E, #r2(air-length) m on x #r2(air-route.at(0).at(0))) to a chamber under the kitchen floor, assumed *#r2(air-clear.at(0)) × #r2(air-clear.at(1)) m clear* (to be sized), smooth, sloped #str(calc.round(air-fall * 100, digits: 1)) % to a drain point, *sealed against soil gas and ground water*; just under the assumed tie beams (top #f2(air-duct.at(1))), 0.10 m from the assumed pads; the maid bath and laundry drains cross *above* it (A6); *not walk-in*: cleaned from both ends through *sealed hatches* at the tower base and at the chamber.
-    - *Outlet in the wall, not in the floor (owner, 3d-char2):* a low grille at the *north end of the courtyard's east wall* (the kitchen's west wall, courtyard side, +#r2(air-grille.at(1)) … +#r2(air-grille.at(3))), mashrabiya-type, *discharging into the courtyard just above the bench of the sunken seating* (floor #f2(air-sunken.at(0)), style study): the cool air settles there; the plenum stays below counter level on the kitchen side; the women's majlis glass stays complete (A7 resolved). *No air opening in the courtyard floor*; the cleaning access is a *sealed cover in the kitchen floor*.
+    - *Outlet in the wall, not in the floor (owner, 3d-char2):* a low grille at the *north end of the courtyard's east wall* (the kitchen's west wall, courtyard side; V6.4: the wall's first 0.5 m, y 6.5–7.0, belongs to the laundry, the grille at y #r2(air-grille.at(0))–#r2(air-grille.at(2)) stays in the kitchen part over the chamber; +#r2(air-grille.at(1)) … +#r2(air-grille.at(3))), mashrabiya-type, *discharging into the courtyard just above the bench of the sunken seating* (floor #f2(air-sunken.at(0)), style study): the cool air settles there; the plenum stays below counter level on the kitchen side; the women's majlis glass stays complete (A7 resolved). *No air opening in the courtyard floor*; the cleaning access is a *sealed cover in the kitchen floor*.
     #v(2pt)
   ],
 )
@@ -155,7 +155,7 @@
     R(1.2, 3.32, s-chamber + ch-len + 2.3, 3.52, fill: luma(150), stroke: none); R(1.2, 7.0, s-chamber + ch-len + 2.3, 7.2, fill: luma(150), stroke: none); R(1.2, 7.2, s-chamber + ch-len + 2.3, 7.3, fill: luma(200), stroke: none)
     T((-1.2, 1.6), [north street], size: 4pt, fill: luma(120)); T((1.9, 1.6), [maid bath], size: 3.8pt); T((4.6, 1.6), [laundry], size: 4pt); T((8.4, 1.6), [kitchen], size: 4pt); T((3.8, 5.2), [bedroom 1], size: 4pt); T((8.4, 5.2), [suite lobby], size: 4pt); T((5.0, 7.6), [roof], size: 4pt)
     // assumed ground beams under the walls y 2.8 (maid bath / laundry) and y 6.5 (laundry / kitchen): the duct passes under them (A3)
-    for (s, l) in ((2.8, [wall y 2.8 · ground beam (A3)]), (6.5, [wall y 6.5 · ground beam (A3)])) { R(s - 0.15, -0.9, s + 0.15, -0.28, fill: luma(120), stroke: none); T((s, 0.25), l, size: 3.0pt) }
+    for (s, l) in ((2.8, [wall y 2.8 · ground beam (A3)]), (7.0, [wall y 7.0 · ground beam (A3)])) { R(s - 0.15, -0.9, s + 0.15, -0.28, fill: luma(120), stroke: none); T((s, 0.25), l, size: 3.0pt) }
     // the maid bath and laundry drains run east to the manhole, crossing ABOVE the duct (A6)
     for s in (1.9, 4.5) { circle((s, -0.55), radius: 0.08, stroke: 0.6pt + blue, fill: white) }
     T((3.2, 0.7), [house drains (to the east) cross above the duct: A6], size: 3.1pt, fill: blue)
@@ -324,7 +324,7 @@
       [], [*E · to the kitchen's west wall (chosen, owner)*], [A · under the women's majlis (v2, superseded)], [B · under the maid wing to the kitchen north wall (v1, rejected)],
       [path], [tower base → #r2(air-L1) m south on x #r2(air-route.at(0).at(0)) → chamber under the kitchen floor → west into the kitchen's west wall → grille over the sunken seating], [tower base → 1.68 m west → 5.85 m south on x 7.27 → chamber at the courtyard's north wall], [south under the maid bath and the laundry, west under the kitchen north wall; ≈ 8.5 m],
       [above], [maid bath, laundry, kitchen], [the women's majlis only], [maid bath, laundry, kitchen wall],
-      [footings], [the tower base pit (A1); ground beams under the walls y 2.8, y 6.5 and the kitchen's west wall (A3); 0.10 m from the C25 / C26 / C31 pads], [the majlis south wall ground beam; 0.48 m from C25, 0.4 / 0.25 m from C21 / C26], [walls y 1.0 and 2.8, the RC wall W5, the C26 pad],
+      [footings], [the tower base pit (A1); ground beams under the walls y 2.8, y 7.0 (V6.4) and the kitchen's west wall (A3); 0.10 m from the C25 / C26 / C31 pads], [the majlis south wall ground beam; 0.48 m from C25, 0.4 / 0.25 m from C21 / C26], [walls y 1.0 and 2.8, the RC wall W5, the C26 pad],
       [drains], [the maid bath and laundry drains cross *above* the duct: clearance and protection (A6)], [none cross it], [crosses the maid bath and laundry drains],
       [why], [the cool air settles where people sit; the women's majlis glass stays complete (A7 resolved)], [the grille cut the women's majlis glass (A7)], [—],
     )
@@ -368,7 +368,7 @@
       [*M3*], [MEP], [The risers (the west shaft; a second one if needed) and the ceiling heights with the ducts (the gypsum ceilings at ≈ +3.05 … +3.20 under the drop beams).],
       [*A1*], [structure], [The tower base pit (#f2(air-base.at(0)) … #f2(air-base.at(1))) with the shaft walls as the foundation of the tower and the ends of W3 / W4; the duct leaves it through the W3 line: design the pit and the crossing.],
       [*A2*], [structure / MEP], [The duct: a factory-sealed box (precast RC or GRP) or an in-situ sealed box; its size (#r2(air-clear.at(0)) × #r2(air-clear.at(1)) assumed), joints, bedding, soil gas and ground-water sealing; soil report first (X9).],
-      [*A3*], [structure], [The walls over the duct: the maid bath / laundry wall (y 2.8) and the laundry / kitchen wall (y 6.5) on ground beams bridging it; the kitchen's west wall (x #r2(air-grille-x)) over the chamber on a ground beam between the C26 and C27 pads, with the plenum in its base.],
+      [*A3*], [structure], [The walls over the duct: the maid bath / laundry wall (y 2.8) and the laundry / kitchen partition (y 7.0, V6.4) on ground beams bridging it; the kitchen's west wall (x #r2(air-grille-x)) over the chamber on a ground beam between the C26 and C27 pads, with the plenum in its base.],
       [*A4*], [MEP], [Option study A / B / C: annual performance, cost and maintenance; the head opening sizes, the filter class, the fan, the damper control (night / day, dust, cold).],
       [*A5*], [MEP / safety], [Access: the shaft rungs and fall protection; the base pit and the chamber as confined spaces (two people, lid open); the sealed hatches and the floor cover gas-tight and lockable.],
       [*A6*], [MEP], [The drain points of the pit, the duct and the chamber (traps, non-return, where they discharge); the maid bath and laundry drains crossing above the duct (vertical clearance, protection); the sunken seating's floor drain and overflow at its lowest point (open to the sky: size them for the rain), and the fountain's drain.],

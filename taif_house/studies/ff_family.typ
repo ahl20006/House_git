@@ -8,12 +8,12 @@
 
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
-// ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; with the west projection (x 4.25–5.6, y 6.5–19.25) on an edge beam and three columns ----------
-#let zone = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (8.95, 6.5), (5.6, 6.5), (5.6, 19.25), (0, 19.25))
+// ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; with the west projection (x 4.25–5.8, y 6.5–19.25; V6.4: 1.55 m, courtyard enclosure option A) on an edge beam and three columns ----------
+#let zone = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (8.95, 6.5), (5.8, 6.5), (5.8, 19.25), (0, 19.25))
 #let plan-scale = 0.6cm
-#let proj-x = 5.6   // the projection's outer edge (edge beam): 1.35 m beyond the courtyard wall line x 4.25
-// the edge beam (x 5.6) on three columns, each in an existing wall / glass line (ground floor): the women's majlis south wall, the courtyard / living glass, the living's south wall
-#let columns = ((5.6, 6.5), (5.6, 13.0), (5.6, 19.25))
+#let proj-x = 5.8   // the projection's outer edge (edge beam B3, with the steel window W1 on its upstand): 1.55 m beyond the courtyard wall line x 4.25 (V6.4, enclosure option A)
+// the edge beam (x 5.8) on three columns, each in an existing wall / glass line (ground floor): the women's majlis south wall, the courtyard / living glass, the living's south wall
+#let columns = ((5.8, 6.5), (5.8, 13.0), (5.8, 19.25))
 
 // ---------- Fixed inside the zone (rising from the ground floor) ----------
 #let fixed = (
@@ -25,8 +25,8 @@
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
 #let neighbours = (
-  ("Courtyard sky (void)", rect-pts(5.6, 6.5, 8.95, 13.0)),
-  ("Double-height living (void)", rect-pts(5.6, 13.0, 8.95, 19.25)),
+  ("Courtyard sky (void)", rect-pts(5.8, 6.5, 8.95, 13.0)),
+  ("Double-height living (void)", rect-pts(5.8, 13.0, 8.95, 19.25)),
   ("Suite lobby", rect-pts(8.95, 6.5, 10.3, 11.9)),
   ("Suite bath", rect-pts(10.3, 6.5, 13.311, 10.45)),
   ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)),
@@ -62,8 +62,8 @@
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
   R("Landing (stair top)", rect-pts(0, 7.9, 2.75, 9.2), "circ"),
-  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (5.6, 6.5), (5.6, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
-    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 5.6, 19.25))),
+  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (5.8, 6.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
+    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 5.8, 19.25))),
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
   R("Family bath (bed 1 + 2, family living)", rect-pts(1.5, 9.2, 4.25, 11.0), "wet"),
   R("Wardrobe niche (bed 2)", rect-pts(0, 10.4, 1.5, 11.0), "store"),
@@ -117,7 +117,8 @@
   (9.05, 1.1, 10.45, 3.1, [bed 1.4 × 2.0]), (10.5, 2.7, 10.9, 3.1, []), (10.9, 3.9, 12.0, 4.5, [desk]), (11.2, 3.35, 11.65, 3.8, []),
   (10.3, 5.85, 12.9, 6.4, [wardrobe wall 2.6 m]),
 )
-#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((10.92, 1.6), (11.79, 3.2)), ((12.3, 4.15), (12.9, 5.25)))
+#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((10.92, 1.6), (11.79, 3.2)), ((12.3, 4.15), (12.9, 5.25)),
+  ((5.8, 6.5), (5.8, 19.25)), ((4.25, 6.5), (8.95, 6.5)))   // V6.4 (enclosure A): W1 on the gallery edge (on the B3 upstand, sill +3.82, transom +4.70, head +6.75) and W2 on the family living's courtyard edge (floor to +6.75); black steel, divided lites
 #let drains = (
   (((1.93, 9.57), (1.5, 9.57)), [family bath: WC on the west shaft wall]),
   (((2.05, 10.45), (1.75, 10.1), (1.5, 9.9)), []),
@@ -131,7 +132,7 @@
 #let routes = (
   ("Landing", rect-pts(0, 7.9, 2.75, 9.2), 0.1, [½ wall on the south side; the north side is the stair arrival]),
   ("Gallery north (beside the stair)", rect-pts(2.75, 0.7, 4.25, 9.2), 0.2, [½ wall each side]),
-  ("Gallery on the projection", rect-pts(4.25, 6.5, 5.6, 19.25), 0.125, [½ wall (rooms side) + ½ railing (void side)]),
+  ("Gallery on the projection", rect-pts(4.25, 6.5, 5.8, 19.25), 0.125, [½ wall (rooms side) + ½ window frame W1 on the B3 upstand (void side)]),
   ("Walk behind the sofa (in the living)", rect-pts(4.25, 3.0, 8.95, 4.1), 0.1, [½ wall on the kids' room side; the sofa side is open]),
   ("Walk beside the sofa to the family link", rect-pts(7.85, 4.1, 8.95, 6.5), 0.1, [½ wall on the bedroom 1 side; the sofa side is open]),
   ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), 0.2, [½ wall each side (bedroom 1 to the north and east)]),
@@ -178,7 +179,7 @@
 }
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
-// clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm balustrade on the void edges, nothing where the edge is open, 200 mm elsewhere
+// clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm for the steel window W1 / W2 on the void edges (V6.4), nothing where the edge is open, 200 mm elsewhere
 #let open-edges = (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((4.25, 19.25), (5.6, 19.25)), ((4.25, 19.25), (4.25, 21.25)), ((8.95, 5.3), (8.95, 6.5)))
 #let outer-edges = (((0, 0), (0, 24)), ((0, 0), (10.051, 0)), ((10.051, 0), (13.311, 6.0)), ((13.311, 6.0), (13.311, 24)), ((0, 24), (13.311, 24)))
 #let edge-t(a, b) = {
@@ -248,7 +249,7 @@
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
 #h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.3 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V6.3 · part 1 of 2: family part · west projection 1.35 m on three columns, west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[First floor V6.3 + work (V6.4 enclosure A) · part 1 of 2: family part · west projection 1.55 m on three columns, the gallery and the family living glazed to the courtyard (W1, W2), west rooms 4.25 m wide · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -292,7 +293,7 @@
       content(q(itf.at), anchor: itf.anchor, box(width: 3.6cm, align(if itf.anchor == "east" { right } else { left }, text(4.8pt, fill: rgb("#2f8a3f"), itf.label))))
     }
     for (P, l) in drains { line(..P.map(q), stroke: (paint: rgb("#1f7a99"), thickness: 0.8pt, dash: "dashed"), mark: (end: ">", fill: rgb("#1f7a99"), scale: 0.35)) }
-    // the projection: edge beam on x 5.6 and the three ground-floor columns (grey dashed)
+    // the projection: edge beam on x 5.8 and the three ground-floor columns (grey dashed)
     line(q((proj-x, 6.5)), q((proj-x, 19.25)), stroke: (paint: luma(120), thickness: 1.4pt, dash: "dashed"))
     for (x, y) in columns { rect(q((x - 0.18, y - 0.18)), q((x + 0.18, y + 0.18)), fill: luma(150), stroke: (paint: luma(90), dash: "dashed", thickness: 0.5pt)) }
     content(q((7.0, 11.6)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[courtyard sky #str(calc.round(8.95 - proj-x, digits: 3)) m on axes (GF courtyard 4.70)])))
@@ -349,7 +350,7 @@
     - *Widths:* rooms #r2(bed2.at(2) - bed2.at(0)) m on axes (≥ 4.0 m clear), gallery #r2(proj-x - bed2.at(2)) m (≥ 1.0 m clear).
     - *Carried on:* an edge beam along x #r2(proj-x) and #columns.len() columns, each in an existing wall or glass line, none free-standing in a room: column 1 in the women's majlis south wall (y 6.5), column 2 a pier in the glass between the courtyard and the living (y 13.0), column 3 in the living's south wall (y 19.25). On the ground floor it reads as a colonnade along the courtyard edge.
     - *Why columns and not a cantilever wall:* walls stand directly on walls; the earlier split projection (a west wall on cantilever beams, 0.11 m from the M line) was reverted.
-    - *Gallery:* a railing on the void edge, wider at the stair top; every west room door opens from it; no room opens onto the stair landing.
+    - *Gallery:* closed to the courtyard by the steel window W1 on the upstand of the edge beam (sill +3.82, guarding transom +4.70, head +6.75, four inward casements; V6.4, enclosure option A), wider at the stair top; every west room door opens from it; no room opens onto the stair landing. Clear 1.405 m (1.235 m at the three column sleeves Ø0.40).
     #v(3pt)
     #H[Kids' room · family living · bedroom 1]
     - *Kids' room* #r2(area(room("Kids").pts)) m²: two study desks + PC desk under the north window, a gaming corner (TV on the east wall), solid door from the gallery.
@@ -410,7 +411,7 @@
     #v(3pt)
     #H[Open items (all in docs/OPEN_ITEMS.md)]
     - *Engineer:* the edge beam and the #columns.len() columns at x #r2(proj-x) (sizes and foundations); walls off the GF lines.
-    - *Gallery railing* on the void edge (or a low parapet with a screen).
+    - *Gallery window W1* on the B3 upstand and *W2* on the family living's edge (black steel, divided lites, laminated glass below +4.70): the courtyard stays open to the sky, the house is closed round it (V6.4).
     - *Built-in cupboards in niches* (linen cupboard, bedroom 2 wardrobe niche): joinery boxes scribed to the walls; decide with the carpenter.
     - *Courtyard light:* a daylight study of the courtyard and the double-height living.
   ],
