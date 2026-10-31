@@ -79,7 +79,8 @@
 #let strip-area = area(block-n) - area(attic) - area(tower) * 0.875
 
 // ---------- Reserved zones ----------
-#let z-erv = rect-pts(9.1, 2.9, 10.6, 5.4)        // the ventilation unit's plant room (studies/air_system.typ v3): 200 mm walls, 1.2 × 2.2 clear, 2.0 m high, inside the attic line; door west; the exhaust louvre on its east wall
+#let z-erv = ((8.95, 1.0), (10.594, 1.0), (cut-x(3.4, 0), 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the malqaf tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4, top +9.10 = the attic coping; doors on its west face onto the roof terrace; the exhaust louvre on its cut face
+#let base-top = 9.10
 #let z-plant = ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0))   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
 #let z-pv1 = rect-pts(0.125, 22.0, 13.186, 23.875) // PV, south wing roof: south of y 22.0 so it never shades the clerestories (X4)
@@ -91,8 +92,8 @@
 #let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.6, 19.25), (5.6, 21.25)), ((11.586, 19.25), (11.586, 21.25)))
 #let zones = (
   ([Z1 stair room (footprint)], area(rect-pts(sr.x0, sr.y0, sr.x1, sr.y1)), [on the well; inside 2.525 × 5.50; roof #lv(sr-roof)]),
-  ([Z2a ventilation plant room], area(z-erv), [`studies/air_system.typ` v3: a weather-protected room 1.2 × 2.2 clear, 2.0 m high (roof +9.42, 0.3 above the attic coping), the unit ≈ 110 kg on a plinth, 0.8 m in front for the filters and the core; the intake from the tower's compartment through a low duct box; the exhaust louvre on its east wall]),
-  ([Z2b plant: AC outdoor units], area(z-plant), [behind the cut / east attic wall, south of the plant room and of the tower's intake, over the suite bath (anti-vibration mounts); 0.6 m service space round each unit]),
+  ([Z2a the HRV base under the tower], area(z-erv), [`studies/air_system.typ` v3.1 (owner): the tower rises from a base housing the ventilation unit (one mass): top #lv(base-top) = the attic coping, 1.65 m clear inside (a low service compartment: the unit ≈ 110 kg on a plinth right behind a pair of doors 1.5 m high on its west face, filters and the core pulled from the roof terrace, no entry); the intake duct drops inside the tower's compartment; the exhaust louvre on the cut face]),
+  ([Z2b plant: AC outdoor units], area(z-plant), [behind the cut / east attic wall, SOUTH of the tower and its base (owner): 2.2 m clear of the base's south wall, 5.15 m south of the intake louvre in plan, so the tower never takes their hot air; over the suite bath (anti-vibration mounts); 0.6 m service space round each unit]),
   ([Z3 water tank(s)], area(z-tank), [≈ 2 × 1.5 m³ between the roof beams R10 and R3, inside the attic (needed only if the owner wants a gravity reserve)]),
   ([Z4 PV, south wing (now reserved)], area(z-pv1), [y ≥ #r2(pv-y-min): no shade on the clerestories (X4); fixing points cast in before waterproofing]),
   ([Z5 PV, future (north block east)], area(z-pv2), [inside the attic; morning shade from the east attic wall]),
@@ -112,6 +113,7 @@
 #let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (D-limit, [north street, the limit]), (25.0, [north street, 25 m (the far side)]))
 #let checks = (
   ([the attic itself is hidden by the cornice from the north boundary], hidden(D-north, setback, attic-top, 0, coping-top)),
+  ([the HRV base under the tower stays at the attic coping (+9.10): nothing but the tower above the attic], base-top <= attic-top + 1e-9),
   ([the stair room is hidden by the attic from the north boundary], hidden(D-north, sr-s-north, sr-top, setback, attic-top)),
   ([the stair room is hidden by the attic from 10 m], hidden(10.0, sr-s-north, sr-top, setback, attic-top)),
   ([AC units (1.2 m) 1.0 m behind the cut attic are hidden from the lane boundary], hidden(D-lane, 2.0, roof + 1.2, setback, attic-top)),
@@ -154,7 +156,7 @@
   poly(attic, fill: rgb("#f3efe4"), stroke: 2pt + stone)
   line(q((in-off, in-off)), q((in-off, sr.y0)), stroke: 2pt + stone)
   // zones
-  poly(z-erv, fill: rgb("#e4d2c0"), stroke: 0.8pt + red); T((9.85, 4.15), [Z2a\ plant room\ #r1(area(z-erv)) m²], size: 3.8pt, fill: red); line(q((10.6, 4.2)), q((10.6, 4.6)), stroke: 2.4pt + sky); T((10.75, 4.4), [exhaust], size: 3.2pt, fill: sky, anchor: "west")
+  poly(z-erv, fill: rgb("#e4d2c0"), stroke: 0.8pt + red); T((9.9, 2.3), [Z2a HRV base\ under the tower\ top +9.10 · #r1(area(z-erv)) m²], size: 3.6pt, fill: red); line(q((8.95, 1.3)), q((8.95, 2.8)), stroke: 2.4pt + red); T((8.8, 2.05), [doors], size: 3.2pt, fill: red, anchor: "east"); line(q((cut-x(2.75, 0), 2.75)), q((cut-x(3.05, 0), 3.05)), stroke: 2.4pt + sky); T((11.9, 2.9), [exhaust], size: 3.2pt, fill: sky, anchor: "west")
   poly(z-plant, fill: rgb("#f7d9c4"), stroke: 0.5pt + red); T((11.0, 7.3), [Z2b\ AC units\ #r1(area(z-plant)) m²], fill: red)
   poly(z-tank, fill: rgb("#cfe3f3"), stroke: 0.5pt + sky); T((3.5, 2.25), [Z3\ tank], size: 4pt, fill: sky)
   poly(z-pv1, fill: rgb("#fff1b8"), stroke: 0.5pt + rgb("#9a7b00")); T((6.6, 22.95), [Z4 PV · south wing · #r1(area(z-pv1)) m² · y ≥ #r2(z-pv1.at(0).at(1)) (clerestory sun, X4)], fill: rgb("#7a6000"))
@@ -484,6 +486,6 @@
 
 // ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
 #metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: rect-pts(..court-hole), tower: tower, attic: attic, stair_room: rect-pts(sr.x0, sr.y0, sr.x1, sr.y1),
-  lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a plant room (ventilation unit)", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4 PV south wing", z-pv1), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
+  lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4 PV south wing", z-pv1), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
   outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step))),
   levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: sr-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

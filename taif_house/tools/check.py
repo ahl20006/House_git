@@ -73,6 +73,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", ["All rooms inside the zone"]),
     ("studies/structure.typ", OUTPUT / "structure.pdf", ["Preliminary structural study"]),
     ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study v3", "checks passed"]),
+    ("studies/south_wing.typ", OUTPUT / "south_wing.pdf", ["South wing study", "checks passed"]),
     ("studies/courtyard_enclosure.typ", OUTPUT / "courtyard_enclosure.pdf", ["Courtyard enclosure study", "Study checks passed"]),
     ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),
     ("studies/fire_escape.typ", OUTPUT / "fire_escape.pdf", ["Fire safety for a family home", "Study checks passed"]),
