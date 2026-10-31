@@ -75,7 +75,8 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study"]),
     ("studies/courtyard_enclosure.typ", OUTPUT / "courtyard_enclosure.pdf", ["Courtyard enclosure study", "Study checks passed"]),
     ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),
-    ("studies/fire_escape.typ", OUTPUT / "fire_escape.pdf", ["Fire, escape and life safety study", "Study checks passed"]),
+    ("studies/fire_escape.typ", OUTPUT / "fire_escape.pdf", ["Fire safety for a family home", "Study checks passed"]),
+    ("studies/courtyard_layout.typ", OUTPUT / "courtyard_layout.pdf", ["Courtyard layout", "Study checks passed"]),
     ("presentation.typ", PRESENTATION, []),
 ]
 tmp = Path(tempfile.mkdtemp())

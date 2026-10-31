@@ -76,6 +76,9 @@
   (5.65, 19.1, 5.95, 19.4, [col 3]),
   (4.35, 14.5, 5.05, 14.75, [TV niche pier]),       // V6.3: the living's west wall is solid; an arched TV niche 4.40 wide × 0.70 deep between this pier and the south wall, head ≈ 3.0–3.2 m
   (4.35, 14.75, 5.05, 19.15, [TV niche 4.40 × 0.70]),
+  (5.925, 8.7, 8.85, 12.3, [seating −0.15]),         // V7.1 courtyard layout (studies/courtyard_layout.typ): the seating one step down from the colonnade edge to the kitchen wall
+  (5.925, 7.1, 8.85, 8.4, [fountain + tree]),        // the north enclosure: water basin (west) and planting basin (east)
+  (8.75, 9.77, 8.85, 11.23, [outdoor TV]),           // on the kitchen wall, the malqaf grille below it (y 10.0–11.0)
 )
 #let inner-marks = inner-boxes.map(((x0, y0, x1, y1, l)) => {
   let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)

@@ -94,12 +94,7 @@ soffit:                               # timber soffit under the projection (the 
   thickness: 0.05
   fascia: 0.03                        # timber fascia on the outer face of the slab edge and the upturned beam B3
 
-pergola:                              # timber beams over part of the courtyard at roof level, leaving the sky open (viewer toggle)
-  over_y: [6.5, 9.5]                  # the north part of the courtyard sky (y 6.5–13.0): the women's majlis side
-  section: [0.10, 0.25]               # width × depth
-  spacing: 0.6
-  bearing: 0.30                       # on the roof finish beyond the hole's edge, each side
-  default: true
+# pergola: REMOVED (owner, 1 Nov 2026, studies/courtyard_layout.typ): no pergola and no shade structure over the courtyard; character_3d.py and the viewer's toggle to be updated at the next 3D build
 
 mashrabiya:                           # timber screens (simple modern pattern) in the reveal, flush with the outer face: privacy
   depth: 0.05
@@ -131,7 +126,41 @@ fountain:                             # a simple wall fountain SHAPE on the cour
   basin: {along: [9.45, 10.75], z: [0.35, 0.65], depth: 0.35}   # a stone trough 0.80 above the sunken floor; its water and drain: air items A8 / A6
   spout: {along: [10.0, 10.2], z: [0.9, 1.0], depth: 0.15}
 
-sunken:                               # the sunken seating in the courtyard against its east wall (variant toggle, on by default): the malqaf grille discharges just above its bench
+# ---------- V7.1+ (owner, 1 Nov 2026): the courtyard layout (studies/courtyard_layout.typ) · DATA ONLY: character_3d.py still builds the older `sunken` / `fountain` blocks below until the next 3D build ----------
+courtyard_layout:                     # clear faces: the riwaq glass x 4.35, the kitchen wall x 8.85, the women's majlis glass y 6.6, the living glass y 12.9; the soffit edge x 5.925
+  step: {box: [5.925, 8.7, 8.85, 12.3], floor: -0.15, nosing: 0.08, riser_light: true}   # the seating one step down, from the colonnade edge to the kitchen wall; honey-stone nosing, linear light in the riser
+  seat_height: 0.45                   # above the pit floor (seat +0.30)
+  bench_back: 0.75                    # the backs' top, above ±0.00 (0.90 above the pit floor)
+  bench_depth: 0.75
+  benches:                            # x0 y0 x1 y1 side: the west bench on the step edge facing the TV (gaps of 0.75 at both ends to step down), the north and south benches from the kitchen wall
+    - [5.925, 9.45, 6.675, 11.55, west]
+    - [6.675, 8.7, 8.85, 9.45, north]
+    - [6.675, 11.55, 8.85, 12.3, south]
+  table: {box: [7.125, 9.9, 7.825, 11.1], height: 0.40}   # low, for meals
+  tv: {wall: "8.95 6.5 8.95 13.0", y: [9.77, 11.23], z: [0.52, 1.38], model: "65in outdoor-rated (partial sun, IP55/56); size, bracket, ventilation and clearances per the chosen model"}
+  tv_frame: {inner_width: 1.70, jamb_z: [0.45, 1.45], radius: 0.85, band: 0.10, proj: 0.06, material: stone}   # a semicircular honey-stone surround, visual only, no cavity
+  sink_window_proposal: {y: [7.3, 8.9], note: "the sink window as drawn (y 9.1-11.1) conflicts with the TV: move it north over the counter's north part (owner decision, not applied)"}
+  enclosure:                          # one honey-stone box at the north end with two separate basins
+    box: [5.925, 7.1, 8.85, 8.4]
+    wall: 0.15
+    rim: 0.45
+    water: {inside: [6.075, 7.25, 7.55, 8.25], depth: 0.35, level: 0.25, spout_z: 0.60}   # a laminar lip on the divider, water over stone, no spray; own drain + overflow; pump and filter under the cover
+    planter: {inside: [7.70, 7.25, 8.70, 8.25], depth: 0.70}                              # own drain; drip irrigation; fixed
+    pump_cover: [6.1, 7.3, 6.6, 7.8]
+    tree: {species: "Laurus nobilis standard, or clipped Ficus nitida; final choice by a Taif nursery", stem: 2.0, crown_centre: 3.0, crown_radius: 1.0}
+  drainage:                           # levels (studies/courtyard_layout.typ section): the inside floors ±0.00
+    court_at_glass: -0.015            # the courtyard finish at the three glass lines and the riwaq door (a 15 mm threshold, R-08)
+    fall: 0.01
+    court_at_edge: -0.03              # at the step edge
+    pit_edge: -0.15
+    pit_drain: -0.19
+    pit_drain_at: [8.6, 12.1]         # SE corner of the pit: a Ø100 gully with a silt bucket
+    overflow_at: [8.6, 8.9]           # NE corner: an independent gully to its own pipe east
+    overflow_rim: -0.08
+    pipe_z: -0.55                     # the pipe invert at the drain, 1 % east under the kitchen floor to the east yard manhole
+  pergola: none
+
+sunken:                               # SUPERSEDED by courtyard_layout above (kept so character_3d.py still runs; to be removed with the builder update) · the older sunken seating against the east wall: its bench
   default: true
   floor: -0.45                        # 3 risers of 0.15
   box: [6.7, 7.6, 8.85, 11.9]         # x0 y0 x1 y1, to the east wall's courtyard face (x 8.85); level edges 1.0 m at the north (women's majlis glass) and south (living glass), 2.35 m to the riwaq glass: no steps at any door

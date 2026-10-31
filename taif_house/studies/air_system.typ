@@ -18,18 +18,18 @@
 #let air-head = (7.3, 9.8)              // the head: from the roof finish to the top of the shaft walls, 2.5 m above the roof
 #let air-head-opening = (8.2, 9.4)      // the louvred openings in the head (sill, head), on the north and west faces (towards the NW wind)
 #let air-base = (-0.08, -1.95)          // the tower base pit: from the ground slab top to the pit floor (dry; a drain point; the duct's sealed access hatch)
-#let air-route = ((10.25, 1.0), (10.25, 7.4))   // the duct axis from the tower's south wall: one leg south on x 10.25 under the maid bath and the laundry to the outlet chamber under the kitchen floor (route E, owner 3d-char2)
+#let air-route = ((10.25, 1.0), (10.25, 9.5))   // the duct axis from the tower's south wall: one leg south on x 10.25 under the maid bath, the laundry and the kitchen's north part to the outlet chamber under the kitchen floor (route E, owner 3d-char2; V7.1 courtyard layout: the chamber moved south under the outdoor TV)
 #let air-L1 = air-route.at(1).at(1) - air-route.at(0).at(1)   // the one leg, south
 #let air-L2 = 0.0                       // (no second leg)
 #let air-duct = (0.9, -1.0, -1.9)       // the duct: outer size (square), top at the tower end, underside at the tower end (walls 0.15); it passes just under the assumed tie beams (−0.90)
 #let air-clear = (0.6, 0.6)             // clear width × clear height inside the duct (ASSUMED; the MEP engineer sizes it)
 #let air-fall = 0.015                   // the duct floor falls 1.5 % from the tower end to the drain point in the outlet chamber
 #let air-invert = (-1.75, -1.85)        // the duct floor (clear) at the tower end and at the chamber end
-#let air-chamber = (9.05, 7.4, 10.7, 8.4)   // the outlet chamber under the kitchen floor against the kitchen's west wall (x 8.95), outer (x0, y0, x1, y1); walls 0.15, clear 1.35 × 0.7; floor −2.10; the duct enters its north wall
-#let air-cover = (10.0, 7.6, 10.6, 8.2)     // the sealed, gas-tight floor cover in the kitchen floor east of the sink counter (clear opening), opened only for cleaning: NOT an air opening
+#let air-chamber = (9.05, 9.5, 10.7, 10.5)   // the outlet chamber under the kitchen floor against the kitchen's west wall (x 8.95), outer (x0, y0, x1, y1); walls 0.15, clear 1.35 × 0.7; floor −2.10; the duct enters its north wall; V7.1: under the outdoor TV (studies/courtyard_layout.typ)
+#let air-cover = (10.0, 9.7, 10.6, 10.3)    // the sealed, gas-tight floor cover in the kitchen floor east of the sink counter (clear opening), opened only for cleaning: NOT an air opening
 #let air-grille-x = 8.95                    // the wall the grille is in: the courtyard's east wall = the kitchen's west wall; the grille on its courtyard face (x 8.85)
-#let air-grille = (7.7, 0.15, 8.7, 0.75)    // the outlet grille (y0, z0, y1, z1): 1.0 m wide at the north end of the wall, decorative (mashrabiya-type); +0.15 … +0.75 = 0.20 above the bench seat, 0.60 above the sunken floor
-#let air-sunken = (-0.45, 6.7, 7.6, 8.85, 11.9)   // the sunken seating of the character study (3d/character.yaml, STYLE STUDY): floor level, x0, y0, x1, y1; the bench against the east wall under the grille; drain + overflow at its lowest point
+#let air-grille = (10.0, 0.05, 11.0, 0.40)  // the outlet grille (y0, z0, y1, z1): 1.0 m wide below the outdoor TV, centred on the seating (V7.1 courtyard layout), decorative, removable, louvres turned down; +0.05 … +0.40 = 0.20 … 0.55 above the seating floor (−0.15)
+#let air-sunken = (-0.15, 5.925, 8.7, 8.85, 12.3)   // the seating one step down (V7.1, studies/courtyard_layout.typ): floor level, x0, y0, x1, y1; the grille on the east wall below the TV, no bench in front of it; the pit's drain and overflow in the layout study
 #let air-length = air-L1 + air-L2       // axis length tower wall → chamber
 
 // ---------- rooms (outlines only, from the CSV) ----------
