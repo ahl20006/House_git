@@ -729,7 +729,7 @@ summary["flags"].append(f"X3: suite bath east window y {min(x3['a'][1], x3['b'][
                         f"clearance {clear:+.2f} m ({'CLASH' if clear < 0 else 'clear'}); the column's size and orientation are for the engineer")
 summary["x3_clearance"] = round(clear, 3)
 
-# ---------- the air system (studies/air_system.typ): tower head, base box, tunnel, water channel, outlet chamber, kerb · all assumed ----------
+# ---------- the air system (studies/air_system.typ v3): tower head, the shallow sump, the breeze channel in the ground slab, the plenum, the grille · all assumed ----------
 A = AIR
 tower_poly = Polygon(A["tower"])
 roof_fin = STRUCT_TOP["roof"] + P["roof_finish"]
@@ -744,22 +744,25 @@ for a, b in (((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9))):       # louv
     add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), oh, h1, COLOURS["outer"], f"roof_air_head_lintel_{int(a[1] * 10)}"))
 add(extrude(head_solid, h0, h1, COLOURS["outer"], "roof_air_head"))
 add(extrude(tower_poly.buffer(0.25, join_style=2), h1, h1 + 0.15, COLOURS["slab"], "roof_air_cap"))
-# the tower base pit (the shaft walls continued down), the small dry duct (two legs, 0.9 box) and the outlet chamber under the courtyard floor: walls 0.15
+# v3: the shaft's shallow sump at the tower's foot (no pit), the breeze channel inside the ground-slab depth with its own base slab (the covers are its roof), the plenum box under the sink counter
 zb0, zb1 = A["base"][1], STRUCT_TOP["GF"] - T_SLAB      # pit floor ... ground slab underside
 add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buffer(-0.1, join_style=2)), zb0, zb1, COLOURS["assumed"], "gf_air_base_walls"))
 add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2), zb0 - 0.2, zb0, COLOURS["assumed"], "gf_air_base_floor"))
 bw, bt, bb = A["duct"]
-tw = (bw - A["clear"][0]) / 2                           # duct wall
+tw = (bw - A["clear"][0]) / 2                           # duct wall (v2); 0 in v3 = a channel in the slab, open to its covers
 legs = list(zip(A["route"][:-1], A["route"][1:]))
 bends = A["route"][1:-1]                                # the corners between the legs (none on a straight route)
 foot = unary_union([seg_box(a, b, bw) for a, b in legs] + [Point(p).buffer(bw / 2, resolution=4) for p in bends])
 inner = unary_union([seg_box(a, b, A["clear"][0]) for a, b in legs] + [Point(p).buffer(A["clear"][0] / 2, resolution=4) for p in bends])
 tower_out = tower_poly.buffer(T_OUT / 2, join_style=2)
-add(extrude(foot.difference(inner).difference(tower_out), bb + tw, bt - tw, COLOURS["assumed"], "gf_air_duct_walls"))
-add(extrude(foot.difference(tower_out), bb, bb + tw, COLOURS["assumed"], "gf_air_duct_floor"))
-add(extrude(foot.difference(tower_out), bt - tw, bt, COLOURS["assumed"], "gf_air_duct_roof"))
+if tw > 0.01:                                           # v2: a buried duct with its own walls and roof
+    add(extrude(foot.difference(inner).difference(tower_out), bb + tw, bt - tw, COLOURS["assumed"], "gf_air_duct_walls"))
+    add(extrude(foot.difference(tower_out), bb, bb + tw, COLOURS["assumed"], "gf_air_duct_floor"))
+    add(extrude(foot.difference(tower_out), bt - tw, bt, COLOURS["assumed"], "gf_air_duct_roof"))
+else:                                                   # v3: the channel's base slab 0.10 below the ground slab's underside; the ground slab around it is the slab mesh, the covers its roof
+    add(extrude(foot.difference(tower_out), bb - 0.10, bb, COLOURS["assumed"], "gf_air_duct_floor"))
 cx0, cy0, cx1, cy1 = A["chamber"]
-zc = A["invert"][1] - 0.24                               # chamber floor (−2.10)
+zc = min(A["invert"]) - 0.10                           # the plenum / chamber floor: 0.10 below the channel's invert
 ch_out, ch_in = box(cx0, cy0, cx1, cy1), box(cx0 + 0.15, cy0 + 0.15, cx1 - 0.15, cy1 - 0.15)
 add(extrude(ch_out.difference(ch_in), zc, zb1, COLOURS["assumed"], "gf_air_chamber_walls"))
 add(extrude(ch_out, zc - 0.15, zc, COLOURS["assumed"], "gf_air_chamber_floor"))
@@ -773,8 +776,8 @@ add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the build
 summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
                   "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
 summary["flags"].append("Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it")
-summary["flags"].append("Air system v2.1 (studies/air_system.typ): dry tower head, base pit, small dry duct (route E, south under the maid bath and the laundry), outlet chamber under the kitchen floor, plenum and grille in the kitchen's west wall "
-                        "over the sunken seating, modelled with ASSUMED sizes and levels; the main ventilation (ERV, exhausts, AC) is the MEP engineer's calculated system, not modelled")
+summary["flags"].append("Air system v3 (studies/air_system.typ): the tower head (four-sided in v3; the model still shows two louvred faces), the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
+                        "the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the plant room, the risers and the ventilation unit are not modelled (PENDING)")
 
 # ---------- the sun (Taif) in the model frame ----------
 nx, ny = NORTH                                   # true north on the drawing: canvas x east, y up (= plan north)

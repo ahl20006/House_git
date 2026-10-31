@@ -307,18 +307,21 @@ def build(g):
     emit("base", "stone", "quoins", quoins, corners=len(OUTLINE))
 
     # ---------- pergola: timber beams over part of the courtyard sky, on the roof finish ----------
-    pg = C["pergola"]
-    cx0, cy0, cx1, cy1 = COURT_SKY.bounds
-    w, d = pg["section"]
-    ys, y = [], pg["over_y"][0] + pg["spacing"] / 2
-    while y <= pg["over_y"][1] - w / 2 + EPS:
-        ys.append(round(y, 4))
-        y += pg["spacing"]
-    beams = [box(cx0 - pg["bearing"], y - w / 2, cx1 + pg["bearing"], y + w / 2) for y in ys]
-    emit("pergola", "timber", "beams", parts(unary_union(beams), roof_fin, roof_fin + d), beams=len(ys))
-    covered = unary_union(beams).intersection(COURT_SKY).area
-    rec["pergola"] = {"beams": len(ys), "y": ys, "section": pg["section"], "spacing": pg["spacing"], "over_y": pg["over_y"], "z": [roof_fin, roof_fin + d],
-                      "sky_covered_share": round(covered / COURT_SKY.area, 3), "default": pg["default"]}
+    pg = C.get("pergola")                 # removed by the owner (1 Nov 2026, studies/courtyard_layout.typ): the block is absent from character.yaml
+    if pg:
+        cx0, cy0, cx1, cy1 = COURT_SKY.bounds
+        w, d = pg["section"]
+        ys, y = [], pg["over_y"][0] + pg["spacing"] / 2
+        while y <= pg["over_y"][1] - w / 2 + EPS:
+            ys.append(round(y, 4))
+            y += pg["spacing"]
+        beams = [box(cx0 - pg["bearing"], y - w / 2, cx1 + pg["bearing"], y + w / 2) for y in ys]
+        emit("pergola", "timber", "beams", parts(unary_union(beams), roof_fin, roof_fin + d), beams=len(ys))
+        covered = unary_union(beams).intersection(COURT_SKY).area
+        rec["pergola"] = {"beams": len(ys), "y": ys, "section": pg["section"], "spacing": pg["spacing"], "over_y": pg["over_y"], "z": [roof_fin, roof_fin + d],
+                          "sky_covered_share": round(covered / COURT_SKY.area, 3), "default": pg["default"]}
+    else:
+        rec["pergola"] = {"beams": 0, "y": [], "section": None, "spacing": None, "over_y": None, "z": None, "sky_covered_share": 0.0, "default": False, "note": "no pergola (owner, 1 Nov 2026)"}
 
     # ---------- roof: black steel bar guards round the two roof holes (the parapets, the cornice and the attic are base-model meshes since V7.0) ----------
     rl = P["roof_design"]["guard"]
@@ -352,30 +355,34 @@ def build(g):
     emit("base", "timber", "malqaf_louvres", slats, slats=lv["slats"] * 2)
 
     # ---------- the wall fountain: a simple shape on the courtyard's east wall under the kitchen sink window (the malqaf grille is north of it) ----------
-    ft = C["fountain"]
-    x1, y1, x2, y2 = (float(v) for v in ft["wall"].split())
-    wa, wb, n = (x1, y1), (x2, y2), tuple(float(v) for v in ft["side"])
-    (ux, uy), _ = unit(wa, wb)
-    axis = 1 if abs(uy) > abs(ux) else 0                       # the plan coordinate that runs along the wall
-    face = wall_t(wa, wb) / 2 + fw["thickness"]                # on the stone cladding of that face
+    ft = C.get("fountain")               # SUPERSEDED (1 Nov 2026): the courtyard water basin is in the north enclosure (character.yaml courtyard_layout); the block is absent, the builder update is pending
+    if ft:
+        ft = C["fountain"]
+        x1, y1, x2, y2 = (float(v) for v in ft["wall"].split())
+        wa, wb, n = (x1, y1), (x2, y2), tuple(float(v) for v in ft["side"])
+        (ux, uy), _ = unit(wa, wb)
+        axis = 1 if abs(uy) > abs(ux) else 0                       # the plan coordinate that runs along the wall
+        face = wall_t(wa, wb) / 2 + fw["thickness"]                # on the stone cladding of that face
 
-    def wall_box(v0, v1, d0, d1):
-        """A plan rectangle on the wall: v0–v1 along it (plan coordinates), d0–d1 out from its centre line along n."""
-        s0, s1 = v0 - wa[axis], v1 - wa[axis]
-        return Polygon([(wa[0] + ux * s + n[0] * d, wa[1] + uy * s + n[1] * d) for s, d in ((s0, d0), (s1, d0), (s1, d1), (s0, d1))])
+        def wall_box(v0, v1, d0, d1):
+            """A plan rectangle on the wall: v0–v1 along it (plan coordinates), d0–d1 out from its centre line along n."""
+            s0, s1 = v0 - wa[axis], v1 - wa[axis]
+            return Polygon([(wa[0] + ux * s + n[0] * d, wa[1] + uy * s + n[1] * d) for s, d in ((s0, d0), (s1, d0), (s1, d1), (s0, d1))])
 
-    emit("base", "stone", "fountain_panel", parts(wall_box(ft["along"][0], ft["along"][1], face, face + ft["thickness"]), gf + ft["z"][0], gf + ft["z"][1]), along=ft["along"], z=ft["z"])
-    bs, d0 = ft["basin"], face + ft["thickness"]
-    outer = wall_box(bs["along"][0], bs["along"][1], d0, d0 + bs["depth"])
-    inner = wall_box(bs["along"][0] + 0.06, bs["along"][1] - 0.06, d0, d0 + bs["depth"] - 0.06)
-    emit("base", "stone", "fountain_basin", parts(outer, gf + bs["z"][0], gf + bs["z"][0] + 0.05) + parts(outer.difference(inner), gf + bs["z"][0] + 0.05, gf + bs["z"][1]))
-    sp = ft["spout"]
-    emit("base", "bronze", "fountain_spout", parts(wall_box(sp["along"][0], sp["along"][1], d0, d0 + sp["depth"]), gf + sp["z"][0], gf + sp["z"][1]))
-    sink = next((o for o in summary["openings"] if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
-    gy0, gz0, gy1, gz1 = AIR["grille"]
-    rec["fountain"] = {"wall": ft["wall"], "along": ft["along"], "z": ft["z"], "basin_z": bs["z"], "grille_y": [gy0, gy1],
-                       "clear_of_grille": round(ft["along"][0] - gy1, 3), "below_sink_sill": round(sink["sill"] - FINISHED["GF"] - ft["z"][1], 3) if sink else None,
-                       "note": "decorative shape under the sink window; its water and drain are air items A8 / A6"}
+        emit("base", "stone", "fountain_panel", parts(wall_box(ft["along"][0], ft["along"][1], face, face + ft["thickness"]), gf + ft["z"][0], gf + ft["z"][1]), along=ft["along"], z=ft["z"])
+        bs, d0 = ft["basin"], face + ft["thickness"]
+        outer = wall_box(bs["along"][0], bs["along"][1], d0, d0 + bs["depth"])
+        inner = wall_box(bs["along"][0] + 0.06, bs["along"][1] - 0.06, d0, d0 + bs["depth"] - 0.06)
+        emit("base", "stone", "fountain_basin", parts(outer, gf + bs["z"][0], gf + bs["z"][0] + 0.05) + parts(outer.difference(inner), gf + bs["z"][0] + 0.05, gf + bs["z"][1]))
+        sp = ft["spout"]
+        emit("base", "bronze", "fountain_spout", parts(wall_box(sp["along"][0], sp["along"][1], d0, d0 + sp["depth"]), gf + sp["z"][0], gf + sp["z"][1]))
+        sink = next((o for o in summary["openings"] if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
+        gy0, gz0, gy1, gz1 = AIR["grille"]
+        rec["fountain"] = {"wall": ft["wall"], "along": ft["along"], "z": ft["z"], "basin_z": bs["z"], "grille_y": [gy0, gy1],
+                           "clear_of_grille": round(ft["along"][0] - gy1, 3), "below_sink_sill": round(sink["sill"] - FINISHED["GF"] - ft["z"][1], 3) if sink else None,
+                           "note": "decorative shape under the sink window; its water and drain are air items A8 / A6"}
+    else:
+        rec["fountain"] = None
 
     # ---------- the sunken seating (variant, default on): the courtyard floor with a pit against the east wall under the malqaf grille ----------
     sk = C["sunken"]
@@ -404,6 +411,7 @@ def build(g):
     ov = sk["overflow"]
     emit("sunken", "bronze", "overflow", parts(box(ov["at"][0] - ov["width"] / 2, py1 - 0.02, ov["at"][0] + ov["width"] / 2, py1), gf + ov["level"], gf + ov["level"] + ov["height"]), level=ov["level"])
     gxf = AIR["grille-x"] - T_IN / 2                           # the grille's wall face (courtyard side)
+    gy0, gz0, gy1, gz1 = AIR["grille"]                          # the grille (studies/air_system.typ v3), also read in the fountain block when that exists
     emit("sunken", "stone", "grille_upstand", parts(box(gxf - sk["upstand"], gy0 - 0.05, gxf, gy1 + 0.05), gf + gz0 - 0.05, gf + gz0 + 0.01))
     ol = sk["olive"]
     ox, oy, half = ol["at"][0], ol["at"][1], ol["planter"] / 2
@@ -476,7 +484,7 @@ def build(g):
     bm = {k: {"title": v["title"], "eye": [v["eye"][0], v["eye"][2], v["eye"][1]], "target": [v["target"][0], v["target"][2], v["target"][1]], "night": bool(v.get("night"))}
           for k, v in C["views"].items()}
     viewer = {"enabled": True, "note": C["note"], "palette": pal, "assign": C["assign"], "hide": hide, "hide_when_sunken": rec["sunken"]["replaces"], "sun": C.get("sun", ""),
-              "defaults": {"pergola": pg["default"], "sunken": sk["default"]},
+              "defaults": {"pergola": rec["pergola"]["default"], "sunken": sk["default"]},
               "lights": [[x, z, y] for x, y, z in lights],
               "night": {"background": C["night"]["background"], "lights": [[x, z, y, i] for x, y, z, i in C["night"]["point_lights"]]},
               "tv_wall": rec["tv_wall"], "arcade": rec["arcade"], "arched_windows": rec["arched_windows"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],

@@ -28,7 +28,9 @@
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
-  (0.1, 7.5, 0.7, 12.9, [sink counter 0.6 · window to courtyard]),
+  (0.1, 7.5, 0.7, 8.9, [sink]),   // the sink moved north with its window (owner, 1 Nov 2026): the window y 7.3–8.9 looks at the fountain and the tree
+  (0.1, 8.9, 0.7, 9.5, [d/w]),
+  (0.1, 9.5, 0.7, 12.9, [counter 0.6]),   // the outdoor TV on the courtyard face of this wall
   (3.636, 8.2, 4.236, 10.2, [cooking counter 0.6]),   // starts 0.1 south of the service door (V6.4)
   (3.636, 10.2, 4.236, 11.2, [hob + hood · extract through the east wall]),   // the hood south of the east window (y 8.7–10.1), 2.1 m from the service door, 4.2 m from C32
   (3.636, 11.2, 4.236, 12.9, [fridge + tall storage]),
@@ -40,7 +42,7 @@
   (1.75, 6.0, 3.75, 6.9, [single bed 0.9 × 2.0]),   // V6.4: along the new south wall, in the 2.49 m clear straight part
   (1.75, 4.1, 2.35, 5.3, [ward-\ robe]),
   (0.1, 1.1, 0.9, 1.9, [shower]),
-  (1.0, 1.1, 1.5, 1.7, [WC]),
+  (1.55, 1.85, 2.05, 2.45, [WC]),   // moved to the cut-wall corner (air study v3): the breeze channel's throat passes between the shower and the WC
   (0.1, 2.1, 0.6, 2.7, [basin]),
 )
 
@@ -53,9 +55,9 @@
   ((1.765, 2.8), (2.465, 2.8), [maid room ↔ maid bath · 0.70]),
 )
 #let windows = (
-  ((0.0, 9.1), (0.0, 11.1), [sink window (courtyard)]),
+  ((0.0, 7.3), (0.0, 8.9), [sink window (courtyard)]),   // moved north over the sink (owner, 1 Nov 2026)
   ((4.361, 8.7), (4.361, 10.1), [kitchen window (east)]),
-  ((3.220, 3.9), (3.764, 4.9), [maid room escape window: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen]),
+  ((3.220, 3.9), (3.764, 4.9), [maid room escape window\ 1.14 × 1.00, sill +1.10]),   // one casement, obscured glass below +1.60, no screen (fire safety, owner 1 Nov 2026)
   ((2.188, 2.0), (2.514, 2.6), [maid bath vent window]),
 )
 
@@ -176,7 +178,7 @@
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Route]
     *Family:* living (normal height) · dining → kitchen (south door).\
     *Maid:* kitchen → laundry → maid room → maid bath. No external door and no other door: all her movement passes through the kitchen.\
-    *Cooking:* sink on the courtyard wall, hob and hood on the east (outside) wall, so heat and smoke leave the house; fridge and tall storage at the south-east, next to the dining door; the east duct in the north-east corner.
+    *Cooking:* sink on the courtyard wall under its window (y 7.3–8.9, looking at the courtyard's fountain and tree; the outdoor TV on the courtyard face of the wall further south), hob and hood on the east (outside) wall, so heat and smoke leave the house; fridge and tall storage at the south-east, next to the dining door; the east duct in the north-east corner.
     #v(6pt)
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Rules]
     - Kitchen isolated: doors only to the dining area (south) and the laundry (north). No door to the courtyard, riwaq or women's majlis.
@@ -186,7 +188,7 @@
     - Maid bath 1.8 m deep (y 1.0–2.8, from the air tower to the maid room), running up to the cut wall (≈ 3.84 m², ≈ 3.03 m² clear): WC, basin, compact shower; vent window in the cut wall; door only from the maid room, 0.70 m clear (sliding or opening out; the wall there is only ≈ 0.73 m long).
     - Main cross walls: y 7.0 (kitchen / maid wing, V6.4: a straight non-load-bearing block partition on a thickened slab or ground beam; the structural line y 6.5 keeps its beam B6 inside the laundry / maid room ceiling, hidden by the gypsum ceiling, carrying the first-floor wall above) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: the maid bath block with waterproofing (wet room); 100 mm for the dry laundry / maid partition; 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
-    - Malqaf duct (studies/air_system.typ): route E on x 1.3 (CSV 10.25) under the maid bath and the laundry to the chamber under the kitchen floor (CSV y 7.4–8.4); the new wall y 7.0 crosses it on a ground beam (A3); the grille stays at the kitchen part of the courtyard wall (CSV y 7.7–8.7).
+    - Breeze channel (studies/air_system.typ v3): a 0.9 × 0.20 channel inside the ground-slab depth on x 1.25 (CSV 10.2) under the maid bath (a 0.5 throat between the shower and the WC, moved to the cut-wall corner), the laundry walkway and the kitchen walkway to the plenum under the sink counter (CSV y 10–11) and the grille under the outdoor TV; removable sealed covers flush with the laundry and kitchen floors; the walls y 1.0, 2.8 and 7.0 cross it with a slot above their ground beams (A3, nothing notched).
     - Air tower in the tip of the cut corner, 1.0 m deep (≈ 1.37 m² on centre lines, ≈ 0.88 m² clear, at least ≈ 0.93 m wide): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
     - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; no east duct; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
     - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 7.2–8.1, V6.4), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 8.2); the stack outside the east wall sits between the door and the kitchen window (y 8.1–8.7, 0.6 m: MEP to confirm); the hood (y 10.2–11.2) is clear of the door and of column C32 (y 5.7–6.3). Gas (if used): cylinder cabinet outside the east wall in the service yard.

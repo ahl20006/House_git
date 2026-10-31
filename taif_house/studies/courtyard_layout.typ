@@ -5,7 +5,7 @@
 // Reads: data/rooms_gf.csv (the courtyard and its neighbours), 3d/params.yaml (the windows), 3d/character.yaml (`courtyard_layout`), studies/air_system.typ (the grille).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
-#import "air_system.typ": air-grille, air-grille-x, air-chamber, air-cover, air-route
+#import "air_system.typ": air-grille, air-grille-x, air-chamber, air-cover, air-route, air-length
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.3pt)
 #let ink = rgb("#3d4a45")
@@ -65,10 +65,15 @@
 #let fr = C.tv_frame
 #let tv-c = (tv.y.at(0) + tv.y.at(1)) / 2
 #let fr-crown = fr.jamb_z.at(1) + fr.radius
-#let sink = (y: (9.1, 11.1), sill: 1.1, head: 2.1)          // the kitchen sink window as drawn (3d/params.yaml)
-#let sink-move = C.sink_window_proposal                      // the proposal: y 7.3–8.9 (owner decision, not applied)
+#let sink-old = (y: (9.1, 11.1), sill: 1.1, head: 2.1)      // the kitchen sink window before 1 Nov 2026 (the conflict with the TV, resolved)
+#let sink = (y: (7.3, 8.9), sill: 1.1, head: 2.1)           // the kitchen sink window as drawn now (design_gf.typ, 3d/params.yaml): moved north over the sink (owner, 1 Nov 2026)
+#let sink-move = (y: sink.y)
+#let kit = (sink: (7.5, 8.9), dishwasher: (8.9, 9.5), counter: (7.5, 12.9), top: 0.90, upstand: 1.05, tap: (8.2, 1.15))   // the kitchen side of the wall (studies/east_wing.typ fixtures): counter top +0.90, the tap at the sink's centre
 #let tv-hits-sink = tv.y.at(0) < sink.y.at(1) and tv.y.at(1) > sink.y.at(0) and tv.z.at(1) > sink.sill
-#let frame-hits-sink = fr-crown > sink.sill and tv-c + fr.inner_width / 2 + fr.band > sink.y.at(0)
+#let frame-hits-sink = fr-crown > sink.sill and tv-c - fr.inner_width / 2 - fr.band < sink.y.at(1)
+#let frame-to-sink = tv-c - fr.inner_width / 2 - fr.band - sink.y.at(1)     // the clear wall between the window's south jamb and the frame
+#let sink-to-corner = sink.y.at(0) - 7.0 - 0.1                                // the pier between the kitchen's north wall face (y 7.1) and the window
+#let sink-to-col = sink.y.at(0) - (6.5 + 0.25)                                // to column C26's south face (0.25 × 0.50 along the wall at y 6.5)
 #let seat-z = S.floor + C.seat_height
 #let eye-z = seat-z + 0.70
 // the grille (studies/air_system.typ)
@@ -92,7 +97,8 @@
   ([leg room ≥ 0.40 m between every bench and the table], calc.min(..legroom-ew, ..legroom-ns) >= 0.40),
   ([a cleaning strip at the living glass (south) ≥ 0.6 m and at the women's majlis glass (north) ≥ 0.5 m], gap-south >= 0.6 - 1e-6 and gap-majlis >= 0.5 - 1e-6),
   ([the grille below the TV, clear of the benches, ≥ 1.0 m from the fountain enclosure, ≥ 0.15 above the pit floor], grille-ok),
-  ([the TV's arched frame crown below the sink window's head line and under the first-floor soffit? (the crown must stay below +3.3)], fr-crown < 3.3),
+  ([the TV's arched frame crown under the first-floor soffit (+3.3)], fr-crown < 3.3),
+  ([the sink window (moved north) clear of the TV and its frame, of the north-wall corner and of column C26], not tv-hits-sink and not frame-hits-sink and frame-to-sink >= 0.5 - 1e-6 and sink-to-corner >= 0.2 - 1e-6 and sink-to-col >= 0.25 - 1e-6),
   ([the planting basin ≥ 1.0 × 1.0 inside, 0.65–0.75 deep], pb.at(2) - pb.at(0) >= 1.0 - 1e-6 and pb.at(3) - pb.at(1) >= 1.0 - 1e-6 and 0.65 <= C.enclosure.planter.depth and C.enclosure.planter.depth <= 0.75),
   ([the pit floor falls to its drain and the overflow rim sits above the drain (an independent route)], D.pit_drain < D.pit_edge and D.overflow_rim > D.pit_drain),
   ([the door thresholds ≤ 15 mm (R-08)], D.court_at_glass >= -0.015),
@@ -114,9 +120,9 @@
   R((cx0, cy0, cx1, cy1), fill: stone-l)
   line(q((cx0, cy0)), q((cx0, cy1)), stroke: 2.4pt + blue); line(q((cx0, cy0)), q((cx1, cy0)), stroke: 2.4pt + blue); line(q((cx0, cy1)), q((cx1, cy1)), stroke: 2.4pt + blue)   // glass on three sides
   line(q((cx1, cy0)), q((cx1, cy1)), stroke: 4pt + ink)   // the kitchen wall
-  // the sink window as drawn (dashed) and proposed
-  line(q((cx1, sink.y.at(0))), q((cx1, sink.y.at(1))), stroke: (paint: red, thickness: 3pt, dash: "dashed")); T((cx1 + 0.12, (sink.y.at(0) + sink.y.at(1)) / 2), [sink window as drawn\ (conflict)], size: 3.8pt, fill: red, anchor: "west")
-  line(q((cx1, sink-move.y.at(0))), q((cx1, sink-move.y.at(1))), stroke: 3pt + blue); T((cx1 + 0.12, (sink-move.y.at(0) + sink-move.y.at(1)) / 2), [sink window\ moved north\ (proposal)], size: 3.8pt, fill: blue, anchor: "west")
+  // the sink window, moved north (1 Nov 2026); the sink, the dishwasher and the counter on the kitchen side
+  line(q((cx1, sink.y.at(0))), q((cx1, sink.y.at(1))), stroke: 3pt + blue); T((cx1 + 0.12, (sink.y.at(0) + sink.y.at(1)) / 2), [sink window\ y #r2(sink.y.at(0))–#r2(sink.y.at(1))\ (kitchen side: the sink,\ the dishwasher south of it)], size: 3.8pt, fill: blue, anchor: "west")
+  R((cx1 + 0.2, kit.sink.at(0), cx1 + 0.8, kit.sink.at(1)), fill: rgb("#dfe8f0"), stroke: 0.3pt + ink); R((cx1 + 0.2, kit.dishwasher.at(0), cx1 + 0.8, kit.dishwasher.at(1)), fill: rgb("#e6e6e6"), stroke: 0.3pt + ink); R((cx1 + 0.2, kit.dishwasher.at(1), cx1 + 0.8, kit.counter.at(1)), fill: rgb("#f0ebe0"), stroke: 0.3pt + ink)
   // the riwaq door
   line(q((cx0, 9.1)), q((cx0, 10.5)), stroke: 4pt + red); T((cx0 - 0.12, 9.8), [riwaq door 1.40\ (sliding)], size: 3.8pt, fill: red, anchor: "east")
   // the projection's soffit edge and the columns
@@ -186,6 +192,11 @@
   // horizontal = y (north left), vertical = level; the wall from the pit floor to the soffit of the projection? no: the kitchen wall rises to the roof; show 0 … +3.4
   rect((cy0, -0.3), (cy1, 3.4), fill: rgb("#f3ece0"), stroke: 0.6pt + ink)
   rect((cy0, S.floor - 0.3), (cy1, S.floor), fill: luma(120), stroke: none)
+  // the kitchen side of the same wall, drawn in grey on the same y axis (north left): the counter top +0.90, the sink and the dishwasher under the window, the tap
+  rect((kit.counter.at(0), kit.top - 0.05), (kit.counter.at(1), kit.top), fill: none, stroke: (paint: luma(120), thickness: 0.7pt, dash: "dashed")); rect((kit.counter.at(0), 0.1), (kit.counter.at(1), kit.top - 0.05), fill: none, stroke: (paint: luma(160), thickness: 0.4pt, dash: "dotted"))
+  rect((kit.sink.at(0) + 0.1, kit.top - 0.18), (kit.sink.at(1) - 0.1, kit.top), fill: none, stroke: (paint: luma(120), thickness: 0.6pt, dash: "dashed")); line((kit.tap.at(0), kit.top), (kit.tap.at(0), kit.tap.at(1)), stroke: (paint: luma(120), thickness: 0.8pt, dash: "dashed"))
+  T((kit.sink.at(0) + 0.05, kit.top - 0.09), [kitchen side (dashed): sink · counter +0.90 · tap], size: 3.2pt, fill: luma(110), anchor: "west")
+  T((kit.dishwasher.at(0) + 0.05, 0.45), [dishwasher], size: 3pt, fill: luma(110), anchor: "west")
   rect((py0, S.floor), (py1, 0.0), fill: rgb("#dcd2bb"), stroke: none)   // the pit against the wall
   line((cy0, 0), (py0, 0), stroke: 0.6pt + ink); line((py1, 0), (cy1, 0), stroke: 0.6pt + ink)
   // the enclosure at the north end
@@ -194,9 +205,9 @@
   T((crown-c.at(1), tree.crown_centre + tree.crown_radius + 0.2), [tree crown Ø#r2(2 * tree.crown_radius)], size: 3.8pt, fill: green.darken(30%))
   // the benches in section (north and south) and the west bench beyond (dashed)
   for b in benches.filter(b => b.at(4) != "west") { rect((b.at(1), S.floor), (b.at(3), seat-z), fill: rgb("#b48a5a"), stroke: 0.3pt + ink); rect((b.at(1), seat-z), (b.at(3), C.bench_back), fill: rgb("#c9a079"), stroke: 0.3pt + ink) }
-  // the sink window as drawn (dashed red) and the proposal (blue)
-  rect((sink.y.at(0), sink.sill), (sink.y.at(1), sink.head), fill: none, stroke: (paint: red, thickness: 1.2pt, dash: "dashed")); T((sink.y.at(1) - 0.05, sink.head + 0.15), [sink window as drawn: conflict], size: 3.8pt, fill: red, anchor: "east")
-  rect((sink-move.y.at(0), sink.sill), (sink-move.y.at(1), sink.head), fill: rgb("#9fcbe0"), stroke: 0.8pt + blue); T(((sink-move.y.at(0) + sink-move.y.at(1)) / 2, sink.head + 0.15), [sink window moved north (proposal)], size: 3.8pt, fill: blue)
+  // the sink window (moved north, 1 Nov 2026) on the courtyard face; its former place dotted
+  rect((sink-old.y.at(0), sink.sill), (sink-old.y.at(1), sink.head), fill: none, stroke: (paint: luma(150), thickness: 0.6pt, dash: "dotted")); T((sink-old.y.at(1) - 0.05, sink.head + 0.15), [former window position], size: 3.2pt, fill: luma(130), anchor: "east")
+  rect((sink.y.at(0), sink.sill), (sink.y.at(1), sink.head), fill: rgb("#9fcbe0"), stroke: 0.8pt + blue); T(((sink.y.at(0) + sink.y.at(1)) / 2, sink.head + 0.15), [sink window y #r2(sink.y.at(0))–#r2(sink.y.at(1)) · +#f2(sink.sill) … +#f2(sink.head)], size: 3.8pt, fill: blue)
   // the TV, its frame, the grille
   let fx0 = tv-c - fr.inner_width / 2
   let fx1 = tv-c + fr.inner_width / 2
@@ -219,8 +230,8 @@
     #H[3 · The TV, its frame and the grille]
     - *The TV:* an *outdoor-rated* set (sun, rain and dust: an IP55 / IP56 "partial-sun" outdoor model, 65″ class, ≈ #r2(tv.y.at(1) - tv.y.at(0)) × #r2(tv.z.at(1) - tv.z.at(0)) m; the final size, bracket, ventilation and installation clearances *per the chosen model*), centred on the seating at y #r2(tv-c), bottom #lv(tv.z.at(0)) (#r2(tv.z.at(0) - S.floor) above the pit floor), centre #lv((tv.z.at(0) + tv.z.at(1)) / 2) against a seated eye at #lv(eye-z): the screen sits a little below eye level at #r2(cx1 - benches.find(b => b.at(4) == "west").at(2)) m from the west bench. Power and signal in a sleeved conduit from the kitchen; the fountain switch beside it.
     - *The frame:* honey stone, a visual surround only: two jambs and a semicircular head, band #r2(fr.band) wide, projecting #r2(fr.proj) from the wall, inner width #r2(fr.inner_width) (#r2((fr.inner_width - (tv.y.at(1) - tv.y.at(0))) / 2) each side of the TV), springing #lv(fr.jamb_z.at(1)), crown #lv(fr-crown); no tight cavity: the TV hangs on its bracket #r2(fr.proj) m proud of the wall with the clearances the model asks (air behind and above it).
-    - *The grille* (`studies/air_system.typ`): below the TV, y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1) (#r2(gz0 - S.floor) above the pit floor), low and decorative, removable for cleaning, its louvres turned down so the night air runs along the floor and not into the faces on the benches; #r2(gy0 - ey1) m from the fountain enclosure; no bench or cushion in front of it (the east side of the pit stays free). The chamber under the kitchen floor moves with it to y #r2(air-chamber.at(1))–#r2(air-chamber.at(3)), the duct #r2(air-route.at(1).at(1) - air-route.at(0).at(1)) m long.
-    - *The conflict:* the *kitchen sink window* as drawn (y #r2(sink.y.at(0))–#r2(sink.y.at(1)), +#f2(sink.sill) … +#f2(sink.head)) sits exactly where the TV and its frame go: #if tv-hits-sink [the TV overlaps it] else [the TV clears it], #if frame-hits-sink [the arched frame covers it] else [the frame clears it]. *Proposal (owner decision, not applied):* move the sink window north to y #r2(sink-move.y.at(0))–#r2(sink-move.y.at(1)) (#r2(sink-move.y.at(1) - sink-move.y.at(0)) m wide, same sill +#f2(sink.sill)), over the north part of the sink counter (which runs y 7.5–12.9): the sink looks at the fountain and the tree, the solid wall y #r2(sink-move.y.at(1))–#r2(cy1) takes the TV and its frame. The alternative, a smaller TV below the sill without the frame, loses the arch.
+    - *The grille* (`studies/air_system.typ` v3): below the TV, y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1) (#r2(gz0 - S.floor) above the pit floor), low and decorative, removable for cleaning, with a *manually adjustable louvre* that sends the breeze along the floor to the benches and not into the faces; #r2(gy0 - ey1) m from the fountain enclosure's splash; no bench or cushion in front of it (the east side of the pit stays free). The *damper switch* for the tower's breeze path sits beside the TV with the fountain switch (the damper closes by itself when off or on power loss). Behind the grille a fixed plenum under the sink counter (y #r2(air-chamber.at(1))–#r2(air-chamber.at(3))) meets the breeze channel in the slab (#r2(air-length) m from the tower, cleaned from the laundry and kitchen floors).
+    - *The sink window, moved north* (owner, 1 Nov 2026): y #r2(sink.y.at(0))–#r2(sink.y.at(1)) (#r2(sink.y.at(1) - sink.y.at(0)) m wide, sill +#f2(sink.sill), head +#f2(sink.head)) over the sink (y #r2(kit.sink.at(0))–#r2(kit.sink.at(1))), the dishwasher south of it (y #r2(kit.dishwasher.at(0))–#r2(kit.dishwasher.at(1))), the counter on to y #r2(kit.counter.at(1)) with the tap at the sink's centre; the window looks at the fountain and the tree. Checks on the wall: #r2(frame-to-sink) m of solid wall between the window's south jamb and the TV's frame; #r2(sink-to-corner) m pier to the kitchen's north wall; #r2(sink-to-col) m to column C26's south face; the TV #if tv-hits-sink [overlaps] else [clears] the window and the frame #if frame-hits-sink [covers] else [clears] it. The kitchen side and the courtyard side of the wall are both in the elevation above (the kitchen's counter line and sink drawn in grey on the same y axis).
   ],
   [
     #H[4 · The north enclosure: one stone box, two basins]
@@ -314,7 +325,7 @@
     )
     #v(2pt)
     #H[Conflicts and decisions]
-    - *The kitchen sink window* (page 2): it sits where the TV goes. *Owner decision:* move it north to y #r2(sink-move.y.at(0))–#r2(sink-move.y.at(1)) (recommended) or take a smaller TV below the sill without the frame. Not applied.
+    - *The kitchen sink window* is moved north to y #r2(sink.y.at(0))–#r2(sink.y.at(1)) (owner, 1 Nov 2026): the TV and its frame stay where they are, #r2(frame-to-sink) m of solid wall between them and the window (page 2).
     - *The 3D character data* now carry the new layout (`courtyard_layout`); the builder (`character_3d.py`) still draws the old sunken seating, fountain and pergola until it is updated at the next 3D build.
     - *The pergola* is removed from the design (owner): the courtyard enclosure study's note and the character data; the roof keeps its guards.
     - *Children's play* moves to the garden (R-23 / R-30 updated); the courtyard is for sitting, meals and the TV.

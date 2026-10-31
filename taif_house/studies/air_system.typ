@@ -1,383 +1,339 @@
-// air_system.typ · Taif / Palm House V6.3 · AIR SYSTEM STUDY v2 (air-p2): a dry malqaf for night ventilation, a small dry duct, a wall outlet in the courtyard;
-// the house's MAIN ventilation is a calculated system (ERV, exhausts, AC) designed by the MEP engineer · compile THIS file
-// v2.1 (3d-char2, owner decision): the outlet moved from the courtyard's north wall to the north end of its EAST wall (the kitchen's west wall), over the
-// sunken seating of the character study; the duct runs south from the tower base under the maid bath and the laundry to a chamber under the kitchen floor.
-// The women's majlis glass stays complete (A7 resolved).
-// Design-development study, not an engineering design: EVERY size and performance statement is ASSUMED / NOT CALCULATED, to be designed by the MEP engineer
-// (and the structural engineer for the duct, the tower base and the chamber). v1 (air-p1: an 8 m walk-in tunnel with a water channel) was withdrawn: water in a dark
-// underground duct (condensation, mould, bacteria), little ground cooling from a short tunnel, a walk-in box too complex for a house, no filtration, no supply to closed rooms.
-// The room outlines come from ../data/rooms_gf.csv; the tower polygon and the column lines from the design and the structural study. Written up in ../docs/AIR_SYSTEM.md.
-// Coordinates: the CSV frame (metres, x east, y south, origin = the building's north-west wall corner). Levels: finished ground floor ±0.00, FF +3.60, roof slab +7.20, roof finish +7.30.
-// The 3D model (3d/build_3d.py) reads the `air-*` values below: change them here, never in the 3D.
+// air_system.typ · Taif / Palm House V7.1 · AIR SYSTEM · FINAL CONCEPT (v3, owner goals 1 Nov 2026; design review E-01)
+// ONE tower, the symbol of the house, with TWO completely separate air paths: (a) a gentle natural breeze for the courtyard seating in pleasant
+// weather, (b) the fresh-air intake of the house's ventilation unit, all year. Low maintenance. NO water in the air system, no evaporative pads,
+// no buried earth pipes, no human entry anywhere (no pit, no walk-in tunnel, no chamber with entry: v1 and v2 withdrawn).
+// EVERY size and performance figure here is ASSUMED, TO BE DESIGNED BY THE MEP ENGINEER; compiling this study is not engineering approval.
+// Reads: data/rooms_gf.csv, data/rooms_ff.csv; the `#let air-*` tuples are read by 3d/build_3d.py (to be rewritten for v3 at the next 3D build).
+// CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
-#set page(paper: "a4", flipped: true, margin: 10mm, fill: rgb("#fbfaf6"))
-#set text(font: ("Segoe UI", "Arial"), size: 7.2pt)
-
-// ---------- the system, as data (CSV frame; levels in metres from the finished ground floor; ALL ASSUMED) ----------
-#let air-tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))   // the tower shaft on wall centre lines (design_gf.typ tower-pts)
-#let air-head = (7.3, 9.8)              // the head: from the roof finish to the top of the shaft walls, 2.5 m above the roof
-#let air-head-opening = (8.2, 9.4)      // the louvred openings in the head (sill, head), on the north and west faces (towards the NW wind)
-#let air-base = (-0.08, -1.95)          // the tower base pit: from the ground slab top to the pit floor (dry; a drain point; the duct's sealed access hatch)
-#let air-route = ((10.25, 1.0), (10.25, 9.5))   // the duct axis from the tower's south wall: one leg south on x 10.25 under the maid bath, the laundry and the kitchen's north part to the outlet chamber under the kitchen floor (route E, owner 3d-char2; V7.1 courtyard layout: the chamber moved south under the outdoor TV)
-#let air-L1 = air-route.at(1).at(1) - air-route.at(0).at(1)   // the one leg, south
-#let air-L2 = 0.0                       // (no second leg)
-#let air-duct = (0.9, -1.0, -1.9)       // the duct: outer size (square), top at the tower end, underside at the tower end (walls 0.15); it passes just under the assumed tie beams (−0.90)
-#let air-clear = (0.6, 0.6)             // clear width × clear height inside the duct (ASSUMED; the MEP engineer sizes it)
-#let air-fall = 0.015                   // the duct floor falls 1.5 % from the tower end to the drain point in the outlet chamber
-#let air-invert = (-1.75, -1.85)        // the duct floor (clear) at the tower end and at the chamber end
-#let air-chamber = (9.05, 9.5, 10.7, 10.5)   // the outlet chamber under the kitchen floor against the kitchen's west wall (x 8.95), outer (x0, y0, x1, y1); walls 0.15, clear 1.35 × 0.7; floor −2.10; the duct enters its north wall; V7.1: under the outdoor TV (studies/courtyard_layout.typ)
-#let air-cover = (10.0, 9.7, 10.6, 10.3)    // the sealed, gas-tight floor cover in the kitchen floor east of the sink counter (clear opening), opened only for cleaning: NOT an air opening
-#let air-grille-x = 8.95                    // the wall the grille is in: the courtyard's east wall = the kitchen's west wall; the grille on its courtyard face (x 8.85)
-#let air-grille = (10.0, 0.05, 11.0, 0.40)  // the outlet grille (y0, z0, y1, z1): 1.0 m wide below the outdoor TV, centred on the seating (V7.1 courtyard layout), decorative, removable, louvres turned down; +0.05 … +0.40 = 0.20 … 0.55 above the seating floor (−0.15)
-#let air-sunken = (-0.15, 5.925, 8.7, 8.85, 12.3)   // the seating one step down (V7.1, studies/courtyard_layout.typ): floor level, x0, y0, x1, y1; the grille on the east wall below the TV, no bench in front of it; the pit's drain and overflow in the layout study
-#let air-length = air-L1 + air-L2       // axis length tower wall → chamber
-
-// ---------- rooms (outlines only, from the CSV) ----------
-#let parse-pts(s) = s.split(";").map(t => t.trim()).filter(t => t != "").map(t => { let v = t.split(" ").filter(u => u != ""); (float(v.at(0)), float(v.at(1))) })
-#let read(path) = csv(path, row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#")).map(r => {
-  let P = if r.pts.trim() != "" { parse-pts(r.pts) } else {
-    let x = float(r.x); let y = float(r.y); let w = float(r.w); let d = float(r.d)
-    ((x - w / 2, y - d / 2), (x + w / 2, y - d / 2), (x + w / 2, y + d / 2), (x - w / 2, y + d / 2)) }
-  (name: r.name, P: P) })
-#let GF = read("../data/rooms_gf.csv")
-#let outline = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
-// the columns near the route (studies/structure.typ) with their ASSUMED 1.5 × 1.5 pad footings
-#let pads = (("C15", 4.25, 0), ("C16", 4.25, 3.0), ("C17", 4.25, 6.5), ("C21", 5.8, 6.5), ("C24", 8.95, 0), ("C25", 8.95, 3.0), ("C26", 8.95, 6.5), ("C30", 10.051, 0), ("C31", 11.572, 2.8), ("C18", 4.25, 13.0), ("C27", 8.95, 13.0), ("C22", 5.8, 13.0))
-#let pad = 1.5
-#let plant = (9.6, 2.6, 13.0, 6.0)      // reserved plant area on the roof over the maid wing (ERV / AC outdoor units), ASSUMED, not designed
-
-// ---------- helpers ----------
-#let q(p) = (p.at(0), -p.at(1))
-#let r2(v) = str(calc.round(v, digits: 2))
-#let f2(v) = { let s = str(calc.round(calc.abs(v), digits: 2)); if v < 0 { "−" + s } else { "+" + s } }
+#set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
+#set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.3pt)
 #let ink = rgb("#3d4a45")
 #let green = rgb("#2f6b4f")
 #let red = rgb("#b5452f")
 #let blue = rgb("#1f4e79")
 #let orange = rgb("#c25b00")
-#let H(t) = text(9pt, weight: "bold", fill: green, t)
+#let amber = rgb("#b58a1f")
+#let sky = rgb("#8ccbe0")
+#let r1(v) = str(calc.round(v, digits: 1))
+#let r2(v) = str(calc.round(v, digits: 2))
+#let r3(v) = str(calc.round(v, digits: 3))
+#let f2(v) = { let s = str(calc.round(calc.abs(v), digits: 2)); if v < 0 { "−" + s } else { "+" + s } }
+#let H(t) = text(9.2pt, weight: "bold", fill: green, t)
+#let A(body) = text(fill: amber, weight: "bold", body)   // assumed, to be designed by the MEP engineer
+#let dist(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2))
+#let plen(P) = range(P.len() - 1).map(i => dist(P.at(i), P.at(i + 1))).sum()
+#let area(P) = calc.abs(range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); a.at(0) * b.at(1) - b.at(0) * a.at(1) }).sum()) / 2
 
-// ================= PAGE 1 · the main system, the malqaf's role, the route, the plan =================
-#text(14pt, weight: "bold", fill: green)[Air system study v2 · dry malqaf for night ventilation, small dry duct, wall outlet · Taif / Palm House V6.3]
-#h(6pt) #text(7.5pt, fill: gray)[design-development study · every size and performance statement ASSUMED / NOT CALCULATED, to be designed by the MEP engineer · CSV coordinates, north up]
+// ---------- the system, as data (CSV frame; levels from the finished ground floor; ALL ASSUMED) · the `air-*` names are read by 3d/build_3d.py ----------
+#let air-tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))   // the tower on wall centre lines (design_gf.typ tower-pts), the tip of the cut corner
+#let air-head = (7.3, 9.8)              // the head: from the roof finish to the top of the shaft walls, 2.5 m above the roof (the one element above the attic, studies/roof.typ)
+#let air-head-opening = (8.2, 9.4)      // the louvred openings in the head (sill, head), on all FOUR faces (v3: Yazd type)
+#let air-base = (-0.08, -0.40)          // the breeze shaft's base: from the ground slab top to its shallow sump floor (a drain with a dry trap; NO pit, no entry)
+#let air-route = ((10.2, 1.0), (10.2, 10.5), (9.2, 10.5))   // the breeze channel axis: straight south on x 10.2 under the maid bath, the laundry and the kitchen walkway, then west under the sink counter to the plenum
+#let air-duct = (0.9, -0.08, -0.28)     // the channel: 0.9 wide, from the ground-slab top (the covers flush with the floor) to the slab underside: inside the slab depth, no beam or footing notched
+#let air-clear = (0.9, 0.20)            // clear width × clear depth of the channel (0.18 m²); under the maid bath a throat 0.5 wide between the shower and the WC (0.10 m²)
+#let air-fall = 0.005                   // the channel floor falls 0.5 % back to the tower's sump
+#let air-invert = (-0.28, -0.32)        // the channel floor at the plenum end and at the tower end
+#let air-chamber = (9.05, 10.0, 9.7, 11.0)   // v3: the fixed plenum box under the sink counter, 0.65 × 1.0, from the channel to the wall-base plenum; cleaned from the grille side (no entry)
+#let air-cover = (9.7, 2.9, 10.6, 3.7)  // the first of the removable sealed covers in the laundry floor (0.9 × 0.8 each, gasketed, flush)
+#let air-grille-x = 8.95                // the wall the grille is in: the courtyard's east wall = the kitchen's west wall; the grille on its courtyard face (x 8.85)
+#let air-grille = (10.0, 0.05, 11.0, 0.40)   // the outlet grille (y0, z0, y1, z1): 1.0 × 0.35 below the outdoor TV, a manually adjustable louvre directing the air along the floor, removable
+#let air-sunken = (-0.15, 5.925, 8.7, 8.85, 12.3)   // the seating one step down (studies/courtyard_layout.typ): floor level, x0, y0, x1, y1
+#let air-length = plen(air-route)       // the channel axis length, tower wall → plenum
+#let air-throat = (0.5, 0.20)           // under the maid bath, between the shower and the WC
+#let air-covers = 8                     // five in the laundry (y 2.9–6.9), three in the kitchen walkway (y 7.1–9.5)
+// the tower's clear section and its split (v3): the breeze shaft and the airtight service compartment (ERV intake box at the top, the two risers below)
+#let tower-clear = ((9.075, 0.125), (9.95, 0.125), (10.42, 0.875), (9.075, 0.875))   // inside the 250 outer walls and the 200 inner walls (assumed)
+#let tower-area = area(tower-clear)
+#let split-wall = 0.10                  // the airtight partition (block or a steel sheet on a frame), along y, at x ≈ 9.80
+#let breeze-area = (9.80 - 9.075) * 0.75
+#let service-area = tower-area - breeze-area - split-wall * 0.75
+#let head-faces = 4
+#let head-opening-area = head-faces * 0.8 * (air-head-opening.at(1) - air-head-opening.at(0))   // 4 × 0.8 × 1.2 gross
+#let louvre-free = 0.5
+#let screen-free = 0.6                  // 2 mm insect mesh ≈ 60 % open (a 1.2 mm mosquito mesh ≈ 45 %: more loss, the family decides)
+// the plant room (studies/roof.typ zone Z2a) and the roof points for the intake / exhaust distances
+#let plant = (9.1, 2.9, 10.6, 5.4)      // x0 y0 x1 y1, inside the attic line (the cut-offset line passes x 10.63 at y 2.9)
+#let plant-clear = (plant.at(2) - plant.at(0) - 0.3, plant.at(3) - plant.at(1) - 0.3, 2.0)   // inside 200 mm walls: 1.2 × 2.2, 2.0 clear
+#let intake = (9.75, 0.45, 8.9)         // the ERV intake louvre: the tower's head level, north face (x, y, z)
+#let exhaust = (10.6, 4.4, 8.5)         // the exhaust louvre: the plant room's east wall (its north half), blowing east, 1.2 m north of the condenser zone
+#let hood-out = (13.311, 10.7, 2.2)     // the kitchen hood outlet through the east wall
+#let vent-stack = (13.2, 8.4, 8.0)      // the east-wall plumbing vent stack, terminating above the roof
+#let gas-cab = (13.7, 8.6, 0.0)         // the LPG cabinet in the east service yard (site plan)
+#let generator = (14.5, 12.0, 0.0)      // the generator point (site plan, proposal)
+#let condensers = (9.6, 5.6, 12.4, 9.0) // the AC outdoor units' zone Z2b (studies/roof.typ)
+#let d3(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2) + calc.pow(a.at(2) - b.at(2), 2))
+#let sep = (
+  ([ERV intake ↔ ERV exhaust], d3(intake, exhaust), 3.0, [ASHRAE 62.1-2022 Table 5-1: class 2 exhaust (toilets) → intake ≥ 3 m (10 ft); the exhaust blows east, the intake faces north]),
+  ([ERV intake ↔ kitchen hood outlet (east wall)], d3(intake, hood-out), 4.6, [class 3 (cooking) → ≥ 4.6 m (15 ft); the hood outlet is 6.6 m below the intake]),
+  ([ERV intake ↔ plumbing vent stack], d3(intake, vent-stack), 3.0, [vents → ≥ 3 m (10 ft), and the intake 0.9 m above the vent top]),
+  ([ERV intake ↔ LPG cabinet (yard)], d3(intake, gas-cab), 4.6, [a leak source at ground level: class 3 allowance]),
+  ([ERV intake ↔ generator point (yard)], d3(intake, generator), 9.0, [class 4 (engine exhaust) → ≥ 9 m (30 ft); the generator's exhaust pipe led away from the house]),
+  ([ERV intake ↔ nearest AC condenser (Z2b)], calc.sqrt(calc.pow(calc.max(0, condensers.at(1) - intake.at(1)), 2) + calc.pow(calc.max(0, condensers.at(0) - intake.at(0)), 2) + calc.pow(7.9 - intake.at(2), 2)), 2.0, [not an exhaust: 2 m from the hot plume (manufacturer); the intake is 1 m above the units]),
+  ([ERV exhaust ↔ nearest AC condenser], calc.max(0, condensers.at(1) - exhaust.at(1)), 1.0, [stale air into a condenser is harmless; keep 1 m for service]),
+)
+// ---------- the breeze estimate (ASSUMED; the MEP engineer models it) ----------
+#let rho = 1.15                         // Taif, 1 700 m: thinner air
+#let dCp = 0.8                          // windward face +0.7 against the courtyard well ≈ −0.1 (assumed; the well's pressure is uncertain)
+#let zeta-throat = (
+  ("head louvres + screens (4 faces, 3.84 m² gross, 30 % free → 1.15 m²)", 3.0 * calc.pow(air-throat.at(0) * air-throat.at(1) / (head-opening-area * louvre-free * screen-free), 2)),
+  ("back-draught flaps and the shaft (0.54 m²)", 1.0 * calc.pow(0.10 / breeze-area, 2)),
+  ("damper, open (in the shaft)", 0.5 * calc.pow(0.10 / breeze-area, 2)),
+  ("the throat under the maid bath (contraction + expansion)", 1.5),
+  ("channel friction, 10 m, 0.18 m²", 0.02 * air-length / 0.33 * calc.pow(0.10 / 0.18, 2)),
+  ("the bend and the plenum", 0.8 * calc.pow(0.10 / 0.18, 2)),
+  ("the grille (0.35 m², 50 % free)", 2.5 * calc.pow(0.10 / (0.35 * 0.5), 2)),
+)
+#let zeta = zeta-throat.map(z => z.at(1)).sum()
+#let flow(v-wind) = { let dp = 0.5 * rho * v-wind * v-wind * dCp; let v = calc.sqrt(2 * dp / (rho * zeta)); (dp: dp, v: v, q: v * air-throat.at(0) * air-throat.at(1)) }
+#let weak = flow(3.0)
+#let moderate = flow(6.0)
+#let grille-v(q) = q / (0.35 * 0.5)
+#let felt(q) = grille-v(q) * 0.28       // a floor jet decays to ≈ 1/3–1/4 of the outlet speed 2 m away (assumed)
+#let stack-dp = rho * 9.81 * 8.0 * 3 / 300
+#let still = { let v = calc.sqrt(2 * stack-dp / (rho * zeta)); (dp: stack-dp, v: v, q: v * air-throat.at(0) * air-throat.at(1)) }
+// ---------- the house ventilation (ASHRAE 62.2-2022 §4.1: Qtot = 0.15 L/s·m² × A + 3.5 L/s × (bedrooms + 1); guests: ASHRAE 62.1 assembly) ----------
+#let parse-pts(s) = s.split(";").map(t => t.trim()).filter(t => t != "").map(t => { let v = t.split(" ").filter(u => u != ""); (float(v.at(0)), float(v.at(1))) })
+#let read(path) = csv(path, row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#")).map(r => {
+  let P = if r.pts.trim() != "" { parse-pts(r.pts) } else {
+    let x = float(r.x); let y = float(r.y); let w = float(r.w); let d = float(r.d)
+    ((x - w / 2, y - d / 2), (x + w / 2, y - d / 2), (x + w / 2, y + d / 2), (x - w / 2, y + d / 2)) }
+  (name: r.name, colour: r.colour, P: P, area: area(P)) })
+#let GF = read("../data/rooms_gf.csv")
+#let FF = read("../data/rooms_ff.csv")
+#let conditioned = GF.filter(r => r.colour != "court" and r.colour != "tower").map(r => r.area).sum() + FF.filter(r => r.colour != "open").map(r => r.area).sum()
+#let cond-clear = conditioned * 0.92    // ≈ clear floor area (walls off)
+#let bedrooms = 5                       // bedrooms 1–3, the kids' room, the suite (the maid room ventilated with the house too)
+#let q-normal = 0.15 * cond-clear + 3.5 * (bedrooms + 1)      // L/s
+#let guests = 24
+#let majlis = GF.find(r => r.name == "Men's majlis").area * 0.93
+#let q-majlis = 3.8 * guests + 0.3 * majlis                   // ASHRAE 62.1-2022 Table 6-1 "lecture / assembly" class (3.8 L/s·person + 0.3 L/s·m²): L/s
+#let q-boost = q-normal + q-majlis
+#let unit = (flow: 750, size: (1.2, 0.7, 0.7), weight: 110, power: (90, 350), note: "a 750 m³/h class counterflow HRV / ERV (sensible core; enthalpy core optional), floor-standing on a plinth in the plant room")
+#let hood = 750                         // m³/h, the kitchen hood (600–900), separate, with make-up air
+// ceiling zones (studies/structure.typ: slab undersides +3.32 under 0.20 slabs, +3.22 under the 0.30 ribbed bays; beams B1 +3.20, B4 +3.10, B5 +3.05; roof underside +7.00 / +6.90)
+#let ceilings = (
+  ([GF rooms under the 0.20 slabs (women's majlis, riwaq, the wash block, the maid wing)], 3.32, 0.10, 3.17),
+  ([GF rooms under the 0.30 ribbed bays (kitchen, dining, men's majlis)], 3.22, 0.10, 3.07),
+  ([under beam B1 (women's majlis / kids' wall, soffit +3.20): a 0.3 m band], 3.20, 0.0, 3.05),
+  ([under beam B4 (the riwaq's east wall line, soffit +3.10): a band over the riwaq], 3.10, 0.0, 2.95),
+  ([under beam B5 (the living / dining ceiling step, soffit +3.05): a 0.3 m band at the dining's west edge], 3.05, 0.0, 2.90),
+  ([kitchen (the hood duct 0.25 + the extract duct in the same zone)], 3.22, 0.25, 2.92),
+  ([FF rooms under the 0.20 roof slab (bedrooms 2 / 3, the kids' room, the family living, the gallery)], 7.00, 0.10, 6.85),
+  ([FF rooms under the 0.30 roof bays (the suite, the office, the gym)], 6.90, 0.10, 6.75),
+)
+// ---------- checks ----------
+#let checks = (
+  ([the tower's clear section holds the breeze shaft (≥ 0.5 m²) and the service compartment (≥ 0.18 m², the two Ø250 risers and the intake box) with the partition], breeze-area >= 0.5 - 1e-6 and service-area >= 0.18),
+  ([the channel stays inside the ground-slab depth (no beam or footing notched): top −0.08, underside −0.28], calc.abs(air-duct.at(1) + 0.08) < 1e-6 and calc.abs(air-duct.at(2) + 0.28) < 1e-6),
+  ([the channel is straight with one bend, ≤ 11 m], air-route.len() == 3 and air-length <= 11.0),
+  ([the grille is below the TV (+0.52) and ≥ 0.15 above the seating floor], air-grille.at(3) <= 0.52 - 0.1 and air-grille.at(1) >= -0.15 + 0.15),
+  ([every intake separation meets its allowance], sep.all(((l, d, need, b)) => d >= need)),
+  ([the plant room lies inside the attic line (x ≤ 9.055 + 0.5433 y on the cut side)], plant.at(2) <= 9.055 + 0.5433 * plant.at(1) + 1e-3),
+  ([no finished ceiling below +2.90 on the ground floor or +6.75 on the first floor], ceilings.all(((n, s, d, c)) => c >= 2.90)),
+  ([the unit covers the guest boost (≥ #r1(q-boost * 3.6) m³/h)], unit.flow >= q-boost * 3.6),
+)
+#let all-ok = checks.all(c => c.at(1))
+
+// ====================================================================================== PAGE 1 · the concept and the tower
+#text(14pt, weight: "bold", fill: green)[Air system study v3 · one tower, two separate air paths · Taif / Palm House V7.1]
 #v(1pt)
-#block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt, width: 100%)[#text(7.5pt, weight: "bold", fill: red)[Nothing here is calculated: no airflow, cooling, filtration, structural or hydraulic figure. The study proves the performance of no option. ALL CHECKS PASSED means the drawings are consistent with the project files, not that the system was sized. v1 (air-p1, walk-in tunnel with a water channel) is withdrawn.]]
+#text(8pt, fill: gray)[Owner goals 1 Nov 2026 (design review E-01) · a gentle natural breeze for the courtyard seating in pleasant weather, and the fresh-air intake of the house's ventilation unit all year · no water in the air system, no pads, no earth pipes, no human entry · #A[every size and performance figure is ASSUMED, to be designed by the MEP engineer]; compiling this study is not engineering approval]
 #v(3pt)
-#grid(columns: (auto, 1fr), column-gutter: 12pt,
-  cetz.canvas(length: 0.6cm, {
-    import cetz.draw: *
-    let poly(P, ..a) = line(..P.map(q), close: true, ..a)
-    let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
-    for r in GF.filter(r => r.P.map(p => p.at(1)).fold(1e9, calc.min) < 14.4) { poly(r.P.map(p => (p.at(0), calc.min(p.at(1), 14.5))), fill: rgb("#f3f1ea"), stroke: 0.3pt + luma(170)) }   // cropped at y 14.5
-    line(q((0, 14.5)), q((0, 0)), q((10.051, 0)), q((13.311, 6.0)), q((13.311, 14.5)), stroke: 1.2pt + ink)
-    line(q((0, 14.5)), q((13.311, 14.5)), stroke: (paint: ink, dash: "dashed", thickness: 0.6pt)); T((6.6, 14.9), [the south half of the plan is not shown], size: 3.6pt, fill: luma(120))
-    for (id, x, y) in pads {
-      rect(q((x - pad / 2, y - pad / 2)), q((x + pad / 2, y + pad / 2)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.4pt))
-      rect(q((x - 0.2, y - 0.2)), q((x + 0.2, y + 0.2)), fill: ink, stroke: none); T((x + 0.3, y - 0.35), id, size: 3.6pt, anchor: "west")
-    }
-    // the house drains of the east block go straight east to the manhole: the maid bath and laundry drains cross ABOVE the duct (top −1.00): A6
-    for y in (1.9, 4.5, 9.8) { line(q((9.2, y)), q((14.2, y)), stroke: (paint: blue, dash: "dashed", thickness: 0.7pt), mark: (end: "stealth", fill: blue, scale: 0.4)) }
-    circle(q((14.6, 5.0)), radius: 0.35, stroke: 0.7pt + blue); T((15.1, 5.0), [east manhole], size: 4pt, fill: blue, anchor: "west"); T((12.6, 4.1), [house drains → east\ (cross above the duct: A6)], size: 3.6pt, fill: blue)
-    // the reserved roof plant area (dashed, above this plan)
-    let (px0, py0, px1, py1) = plant
-    rect(q((px0, py0)), q((px1, py1)), stroke: (paint: green, dash: "dashed", thickness: 0.8pt)); T((11.9, 5.2), [roof plant area reserved\ (ERV · AC units) · not designed], size: 3.3pt, fill: green)
-    // the duct (route E: one leg south on x 10.25), the tower, the outlet chamber under the kitchen floor, the grille in the kitchen's west wall
-    let (w, zt, zb) = air-duct
-    let ax = air-route.at(0).at(0)
-    rect(q((ax - w / 2, air-route.at(0).at(1) - 0.3)), q((ax + w / 2, air-route.at(1).at(1))), fill: rgb("#f6d7b8"), stroke: 1pt + orange)
-    poly(air-tower, fill: rgb("#cfe0ee"), stroke: 1pt + blue)
-    let (cx0, cy0, cx1, cy1) = air-chamber
-    rect(q((cx0, cy0)), q((cx1, cy1)), fill: rgb("#f6d7b8"), stroke: 1pt + orange)
-    let (vx0, vy0, vx1, vy1) = air-cover
-    rect(q((vx0, vy0)), q((vx1, vy1)), fill: white, stroke: 0.5pt + ink); T((10.3, 7.9), [sealed\ cover], size: 3.0pt)
-    let (gy0, gz0, gy1, gz1) = air-grille
-    line(q((air-grille-x - 0.1, gy0)), q((air-grille-x - 0.1, gy1)), stroke: 2.4pt + orange); T((8.6, 7.25), [grille, courtyard side\ +#r2(gz0) … +#r2(gz1)], size: 3.1pt, fill: orange, anchor: "east")
-    rect(q((air-grille-x - 0.1, gy0)), q((air-grille-x + 0.1, gy1)), fill: white, stroke: 0.4pt + orange)   // the plenum in the wall base
-    line(q((ax, 0.75)), q((ax, 7.9)), q((9.3, 7.9)), q((9.3, 8.2)), q((8.4, 8.2)), stroke: (paint: orange, thickness: 1pt), mark: (end: "stealth", fill: orange, scale: 0.5))
-    T((10.85, 0.9), [dry duct 0.6 × 0.6 clear · top −1.00], size: 3.3pt, fill: orange, anchor: "west")
-    T((10.95, 6.3), [route E · #r2(air-length) m south], size: 3.4pt, fill: orange, angle: 90deg)
-    T((9.77, 0.5), [tower], size: 3.8pt, fill: blue)
-    T((9.9, 9.0), [outlet chamber under the kitchen floor\ 1.35 × 0.7 clear · pad frame + fan (optional)], size: 3.1pt, fill: orange)
-    // the sunken seating of the character study (style study, provisional): the grille discharges over its bench
-    let (sz, sx0, sy0, sx1, sy1) = air-sunken
-    rect(q((sx0, sy0)), q((sx1, sy1)), stroke: (paint: luma(90), dash: "dashed", thickness: 0.6pt)); for i in range(1, 3) { line(q((sx0 + 0.3 * i, sy0)), q((sx0 + 0.3 * i, sy1)), stroke: 0.3pt + luma(140)) }
-    rect(q((sx1 - 0.45, 7.7)), q((sx1, 9.1)), fill: luma(225), stroke: 0.3pt + luma(120)); T((8.2, 8.4), [bench], size: 3.0pt, fill: luma(90))
-    T((7.75, 9.9), [sunken seating #f2(sz)\ 3 steps × 0.15\ (style study)], size: 3.1pt, fill: luma(90))
-    line(q((8.85, 9.3)), q((8.85, 10.9)), stroke: 1.2pt + blue); T((8.65, 10.75), [fountain under\ the sink window], size: 2.9pt, fill: blue, anchor: "east")
-    circle(q((8.3, 11.7)), radius: 0.12, stroke: 0.6pt + blue); T((8.1, 11.5), [drain + overflow], size: 2.9pt, fill: blue, anchor: "east")
-    // the NW wind at the head
-    line(q((8.3, -2.6)), q((9.7, -1.3)), stroke: 1.4pt + red, mark: (end: "stealth", fill: red, scale: 0.6)); T((7.9, -2.9), [NW wind → head openings N + W (night)], size: 4pt, fill: red, anchor: "west")
-    T((6.2, 12.5), [courtyard], size: 4.2pt, fill: luma(110)); T((6.6, 3.3), [women's majlis], size: 4.2pt, fill: luma(110)); T((11.6, 11.0), [kitchen], size: 4.2pt, fill: luma(110)); T((9.6, 1.7), [maid bath], size: 3.6pt, fill: luma(110)); T((9.6, 3.8), [laundry], size: 3.6pt, fill: luma(110))
-    // the west shaft: a riser reserved for the main system's ducts (not designed)
-    rect(q((0, 9.2)), q((1.5, 10.4)), stroke: (paint: green, dash: "dashed", thickness: 0.8pt)); T((0.75, 9.8), [west shaft:\ ERV riser?], size: 3.2pt, fill: green)
-    content(q((6.65, -3.6)), text(7pt, weight: "bold")[Plan at foundation level · tower, duct (route E), chamber, grille · pads dashed · reserves green])
-    line(q((0, 15)), q((5, 15)), stroke: 1pt + ink); content(q((2.5, 15.45)), text(5pt)[5 m])
-    rect(q((-0.5, -4.2)), q((15.5, 15.8)), stroke: none)
-  }),
+#let tower-plan(length: 2.4cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let q(p) = (p.at(0), -p.at(1))
+  let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
+  line(..air-tower.map(q), close: true, fill: luma(170), stroke: 0.6pt + ink)
+  line(..tower-clear.map(q), close: true, fill: white, stroke: 0.4pt + ink)
+  // the partition and the two parts
+  line(q((9.80, 0.125)), q((9.80, 0.875)), stroke: 2.4pt + ink)
+  rect(q((9.075, 0.125)), q((9.80, 0.875)), fill: sky.transparentize(50%), stroke: none); T((9.44, 0.5), [breeze shaft\ #r2(breeze-area) m²], size: 4pt)
+  rect(q((9.85, 0.125)), q((10.42, 0.875)), fill: rgb("#dfe8d0"), stroke: none); T((10.1, 0.38), [service\ #r2(service-area) m²], size: 3.6pt)
+  circle(q((10.0, 0.64)), radius: 0.11, fill: white, stroke: 0.4pt + ink); circle(q((10.26, 0.64)), radius: 0.11, fill: white, stroke: 0.4pt + ink); T((10.13, 0.88), [Ø250 risers], size: 3pt)
+  // the head's + divider over the breeze shaft (dashed) and the four faces
+  line(q((9.44, 0.125)), q((9.44, 0.875)), stroke: (paint: blue, thickness: 0.6pt, dash: "dashed")); line(q((9.075, 0.5)), q((9.80, 0.5)), stroke: (paint: blue, thickness: 0.6pt, dash: "dashed"))
+  T((9.44, -0.12), [N face · louvre + screen], size: 3.4pt, fill: blue); T((9.44, 1.12), [S face (over the plant side)], size: 3.4pt, fill: blue); T((8.85, 0.5), [W], size: 3.4pt, fill: blue, angle: 90deg); T((10.75, 0.6), [NE (cut) face], size: 3.4pt, fill: blue, angle: -61deg)
+  T((9.44, 1.35), [tower plan at the head · the + divider (dashed) only in the head, each quarter with a back-draught flap · 1 m = 2.4 cm], size: 3.8pt, fill: green)
+})
+#grid(columns: (1fr, 1.35fr), gutter: 12pt,
   [
-    #set text(6.9pt)
-    #H[1 · The main ventilation system (the base, independent of the malqaf)]
-    - The house needs a *calculated main system, designed by the MEP engineer*: *filtered fresh air to the closed rooms*, above all the bedrooms, through an ERV / heat-recovery unit; *exhaust* from the bathrooms, the WCs and the kitchen (hood and extract through the east wall); *air-conditioning sized separately*, with the ducts and the AC in the gypsum ceilings (the owner's rule: drop beams, ducts and lighting hidden by gypsum ceilings).
-    - *The malqaf is a natural supplement, not the main system.* An outlet into the open courtyard does not ventilate the closed rooms; only the ducted system does.
-    - *Reserved, not designed* (open items M1–M3): a *plant area on the roof* over the maid wing (dashed green, ≈ #r2((plant.at(2) - plant.at(0)) * (plant.at(3) - plant.at(1))) m², screened, beside the tower, away from the suite court and the bedrooms' windows) for the ERV and the AC outdoor units; *duct routes in the gypsum ceilings* of both floors; a *riser* (the west shaft, 1.5 × 1.2, dashed green, or a second one beside the east kitchen stack) between the floors and the roof plant.
+    #H[1 · The concept]
+    - *One tower* in the tip of the cut corner (#r2(area(air-tower)) m² on walls, *#r2(tower-area) m² clear*, assumed), the symbol of the house, rising #r2(air-head.at(1) - 7.3) m above the roof finish (head #f2(air-head.at(0)) … #f2(air-head.at(1))), the one element above the attic (`studies/roof.typ`).
+    - *Path (a), the courtyard breeze:* a four-sided head → a breeze shaft → a damper → a shallow channel in the ground slab → the grille under the outdoor TV: a gentle natural breeze for the seating in pleasant weather; not cooling (if it is too hot the family does not sit there); no water, no pads, no earth pipe, no fan (a small assist fan is *proposed*, § 4).
+    - *Path (b), the house's fresh air:* an airtight service compartment in the same tower with its own louvre and an accessible pre-filter, feeding the ventilation unit in a small plant room on the roof next to the tower; its supply and extract risers run down the same compartment to both floors' ceilings. The two paths never meet.
+    - *Low maintenance, no entry:* every routine task is done from the roof (the head, the flaps, the damper, the pre-filter), from the plant room (the unit, the filters, the core), from the laundry and kitchen floors (the channel's covers) or from the courtyard (the grille). No shaft, pit or buried space is entered (§ 7).
     #v(2pt)
-    #H[2 · The malqaf, simplified: dry, for night ventilation]
-    - *Why v1 was withdrawn:* water inside a dark underground duct adds condensation, mould and bacteria risks; a short, shallow tunnel gives little ground cooling; a walk-in tunnel (deep excavation, waterproofing, pumps, footings) is too complex for a house; passing air over water does not clean it, and a screen is not a rated filter.
-    - *Now:* the tower stays *dry*; a washable insect / dust screen *plus a slot for a proper rated filter* (MEP: class and pressure drop); a *closable damper* (closed in dust storms, cold weather and the hot daytime hours; motorised with a manual override); a roof access hatch. *Main use: night ventilation* — Taif's cool nights: open at night to cool the thermal mass of the courtyard walls and floors, closed by day. *No water anywhere inside the tower or the duct.*
-    - *Duct:* a short, small, *dry* duct from the tower base *south under the maid bath and the laundry* (route E, #r2(air-length) m on x #r2(air-route.at(0).at(0))) to a chamber under the kitchen floor, assumed *#r2(air-clear.at(0)) × #r2(air-clear.at(1)) m clear* (to be sized), smooth, sloped #str(calc.round(air-fall * 100, digits: 1)) % to a drain point, *sealed against soil gas and ground water*; just under the assumed tie beams (top #f2(air-duct.at(1))), 0.10 m from the assumed pads; the maid bath and laundry drains cross *above* it (A6); *not walk-in*: cleaned from both ends through *sealed hatches* at the tower base and at the chamber.
-    - *Outlet in the wall, not in the floor (owner, 3d-char2):* a low grille at the *north end of the courtyard's east wall* (the kitchen's west wall, courtyard side; V6.4: the wall's first 0.5 m, y 6.5–7.0, belongs to the laundry, the grille at y #r2(air-grille.at(0))–#r2(air-grille.at(2)) stays in the kitchen part over the chamber; +#r2(air-grille.at(1)) … +#r2(air-grille.at(3))), mashrabiya-type, *discharging into the courtyard just above the bench of the sunken seating* (floor #f2(air-sunken.at(0)), style study): the cool air settles there; the plenum stays below counter level on the kitchen side; the women's majlis glass stays complete (A7 resolved). *No air opening in the courtyard floor*; the cleaning access is a *sealed cover in the kitchen floor*.
-    #v(2pt)
+    #tower-plan()
+  ],
+  [
+    #H[2 · The tower]
+    - *Clear section #r2(tower-area) m²* (assumed, inside the walls), split by an airtight partition (#r2(split-wall) m, block or a sealed steel sheet on a frame) into the *breeze shaft #r2(breeze-area) m²* (west) and the *service compartment #r2(service-area) m²* (east): it holds both, #A[to confirm with the real wall thicknesses]; if the engineer thickens the walls, the smallest enlargement is 0.25 m on the cut side (a proposal only, not applied).
+    - *Head (Yazd badgir type), four faces, in the house's style:* louvred openings #f2(air-head-opening.at(0)) … #f2(air-head-opening.at(1)) on all four faces (#r2(head-opening-area) m² gross), honey-stone surrounds, timber louvres. *The problem checked:* an undivided head open on four sides short-circuits (the wind enters windward and leaves leeward without reaching the courtyard). *The simplest arrangement that works:* the head only is divided into four quarters by a thin + divider (1.2 m high); at the foot of each quarter a *lightweight back-draught flap* (a gravity-hinged aluminium or fabric flap) closes under the leeward suction and opens under the windward pressure, so only the windward quarter(s) feed the single shaft below; no X dividers in the shaft, no wind sensor, no motor. #A[The flaps' free opening and their damping are the MEP engineer's.]
+    - *Louvres and screens, cleanable from the roof:* on each face a weather louvre (≈ #str(calc.round(louvre-free * 100)) % free), a 20 mm bird mesh and a 2 mm insect mesh (≈ #str(calc.round(screen-free * 100)) % free; a 1.2 mm mosquito mesh halves the free area: the family decides), each on a hinged frame opened from the roof strip beside the tower (a 2 m step ladder) and brushed / vacuumed. *Their pressure loss counts for little* because the head's open area (#r2(head-opening-area * louvre-free * screen-free) m² net) is ten times the channel's throat: the losses sit in the channel and the grille (§ 4). No fine filter on the breeze path: natural wind cannot push through one, and the air goes outdoors.
+    - *Damper:* a motorised blade damper across the breeze shaft near the TOP (just under the flaps, inside the tower at ≈ +8.0), a standard *spring-return HVAC actuator* (closes on power loss; ≈ 5 W holding, 24 V), on a wall switch beside the seating (by the TV) with an "open" light; the actuator inside the tower behind a hinged panel, reached from the *roof hatch* in the tower's south face (+7.6 … +8.4) by a hand from the roof: no entry.
+    - *ERV intake compartment:* the service compartment's top 1.5 m (#f2(7.3) … #f2(8.8)) is an airtight box with its own louvre on the north face (0.8 × 0.5 at #f2(8.4) … #f2(8.9), a bird mesh, no fine screen) and a slide-in *pre-filter* (ISO Coarse 60 %, 500 × 500) behind it, pulled out through the same roof hatch (a second panel); below the box the two Ø250 risers; a Ø315 insulated duct leaves the box through the tower's south wall into a low plastered duct box (0.4 high, below the cornice coping) to the plant room 1.9 m south.
   ],
 )
-
-// ================= PAGE 2 · long section =================
-#pagebreak()
-#text(12pt, weight: "bold", fill: green)[Long section along the air path · tower head → shaft → base pit → dry duct (south, x #r2(air-route.at(0).at(0))) → outlet chamber under the kitchen floor → (west) plenum → grille → sunken seating]
-#h(6pt) #text(7pt, fill: gray)[along the duct axis, north → south; at the chamber the path turns west into the kitchen's west wall (the section looking north on the next page) · levels from the finished ground floor ±0.00 · all assumed / not calculated]
 #v(2pt)
-#let L1 = air-L1
-#let L2 = air-L2
-#let s-exit = 1.0                         // the tower's south wall (the shaft runs s 0 … 1.0, north → south; s = the plans' y)
-#let s-chamber = s-exit + L1 + L2         // the chamber's north wall
-#let ch-len = air-chamber.at(3) - air-chamber.at(1)
-#grid(columns: (auto, 1fr), column-gutter: 12pt,
-  cetz.canvas(length: 0.9cm, {
-    import cetz.draw: *
-    let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
-    let R(x0, z0, x1, z1, ..a) = rect((x0, z0), (x1, z1), ..a)
-    let (w, zt, zb) = air-duct
-    let (cw, ch) = air-clear
-    line((-2.2, 0), (s-chamber + ch-len + 2.5, 0), stroke: 0.8pt + ink)
-    for (z, l) in ((0, [±0.00]), (3.6, [+3.60]), (7.2, [+7.20]), (air-head.at(1), [+#r2(air-head.at(1))]), (zt, [#f2(zt)]), (zb, [#f2(zb)]), (air-base.at(1), [#f2(air-base.at(1))])) {
-      line((-2.1, z), (-1.5, z), stroke: 0.4pt + gray); T((-2.2, z), l, size: 4pt, fill: gray, anchor: "east")
-    }
-    R(-0.2, -0.28, s-chamber + ch-len + 2.3, -0.08, fill: luma(150), stroke: none)         // ground slab (the house starts at the tower's north wall)
-    R(1.2, 3.32, s-chamber + ch-len + 2.3, 3.52, fill: luma(150), stroke: none); R(1.2, 7.0, s-chamber + ch-len + 2.3, 7.2, fill: luma(150), stroke: none); R(1.2, 7.2, s-chamber + ch-len + 2.3, 7.3, fill: luma(200), stroke: none)
-    T((-1.2, 1.6), [north street], size: 4pt, fill: luma(120)); T((1.9, 1.6), [maid bath], size: 3.8pt); T((4.6, 1.6), [laundry], size: 4pt); T((8.4, 1.6), [kitchen], size: 4pt); T((3.8, 5.2), [bedroom 1], size: 4pt); T((8.4, 5.2), [suite lobby], size: 4pt); T((5.0, 7.6), [roof], size: 4pt)
-    // assumed ground beams under the walls y 2.8 (maid bath / laundry) and y 6.5 (laundry / kitchen): the duct passes under them (A3)
-    for (s, l) in ((2.8, [wall y 2.8 · ground beam (A3)]), (7.0, [wall y 7.0 · ground beam (A3)])) { R(s - 0.15, -0.9, s + 0.15, -0.28, fill: luma(120), stroke: none); T((s, 0.25), l, size: 3.0pt) }
-    // the maid bath and laundry drains run east to the manhole, crossing ABOVE the duct (A6)
-    for s in (1.9, 4.5) { circle((s, -0.55), radius: 0.08, stroke: 0.6pt + blue, fill: white) }
-    T((3.2, 0.7), [house drains (to the east) cross above the duct: A6], size: 3.1pt, fill: blue)
-    // the tower: shaft walls from the base pit to the head
-    R(-0.2, air-base.at(1), 0.0, air-head.at(1), fill: luma(90), stroke: none)
-    R(1.0, air-base.at(1), 1.2, air-head.at(1), fill: luma(90), stroke: none)
-    R(-0.2, air-base.at(1) - 0.2, 1.2, air-base.at(1), fill: luma(90), stroke: none)
-    R(0.0, air-head.at(1), 1.2, air-head.at(1) + 0.15, fill: luma(90), stroke: none); R(-0.45, air-head.at(1) + 0.15, 1.45, air-head.at(1) + 0.3, fill: luma(120), stroke: none)
-    T((0.5, air-head.at(1) + 0.65), [cap roof · drip], size: 3.8pt)
-    R(1.0, air-head-opening.at(0), 1.2, air-head-opening.at(1), fill: rgb("#cfe0ee"), stroke: 0.4pt + blue)
-    for i in range(6) { line((1.0, air-head-opening.at(0) + 0.1 + i * 0.2), (1.2, air-head-opening.at(0) + 0.2 + i * 0.2), stroke: 0.4pt + blue) }
-    line((0.85, air-head-opening.at(0)), (0.85, air-head-opening.at(1)), stroke: (paint: blue, dash: "dotted", thickness: 0.8pt)); T((0.72, air-head-opening.at(1) + 0.25), [washable screen], size: 3.6pt, fill: blue, anchor: "east")
-    R(0.55, air-head-opening.at(0), 0.65, air-head-opening.at(1), stroke: 0.6pt + green); T((0.45, air-head-opening.at(0) - 0.25), [slot for a rated filter (MEP)], size: 3.4pt, fill: green, anchor: "east")
-    line((0.1, 7.9), (0.9, 7.9), stroke: 1.6pt + red); T((-0.05, 7.9), [damper: closed by day, in dust and cold], size: 3.6pt, fill: red, anchor: "east")
-    line((1.9, 8.8), (1.3, 8.8), stroke: 1.2pt + red, mark: (end: "stealth", fill: red, scale: 0.6)); T((2.0, 8.8), [NW wind · night], size: 4pt, fill: red, anchor: "west")
-    T((0.5, 9.0), [louvres N + W], size: 3.6pt, fill: blue)
-    R(0.15, 7.3, 0.75, 8.5, stroke: (paint: ink, dash: "dashed", thickness: 0.5pt)); T((0.45, 7.95), [hatch\ (S face)], size: 3.3pt)
-    for i in range(int((air-head.at(0) - air-base.at(1) + 1.0) / 0.3)) { line((0.75, air-base.at(1) + 0.3 + i * 0.3), (0.95, air-base.at(1) + 0.3 + i * 0.3), stroke: 0.6pt + ink) }
-    T((1.35, 3.0), [rungs to the base pit], size: 3.6pt, anchor: "west", angle: 90deg)
-    line((0.0, -0.08), (1.0, -0.08), stroke: (paint: ink, dash: "dashed", thickness: 0.8pt)); T((1.3, -0.5), [grating in the shaft floor · the base pit is dry, with a drain point], size: 3.4pt, anchor: "west")
-    line((0.5, 7.7), (0.5, air-base.at(1) + 0.9), stroke: 1pt + orange, mark: (end: "stealth", fill: orange, scale: 0.6))
-    // the duct: a square box with the fall
-    let x0 = s-exit; let x1 = s-chamber
-    let fall(x) = (x - x0) / (x1 - x0) * (air-invert.at(0) - air-invert.at(1))
-    let top(x) = zt - fall(x); let bot(x) = zb - fall(x)
-    line((x0, top(x0)), (x1, top(x1)), (x1, bot(x1)), (x0, bot(x0)), close: true, fill: luma(90), stroke: none)
-    line((x0, top(x0) - 0.15), (x1, top(x1) - 0.15), (x1, bot(x1) + 0.15), (x0, bot(x0) + 0.15), close: true, fill: white, stroke: none)
-    R(x0 - 0.02, air-invert.at(0) - 0.05, x0 + 0.1, air-invert.at(0) + cw + 0.05, fill: white, stroke: 0.8pt + red); T((x0 + 0.15, bot(x0) - 0.5), [sealed access hatch 1], size: 3.3pt, fill: red, anchor: "west")
-    R(x1 - 0.1, air-invert.at(1) - 0.05, x1 + 0.02, air-invert.at(1) + cw + 0.05, fill: white, stroke: 0.8pt + red); T((x1 - 0.15, bot(x1) - 0.5), [sealed access hatch 2], size: 3.3pt, fill: red, anchor: "east")
-    T((x0 + (x1 - x0) / 2, bot(x1) - 0.25), [dry duct · clear #r2(cw) × #r2(ch) (assumed) · smooth · sealed · falls #str(calc.round(air-fall * 100, digits: 1)) % → drain point], size: 4pt, fill: orange)
-    line((x0 + 0.5, (top(x0) + bot(x0)) / 2), (x1 - 0.5, (top(x1) + bot(x1)) / 2), stroke: 1pt + orange, mark: (end: "stealth", fill: orange, scale: 0.6))
-    T((x0 + (x1 - x0) / 2, bot(x1) - 0.8), [not walk-in · cleaned from both ends (brush · camera · robot) · no water inside], size: 3.4pt, fill: luma(110))
-    // the outlet chamber under the kitchen floor (the path turns west here: plenum and grille on the next page)
-    let c0 = x1; let c1 = x1 + ch-len
-    let zc = -2.1
-    R(c0 - 0.15, zc - 0.15, c1, zc, fill: luma(90), stroke: none)                       // floor
-    R(c0 - 0.15, zc, c0, air-invert.at(1) - 0.0, fill: luma(90), stroke: none)         // north wall below the duct mouth
-    R(c1 - 0.15, zc, c1, -0.28, fill: luma(90), stroke: none)                           // south wall
-    R(c0, -0.28, c1, -0.08, fill: luma(150), stroke: none)                              // chamber top = kitchen slab
-    let (vx0, vy0, vx1, vy1) = air-cover
-    R(c0 + (vy0 - air-chamber.at(1)), -0.3, c0 + (vy1 - air-chamber.at(1)), -0.06, fill: white, stroke: 0.8pt + red); T((c0 + 0.5, 0.3), [sealed cover in the kitchen floor (cleaning only)], size: 3.3pt, fill: red)
-    R(c0 + 0.15, zc, c0 + 0.5, zc + 0.08, fill: white, stroke: 0.5pt + blue); T((c0 + 0.35, zc - 0.3), [drain point\ (non-return)], size: 3.1pt, fill: blue)
-    R(c0 + 0.2, zc + 0.3, c0 + 0.8, zc + 0.9, stroke: (paint: green, dash: "dashed", thickness: 0.6pt)); T((c0 + 0.5, zc + 1.1), [removable pad frame\ + quiet fan (optional)\ water · drain · power], size: 3.1pt, fill: green)
-    circle((c0 + 0.5, zc + 1.55), radius: 0.12, stroke: 0.8pt + orange); circle((c0 + 0.5, zc + 1.55), radius: 0.03, fill: orange, stroke: none)
-    T((c0 + 0.7, zc + 1.55), [→ west, out of the page: opening in the west wall → plenum → grille (next page)], size: 3.1pt, fill: orange, anchor: "west")
-    T((c0 + 0.5, 3.7), [kitchen's west wall (x #r2(air-grille-x)) over the chamber: ground beam C26 – C27 (A3)], size: 3.1pt)
-    line((c0 + 0.5, zc + 0.5), (c0 + 0.5, zc + 1.35), stroke: 1pt + orange, mark: (end: "stealth", fill: orange, scale: 0.6))
-    T((c0 + 0.5, zc + 1.95), [chamber 1.35 × 0.7 clear], size: 3.4pt, fill: orange)
-    T((s-chamber / 2 + 0.4, -2.9), [S], size: 4pt); T((-1.9, -2.9), [N], size: 4pt)
-  }),
-  [
-    #set text(6.9pt)
-    #H[How it works (qualitative only; nothing calculated)]
-    - *Night ventilation:* in the evening the damper opens; the head catches the north-west breeze above the roof (or the cool, heavy night air simply sinks down the shaft); the air passes the screen and the filter, falls down the shaft, runs through the short dry duct and leaves slowly through the low grille in the kitchen's west wall, just above the bench of the sunken seating, and settles into the sunken area, cooling the courtyard's walls and floor. In the morning the damper closes and the cooled mass keeps the courtyard pleasant longer. *How much:* not calculated; the MEP engineer estimates the flow (wind-driven and stack) and decides whether a small fan is needed (option B).
-    - *Hot daytime hours:* the damper is closed. If the owner wants cooled supply by day, the *optional pad frame and quiet fan* in the outlet chamber are installed for the season (option B): the fan draws through the pads; the pads are *drained and dried daily*; the tower and the duct stay dry.
-    - *The closed rooms* (bedrooms, baths, kitchen) are ventilated and cooled by the *main system* (ERV, exhausts, AC), not by the malqaf.
-    #v(2pt)
-    #H[Health and dryness rules (stated, not optional)]
-    - *No water inside the tower or the duct:* no channel, no sprays, no mist, no fogging. The only water is in the optional pad frame in the outlet chamber, drained and dried daily; make-up water through a float valve and a backflow preventer.
-    - *Filtered:* a rated filter in the head's slot (class and pressure drop by the MEP engineer); the screen only keeps insects and coarse dust out.
-    - *Sealed and drained:* the duct is sealed against soil gas and ground water, falls to a drain point with a non-return trap; the base pit and the chamber have drain points; condensation, if any, runs to them.
-    - *Separate from the house and closable:* a separate element; no house drain crosses it; the damper closes it; the floor cover is gas-tight and opened only for cleaning.
-    #v(2pt)
-    #H[Levels along the path (assumed)]
-    #table(columns: (1.1fr, 1fr), stroke: none, inset: 2pt, fill: (_, y) => if calc.even(y) { rgb("#efece4") },
-      [head top / head openings], [+#r2(air-head.at(1)) / +#r2(air-head-opening.at(0)) … +#r2(air-head-opening.at(1))],
-      [roof finish / roof slab], [+7.30 / +7.20],
-      [ground floor finished / grating in the shaft], [±0.00 / −0.08],
-      [tower base pit floor], [#f2(air-base.at(1))],
-      [duct top / underside at the tower], [#f2(air-duct.at(1)) / #f2(air-duct.at(2))],
-      [duct floor (clear) at the tower / at the chamber], [#f2(air-invert.at(0)) / #f2(air-invert.at(1))],
-      [outlet chamber floor], [−2.10],
-      [grille in the kitchen's west wall, courtyard side], [+#r2(air-grille.at(1)) … +#r2(air-grille.at(3))],
-      [sunken seating floor / bench seat (style study)], [#f2(air-sunken.at(0)) / −0.05 (the grille 0.60 / 0.20 above them)],
-      [assumed tie beams / pad footing underside], [−0.28 … −0.90 (the duct passes 0.10 m under them) / −1.50 (only the tower pit and the chamber reach it: A1, A3)],
-    )
-  ],
-)
+#text(7.5pt)[#if all-ok [*Air system study v3 · checks passed* (#checks.len())] else [*CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
 
-// ================= PAGE 3 · cross section, the outlet chamber and grille, the three options =================
+// ====================================================================================== PAGE 2 · the breeze path: plan and long section
 #pagebreak()
-#text(12pt, weight: "bold", fill: green)[Duct cross section · outlet chamber and grille · the three options for the MEP engineer]
-#h(6pt) #text(7pt, fill: gray)[all sizes assumed · the duct, the tower base pit and the chamber by the structural engineer; filter, fan, pads, water, drain and power points by the MEP engineer]
+#text(12pt, weight: "bold", fill: green)[3 · The courtyard breeze path: the channel in the slab, its covers, the plenum and the grille · plan and long section]
 #v(2pt)
-#grid(columns: (auto, auto, 1fr), column-gutter: 14pt,
-  cetz.canvas(length: 1.6cm, {
-    import cetz.draw: *
-    let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
-    let (w, zt, zb) = air-duct; let (cw, ch) = air-clear
-    rect((-w / 2, zb), (w / 2, zt), fill: luma(90), stroke: none)
-    rect((-cw / 2, zb + 0.15), (cw / 2, zb + 0.15 + ch), fill: white, stroke: none)
-    for s in (-1, 1) { arc((s * cw / 2, zb + 0.15 + 0.06), start: if s < 0 { 0deg } else { 180deg }, stop: if s < 0 { -90deg } else { 270deg }, radius: 0.06, fill: luma(90), stroke: none) }
-    rect((-w / 2 - 0.03, zb - 0.03), (w / 2 + 0.03, zt + 0.03), stroke: (paint: red, thickness: 0.8pt))
-    T((0, zt + 0.22), [sealed outside: membrane or a factory-sealed box (precast RC / GRP, MEP + engineer)], size: 3.4pt, fill: red)
-    T((0, zb + 0.15 + ch / 2 + 0.1), [clear #r2(cw) × #r2(ch)\ (assumed; to be sized)], size: 4.2pt, fill: orange)
-    T((0, zb + 0.3), [smooth · coved · dry · falls 1.5 %], size: 3.3pt, fill: luma(110))
-    line((-w / 2, zb - 0.3), (w / 2, zb - 0.3), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((0, zb - 0.45), [#r2(w) outer · walls 0.15], size: 3.6pt)
-    for (z, l) in ((zt, [#f2(zt)]), (zb, [#f2(zb)])) { T((-w / 2 - 0.1, z), l, size: 3.4pt, fill: gray, anchor: "east") }
-    rect((-1.2, -0.9), (1.2, -0.28), fill: luma(150), stroke: none); T((0, -0.6), [tie beam (assumed) · 0.10 m above the duct], size: 3.2pt, fill: white)
-    rect((-1.4, -0.28), (1.4, -0.08), fill: luma(150), stroke: none); T((0, 0.15), [ground slab · women's majlis floor], size: 3.4pt)
-    content((0, 0.55), text(6pt, weight: "bold", fill: green)[Duct cross section (at a tie-beam crossing)])
-  }),
-  cetz.canvas(length: 0.85cm, {
-    import cetz.draw: *
-    let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
-    let R(x0, z0, x1, z1, ..a) = rect((x0, z0), (x1, z1), ..a)
-    // section through the sunken seating, the grille, the plenum and the outlet chamber, looking north: horizontal = x (west left), vertical = level
-    let (sz, sx0, sy0, sx1, sy1) = air-sunken
-    let (cx0, cy0, cx1, cy1) = air-chamber
-    let (gy0, gz0, gy1, gz1) = air-grille
-    let wx = air-grille-x
-    let zc = -2.1
-    let X(x) = x - 5.4
-    line((X(5.4), 0), (X(sx0), 0), stroke: 0.8pt + ink)
-    // the courtyard slab with the sunken pit: three steps from the west, the floor at −0.45, the bench against the east wall
-    R(X(5.4), -0.28, X(sx0), -0.08, fill: luma(150), stroke: none)
-    R(X(sx0), sz - 0.2, X(sx0 + 0.3), -0.15, fill: luma(150), stroke: none); R(X(sx0 + 0.3), sz - 0.2, X(sx0 + 0.6), -0.30, fill: luma(150), stroke: none); R(X(sx0 + 0.6), sz - 0.2, X(sx1), sz, fill: luma(150), stroke: none)
-    R(X(sx1 - 0.45), sz, X(sx1), -0.05, fill: luma(225), stroke: 0.3pt + luma(120)); T((X(sx1 - 0.22), -0.25), [bench], size: 3.2pt)
-    R(X(sx1 - 0.75), sz, X(sx1 - 0.6), sz + 0.03, fill: white, stroke: 0.5pt + blue); T((X(sx1 - 0.68), sz - 0.35), [drain +\ overflow (A6)], size: 3.0pt, fill: blue)
-    T((X(sx0 + 0.9), sz + 0.25), [sunken seating #f2(sz) · 3 steps × 0.15\ (style study, provisional)], size: 3.3pt, anchor: "west")
-    T((X(6.0), 0.3), [courtyard level], size: 3.4pt, fill: luma(110))
-    // the kitchen's west wall with the plenum in its base and the grille on the courtyard face (with an upstand lip)
-    R(X(wx - 0.1), -0.28, X(wx + 0.1), 3.32, fill: luma(200), stroke: 0.3pt + luma(120))
-    R(X(wx - 0.1), 1.1, X(wx + 0.1), 2.1, fill: rgb("#cfe0ee"), stroke: 0.4pt + blue); T((X(wx), 2.35), [sink\ window], size: 3.0pt, fill: blue)
-    R(X(wx - 0.08), -1.0, X(wx + 0.08), gz1, fill: white, stroke: 0.4pt + orange)
-    R(X(wx + 0.08), -1.0, X(cx0 + 0.15), -0.28, fill: white, stroke: 0.4pt + orange)     // the opening from the chamber into the plenum
-    line((X(wx - 0.1), gz0), (X(wx - 0.1), gz1), stroke: 2.4pt + orange); R(X(wx - 0.16), gz0 - 0.05, X(wx - 0.1), gz0 + 0.02, fill: luma(120), stroke: none)
-    T((X(wx - 0.2), gz1 + 0.3), [grille +#r2(gz0) … +#r2(gz1) · courtyard side\ 0.20 above the seat · upstand lip], size: 3.2pt, fill: orange, anchor: "east")
-    T((X(wx + 0.2), gz1 + 1.0), [plenum in the\ wall base 0.2 × 1.0\ below counter level], size: 3.0pt, fill: orange, anchor: "west")
-    // the kitchen floor, the sink counter, the chamber below with its cover, drain point and pad frame; the duct mouth behind the section plane
-    R(X(wx + 0.1), -0.28, X(cx1 + 0.8), -0.08, fill: luma(150), stroke: none)
-    R(X(wx + 0.2), -0.08, X(wx + 0.8), 0.82, stroke: (paint: luma(110), dash: "dashed", thickness: 0.5pt)); T((X(wx + 0.5), 0.95), [sink counter], size: 3.0pt, fill: luma(110))
-    R(X(cx0), zc - 0.15, X(cx1), zc, fill: luma(90), stroke: none); R(X(cx0), zc, X(cx0 + 0.15), -1.0, fill: luma(90), stroke: none); R(X(cx1 - 0.15), zc, X(cx1), -0.28, fill: luma(90), stroke: none)
-    R(X(9.8), air-invert.at(1), X(10.7), air-invert.at(1) + air-clear.at(1), stroke: (paint: orange, dash: "dashed", thickness: 0.6pt)); T((X(10.25), air-invert.at(1) + 0.3), [duct mouth\ (north wall, behind)], size: 3.0pt, fill: orange)
-    let (vx0, vy0, vx1, vy1) = air-cover
-    R(X(vx0), -0.3, X(vx1), -0.06, fill: white, stroke: 0.8pt + red); T((X((vx0 + vx1) / 2), 0.3), [sealed, gas-tight cover 0.6 × 0.6\ in the kitchen floor (cleaning only)], size: 3.1pt, fill: red)
-    R(X(cx0 + 0.3), zc, X(cx0 + 0.6), zc + 0.08, fill: white, stroke: 0.5pt + blue); T((X(cx0 + 0.45), zc - 0.3), [drain point], size: 3.1pt, fill: blue)
-    R(X(cx0 + 0.8), zc + 0.3, X(cx0 + 1.4), zc + 0.9, stroke: (paint: green, dash: "dashed", thickness: 0.6pt)); T((X(cx0 + 1.1), zc + 1.15), [pad frame + fan\ (optional, seasonal)], size: 3.1pt, fill: green)
-    line((X(cx0 + 0.5), zc + 0.7), (X(wx), -0.6), (X(wx), gz0 + 0.3), (X(wx - 0.5), gz0 + 0.3), (X(wx - 1.3), sz + 0.5), stroke: 1pt + orange, mark: (end: "stealth", fill: orange, scale: 0.6))
-    T((X(6.3), 1.4), [courtyard], size: 4pt, fill: luma(110)); T((X(10.0), 1.4), [kitchen], size: 4pt, fill: luma(110))
-    T((X(5.4), -0.5), [W], size: 4pt); T((X(cx1 + 0.8), -0.5), [E], size: 4pt)
-    content((X(8.4), 3.7), text(6pt, weight: "bold", fill: green)[Outlet · section, looking north])
-  }),
+#let path-plan(length: 0.62cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let q(p) = (p.at(0), -p.at(1))
+  let T(p, t, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let fills = (family: rgb("#f6e3c0"), guest: rgb("#e9d9c4"), service: rgb("#dbe7ec"), core: rgb("#e4ded2"), circ: rgb("#f2efe8"), court: rgb("#dbe9f4"), tower: rgb("#cfe0d8"))
+  for r in GF.filter(r => calc.min(..r.P.map(p => p.at(1))) < 14 and calc.max(..r.P.map(p => p.at(0))) > 4.0) { line(..r.P.map(q), close: true, fill: fills.at(r.colour, default: luma(235)), stroke: 0.5pt + ink); let c = (r.P.map(p => p.at(0)).sum() / r.P.len(), r.P.map(p => p.at(1)).sum() / r.P.len()); T((c.at(0), c.at(1) - 0.3), text(3.4pt, fill: luma(110), r.name.split(" (").at(0))) }
+  line(..air-tower.map(q), close: true, fill: sky, stroke: 0.6pt + blue); T((9.75, 0.5), [tower], size: 3.8pt)
+  // the channel, the throat, the covers, the plenum, the grille
+  let (x0, y0) = air-route.at(0); let (x1, y1) = air-route.at(1)
+  rect(q((x0 - 0.45, 1.0)), q((x0 + 0.45, 2.8)), fill: white, stroke: (paint: orange, dash: "dashed", thickness: 0.6pt))
+  rect(q((x0 - 0.25, 1.0)), q((x0 + 0.25, 2.8)), fill: rgb("#fde4c8"), stroke: 0.6pt + orange); T((x0 + 0.65, 1.9), [throat 0.5 × 0.20\ under the maid bath\ (no cover)], size: 3.2pt, fill: orange, anchor: "west")
+  rect(q((x0 - 0.45, 2.8)), q((x0 + 0.45, y1)), fill: rgb("#fde4c8"), stroke: 0.6pt + orange)
+  for k in range(air-covers) { let ya = 2.9 + k * 0.82; if k >= 5 { ya = 7.1 + (k - 5) * 0.82 }; rect(q((x0 - 0.45, ya)), q((x0 + 0.45, ya + 0.8)), fill: white, stroke: 0.4pt + orange) }
+  T((x0 + 0.65, 4.9), [channel 0.9 × 0.20 in the slab\ 5 covers in the laundry walkway], size: 3.2pt, fill: orange, anchor: "west"); T((x0 + 0.65, 8.3), [3 covers in the kitchen walkway\ (between the counters)], size: 3.2pt, fill: orange, anchor: "west")
+  rect(q((air-chamber.at(0), air-chamber.at(1))), q((air-chamber.at(2), air-chamber.at(3))), fill: rgb("#fbd3a8"), stroke: 0.6pt + orange); T((9.37, 11.35), [plenum under\ the sink counter], size: 3.2pt, fill: orange)
+  line(q((air-grille-x - 0.1, air-grille.at(0))), q((air-grille-x - 0.1, air-grille.at(2))), stroke: 2.6pt + orange); T((8.3, 10.5), [grille under the TV\ #f2(air-grille.at(1)) … #f2(air-grille.at(3))], size: 3.4pt, fill: orange, anchor: "east")
+  rect(q((5.925, 8.7)), q((8.85, 12.3)), fill: none, stroke: (paint: luma(120), dash: "dotted", thickness: 0.5pt)); T((7.4, 12.6), [seating −0.15], size: 3.4pt, fill: luma(110))
+  rect(q((9.05, 7.5)), q((9.65, 12.9)), fill: none, stroke: (paint: luma(140), thickness: 0.4pt)); T((9.35, 8.2), [sink\ counter], size: 3pt, fill: luma(110))
+  line(q((8.95, 7.3)), q((8.95, 8.9)), stroke: 2pt + blue); T((8.3, 8.1), [sink window\ (moved north)], size: 3.2pt, fill: blue, anchor: "east")
+  line(q((x0, 1.0)), q((x0, y1)), q((air-route.at(2).at(0), y1)), stroke: (paint: red, thickness: 0.9pt), mark: (end: "stealth", fill: red, scale: 0.5))
+  T((10.75, 6.3), [the walls y 2.8 and y 7.0 cross the channel on their ground beams:\ a 0.9 × 0.2 slot in the wall foot above the beam top (−0.28)], size: 3.2pt, fill: luma(90), anchor: "west")
+  T((8.6, -0.5), [plan at the ground floor · the breeze path · 1 m = 0.62 cm · north up], size: 4pt, fill: green)
+})
+#let path-section(length: 0.62cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, t, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let vx = 2.5
+  let Z(z) = z * vx
+  let Y(y) = y - 0.0
+  // ground slab top −0.08 and underside −0.28, the floor finish to 0, the walls crossed (y 1.0 tower south wall, 2.8, 7.0) and the kitchen west wall at the end
+  rect((Y(0.0), Z(-0.28)), (Y(11.6), Z(-0.08)), fill: luma(150), stroke: none); rect((Y(0.0), Z(-0.08)), (Y(11.6), Z(0)), fill: luma(205), stroke: none)
+  rect((Y(0.0), Z(-0.9)), (Y(1.0), Z(0)), fill: luma(225), stroke: none)
+  // the channel (clear) and its base slab
+  rect((Y(1.0), Z(-0.28)), (Y(10.5), Z(-0.08)), fill: rgb("#fde4c8"), stroke: 0.5pt + orange); rect((Y(1.0), Z(-0.38)), (Y(10.5), Z(-0.28)), fill: luma(120), stroke: none)
+  rect((Y(1.0), Z(-0.28)), (Y(2.8), Z(-0.08)), fill: rgb("#f6c99a"), stroke: 0.5pt + orange); T((Y(1.9), Z(-0.18)), [throat 0.5 wide], size: 3pt)
+  // the covers (flush) and the fixed section
+  for k in range(air-covers) { let ya = 2.9 + k * 0.82; if k >= 5 { ya = 7.1 + (k - 5) * 0.82 }; rect((Y(ya), Z(-0.08)), (Y(ya + 0.8), Z(0)), fill: white, stroke: 0.5pt + orange) }
+  T((Y(4.9), Z(0.25)), [removable gasketed covers, flush with the floor · lifted while standing], size: 3.4pt, fill: orange)
+  // the walls crossed: ground beams (assumed 0.3 × 0.6 under the walls, top −0.28) and the slots
+  for (y, l) in ((1.0, [tower S wall]), (2.8, [maid bath / laundry]), (7.0, [laundry / kitchen])) { rect((Y(y - 0.15), Z(-0.88)), (Y(y + 0.15), Z(-0.28)), fill: luma(120), stroke: none); rect((Y(y - 0.125), Z(0)), (Y(y + 0.125), Z(1.0)), fill: luma(170), stroke: none); T((Y(y), Z(1.15)), l, size: 3.2pt) ; T((Y(y), Z(-0.6)), [ground beam (A3)\ top −0.28: not notched], size: 2.8pt, fill: white) }
+  // the tower base: the shaft above, the sump
+  rect((Y(0.1), Z(-0.40)), (Y(0.9), Z(-0.08)), fill: sky, stroke: 0.5pt + blue); T((Y(0.5), Z(-0.24)), [sump\ −0.40], size: 3pt)
+  rect((Y(0.1), Z(0)), (Y(0.9), Z(1.4)), fill: sky.transparentize(60%), stroke: none); T((Y(0.5), Z(0.7)), [breeze shaft\ ↓], size: 3.4pt, fill: blue)
+  circle((Y(0.5), Z(-0.40)), radius: 0.08, fill: white, stroke: 0.5pt + blue); T((Y(0.5), Z(-0.55)), [drain · dry trap], size: 3pt, fill: blue)
+  // the plenum and the grille at the end
+  rect((Y(10.5), Z(-0.28)), (Y(11.15), Z(0.45)), fill: rgb("#fbd3a8"), stroke: 0.5pt + orange); T((Y(10.8), Z(0.6)), [plenum (west leg, beyond)], size: 3pt, fill: orange)
+  rect((Y(11.15), Z(air-grille.at(1))), (Y(11.3), Z(air-grille.at(3))), fill: orange, stroke: none); T((Y(11.45), Z(0.25)), [grille\ courtyard], size: 3pt, fill: orange, anchor: "west")
+  // levels
+  for (z, l) in ((0, [±0.00 floor]), (-0.08, [−0.08 slab top = the covers]), (-0.28, [−0.28 slab underside = the channel floor (−0.32 at the tower)]), (-0.40, [−0.40 sump])) { T((Y(-0.2), Z(z)), l, size: 3.2pt, fill: gray, anchor: "east") }
+  T((Y(5.8), Z(-1.1)), [long section along the channel (x 10.2), looking east, heights × #vx · 1 m = 0.62 cm · the channel never leaves the slab depth], size: 4pt, fill: green)
+})
+#grid(columns: (auto, 1fr), gutter: 10pt, path-plan(),
   [
-    #set text(6.9pt)
-    #H[Outlet chamber and grille (assumed)]
-    - *Chamber (owner, 3d-char2):* under the kitchen floor against the kitchen's west wall (x #r2(air-grille-x)), outer x #r2(air-chamber.at(0))–#r2(air-chamber.at(2)), y #r2(air-chamber.at(1))–#r2(air-chamber.at(3)); clear 1.35 × 0.7, floor −2.10, walls 0.15, sealed like the duct; 0.15 m from the assumed C26 pad, under the sink counter. The duct enters through its north wall; a *sealed access hatch* there for cleaning the duct from this end.
-    - *Air path:* chamber → an opening in its west wall → a *plenum in the wall base* (0.2 × 1.0, y #r2(air-grille.at(0))–#r2(air-grille.at(2)), from the slab to the grille head, below counter level on the kitchen side) → the *grille* on the courtyard face, +#r2(air-grille.at(1)) … +#r2(air-grille.at(3)), 1.0 m wide, decorative (mashrabiya-type), with an upstand lip, an insect screen and a closable shutter behind it; *the air discharges into the courtyard, never into the kitchen*.
-    - *Sunken seating (style study, 3d/character.yaml):* the grille discharges just above the built-in bench (seat −0.05) of a sunken area #f2(air-sunken.at(0)) deep (3 steps × 0.15 from the west) against the east wall, x #r2(air-sunken.at(1))–#r2(air-sunken.at(3)), y #r2(air-sunken.at(2))–#r2(air-sunken.at(4)); level edges ≥ 1.0 m at every door and glass wall; a *floor drain at its lowest point plus an overflow* (A6); a wall fountain under the sink window, decorative (A8 / A6).
-    - *Optional, installed only for the hot season:* a removable evaporative pad frame (≈ 0.6 × 0.6) and a small quiet fan in the chamber, with water, drain and power points. Rules: no sprays or mist; pads drained and dried daily; the duct and the tower stay dry.
-    - *Access:* a sealed, gas-tight cover 0.6 × 0.6 in the kitchen floor east of the sink counter (x #r2(air-cover.at(0))–#r2(air-cover.at(2))), opened only for cleaning and for the seasonal pad frame; *not an air opening*. The chamber is 2 m deep: a short ladder stored nearby, two people, lid open (A5).
-    - *The glass:* the women's majlis glass (x 5.1–8.1) on the north wall stays complete: A7 is resolved by moving the outlet to the east wall.
-    #v(2pt)
-    #H[The three options the MEP engineer compares before anything goes into the foundations]
-    #table(columns: (auto, 1fr, 1fr, 1fr), stroke: none, inset: 2.2pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#efece4") },
-      ..([], [*A · direct dry malqaf*], [*B · malqaf + fan + filter*], [*C · dry earth-air heat exchanger*]).map(c => text(7pt, weight: "bold", fill: green, c)),
-      [what], [tower, screen + filter, damper, the short dry duct, the wall grille; wind and stack only], [as A, plus a small quiet fan (in the chamber or the shaft) and a rated filter; the pad frame optional at the outlet], [a longer, deeper dry pipe run (proper depth and length, several parallel pipes), condensate drainage, a fan; the courtyard grille or ducted supply],
-      [gives], [night ventilation of the courtyard when the breeze blows; nothing by day], [controlled night ventilation whatever the wind; filtered; optional evaporative supply by day], [cooled (and in winter tempered) supply by day and night; the only option with real ground cooling],
-      [costs / risks], [lowest; depends on the wind; the courtyard only], [fan power, filter changes; the pads need the daily drain-and-dry routine], [excavation outside the house, length, condensate and hygiene management, fan power; must be designed, not assumed],
-      [to compare], [annual performance (hours of useful supply, temperatures), capital and running cost, maintenance], [idem], [idem],
-    )
-    #text(6.5pt, fill: gray)[The study proves the performance of none of them. The plan and the sections show option A (the drawings also fit B); C would change the route and the depth and is not drawn.]
-    #v(2pt)
-    #H[Route: the owner's choice (3d-char2) against the two candidates of v1 / v2]
-    #table(columns: (auto, 1fr, 1fr, 1fr), stroke: none, inset: 2pt, fill: (_, y) => if calc.even(y) { rgb("#efece4") },
-      [], [*E · to the kitchen's west wall (chosen, owner)*], [A · under the women's majlis (v2, superseded)], [B · under the maid wing to the kitchen north wall (v1, rejected)],
-      [path], [tower base → #r2(air-L1) m south on x #r2(air-route.at(0).at(0)) → chamber under the kitchen floor → west into the kitchen's west wall → grille over the sunken seating], [tower base → 1.68 m west → 5.85 m south on x 7.27 → chamber at the courtyard's north wall], [south under the maid bath and the laundry, west under the kitchen north wall; ≈ 8.5 m],
-      [above], [maid bath, laundry, kitchen], [the women's majlis only], [maid bath, laundry, kitchen wall],
-      [footings], [the tower base pit (A1); ground beams under the walls y 2.8, y 7.0 (V6.4) and the kitchen's west wall (A3); 0.10 m from the C25 / C26 / C31 pads], [the majlis south wall ground beam; 0.48 m from C25, 0.4 / 0.25 m from C21 / C26], [walls y 1.0 and 2.8, the RC wall W5, the C26 pad],
-      [drains], [the maid bath and laundry drains cross *above* the duct: clearance and protection (A6)], [none cross it], [crosses the maid bath and laundry drains],
-      [why], [the cool air settles where people sit; the women's majlis glass stays complete (A7 resolved)], [the grille cut the women's majlis glass (A7)], [—],
-    )
-
-  ],
-)
-
-// ================= PAGE 4 · maintenance, reserves, open items =================
-#pagebreak()
-#text(12pt, weight: "bold", fill: green)[Maintenance, reserved spaces for the main system, open items]
-#v(2pt)
-#grid(columns: (1.15fr, 1fr), column-gutter: 14pt,
-  [
-    #H[Maintenance table (what · how often · how to reach it)]
-    #table(columns: (1fr, 1.8fr, 1fr, 1.1fr), stroke: none, inset: 2.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#efece4") },
-      ..([Item], [What to do], [How often], [How to reach it]).map(c => text(7pt, weight: "bold", fill: green, c)),
-      [head louvres + insect / dust screen], [brush and wash the screen; clear the louvres; check the drip], [monthly in the dust season, else every 3 months], [from the roof, through the hatch in the head's south face],
-      [rated filter (head slot)], [check the pressure drop / the indicator; replace or wash as its class allows], [per the MEP engineer; before and after the dust season], [from the roof hatch],
-      [damper (head)], [check the motor, the manual override and the control; grease, test closing], [every 6 months and before the dust season], [from the roof hatch],
-      [shaft walls, rungs, grating], [brush, check the rungs, the lighting and the grating lock], [yearly], [rungs from the head hatch],
-      [tower base pit + drain point], [sweep, check the drain and its trap, look for damp], [every 6 months], [down the shaft (two people, lid open)],
-      [dry duct], [brush / camera inspection / cleaning robot from both ends; check that it is dry and sealed], [yearly; after any smell or damp], [sealed hatch 1 (base pit), sealed hatch 2 (chamber)],
-      [outlet chamber + drain point], [sweep, check the drain and the trap, the water and power points], [every 6 months], [sealed cover in the kitchen floor (cleaning only)],
-      [grille, screen and shutter], [wash the screen, clear the grille and its upstand, test the shutter], [monthly in use], [from the sunken seating, standing on the bench],
-      [sunken seating drain + overflow], [clear the grate and the overflow; check after rain], [monthly; after every rain], [in the courtyard],
-      [pad frame + fan (optional, seasonal)], [install for the season; pads drained and dried daily; clean the pads, the tray and the fan], [daily drain (automatic); pads monthly; in / out of the season], [through the floor cover],
-      [sealing, joints], [look for damp, cracks, salts, smells (soil gas)], [after every heavy rain; yearly], [hatches and cover],
-      [main system (ERV, exhausts, AC)], [filters, coils, condensate, fans, controls], [per the MEP engineer's schedule], [roof plant area; ceiling access panels],
-    )
-    #v(4pt)
-    #H[Reserved for the main system (not designed, open items M1–M3)]
-    - *Roof plant area* over the maid wing, x #r2(plant.at(0))–#r2(plant.at(2)), y #r2(plant.at(1))–#r2(plant.at(3)) (≈ #r2((plant.at(2) - plant.at(0)) * (plant.at(3) - plant.at(1))) m²): ERV unit, AC outdoor units, screened from the street and the suite court; a roof hatch or stair for service; structure to allow for the loads (engineer).
-    - *Risers:* the west shaft (1.5 × 1.2, x 0–1.5, y 9.2–10.4) rises from the utility room to the roof beside the bedrooms; a second riser beside the east kitchen stack if the MEP engineer needs it.
-    - *Duct routes in the gypsum ceilings* of both floors (the owner's rule), with access panels; the first-floor rooms over the kitchen and the men's majlis have ribbed slabs: the ducts run below them in the ceilings, not through them.
-  ],
-  [
-    #H[Open items for the engineers]
-    #table(columns: (auto, auto, 1fr), stroke: none, inset: 2.2pt, fill: (_, y) => if calc.even(y) { rgb("#efece4") },
-      [*M1*], [MEP], [*The main ventilation system:* filtered fresh air to the closed rooms (ERV / heat recovery, the bedrooms first), exhausts for the baths, WCs and the kitchen, the AC sized separately; the design, the plant location (the reserved roof area) and the duct routes in the gypsum ceilings.],
-      [*M2*], [MEP / structure], [The roof plant area: equipment loads, screening, vibration and noise to the bedrooms and the suite court, service access.],
-      [*M3*], [MEP], [The risers (the west shaft; a second one if needed) and the ceiling heights with the ducts (the gypsum ceilings at ≈ +3.05 … +3.20 under the drop beams).],
-      [*A1*], [structure], [The tower base pit (#f2(air-base.at(0)) … #f2(air-base.at(1))) with the shaft walls as the foundation of the tower and the ends of W3 / W4; the duct leaves it through the W3 line: design the pit and the crossing.],
-      [*A2*], [structure / MEP], [The duct: a factory-sealed box (precast RC or GRP) or an in-situ sealed box; its size (#r2(air-clear.at(0)) × #r2(air-clear.at(1)) assumed), joints, bedding, soil gas and ground-water sealing; soil report first (X9).],
-      [*A3*], [structure], [The walls over the duct: the maid bath / laundry wall (y 2.8) and the laundry / kitchen partition (y 7.0, V6.4) on ground beams bridging it; the kitchen's west wall (x #r2(air-grille-x)) over the chamber on a ground beam between the C26 and C27 pads, with the plenum in its base.],
-      [*A4*], [MEP], [Option study A / B / C: annual performance, cost and maintenance; the head opening sizes, the filter class, the fan, the damper control (night / day, dust, cold).],
-      [*A5*], [MEP / safety], [Access: the shaft rungs and fall protection; the base pit and the chamber as confined spaces (two people, lid open); the sealed hatches and the floor cover gas-tight and lockable.],
-      [*A6*], [MEP], [The drain points of the pit, the duct and the chamber (traps, non-return, where they discharge); the maid bath and laundry drains crossing above the duct (vertical clearance, protection); the sunken seating's floor drain and overflow at its lowest point (open to the sky: size them for the rain), and the fountain's drain.],
-      [*A7*], [owner / design], [*Resolved (3d-char2):* the outlet moved to the courtyard's east wall; the women's majlis glass (x 5.1–8.1) stays complete.],
-      [*A8*], [MEP], [The optional pad frame and fan at the outlet: water quality (float valve, backflow preventer, daily drain-and-dry), noise, power; no sprays or mist (rule).],
-    )
-    #v(4pt)
-    #text(6.5pt, fill: gray)[Sizes assumed: head 2.5 m above the roof, openings 0.8 × 1.2 on the north and west faces; shaft ≈ 0.78 × 1.3 clear; base pit to −1.95; duct clear 0.6 × 0.6 in a 0.9 box, top −1.00, fall 1.5 %; chamber 1.35 × 0.7 clear under the kitchen floor, floor −2.10; grille 1.0 wide in the kitchen's west wall, +0.15 … +0.75 (sunken seating −0.45, bench seat −0.05: style study); roof plant area ≈ 11.6 m²; pads 1.5 × 1.5 with underside −1.50, tie beams to −0.90. Nothing here replaces the MEP or structural design.]
+    #path-section()
     #v(3pt)
-    #text(8pt, weight: "bold", fill: green)[✓ Air system study v2.1 · dry malqaf · route E · duct #r2(air-length) m · outlet in the kitchen's west wall over the sunken seating · main system by the MEP engineer · 10 open items (A7 resolved)]
+    #set text(6.9pt)
+    - *Route:* from the breeze shaft's foot (the tower's south wall, y 1.0) *straight south on x #r2(air-route.at(0).at(0))* under the maid bath (y 1.0–2.8), the laundry walkway (2.8–7.0) and the kitchen walkway between the counters (7.0–10.5), then *one 90° bend west* under the sink counter (y 10.0–11.0) into the plenum in the wall base and the grille: axis #r2(air-length) m, one bend. The slot through each of the three walls (y 1.0, 2.8, 7.0) is 0.9 × 0.20 in the wall foot *above the ground beam's top (−0.28)*: no beam, footing or floor is cut or lowered.
+    - *Size and levels:* clear #r2(air-clear.at(0)) × #r2(air-clear.at(1)) m (#r2(air-clear.at(0) * air-clear.at(1)) m²) from the slab top (−0.08, the covers flush with the finished floor) to the slab underside (−0.28), its own base slab 0.10 below; under the maid bath a *throat #r2(air-throat.at(0)) × #r2(air-throat.at(1))* between the shower and the WC (the WC moved to the cut-wall corner, `studies/east_wing.typ`): #r2(air-throat.at(0) * air-throat.at(1)) m², the controlling section. The floor falls #str(calc.round(air-fall * 100, digits: 1)) % back to the tower's *sump* (−0.40, a Ø75 drain with a waterless dry trap against odours, to the east yard): rain that passes the louvres and any condensation leave at the tower, never towards the courtyard.
+    - *Access without entry:* #air-covers removable sealed covers (0.9 × 0.8, stainless trays stone-faced like the floor, gasketed against wash-water and insects, lifted with two suction cups) in the laundry and kitchen walkways; the throat section (1.8 m) and the sump are reached with a flat brush and a vacuum rod from the first cover and from the shaft's foot; the plenum and the west leg (0.65 m) from the courtyard with the grille removed. The channel's surfaces smooth (a sealed epoxy render), the corners coved.
+    - *Outlet:* the decorative grille under the TV, #r2(air-grille.at(2) - air-grille.at(0)) × #r2(air-grille.at(3) - air-grille.at(1)) m at #f2(air-grille.at(1)) … #f2(air-grille.at(3)) (#r2(air-grille.at(1) + 0.15) above the seating floor), with a *manually adjustable louvre* that directs the air along the floor to the benches, clear of the cushions (no bench on the east side) and #r2(air-grille.at(0) - 8.4) m from the fountain enclosure's splash; the grille lifts off for cleaning.
+  ],
+)
+
+// ====================================================================================== PAGE 3 · the breeze estimate, the house ventilation
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[4 · The breeze, estimated honestly · 5 · The house ventilation (the sealed house)]
+#v(2pt)
+#grid(columns: (1fr, 1.15fr), gutter: 12pt,
+  [
+    #H[4 · What the courtyard will feel]
+    The path's resistance, referred to the throat's velocity (#A[assumed loss coefficients, ASHRAE Fundamentals ch. 21 orders of magnitude]):
+    #table(columns: (2.6fr, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Element*], [*ζ at the throat*],
+      ..zeta-throat.map(((n, z)) => ([#n], [#r2(z)])).flatten(),
+      [*Total*], [*#r2(zeta)*])
+    Driving pressure: wind at the head ½ρv²·ΔCp with ρ #r2(rho) kg/m³ (Taif, 1 700 m) and ΔCp #r2(dCp) (windward face against the courtyard well, assumed); in still air the stack of an 8 m tower with 3 K difference: #r2(stack-dp) Pa.
+    #table(columns: (1.4fr, auto, auto, auto, auto, 1.6fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Wind at the head*], [*Δp*], [*flow*], [*grille*], [*felt at the benches*], [*What it is*],
+      [weak, 3 m/s], [#r1(weak.dp) Pa], [#r2(weak.q) m³/s (#str(calc.round(weak.q * 3600)) m³/h)], [#r2(grille-v(weak.q)) m/s], [≈ #r2(felt(weak.q)) m/s], [barely perceptible: a faint stirring at the floor],
+      [moderate, 6 m/s], [#r1(moderate.dp) Pa], [#r2(moderate.q) m³/s (#str(calc.round(moderate.q * 3600)) m³/h)], [#r2(grille-v(moderate.q)) m/s], [≈ #r2(felt(moderate.q)) m/s], [a gentle, pleasant breeze on the legs and hands],
+      [still (stack only)], [#r2(still.dp) Pa], [#r2(still.q) m³/s], [#r2(grille-v(still.q)) m/s], [≈ #r2(felt(still.q)) m/s], [nothing felt],
+    )
+    - *Honest conclusion:* the breeze is perceptible only with a *moderate wind at the head* (≈ 5 m/s and more at 9 m above the ground); Taif's spring and summer afternoons often have it, calm evenings do not. In still weather the tower gives nothing the family will notice. The path is as short and open as the house allows (the throat under the maid bath halves what a 0.18 m² channel would pass); the head's screens are not the limit.
+    - *Proposal, not added:* a *small quiet assist fan* in the breeze shaft's foot (an EC inline fan ≈ Ø315, 0.15–0.25 m³/s at ≤ 35 dB(A) in the courtyard, 40–60 W, on the same wall switch as the damper, reached from the first laundry cover): it gives the moderate-wind breeze on any evening. #A[The MEP engineer sizes it or confirms the natural path alone.] Wind data for Taif (the airport station) to be checked; the figures above are a concept estimate, not a design.
+  ],
+  [
+    #H[5 · The house's ventilation]
+    - *One unit* for the whole house in a *small weather-protected plant room on the roof* next to the tower (`studies/roof.typ` Z2a): x #r2(plant.at(0))–#r2(plant.at(2)), y #r2(plant.at(1))–#r2(plant.at(3)), inside the attic line; 200 mm walls, #r2(plant-clear.at(0)) × #r2(plant-clear.at(1)) m clear, #r2(plant-clear.at(2)) m clear height (roof top #f2(7.3 + 2.0 + 0.12), #r2(7.3 + 2.12 - 9.1) m above the attic coping, like the stair room); a 0.8 m door on its west side facing the roof walkway from the stair room; the unit floor-standing on a plinth with 0.8 m in front for the filters and the core pull, 0.5 m at the sides. *Unit (assumed):* #unit.note: #str(unit.flow) m³/h class, ≈ #r2(unit.size.at(0)) × #r2(unit.size.at(1)) × #r2(unit.size.at(2)) m, ≈ #str(unit.weight) kg, #str(unit.power.at(0)) W at the normal rate and ≈ #str(unit.power.at(1)) W at boost. #A[Footprint, weight and power per the chosen unit.]
+    - *ERV or HRV:* Taif is dry and high (summer 30–35 °C by day with low humidity, winter nights near 5 °C). Moisture recovery gives little here: in summer the outdoor air is dry anyway, in winter it only slows the drying of the indoor air. A *sensible-only HRV* (or a unit whose enthalpy core can be swapped for a sensible one) is the better fit: simpler core, no condensate in summer, the winter heat recovery is what matters. #A[The MEP engineer decides with the unit's data.]
+    - *Preliminary airflow* (ASHRAE 62.2-2022 §4.1.1: 0.15 L/s·m² of floor + 3.5 L/s per bedroom + 1): conditioned floor ≈ #str(calc.round(cond-clear)) m² clear (#str(calc.round(conditioned)) m² on axes), #bedrooms bedrooms → *#str(calc.round(q-normal)) L/s = #str(calc.round(q-normal * 3.6)) m³/h* continuous. *Guest gatherings:* #guests men in the majlis (#str(calc.round(majlis)) m²) at the ASHRAE 62.1 assembly rate (3.8 L/s·person + 0.3 L/s·m²) add #str(calc.round(q-majlis)) L/s → *boost #str(calc.round(q-boost)) L/s = #str(calc.round(q-boost * 3.6)) m³/h*. The unit above covers it #if unit.flow >= q-boost * 3.6 [✓] else [✗]. #A[Rates to be confirmed against SBC 501 / 1101 and the owner's occupancy.]
+    - *Intake and exhaust:* the intake from the tower's service compartment (north face at the head); the exhaust on the plant room's *east* wall, blowing east over the condenser zone; distances below.
+    - *Filters:* a coarse pre-filter (ISO Coarse 60 %) in the tower compartment and *one fine filter* at the unit's supply, *provisionally ISO ePM1 ≥ 50 %* (#A[to confirm with the equipment]); a differential-pressure switch or the unit's own filter timer as the service indicator, shown at the plant room door and on the panel.
+    - *Supply and extract:* supply to every bedroom (1–3, the kids' room, the suite), the living, the family living, the office and the men's majlis (with the boost); extract from every bathroom and WC (the family bath, bath 3, the suite bath and WC, the family WC, the guest WC, the maid bath) and the laundry; transfer air from the rooms to the extract points through *door undercuts of 15–20 mm* or transfer grilles over the bathroom doors, so the system works with the bedroom doors closed.
+    - *The kitchen hood stays separate:* #str(hood) m³/h out through the east wall; *make-up air* through a filtered, motorised inlet (≈ 300 × 300) high on the kitchen's east wall north of the window, interlocked with the hood, so the heavy daily cooking never depressurises the sealed house (a 0.9 m³/h gap would otherwise pull dust through every crack). #A[The MEP engineer sizes it.]
+  ],
+)
+#v(3pt)
+#grid(columns: (1fr, 1fr), gutter: 12pt,
+  [
+    #H[Intake / exhaust separations (from the plan; the basis in the last column)]
+    #table(columns: (2fr, auto, auto, 2.6fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Pair*], [*distance*], [*allowance*], [*basis*],
+      ..sep.map(((l, d, need, b)) => ([#l], [#r1(d) m], [#r1(need) m], text(6.2pt, b))).flatten())
+    #text(6.2pt, fill: gray)[ASHRAE 62.1-2022 §5.5.1 and Table 5-1 (the 3 m / 4.6 m / 9 m figures are the IFC-era "starting allowances" the SBC 501 follows, #A[not verified]); the gas cabinet and the generator point are site-plan proposals and may move; proposal: keep the condenser zone south of y 5.6 so the intake stays upwind of their plumes in the north-west wind.]
+  ],
+  [
+    #H[Ducts and ceiling heights]
+    - *Vertical route:* from the plant room through the duct box into the tower's service compartment: two Ø250 risers (supply, extract) down to the first-floor ceiling zone (+6.85) through the tower's south wall into bedroom 1's ceiling and on to the gallery, and to the ground-floor zone (+3.0 … +3.3) into the maid bath / laundry ceiling and on to the kitchen, the dining, the riwaq and the two majlises. Flat ovals 100 × 300 where the zone is thin, Ø160 branches, acoustic attenuators at the plant room. #A[Sizes assumed.]
+    #table(columns: (2.6fr, auto, auto, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Zone*], [*soffit*], [*duct*], [*ceiling*],
+      ..ceilings.map(((n, s, d, c)) => (text(6.4pt, n), [#f2(s)], [#if d > 0 [#r2(d)] else [—]], [*#f2(c)*])).flatten())
+    - *Finished clear heights:* ≥ +3.07 in the ground-floor rooms, +2.90 only in the 0.3 m band under B5 at the dining's west edge (the living has no ceiling); the first floor ≥ +6.75 (3.15 m clear). *No room gets too low*; the lowest band is at the ceiling step the living already has.
+  ],
+)
+
+// ====================================================================================== PAGE 4 · controls, maintenance, decisions
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[6 · Controls · 7 · Maintenance (no routine task enters a shaft, pit or buried space) · 8 · Decisions and engineering checks still open]
+#v(2pt)
+#grid(columns: (1fr, 1.3fr), gutter: 12pt,
+  [
+    #H[6 · Controls]
+    - *Continuous quiet running* at the normal rate (#str(calc.round(q-normal * 3.6)) m³/h), *boost* (#str(calc.round(q-boost * 3.6))) from the kitchen and bathroom switches (timed) and a "guests" button in the hospitality kitchen for the majlis evenings; the fan speeds set at commissioning.
+    - *The courtyard damper is independent:* its own switch by the seating; spring-return, so it *closes on power loss* and when the switch is off; the assist fan (if added) on the same switch.
+    - *Dust-event mode* (a switch at the family entrance or a weather-station input): the unit drops to its *minimum balanced* rate (supply = extract) so the house is never depressurised, the kitchen hood's make-up inlet stays interlocked, the courtyard damper closes; the unit is *not* assumed to recirculate: indoor air cleaning during a storm is *separate equipment* (portable HEPA units in the bedrooms and the living, a proposal).
+    - *Power failure:* the unit stops, the damper springs shut, the sealed house stays sealed; the alarms keep running on their batteries (`studies/fire_escape.typ`); on restoration the unit restarts at its last setting. The unit may sit on the essentials circuit if the electrical designer agrees (≈ 100–350 W).
+    - *Indicators:* the filter-service light at the plant room door and on the panel; the damper "open" light at the seating switch.
+    #v(2pt)
+    #H[8 · Decisions (owner) and engineering checks still open]
+    - *Owner:* the assist fan (yes / no); the mosquito mesh (1.2 mm, more loss) or the fly mesh (2 mm); the plant room's visibility (0.3 m above the attic coping, like the stair room); the make-up air inlet's position on the kitchen's east wall; the condensers kept south of y 5.6 (proposal).
+    - *MEP engineer:* every rate, size and pressure drop above; the flaps and the damper; the HRV / ERV choice and the unit; the duct sizes and the attenuators; the make-up air; the sump drain and its trap; the controls; the Taif wind data for the breeze.
+    - *Structural engineer:* the channel in the slab (0.9 × 0.2 within the slab depth, its base slab, the three wall slots above the ground beams), the tower's partition and the roof penetrations, the plant room's walls and the unit's load (`studies/structure.typ` X19).
+    - *3D and other files:* `3d/build_3d.py` / `check_3d.py` still build and check the v2 pit, chamber and duct: to be rewritten for v3 at the next 3D build (`docs/PENDING_CHANGES.md`).
+  ],
+  [
+    #H[7 · Maintenance (initial intervals; adjust to the manufacturer and the dust)]
+    #table(columns: (1.3fr, 2fr, 1.4fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Component*], [*Task*], [*Reached from*], [*Interval*], [*If neglected*],
+      [Head louvres, bird and insect screens (4 faces)], [brush / vacuum the dust; check the mesh], [the roof strip beside the tower, hinged frames, a 2 m step ladder], [3 months; after every dust storm], [the breeze drops; insects and birds enter the shaft],
+      [Back-draught flaps (4)], [check they swing free, clean the seats], [the roof hatch in the tower's south face, by hand], [12 months], [a leeward quarter stays open: the head short-circuits, no breeze],
+      [Courtyard damper and its actuator], [cycle it, check the spring return and the switch], [the roof hatch, a hinged panel], [12 months], [the damper sticks open (dust and cold air into the courtyard) or closed],
+      [ERV pre-filter (tower compartment)], [slide out, replace], [the roof hatch, a second panel], [3 months], [the unit's fine filter clogs early; less fresh air],
+      [Unit filters (plant room)], [replace the fine supply filter and the extract filter], [the plant room, the front panel], [3–6 months (the indicator)], [less air, more fan power, dust bypass],
+      [Heat-recovery core], [pull, wash, dry], [the plant room, 0.8 m clear in front], [12 months], [lost recovery, odours],
+      [Exhaust louvre and the make-up air inlet], [clean the mesh; test the motorised inlet with the hood], [the roof (east wall of the plant room) / the kitchen wall], [6 months], [the hood depressurises the house; dust in],
+      [Channel covers and channel], [lift the trays, vacuum the channel, check the gaskets], [the laundry and kitchen walkways, standing], [6 months; after a storm], [dust blown into the courtyard; wash-water into the channel],
+      [Throat section and sump], [brush with a rod; check the dry trap, pour water once a year], [the first laundry cover and the shaft's foot (no entry)], [6 months], [odours from the drain; a blocked sump],
+      [Plenum and grille], [lift off the grille, vacuum the plenum, set the louvre], [the courtyard], [1 month (dust)], [dust on the seating; a blocked grille],
+      [Supply and extract grilles in the rooms], [vacuum], [the rooms, a step ladder], [6 months], [noise, less air],
+      [Fountain pump and filter (separate system)], [see `studies/courtyard_layout.typ`], [the enclosure's cover], [per the pump], [—],
+    )
+    #text(6.2pt, fill: gray)[Every task is done from the roof, the plant room, a room's floor or the courtyard. Nothing requires entering the tower, the channel or any pit: the sump is 0.32 m deep and reached by hand and rod.]
   ],
 )

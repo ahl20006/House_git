@@ -187,7 +187,7 @@
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
 #let gf-windows = (
-  ((8.95, 9.1), (8.95, 11.1)), ((13.311, 8.7), (13.311, 10.1)), ((12.170, 3.9), (12.714, 4.9)), ((11.138, 2.0), (11.464, 2.6)),   // studied
+  ((8.95, 7.3), (8.95, 8.9)), ((13.311, 8.7), (13.311, 10.1)), ((12.170, 3.9), (12.714, 4.9)), ((11.138, 2.0), (11.464, 2.6)),   // studied
   ((5.1, 6.5), (5.6, 6.5)), ((6.0, 6.5), (8.1, 6.5)), ((4.45, 13.0), (5.55, 13.0)), ((6.05, 13.0), (8.75, 13.0)), ((4.25, 6.8), (4.25, 8.9)), ((4.25, 10.7), (4.25, 12.7)),   // courtyard glass (indicative)
   ((5.4, 0), (7.8, 0)), ((3.6, 24), (6.2, 24)), ((7.2, 24), (9.8, 24)), ((10.8, 24), (12.6, 24)), ((13.311, 14.5), (13.311, 17.5)),          // outer (indicative)
 )
@@ -662,9 +662,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 1.4pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.8pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(5.5pt)[#d.version], text(5.5pt, weight: "bold")[#d.topic], text(5.5pt)[#fill-in(d.decision)], text(5.5pt)[#fill-in(d.reason)], align(right, text(5.9pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(5pt)[#d.version], text(5pt, weight: "bold")[#d.topic], text(5pt)[#fill-in(d.decision)], text(5pt)[#fill-in(d.reason)], align(right, text(5.4pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()

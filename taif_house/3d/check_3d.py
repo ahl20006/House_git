@@ -422,25 +422,21 @@ def padbox(cid):
     c = COLS[cid]
     return Polygon([(c["x"] - pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] + pad / 2), (c["x"] - pad / 2, c["y"] + pad / 2)])
 near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C25", "C26", "C31", "C27", "C24", "C30")}
-tower_poly = Polygon(air["tower"]).buffer(T_OUT / 2)
-clash = [cid for cid, d in near.items() if d < 0.1 - 1e-6 and not tower_poly.intersects(padbox(cid))]
-if not clash:
-    ok("clear of the assumed 1.5 m pads (box to pad): " + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + " · C24 / C30 stand on the tower base box (A1)")
-else:
-    bad(f"the duct / chamber meets the assumed pads of {clash}: {near}")
 bt, bb = air["duct"][1], air["duct"][2]
-if bt <= -0.9 - 0.05 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
-    ok(f"dry duct top {bt:+.2f} (under the assumed tie beams at −0.90), underside {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]} (assumed, to be sized); head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
+slab_lo = STRUCT_TOP["GF"] - T_SLAB
+if abs(bt - STRUCT_TOP["GF"]) < 1e-6 and abs(bb - slab_lo) < 1e-6 and min(air["invert"]) >= bb - 0.05 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
+    ok(f"v3: the breeze channel lies within the ground-slab depth ({bt:+.2f} … {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]}, invert {min(air['invert']):+.2f}): above the assumed pads and the ground beams (nearest pad boxes in plan: "
+       + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + f"), nothing notched (A3, assumed); head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
 else:
-    bad(f"air levels: duct {bt}…{bb}, head {air['head']}")
+    bad(f"air levels (v3): channel {bt}…{bb} should be the slab depth {STRUCT_TOP['GF']}…{slab_lo:.2f}, invert {air['invert']}, head {air['head']}")
 gy0, gz0, gy1, gz1 = air["grille"]
 gm = meshes.get("gf_air_grille")
 sink = next((o for o in ops if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
 grille_ok = gm is not None and abs(gm.bounds[0][0] - (air["grille_x"] - T_IN / 2 - 0.015)) < 1e-3 and gm.bounds[0][1] > air["chamber"][1] - 0.5 and gm.bounds[1][1] < air["chamber"][3] + 0.5
-clear_of_sink = sink is None or gy1 <= min(sink["a"][1], sink["b"][1]) - 0.3
-if grille_ok and 0.1 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "gf_air_plenum" in meshes and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
+clear_of_sink = sink is None or gy0 >= max(sink["a"][1], sink["b"][1]) + 0.3     # v3: the grille under the outdoor TV, south of the sink window (moved north, 1 Nov 2026)
+if grille_ok and 0.05 - 1e-6 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "gf_air_plenum" in meshes and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
     ok(f"outlet: a grille on the courtyard face of the kitchen's west wall (x {air['grille_x']}, y {gy0}–{gy1}, +{gz0:.2f} … +{gz1:.2f}) over the chamber, with the plenum in the wall base, "
-       f"{min(sink['a'][1], sink['b'][1]) - gy1:.2f} m north of the kitchen sink window; no air opening and no water in the courtyard floor (the cover is sealed, in the kitchen)")
+       f"{gy0 - max(sink['a'][1], sink['b'][1]):.2f} m south of the kitchen sink window, under the outdoor TV; no air opening and no water in the courtyard floor (the covers are sealed, in the laundry and kitchen)")
 else:
     bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
 if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.0:
@@ -528,7 +524,9 @@ else:
     pg = ch["pergola"]
     pm = chr_meshes.get("chr_pergola_timber_beams")
     cy0, cy1 = COURT_SKY.bounds[1], COURT_SKY.bounds[3]
-    if pm is not None and pg["over_y"][0] >= cy0 - EPS and pg["over_y"][1] <= cy1 + EPS and abs(pm.bounds[0][2] - (L["roof"] + P["roof_finish"])) < 1e-3 and pg["sky_covered_share"] <= 0.15:
+    if pm is None and pg["beams"] == 0 and not pg["default"]:
+        ok("pergola: none (removed by the owner, 1 Nov 2026, studies/courtyard_layout.typ: no pergola and no shade structure over the courtyard)")
+    elif pm is not None and pg["over_y"][0] >= cy0 - EPS and pg["over_y"][1] <= cy1 + EPS and abs(pm.bounds[0][2] - (L["roof"] + P["roof_finish"])) < 1e-3 and pg["sky_covered_share"] <= 0.15:
         ok(f"pergola: {pg['beams']} timber beams {pg['section'][0]} × {pg['section'][1]} at {pg['spacing']} m over y {pg['over_y'][0]}–{pg['over_y'][1]} of the courtyard sky (y {cy0}–{cy1}), on the roof finish; "
            f"covers {pg['sky_covered_share'] * 100:.0f} % of the sky hole (toggle; default {'on' if pg['default'] else 'off'})")
     else:
@@ -563,7 +561,7 @@ else:
     too_close = [(o["name"], round(LineString([o["a"], o["b"]]).distance(pit), 2)) for o in low if LineString([o["a"], o["b"]]).distance(pit) < sk["walking_edge_min"] + T_IN / 2 - 1e-6]
     edges_ok = court_floor.contains(pit) and min(sk["level_edges"]["north"], sk["level_edges"]["south"], sk["level_edges"]["west"]) >= sk["walking_edge_min"] - 1e-6 and abs(sk["level_edges"]["east"]) < 1e-6
     g_ = sk["grille"]
-    grille_ok = g_["above_floor"] >= 0.15 and g_["above_seat"] >= 0.15 and sk["bench"]["y"][0] <= g_["y"][0] and g_["y"][1] <= sk["bench"]["y"][1] and "chr_sunken_stone_grille_upstand" in chr_meshes
+    grille_ok = g_["above_floor"] >= 0.15 and "chr_sunken_stone_grille_upstand" in chr_meshes     # v3 (1 Nov 2026): the grille sits under the outdoor TV on the east wall, no bench in front of it (courtyard_layout); the old bench condition dropped
     dm = chr_meshes.get("chr_sunken_bronze_drain")
     drain_ok = dm is not None and pit.contains(Point(sk["drain"])) and abs(dm.bounds[0][2] - (FINISHED["GF"] + sk["floor"] - 0.01)) < 1e-3 and "chr_sunken_bronze_overflow" in chr_meshes and sk["overflow_level"] > sk["floor"]
     if base_ok and floor_ok and steps_ok and not too_close and edges_ok and grille_ok and drain_ok:
@@ -574,8 +572,10 @@ else:
     else:
         bad(f"sunken seating: base {base_ok}, floor {floor_ok}, steps {steps_ok} {tread_tops}, too close to a door {too_close}, edges {edges_ok} {sk['level_edges']}, grille {grille_ok}, drain {drain_ok}")
     # the fountain on the east wall between the grille and the sink window
-    fo = ch["fountain"]
-    if fo["clear_of_grille"] >= 0.3 and (fo["below_sink_sill"] is None or fo["below_sink_sill"] >= 0) and "chr_base_stone_fountain_panel" in chr_meshes:
+    fo = ch.get("fountain")
+    if fo is None:
+        ok("wall fountain: none on the kitchen wall (superseded 1 Nov 2026: the water basin and the tree are in the north enclosure, character.yaml courtyard_layout; the builder update is pending)")
+    elif fo["clear_of_grille"] >= 0.3 and (fo["below_sink_sill"] is None or fo["below_sink_sill"] >= 0) and "chr_base_stone_fountain_panel" in chr_meshes:
         ok(f"wall fountain (shape only) on the courtyard's east wall y {fo['along'][0]}–{fo['along'][1]}: {fo['clear_of_grille']:.2f} m south of the malqaf grille, under the kitchen sink window with its top {fo['below_sink_sill']:.2f} m below the sill; the women's majlis glass untouched")
     else:
         bad(f"fountain: {fo}")

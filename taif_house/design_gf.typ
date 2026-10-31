@@ -114,7 +114,7 @@
   ((10.715, 2.8), (11.415, 2.8), []),         // maid room ↔ maid bath, 0.70 m clear (sliding or opening out)
   ((9.4, 13.0), (10.5, 13.0), []),            // kitchen ↔ dining
   ((13.311, 7.2), (13.311, 8.1), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
-  ((8.95, 9.1), (8.95, 11.1), []),            // sink window onto the courtyard
+  ((8.95, 7.3), (8.95, 8.9), []),             // sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): it looks at the fountain and the tree; the outdoor TV south of it
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
   ((12.170, 3.9), (12.714, 4.9), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
   ((11.138, 2.0), (11.464, 2.6), []),         // maid bath vent window in the cut wall
