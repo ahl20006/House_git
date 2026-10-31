@@ -1,6 +1,7 @@
 // south_wing.typ · Taif / Palm House V7.1 · STUDY ONLY (owner's ideas, 1 Nov 2026): the south wing re-planned (gym west + south, office east,
 // the suite court in the middle) and an external stair at the south-east corner (the office entrance for visitors, the maintenance access to the roof).
-// Nothing in the design files or the room CSVs changes with this study; it recommends and waits for the owner's decision.
+// The owner decided on 1 Nov 2026 and the decisions were applied to the design files the same day (studies/ff_suite.typ, roof.typ, structure.typ, fire_escape.typ, data/rooms_ff.csv);
+// this study keeps its original comparison (court 2.0 m) as the record.
 // Stand-alone: the current first floor is read from ../data/rooms_ff.csv; the site from ../base.typ (land, envelope, lane, drive, palms);
 // levels from 3d/params.yaml and studies/roof.typ; the structure from studies/structure.typ (copied). CSV frame: x east, y south, wall centre lines.
 // Site frame (base.typ): the house is placed at CSV + (0.91, 3.825), square to the M line. Every size is a study assumption.
@@ -37,10 +38,11 @@
   let P = if r.pts.trim() != "" { parse-pts(r.pts) } else { let x = float(r.x); let y = float(r.y); let w = float(r.w); let d = float(r.d); rp(x - w / 2, y - d / 2, x + w / 2, y + d / 2) }
   (name: r.name, colour: r.colour, P: P) })
 #let south-names = ("Gym route", "Owner's office", "Gym", "Suite court (open to the sky)")
-#let now = FF.filter(r => r.name in south-names)
-#let now-gym = now.find(r => r.name == "Gym").P
-#let now-office = now.find(r => r.name == "Owner's office").P
-#let now-court = now.find(r => r.name == "Suite court (open to the sky)").P
+// the V7.1 south wing BEFORE the decision (the record; data/rooms_ff.csv now holds the swapped wing)
+#let now-gym = ((4.25, 21.25), (11.586, 21.25), (11.586, 19.25), (13.311, 19.25), (13.311, 24.0), (4.25, 24.0))
+#let now-office = rp(0, 19.25, 4.25, 24.0)
+#let now-court = rp(5.6, 19.25, 11.586, 21.25)
+#let now-route = rp(4.25, 19.25, 5.6, 21.25)
 #let now-tm = (11.686 + 0.3, 19.35 + 0.1, 11.686 + 0.3 + 0.9, 19.35 + 0.1 + 2.0)   // the treadmill in the arm (studies/ff_suite.typ): 0.9 × 2.0, 0.3 m each side (owner's old allowance)
 #let now-arm-clear = 13.311 - 0.125 - (11.586 + 0.1)                                // the treadmill arm's clear width
 
@@ -169,7 +171,7 @@
 // ====================================================================================== PAGE 1 · the two plans
 #text(14pt, weight: "bold", fill: green)[South wing study · gym west + south, office east, the court in the middle · and an external stair at the south-east · Taif / Palm House V7.1]
 #v(1pt)
-#text(8pt, fill: gray)[STUDY ONLY (owner's ideas, 1 Nov 2026): the design files and the room CSVs are not changed; the study recommends and waits for the owner's decision · every size is a study assumption; the structure is a re-trace of the load paths, not a calculation (X5 stays open)]
+#text(8pt, fill: gray)[Owner's decisions 1 Nov 2026, APPLIED the same day (docs/PENDING_CHANGES.md): the swap with the suite court 2.5 m clear (y 19.25–21.9), the east enclosed stair tower continuing to the roof, the internal roof stair dropped; the pivoting TV panel NOT applied (it does not fit beside the office door in the 2.1 m shared wall: see the report) · this study keeps its original comparison · every size is a study assumption; the structure is a re-trace of the load paths, not a calculation (X5 stays open)]
 #v(3pt)
 #let plan(swapped, length: 0.74cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -180,7 +182,7 @@
   // neighbours
   for (n, P) in (("Bedroom 3", rp(0, 16.6, 4.25, 19.25)), ("gallery", rp(4.25, 16.6, 5.6, 19.25)), ("double-height living (void)", rp(5.6, 16.6, 8.95, 19.25)), ("Suite bedroom", rp(8.95, 16.6, 13.311, 19.25))) { poly(P, fill: luma(238), stroke: 0.3pt + luma(170)); T(((P.at(0).at(0) + P.at(2).at(0)) / 2, 17.6), text(3.6pt, fill: luma(120), n)) }
   if not swapped {
-    poly(now-office, fill: rgb("#e3e8d4")); poly(now-gym, fill: rgb("#d9e4f2")); poly(now-court, fill: white, stroke: 0.6pt + sky); poly(now.find(r => r.name == "Gym route").P, fill: rgb("#f2efe8"))
+    poly(now-office, fill: rgb("#e3e8d4")); poly(now-gym, fill: rgb("#d9e4f2")); poly(now-court, fill: white, stroke: 0.6pt + sky); poly(now-route, fill: rgb("#f2efe8"))
     T((2.1, 21.6), [Owner's office\ #r1(area(now-office)) m² · clear #r1(now-office-clear)], size: 4.4pt); T((8.0, 22.6), [Gym (L) #r1(area(now-gym)) m² · clear #r1(now-gym-clear)], size: 4.4pt); T((8.6, 20.25), [suite court #r1(area(now-court)) m²\ open to the sky], size: 4pt, fill: sky); T((4.9, 20.25), [gym\ route], size: 3.6pt)
     R(now-tm, fill: rgb("#fde4c8"), stroke: 0.4pt + orange); T((12.4, 20.4), [treadmill\ 0.9 × 2.0], size: 3.2pt, fill: orange)
     R((now-tm.at(0) - tm.side, now-tm.at(1), now-tm.at(2) + tm.side, now-tm.at(3) + tm.behind), fill: none, stroke: (paint: red, dash: "dashed", thickness: 0.6pt)); T((12.45, 23.0), [manufacturer zone\ 1.84 wide: the arm\ gives #r2(now-arm-clear)], size: 3.2pt, fill: red)

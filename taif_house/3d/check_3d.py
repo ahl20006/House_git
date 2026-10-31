@@ -344,8 +344,11 @@ if abs(top4["z"] - (FINISHED["FF"] + FINISHED["FF"] - FINISHED["GF"])) < 1e-6 an
     ok(f"stair to the roof (V7.0): flights 3 / 4 repeat 1 / 2 one storey up, upper half landing +{su['landing_level']:.2f}, the top riser lands at +{top4['z']:.2f} on the roof slab; the roof opening = the first-floor one ({STAIR_OPENING.area:.2f} m²)")
 else:
     bad(f"upper stair: top nosing {top4}, roof opening {summary['voids']['roof']}")
-r16, r17, r18 = (next(b for b in summary["structure"]["beams"] if b["id"] == i) for i in ("R16", "R17", "R18"))
-if abs(r16["a"][1] - r16["w"] / 2 - (ST["b16"] - T_IN / 2)) < EPS and abs(r17["a"][0] + r17["w"] / 2 - ST["split"]) < EPS and abs(r18["a"][1] - r18["w"] / 2 - ST["top"]) < EPS and all(abs(b["z1"] - (L["roof"] - T_SLAB)) < EPS for b in (r16, r17, r18)):
+trim = {i: next((b for b in summary["structure"]["beams"] if b["id"] == i), None) for i in ("R16", "R17", "R18")}
+if any(v is None for v in trim.values()):
+    ok("roof trimmers R16–R18: none (dropped 1 Nov 2026: the roof slab over the well is closed in studies/roof.typ; the model's roof stair is OBSOLETE until the next build, PENDING_CHANGES.md)")
+    r16 = r17 = r18 = None
+elif (r16 := trim["R16"]) is not None and (r17 := trim["R17"]) is not None and (r18 := trim["R18"]) is not None and abs(r16["a"][1] - r16["w"] / 2 - (ST["b16"] - T_IN / 2)) < EPS and abs(r17["a"][0] + r17["w"] / 2 - ST["split"]) < EPS and abs(r18["a"][1] - r18["w"] / 2 - ST["top"]) < EPS and all(abs(b["z1"] - (L["roof"] - T_SLAB)) < EPS for b in (r16, r17, r18)):
     ok(f"roof trimmers R16 / R17 / R18 edge the roof opening as B16–B18, soffit +{r16['z0']:.2f}")
 else:
     bad("roof trimmers do not edge the roof opening")

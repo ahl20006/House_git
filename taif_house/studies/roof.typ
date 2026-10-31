@@ -1,7 +1,8 @@
 // roof.typ · Taif / Palm House V7.0 · ROOF STUDY (design review F-07): the main stair continues to the roof, the roof screen ("attic") set back
 // behind a main stone cornice on the north block, the south wing with a plain parapet (a stepped roofline), the reserved roof zones.
-// Owner decisions (31 Oct 2026, branch work / V6.4): roof for maintenance and equipment only; the MAIN stair goes up (same well, same
-// geometry, two more flights); the lift does not; flat roof, no tiles; classical roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes.
+// Owner decisions (31 Oct 2026, branch work / V6.4): roof for maintenance and equipment only; the lift does not go up; flat roof, no tiles; classical
+// roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes. 1 Nov 2026 (studies/south_wing.typ): the MAIN STAIR STOPS AT THE FIRST FLOOR;
+// the roof is reached from the EXTERNAL STAIR TOWER at the south-east (outside the east wall, y 18.22–24.0, top +9.60); no stair room, the roof slab over the well closed.
 // Stand-alone: the geometry is copied from data/rooms_gf.csv, studies/structure.typ (st, the roof beams), 3d/params.yaml (levels), base.typ (site).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
@@ -43,12 +44,18 @@
 
 // ---------- The stair (studies/structure.typ) and the stair room ----------
 #let st = (x0: 0.125, x1: 2.65, y0: 2.30, y1: 7.80, land: 3.55, top: 6.35, split: 1.3875, gap: 0.10, r: 3.6 / 22, g: 0.28, b16: 4.85, b17: 1.2875, b18: 6.45)
-#let sr = (x0: 0, x1: 2.75, y0: 2.2, y1: 7.9)     // the stair room on the roof, wall centre lines (the well's walls continued)
+#let sr = (x0: 0, x1: 2.75, y0: 2.2, y1: 7.9)     // the V7.0 stair room (REMOVED 1 Nov 2026; kept only as the record of the old sight-line numbers)
+#let tower-ext = ((13.436, 18.22), (16.036, 18.22), (16.036, 24.0), (13.436, 24.0))   // 1 Nov 2026: the external stair tower at the south-east, outside the east wall face (2.6 × 5.78 on its outer faces)
+#let tower-ext-top = 9.6                           // its top: the roof door's head +9.40 + the slab; above the attic (+9.10), below the malqaf (+9.80)
+#let tower-door = ((13.311, 22.9), (13.311, 23.75))   // the roof door at +7.30 through the south wing parapet, at the tower's top landing
+#let tw-s-north = 18.22 + 0.125                    // the tower's north face behind the north facade face
+#let sr-s-north = sr.y0 - 0.1 + 0.125              // idem (presentation.typ)
+#let sr-top = 9.70                                 // the V7.0 stair room's top (REMOVED 1 Nov 2026): kept only because presentation.typ still quotes it until the presentation is rebuilt
 #let sr-slab = 0.12                                // its roof: a light RC slab (or an insulated steel deck), assumed
 #let sr-clear = 2.20                               // required clear height over the arrival
 #let sr-soffit = roof-fin + sr-clear               // +9.50
 #let sr-roof = sr-soffit + sr-slab                 // +9.62 (top of its slab)
-#let sr-top = sr-roof + 0.08                       // +9.70 with its edge / coping
+#let tower-ext-top = sr-roof + 0.08                       // +9.70 with its edge / coping
 #let sr-door = (0.9, 1.8)                          // in the south wall y 7.9, x 0.9–1.8 (0.90 opening, 2.00 high on the kerb: head +9.45 under the +9.50 soffit), opening out onto the roof
 #let sr-kerb = 0.15                                // the threshold upstand above the roof finish (rain and dust)
 #let trimmers = (("R16", "y 4.85, x 0 → R17"), ("R17", "x 1.2875, y 4.85 → 6.45"), ("R18", "y 6.45, x 1.2875 → 2.75"))   // 0.20 × 0.40 total, soffit +6.80 (as B16–B18)
@@ -65,7 +72,7 @@
 #let block-n = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, y-step), (0, y-step))
 #let block-s = ((0, y-step), (13.311, y-step), (13.311, 24), (0, 24))
 #let sky-hole = (5.8, 6.5, 8.95, 13.0)            // the courtyard sky (V6.4, enclosure A)
-#let court-hole = (5.6, 19.25, 11.586, 21.25)      // the suite court
+#let court-hole = (5.6, 19.25, 10.0, 21.9)         // the suite court (1 Nov 2026: 2.5 m clear, x 5.6–10.0)
 #let tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))
 #let tower-top = 9.8                               // the malqaf head, 2.5 m above the roof finish (studies/air_system.typ)
 #let cut-k = 3.26 / 6.0
@@ -74,8 +81,8 @@
 #let cut-x(y, off) = 10.051 + cut-k * y - off / cut-cos
 #let attic-e = 13.311 - in-off
 #let attic-yc = (attic-e - 10.051 + in-off / cut-cos) / cut-k
-#let attic = ((in-off, in-off), (cut-x(in-off, in-off), in-off), (attic-e, attic-yc), (attic-e, y-step), (in-off, y-step), (in-off, sr.y1), (sr.x0, sr.y1), (sr.x0, sr.y0), (in-off, sr.y0))
-#let attic-len = (cut-x(in-off, in-off) - in-off) + calc.sqrt(calc.pow(attic-e - cut-x(in-off, in-off), 2) + calc.pow(attic-yc - in-off, 2)) + (y-step - attic-yc) + (attic-e - in-off) + (y-step - sr.y1) + (sr.y0 - in-off)
+#let attic = ((in-off, in-off), (cut-x(in-off, in-off), in-off), (attic-e, attic-yc), (attic-e, y-step), (in-off, y-step))   // 1 Nov 2026: a plain pentagon, set back 1.0 m on all four sides (no stair room notch any more)
+#let attic-len = (cut-x(in-off, in-off) - in-off) + calc.sqrt(calc.pow(attic-e - cut-x(in-off, in-off), 2) + calc.pow(attic-yc - in-off, 2)) + (y-step - attic-yc) + (attic-e - in-off) + (y-step - in-off)
 #let strip-area = area(block-n) - area(attic) - area(tower) * 0.875
 
 // ---------- Reserved zones ----------
@@ -83,15 +90,15 @@
 #let base-top = 9.10
 #let z-plant = ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0))   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
-#let z-pv1 = rect-pts(0.125, 22.0, 13.186, 23.875) // PV, south wing roof: south of y 22.0 so it never shades the clerestories (X4)
+#let z-pv1 = rect-pts(0.125, 22.0, 12.0, 23.875)   // PV, south wing roof: south of y 22.0 so it never shades the clerestories (X4); 1 Nov 2026: it stops at x 12.0, clear of the stair tower's roof door and its landing
 #let z-pv2 = rect-pts(9.0, 9.5, 11.6, 17.4)        // PV, future: north block east roof inside the attic (morning shade from the east attic wall)
 #let pv-y-min = 19.25 + (roof - 5.0) + 0.5         // a 0.5 m high panel at y ≥ 21.45 + 0.5 keeps the winter noon sun (45°) on the clerestory sills (+5.00)
 #let outlets = ((5.0, 0.45), (0.45, 12.0), (0.45, 17.5), (12.9, 12.5), (11.6, 2.4), (4.5, 4.0), (10.5, 11.0), (4.5, 16.5), (10.5, 17.0), (2.0, 23.2), (11.5, 23.2))
-#let walk = (((1.35, 7.9), (1.35, 8.5), (3.5, 8.5), (3.5, 3.6), (3.5, 1.4)), ((3.5, 5.6), (10.2, 5.6), (10.2, 8.6)), ((3.5, 8.5), (5.0, 8.5), (5.0, 14.0), (10.3, 14.0), (10.3, 9.0)),
-             ((5.0, 14.0), (5.0, 18.5), (2.5, 18.5), (2.5, 22.6), (12.5, 22.6)), ((0.45, 12.0), (0.45, 18.0)))
-#let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.6, 19.25), (5.6, 21.25)), ((11.586, 19.25), (11.586, 21.25)))
+#let walk = (((12.9, 23.3), (12.5, 22.6), (2.5, 22.6), (2.5, 18.5), (5.0, 18.5), (5.0, 14.0)), ((3.5, 8.5), (3.5, 3.6), (3.5, 1.4)), ((3.5, 5.6), (10.2, 5.6), (10.2, 8.6)), ((3.5, 8.5), (5.0, 8.5), (5.0, 14.0), (10.3, 14.0), (10.3, 9.0)),
+             ((0.45, 12.0), (0.45, 18.0)))   // 1 Nov 2026: the network starts at the stair tower's roof door (SE), runs west along the south wing (south of the suite court's guards), through the attic door at y 19.25 into the north block, then to the tank, the PV, the condensers and the HRV base
+#let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.6, 19.25), (5.6, 21.9)), ((10.0, 19.25), (10.0, 21.9)))
 #let zones = (
-  ([Z1 stair room (footprint)], area(rect-pts(sr.x0, sr.y0, sr.x1, sr.y1)), [on the well; inside 2.525 × 5.50; roof #lv(sr-roof)]),
+  ([Z1 the external stair tower (SE, outside the east wall)], area(tower-ext), [1 Nov 2026 (studies/south_wing.typ): the roof is reached from the stair tower x 13.436–16.036, y 18.22–24.0, top #lv(tower-ext-top); its roof door at #lv(roof-fin) through the south wing parapet (y 22.9–23.75, locked, no door into the house); the internal stair stops at the first floor, the roof slab over the well closed]),
   ([Z2a the HRV base under the tower], area(z-erv), [`studies/air_system.typ` v3.1 (owner): the tower rises from a base housing the ventilation unit (one mass): top #lv(base-top) = the attic coping, 1.65 m clear inside (a low service compartment: the unit ≈ 110 kg on a plinth right behind a pair of doors 1.5 m high on its west face, filters and the core pulled from the roof terrace, no entry); the intake duct drops inside the tower's compartment; the exhaust louvre on the cut face]),
   ([Z2b plant: AC outdoor units], area(z-plant), [behind the cut / east attic wall, SOUTH of the tower and its base (owner): 2.2 m clear of the base's south wall, 5.15 m south of the intake louvre in plan, so the tower never takes their hot air; over the suite bath (anti-vibration mounts); 0.6 m service space round each unit]),
   ([Z3 water tank(s)], area(z-tank), [≈ 2 × 1.5 m³ between the roof beams R10 and R3, inside the attic (needed only if the owner wants a gravity reserve)]),
@@ -108,19 +115,19 @@
 #let D-north = 3.8        // the north facade face → the plot's north boundary (street), at the NW corner (base.typ land: 3.8 m, growing to 5.7 m at the east end)
 #let D-lane = 2.5         // the cut facade face → the lane boundary
 #let D-east = 3.6         // the east facade face → the lane boundary (minimum, at y ≈ 10)
-#let sr-s-north = sr.y0 - 0.1 + 0.125     // the stair room's north face behind the north facade face: 2.225
-#let D-limit = { let ha = attic-top - eye; let ho = sr-top - eye; (ha * sr-s-north - ho * setback) / (ho - ha) }   // the stair room shows above the attic beyond this distance
+#let tw-s-north = sr.y0 - 0.1 + 0.125     // the stair room's north face behind the north facade face: 2.225
+#let D-limit = { let ha = attic-top - eye; let ho = tower-ext-top - eye; (ha * tw-s-north - ho * setback) / (ho - ha) }   // the stair room shows above the attic beyond this distance
 #let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (D-limit, [north street, the limit]), (25.0, [north street, 25 m (the far side)]))
 #let checks = (
   ([the attic itself is hidden by the cornice from the north boundary], hidden(D-north, setback, attic-top, 0, coping-top)),
   ([the HRV base under the tower stays at the attic coping (+9.10): nothing but the tower above the attic], base-top <= attic-top + 1e-9),
-  ([the stair room is hidden by the attic from the north boundary], hidden(D-north, sr-s-north, sr-top, setback, attic-top)),
-  ([the stair room is hidden by the attic from 10 m], hidden(10.0, sr-s-north, sr-top, setback, attic-top)),
+  ([the stair tower (SE) is hidden by the attic from the north boundary], hidden(D-north, tw-s-north, tower-ext-top, setback, attic-top)),
+  ([the stair tower (SE) is hidden by the attic from 10 m], hidden(10.0, tw-s-north, tower-ext-top, setback, attic-top)),
   ([AC units (1.2 m) 1.0 m behind the cut attic are hidden from the lane boundary], hidden(D-lane, 2.0, roof + 1.2, setback, attic-top)),
   ([AC units (1.2 m) are hidden from the lane from any distance (lower than the attic)], roof + 1.2 <= attic-top),
   ([the tank (1.0 m) is hidden from the north from any distance], roof + 1.0 <= attic-top),
-  ([the stair room clear height ≥ 2.20], sr-soffit - roof-fin >= 2.2 - 1e-9),
-  ([headroom over flight 3 at tread 6 ≥ 2.10 (R16 soffit)], headroom-f3 >= 2.1),
+  ([the stair tower's top (+9.60) stays below the malqaf head], tower-ext-top < tower-top),
+  ([the PV zone Z4 keeps clear of the stair tower's roof door landing (x ≥ 12.0)], z-pv1.at(1).at(0) <= 12.0 + 1e-9),
   ([the lift's typical 3.4 m headroom fits under the roof slab], lift-avail >= lift-typ.at(0) - 1e-9),
   ([the attic is below the courtyard hole's own edges from every point of the courtyard floor], true),   // computed in § 4: the margins are 10–20°
   ([PV on the south wing stays off the clerestories' winter sun (y ≥ 22.0)], z-pv1.at(0).at(1) >= pv-y-min - 1e-9),
@@ -131,7 +138,6 @@
 #let court-view = (
   ([attic south wall (y 19.25, #lv(attic-top)) from the floor's north edge (y 6.6)], deg(roof / (13.0 - 6.6)), deg((attic-top) / (19.25 - 6.6))),
   ([attic north wall (y 0.875) from the floor's south edge (y 12.9)], deg(roof / (12.9 - 6.5)), deg(attic-top / (12.9 - 0.875))),
-  ([stair room (x 0–2.75, #lv(sr-top)) from the floor's east edge (x 8.85)], deg(roof / (8.85 - 5.925)), deg(sr-top / (8.85 - 2.75))),
   ([attic east wall (x 12.436) from the floor's west edge (x 4.35)], deg(roof / (8.85 - 4.35)), deg(attic-top / (12.436 - 4.35))),
 )
 #let sun-margin = roof + (19.25 - 13.0) * calc.tan(45.2deg)   // the winter noon ray grazing the hole's south edge passes the attic line at this height
@@ -154,7 +160,6 @@
   R(court-hole, fill: rgb("#dbe9f4"), stroke: 0.6pt + sky); T(((court-hole.at(0) + court-hole.at(2)) / 2, 20.25), [suite court (open)], fill: sky)
   // the strip and the attic
   poly(attic, fill: rgb("#f3efe4"), stroke: 2pt + stone)
-  line(q((in-off, in-off)), q((in-off, sr.y0)), stroke: 2pt + stone)
   // zones
   poly(z-erv, fill: rgb("#e4d2c0"), stroke: 0.8pt + red); T((9.9, 2.3), [Z2a HRV base\ under the tower\ top +9.10 · #r1(area(z-erv)) m²], size: 3.6pt, fill: red); line(q((8.95, 1.3)), q((8.95, 2.8)), stroke: 2.4pt + red); T((8.8, 2.05), [doors], size: 3.2pt, fill: red, anchor: "east"); line(q((cut-x(2.75, 0), 2.75)), q((cut-x(3.05, 0), 3.05)), stroke: 2.4pt + sky); T((11.9, 2.9), [exhaust], size: 3.2pt, fill: sky, anchor: "west")
   poly(z-plant, fill: rgb("#f7d9c4"), stroke: 0.5pt + red); T((11.0, 7.3), [Z2b\ AC units\ #r1(area(z-plant)) m²], fill: red)
@@ -162,8 +167,8 @@
   poly(z-pv1, fill: rgb("#fff1b8"), stroke: 0.5pt + rgb("#9a7b00")); T((6.6, 22.95), [Z4 PV · south wing · #r1(area(z-pv1)) m² · y ≥ #r2(z-pv1.at(0).at(1)) (clerestory sun, X4)], fill: rgb("#7a6000"))
   poly(z-pv2, fill: rgb("#fff1b8").lighten(40%), stroke: (paint: rgb("#9a7b00"), dash: "dashed", thickness: 0.5pt)); T((10.3, 13.4), [Z5 PV\ future\ #r1(area(z-pv2)) m²], fill: rgb("#7a6000"))
   // the stair room, the lift head, the tower
-  rect(q((sr.x0, sr.y0)), q((sr.x1, sr.y1)), fill: stone-l, stroke: 1.2pt + ink); T((1.375, 5.0), [Z1 stair\ room\ roof #lv(sr-roof)], angle: 90deg)
-  line(q((sr-door.at(0), sr.y1)), q((sr-door.at(1), sr.y1)), stroke: 3pt + red); T((1.35, 8.25), [door 0.90 · kerb 0.15], size: 3.8pt, fill: red)
+  poly(tower-ext, fill: stone-l, stroke: 1.2pt + ink); T((14.75, 21.1), [Z1 stair tower\ #lv(tower-ext-top)], angle: 90deg)
+  line(q(tower-door.at(0)), q(tower-door.at(1)), stroke: 3pt + red); T((12.6, 23.3), [roof door #lv(roof-fin)], size: 3.6pt, fill: red, anchor: "east")
   rect(q((lift.x0, lift.y0)), q((lift.x1, lift.y1)), fill: luma(225), stroke: (paint: ink, dash: "dashed", thickness: 0.5pt)); T((1.125, 1.1), [lift shaft\ no overrun above the roof], size: 3.8pt)
   poly(tower, fill: rgb("#8ccbe0"), stroke: 0.6pt + sky); T((9.75, 0.5), [Z6], size: 4pt, fill: sky)
   // outlets and walkways
@@ -187,13 +192,13 @@
   plan(),
   [
     #H[1 · Roof plan: what is on the roof]
-    - *Access:* the main stair's two extra flights arrive in the *stair room Z1* on the well (x 0–2.75, y 2.2–7.9); its door (0.90, opening out, on a #r2(sr-kerb) m kerb) opens south onto the roof. The lift stops at the first floor; its shaft needs no head above the roof (§ 5).
-    - *Attic:* a screen wall #r2(attic-h) m high (top #lv(attic-top) with its coping) set back #r2(setback) m from the facade face on the north, the cut (lane) and the east sides, and on the west except where the stair room stands on the facade line; its south wall stands on the y #r2(y-step) line (beams B8 / R5). Length ≈ #r1(attic-len) m. Two doors in it to the strip (north, west) and one to the south wing.
+    - *Access (1 Nov 2026):* from the *external stair tower Z1* at the south-east (outside the east wall): its roof door at #lv(roof-fin) in the south wing parapet (y 22.9–23.75, locked; a locked gate below it above the office landing; no door from the roof into the house). The main stair stops at the first floor and the roof slab over its well is closed. The lift stops at the first floor; its shaft needs no head above the roof (§ 5).
+    - *Attic:* a screen wall #r2(attic-h) m high (top #lv(attic-top) with its coping) set back #r2(setback) m from the facade face on the north, the cut (lane), the east and the west sides (a plain pentagon since the stair room went); its south wall stands on the y #r2(y-step) line (beams B8 / R5). Length ≈ #r1(attic-len) m. Two doors in it to the strip (north, west) and one to the south wing.
     - *The 1.0 m strip* (Z7) in front of the attic: roof behind the main cornice and its low coping, with its own outlets.
     - *South wing* (y #r2(y-step)–24): the main cornice and a plain parapet to #lv(south-top); the roofline steps #r2(step) m down from the attic coping, and the parapet stands on the facade while the attic is 1.0 m back.
     - *Guards:* a black steel bar guard 1.10 m round the courtyard sky hole (#r1(2 * (sky-hole.at(2) - sky-hole.at(0) + sky-hole.at(3) - sky-hole.at(1))) m) and on the suite court's west and east edges; its south edge keeps the gym roof railing (X4).
     - *Drains:* #outlets.len() roof outlets to internal downpipes in the walls (no scuppers through the cornice); falls 1.5 % away from the holes and the attic walls; the strip falls along the facade to its outlets; overflow spouts in the strip's upstand.
-    - *Walkways:* 0.9 m wide on paving pads from the stair room door to every zone, the holes' guards, the strip doors and the south wing.
+    - *Walkways:* 0.9 m wide on paving pads from the stair tower's roof door west along the south wing (south of the suite court's guards: no opening crossed), through the attic door at y 19.25 into the north block and on to the tank, the PV, the condensers and the HRV base; no walking on the insulation.
     #v(2pt)
     #table(columns: (1.4fr, auto, 2.2fr), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
       [*Zone*], [*m²*], [*Note*],
@@ -202,95 +207,49 @@
   ],
 )
 
-// ====================================================================================== PAGE 2 · the stair to the roof
+// ====================================================================================== PAGE 2 · the roof access (1 Nov 2026): the external stair tower, the closed well
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[The stair to the roof · plan at the roof slab and section through the well · same well, same geometry: 22 risers × #r2(st.r) = 3.60 m, goings #r2(st.g)]
+#text(12pt, weight: "bold", fill: accent)[The roof access since 1 Nov 2026 · the main stair stops at the first floor · the external stair tower at the south-east reaches the office landing and the roof]
 #v(2pt)
-#let stair-plan(length: 1.3cm) = cetz.canvas(length: length, {
+#let tower-plan(length: 1.1cm) = cetz.canvas(length: length, {
   import cetz.draw: *
   let q(p) = (p.at(0), -p.at(1))
-  let T(p, body, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
-  // the stair room walls
-  rect(q((-0.125, 2.1)), q((0.125, 8.0)), fill: luma(170), stroke: none)
-  rect(q((-0.125, 2.1)), q((2.85, 2.3)), fill: luma(170), stroke: none); rect(q((-0.125, 7.8)), q((2.85, 8.0)), fill: luma(170), stroke: none)
-  rect(q((2.65, 2.1)), q((2.85, 8.0)), fill: luma(170), stroke: none)
-  // the roof slab (grey) and the opening (white): the L of the first-floor opening, one storey up
-  rect(q((st.x0, st.y0)), q((st.x1, st.y1)), fill: luma(225), stroke: none)
-  rect(q((st.x0, st.y0)), q((st.split, st.b16 - 0.1)), fill: white, stroke: 0.4pt + ink)
-  rect(q((st.split, st.y0)), q((st.x1, st.top)), fill: white, stroke: 0.4pt + ink)
-  rect(q((st.x0, st.y0)), q((st.x1, st.land)), fill: rgb("#f3dfb8"), stroke: 0.3pt + ink); T((1.39, 2.92), [upper half landing #lv(ff + 1.8)\ 1.25 deep], size: 4pt)
-  for i in range(10) {
-    let y = st.top - i * st.g
-    line(q((st.x0, y)), q((st.split - st.gap / 2, y)), stroke: 0.4pt + ink)
-    line(q((st.split + st.gap / 2, st.land + i * st.g)), q((st.x1, st.land + i * st.g)), stroke: 0.4pt + ink)
-    T((st.x0 + 0.18, y - 0.14), [#(i + 23)], size: 3.2pt); T((st.x1 - 0.18, st.land + i * st.g + 0.14), [#(i + 34)], size: 3.2pt)
-  }
-  line(q((st.x0, st.land)), q((st.split - st.gap / 2, st.land)), stroke: 0.4pt + ink); line(q((st.split + st.gap / 2, st.top)), q((st.x1, st.top)), stroke: 0.4pt + ink)
-  line(q((0.75, st.top + 0.6)), q((0.75, st.land + 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((0.42, 5.0), [UP · flight 3 (from #lv(ff))], size: 3.8pt, fill: red, angle: 90deg)
-  line(q((2.02, st.land + 0.35)), q((2.02, st.top - 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((2.34, 5.0), [flight 4 · UP to #lv(roof)], size: 3.8pt, fill: red, angle: 90deg)
-  rect(q((st.split - st.gap / 2, st.land)), q((st.split + st.gap / 2, st.top)), fill: luma(120), stroke: none); T((st.split, 5.0), [gap 0.10 · central handrail], size: 3.2pt, angle: 90deg)
-  T((2.02, 7.05), [arrival #lv(roof-fin)\ y 6.35–7.80], size: 3.8pt); T((0.75, 7.05), [FF: start of flight 3\ roof: slab], size: 3.8pt)
-  // trimmers
-  line(q((st.x0, st.b16)), q((st.split, st.b16)), stroke: 2.2pt + red); T((0.7, st.b16 + 0.22), [R16 0.20×0.40 · soffit +6.80], size: 3.4pt, fill: red)
-  line(q((st.b17, st.b16)), q((st.b17, st.b18)), stroke: 2.2pt + red); T((st.b17 - 0.12, 5.65), [R17], size: 3.4pt, fill: red, angle: 90deg)
-  line(q((st.b17, st.b18)), q((2.75, st.b18)), stroke: 2.2pt + red); T((2.1, st.b18 + 0.22), [R18], size: 3.4pt, fill: red)
-  T((0.75, 3.9), [opening], size: 4pt, fill: luma(100)); T((2.02, 4.7), [opening], size: 4pt, fill: luma(100))
-  // door, window, louvre
-  line(q((sr-door.at(0), 7.9)), q((sr-door.at(1), 7.9)), stroke: 4pt + red); T((1.35, 8.35), [door 0.90 · opens out · kerb #r2(sr-kerb) · canopy], size: 3.6pt, fill: red)
-  line(q((2.75, 6.6)), q((2.75, 7.5)), stroke: 3pt + sky); T((3.0, 7.05), [window 0.90 × 0.60\ sill +8.50], size: 3.4pt, fill: sky, anchor: "west")
-  line(q((2.4, 2.2)), q((2.6, 2.2)), stroke: 3pt + sky); T((2.5, 1.85), [louvre (vent)], size: 3.2pt, fill: sky)
-  line(q((3.25, st.y0)), q((3.25, st.y1)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((3.45, 5.05), [5.50 clear = 1.25 + 2.80 + 1.45], size: 3.6pt, angle: 90deg)
-  line(q((st.x0, 1.75)), q((st.x1, 1.75)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((1.39, 1.55), [2.525 clear], size: 3.6pt)
-  T((1.39, 1.15), [stair room plan at the roof slab · white = opening · grey = slab · north up], size: 4.4pt, fill: accent)
-  T((1.125, 0.6), [lift shaft below (y 0–2.2): no head above the roof], size: 3.4pt, fill: gray)
+  let T(p, body, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
+  // the house's east wall and the south wing roof (y 18–24), the parapet, the tower outside the wall
+  rect(q((10.5, 17.5)), q((13.311, 24.0)), fill: luma(225), stroke: none); rect(q((13.186, 17.5)), q((13.436, 24.125)), fill: luma(150), stroke: none)
+  T((11.9, 20.5), [south wing roof #lv(roof)\ parapet #lv(south-top)], size: 4pt)
+  line(..tower-ext.map(q), close: true, fill: stone-l, stroke: 1.2pt + ink)
+  rect(q((13.436, 18.22)), q((16.036, 18.47)), fill: luma(150), stroke: none); rect(q((13.436, 23.75)), q((16.036, 24.0)), fill: luma(150), stroke: none); rect(q((15.786, 18.22)), q((16.036, 24.0)), fill: luma(150), stroke: none)
+  // the two flights of the upper dog-leg: flight 3 (east side, up north), flight 4 (house side, up south to the roof door)
+  for i in range(11) { line(q((14.736, 23.4 - i * 0.28)), q((15.736, 23.4 - i * 0.28)), stroke: 0.4pt + ink) }
+  for i in range(11) { line(q((13.486, 19.72 + i * 0.28)), q((14.486, 19.72 + i * 0.28)), stroke: 0.4pt + ink) }
+  rect(q((13.486, 18.47)), q((15.786, 19.72)), fill: rgb("#f3dfb8"), stroke: 0.3pt + ink); T((14.6, 19.1), [half landing\ +5.45], size: 3.6pt)
+  rect(q((13.486, 22.6)), q((15.786, 23.75)), fill: rgb("#f3dfb8"), stroke: 0.3pt + ink); T((14.6, 23.15), [top landing #lv(roof-fin)\ office landing +3.60 below], size: 3.4pt)
+  line(q((15.2, 23.3)), q((15.2, 20.0)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((15.45, 21.6), [up], size: 3.6pt, fill: red, anchor: "west")
+  line(q((14.0, 19.9)), q((14.0, 22.4)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((13.75, 21.2), [up to the roof], size: 3.6pt, fill: red, anchor: "east", angle: 90deg)
+  line(q(tower-door.at(0)), q(tower-door.at(1)), stroke: 4pt + red); T((12.9, 22.6), [roof door #lv(roof-fin)\ locked · opens onto the roof], size: 3.6pt, fill: red, anchor: "east")
+  T((14.6, 18.0), [N face solid (the suite bedroom's window 0.3 m north)], size: 3.2pt)
+  T((16.3, 21.1), [arched openings on the east face], size: 3.4pt, angle: -90deg)
+  T((14.6, 24.6), [the stair tower at the roof level · 1 m = 1.1 cm · north up · the lower dog-leg (ground → +3.60) lies below], size: 4.2pt, fill: accent)
 })
-#let stair-section(length: 1.3cm) = cetz.canvas(length: length, {
+#let well-plan(length: 1.1cm) = cetz.canvas(length: length, {
   import cetz.draw: *
-  let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
-  // N–S section through flight 2 / flight 4 (x ≈ 2.0), looking west: horizontal = y (north left), vertical = level
-  let Y(y) = y - 0.0
-  line((Y(-0.6), 0), (Y(8.6), 0), stroke: 0.8pt + ink)
-  // the lift shaft (y 0–2.2) and its walls
-  rect((Y(-0.125), 0), (Y(0.125), roof), fill: luma(190), stroke: none); rect((Y(2.1), 0), (Y(2.3), sr-roof), fill: luma(190), stroke: none); rect((Y(7.8), 0), (Y(8.0), sr-roof), fill: luma(190), stroke: none)
-  rect((Y(0.125), roof - roof-slab), (Y(2.1), roof), fill: luma(120), stroke: none)
-  T((Y(1.1), 5.3), [lift shaft\ top stop #lv(ff)\ headroom to the slab\ underside #lv(roof - roof-slab): #r2(lift-avail) m], size: 3.6pt)
-  // flights 2 and 4 (cut): from the half landings up to the south
-  for (z0, col) in ((0, ink), (ff, ink)) {
-    for i in range(11) {
-      let y = st.land + i * st.g; let z = z0 + 1.8 + i * st.r
-      line((Y(y), z), (Y(y), z + st.r), stroke: 0.6pt + col); line((Y(y), z + st.r), (Y(y + st.g), z + st.r), stroke: 0.6pt + col)
-    }
-    line((Y(st.land), z0 + 1.8 - 0.15), (Y(st.top + 0.4), z0 + 3.6 - 0.15 - 0.1), stroke: 0.4pt + luma(120))
-    rect((Y(st.y0), z0 + 1.8 - 0.15), (Y(st.land), z0 + 1.8), fill: luma(120), stroke: none)
-  }
-  // flights 1 and 3 beyond (dashed): up to the north
-  for z0 in (0, ff) { line(..range(11).map(i => (Y(st.top - i * st.g), z0 + i * st.r)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.6pt)) }
-  T((Y(5.3), 0.55), [flight 1 beyond (west)], size: 3.4pt, fill: luma(110)); T((Y(5.3), ff + 0.55), [flight 3 beyond], size: 3.4pt, fill: luma(110))
-  T((Y(4.9), 2.95), [flight 2], size: 3.6pt, anchor: "west"); T((Y(4.9), ff + 2.95), [flight 4], size: 3.6pt, anchor: "west")
-  // FF slab: the arrival strip and B18; the roof: the arrival strip and R18
-  rect((Y(6.45), ff - 0.2), (Y(7.8), ff), fill: luma(120), stroke: none); rect((Y(6.35), ff - 0.4), (Y(6.55), ff - 0.2), fill: red, stroke: none); T((Y(6.45), ff - 0.55), [B18], size: 3.2pt, fill: red)
-  rect((Y(6.45), roof - roof-slab), (Y(7.8), roof), fill: luma(120), stroke: none); rect((Y(6.35), roof - 0.4), (Y(6.55), roof - 0.2), fill: red, stroke: none); T((Y(6.45), roof - 0.55), [R18], size: 3.2pt, fill: red)
-  T((Y(7.1), ff + 0.3), [FF arrival], size: 3.4pt); T((Y(7.1), roof + 0.3), [roof arrival #lv(roof-fin)], size: 3.4pt)
-  // the stair room roof and the door
-  rect((Y(2.1), sr-soffit), (Y(8.0), sr-roof), fill: luma(120), stroke: none); T((Y(5.0), sr-roof + 0.3), [stair room roof · soffit #lv(sr-soffit) · top #lv(sr-roof) (slab #r2(sr-slab), assumed)], size: 3.8pt)
-  rect((Y(7.8), roof + 0.25), (Y(8.0), roof + 0.25 + 2.0), fill: red, stroke: none); T((Y(8.2), roof + 1.3), [door 2.00 on a #r2(sr-kerb) kerb], size: 3.4pt, fill: red, anchor: "west", angle: 90deg)
-  // headroom
-  let yh = 5.0; let z2 = 1.8 + (yh - st.land) / st.g * st.r; let z4 = ff + z2 - 0.17
-  line((Y(yh), z2), (Y(yh), z4), stroke: (paint: accent, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(yh - 0.1), (z2 + z4) / 2), [#r2(z4 - z2) over flight 2\ under flight 4], size: 3.4pt, fill: accent, anchor: "east")
-  line((Y(7.1), roof-fin), (Y(7.1), sr-soffit), stroke: (paint: accent, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(7.0), (roof-fin + sr-soffit) / 2), [#r2(sr-soffit - roof-fin) clear], size: 3.4pt, fill: accent, anchor: "east")
-  for (z, l) in ((0, [±0.00]), (1.8, [+1.80]), (ff, [+3.60]), (ff + 1.8, [+5.40]), (roof, [+7.20]), (sr-roof, [#lv(sr-roof)])) { T((Y(-0.3), z), l, size: 3.6pt, fill: gray, anchor: "east") }
-  T((Y(0), -0.4), [N], size: 4pt); T((Y(7.9), -0.4), [S], size: 4pt)
-  T((Y(4.0), sr-roof + 0.8), [section through flights 2 and 4 (x ≈ 2.0), looking west · flights 1 and 3 beyond dashed · R16 over flight 3: headroom #r2(headroom-f3) at tread 6], size: 4.2pt, fill: accent)
+  let q(p) = (p.at(0), -p.at(1))
+  let T(p, body, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
+  rect(q((-0.125, 2.1)), q((2.85, 8.0)), fill: luma(225), stroke: 0.6pt + ink)
+  rect(q((st.x0, st.y0)), q((st.x1, st.y1)), fill: none, stroke: (paint: luma(140), dash: "dashed", thickness: 0.5pt)); T((1.39, 5.0), [roof slab closed\ over the stair well\ (the first-floor opening below stays)], size: 4pt)
+  T((1.39, 1.6), [no stair room, no R16–R18 · the attic a plain pentagon], size: 3.8pt, fill: accent)
+  T((1.125, 0.9), [lift shaft below (y 0–2.2): no head above the roof], size: 3.4pt, fill: gray)
 })
-#grid(columns: (auto, auto, 1fr), gutter: 10pt, stair-plan(), stair-section(),
+#grid(columns: (auto, auto, 1fr), gutter: 10pt, tower-plan(), well-plan(),
   [
     #set text(6.8pt)
-    #H[2 · The stair, one storey up]
-    - *Flights 3 and 4* repeat flights 1 and 2: 11 risers each × #r2(st.r), goings #r2(st.g); flight 3 (west) up from the first-floor arrival strip (y 6.35–7.80, #lv(ff)) to the upper half landing (y 2.30–3.55, #lv(ff + 1.8)); flight 4 (east) up to the roof arrival (#lv(roof-fin)) on y 6.35–7.80. Flight widths 1.21 m, the 0.10 gap with the central handrail; wall handrails on the west wall (flight 3) and on flight 4's east edge a balustrade (its east side is the well, open to the first-floor gallery): *handrails on both sides of every flight*.
-    - *Roof opening:* the same L as the first floor, one storey up: over flight 4 and the half landing (x 1.39–2.65, y 2.30–6.35), over flight 3 beyond tread 6 (x 0.125–1.39, y 2.30–4.75). Trimmers *R16 / R17 / R18* 0.20 × 0.40 total, soffit +6.80, laid out as B16 / B17 / B18 (R16 and R18 bear on R17, R17 on R16 and R18's ends on the walls / R10). Headroom over flight 3 at tread 6: *#r2(headroom-f3) m* to R16 (as 2.22 to B16); over flight 2 under flight 4: #r2(ff - 0.17) m; over flight 4 to the stair room soffit ≥ #r2(sr-soffit - roof) m.
-    - *Stair room:* on the well's walls (x 0 outer 250, x 2.75, y 2.2, y 7.9: 200 mm block, plastered cream, honey stone plinth outside), inside *2.525 × 5.50 m*; floor = the roof slab round the opening (the arrival y 6.35–7.80 and the strip x 0.125–1.29, y 4.85–6.35); roof slab 0.12 (or an insulated steel deck) with its soffit at *#lv(sr-soffit)* = *#r2(sr-clear) m clear* over the arrival; top #lv(sr-roof), edge #lv(sr-top). Door 0.90 × 2.00 in the south wall opening out, on a #r2(sr-kerb) m kerb (head +9.45) with a drip canopy, weather-stripped, a brush seal and a storm sill (rain and dust); a 0.90 × 0.60 window in the east wall (sill +8.50) and a louvre high in the north wall for light and cross-ventilation; a light and a socket.
-    - *First floor:* nothing changes: the rooms, the landing (y 7.9–9.2), the gallery and the family living stay; the first-floor arrival strip becomes the foot of flight 3 as in any multi-storey stair; the floor strip x 0.125–1.29, y 4.85–6.35 (already inside the stair box, not a room) lies under flight 3's first treads (a closed triangle). The x 2.75 edge of the well stays open to the gallery with its railing.
-    - *Lift:* no change to the shaft (2.25 × 2.2, placeholder) and no overrun above the roof: see § 5.
+    #H[2 · The roof access]
+    - *Owner's decision (1 Nov 2026, studies/south_wing.typ):* the roof is reached from the *external stair tower* at the south-east corner, outside the east wall (x 13.436–16.036, y 18.22–24.0 on its outer faces, 2.6 × 5.78): a dog-leg stair of 23 risers (× 0.170, goings 0.28, flights 1.0 m clear) from the ground (−0.30) to the office landing (+3.60, the visitors' door into the office) and 22 risers on to the roof (#lv(roof-fin)); headroom ≥ 3.5 m over every flight (the flight above is one storey up); the roof door in the south wing parapet at y 22.9–23.75, opening onto the roof; a locked gate across the stair above the office landing; the gate at the foot locked against entry and opening outwards without a key. Visitors and workers never enter the house; no door from the roof into the house.
+    - *The internal stair stops at the first floor:* flights 3 and 4, the roof stair room (V7.0, x 0–2.75, y 2.2–7.9, +9.70) and the roof opening over the well are dropped; the roof slab over the well is an ordinary bay (no trimmers R16–R18); the first-floor stair and its opening do not change. The attic becomes a plain pentagon set back 1.0 m on all four sides; the north-west corner of the roofline loses its +9.70 element; the stair tower (+9.60) stands at the south-east, so the lane front carries the two verticals (the malqaf +9.80 at the north-east, the tower at the south-east).
+    - *Composition:* the tower in the design language (cream plaster, a honey-stone plinth and arch surrounds, two arched openings per storey on its east and south faces, the main cornice line carried round it, a stone coping), top #lv(tower-ext-top): above the south wing parapet (#lv(south-top)) and the attic coping (#lv(attic-top)), below the malqaf head (#lv(tower-top)).
+    - *Walkways:* from the roof door west along the south wing (the walkway y 22.6, south of the suite court's guards: no opening crossed), through the attic door at y 19.25 into the north block, then to the tank (Z3), the PV (Z4 / Z5), the condensers (Z2b) and the HRV base (Z2a); 0.9 m on paving pads, never on the insulation.
+    - *Lift:* no change to the shaft (2.25 × 2.2, placeholder) and no overrun above the roof: see § 5. *3D:* the model still builds the V7.0 roof stair and stair room until the next build (`docs/PENDING_CHANGES.md`).
   ],
 )
 
@@ -316,21 +275,19 @@
   // the attic walls and the stair room
   rect((in-off - 0.1, roof), (in-off + 0.1, attic-top), fill: stone-l, stroke: 0.3pt + ink)
   rect((y-step - 0.1, roof), (y-step + 0.1, attic-top), fill: stone-l, stroke: 0.3pt + ink)
-  rect((sr.y0 - 0.1, roof), (sr.y1 + 0.1, sr-roof), fill: cream, stroke: 0.6pt + ink); rect((sr.y0 - 0.1, sr-soffit), (sr.y1 + 0.1, sr-roof), fill: luma(150), stroke: none)
-  line((sr.y0 - 0.1, sr-top), (sr.y1 + 0.1, sr-top), stroke: 0.8pt + ink)
-  T((5.05, roof + 1.2), [stair room · #lv(sr-top)], size: 4pt); T((in-off + 0.9, roof + 0.9), [attic\ #lv(attic-top)], size: 3.6pt, anchor: "west"); T((y-step - 0.3, roof + 0.9), [attic\ #lv(attic-top)], size: 3.6pt, anchor: "east")
+  rect((18.22, roof), (24.0, tower-ext-top), fill: none, stroke: (paint: ink, thickness: 0.6pt, dash: "dashed")); T((21.1, roof + 1.6), [stair tower beyond (SE, outside the east wall) · #lv(tower-ext-top)], size: 3.6pt); T((in-off + 0.9, roof + 0.9), [attic\ #lv(attic-top)], size: 3.6pt, anchor: "west"); T((y-step - 0.3, roof + 0.9), [attic\ #lv(attic-top)], size: 3.6pt, anchor: "east")
   T((23.6, roof + 0.6), [parapet\ #lv(south-top)], size: 3.6pt, anchor: "east"); T((-0.55, cornice.z0 - 0.5), [main cornice\ #lv(cornice.z0) … #lv(cornice.z0 + cornice.h)\ coping #lv(coping-top)], size: 3.4pt, anchor: "east")
   T((12.0, 1.8), [GF], size: 5pt); T((12.0, 5.4), [FF (bedroom 2 / bedroom 3 at x ≈ 1.4)], size: 5pt); T((12.0, roof + 0.45), [roof #lv(roof) · the courtyard sky hole lies beyond, x 5.8–8.95], size: 4pt, fill: sky)
   T((21.5, 1.8), [men's majlis], size: 4.4pt); T((21.5, 5.4), [office (south wing)], size: 4.4pt)
   // the observers and the sight lines
-  for (D, col, lab) in ((D-north, red, [eye at the north boundary · D = #r1(D-north) m]), (D-limit, sky, [eye at D = #r1(D-limit) m: the stair room just hidden]), (25.0, luma(110), [eye at 25 m])) {
+  for (D, col, lab) in ((D-north, red, [eye at the north boundary · D = #r1(D-north) m]), (D-limit, sky, [eye at D = #r1(D-limit) m: the stair tower just hidden]), (25.0, luma(110), [eye at 25 m])) {
     let y0 = -0.125 - D
     circle((y0, eye), radius: 0.12, fill: col, stroke: none); T((y0, eye + 0.5), lab, size: 3.6pt, fill: col)
     let ray(yt, zt, yend) = line((y0, eye), (yend, eye + (zt - eye) / (yt - y0) * (yend - y0)), stroke: (paint: col, thickness: 0.5pt, dash: if col == red { "solid" } else { "dashed" }))
     ray(-0.125 - cornice.proj, coping-top, calc.min(y0 + (11.5 - eye) / ((coping-top - eye) / (-0.125 - cornice.proj - y0)), 24))   // over the cornice coping
     ray(in-off - 0.1, attic-top, calc.min(y0 + (11.5 - eye) / ((attic-top - eye) / (in-off - 0.1 - y0)), 24))                        // over the attic
   }
-  for (z, l) in ((0, [±0.00]), (ff, [+3.60]), (roof, [+7.20]), (attic-top, [#lv(attic-top)]), (sr-top, [#lv(sr-top)])) { T((25.2, z), l, size: 3.6pt, fill: gray, anchor: "west") }
+  for (z, l) in ((0, [±0.00]), (ff, [+3.60]), (roof, [+7.20]), (attic-top, [#lv(attic-top)]), (tower-ext-top, [#lv(tower-ext-top)])) { T((25.2, z), l, size: 3.6pt, fill: gray, anchor: "west") }
   T((y-far, ground - 0.6), [N · street], size: 4.4pt, anchor: "west"); T((25, ground - 0.6), [S], size: 4.4pt, anchor: "east")
   T((-0.125 - D-north / 2, ground + 0.3), [#r1(D-north)], size: 3.4pt, fill: red)
 })
@@ -341,11 +298,11 @@
     #H[3 · What the attic hides, and from where]
     The eye is 1.6 m above the ground outside (#lv(eye) against the house's ±0.00; the ground assumed at #lv(ground)). An object behind the facade is hidden when its top lies below the line from the eye over the screen in front of it (the cornice coping #lv(coping-top) on the facade, or the attic coping #lv(attic-top) #r2(setback) m behind it).
     #table(columns: (1.6fr, auto, auto, auto), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
-      [*Observer (north street)*], [*cornice*], [*attic*], [*stair room*],
-      ..observers.map(((D, l)) => (l, [#r1(ang(D, 0, coping-top))°], [#r1(ang(D, setback, attic-top))°#if ang(D, setback, attic-top) <= ang(D, 0, coping-top) [ (hidden)]], [#r1(ang(D, sr-s-north, sr-top))°#if ang(D, sr-s-north, sr-top) <= calc.max(ang(D, setback, attic-top), ang(D, 0, coping-top)) [ hidden] else [ *shows*]])).flatten())
-    #text(6.4pt, fill: gray)[Angles above the horizon from the eye. The stair room's north face is #r2(sr-s-north) m behind the north facade face, its top #lv(sr-top). From the lane boundary (D = #r1(D-lane) m) the AC units (1.2 m, 2.0 m behind the cut facade) are seen at #r1(ang(D-lane, 2.0, roof + 1.2))° against the attic's #r1(ang(D-lane, setback, attic-top))°: hidden; and from any distance, since 1.2 < #r2(attic-h). From the east boundary (D = #r1(D-east) m) the plant zone is likewise hidden. The malqaf head (#lv(tower-top), on the facade in the cut tip) is the one element above the attic, by design.]
-    - *Attic height #r2(attic-h) m:* with 1.5 m the stair room would show above the attic from #r1({ let ha = roof + 1.6 - eye; let ho = sr-top - eye; (ha * sr-s-north - ho * setback) / (ho - ha) }) m on; with #r2(attic-h) m from *#r1(D-limit) m* (≈ #r1(D-limit - D-north) m beyond the plot boundary, across the street). Beyond that the stair room shows #r2(sr-top - attic-top) m above the attic line: a small corner element over the north-west corner, 2.2 m back from the north facade. The stair room cannot be lower (#r2(sr-clear) m clear over the arrival) and cannot be set back on the west: the well stands on the west wall.
-    - *The one conflict with the brief:* the stair room is "inside the attic" in plan but #r2(sr-top - attic-top) m above its coping, and on the west it stands on the facade line (the attic is set back there everywhere else). To hide it from every distance the attic would need ≈ #r2(sr-top - roof) m on the north and west: outside the 1.5–1.8 m the owner gave. *Recommendation: accept* (hidden from the boundary and from across the street; the west faces the neighbour at 0.785 m).
+      [*Observer (north street)*], [*cornice*], [*attic*], [*stair tower (SE)*],
+      ..observers.map(((D, l)) => (l, [#r1(ang(D, 0, coping-top))°], [#r1(ang(D, setback, attic-top))°#if ang(D, setback, attic-top) <= ang(D, 0, coping-top) [ (hidden)]], [#r1(ang(D, tw-s-north, tower-ext-top))°#if ang(D, tw-s-north, tower-ext-top) <= calc.max(ang(D, setback, attic-top), ang(D, 0, coping-top)) [ hidden] else [ *shows*]])).flatten())
+    #text(6.4pt, fill: gray)[Angles above the horizon from the eye. The stair room's north face is #r2(tw-s-north) m behind the north facade face, its top #lv(tower-ext-top). From the lane boundary (D = #r1(D-lane) m) the AC units (1.2 m, 2.0 m behind the cut facade) are seen at #r1(ang(D-lane, 2.0, roof + 1.2))° against the attic's #r1(ang(D-lane, setback, attic-top))°: hidden; and from any distance, since 1.2 < #r2(attic-h). From the east boundary (D = #r1(D-east) m) the plant zone is likewise hidden. The malqaf head (#lv(tower-top), on the facade in the cut tip) is the one element above the attic, by design.]
+    - *Attic height #r2(attic-h) m:* set in V7.0 by the stair room; kept (1 Nov 2026): it hides the plant, the tank and the condensers from the street and the lane at every distance, and the external stair tower (top #lv(tower-ext-top), #r1(tw-s-north) m behind the north facade) stays hidden from the north street up to #r1(D-limit) m.
+    - *Since 1 Nov 2026 nothing stands above the attic on the north block except the malqaf and its base:* the stair room is gone; the stair tower rises outside the east wall at the south-east, #r2(tower-ext-top - attic-top) m above the attic coping and #r2(tower-top - tower-ext-top) m below the malqaf, seen from the lane and the south garden by design.
   ],
   [
     #H[4 · The courtyard's sky and sun with the attic]
@@ -387,7 +344,6 @@
   // the attic behind (north wall x 0.875–9.53, then the cut-offset line to x 12.436 at y 6.22 — all seen above the coping)
   rect((in-off, coping-top), (attic-e, attic-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((6.5, roof + 1.1), [attic screen · set back 1.0 · #lv(attic-top)], size: 4pt)
   // the stair room above the attic
-  rect((sr.x0 - 0.125, attic-top), (sr.x1 + 0.1, sr-top), fill: cream.darken(10%), stroke: 0.6pt + ink); T((1.3, attic-top + 0.3), [stair room #lv(sr-top)], size: 3.4pt)
   // the malqaf head
   rect((8.95, coping-top), (10.6, tower-top), fill: rgb("#8ccbe0"), stroke: 0.6pt + ink); rect((9.2, 8.2), (10.35, 9.4), fill: white, stroke: 0.4pt + ink); T((9.78, 8.8), [louvres], size: 3.2pt)
   T((9.78, tower-top + 0.35), [malqaf head #lv(tower-top)], size: 3.6pt)
@@ -408,9 +364,7 @@
   rect((y-step, cornice.z0 + cornice.h), (y1, south-top), fill: stone-l, stroke: 0.4pt + ink); T((21.7, south-top + 0.3), [south wing parapet #lv(south-top)], size: 3.6pt)
   // the attic behind (y 0.875–19.25), the stair room on the facade (y 2.2–7.9)
   rect((in-off, coping-top), (y-step, attic-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((13.0, roof + 1.1), [attic screen (set back 1.0) #lv(attic-top)], size: 4pt)
-  rect((sr.y0 - 0.1, coping-top), (sr.y1 + 0.1, sr-top), fill: cream.darken(10%), stroke: 0.6pt + ink); rect((sr.y0 - 0.1, cornice.z0 + cornice.h), (sr.y1 + 0.1, coping-top), fill: cream.darken(10%), stroke: 0.6pt + ink)
-  T((5.05, roof + 1.4), [stair room\ on the facade line\ #lv(sr-top)], size: 3.6pt)
-  T((5.05, cornice.z0 + 0.2), [cornice continues], size: 3.0pt, fill: white)
+  rect((18.22, coping-top), (24.0, tower-ext-top), fill: none, stroke: (paint: ink, thickness: 0.6pt, dash: "dashed")); T((21.1, attic-top + 0.4), [stair tower beyond (east side) #lv(tower-ext-top)], size: 3.4pt)
   // openings (indicative): first-floor west windows (bedroom 2, bath 3, bedroom 3), the guest entrance
   for (a, b) in ((11.3, 12.6), (14.6, 15.2), (17.2, 18.2)) { rect((a, ff + 0.9), (b, ff + 2.4), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink) }
   rect((21.5, 0), (22.9, 2.4), fill: rgb("#6b4a2b"), stroke: 0.4pt + ink); T((22.2, -0.55), [guest door], size: 3.2pt)
@@ -458,25 +412,25 @@
     - *Main cornice:* honey stone, #r2(cornice.h) m high (#lv(cornice.z0) … #lv(cornice.z0 + cornice.h)), projecting #r2(cornice.proj) m with a drip, on the facade edge all round the house; above it a 0.30 m upstand with a stone coping to *#lv(coping-top)* on the north block (the strip's parapet) and the plain parapet to *#lv(south-top)* on the south wing. The thin cornice between the floors: a stone band #r2(band.h) m high at #lv(band.z0), projecting #r2(band.proj).
     - *Attic:* 200 mm block, plastered cream, stone coping; #r2(attic-h) m above the roof slab (coping #lv(attic-top)); set back #r2(setback) m from the facade face (#r2(in-off) m from the wall centre lines); ≈ #r1(attic-len) m long; on the south on the y #r2(y-step) line (B8 / R5). Three doors (two to the strip, one to the south wing).
     - *Roofline step:* #r2(step) m at y #r2(y-step) (attic coping #lv(attic-top) → parapet #lv(south-top)), plus the 1.0 m plan set-back.
-    - *Stair room:* 2.75 × 5.70 on walls (2.525 × 5.50 inside), roof top #lv(sr-roof), #r2(sr-clear) m clear; #r2(sr-top - roof) m above the roof slab, #r2(sr-top - attic-top) m above the attic coping.
+    - *Stair tower (external, SE; 1 Nov 2026):* 2.6 × 5.78 on its outer faces outside the east wall (y 18.22–24.0), two dog-leg flights to the office landing (+3.60) and two to the roof (#lv(roof-fin)), top #lv(tower-ext-top): #r2(tower-ext-top - roof) m above the roof slab, #r2(tower-ext-top - attic-top) m above the attic coping, #r2(tower-top - tower-ext-top) m below the malqaf head; arched openings east and south, the north face solid (the suite bedroom's window is 0.3 m north of it).
     #v(2pt)
     #H[7 · Loads for the engineer (assumed)]
     - *Attic walls:* 200 block #r2(attic-h) m + coping ≈ 4.5 kN/m, standing on the roof slab #r2(in-off) m inside the outer-wall beams (R7 / R8, the cut and east wall beams): near the supports, but a line load on the slab: thicken the slab edge or add a small hidden beam under it; the south attic wall on R5 / B8.
-    - *Stair room:* its own roof slab 0.12 (≈ 3.0 kN/m² + 1.5 live) on four block walls on the well's walls; the trimmers R16–R18 as B16–B18.
+    - *Stair tower:* on its own footings beside the east strip footing, tied or jointed to the house (the engineer); the roof door through the parapet; no load on the roof slab. The roof slab over the stair well is an ordinary bay now (no trimmers).
     - *Cornice:* stone ≈ 2.5 kN/m hung on the slab edge (anchored precast or cut stone); parapets 1.1 m ≈ 2.8 kN/m; the thin band 0.3 kN/m.
     - *Plant:* 3–4 AC outdoor units ≈ 1.0 kN each and the ERV ≈ 1.5 kN on pads with anti-vibration mounts (local ≈ 1.5 kN/m²); *tank(s):* up to 3 m³ = 30 kN on ≈ 3.3 m² (≈ 9 kN/m²) on the R10–R3 bay (1.5 m span): to be checked; *PV:* ≈ 0.25 kN/m² plus wind uplift (ballast or cast-in fixing points, 24 m² now, 20 m² future); *malqaf head* as the air study; walkway pads 0.5 kN/m².
     - *Roof live load* for maintenance only: 1.0–1.5 kN/m² (SBC 301, the engineer).
   ],
   [
     #H[8 · Conflicts and open points]
-    - *Stair room vs attic height* (§ 3): the stair room's roof is #r2(sr-top - attic-top) m above the attic coping and stands on the west facade line; hidden from the north boundary and up to #r1(D-limit) m; the owner accepts, or raises the attic to ≈ #r2(sr-top - roof) m on the north and west.
+    - *Stair tower vs the roofline* (§ 3): the tower's top #lv(tower-ext-top) stands outside the east wall at the south-east, above the south wing parapet and the attic, below the malqaf: two verticals on the lane side, by design (owner, 1 Nov 2026).
     - *Lift* (§ 5): no overrun if the supplier's headroom is ≤ #r2(lift-avail) m (≤ #r2(lift-avail + lift-raise-max) m with a 0.30 m raised head behind the cornice): a requirement for open item 14.
     - *Courtyard light* (§ 4): none lost.
     - *First-floor layout* (§ 2): nothing lost.
     - *3D and the plans:* the roof opening, the stair room, the attic, the cornice and the parapets are not yet in `3d/params.yaml` / `build_3d.py` (the builder has no attic or cornice yet) nor in the presentation: PENDING_CHANGES.md.
     #v(2pt)
     #H[9 · What this study changes in the files]
-    - `studies/structure.typ`: R16 / R17 / R18 in `beams-roof`, the stair well in `voids-roof`, notes X16 (stair, trimmers, stair room) and X17 (attic, parapets, cornice, plant loads); the stair page's note on the roof.
+    - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (1 Nov 2026), X16 superseded; the stair tower on its own footings (engineer); `studies/fire_escape.typ`: the tower counted as the first floor's second way out with conditions; `3d/params.yaml`: the roof stair data stays until the next 3D build.
     - `docs/DESIGN_LANGUAGE.md`: flat roof, no tiles, the main cornice, the set-back attic on the north block, the south wing parapet.
     - `data/decisions.csv`: roof access by the main stair; the roofline. Open item 14: the lift headroom requirement (`docs/PENDING_CHANGES.md`).
     #v(2pt)
@@ -485,7 +439,7 @@
 )
 
 // ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
-#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: rect-pts(..court-hole), tower: tower, attic: attic, stair_room: rect-pts(sr.x0, sr.y0, sr.x1, sr.y1),
+#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: rect-pts(..court-hole), tower: tower, attic: attic, stair_room: tower-ext,   // 1 Nov 2026: the external stair tower (tools/make_dxf_roof.py still labels this polygon "stair room": to update with the DXF tools)
   lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4 PV south wing", z-pv1), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
   outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step))),
-  levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: sr-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>
+  levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: tower-ext-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

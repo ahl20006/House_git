@@ -628,6 +628,9 @@ add(profile_mesh([(y, z + zF) for y, z in p1], *f1x, COLOURS["stair"], "ff_stair
 add(profile_mesh([(y, z + zF) for y, z in p2], *f2x, COLOURS["stair"], "ff_stair_flight4"))
 add(extrude(box(ST["x0"], ST["y0"], ST["x1"], ST["land"]), zF + land_level - waist - FIN, zF + land_level, COLOURS["stair"], "ff_stair_landing"))
 for bid in ("R16", "R17", "R18"):
+    if bid not in BEAMS:                                     # 1 Nov 2026: R16–R18 dropped in studies/structure.typ (the roof slab over the well is closed; the roof is reached from the external stair tower)
+        summary["flags"].append("Roof stair (V7.0) still modelled but OBSOLETE since 1 Nov 2026: the internal stair stops at the first floor, R16–R18 and the stair room are dropped in studies/roof.typ / structure.typ; the external stair tower is not modelled yet (PENDING_CHANGES.md)")
+        break
     b = BEAMS[bid]
     add(extrude(seg_box(b["a"], b["b"], b["w"]), STRUCT_TOP["roof"] - b["d"], STRUCT_TOP["roof"] - T_SLAB, COLOURS["assumed"], f"roof_beam_{bid}"))
     summary["structure"]["beams"].append({"id": bid, "a": b["a"], "b": b["b"], "w": b["w"], "d": b["d"], "z0": round(STRUCT_TOP["roof"] - b["d"], 3), "z1": round(STRUCT_TOP["roof"] - T_SLAB, 3), "state": "assumed", "note": "roof stair trimmer (V7.0)"})
@@ -714,7 +717,7 @@ for bid, state in [(b, "assumed") for b in P["structure"]["assumed"] if b in BEA
     add(extrude(seg_box(b["a"], b["b"], b["w"]), z0, z1, COLOURS[state], f"{'ff' if b['level'] == 'ff' else 'roof'}_beam_{bid}"))
     summary["structure"]["beams"].append({"id": bid, "a": b["a"], "b": b["b"], "w": b["w"], "d": b["d"], "z0": round(z0, 3), "z1": round(z1, 3), "state": state, "note": b["size"]})
     if state == "unconfirmed":
-        summary["flags"].append(f"{bid} ({b['size']}): proposed load path on the first-floor walls x 5.6 and x 11.586 over the men's majlis ribs, NOT verified (X5)")
+        summary["flags"].append(f"{bid} ({b['size']}): proposed load path on the first-floor walls x 5.6 and x 10.0 over the men's majlis ribs (revised 1 Nov 2026), NOT verified (X5)")
 # the plan cuts: walls (built above) and columns sectioned at the plan-cut height, a thin dark plate shown only in the viewer's plan views
 for floor in ("GF", "FF"):
     cols_cut = unary_union([box(*c["bounds"]) for c in summary["structure"]["columns"]])

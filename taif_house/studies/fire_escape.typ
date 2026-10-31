@@ -114,6 +114,16 @@
   ("Men's majlis", ((12.5, 21.6), (3.0, 22.6), (2.75, 23.0), (0.0, 22.2)), [foyer → guest door]),
 )
 
+// ---------- the external stair tower (owner, 1 Nov 2026; studies/south_wing.typ): a second way out of the first floor? ----------
+#let tower = (x0: 13.436, y0: 18.22, x1: 16.036, y1: 24.0, s-open: (14.6, 15.8))   // the tower's south-face arched openings on its east half; the north face solid
+#let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window (the only house window near the tower's openings)
+#let grill = (15.0, 27.4, 17.3, 28.9)                                                // the outdoor grill + tannour platform (design_gf.typ site-boxes)
+#let foot-gate = ((14.7, 24.0), (15.6, 24.0))
+#let route-tower = ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (4.9, 8.5), (4.9, 19.25), (4.9, 22.4), (9.7, 22.4), (9.7, 23.375), (10.0, 23.375), (12.3, 23.0), (13.311, 23.3))
+#let win-gap = tower.s-open.at(0) - office-win.at(1).at(0)     // the tower's nearest opening to the office window (≥ 1.8 m: the stair protected from fire through the window)
+#let grill-gap = grill.at(1) - foot-gate.at(0).at(1)           // the grill south of the foot gate (≥ 3 m: an open fire kept off the exit route)
+#let tower-counted = win-gap >= 1.8 - 1e-6 and grill-gap >= 3.0 - 1e-6
+
 // ---------- the alarms and the equipment (from design_gf.typ / design_ff.typ `safety`) ----------
 #let kind(l) = { let t = repr(l); if t.contains("CO") { "CO" } else if t.contains("[S") { "S" } else if t.contains("[H") { "H" } else if t.contains("[G") { "G" } else if t.contains("[E") { "E" } else { "B" } }
 #let gf-items = gf-safety.map(((p, l)) => (floor: "GF", p: p, l: l, k: kind(l)))
@@ -146,6 +156,7 @@
   ([every smoke alarm ≥ #r2(R.bath-dist) m from a shower bathroom's door], bath-ok),
   ([an extinguisher on each floor at the stair and one in the kitchen], n-ext >= 3),
   ([the family entrance is the egress door (≥ #r2(R.door-w) clear)], exits.at(0).clear >= R.door-w),
+  ([the external stair tower counts as the first floor's second way out: free exit through the gym and the office, its openings ≥ 1.8 m from the office window (#r2(win-gap)), the grill ≥ 3 m from the foot gate (#r2(grill-gap))], tower-counted),
 )
 #let all-ok = checks.all(c => c.at(1))
 
@@ -169,6 +180,7 @@
     - *Maid window:* net #r2(rows.last().e.clear-w) × #r2(rows.last().e.clear-h) = #r2(rows.last().e.area) m², one movement, no screen, the strip outside open at both ends: #OK.
     - *Bedroom windows and rescue from outside:* all pass; the west strip is 0.785 m wide and a ladder needs the driveway beyond the M line: #NV → note for the site plan (page 2).
     - *Exit doors:* the family entrance 0.90 m clear (egress door #OK); the service door 0.80 and the guest double door 1.30 clear with both leaves (secondary exits); thumb-turns on all three: a hardware specification (#OK once specified).
+    - *Second way out of the first floor (1 Nov 2026, the external stair tower at the south-east):* #if tower-counted [*COUNTED*] else [*NOT counted*] — reached from every bedroom through the gallery, the gym's sliding door, the office door (a thumb-turn on the gym side: free exit without a key; key only from the office side) and the office's visitors' door (thumb-turn inside) onto the tower's landing, down two flights to the foot gate (opens outwards without a key): #r1(plen(route-tower)) m from the suite bedroom door. The tower's openings are ≥ 1.8 m from the only house window near them (the office's south window: #r2(win-gap) m; the tower's north face is solid, the office has no east window), the grill and tannour stand #r2(grill-gap) m south of the foot gate, the outdoor counter at the tower's east face has no fire. *Conditions:* the gym-side thumb-turn and the visitors' door thumb-turn as specified; the tower's south-face openings kept on its east half; the grill never moved nearer than 3 m.
     #v(2pt)
     #text(7.5pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
@@ -186,7 +198,7 @@
     #table(columns: (1.2fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
       [*Ground floor from*], [*to the exit*], [*Through*],
       ..routes-gf.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], text(6.2pt, l))).flatten())
-    #text(6.2pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides; #r1(stair-len) m walked on it; it continues to the roof (a way up out of smoke).]
+    #text(6.2pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides; #r1(stair-len) m walked on it; since 1 Nov 2026 it stops at the first floor; the roof is reached from the external stair tower (a second way out of the first floor, § 1).]
   ],
 )
 

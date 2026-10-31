@@ -31,10 +31,9 @@
   ("Suite bath", rect-pts(10.3, 6.5, 13.311, 10.45)),
   ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)),
   ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))),
-  ("Suite court (open)", rect-pts(5.6, 19.25, 13.311, 21.25)),
-  ("Gym route (L study)", rect-pts(4.25, 19.25, 5.6, 21.25)),
-  ("Owner's office (L study)", rect-pts(0, 19.25, 4.25, 24.0)),
-  ("Gym (L study)", rect-pts(4.25, 21.25, 13.311, 24.0)),
+  ("Suite court (open)", rect-pts(5.6, 19.25, 10.0, 21.9)),
+  ("Gym (west + south, 1 Nov 2026)", ((0, 19.25), (5.6, 19.25), (5.6, 21.9), (10.0, 21.9), (10.0, 24.0), (0, 24.0))),
+  ("Owner's office (east)", rect-pts(10.0, 19.25, 13.311, 24.0)),
 )
 #let neighbour-doors = (((9.05, 11.9), (9.95, 11.9), [suite bedroom]), ((10.3, 6.7), (10.3, 7.5), [suite bath]))
 // ground floor below (dotted): the full courtyard and living floors stay; the women's majlis; the wet rooms under the west band; the men's majlis
@@ -51,8 +50,8 @@
 #let interfaces = (
   (pts: ((8.95, 6.5), (10.15, 6.5)), label: [① suite door: family link → suite lobby], kind: "door", at: (8.85, 7.6), anchor: "east"),
   (pts: ((10.15, 6.5), (13.311, 6.5)), label: [② bedroom 1 / suite: one straight wall on y 6.5], kind: "line", at: (13.45, 6.5), anchor: "west"),
-  (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ gallery's south end → gym route (L study)], kind: "door", at: (5.75, 19.7), anchor: "west"),
-  (pts: ((0, 19.25), (4.25, 19.25)), label: [④ bedroom 3 south wall / owner's office (L study)], kind: "line", at: (0.1, 19.7), anchor: "west"),
+  (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ gallery's south end → the gym's sliding door (1 Nov 2026)], kind: "door", at: (5.75, 19.7), anchor: "west"),
+  (pts: ((0, 19.25), (4.25, 19.25)), label: [④ bedroom 3 south wall / the gym: a DOUBLE wall, Rw ≈ 55 dB (1 Nov 2026)], kind: "line", at: (0.1, 19.7), anchor: "west"),
 )
 
 // ---------- Ground-floor wall lines in this zone ----------
@@ -183,7 +182,7 @@
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm for the steel window W1 / W2 on the void edges (V6.4), nothing where the edge is open, 200 mm elsewhere
-#let open-edges = (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((4.25, 19.25), (5.6, 19.25)), ((4.25, 19.25), (4.25, 21.25)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
+#let open-edges = (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((4.25, 19.25), (5.6, 19.25)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
 #let outer-edges = (((0, 0), (0, 24)), ((0, 0), (10.051, 0)), ((10.051, 0), (13.311, 6.0)), ((13.311, 6.0), (13.311, 24)), ((0, 24), (13.311, 24)))
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }

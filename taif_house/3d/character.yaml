@@ -204,3 +204,18 @@ night:                                # the night view: dark sky, the lanterns a
     - [11.0, 9.8, 2.5, 0.6]           # kitchen
     - [4.9, 12.0, 5.8, 0.6]           # gallery
     - [8.3, 9.5, 0.6, 0.5]            # the sunken seating (a low light at the fountain)
+
+stair_tower:                         # owner, 1 Nov 2026 (studies/south_wing.typ, studies/roof.typ): the external stair tower at the south-east, DATA ONLY until the next 3D build
+  box: [13.436, 18.22, 16.036, 24.0]   # outer faces (CSV), outside the east wall; walls 0.25
+  top: 9.6                           # the roof door's head +9.40 + the slab; above the attic +9.10, below the malqaf +9.80
+  flights: {ground_to_office: 23, office_to_roof: 22, riser_max: 0.17, going: 0.28, width: 1.0, landings: 1.1}
+  landings: {office: 3.6, roof: 7.3, half: [1.87, 5.45]}
+  openings: {south_x: [14.6, 15.8], east_levels: [[1.2, 3.0], [4.9, 6.7]], north: solid, style: "semicircular arches, honey-stone surrounds, bird mesh, unglazed"}
+  doors: {gate: [14.7, 24.0, 15.6, 24.0], office: [13.311, 22.9, 13.311, 23.75], roof: [13.311, 22.9, 13.311, 23.75], gate_above_office_landing: true}
+  cameras: [[15.15, 24.3, 2.6], [13.6, 23.3, 5.9], [13.6, 23.3, 9.3], [12.5, 22.6, 8.4]]   # the foot gate, the office landing, the roof arrival, along the south wing roof (x, y, z)
+  note: "cream plaster, honey-stone plinth and arch surrounds, the main cornice line carried round, a stone coping, black steel gates and rails; replaces the internal roof flights and the stair room"
+outdoor_kitchen:                     # owner, 1 Nov 2026: the counter and sink at the tower's east face (its afternoon shade), the grill and tannour apart in the south-east garden
+  counter: [16.1, 20.6, 16.7, 23.6]
+  grill: [15.0, 27.4, 17.3, 28.9]    # 3.4 m south of the foot gate, ≥ 3 m from the palms, downwind (NW wind) of the house and the tower
+  service_gate_site: [24.84, 27.0]   # in the lane boundary wall (base.typ frame), 8.7 m east of the tower's foot
+  yard_screen: [14.6, 6.5, 14.7, 13.0]   # 1.8 m screen wall: bins and gas behind it, the path along the house wall in front

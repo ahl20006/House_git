@@ -662,9 +662,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.8pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.7pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(5pt)[#d.version], text(5pt, weight: "bold")[#d.topic], text(5pt)[#fill-in(d.decision)], text(5pt)[#fill-in(d.reason)], align(right, text(5.4pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(4.8pt)[#d.version], text(4.8pt, weight: "bold")[#d.topic], text(4.8pt)[#fill-in(d.decision)], text(4.8pt)[#fill-in(d.reason)], align(right, text(5.2pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()

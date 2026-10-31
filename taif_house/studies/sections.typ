@@ -41,8 +41,8 @@
 #let pj-wall = calc.max(..xs("Bedroom 2"))                                      // rooms / gallery wall
 #let y-court = calc.min(..ys("Upper gallery (on the west projection)").filter(y => y > 3))   // the courtyard's north edge (projection start)
 #let y-living = calc.max(..ys("Upper gallery (on the west projection)"))        // the living's south wall (projection end)
-#let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the gym's long-arm north wall = the suite court's south edge
-#let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the treadmill arm's west wall = the court's east edge
+#let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the gym's south arm north wall = the suite court's south edge (y 21.9 since 1 Nov 2026)
+#let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the office's west wall = the court's east edge (x 10.0 since 1 Nov 2026)
 #let columns = fam.columns
 #let ff-outline = outline-csv-gf                                                // the first floor stands on the ground-floor walls
 #let pj-void = (x-east - pj-edge) * (y-living - y-court)
@@ -110,7 +110,7 @@
   (label: [gym roof edge with a #r2(parapet) m parapet (top +#f2(roof-level + parapet))], top: roof-level + parapet, chosen: false),
   (label: [gym roof edge with a railing only (solid top +#f2(roof-level)) · *V6.2*], top: roof-level, chosen: true),
 )
-#let arm-gap = arm-x - calc.max(..clerestory.map(((a, b)) => b.at(0)))   // the treadmill arm stands this far east of the east clerestory window
+#let arm-gap = arm-x - calc.max(..clerestory.map(((a, b)) => b.at(0)))   // the office wall stands this far east of the east clerestory window
 #let light = (winter: sun-share(roof-level, w-alt), equinox: sun-share(roof-level, e-alt), sky: sky-share(roof-level),
   winter-parapet: sun-share(roof-level + parapet, w-alt), sky-parapet: sky-share(roof-level + parapet))
 #let light-table(size: 7.5pt) = {

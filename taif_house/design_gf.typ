@@ -127,6 +127,19 @@
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
 #let tower-pts = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
+// 1 Nov 2026 (owner, studies/south_wing.typ): the external stair tower at the south-east (to the office landing and the roof), the outdoor kitchen, the service gate on the lane, the yard screen: outlines only (CSV)
+#let site-boxes = (
+  (13.436, 18.22, 16.036, 24.0, [stair tower 2.6 × 5.78 · office + roof]),
+  (14.7, 23.95, 15.6, 24.05, [foot gate (out-opening)]),
+  (16.1, 20.6, 16.7, 23.6, [outdoor kitchen: counter + sink]),
+  (15.0, 27.4, 17.3, 28.9, [grill + tannour (3.4 m from the gate)]),
+  (23.75, 22.6, 24.1, 23.8, [service gate (lane)]),
+  (14.6, 6.5, 14.7, 13.0, [yard screen 1.8 m (bins, gas)]),
+)
+#let site-marks = site-boxes.map(((x0, y0, x1, y1, l)) => {
+  let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)
+  (((P.at(0), P.at(1)), l), ((P.at(1), P.at(2)), []), ((P.at(2), P.at(3)), []), ((P.at(3), P.at(0)), []))
+}).fold((), (acc, m) => acc + m)
 
 #let arrows = entries.map(((p, d, l)) => {
   let b = place(p)
@@ -140,7 +153,7 @@
   rooms: rooms.map(rotrow),
   air: (("Air tower", tower-pts),),
   arrows: arrows,
-  marks: inner-marks + level-marks + door-marks + tower-marks + safety-marks,
+  marks: inner-marks + level-marks + door-marks + tower-marks + safety-marks + site-marks,
   limit: outline-gf,
   note: [*Ground floor V7.1* on site option Z4, with *three columns* on x 5.8 (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall) under the edge beam of the first floor's 1.55 m west projection (V6.4: enclosure option A, the gallery glazed on the edge beam; the kitchen's north wall at y 7.0 for the maid room), a colonnade along the courtyard edge: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, entered from the riwaq through a 1.40 m arched opening; its west wall is solid and full height with the arched TV niche 4.40 × 0.70 m (V6.3). *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft, the under-stair store and the three columns (not extra area); blue lines mark the ceiling-height change, the FF projection edge (beam) above on x 5.6, the low wall and the doors, openings and walls of both blocks.],
 )
