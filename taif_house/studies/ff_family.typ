@@ -31,8 +31,8 @@
   ("Suite bath", rect-pts(10.3, 6.5, 13.311, 10.45)),
   ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)),
   ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))),
-  ("Suite court (open)", rect-pts(5.6, 19.25, 10.0, 21.9)),
-  ("Gym (west + south, 1 Nov 2026)", ((0, 19.25), (5.6, 19.25), (5.6, 21.9), (10.0, 21.9), (10.0, 24.0), (0, 24.0))),
+  ("Suite court (open, v2)", ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0))),
+  ("Gym (west band, v2)", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24.0), (0, 24.0))),
   ("Owner's office (east)", rect-pts(10.0, 19.25, 13.311, 24.0)),
 )
 #let neighbour-doors = (((9.05, 11.9), (9.95, 11.9), [suite bedroom]), ((10.3, 6.7), (10.3, 7.5), [suite bath]))
@@ -50,7 +50,7 @@
 #let interfaces = (
   (pts: ((8.95, 6.5), (10.15, 6.5)), label: [① suite door: family link → suite lobby], kind: "door", at: (8.85, 7.6), anchor: "east"),
   (pts: ((10.15, 6.5), (13.311, 6.5)), label: [② bedroom 1 / suite: one straight wall on y 6.5], kind: "line", at: (13.45, 6.5), anchor: "west"),
-  (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ gallery's south end → the gym's sliding door (1 Nov 2026)], kind: "door", at: (5.75, 19.7), anchor: "west"),
+  (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ gallery's south end → the gym's sliding door (its entrance nib, v2)], kind: "door", at: (5.75, 19.7), anchor: "west"),
   (pts: ((0, 19.25), (4.25, 19.25)), label: [④ bedroom 3 south wall / the gym: a DOUBLE wall, Rw ≈ 55 dB (1 Nov 2026)], kind: "line", at: (0.1, 19.7), anchor: "west"),
 )
 

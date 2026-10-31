@@ -72,7 +72,8 @@
 #let block-n = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, y-step), (0, y-step))
 #let block-s = ((0, y-step), (13.311, y-step), (13.311, 24), (0, 24))
 #let sky-hole = (5.8, 6.5, 8.95, 13.0)            // the courtyard sky (V6.4, enclosure A)
-#let court-hole = (5.6, 19.25, 10.0, 21.9)         // the suite court (1 Nov 2026: 2.5 m clear, x 5.6–10.0)
+#let court-hole = (4.25, 19.25, 10.0, 24.0)        // the suite court v2 (1 Nov 2026): from the gym to the office, open to the sky to the south facade (its bbox)
+#let court-pts = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0))   // less the gym nib's small roof (x 4.25–5.8, y 19.25–20.55)
 #let tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))
 #let tower-top = 9.8                               // the malqaf head, 2.5 m above the roof finish (studies/air_system.typ)
 #let cut-k = 3.26 / 6.0
@@ -90,19 +91,20 @@
 #let base-top = 9.10
 #let z-plant = ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0))   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
-#let z-pv1 = rect-pts(0.125, 22.0, 12.0, 23.875)   // PV, south wing roof: south of y 22.0 so it never shades the clerestories (X4); 1 Nov 2026: it stops at x 12.0, clear of the stair tower's roof door and its landing
+#let z-pv1 = rect-pts(0.125, 20.2, 4.15, 23.875)   // v2: PV on the gym roof (west of the court: it never shades the clerestory windows); the attic door's walkway ends at y 20.0
+#let z-pv1b = rect-pts(10.1, 20.2, 12.4, 22.4)     // v2: PV on the office roof, clear of the stair tower's roof door and the walkway (x 12.4–13.19, y 22.4–23.9)
 #let z-pv2 = rect-pts(9.0, 9.5, 11.6, 17.4)        // PV, future: north block east roof inside the attic (morning shade from the east attic wall)
 #let pv-y-min = 19.25 + (roof - 5.0) + 0.5         // a 0.5 m high panel at y ≥ 21.45 + 0.5 keeps the winter noon sun (45°) on the clerestory sills (+5.00)
 #let outlets = ((5.0, 0.45), (0.45, 12.0), (0.45, 17.5), (12.9, 12.5), (11.6, 2.4), (4.5, 4.0), (10.5, 11.0), (4.5, 16.5), (10.5, 17.0), (2.0, 23.2), (11.5, 23.2))
-#let walk = (((12.9, 23.3), (12.5, 22.6), (2.5, 22.6), (2.5, 18.5), (5.0, 18.5), (5.0, 14.0)), ((3.5, 8.5), (3.5, 3.6), (3.5, 1.4)), ((3.5, 5.6), (10.2, 5.6), (10.2, 8.6)), ((3.5, 8.5), (5.0, 8.5), (5.0, 14.0), (10.3, 14.0), (10.3, 9.0)),
+#let walk = (((13.0, 23.3), (12.8, 23.3), (12.8, 19.7), (11.4, 19.7), (11.4, 14.0), (10.3, 14.0)), ((2.5, 20.0), (2.5, 18.5), (5.0, 18.5), (5.0, 14.0)), ((3.5, 8.5), (3.5, 3.6), (3.5, 1.4)), ((3.5, 5.6), (10.2, 5.6), (10.2, 8.6)), ((3.5, 8.5), (5.0, 8.5), (5.0, 14.0), (10.3, 14.0), (10.3, 9.0)),
              ((0.45, 12.0), (0.45, 18.0)))   // 1 Nov 2026: the network starts at the stair tower's roof door (SE), runs west along the south wing (south of the suite court's guards), through the attic door at y 19.25 into the north block, then to the tank, the PV, the condensers and the HRV base
-#let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.6, 19.25), (5.6, 21.9)), ((10.0, 19.25), (10.0, 21.9)))
+#let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24.0)), ((10.0, 19.25), (10.0, 24.0)))   // v2: the gym roof / nib edges and the office roof edge on the court; its north edge is the attic wall, its south edge the parapet
 #let zones = (
   ([Z1 the external stair tower (SE, outside the east wall)], area(tower-ext), [1 Nov 2026 (studies/south_wing.typ): the roof is reached from the stair tower x 13.436–16.036, y 18.22–24.0, top #lv(tower-ext-top); its roof door at #lv(roof-fin) through the south wing parapet (y 22.9–23.75, locked, no door into the house); the internal stair stops at the first floor, the roof slab over the well closed]),
   ([Z2a the HRV base under the tower], area(z-erv), [`studies/air_system.typ` v3.1 (owner): the tower rises from a base housing the ventilation unit (one mass): top #lv(base-top) = the attic coping, 1.65 m clear inside (a low service compartment: the unit ≈ 110 kg on a plinth right behind a pair of doors 1.5 m high on its west face, filters and the core pulled from the roof terrace, no entry); the intake duct drops inside the tower's compartment; the exhaust louvre on the cut face]),
   ([Z2b plant: AC outdoor units], area(z-plant), [behind the cut / east attic wall, SOUTH of the tower and its base (owner): 2.2 m clear of the base's south wall, 5.15 m south of the intake louvre in plan, so the tower never takes their hot air; over the suite bath (anti-vibration mounts); 0.6 m service space round each unit]),
   ([Z3 water tank(s)], area(z-tank), [≈ 2 × 1.5 m³ between the roof beams R10 and R3, inside the attic (needed only if the owner wants a gravity reserve)]),
-  ([Z4 PV, south wing (now reserved)], area(z-pv1), [y ≥ #r2(pv-y-min): no shade on the clerestories (X4); fixing points cast in before waterproofing]),
+  ([Z4 PV, south wing (gym roof Z4a + office roof Z4b)], area(z-pv1) + area(z-pv1b), [v2: west and east of the court, never in front of the clerestory windows; fixing points cast in before waterproofing]),
   ([Z5 PV, future (north block east)], area(z-pv2), [inside the attic; morning shade from the east attic wall]),
   ([Z6 malqaf head], area(tower), [the tower rises to #lv(tower-top): the one element above the attic, by design; v3: a four-sided head, the breeze shaft and the ventilation intake compartment inside (`studies/air_system.typ`)]),
   ([Z7 the 1.0 m strip in front of the attic], strip-area, [roof behind the main cornice and its coping; falls to its own outlets; reached through two doors in the attic wall]),
@@ -127,10 +129,10 @@
   ([AC units (1.2 m) are hidden from the lane from any distance (lower than the attic)], roof + 1.2 <= attic-top),
   ([the tank (1.0 m) is hidden from the north from any distance], roof + 1.0 <= attic-top),
   ([the stair tower's top (+9.60) stays below the malqaf head], tower-ext-top < tower-top),
-  ([the PV zone Z4 keeps clear of the stair tower's roof door landing (x ≥ 12.0)], z-pv1.at(1).at(0) <= 12.0 + 1e-9),
+  ([the PV zone Z4b keeps clear of the stair tower's roof door landing (x ≤ 12.4)], z-pv1b.at(1).at(0) <= 12.4 + 1e-9),
   ([the lift's typical 3.4 m headroom fits under the roof slab], lift-avail >= lift-typ.at(0) - 1e-9),
   ([the attic is below the courtyard hole's own edges from every point of the courtyard floor], true),   // computed in § 4: the margins are 10–20°
-  ([PV on the south wing stays off the clerestories' winter sun (y ≥ 22.0)], z-pv1.at(0).at(1) >= pv-y-min - 1e-9),
+  ([the PV zones stay outside the clerestory windows' south sector (x ≤ 5.8 or x ≥ 8.95)], z-pv1.at(1).at(0) <= 5.8 and z-pv1b.at(0).at(0) >= 8.95),
 )
 #let all-ok = checks.all(c => c.at(1))
 
@@ -157,14 +159,15 @@
   poly(outline, fill: rgb("#ece8dd"), stroke: 1.2pt + ink)
   poly(block-s, fill: rgb("#e4e0d4"), stroke: none)
   R(sky-hole, fill: rgb("#dbe9f4"), stroke: 0.6pt + sky); T(((sky-hole.at(0) + sky-hole.at(2)) / 2, 9.75), [courtyard sky\ 3.15 × 6.50\ guard 1.10], fill: sky)
-  R(court-hole, fill: rgb("#dbe9f4"), stroke: 0.6pt + sky); T(((court-hole.at(0) + court-hole.at(2)) / 2, 20.25), [suite court (open)], fill: sky)
+  poly(court-pts, fill: rgb("#dbe9f4"), stroke: 0.6pt + sky); T((7.6, 21.9), [suite court (open)\ v2: to the south facade], fill: sky)
   // the strip and the attic
   poly(attic, fill: rgb("#f3efe4"), stroke: 2pt + stone)
   // zones
   poly(z-erv, fill: rgb("#e4d2c0"), stroke: 0.8pt + red); T((9.9, 2.3), [Z2a HRV base\ under the tower\ top +9.10 · #r1(area(z-erv)) m²], size: 3.6pt, fill: red); line(q((8.95, 1.3)), q((8.95, 2.8)), stroke: 2.4pt + red); T((8.8, 2.05), [doors], size: 3.2pt, fill: red, anchor: "east"); line(q((cut-x(2.75, 0), 2.75)), q((cut-x(3.05, 0), 3.05)), stroke: 2.4pt + sky); T((11.9, 2.9), [exhaust], size: 3.2pt, fill: sky, anchor: "west")
   poly(z-plant, fill: rgb("#f7d9c4"), stroke: 0.5pt + red); T((11.0, 7.3), [Z2b\ AC units\ #r1(area(z-plant)) m²], fill: red)
   poly(z-tank, fill: rgb("#cfe3f3"), stroke: 0.5pt + sky); T((3.5, 2.25), [Z3\ tank], size: 4pt, fill: sky)
-  poly(z-pv1, fill: rgb("#fff1b8"), stroke: 0.5pt + rgb("#9a7b00")); T((6.6, 22.95), [Z4 PV · south wing · #r1(area(z-pv1)) m² · y ≥ #r2(z-pv1.at(0).at(1)) (clerestory sun, X4)], fill: rgb("#7a6000"))
+  poly(z-pv1b, fill: rgb("#fff1b8"), stroke: 0.5pt + rgb("#9a7b00")); T((11.25, 21.3), [Z4b PV\ #r1(area(z-pv1b)) m²], size: 3.6pt, fill: rgb("#7a6000"))
+  poly(z-pv1, fill: rgb("#fff1b8"), stroke: 0.5pt + rgb("#9a7b00")); T((2.1, 22.0), [Z4a PV · gym roof\ #r1(area(z-pv1)) m²], fill: rgb("#7a6000"))
   poly(z-pv2, fill: rgb("#fff1b8").lighten(40%), stroke: (paint: rgb("#9a7b00"), dash: "dashed", thickness: 0.5pt)); T((10.3, 13.4), [Z5 PV\ future\ #r1(area(z-pv2)) m²], fill: rgb("#7a6000"))
   // the stair room, the lift head, the tower
   poly(tower-ext, fill: stone-l, stroke: 1.2pt + ink); T((14.75, 21.1), [Z1 stair tower\ #lv(tower-ext-top)], angle: 90deg)
@@ -177,7 +180,7 @@
   // guards
   for g in guards { line(..g.map(q), stroke: 1.6pt + ink) }
   // attic doors to the strip and to the south wing
-  for (a, b) in (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step))) { line(q(a), q(b), stroke: 3pt + red) }
+  for (a, b) in (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step)), ((11.0, y-step), (11.8, y-step))) { line(q(a), q(b), stroke: 3pt + red) }
   // labels
   T((5.0, 0.44), [1.0 m strip · roof behind the cornice coping #lv(coping-top)], size: 3.8pt)
   T((0.44, 15.0), [strip], size: 3.8pt, angle: 90deg)
@@ -196,9 +199,9 @@
     - *Attic:* a screen wall #r2(attic-h) m high (top #lv(attic-top) with its coping) set back #r2(setback) m from the facade face on the north, the cut (lane), the east and the west sides (a plain pentagon since the stair room went); its south wall stands on the y #r2(y-step) line (beams B8 / R5). Length ≈ #r1(attic-len) m. Two doors in it to the strip (north, west) and one to the south wing.
     - *The 1.0 m strip* (Z7) in front of the attic: roof behind the main cornice and its low coping, with its own outlets.
     - *South wing* (y #r2(y-step)–24): the main cornice and a plain parapet to #lv(south-top); the roofline steps #r2(step) m down from the attic coping, and the parapet stands on the facade while the attic is 1.0 m back.
-    - *Guards:* a black steel bar guard 1.10 m round the courtyard sky hole (#r1(2 * (sky-hole.at(2) - sky-hole.at(0) + sky-hole.at(3) - sky-hole.at(1))) m) and on the suite court's west and east edges; its south edge keeps the gym roof railing (X4).
+    - *Guards:* a black steel bar guard 1.10 m round the courtyard sky hole (#r1(2 * (sky-hole.at(2) - sky-hole.at(0) + sky-hole.at(3) - sky-hole.at(1))) m) and on the suite court's west (gym roof and nib) and east (office roof) edges; its north edge is the attic wall, its south edge the parapet on the facade frame R8 (v2).
     - *Drains:* #outlets.len() roof outlets to internal downpipes in the walls (no scuppers through the cornice); falls 1.5 % away from the holes and the attic walls; the strip falls along the facade to its outlets; overflow spouts in the strip's upstand.
-    - *Walkways:* 0.9 m wide on paving pads from the stair tower's roof door west along the south wing (south of the suite court's guards: no opening crossed), through the attic door at y 19.25 into the north block and on to the tank, the PV, the condensers and the HRV base; no walking on the insulation.
+    - *Walkways:* 0.9 m wide on paving pads from the stair tower's roof door west along the south wing (south of the suite court's guards: no opening crossed), then (v2) north along the office roof to a new attic door at x 11.0–11.8 on y 19.25 into the north block and on to the tank, the PV, the condensers and the HRV base; the gym roof from the north block through the attic door at x 2.1–2.9; no opening crossed (the court lies between the two south wing roofs), no walking on the insulation.
     #v(2pt)
     #table(columns: (1.4fr, auto, 2.2fr), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
       [*Zone*], [*m²*], [*Note*],
@@ -439,7 +442,7 @@
 )
 
 // ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
-#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: rect-pts(..court-hole), tower: tower, attic: attic, stair_room: tower-ext,   // 1 Nov 2026: the external stair tower (tools/make_dxf_roof.py still labels this polygon "stair room": to update with the DXF tools)
-  lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4 PV south wing", z-pv1), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
-  outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step))),
+#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: court-pts, tower: tower, attic: attic, stair_room: tower-ext,   // 1 Nov 2026: the external stair tower (tools/make_dxf_roof.py still labels this polygon "stair room": to update with the DXF tools)
+  lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4a PV gym roof", z-pv1), ("Z4b PV office roof", z-pv1b), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
+  outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step)), ((11.0, y-step), (11.8, y-step))),
   levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: tower-ext-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

@@ -219,3 +219,11 @@ outdoor_kitchen:                     # owner, 1 Nov 2026: the counter and sink a
   grill: [15.0, 27.4, 17.3, 28.9]    # 3.4 m south of the foot gate, ≥ 3 m from the palms, downwind (NW wind) of the house and the tower
   service_gate_site: [24.84, 27.0]   # in the lane boundary wall (base.typ frame), 8.7 m east of the tower's foot
   yard_screen: [14.6, 6.5, 14.7, 13.0]   # 1.8 m screen wall: bins and gas behind it, the path along the house wall in front
+suite_court_v2:                      # owner, 1 Nov 2026 (studies/ff_suite.typ, south_wing.typ): DATA for the 3D builder
+  court: [[4.25, 20.55], [5.8, 20.55], [5.8, 19.25], [10.0, 19.25], [10.0, 24.0], [4.25, 24.0]]
+  strip: [5.9, 19.35, 9.9, 20.55]    # the 1.2 m movement strip in front of the three doors
+  floor_drop: 0.12                   # the court's structural slab depressed for the falls (finished floor flush with the rooms)
+  fall: 0.015                        # south, away from the doors, to the box gutter at y 23.75
+  furniture: [[6.0, 22.95, 8.2, 23.8, "sofa"], [5.0, 21.7, 5.75, 22.45, "armchair"], [8.45, 21.7, 9.2, 22.45, "armchair"], [6.5, 21.95, 7.7, 22.65, "table"], [4.4, 23.2, 5.0, 23.8, "plant"], [9.25, 23.2, 9.85, 23.8, "plant"], [4.4, 20.75, 5.0, 21.35, "tree"]]
+  south_side: {base: 1.1, recommended: "b", options: {a: "solid wall to the frame", b: "mashrabiya screen on a 0.9 m solid base, timber or black steel lattice ≈ 40 % open", c: "1.1 m wall, open above"}, frame: "R8 + the cornice + the parapet +8.40 across"}
+  entry_wardrobe: [10.0, 16.85, 10.6, 19.15]   # inside the suite bedroom: the bed out of sight from the court

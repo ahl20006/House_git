@@ -41,8 +41,8 @@
 #let pj-wall = calc.max(..xs("Bedroom 2"))                                      // rooms / gallery wall
 #let y-court = calc.min(..ys("Upper gallery (on the west projection)").filter(y => y > 3))   // the courtyard's north edge (projection start)
 #let y-living = calc.max(..ys("Upper gallery (on the west projection)"))        // the living's south wall (projection end)
-#let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the gym's south arm north wall = the suite court's south edge (y 21.9 since 1 Nov 2026)
-#let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the office's west wall = the court's east edge (x 10.0 since 1 Nov 2026)
+#let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the suite court's south edge = the south facade (y 24.0, v2)
+#let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the office's west wall = the court's east edge (x 10.0)
 #let columns = fam.columns
 #let ff-outline = outline-csv-gf                                                // the first floor stands on the ground-floor walls
 #let pj-void = (x-east - pj-edge) * (y-living - y-court)

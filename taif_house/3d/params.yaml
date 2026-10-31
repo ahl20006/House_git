@@ -34,7 +34,7 @@ openings:               # heights above the FINISHED floor of the storey (assume
   leaf: 0.05                             # modelled door leaf thickness
   glass: 0.02                            # modelled glass thickness
   # doors modelled with a glass leaf (by their first point "x y" as in the plans)
-  glass_doors: ["4.25 9.1", "9.05 19.25"]  # courtyard glass door (riwaq → courtyard), suite bedroom → suite court (1 Nov 2026: 0.9 m at x 9.05–9.95, the court's only door)
+  glass_doors: ["4.25 9.1", "9.05 19.25"]  # v2: the bedroom's court door; the gym and office court doors are solid  # courtyard glass door (riwaq → courtyard), suite bedroom → suite court (1 Nov 2026: 0.9 m at x 9.05–9.95, the court's only door)
   # door heads that differ from door_height: floor, the door as in the plans "x1 y1 x2 y2", head, note
   doors:
     - {floor: GF, at: "4.25 13.1 4.25 14.5", head: 2.6, note: "the living's arched entrance from the riwaq (V6.3), no leaf; the arch head in the character layer"}
@@ -60,11 +60,8 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: FF, at: "13.311 9.5 13.311 10.05", sill: 1.5, head: 2.1, note: "suite bath east window, 0.55 m, y 9.50–10.05 (X3, V6.3: its frame clears C33 by 0.05 m)"}
     - {floor: FF, at: "13.311 15.0 13.311 17.9", sill: 0.9, head: 2.4, note: "suite bedroom east window (1 Nov 2026: shortened from y 18.6 to clear the external stair tower's north wall at y 18.22)"}
     - {floor: FF, at: "5.3 0 8.7 0", sill: 0.9, head: 2.4, note: "kids' room north window"}
-    - {floor: FF, at: "0.5 24 3.9 24", sill: 1.2, head: 2.4, note: "gym south window band, west part (1 Nov 2026: the gym on the west and the south)"}
-    - {floor: FF, at: "4.5 24 9.5 24", sill: 1.2, head: 2.4, note: "gym south window band"}
+    - {floor: FF, at: "2.0 24 3.9 24", sill: 1.2, head: 2.4, note: "gym south window (v2: the gym on the west band; the TV on the wall in front of the treadmill, x 0.45-1.65)"}
     - {floor: FF, at: "10.5 24 12.8 24", sill: 0.9, head: 2.4, note: "owner's office south window (east; its east wall is covered by the stair tower)"}
-    - {floor: FF, at: "5.6 19.6 5.6 20.9", sill: 1.8, head: 2.4, note: "gym west part → suite court: HIGH LEVEL only"}
-    - {floor: FF, at: "6.0 21.9 9.6 21.9", sill: 1.8, head: 2.4, note: "gym south arm → suite court: HIGH LEVEL only (the court 2.5 m clear)"}
     - {floor: FF, at: "6.0 19.25 7.0 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00 (studies/sections.typ cl-sill / cl-head)"}
     - {floor: FF, at: "7.6 19.25 8.6 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00"}
     # V6.4 · courtyard enclosure option A (studies/courtyard_enclosure.typ): black steel divided-lite windows; the gallery and family living edges are no longer open edges (3d/open_edges.csv)
@@ -83,10 +80,9 @@ openings:               # heights above the FINISHED floor of the storey (assume
 
 structure:              # the elements taken from studies/structure.typ (phase 3: the stair – colonnade – living zone only); sizes ASSUMED there
   assumed: [C21, C22, C23, C33, B3, B5, B16, B17, B18, R11, R1, R2, R16, R17, R18]   # V7.0: R1 / R2 (the heads of W2 / W3), R16–R18 (the roof opening over the stair)   # orange in the model: "assumed, not approved by the engineer"
-  unconfirmed: [R6]                                            # red: proposed load path, NOT verified (X5)
-  unconfirmed_walls:                                           # the two first-floor walls that carry R6 (X5, load path revised 1 Nov 2026, not verified), red
-    - [5.6, 19.25, 5.6, 21.9]
-    - [10.0, 19.25, 10.0, 24.0]
+  unconfirmed: []                                              # v2: R6 removed (studies/structure.typ X5: improved, not verified)                                            # red: proposed load path, NOT verified (X5)
+  unconfirmed_walls:                                           # the first-floor wall over the men's majlis ribs (X5, not verified), red
+    - [10.0, 19.25, 10.0, 24.0]                                # v2: the court / office wall, non-load-bearing, on rib B21 (X5)
   column_to_roof: [C21, C22, C23]                              # X8 (owner decision): the colonnade continues to the roof
   edge_beam_upturned: true                                     # B3 option (b), the owner's preference; (a) drop if the engineer decides
 

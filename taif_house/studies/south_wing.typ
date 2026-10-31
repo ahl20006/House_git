@@ -465,3 +465,82 @@
     - Fire / security consultant: the escape count, the gate hardware, the cameras.
   ],
 )
+
+// ====================================================================================== PAGE 5 · SOUTH WING v2 (ADOPTED, owner 1 Nov 2026): the court's south side, the clerestory light
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[12 · South wing v2 ADOPTED (owner, 1 Nov 2026): gym west, a large suite court, office east · the court's south side compared · the clerestory light computed]
+#v(1pt)
+#text(7.6pt, fill: gray)[Applied to the design files (data/rooms_ff.csv, studies/ff_suite.typ, structure.typ, roof.typ, fire_escape.typ). The pages above keep the earlier comparison (v1) as the record. Sizes and rules: studies/ff_suite.typ.]
+#v(3pt)
+#let v2-plan(length: 0.62cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let q(p) = (p.at(0), -p.at(1))
+  let T(p, t, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let poly(P, fill: none, stroke: 0.5pt + ink) = line(..P.map(q), close: true, fill: fill, stroke: stroke)
+  for (n, P) in (("Bedroom 3", rp(0, 16.6, 4.25, 19.25)), ("gallery", rp(4.25, 16.6, 5.8, 19.25)), ("double-height living (void)", rp(5.8, 16.6, 8.95, 19.25)), ("Suite bedroom", rp(8.95, 16.6, 13.311, 19.25))) { poly(P, fill: luma(238), stroke: 0.3pt + luma(170)); T(((P.at(0).at(0) + P.at(2).at(0)) / 2, 17.6), text(3.6pt, fill: luma(120), n)) }
+  poly(((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24.0), (0, 24.0)), fill: rgb("#d9e4f2")); T((2.1, 21.6), [GYM\ 22.2 m² axes · 19.9 clear])
+  poly(((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)), fill: white, stroke: 0.6pt + sky); T((7.6, 22.4), [SUITE COURT\ 25.3 m² axes · 23.1 clear\ open to the sky], fill: sky)
+  poly(rp(10.0, 19.25, 13.311, 24.0), fill: rgb("#e3e8d4")); T((11.65, 21.6), [OFFICE\ 15.7 m² · 13.9 clear])
+  rect(q((5.9, 19.35)), q((9.9, 20.55)), fill: rgb("#eef5e8"), stroke: (paint: green, thickness: 0.4pt, dash: "dotted")); T((7.9, 20.0), [1.2 m strip · the three doors], size: 3.4pt, fill: green)
+  for (a, b) in (((4.35, 19.25), (5.45, 19.25)), ((5.8, 19.5), (5.8, 20.4)), ((9.05, 19.25), (9.95, 19.25)), ((10.0, 19.5), (10.0, 20.35)), ((13.311, 22.9), (13.311, 23.75))) { line(q(a), q(b), stroke: 2.4pt + red) }
+  for (a, b) in ((6.0, 7.0), (7.6, 8.6)) { line(q((a, 19.25)), q((b, 19.25)), stroke: 2pt + rgb("#1f7a99")) }
+  line(q((4.25, 24.25)), q((10.0, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.2pt, dash: "dashed")); T((7.1, 24.6), [south side: (b) mashrabiya PROPOSED], size: 3.6pt, fill: rgb("#8a5a2b"))
+  line(q((13.436, 18.22)), q((16.036, 18.22)), q((16.036, 24.0)), q((13.436, 24.0)), stroke: (paint: luma(110), thickness: 0.8pt, dash: "dashed")); T((14.75, 21.1), [stair tower], size: 3.6pt, angle: 90deg)
+  T((6.6, 25.3), [v2 as applied · north up · 1 m = 0.62 cm], size: 4pt, fill: green)
+})
+// the south side of the court (x 4.25–10.0 at y 24): three infills under the facade frame (R8 + the cornice + the parapet +8.40, kept in every option)
+#let frame-soffit = 6.70
+#let opts = (
+  (k: "a", name: [(a) a solid wall], base: 6.70, open: 0.0),
+  (k: "b", name: [(b) a mashrabiya on a 0.90 base], base: L.ff + 0.9, open: 0.40),
+  (k: "c", name: [(c) a 1.10 m wall, open above], base: L.ff + 1.1, open: 1.0),
+)
+#let court-elev(o, length: 0.36cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, t, size: 3.4pt, fill: ink, anchor: "center") = content(p, anchor: anchor, text(size, fill: fill, t))
+  let Z(z) = z - L.ff
+  rect((3.3, Z(L.ff - 0.2)), (10.9, Z(L.parapet-s)), fill: rgb("#f6f0e1"), stroke: 0.5pt + ink)
+  rect((4.25, Z(L.ff)), (10.0, Z(frame-soffit)), fill: if o.k == "a" { rgb("#f6f0e1") } else { rgb("#dfeaf2") }, stroke: 0.4pt + ink)
+  if o.k != "a" { rect((4.25, Z(L.ff)), (10.0, Z(o.base)), fill: rgb("#f6f0e1"), stroke: 0.4pt + ink) }
+  if o.k == "b" {
+    for i in range(24) { let x = 4.35 + i * 0.235; line((x, Z(o.base)), (x, Z(frame-soffit)), stroke: 0.3pt + rgb("#8a5a2b")) }
+    for j in range(9) { let z = o.base + 0.25 * j; line((4.25, Z(z)), (10.0, Z(z)), stroke: 0.3pt + rgb("#8a5a2b")) }
+  }
+  if o.k == "c" {
+    for x in (6.0, 8.2) { line((x, Z(o.base)), (x, Z(frame-soffit)), stroke: (paint: rgb("#3c7a3c"), thickness: 0.8pt)) }
+    T((7.1, Z(5.6)), [palms · garden], size: 3pt, fill: rgb("#3c7a3c"))
+  }
+  rect((3.1, Z(L.cornice.at(0))), (11.1, Z(L.cornice.at(1))), fill: stone, stroke: none)
+  rect((3.3, Z(L.ff - 0.2)), (11.0, Z(L.ff)), fill: stone, stroke: none)
+  T((7.1, Z(L.parapet-s) + 0.35), o.name, size: 3.6pt, fill: green)
+})
+#let sh(top, d, alt) = calc.clamp((cl.head - (top - d * calc.tan(alt * 1deg))) / (cl.head - cl.sill), 0, 1)
+#let w-alt2 = 90 - lat - 23.44
+#let e-alt2 = 90 - lat
+#let obst(top, d) = calc.atan((top - (cl.sill + cl.head) / 2) / d).deg()
+#let light-rows = (
+  ([V7.1: the gym wall top +7.20, 2.0 m away], 7.2, 2.0),
+  ([v1 as applied: the gym's south arm wall top +7.20, 2.65 m away], 7.2, 2.65),
+  ([v2: the facade frame (parapet +8.40), 4.75 m away], L.parapet-s, 4.75),
+)
+#grid(columns: (auto, 1fr), gutter: 10pt, v2-plan(),
+  [
+    #H[The court's south side: (a) solid · (b) mashrabiya · (c) a 1.1 m wall]
+    #grid(columns: (1fr, 1fr, 1fr), gutter: 4pt, ..opts.map(o => court-elev(o)))
+    #table(columns: (1fr, 1.6fr, 1.6fr, 1.6fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [], [*(a) solid wall*], [*(b) mashrabiya screen*], [*(c) 1.1 m wall*],
+      [Privacy], [complete; the court an inner room], [no view in from the garden or the lane by day (a dense lattice, ≈ 40 % open, the eye 8 m below and 8–20 m away); at night with the court lit, a soft glow], [the court seen from the south garden above 1.1 m; the seats exposed],
+      [View out], [none (the sky only)], [the palms through the lattice, filtered], [the palms and the garden, open],
+      [Light], [the court lit from above only], [diffuse, dappled; reflected light into the court and on the clerestory], [the most daylight; the low winter sun into the court in the afternoon],
+      [Wind and dust], [still; dust settles from above only], [the lattice breaks the wind and some dust; the court ventilated], [wind and dust straight in from the south],
+      [South elevation], [a blank panel in the frame: reads as a closed box], [a timber / black steel screen in the honey-stone frame: the design language (the mashrabiya and the arch)], [a big open loggia: the wing reads as two blocks with a hole],
+    )
+    - *Recommended: (b) the mashrabiya screen* on a 0.90 m solid base, under the facade frame (R8, the cornice and the parapet carried across): privacy and the palm view together, dust and wind softened, and the facade keeps its line. *Proposed only* (drawn dashed); the owner chooses. The 3D shows the common 1.1 m base.
+    #v(2pt)
+    #H[The double-height living's clerestory light (computed, section through the windows, +5.00 … +6.00)]
+    #table(columns: (2.4fr, auto, auto, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*In front of the windows*], [*winter noon sun (#r1(w-alt2)°)*], [*equinox noon (#r1(e-alt2)°)*], [*obstruction angle from mid-window*],
+      ..light-rows.map(((l, top, d)) => ([#l], [#str(calc.round(sh(top, d, w-alt2) * 100)) %], [#str(calc.round(sh(top, d, e-alt2) * 100)) %], [#r1(obst(top, d))°])).flatten())
+    - *Result:* against V7.1 the winter noon sun on the windows rises from #str(calc.round(sh(7.2, 2.0, w-alt2) * 100)) % to #str(calc.round(sh(L.parapet-s, 4.75, w-alt2) * 100)) % (as v1); the obstruction seen from the windows falls from #r1(obst(7.2, 2.0))° to #r1(obst(L.parapet-s, 4.75))°, so more sky and more diffuse light reach the living; options (b) and (c) add reflected light from the garden below the frame. *An improvement, no loss.* Privacy of the windows: their sill is 1.40 m above the court floor; a standing eye (1.60) sees up into the void's upper part, not the living's floor.
+  ],
+)

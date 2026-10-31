@@ -387,8 +387,8 @@ else:
     bad(f"edge beam B3: z {b3['z0']}–{b3['z1']}")
 b5 = beams["B5"]
 ok(f"beam B5 (dining step): {b5['w']} × {b5['d']} total, soffit +{b5['z0']:.2f} structural = {b5['z0'] - FINISHED['GF']:.2f} m clear above the finished ground floor") if abs(b5["z0"] - (STRUCT_TOP["FF"] - b5["d"])) < EPS else bad("beam B5 level")
-if beams["R6"]["state"] == "unconfirmed" and any("NOT verified" in f for f in summary["flags"]):
-    ok(f"R6 and the two gym walls over the men's majlis are marked unconfirmed (X5): red in the model")
+if (beams.get("R6", {}).get("state") == "unconfirmed" or "R6" not in beams) and any("NOT verified" in f for f in summary["flags"]):   # v2: R6 removed; the x 10.0 wall stays unconfirmed (X5)
+    ok(f"the first-floor wall(s) over the men's majlis ribs are marked unconfirmed (X5, not verified): red in the model; R6 " + ("removed (south wing v2)" if "R6" not in beams else "unconfirmed"))
 else:
     bad("R6 / the gym walls are not flagged as unconfirmed")
 rails = summary["rails"]

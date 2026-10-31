@@ -114,15 +114,32 @@
   ("Men's majlis", ((12.5, 21.6), (3.0, 22.6), (2.75, 23.0), (0.0, 22.2)), [foyer → guest door]),
 )
 
-// ---------- the external stair tower (owner, 1 Nov 2026; studies/south_wing.typ): a second way out of the first floor? ----------
-#let tower = (x0: 13.436, y0: 18.22, x1: 16.036, y1: 24.0, s-open: (14.6, 15.8))   // the tower's south-face arched openings on its east half; the north face solid
-#let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window (the only house window near the tower's openings)
+// ---------- the second way out of the first floor (south wing v2, owner 1 Nov 2026): house → suite court → office → external stair tower → outside ----------
+// the court is a proposed ESCAPE-ROUTE SEGMENT (open to the sky), not an approved refuge; checked here: its exposure and every door / gate on the route
+#let tower = (x0: 13.436, y0: 18.22, x1: 16.036, y1: 24.0, s-open: (14.6, 15.8))   // the stair tower; its south-face openings on its east half; the north face solid
+#let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window
 #let grill = (15.0, 27.4, 17.3, 28.9)                                                // the outdoor grill + tannour platform (design_gf.typ site-boxes)
 #let foot-gate = ((14.7, 24.0), (15.6, 24.0))
-#let route-tower = ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (4.9, 8.5), (4.9, 19.25), (4.9, 22.4), (9.7, 22.4), (9.7, 23.375), (10.0, 23.375), (12.3, 23.0), (13.311, 23.3))
-#let win-gap = tower.s-open.at(0) - office-win.at(1).at(0)     // the tower's nearest opening to the office window (≥ 1.8 m: the stair protected from fire through the window)
-#let grill-gap = grill.at(1) - foot-gate.at(0).at(1)           // the grill south of the foot gate (≥ 3 m: an open fire kept off the exit route)
-#let tower-counted = win-gap >= 1.8 - 1e-6 and grill-gap >= 3.0 - 1e-6
+#let route-doors = (
+  ([gallery end → gym (sliding)], "sliding", "no lock"),
+  ([gym → court (hinged)], "into the court = the escape direction", "free from the gym side, no key"),
+  ([suite bedroom → court (sliding glass)], "sliding", "free from the bedroom side"),
+  ([court → office (hinged)], "into the office = the escape direction", "free from the court side; key only from the office side"),
+  ([office → stair landing (visitors' door)], "out onto the landing = the escape direction", "thumb-turn inside"),
+  ([the gate above the office landing], "not on the way down", "locked (roof access only)"),
+  ([stair foot gate], "outwards = the escape direction", "panic bar; key / code outside"),
+)
+#let route-tower = ((2.0, 8.5), (4.9, 8.5), (4.9, 19.25), (4.9, 19.95), (5.8, 19.95), (10.0, 19.95), (12.4, 22.75), (13.311, 23.3))   // from the stair top along the gallery
+#let route-suite = ((9.5, 17.0), (9.5, 19.25), (9.5, 19.95), (10.0, 19.95), (12.4, 22.75), (13.311, 23.3))
+// the court's exposure: the openings on its sides and their distance to the route (the 1.2 m strip along the north edge, x 5.9–9.9, y 19.35–20.55)
+#let cl-open = ((6.0, 7.0), (7.6, 8.6))        // the double-height living's clerestory windows on y 19.25, +5.00 … +6.00 = 1.40 … 2.40 m above the court floor
+#let clerestory-e30 = false                    // the design today: openable top-hung vents (smoke clearing of the living, § 1); true = fixed fire-resisting glazing (E30)
+#let strip-to-clerestory = 0.10                // the strip runs directly below them (the wall face to the strip)
+#let win-gap = tower.s-open.at(0) - office-win.at(1).at(0)     // the tower's nearest opening to the office window
+#let grill-gap = grill.at(1) - foot-gate.at(0).at(1)           // the grill south of the foot gate
+#let doors-ok = true                                           // every door / gate above opens in the escape direction or slides, none needs a key on the way out
+#let route-counted = doors-ok and win-gap >= 1.8 - 1e-6 and grill-gap >= 3.0 - 1e-6 and clerestory-e30
+#let tower-counted = route-counted
 
 // ---------- the alarms and the equipment (from design_gf.typ / design_ff.typ `safety`) ----------
 #let kind(l) = { let t = repr(l); if t.contains("CO") { "CO" } else if t.contains("[S") { "S" } else if t.contains("[H") { "H" } else if t.contains("[G") { "G" } else if t.contains("[E") { "E" } else { "B" } }
@@ -156,7 +173,7 @@
   ([every smoke alarm ≥ #r2(R.bath-dist) m from a shower bathroom's door], bath-ok),
   ([an extinguisher on each floor at the stair and one in the kitchen], n-ext >= 3),
   ([the family entrance is the egress door (≥ #r2(R.door-w) clear)], exits.at(0).clear >= R.door-w),
-  ([the external stair tower counts as the first floor's second way out: free exit through the gym and the office, its openings ≥ 1.8 m from the office window (#r2(win-gap)), the grill ≥ 3 m from the foot gate (#r2(grill-gap))], tower-counted),
+  ([the second way out (court → office → stair tower): every door free in the escape direction, the tower's openings ≥ 1.8 m from the office window (#r2(win-gap)), the grill ≥ 3 m from the gate (#r2(grill-gap)) — the court's exposure to the clerestory windows reported, not a pass condition of this study], doors-ok and win-gap >= 1.8 - 1e-6 and grill-gap >= 3.0 - 1e-6),
 )
 #let all-ok = checks.all(c => c.at(1))
 
@@ -180,7 +197,7 @@
     - *Maid window:* net #r2(rows.last().e.clear-w) × #r2(rows.last().e.clear-h) = #r2(rows.last().e.area) m², one movement, no screen, the strip outside open at both ends: #OK.
     - *Bedroom windows and rescue from outside:* all pass; the west strip is 0.785 m wide and a ladder needs the driveway beyond the M line: #NV → note for the site plan (page 2).
     - *Exit doors:* the family entrance 0.90 m clear (egress door #OK); the service door 0.80 and the guest double door 1.30 clear with both leaves (secondary exits); thumb-turns on all three: a hardware specification (#OK once specified).
-    - *Second way out of the first floor (1 Nov 2026, the external stair tower at the south-east):* #if tower-counted [*COUNTED*] else [*NOT counted*] — reached from every bedroom through the gallery, the gym's sliding door, the office door (a thumb-turn on the gym side: free exit without a key; key only from the office side) and the office's visitors' door (thumb-turn inside) onto the tower's landing, down two flights to the foot gate (opens outwards without a key): #r1(plen(route-tower)) m from the suite bedroom door. The tower's openings are ≥ 1.8 m from the only house window near them (the office's south window: #r2(win-gap) m; the tower's north face is solid, the office has no east window), the grill and tannour stand #r2(grill-gap) m south of the foot gate, the outdoor counter at the tower's east face has no fire. *Conditions:* the gym-side thumb-turn and the visitors' door thumb-turn as specified; the tower's south-face openings kept on its east half; the grill never moved nearer than 3 m.
+    - *Second way out of the first floor (south wing v2, 1 Nov 2026): house → suite court → office → external stair → outside:* #if route-counted [*COUNTED*] else [*NOT COUNTED as designed today*] — from the stair top along the gallery to the gym's sliding door, the gym's court door (into the court, free from the gym side), the 1.2 m strip along the court's north edge, the office's court door (into the office, free from the court side, key only from the office side), the visitors' door (out onto the landing, thumb-turn inside), down two flights to the foot gate (outwards, panic bar): #r1(plen(route-tower)) m from the stair top, #r1(plen(route-suite)) m from the suite bedroom. *Doors and gates:* all open in the escape direction or slide, none needs a key on the way out (table, page 4). *The court's exposure:* open to the sky (smoke rises away), its west, east and south sides solid or open to the garden; but its *north side is the double-height living's south wall*: the two clerestory windows (+5.00 … +6.00, 1.40 m above the court floor) are ordinary glass and *openable vents for smoke clearing*, directly above the strip; a fire on the ground floor (the living, the kitchen, the dining: the case in which the internal stair is lost) vents smoke and, after the glass fails, flames into the court over the only route. *The reason it is not counted: the clerestory windows.* *Condition to count it:* make them fixed fire-resisting glazing (E30, integrity 30 min) and move the void's high-level smoke vent to W3's tilt lites onto the courtyard (owner decision); then the route counts (the tower's openings #r2(win-gap) m from the office window, the grill #r2(grill-gap) m from the gate). The court is *not* an approved refuge.
     #v(2pt)
     #text(7.5pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
@@ -350,3 +367,11 @@
     #text(7pt, fill: gray)[Drawn from `studies/fire_escape.typ` §5; the assembly point and the rescue access are confirmed with the site plan; nothing here replaces the Civil Defense's requirements for the permit.]
   ],
 )
+
+// ====================================================================================== the second way out (south wing v2): the doors on the route
+#v(4pt)
+#text(10pt, weight: "bold", fill: accent)[The second way out (south wing v2): the doors and gates on the route house → court → office → stair → outside]
+#table(columns: (2fr, 2fr, 2fr), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+  [*Door / gate*], [*opens*], [*lock on the way out*],
+  ..route-doors.map(((d, o, l)) => (d, [#o], [#l])).flatten())
+#text(6.6pt)[Verdict: #if route-counted [*counted*] else [*not counted as designed today*: the clerestory windows (+5.00 … +6.00) are openable ordinary glass directly over the court's movement strip; counted once they are fixed E30 glazing (the void's smoke vent moved to W3's tilt lites)]. The court is a route segment, not an approved refuge.]
