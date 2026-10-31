@@ -56,17 +56,20 @@
 #let suite-names = ("Suite lobby", "Suite bath", "Suite WC (closet)", "Suite dressing", "Suite bedroom")
 #let suite-area = ff-csv.filter(r => r.name in suite-names).map(r => area(r.P)).sum()
 #let all-doors = fam.doors + suite.doors
+// fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S) in every bedroom, outside the sleeping areas and at the stair top; one extinguisher at the stair top (E)
+#let safety = (((11.0, 3.5), [S · bed 1]), ((2.0, 12.7), [S · bed 2]), ((2.0, 17.5), [S · bed 3]), ((6.5, 1.5), [S · kids]), ((11.0, 15.6), [S · suite]), ((9.5, 9.0), [S · suite lobby]), ((4.8, 11.0), [S · gallery]), ((3.4, 5.0), [S · gallery N]), ((6.5, 4.75), [S · family living]), ((1.3, 8.5), [S · landing]), ((2.9, 8.9), [E · stair]))
+#let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 #let r3(v) = str(calc.round(v, digits: 3))
 
 // ---------- PAGE 1: plan in the site, with the framework checks ----------
 #render(
-  title: [First floor V6.3 · family part + the L (office, gym, suite court, master suite)],
+  title: [First floor V7.1 · family part + the L (office, gym, suite court, master suite)],
   subtitle: [Taif / Palm House V7.1 · rooms in data/rooms_ff.csv · design and furniture in studies/ff_family.typ and studies/ff_suite.typ · schedule, light check and the split projection on the next pages],
   court: court-sky.map(place),
   extras: (("Void · double-height living", living-void.map(place)),) + ff-open.map(r => (r.name, r.P.map(place))),
   rooms: fixed + ff-rooms.map(r => as-row(r.name, r.P, r.colour)),
   air: (("Air tower", tower-csv.map(place)),),
-  marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])),
+  marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])) + safety-marks,
   limit: outline-csv.map(place),
   note: [*First floor V7.1.* The gallery runs on a *#num(sec.pj.depth) m west projection* along the courtyard and the double-height void (x #num(sec.x-court)–#num(sec.pj-edge), y #num(sec.y-court)–#num(sec.y-living)), on an *edge beam and #sec.pj.columns columns* at x #num(sec.pj-edge), each in an existing wall or glass line; the first-floor west wall stands on the GF west wall (#r3(ff-m-gap) m from the M line). Courtyard sky and void #r3(sec.pj.sky) m on axes. West rooms #num(sec.pj.room) m and gallery #num(sec.pj.gallery) m on axes: *bedroom 2*, *bedroom 3 with its own bath*, the *family bath* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* is one room on the straight y 6.5 line. The *L*: *owner's office* (west), *gym route*, *L-shaped gym* (the treadmill alone in its east arm, an acoustic double wall to the suite bedroom), the *suite court* open to the sky in front of the clerestory windows, and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair, lift, landing and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
     #linebreak()

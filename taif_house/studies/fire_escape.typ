@@ -1,11 +1,15 @@
-// fire_escape.typ · Taif / Palm House V7.1 · FIRE, ESCAPE AND LIFE SAFETY STUDY (design review E-08, CRITICAL) · study only
-// Checks every sleeping room's escape opening, the routes to the exits, the smoke strategy of the open stair / void / gallery volume,
-// the detection and equipment, the safe room and the elements with a fire role, against SBC 1101 / SBC 801 (as adopted from the IRC / IFC),
-// the municipal requirements and global practice; every rule is cited, and marked "not verified" where its Saudi text could not be checked.
-// No CSV or design file is changed: the fixes are proposals for the owner (decision) or the engineers (to confirm).
-// Reads: data/rooms_gf.csv, data/rooms_ff.csv (the plans), 3d/params.yaml (every window with its sill and head), 3d/character.yaml (the mashrabiya screens).
+// fire_escape.typ · Taif / Palm House V7.1 · FIRE SAFETY AT A FAMILY-HOME LEVEL: early warning and safe exit (owner decision, 1 Nov 2026)
+// The design review's critical item E-08, first studied on 1 Nov 2026 (13 fixes proposed); the owner chose a home-level strategy and this file
+// now records the adopted scheme, verifies its points (§ 5) and adds the family escape plan (§ 6). Rules are cited; the Saudi 2024 texts are
+// marked "not verified" where their wording could not be read: the designer of record confirms them before the permit set.
+// Reads: data/rooms_gf.csv, data/rooms_ff.csv (the plans), 3d/params.yaml (every window with its sill and head), 3d/character.yaml (the
+// mashrabiya list), studies/ff_family.typ and ff_suite.typ (the escape windows), design_gf.typ and design_ff.typ (the alarm and extinguisher marks).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
+#import "ff_family.typ": escape-windows as fam-esc
+#import "ff_suite.typ": escape-windows as suite-esc
+#import "../design_gf.typ": safety as gf-safety
+#import "../design_ff.typ": safety as ff-safety
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.3pt)
 #let ink = rgb("#3d4a45")
@@ -20,9 +24,11 @@
 #let H(body) = text(9.5pt, weight: "bold", fill: accent, body)
 #let dist(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2))
 #let plen(P) = range(P.len() - 1).map(i => dist(P.at(i), P.at(i + 1))).sum()
+#let OK = text(fill: green, weight: "bold")[OK]
+#let PROBLEM = text(fill: red, weight: "bold")[problem]
+#let NV = text(fill: amber, weight: "bold")[not verified]
 #let PASS = text(fill: green, weight: "bold")[pass]
 #let FAIL = text(fill: red, weight: "bold")[fail]
-#let NV = text(fill: amber, weight: "bold")[not verified]
 
 // ---------- the project files ----------
 #let parse-pts(s) = s.split(";").map(t => t.trim()).filter(t => t != "").map(t => { let v = t.split(" ").filter(u => u != ""); (float(v.at(0)), float(v.at(1))) })
@@ -36,199 +42,186 @@
 #let params = yaml("../3d/params.yaml")
 #let chr = yaml("../3d/character.yaml")
 #let WIN = params.openings.windows.map(w => { let v = w.at.split(" ").map(float); (floor: w.floor, a: (v.at(0), v.at(1)), b: (v.at(2), v.at(3)), sill: w.sill, head: w.head, note: w.at("note", default: "")) })
-#let screened = chr.mashrabiya.windows.map(w => (floor: w.floor, at: w.at))
-#let has-screen(floor, at) = screened.any(s => s.floor == floor and s.at == at)
-#let win(floor, at) = {   // a window listed in params.yaml with its own heights, else the plans' window with the default sill / head (3d/params.yaml openings.window)
-  let v = at.split(" ").map(float)
-  let hit = WIN.find(w => w.floor == floor and calc.abs(w.a.at(0) - v.at(0)) < 1e-6 and calc.abs(w.a.at(1) - v.at(1)) < 1e-6 and calc.abs(w.b.at(0) - v.at(2)) < 1e-6 and calc.abs(w.b.at(1) - v.at(3)) < 1e-6)
-  if hit != none { hit } else { (floor: floor, a: (v.at(0), v.at(1)), b: (v.at(2), v.at(3)), sill: params.openings.window.sill, head: params.openings.window.head, note: "default window (sill / head of params.yaml)") }
+#let same(p, q) = calc.abs(p.at(0) - q.at(0)) < 1e-6 and calc.abs(p.at(1) - q.at(1)) < 1e-6
+#let has-screen(floor, a, b) = chr.mashrabiya.windows.any(w => { let v = w.at.split(" ").map(float); w.floor == floor and same((v.at(0), v.at(1)), a) and same((v.at(2), v.at(3)), b) })
+#let win(floor, a, b) = {   // the window's heights: 3d/params.yaml if listed, else the default sill / head
+  let hit = WIN.find(w => w.floor == floor and same(w.a, a) and same(w.b, b))
+  if hit != none { hit } else { (floor: floor, a: a, b: b, sill: params.openings.window.sill, head: params.openings.window.head, note: "default window (params.yaml)") }
 }
 #let outline = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 
-// ---------- the rules (cited; "verified" = read in the IRC / IFC text the SBC is based on; the SBC 2024 wording itself: NOT VERIFIED here) ----------
-#let R = (
-  esc-area: 0.53, esc-area-grade: 0.465, esc-h: 0.61, esc-w: 0.508, sill-max: 1.118,     // IRC R310.2.1–R310.2.2 (5.7 / 5.0 sq ft, 24 in, 20 in, 44 in)
-  door-w: 0.813, door-h: 1.981,                                                           // IRC R311.2 (32 in × 78 in) egress door
-  stair-w: 0.914, headroom: 2.032, riser-max: 0.196, tread-min: 0.254,                   // IRC R311.7
-  sash-max: 1.0, frame: 0.05,                                                             // this study's assumptions: a side-hung casement sash ≤ 1.0 m wide, a 50 mm frame / sash edge all round
-)
+// ---------- rules (figures read in the IRC / NFPA texts the SBC is based on; the SBC 2024 wording itself: not verified) ----------
+#let R = (esc-area: 0.53, esc-area-grade: 0.465, esc-h: 0.61, esc-w: 0.508, sill-max: 1.118, door-w: 0.813, sash-max: 1.2, frame: 0.05,
+          cook-dist: 3.0, bath-dist: 0.9, wall-gap: 0.1, pillow-dba: 75)
 #let rules = (
-  ([Escape and rescue opening in every sleeping room: net clear ≥ #r2(R.esc-area) m² (#r2(R.esc-area-grade) m² at grade), ≥ #r2(R.esc-h) m high, ≥ #r2(R.esc-w) m wide, sill ≤ #r2(R.sill-max) m, opening to a yard or court that opens to a public way; operable from inside without keys, tools or special knowledge], [IRC 2021 R310.1, R310.2.1, R310.2.2, R310.2.3 · SBC 1101 (residential, from the IRC): section R310 assumed adopted unamended], NV),
-  ([Bars, grilles, covers and screens over an escape opening: allowed only if releasable or removable from inside without a key, tool, special knowledge or extra force, keeping the minimum opening], [IRC 2021 R310.4 · SBC 1101 R310.4], NV),
-  ([At least one egress door per dwelling, side-hinged, ≥ #r2(R.door-w) × #r2(R.door-h) m clear, openable from inside without a key or special knowledge; egress from all portions of the dwelling without passing through a garage], [IRC 2021 R311.2, R311.1 · SBC 1101 R311], NV),
-  ([Stairways ≥ #r2(R.stair-w) m clear, headroom ≥ #r2(R.headroom) m, risers ≤ #r2(R.riser-max), treads ≥ #r2(R.tread-min), handrails; no enclosure or second stair required in a one-family dwelling], [IRC 2021 R311.7 · SBC 1101 R311.7], NV),
-  ([Smoke alarms in each sleeping room, outside each separate sleeping area in the immediate vicinity of the bedrooms, on every storey; interconnected; hardwired with battery back-up; listed to UL 217], [IRC 2021 R314.3, R314.4, R314.6 · SBC 1101 R314], NV),
-  ([Carbon-monoxide alarms outside each sleeping area where a fuel-fired appliance (the gas hob) is installed; listed to UL 2034], [IRC 2021 R315.2, R315.3 · SBC 1101 R315], NV),
-  ([Enclosed usable space under a stair: ½ in (13 mm) gypsum board on the underside and the walls], [IRC 2021 R302.7 · SBC 1101 R302.7], NV),
-  ([Automatic residential sprinklers (NFPA 13D) in new one-family dwellings], [IRC 2021 R313.2 · SBC 1101: whether R313 is adopted or deleted for villas, and the Civil Defense position, could not be read], NV),
-  ([Portable fire extinguishers, LP-gas storage (cylinders outside in a ventilated cabinet, distances to openings), gas shut-off, generators outdoors away from openings], [SBC 801 (fire code, from the IFC 2018: §906, ch. 61) · Saudi Civil Defense villa requirements · NFPA 37 (generators) · manufacturer's clearances], NV),
-  ([Domestic range hood ≥ 400 cfm needs make-up air; the hood exhausts directly outside], [IRC M1503.6 · SBC 501 (mechanical)], NV),
-  ([Open-plan houses (stair open to living space): where the stair is not enclosed, UK practice asks for sprinklers or a fire-separated escape; not a Saudi rule], [BS 9991:2024 (UK, practice only)], [practice]),
-  ([Municipal residential requirements (MOMAH): nothing specific on fire beyond the Civil Defense approval of the permit set], [MOMAH villa rules as reported 2024], NV),
+  ([Escape and rescue opening in every sleeping room: net clear ≥ #r2(R.esc-area) m² (#r2(R.esc-area-grade) at grade), ≥ #r2(R.esc-h) high × #r2(R.esc-w) wide, sill ≤ #r2(R.sill-max); operable from inside without keys, tools or special knowledge; grilles and screens only if releasable from inside], [IRC 2021 R310.1–R310.4 · SBC 1101 R310], NV),
+  ([One egress door ≥ #r2(R.door-w) m clear, openable from inside without a key; egress from every part of the dwelling], [IRC 2021 R311.1–R311.2 · SBC 1101 R311], NV),
+  ([Smoke alarms in each sleeping room, outside each sleeping area, on every storey; interconnected; mains with battery back-up (UL 217); ≥ #r1(R.cook-dist) m from a cooking appliance (photoelectric), ≥ #r2(R.bath-dist) m from a bathroom door with a shower], [IRC 2021 R314.3–R314.6 · NFPA 72-2022 29.8.3, 29.11 · SBC 1101 R314], NV),
+  ([Ceiling-mounted alarms ≥ #r2(R.wall-gap) m from any wall; wall-mounted 0.10–0.30 m below the ceiling; not in dead air], [NFPA 72-2022 29.11.3 · manufacturer's instructions], NV),
+  ([Alarm audibility ≥ #R.pillow-dba dBA at the pillow in every sleeping room (an alarm inside the room meets it)], [NFPA 72-2022 29.5.2 (practice; the IRC asks only for interconnection)], NV),
+  ([Carbon-monoxide alarm outside the sleeping areas where a fuel-fired appliance is installed (the gas hob)], [IRC 2021 R315 · SBC 1101 R315], NV),
+  ([LP-gas cylinders outside in a ventilated cabinet; extinguishers; a gas shut-off], [SBC 801 (from the IFC) · Civil Defense villa rules], NV),
 )
 
-// ---------- the sleeping rooms and their escape openings ----------
-// (room, floor, the window "x1 y1 x2 y2" as in the plans, where it opens to, is the landing a yard / court open to a public way, note)
-#let sleep = (
-  ("Bedroom 1", "FF", "10.92 1.6 11.79 3.2", [the lane setback (2.5 m) → the lane], true, [cut-wall window; a second one "12.3 4.15 12.9 5.25"]),
-  ("Bedroom 2", "FF", "0 11.3 0 12.6", [the west strip (0.785 m to the M line) → the driveway and the street], true, []),
-  ("Bedroom 3", "FF", "0 17.2 0 18.2", [the west strip → the driveway and the street], true, []),
-  ("Kids' room (a fourth bedroom later)", "FF", "5.3 0 8.7 0", [the north setback (3.8–5.7 m) → the north street], true, []),
-  ("Master suite bedroom", "FF", "13.311 15.0 13.311 18.6", [the east strip (3.6–9 m) → the service yard and the lane], true, [the suite court is walled and has no way down: not an escape]),
-  ("Maid room", "GF", "12.17 3.9 12.714 4.9", [the lane setback (2.5 m) → the lane], true, [grade floor: 0.465 m² applies; sill 1.50 for privacy]),
+// ---------- the adopted scheme (owner, 1 Nov 2026) ----------
+#let adopted = (
+  ([*Early warning:* mains-powered (hardwired) smoke alarms with a built-in sealed 10-year lithium battery back-up, interconnected by wire, working without internet, all from one compatible range; fed from the essentials circuit if the electrical designer agrees (the battery back-up remains essential in a power cut; the generator is not needed for the alarms). A heat alarm of the same range in the kitchen; a gas detector near the hob with an automatic shut-off valve if the gas installer offers it; one CO alarm on the gas / generator side. Maintenance: monthly test, cleaning per the manufacturer, every alarm replaced after ≈ 10 years.]),
+  ([*Safe exit:* alarm → the stair → one of the three ground-floor exits (the family entrance, the kitchen service door, the guest entrance through the foyer); every exit door opens from inside without a key (thumb-turn). Backup if the open stair fills with smoke: the master suite uses the suite court (open to the sky) as a fresh-air refuge; the other bedrooms open their escape casements for air, call for help and wait for rescue from outside.]),
+  ([*Escape windows:* the master bedroom, bedrooms 1–3 and the kids' room have hinged glass casements opening fully from inside, with no grilles, bars or fixed mashrabiya (the five screens removed; mashrabiya only on non-escape windows). Child restrictors with an adult release may be added after occupation (note only). The maid room: one casement ≈ 1.14 × 1.00 m, sill +1.10, obscured glass below +1.60, no screen.]),
+  ([*Living ventilation:* the high windows of the double-height living open outward (top-hung, rain-safe): W3's lower lites and the two south clerestories, worked from the floor by a wall switch with small chain actuators (or a pole): a normal ventilation feature, useful to clear smoke. Bedroom doors: normal solid timber doors.]),
+  ([*Equipment:* a fire blanket and an extinguisher in the kitchen; one extinguisher on each floor near the stair.]),
 )
+#let not-adopted = ([sprinklers (NFPA 13D)], [fire-rated doors with closers], [a central alarm panel], [beam / aspirating detectors in the void], [a second door from the men's majlis], [a safe room (security = CCTV, alarm and video intercom; R-33 updated)])
+
+// ---------- the sleeping rooms and their escape windows ----------
+#let esc-list = fam-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + suite-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + ((room: "Maid room", floor: "GF", a: (12.17, 3.9), b: (12.714, 4.9)),)
+#let outside = ("Bedroom 1": [the lane setback strip (2.5 m to the boundary) → the lane; a ladder stands in the strip, a vehicle on the lane], "Bedroom 2": [the west strip (0.785 m to the M line) + the driveway beyond it → the street; a ladder from the driveway (base ≈ 1.2 m for a 4.8 m rise), a vehicle on the driveway: confirm the driveway stays open (site plan)], "Bedroom 3": [as bedroom 2], "Kids' room (a bedroom later)": [the north setback (3.8–5.7 m) → the north street and the parking: ladder and vehicle], "Suite bedroom": [the east strip (3.6–9 m) → the service yard: a ladder in the strip, a vehicle from the north (site plan)], "Maid room": [the lane setback strip at ground level, 2.5 m wide, open at both ends (to the north front and the east yard): the sill 1.40 m above the outside ground, no trapped corner])
 #let escape(w) = {
   let L = dist(w.a, w.b); let h = w.head - w.sill
-  let n = calc.ceil(L / R.sash-max)                                  // casement sashes of ≤ 1.0 m; one sash opens
+  let n = calc.ceil(L / R.sash-max - 1e-9)                          // side-hung casements ≤ 1.0 m; one sash opens fully with one movement
   let cw = L / n - 2 * R.frame; let ch = h - 2 * R.frame
   (width: L, height: h, sashes: n, clear-w: cw, clear-h: ch, area: cw * ch)
 }
-#let judge(row, w, e, grade: false) = {
-  let screen = has-screen(row.at(1), row.at(2))
-  let need = if grade { R.esc-area-grade } else { R.esc-area }
+#let rows = esc-list.map(r => {
+  let w = win(r.floor, r.a, r.b); let e = escape(w)
+  let need = if r.floor == "GF" { R.esc-area-grade } else { R.esc-area }
+  let screen = has-screen(r.floor, r.a, r.b)
   let geo = e.area >= need and e.clear-w >= R.esc-w and e.clear-h >= R.esc-h and w.sill <= R.sill-max
-  (geo: geo, screen: screen, ok: geo and not screen)
-}
-#let rows = sleep.map(row => {
-  let w = win(row.at(1), row.at(2))
-  let e = escape(w)
-  let j = judge(row, w, e, grade: row.at(1) == "GF")
-  (room: row.at(0), floor: row.at(1), at: row.at(2), w: w, e: e, j: j, to: row.at(3), yard: row.at(4), note: row.at(5))
+  (room: r.room, floor: r.floor, w: w, e: e, geo: geo, screen: screen, ok: geo and not screen, out: outside.at(r.room, default: []))
 })
-#let n-pass = rows.filter(r => r.j.ok).len()
-#let n-fail = rows.filter(r => not r.j.ok).len()
-// the maid room fix: a casement 1.14 × 1.00 with the sill at +1.10, obscured glass below +1.60, an openable screen
-#let maid-fix = (sill: 1.10, head: 2.10, width: dist((12.17, 3.9), (12.714, 4.9)))
-#let maid-fix-e = (clear-w: maid-fix.width - 2 * R.frame, clear-h: maid-fix.head - maid-fix.sill - 2 * R.frame)
-#let maid-fix-ok = maid-fix-e.clear-w * maid-fix-e.clear-h >= R.esc-area-grade and maid-fix-e.clear-w >= R.esc-w and maid-fix-e.clear-h >= R.esc-h and maid-fix.sill <= R.sill-max
+#let n-pass = rows.filter(r => r.ok).len()
+#let n-fail = rows.len() - n-pass
 
-// ---------- exits and routes (CSV frame) ----------
+// ---------- exits and routes ----------
 #let exits = (
-  (name: "Family entrance (north wall)", a: (3.0, 0), b: (4.0, 0), width: 1.0, kind: "hinged, the dwelling's egress door", ok: 1.0 >= R.door-w),
-  (name: "Guest entrance (west wall)", a: (0, 21.5), b: (0, 22.9), width: 1.4, kind: "double door, two 0.70 leaves: one leaf < 0.813 clear; both leaves open without a key", ok: false),
-  (name: "Kitchen service door (east wall)", a: (13.311, 7.2), b: (13.311, 8.1), width: 0.9, kind: "hinged 0.90, lockable: a thumb-turn inside, never a key", ok: 0.9 - 0.1 >= R.door-w),
-  (name: "Riwaq → courtyard (sliding glass)", a: (4.25, 9.1), b: (4.25, 10.5), width: 1.4, kind: "to the courtyard: a smoke-free refuge, not an exit (walled on four sides)", ok: false),
-  (name: "Roof stair room door (+7.30)", a: (0.9, 7.9), b: (1.8, 7.9), width: 0.9, kind: "a way up to the open roof: a refuge and a rescue point, not a code exit", ok: false),
+  (name: "Family entrance (north wall)", a: (3.0, 0), b: (4.0, 0), width: 1.0, swing: "inward, single leaf", clear: 1.0 - 2 * R.frame, egress: true),
+  (name: "Kitchen service door (east wall)", a: (13.311, 7.2), b: (13.311, 8.1), width: 0.9, swing: "outward to the yard, single leaf", clear: 0.9 - 2 * R.frame, egress: false),
+  (name: "Guest entrance (west wall)", a: (0, 21.5), b: (0, 22.9), width: 1.4, swing: "inward, two 0.70 leaves", clear: 1.4 - 2 * R.frame, egress: false),
 )
-#let stair-top = (2.0, 7.6)       // the first-floor arrival strip
-#let stair-foot = (0.75, 6.8)     // flight 1 starts here on the ground floor
-#let stair-len = 2 * calc.sqrt(2.8 * 2.8 + 1.8 * 1.8) + 1.25   // two sloped flights and the half landing
-#let family-door = (3.5, 0.0)
+#let stair-top = (2.0, 7.6)
+#let stair-len = 2 * calc.sqrt(2.8 * 2.8 + 1.8 * 1.8) + 1.25
 #let gf-from-stair = ((0.75, 6.8), (3.5, 6.8), (3.5, 0.0))
 #let routes-ff = (
-  ("Master suite bedroom", ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [suite lobby → family link → family living → gallery door → gallery → landing]),
-  ("Bedroom 1", ((9.55, 5.3), (9.55, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [family link → family living → gallery → landing]),
-  ("Kids' room", ((4.25, 2.4), (3.5, 2.4), (3.5, 8.5), (2.0, 8.5), stair-top), [gallery → landing]),
-  ("Bedroom 2", ((4.25, 11.6), (5.0, 11.6), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing]),
-  ("Bedroom 3", ((4.25, 15.7), (5.0, 15.7), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing]),
-  ("Gym (far end)", ((12.5, 23.0), (5.0, 22.6), (5.0, 21.25), (5.0, 8.5), (2.0, 8.5), stair-top), [gym → gym route → gallery → landing]),
+  ("Master suite bedroom", ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [suite lobby → family link → family living → gallery → landing · refuge: the suite court]),
+  ("Bedroom 1", ((9.55, 5.3), (9.55, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [family link → family living → gallery → landing · refuge: its cut-wall window]),
+  ("Kids' room", ((4.25, 2.4), (3.5, 2.4), (3.5, 8.5), (2.0, 8.5), stair-top), [gallery → landing · refuge: its north window]),
+  ("Bedroom 2", ((4.25, 11.6), (5.0, 11.6), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing · refuge: its west window]),
+  ("Bedroom 3", ((4.25, 15.7), (5.0, 15.7), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing · refuge: its west window]),
 )
 #let routes-gf = (
-  ("Men's majlis (east end)", ((12.5, 21.6), (3.0, 22.6), (2.75, 23.0), (0.0, 22.2)), [majlis → foyer → guest door; the serving passage doors are locked from the family side: not a route for guests]),
-  ("Living (double height)", ((6.6, 16.5), (4.25, 13.8), (3.5, 13.8), (3.5, 0.0)), [entrance arch → riwaq → family door; the courtyard door (4.25, 9.1–10.5) is the nearer refuge]),
-  ("Dining", ((11.1, 16.1), (9.95, 13.0), (12.0, 8.5), (13.311, 7.65)), [kitchen door → kitchen → service door; or west through the living to the riwaq]),
-  ("Maid room", ((12.0, 5.5), (10.65, 3.4), (10.1, 3.4), (10.1, 7.0), (12.5, 7.65), (13.311, 7.65)), [laundry door → laundry → kitchen → service door (thumb-turn)]),
-  ("Women's majlis", ((6.6, 3.25), (4.25, 1.1), (3.5, 1.1), (3.5, 0.0)), [door to the riwaq → family door]),
+  ("Maid room", ((12.0, 5.5), (10.65, 3.4), (10.1, 3.4), (10.1, 7.0), (12.5, 7.65), (13.311, 7.65)), [laundry → kitchen → service door · refuge: her window]),
+  ("Living", ((6.6, 16.5), (4.25, 13.8), (3.5, 13.8), (3.5, 0.0)), [entrance arch → riwaq → family door]),
+  ("Men's majlis", ((12.5, 21.6), (3.0, 22.6), (2.75, 23.0), (0.0, 22.2)), [foyer → guest door]),
 )
-#let longest = calc.max(..routes-ff.map(((n, P, l)) => plen(P) + stair-len + plen(gf-from-stair)))
 
-// ---------- detection and equipment (positions for the plans; S smoke, H heat, CO, G gas detector + valve, E extinguisher, B fire blanket, V smoke vent, P phone / panel) ----------
-#let equip = (
-  ("S", "FF", (11.1, 3.5), [bedroom 1]), ("S", "FF", (2.1, 12.7), [bedroom 2]), ("S", "FF", (2.1, 17.5), [bedroom 3]), ("S", "FF", (6.6, 1.5), [kids' room]), ("S", "FF", (11.1, 15.6), [suite bedroom]),
-  ("S", "FF", (4.9, 11.0), [gallery, outside bedrooms 2 / 3]), ("S", "FF", (3.5, 5.0), [gallery, outside the kids' room / family living]), ("S", "FF", (1.4, 8.5), [landing (stair top)]), ("S", "FF", (9.6, 9.0), [suite lobby, outside the suite bedroom]), ("S", "FF", (6.6, 4.75), [family living]), ("S", "FF", (8.7, 22.6), [gym]), ("S", "FF", (2.1, 21.6), [office]),
-  ("CO", "FF", (4.9, 10.0), [gallery, outside the bedrooms (R315)]), ("CO", "FF", (9.6, 8.0), [suite lobby]),
-  ("S", "GF", (3.5, 6.0), [riwaq at the stair foot]), ("S", "GF", (6.6, 16.1), [top of the double-height void (+6.8): a beam or aspirating detector, the ceiling alarms cannot sense it in time]), ("S", "GF", (11.1, 16.1), [dining]), ("S", "GF", (6.6, 3.25), [women's majlis]),
-  ("S", "GF", (1.4, 22.7), [foyer]), ("S", "GF", (8.0, 21.6), [men's majlis]), ("S", "GF", (12.0, 5.0), [maid room]), ("S", "GF", (9.8, 5.0), [laundry (dryer)]), ("S", "GF", (1.4, 9.15), [utility room (panel, heater)]),
-  ("H", "GF", (11.1, 10.0), [kitchen: heat alarm (not smoke)]), ("H", "GF", (1.4, 11.65), [hospitality kitchen: heat alarm]),
-  ("CO", "GF", (10.0, 11.5), [kitchen, away from the hob]),
-  ("G", "GF", (13.1, 10.7), [gas detector at the hob; the automatic shut-off valve at the cylinder cabinet outside]), ("G", "GF", (13.7, 8.6), [LPG cylinder cabinet in the service yard, the shut-off valve]),
-  ("E", "GF", (12.9, 8.5), [kitchen: 6 kg ABC powder + a CO₂ unit, at the service door]), ("B", "GF", (12.3, 12.6), [kitchen: fire blanket by the fridge, not over the hob]),
-  ("E", "GF", (3.0, 6.9), [riwaq at the stair foot: 6 kg ABC]), ("E", "GF", (2.5, 22.3), [foyer: 6 kg ABC (the majlis)]), ("E", "GF", (1.4, 9.8), [utility room: CO₂ at the panel]),
-  ("E", "FF", (3.0, 8.9), [gallery at the stair top: 6 kg ABC]), ("E", "FF", (9.6, 7.0), [suite lobby: 6 kg ABC]), ("E", "FF", (5.0, 22.6), [gym: 6 kg ABC]),
-  ("E", "GF", (14.3, 23.4), [outdoor kitchen (SE corner, outside): 6 kg ABC + a blanket by the grill and the tannour]), ("E", "GF", (14.5, 12.0), [generator point (east yard): 6 kg ABC; CO: the set ≥ 6 m from any opening or a sealed enclosure with its exhaust away from the house]),
-  ("E", "roof", (1.4, 7.4), [roof stair room: 2 kg CO₂ (the plant)]),
-  ("V", "GF", (7.3, 19.25), [smoke vent: the two clerestories or W3's tilt lites motorised, opened by the alarm]),
-  ("P", "GF", (3.6, 1.0), [alarm panel / repeater at the family entrance; the sounders on both floors]),
-)
-#let n-smoke = equip.filter(e => e.at(0) == "S").len()
-#let n-ext = equip.filter(e => e.at(0) == "E").len()
-
-// ---------- the safe room: the suite dressing ----------
-#let safe = FF.find(r => r.name == "Suite dressing")
-#let safe-clear = (3.011 - 0.1 - 0.125) * (3.45 - 0.2)
+// ---------- the alarms and the equipment (from design_gf.typ / design_ff.typ `safety`) ----------
+#let kind(l) = { let t = repr(l); if t.contains("CO") { "CO" } else if t.contains("[S") { "S" } else if t.contains("[H") { "H" } else if t.contains("[G") { "G" } else if t.contains("[E") { "E" } else { "B" } }
+#let gf-items = gf-safety.map(((p, l)) => (floor: "GF", p: p, l: l, k: kind(l)))
+#let ff-items = ff-safety.map(((p, l)) => (floor: "FF", p: p, l: l, k: kind(l)))
+#let items = gf-items + ff-items
+#let smoke = items.filter(i => i.k == "S")
+#let n-smoke = smoke.len()
+#let n-ext = items.filter(i => i.k == "E").len()
+// the checks of the alarm positions: distance to the hob (photoelectric alarms ≥ 3.0 m), to the shower bathrooms' doors (≥ 0.9 m), inside every bedroom
+#let hob = (13.1, 10.7)
+#let bath-doors = (("family bath", (4.25, 9.8), "FF"), ("bedroom 3 bath", (2.2, 15.5), "FF"), ("suite bath", (10.3, 7.15), "FF"), ("maid bath", (11.065, 2.8), "GF"))
+#let near-hob = smoke.filter(i => i.floor == "GF").map(i => (i, dist(i.p, hob)))
+#let near-bath = smoke.map(i => (i, calc.min(..bath-doors.filter(b => b.at(2) == i.floor).map(b => dist(i.p, b.at(1))))))
+#let hob-ok = near-hob.all(((i, d)) => d >= R.cook-dist)
+#let bath-ok = near-bath.all(((i, d)) => d >= R.bath-dist)
+#let bedrooms-ff = ("Bedroom 1", "Bedroom 2", "Bedroom 3", "Kids' room (study + gaming)", "Suite bedroom")
+#let inside(p, P) = {   // ray casting
+  let n = P.len(); let c = false
+  for i in range(n) { let a = P.at(i); let b = P.at(calc.rem(i + 1, n)); if ((a.at(1) > p.at(1)) != (b.at(1) > p.at(1))) and (p.at(0) < (b.at(0) - a.at(0)) * (p.at(1) - a.at(1)) / (b.at(1) - a.at(1)) + a.at(0)) { c = not c } }
+  c
+}
+#let room-has-alarm(rooms, name, floor) = { let r = rooms.find(r => r.name == name); smoke.any(i => i.floor == floor and inside(i.p, r.P)) }
+#let bed-ok = bedrooms-ff.all(n => room-has-alarm(FF, n, "FF")) and room-has-alarm(GF, "Maid room", "GF")
 
 // ---------- checks of this study ----------
 #let checks = (
-  ([every sleeping room has a window in the plans (3d/params.yaml) and an escape judgement], rows.all(r => r.w != none)),
-  ([the maid room fix (sill +#f2(maid-fix.sill), one casement #r2(maid-fix.width) × #r2(maid-fix.head - maid-fix.sill)) passes R310 at grade], maid-fix-ok),
-  ([every first-floor window judged passes R310 by geometry once its screen opens from inside (the fix)], rows.filter(r => r.floor == "FF").all(r => r.j.geo)),
-  ([the family entrance meets the egress door width], exits.at(0).ok),
-  ([every first-floor route reaches the stair and the family door (lengths computed)], routes-ff.all(((n, P, l)) => dist(P.last(), stair-top) < 1e-6)),
-  ([smoke alarms: one in each of the five sleeping rooms and the maid room, outside each sleeping area, on each storey], n-smoke >= 12),
+  ([every sleeping room's escape window passes R310 as now drawn (no screen; the maid window at +1.10)], rows.all(r => r.ok)),
+  ([a smoke alarm inside every bedroom and the maid room], bed-ok),
+  ([every ground-floor smoke alarm ≥ #r1(R.cook-dist) m from the hob], hob-ok),
+  ([every smoke alarm ≥ #r2(R.bath-dist) m from a shower bathroom's door], bath-ok),
+  ([an extinguisher on each floor at the stair and one in the kitchen], n-ext >= 3),
+  ([the family entrance is the egress door (≥ #r2(R.door-w) clear)], exits.at(0).clear >= R.door-w),
 )
 #let all-ok = checks.all(c => c.at(1))
 
-// ====================================================================================== PAGE 1
-#text(14pt, weight: "bold", fill: accent)[Fire, escape and life safety study · Taif / Palm House V7.1 · design review E-08 (critical)]
+// ====================================================================================== PAGE 1 · the scheme
+#text(14pt, weight: "bold", fill: accent)[Fire safety for a family home · early warning and safe exit · Taif / Palm House V7.1]
 #v(1pt)
-#text(8pt, fill: gray)[Study only, 1 Nov 2026 · no room or design file changed · the fixes are marked *owner decision* or *engineer to confirm* · every rule cited; the Saudi 2024 texts themselves are *not verified* here: the Saudi designer of record confirms them before the permit set]
+#text(8pt, fill: gray)[Owner decision 1 Nov 2026 (design review E-08, critical) · the adopted scheme, its verification (§ 5) and the family escape plan (§ 6) · the rules cited; the Saudi 2024 texts are *not verified* here: the designer of record confirms them before the permit set]
 #v(3pt)
-#grid(columns: (1.15fr, 1fr), gutter: 12pt,
+#grid(columns: (1.2fr, 1fr), gutter: 12pt,
   [
-    #H[1 · The rules checked against]
-    #table(columns: (2.6fr, 1.6fr, auto), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
-      [*Rule*], [*Source*], [*Status*],
-      ..rules.map(((r, s, st)) => (r, text(6.6pt, s), st)).flatten())
-    #text(6.5pt, fill: gray)[*Not verified* means: the figure is the IRC / IFC figure the Saudi code is based on (SBC 1101 residential, SBC 801 fire, SBC 501 mechanical) and was read there; the wording and the section numbers of the SBC 2024 edition, any Saudi amendment, and the General Directorate of Civil Defense's villa requirements could not be read for this study. The designer of record confirms each one and the municipality's permit checklist.]
-  ],
-  [
-    #H[2 · Summary]
-    - *Escape openings:* #rows.len() sleeping rooms checked (bedrooms 1–3, the kids' room as a future bedroom, the master suite bedroom, the maid room): *#n-pass pass, #n-fail fail* as drawn. Every first-floor bedroom window has the size and the sill for R310 but carries a *fixed mashrabiya screen* (the character study) that does not open from inside: fail until the screens are hinged and releasable from inside. The *maid room* fails on its sill (+1.50 > #r2(R.sill-max)) and on size (#r2(rows.last().e.area) m² < #r2(R.esc-area-grade) m² with two sashes).
-    - *Exits:* the family entrance (1.00 m) is the dwelling's egress door; the guest double door and the kitchen service door are extra exits (the service door must open from inside without a key). The first floor has *one stair*; a one-family dwelling needs no second stair under the IRC / SBC 1101 (not verified): the escape windows are the second route, and the study makes them real.
-    - *Longest route* from a bedroom door to the family entrance: ≈ #r1(longest) m (the master suite), with #r1(stair-len) m on the stair; no travel-distance limit applies inside a dwelling (R311), the figure is for information.
-    - *Smoke:* the open stair, the double-height void and the enclosed gallery are one volume. The lightest compliant answer (§ 5): interconnected alarms on both floors and at the top of the void, a motorised smoke vent at the top of the void, solid bedroom doors with smoke seals closed at night; no enclosure of the stair, no screen.
-    - *Equipment:* #n-smoke smoke / heat alarm points, 2 CO alarms + 1 in the kitchen, a gas detector with an automatic shut-off valve, #n-ext extinguishers, a fire blanket, the smoke vent, the alarm panel (§ 6, plans on page 3).
-    - *Safe room:* the suite dressing (#r2(safe-clear) m² clear, no window, inside the suite behind two doors) with an FD60 door opening inward on a thumb-turn, its own filtered air intake and a phone; it does not trap: the door opens from inside without a key and the way out in a fire is the suite bedroom's east escape window 3 m away (§ 7, owner decision).
-    - *Decisions needed from the owner:* the escape-window specification and the openable screens (§ 3, § 9); the maid room's window (§ 3); solid bedroom doors; the smoke vent; a sprinkler system (NFPA 13D) yes / no; a second door from the men's majlis to the garden; the safe room's location; the LPG cabinet position and the generator point (§ 9).
+    #H[1 · The strategy, as adopted]
+    #for a in adopted [- #a]
+    #v(2pt)
+    #H[4 · Not adopted (reason: home-level strategy, early warning and safe exit)]
+    #not-adopted.join([ · ]). The gas cabinet and the generator point come with the site plan.
+    #v(2pt)
+    #H[Summary of the verification (§ 5)]
+    - *Escape windows:* #rows.len() sleeping rooms, *#n-pass pass, #n-fail fail* with the screens removed and the maid window at +1.10 (table, page 2).
+    - *Alarms:* #n-smoke smoke alarms + 1 heat alarm + 1 CO alarm + the gas detector, placed on both plans (page 3); one inside every bedroom and the maid room #if bed-ok { OK } else { PROBLEM }; the ground-floor alarms #if hob-ok [≥ #r1(R.cook-dist) m from the hob #OK] else [too close to the hob #PROBLEM]; #if bath-ok [all ≥ #r2(R.bath-dist) m from the shower bathrooms' doors #OK] else [one closer than #r2(R.bath-dist) m to a bathroom door #PROBLEM]; audibility: an alarm inside each bedroom meets the 75 dBA-at-the-pillow practice, to be tested on site (#NV until tested).
+    - *Kitchen:* the dining door is a solid door; the kitchen walls are 200 mm block to the slab; but the *kitchen ↔ laundry entrance has no door*, so smoke reaches the laundry and the maid room's door: #PROBLEM → proposal P1 (page 4).
+    - *Maid window:* net #r2(rows.last().e.clear-w) × #r2(rows.last().e.clear-h) = #r2(rows.last().e.area) m², one movement, no screen, the strip outside open at both ends: #OK.
+    - *Bedroom windows and rescue from outside:* all pass; the west strip is 0.785 m wide and a ladder needs the driveway beyond the M line: #NV → note for the site plan (page 2).
+    - *Exit doors:* the family entrance 0.90 m clear (egress door #OK); the service door 0.80 and the guest double door 1.30 clear with both leaves (secondary exits); thumb-turns on all three: a hardware specification (#OK once specified).
     #v(2pt)
     #text(7.5pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
+  [
+    #H[The rules checked against]
+    #table(columns: (2.6fr, 1.5fr, auto), inset: 2.3pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Rule*], [*Source*], [*Status*],
+      ..rules.map(((r, s, st)) => (r, text(6.4pt, s), st)).flatten())
+    #text(6.4pt, fill: gray)[*Not verified* = the figure was read in the IRC / NFPA text the Saudi code adopts; the SBC 2024 wording, section numbers, Saudi amendments and the Civil Defense villa checklist could not be read for this study.]
+    #v(3pt)
+    #H[2 · Safe exit: the routes (lengths for information; no limit applies inside a dwelling)]
+    #table(columns: (1.2fr, auto, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*From*], [*to the stair*], [*to the family door*], [*Through · backup refuge*],
+      ..routes-ff.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], [#r1(plen(P) + stair-len + plen(gf-from-stair)) m], text(6.2pt, l))).flatten())
+    #table(columns: (1.2fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*Ground floor from*], [*to the exit*], [*Through*],
+      ..routes-gf.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], text(6.2pt, l))).flatten())
+    #text(6.2pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides; #r1(stair-len) m walked on it; it continues to the roof (a way up out of smoke).]
+  ],
 )
 
-// ====================================================================================== PAGE 2 · escape openings
+// ====================================================================================== PAGE 2 · escape windows
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[3 · Escape and rescue openings, room by room (IRC R310 as the SBC 1101 basis)]
+#text(12pt, weight: "bold", fill: accent)[5 · Verification: the escape windows (IRC R310 as the SBC 1101 basis) and what is outside each]
 #v(2pt)
-#table(columns: (1.2fr, auto, 1fr, auto, auto, auto, auto, auto, auto, 2.2fr), inset: 2.4pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
-  [*Room*], [*Floor*], [*Window (plans)*], [*Size w × h*], [*Sill*], [*Sashes*], [*Net clear (one sash)*], [*Screen*], [*Verdict*], [*Fix*],
+#table(columns: (1.1fr, auto, 1fr, auto, auto, auto, auto, auto, auto, 2.4fr), inset: 2.3pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+  [*Room*], [*Floor*], [*Window (plans)*], [*Size w × h*], [*Sill above the floor*], [*Sashes*], [*Net clear (one sash)*], [*Screen*], [*Verdict*], [*Outside: landing, rescue access*],
   ..rows.map(r => (
-    [#r.room], [#r.floor], [#r.at #linebreak() #text(6pt, fill: gray)[→ #r.to]], [#r2(r.e.width) × #r2(r.e.height)], [+#f2(r.w.sill + (if r.floor == "FF" { 3.6 } else { 0.0 })) (#r2(r.w.sill) above the floor)], [#r.e.sashes × #r2(r.e.width / r.e.sashes)], [#r2(r.e.clear-w) × #r2(r.e.clear-h) = *#r2(r.e.area) m²*],
-    if r.j.screen [fixed mashrabiya] else [none],
-    if r.j.ok { PASS } else { FAIL },
-    [#if not r.j.geo [sill +1.50 > #r2(R.sill-max) and #r2(r.e.area) m² < #r2(R.esc-area-grade): lower the sill to +#f2(maid-fix.sill), one side-hung casement #r2(maid-fix.width) × #r2(maid-fix.head - maid-fix.sill) (net #r2(maid-fix-e.clear-w) × #r2(maid-fix-e.clear-h) = #r2(maid-fix-e.clear-w * maid-fix-e.clear-h) m²), obscured glass below +1.60 and an openable screen for the privacy from the lane (2.5 m away). *Owner decision.*] else if r.j.screen [geometry passes; the mashrabiya must be hinged and releasable from inside without a key or tool (R310.4), or fitted only on the fixed lites. *Owner decision* (the design language keeps mashrabiya to one or two places).] else [—] #linebreak() #text(6pt, fill: gray)[#r.note]],
+    [#r.room], [#r.floor], [#r2(r.w.a.at(0)) #r2(r.w.a.at(1)) → #r2(r.w.b.at(0)) #r2(r.w.b.at(1))], [#r2(r.e.width) × #r2(r.e.height)], [#r2(r.w.sill) (+#f2(r.w.sill + (if r.floor == "FF" { 3.6 } else { 0.0 })))], [#r.e.sashes × #r2(r.e.width / r.e.sashes)], [#r2(r.e.clear-w) × #r2(r.e.clear-h) = *#r2(r.e.area) m²*],
+    if r.screen [fixed mashrabiya] else [none], if r.ok { PASS } else { FAIL }, text(6.3pt, r.out),
   )).flatten())
 #v(3pt)
 #grid(columns: (1fr, 1fr), gutter: 12pt,
   [
     #H[How the net clear opening is counted]
-    - The window line of the plans is the structural opening. This study assumes black steel side-hung casements (or tilt-turn sashes in the turn position) of ≤ #r2(R.sash-max) m, a #r2(R.frame * 1000, ) mm frame and sash edge all round, and *one sash opening fully*: net clear width = sash width − 2 × #r2(R.frame), net clear height = (head − sill) − 2 × #r2(R.frame). Tilt-only, top-hung or sliding sashes do not count unless their own clear opening meets the figures (a slider gives half the width). *Engineer / window supplier to confirm* the sash sizes, the hardware (no key, no tool, a single hand action) and the net openings on the shop drawings.
-    - *Landing below:* the first-floor sills are 4.5 m above the ground outside (±0.00 inside, the ground at −0.30): rescue by the fire brigade's ladder from the strip in front of the facade; the west strip (the driveway side), the north setback (3.8–5.7 m) and the lane setback (2.5 m) are reachable yards that open to a public way (R310.1). The *courtyard* is walled on four sides with no way out except through the house: the gallery's W1 casements and the family living's W2 are *not* escape openings, though the courtyard is a smoke-free refuge. The *suite court* likewise.
-    - *Kids' room:* checked as a bedroom because it may become one (R-01); its 3.4 m north window with four sashes passes once its screen opens.
-    - *Bedroom 1* has a second cut-wall window (12.3–12.9 / 4.15–5.25, 1.25 m); either serves.
-    - *Guest rooms:* none (the men's majlis is not a sleeping room); *ground-floor bedrooms:* none (R-04); the maid room is the only ground-floor sleeping room.
+    - The window line of the plans is the structural opening; black steel side-hung casements of ≤ #r2(R.sash-max) m, a #r2(R.frame * 1000) mm frame and sash edge all round, *one sash opening fully with one movement* (a single handle, no key, no restrictor). Net clear width = sash width − 2 × #r2(R.frame); height = (head − sill) − 2 × #r2(R.frame). Tilt-only, top-hung or sliding sashes do not count. *Engineer / window supplier to confirm* the sash sizes and the hardware on the shop drawings (#NV until then).
+    - The heights come from `3d/params.yaml` (the maid window listed at sill +1.10; the bedroom windows at the default sill 0.90 / head 2.10). The bedroom windows in the plans are 1.0–3.6 m wide: every one passes with one sash of ≤ 1.0 m, the maid window with its single 1.14 m sash.
+    - *Child restrictors* (note only): if fitted after occupation, with an adult release that needs no key and does not reduce the opening when released.
   ],
   [
-    #H[The maid room: privacy and escape together]
-    - As drawn: window #r2(rows.last().e.width) × #r2(rows.last().e.height) m at +1.50 … +2.10 in the cut wall facing the lane (2.5 m to the boundary), no screen. For escape it fails twice (sill, size).
-    - *Fix A (recommended):* one side-hung casement #r2(maid-fix.width) × #r2(maid-fix.head - maid-fix.sill) m, sill +#f2(maid-fix.sill), head +#f2(maid-fix.head): net #r2(maid-fix-e.clear-w * maid-fix-e.clear-h) m², sill below #r2(R.sill-max) ✓; the lower pane (+1.10 … +1.60) in obscured (satin) glass, the clear pane above eye level from the lane; an internal hinged mashrabiya screen releasable without a key keeps the privacy at night. The bed (along the south wall) does not change; the wardrobe on the west wall stays.
-    - *Fix B:* keep the sill at +1.50 and make the room a non-sleeping room (not what the owner wants).
-    - *Her route out:* maid room → the laundry door (1.00, hinged) → the laundry → the open entrance to the kitchen → the service door (0.90, 3.2 m from the kitchen's north wall), #r1(plen(routes-gf.at(3).at(1))) m in all through two doors, or on through the kitchen door and the dining to the riwaq. The service door is *lockable from both sides today*: it must be openable from inside without a key (a thumb-turn or a night latch), and the laundry door never locked from the kitchen side. *Engineer / joinery to confirm.*
+    #H[Rescue from outside: notes for the site plan]
+    - *North* (kids' room): the setback is 3.8–5.7 m wide and opens onto the north street and the parking: a ladder or a vehicle reaches the facade. #OK
+    - *Cut wall / lane* (bedroom 1, the maid room): the strip to the lane boundary is 2.5 m: a ladder (base ≈ 1.2 m for the 4.8 m rise) stands in it; a vehicle on the lane outside the wall. #OK
+    - *West* (bedrooms 2 and 3): the strip inside the M line is 0.785 m: a ladder must stand on the driveway beyond the M line (3.95 m wide in `base.typ`). #NV: the site plan must confirm the driveway stays open and reachable at night (not fenced, not parked over); if it cannot, a ladder from the north corner reaches bedroom 2 only. The first-floor sills are 4.8 m above the ground outside (−0.30).
+    - *East* (the suite): the strip is 3.6–9 m wide: a ladder in the strip; the vehicle access to the east yard from the north (site plan). #OK
+    - *The suite court* is the suite's fresh-air refuge, open to the sky, walled: no way down, but air and a place to call from; a rescue ladder cannot reach it (inside the roof). #OK as a refuge, not as an exit.
+    - *The courtyard* (the gallery's W1 casements and the family living's W2) is likewise a refuge for whoever is in the gallery, not an exit.
   ],
 )
 
-// ====================================================================================== PAGE 3 · plans: routes, escape windows, equipment
+// ====================================================================================== PAGE 3 · plans: alarms, equipment, routes
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[4 · Routes to the exits, escape windows and the equipment on both floors]
+#text(12pt, weight: "bold", fill: accent)[5 · Verification: the alarms and the equipment on both floors (positions from design_gf.typ / design_ff.typ)]
 #v(2pt)
 #let plan(floor, rooms, length: 0.47cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -237,101 +230,111 @@
   let fills = (family: rgb("#f6e3c0"), guest: rgb("#e9d9c4"), service: rgb("#dbe7ec"), core: rgb("#e4ded2"), circ: rgb("#f2efe8"), court: rgb("#dbe9f4"), open: white, tower: rgb("#cfe0d8"))
   for r in rooms { line(..r.P.map(q), close: true, fill: fills.at(r.colour, default: luma(235)), stroke: 0.5pt + ink) }
   line(..outline.map(q), close: true, stroke: 1.4pt + ink)
-  // the stair well and the lift
   rect(q((0, 2.2)), q((2.75, 7.9)), fill: rgb("#e4ded2"), stroke: 0.5pt + ink); T((1.375, 5.0), [stair], size: 4pt)
   rect(q((0, 0)), q((2.25, 2.2)), fill: luma(225), stroke: 0.5pt + ink); T((1.1, 1.1), [lift], size: 3.8pt)
-  // windows of this floor: escape windows green / red, others blue
   for w in WIN.filter(w => w.floor == floor) { line(q(w.a), q(w.b), stroke: 1.6pt + blue) }
-  for r in rows.filter(r => r.floor == floor) { line(q(r.w.a), q(r.w.b), stroke: 3.2pt + (if r.j.ok { green } else { red })) }
-  // routes
+  for r in rows.filter(r => r.floor == floor) { line(q(r.w.a), q(r.w.b), stroke: 3.2pt + (if r.ok { green } else { red })) }
   let rts = if floor == "FF" { routes-ff } else { routes-gf }
   for (n, P, l) in rts { line(..P.map(q), stroke: (paint: red, thickness: 1pt, dash: "dashed"), mark: (end: "stealth", fill: red, scale: 0.55)) }
   if floor == "GF" { line(..gf-from-stair.map(q), stroke: (paint: red, thickness: 1pt, dash: "dashed"), mark: (end: "stealth", fill: red, scale: 0.55)) }
-  // exits
-  for e in exits.filter(e => e.name.contains("Roof") == false) { line(q(e.a), q(e.b), stroke: 3.5pt + (if e.ok { green } else { amber })) }
-  if floor == "GF" { T((3.5, -0.5), [family door 1.00], size: 4pt, fill: green); T((-0.5, 22.2), [guest door 2 × 0.70], size: 4pt, fill: amber, anchor: "east"); T((13.8, 7.65), [service door 0.90], size: 4pt, fill: green, anchor: "west"); T((4.6, 9.8), [courtyard: refuge], size: 3.8pt, fill: amber, anchor: "west") }
-  // equipment
-  let col = (S: blue, H: red, CO: amber, G: red, E: green, B: green, V: blue, P: ink)
-  for (k, fl, p, l) in equip.filter(e => e.at(1) == floor) {
-    circle(q(p), radius: 0.28, fill: white, stroke: 0.8pt + col.at(k))
-    T(p, [#k], size: 3.6pt, fill: col.at(k))
-  }
-  // room names
-  for r in rooms.filter(r => r.colour != "open") { let c = (r.P.map(p => p.at(0)).sum() / r.P.len(), r.P.map(p => p.at(1)).sum() / r.P.len()); T((c.at(0), c.at(1) + 0.55), text(3.4pt, fill: luma(110), r.name.split(" (").at(0))) }
+  for e in exits { line(q(e.a), q(e.b), stroke: 3.5pt + (if e.egress { green } else { amber })) }
+  if floor == "GF" { T((3.5, -0.5), [family door · egress], size: 4pt, fill: green); T((-0.5, 22.2), [guest door], size: 4pt, fill: amber, anchor: "east"); T((13.8, 7.65), [service door], size: 4pt, fill: green, anchor: "west"); T((4.6, 9.8), [courtyard: refuge], size: 3.8pt, fill: amber, anchor: "west") }
+  if floor == "FF" { T((8.6, 20.25), [suite court: the suite's refuge], size: 3.8pt, fill: amber) }
+  let col = (S: blue, H: red, CO: amber, G: red, E: green, B: green)
+  for i in items.filter(i => i.floor == floor) { circle(q(i.p), radius: 0.3, fill: white, stroke: 0.8pt + col.at(i.k)); T(i.p, [#i.k], size: 3.6pt, fill: col.at(i.k)) }
+  for r in rooms.filter(r => r.colour != "open") { let c = (r.P.map(p => p.at(0)).sum() / r.P.len(), r.P.map(p => p.at(1)).sum() / r.P.len()); T((c.at(0), c.at(1) + 0.6), text(3.3pt, fill: luma(110), r.name.split(" (").at(0))) }
   T((6.6, -1.3), [#floor · north up · 1 m = 0.47 cm], size: 4.4pt, fill: gray)
 })
 #grid(columns: (auto, auto, 1fr), gutter: 10pt, plan("GF", GF), plan("FF", FF),
   [
-    #set text(6.6pt)
-    #H[Legend]
-    Red dashed: the routes to the stair / the exits; green thick: escape windows that pass, red thick: that fail as drawn; blue: other windows; green / amber thick on the outline: the exits (amber = not an egress door by itself). Circles: *S* smoke alarm, *H* heat alarm, *CO* carbon-monoxide alarm, *G* gas detector / shut-off, *E* extinguisher, *B* fire blanket, *V* smoke vent, *P* alarm panel.
+    #set text(6.5pt)
+    #H[Legend] Circles: *S* smoke alarm (photoelectric, mains + sealed battery, interconnected), *H* heat alarm, *CO* carbon-monoxide alarm, *G* gas detector (the shut-off valve at the cylinder cabinet), *E* extinguisher, *B* fire blanket. Red dashed: the routes; green thick: escape windows (pass); blue: other windows; green / amber on the outline: the exits.
     #v(2pt)
-    #H[Route lengths (door → stair top → family entrance)]
-    #table(columns: (1.2fr, auto, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
-      [*From*], [*to the stair*], [*to the door*], [*Through*],
-      ..routes-ff.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], [#r1(plen(P) + stair-len + plen(gf-from-stair)) m], text(6pt, l))).flatten())
-    #table(columns: (1.2fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
-      [*Ground floor from*], [*to the exit*], [*Through*],
-      ..routes-gf.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], text(6pt, l))).flatten())
-    #text(6pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides: within R311.7 (0.914 / 0.196 / 0.254 / 2.032). No travel-distance limit inside a dwelling; the lengths show where the far rooms are: the master suite and the gym are ≈ #r1(longest) m and #r1(plen(routes-ff.at(5).at(1)) + stair-len + plen(gf-from-stair)) m from the family door, the men's majlis #r1(plen(routes-gf.at(0).at(1))) m from the guest door with the serving passage locked.]
-    #v(2pt)
-    #H[Exits]
-    #table(columns: (1.3fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
-      [*Door*], [*Width*], [*Note*],
-      ..exits.map(e => ([#e.name], [#r2(e.width)], text(6pt, e.kind))).flatten())
+    #H[The alarm layout, checked]
+    #table(columns: (auto, 1.3fr, auto, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Floor*], [*Alarm*], [*to the hob*], [*to a shower door*],
+      ..smoke.map(i => ([#i.floor], text(6.2pt, i.l), [#if i.floor == "GF" [#r1(dist(i.p, hob)) m] else [—]], [#r1(calc.min(..bath-doors.filter(b => b.at(2) == i.floor).map(b => dist(i.p, b.at(1))))) m])).flatten())
+    - *Types and positions:* photoelectric alarms (fewer kitchen false alarms; ≥ #r1(R.cook-dist) m from the hob: the nearest is the dining alarm at #r1(calc.min(..near-hob.map(((i, d)) => d))) m #if hob-ok { OK } else { PROBLEM }); ≥ #r2(R.bath-dist) m from the shower doors (nearest #r1(calc.min(..near-bath.map(((i, d)) => d))) m #if bath-ok { OK } else { PROBLEM }); ceiling-mounted ≥ #r2(R.wall-gap) m from the walls (a specification; the gypsum ceilings at ≈ +3.0 / +3.05). *The void:* one alarm on the void's ceiling (+6.98) over the living and one on the gallery's ceiling beside it; the void's alarm reacts later than a low ceiling's (smoke cools and stratifies in a 7 m space, NFPA 72 A.29.11.3.3), the gallery's and the stair foot's alarms are the early ones: the manufacturer's maximum mounting height for the void alarm is #NV (most ranges allow it; an outdoor-rated or high-ceiling model if the range has one).
+    - *Count:* #n-smoke smoke + 1 heat (kitchen) + 1 CO (kitchen side, away from the hob) + the gas detector; #n-ext extinguishers (kitchen, stair foot, stair top) and the blanket.
+    - *Audibility:* an alarm inside every bedroom and the maid room #if bed-ok { OK } else { PROBLEM }; interconnected, all sound together: ≥ 75 dBA at the pillow is met by the in-room alarm (85 dBA at 3 m per UL 217) — #NV until tested on site with the doors closed (a sound-level meter at the pillow, every bedroom, with the alarm in the gallery triggered).
+    - *Power:* the alarm circuit on the essentials circuit if the electrical designer agrees; the sealed battery keeps every alarm working in a cut; no panel, no internet.
   ],
 )
 
-// ====================================================================================== PAGE 4 · smoke, equipment, safe room, materials, fixes
+// ====================================================================================== PAGE 4 · the kitchen, the doors, the proposals · PAGE 5 · the family plan
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[5 · Smoke · 6 · Detection and equipment · 7 · The safe room · 8 · Elements with a fire role · 9 · The fixes and the decisions]
+#text(12pt, weight: "bold", fill: accent)[5 · Verification: the kitchen, the exit doors · the proposals the verification produced]
 #v(2pt)
 #grid(columns: (1fr, 1fr), gutter: 12pt,
   [
-    #H[5 · Smoke: one connected volume]
-    - *What is connected:* the open stair (ground floor to the roof), the riwaq, the double-height living (7 m to its roof), the courtyard side of the gallery (the enclosed gallery is now a conditioned corridor glazed to the courtyard) and the landing: a fire in the living or the kitchen fills the void, the gallery and the stair with smoke before the bedrooms' doors.
-    - *What the code asks* (IRC R314 / SBC 1101, not verified): interconnected smoke alarms in each bedroom, outside each sleeping area and on each storey; no enclosure of the stair, no smoke separation, no sprinklers unless R313 is adopted. The IRC allows the open plan because the alarms wake the household early and every bedroom has its escape window.
-    - *The lightest compliant solution, keeping the open character:* (1) interconnected, hardwired alarms with battery back-up on both floors and in the stair as placed on page 3, with a *beam or aspirating detector at the top of the void* (ceiling alarms 7 m up react late to a fire at floor level); (2) *a motorised smoke vent at the top of the void*: the two clerestory windows (1.0 × 1.0, +5.00 … +6.00, onto the suite court) or W3's tilt lites, opened by the alarm and by a manual switch at the family entrance (practice: BS 9991 / EN 12101-2 AOV, ≥ 1.0 m² free area), so the void clears itself and the gallery stays usable longer; (3) *solid-core bedroom doors with smoke seals and closers*, kept closed at night (an FD30 set costs little and holds a bedroom for 30 minutes: the escape windows are then used calmly); (4) the *kitchen door to the dining kept as a door* (it is) and a heat alarm in the kitchen; (5) the roof stair room door as a way up and out of the smoke.
-    - *Not proposed:* glazing or screening the stair, lobbies on the gallery, or enclosing the void: they would remove the open character the owner wants and the code does not ask for them. *Sprinklers (NFPA 13D)* are the one measure that changes the picture: ≈ 1 % of the build cost at construction, impossible later; the IRC requires them, the Saudi adoption is not verified. *Owner decision.*
+    #H[The kitchen as the room that slows smoke]
+    - *Walls:* 200 mm block on all sides to the structural slab (the west wall to the courtyard, the east outer wall, the dining wall y 13.0 and the new north partition y 7.0, which the maid-wing decision specified as a partition on a ground beam: *it must run to the slab, not stop at the gypsum ceiling* → a note for the engineer, no change in plan). The kitchen ceiling is the ribbed slab's gypsum ceiling (+3.0–3.05) with the hood duct through the east wall.
+    - *Door to the dining:* a solid timber door 1.10 m (9.4–10.5, y 13.0) with seals and no vent: with the door closed at night the kitchen is a separate smoke compartment at household level; what it achieves: smoke from a cooking fire stays in the kitchen until the heat alarm has sounded and the family is on its way out; no time is claimed. #OK (specification: solid, sealed, no vent, kept closed at night).
+    - *The laundry entrance:* the kitchen ↔ laundry opening (9.7–10.55, y 7.0) *has no door*: kitchen smoke goes straight into the laundry and reaches the maid room's door (1.00, hinged, 3.5 m away). #PROBLEM → *P1 (proposal, not applied): a solid door in that opening* (0.85 m, the laundry side; the maid's route stays open from inside) — owner decision. Her second way is her escape window.
+    - *Hood and make-up air* (open item 8): the extract through the east wall straight out; no claim here.
     #v(2pt)
-    #H[6 · Detection and equipment (positions on page 3)]
-    - *Smoke alarms* (#n-smoke points incl. the heat alarms): every bedroom and the maid room; the gallery outside bedrooms 2 / 3 and outside the kids' room; the landing; the suite lobby; the family living, the gym, the office; the riwaq at the stair foot; the void's top; the dining; the women's majlis; the foyer; the men's majlis; the laundry (dryer); the utility room (panel, water heater). *Heat alarms* in the two kitchens (smoke alarms there give false alarms). All interconnected, hardwired, battery back-up, with a repeater / panel at the family entrance and sounders on both floors.
-    - *CO alarms* outside the bedrooms (gallery, suite lobby) and in the kitchen (gas hob), away from the hob.
-    - *Gas:* an LPG detector at the hob linked to an *automatic shut-off valve* at the cylinder cabinet; the cabinet *outside* in the east service yard, ventilated, with the distance to the service door and the kitchen window per the Civil Defense LPG rules (not verified; 1.5 m assumed); a manual valve inside the kitchen.
-    - *Extinguishers* (#n-ext): 6 kg ABC powder at the kitchen service door (+ CO₂), the riwaq at the stair foot, the foyer, the gallery at the stair top, the suite lobby, the gym, the outdoor kitchen, the generator point; CO₂ in the utility room and the roof stair room; a *fire blanket* in the kitchen (by the fridge, not over the hob) and one at the outdoor kitchen / tannour.
-    - *Generator point* (east yard, with the site plan): outdoors, ≥ 6 m from any window or door or in a sealed enclosure with its exhaust led away from the house; the changeover switch in the utility room; a CO alarm in the nearest room (the dining).
+    #H[The exit doors]
+    #table(columns: (1.3fr, auto, auto, 1.5fr, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*Door*], [*Width*], [*Clear*], [*Swing*], [*Role*],
+      ..exits.map(e => ([#e.name], [#r2(e.width)], [#r2(e.clear)], text(6.2pt, e.swing), if e.egress [egress door #OK] else [secondary exit])).flatten())
+    - *Hardware:* every exit door with a thumb-turn or a night latch inside (no key to get out), the guest double door's second leaf on flush bolts that a child can reach; the roof stair room door outward on a thumb-turn; the laundry and the maid room doors never locked from outside while she is in. #OK as a specification; #NV until the door schedule exists.
+    - *Clear widths:* the family entrance 0.90 m ≥ 0.813 (the dwelling's egress door); the service door 0.80 and the guest door's single leaf 0.60 are below the egress figure, which the code asks of one door only; both leaves of the guest door give 1.30. #OK
   ],
   [
-    #H[7 · The safe room (R-33): the suite dressing]
-    - *Where:* the suite dressing, #r2(safe-clear) m² clear, x 10.3–13.311, y 10.45–13.9: interior, no window, inside the master suite behind the suite door and its own door, next to the suite bedroom; the family reaches it from the suite lobby. The alternative, the suite WC closet (1.14 m²), is too small.
-    - *What it needs:* an FD60 steel-lined door opening *inward* with a thumb-turn and a bar inside (never a key to get out: R311), 200 mm block walls (as drawn) to the slab, no window, its own fresh-air intake (a small duct to the east wall high up, with a fire damper and a filter) and a passive vent, a phone line, a mobile repeater, a CCTV monitor, water, a torch, a first-aid kit and an extinguisher; a smoke alarm inside, interconnected.
-    - *It must not trap anyone:* the door opens from inside without a key; the smoke alarm inside wakes them; the way out in a fire is the suite bedroom door 1.5 m away and its east escape window (3.6 m wide, +0.90 sill) 3 m beyond; the dressing itself has no window by design (security), so it is a refuge for minutes, not for a fire's duration. *Owner decision* on the location and the hardware.
+    #H[Proposals from the verification (not applied; owner decision)]
+    - *P1 · A door at the kitchen ↔ laundry entrance* (solid, 0.85 m, swinging into the laundry, never locked): closes the smoke path kitchen → laundry → maid room; effect: the laundry loses the open view into the kitchen; the maid's route to the service door stays (she opens the door).
+    - *P2 · The driveway for rescue:* keep the strip west of the M line open and unobstructed at night and show it on the site plan as the ladder stand for bedrooms 2 and 3; if the driveway cannot be guaranteed, consider making bedroom 2's and 3's windows reachable from the north corner (a wider strip is not available: the house is 0.785 m from the M line).
+    - *P3 · The void alarm's model:* choose a range whose specification allows the 7 m mounting height (or a high-ceiling model of the same range); otherwise rely on the gallery and stair alarms and omit the void alarm.
     #v(2pt)
-    #H[8 · Elements with a fire role (for the engineers)]
-    - *Stair:* reinforced concrete flights and landings (non-combustible), 1.21 m clear, handrails both sides; the store under the half landing lined with 13 mm gypsum (R302.7); the stair continues to the roof and the stair room door opens outward onto the roof on a thumb-turn: a way up out of the smoke and a rescue point from the roof.
-    - *Lift:* a two-stop home lift, not an evacuation lift ("do not use in fire" sign, the battery lowering brings the car to the ground floor); the landing doors' fire resistance (EN 81-58, E30) is not required by the IRC for a dwelling; the shaft walls are 200 mm block (as drawn). *Engineer / supplier to confirm.*
-    - *Kitchen:* 200 mm block walls, the hood exhausts straight out through the east wall with make-up air (M1503.6, open item 8), a heat alarm, the extinguisher and the blanket; the gas run from the outside cabinet in a sleeved pipe with the automatic valve; the service door's hardware (thumb-turn).
-    - *Gas:* cylinders outside only, never in the kitchen; the detector and the valve; the outdoor kitchen's grill and tannour at the SE corner, downwind, with their own extinguisher and blanket and the gas cylinder in a cabinet.
-    - *Roof:* the plant (AC, ERV) on the roof with the stair room as the access; the attic walls are block; the PV's DC isolator at the inverter room (site plan).
-    - *Electrical:* the main panel in the utility room with RCDs on every circuit, arc-fault protection on the bedroom circuits (IRC E3902, not verified); the essentials circuit for the alarm panel.
-    #v(2pt)
-    #H[9 · The fixes, their effect, and who decides]
-    #table(columns: (auto, 2.6fr, 1.6fr, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
-      [*No.*], [*Fix*], [*Effect on other spaces*], [*Who*],
-      [1], [Escape windows in the five first-floor bedrooms: one side-hung casement (or tilt-turn) per window meeting R310 (net ≥ 0.53 m², ≥ 0.61 × 0.508, sill ≤ 1.118), hardware without key or tool], [none in plan; the window schedule], [engineer / supplier],
-      [2], [The mashrabiya screens on the sleeping-room windows hinged and releasable from inside, or only on the fixed lites], [the facades' character (the design language keeps mashrabiya to one or two places anyway)], [owner decision],
-      [3], [Maid room window: sill +1.10, one casement 1.14 × 1.00, obscured glass below +1.60, an openable screen], [the cut facade; the bed stays], [owner decision],
-      [4], [Interconnected smoke / heat / CO alarms as placed; a beam or aspirating detector at the top of the void; the panel at the family entrance], [ceilings and wiring], [engineer (code)],
-      [5], [A motorised smoke vent at the top of the void (the clerestories or W3's tilt lites) on the alarm and a manual switch], [the clerestory windows' hardware; the AOV's free area ≥ 1.0 m²], [owner decision · engineer],
-      [6], [Solid-core bedroom and maid room doors with smoke seals and closers (FD30), closed at night], [door schedule], [owner decision],
-      [7], [Sprinklers NFPA 13D throughout (the one measure that covers the open stair / void volume)], [a water tank and pump (the roof tank zone or the ground tank), pipes in the ceilings], [owner decision],
-      [8], [Every exit door openable from inside without a key (the family door, the guest double door, the kitchen service door, the roof stair room door); the laundry door never locked from the kitchen side], [hardware], [engineer / joinery],
-      [9], [A second door from the men's majlis to the garden (south wall), so 20–24 guests do not depend on the foyer alone; ties to S-04 (garden door)], [the south facade, the majlis seating, the site plan], [owner decision],
-      [10], [Gas: the detector, the automatic shut-off valve, the outside cylinder cabinet, the sleeved run; the outdoor kitchen's cylinder likewise], [the east service yard (site plan)], [engineer (code) · Civil Defense],
-      [11], [Extinguishers and blankets as placed; the generator point and its clearances], [the site plan], [engineer · site plan],
-      [12], [The safe room in the suite dressing: FD60 inward door on a thumb-turn, own air intake, phone and repeater, smoke alarm inside], [the dressing's joinery loses ≈ 0.3 m on the east wall for the intake duct], [owner decision],
-      [13], [Under-stair store lined with 13 mm gypsum; the stair room door outward with a thumb-turn; the lift's "do not use in fire" sign and battery lowering (as decided)], [none], [engineer],
+    #H[Verification results in one list]
+    #table(columns: (1.6fr, auto, 2.4fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Point*], [*Result*], [*Evidence*],
+      [Alarm layout: every bedroom, the gallery, the family living, the stair foot and top, the living, the void, the kitchen heat alarm], if bed-ok and hob-ok and bath-ok { OK } else { PROBLEM }, [#n-smoke smoke + 1 heat on the plans; in-room alarms in all 6 sleeping rooms; hob ≥ #r1(R.cook-dist) m; shower doors ≥ #r2(R.bath-dist) m (table, page 3)],
+      [Alarm types and mounting (wall gap, the void's height)], NV, [a specification; the void alarm's height per the manufacturer (P3)],
+      [Audibility in every bedroom with the door closed], NV, [an alarm inside each room (method); test at the pillow on site],
+      [Kitchen door and walls], OK, [solid sealed door to the dining; block walls to the slab (note: the y 7.0 partition to the slab)],
+      [Kitchen ↔ laundry opening], PROBLEM, [no door: smoke path to the maid room → P1],
+      [Maid window], OK, [net #r2(rows.last().e.area) m², one casement, sill +1.10, no screen, the strip outside 2.5 m and open at both ends],
+      [First-floor bedroom windows], OK, [all pass (page 2); rescue access north, lane and east OK; west via the driveway: #NV → P2],
+      [Exit doors: thumb-turns, swing, clear widths], OK, [family door 0.90 clear; thumb-turns a specification (#NV until the schedule)],
     )
-    #text(6.4pt, fill: gray)[Nothing here is for construction: the Saudi designer of record verifies every rule against the SBC 2024 texts and the Civil Defense checklist before the permit set.]
+  ],
+)
+
+// ====================================================================================== PAGE 5 · the family escape plan
+#pagebreak()
+#text(14pt, weight: "bold", fill: accent)[6 · The family escape plan · Taif / Palm House]
+#v(2pt)
+#grid(columns: (1.1fr, 1fr), gutter: 14pt,
+  [
+    #set text(8.4pt)
+    #H[When an alarm sounds]
+    1. *Everyone out by the stair* and through the nearest door: the family entrance (north), the kitchen service door (east), or the guest entrance through the foyer (west). Close the doors behind you. Do not use the lift. Do not stop for anything.
+    2. *If the stair or the gallery is full of smoke:* stay in your room with the door closed, open your window wide for air, call 998 (Civil Defense) and the family, and show yourself at the window. *The master suite* goes out to the suite court (open to the sky) and waits there. The rescue comes from outside: the north street side, the lane side, the east yard, the driveway on the west.
+    3. *Meet at the assembly point:* the north parking by the gate (proposed; set with the site plan). Count everyone. Nobody goes back in.
+    #v(3pt)
+    #H[The routes]
+    #table(columns: (1fr, 2fr, 1.4fr), inset: 2.6pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*From*], [*Main route*], [*Backup refuge*],
+      [Master suite], [suite lobby → family link → family living → gallery → stair → family door], [the suite court (open to the sky); the east window],
+      [Bedroom 1], [family link → family living → gallery → stair → family door], [the cut-wall window (lane side)],
+      [Kids' room], [gallery → stair → family door], [the north window],
+      [Bedroom 2 / bedroom 3], [gallery on the projection → stair → family door], [the west window (driveway side)],
+      [Maid room], [laundry → kitchen → service door (east yard)], [her window (lane side), 1.10 m sill],
+      [Guests in the majlis], [foyer → guest door (west)], [—],
+    )
+  ],
+  [
+    #set text(8.4pt)
+    #H[Household rules]
+    - *Test the alarms monthly* (the test button on one alarm sounds them all); clean them as the manufacturer says; replace every alarm after about 10 years (the date is printed on it).
+    - *Keep the kitchen door closed at night*, and the bedroom doors too: a closed door keeps smoke out of a room for the minutes that matter.
+    - *Practise the plan with the children* twice a year: the alarm sound, the two ways out of each room, the window opening, the meeting point. The children must know how to open their window and that they never hide.
+    - *Gas:* the cylinders stay outside in their cabinet; the shut-off valve closes by itself when the detector sounds, and by hand at the valve; the hob is never left on unattended.
+    - *The kitchen:* the fire blanket and the extinguisher by the service door; a pan fire is covered, never carried, never watered.
+    - *The roof:* the stair room door opens from inside; the roof is a way up and out of the smoke if the way down is cut, and the fire brigade can reach it from the street side.
+    - *Phone numbers* at the family entrance and in the kitchen: Civil Defense 998, ambulance 997, police 999 (Saudi Arabia).
+    #v(3pt)
+    #text(7pt, fill: gray)[Drawn from `studies/fire_escape.typ` §5; the assembly point and the rescue access are confirmed with the site plan; nothing here replaces the Civil Defense's requirements for the permit.]
   ],
 )

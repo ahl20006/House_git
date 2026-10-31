@@ -1,4 +1,4 @@
-# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V7.1)
+# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V7.1 and the fire decision of 1 Nov 2026)
 
 The owner's brief written as numbered, testable requirements. Each has a criterion the design can be checked against; where the owner gave no number, the criterion is a reasonable measurable proxy and is marked *(proxy)*. The design review `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` checks every requirement against the project files (`data/*.csv`, the design files and the studies) and records **met / partly / not met** with evidence.
 
@@ -55,10 +55,11 @@ Sources for the criteria: the owner's brief (this file); municipal villa rules a
 | R-30 | A garden around the house (trees, lawn, seating) | Garden zones drawn around the house; direct family access from the living / dining to the garden; the palms kept |
 | R-31 | Solar PV: full provision now, installation later | Roof area reserved and free of shade; fixing points cast before waterproofing; conduits from the roof to the panel; an inverter / battery room; a load assumed in the roof structure — **partly V7.0:** 24.5 m² reserved on the south wing (south of y 22.0) and 20.5 m² on the north block (`studies/roof.typ`); the room and the conduits with the site plan |
 | R-32 | Power cuts with rain: a generator connection and an essentials circuit | A generator position, a changeover switch at the main panel, an essentials circuit (pumps, fridges, network, cameras, some lights, the lift's battery lowering) |
-| R-33 | Security high: CCTV, alarm, video intercom at the gates and doors, a safe room | Camera positions at the gate, the three doors and the yards; an alarm; intercoms at the gate and both entrances; a safe room proposed (interior, no window, reinforced door, ventilation, communications) |
+| R-33 | Security high: CCTV, alarm, video intercom at the gates and doors | Camera positions at the gate, the three doors and the yards; an alarm; intercoms at the gate and both entrances. **Owner, 1 Nov 2026: no safe room** (home-level strategy; `studies/fire_escape.typ` §4) |
 
 ## F · Priorities and decisions
 | ID | Requirement | Criterion |
 |---|---|---|
 | R-34 | Quality first (high budget); luxury most important in the living room and the courtyard | The living and the courtyard get the best light, proportions, materials and acoustics; nothing cheap there |
+| R-36 | Fire safety at a family-home level: early warning and safe exit (owner, 1 Nov 2026) | Interconnected mains smoke alarms with sealed battery back-up in every bedroom, outside each sleeping area and on every floor, a heat alarm in the kitchen, a gas detector with shut-off and a CO alarm; every exit door opens from inside without a key; hinged escape casements without screens in every sleeping room (net ≥ 0.53 m², sill ≤ 1.12 m), the suite court as the suite's refuge; a fire blanket and an extinguisher in the kitchen, one per floor at the stair; no sprinklers, fire doors, panel, beam detectors, majlis second door or safe room (`studies/fire_escape.typ`) |
 | R-35 | Recent decisions to respect | West living wall full height and solid with the big TV arch and the small entrance arch; no arches between the colonnade columns; colonnade columns to the roof; upturned edge beam; malqaf outlet on the kitchen wall; sunken seating; kitchen service door; **V7.0:** the courtyard enclosure option A, the maid room at y 7.0, the main stair to the roof, the flat roof with the main cornice and the set-back attic, the design language; **V7.1:** the arched enclosure windows and the three-arch courtyard arcade — each present in the files as decided |

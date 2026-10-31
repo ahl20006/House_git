@@ -117,6 +117,8 @@
   (9.05, 1.1, 10.45, 3.1, [bed 1.4 × 2.0]), (10.5, 2.7, 10.9, 3.1, []), (10.9, 3.9, 12.0, 4.5, [desk]), (11.2, 3.35, 11.65, 3.8, []),
   (10.3, 5.85, 12.9, 6.4, [wardrobe wall 2.6 m]),
 )
+// fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
+#let escape-windows = (("Bedroom 1", (10.92, 1.6), (11.79, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
 #let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((10.92, 1.6), (11.79, 3.2)), ((12.3, 4.15), (12.9, 5.25)),
   ((5.8, 6.783), (5.8, 8.383)), ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60

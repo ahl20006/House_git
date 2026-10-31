@@ -112,6 +112,8 @@
   (4.45, 22.45, 6.25, 23.8, [barbell · rack]), (6.4, 23.2, 7.2, 23.8, [kettlebells]), (6.4, 22.45, 7.6, 23.0, [pull-up bar (wall)]),
   (7.8, 22.6, 9.8, 23.6, [pilates mat]), (10.0, 22.45, 10.65, 23.8, [cardio (bike)]),
 )
+// fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the suite bedroom's east window is its escape window (hinged casements, no screen); the suite court is its fresh-air refuge
+#let escape-windows = (("Suite bedroom", (13.311, 15.0), (13.311, 18.6)),)
 #let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((0.5, 24), (2.3, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
   ((4.5, 24), (13.0, 24)), ((2.9, 24), (3.9, 24)), ((5.9, 21.25), (8.6, 21.25)), ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))
 #let drains = (

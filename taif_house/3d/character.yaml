@@ -107,14 +107,10 @@ mashrabiya:                           # timber screens (simple modern pattern) i
   slat: 0.03
   pitch: [0.09, 0.27]                 # vertical slats every 0.09, horizontal every 0.27
   windows:                            # "x1 y1 x2 y2" as in the plans; side = the face the screen is on (default: outward)
-    - {floor: FF, at: "5.3 0 8.7 0", why: "kids' room north window on the north street"}
-    - {floor: FF, at: "0 11.3 0 12.6", why: "bedroom 2 west window on the driveway / street"}
-    - {floor: FF, at: "0 17.2 0 18.2", why: "bedroom 3 west window on the driveway / street"}
+                                      # fire safety (owner, 1 Nov 2026, studies/fire_escape.typ): NO screen on the escape windows of the bedrooms (1–3, kids', suite) and the maid room;
+                                      # mashrabiya only on non-escape windows (the office, the suite lobby, the women's majlis, the dining)
     - {floor: FF, at: "0 19.6 0 20.9", why: "owner's office west window on the driveway / street"}
     - {floor: FF, at: "0 22.0 0 23.5", why: "owner's office west window on the driveway / street"}
-    - {floor: FF, at: "10.92 1.6 11.79 3.2", why: "bedroom 1 window on the lane (cut wall)"}
-    - {floor: FF, at: "12.3 4.15 12.9 5.25", why: "bedroom 1 window on the lane (cut wall)"}
-    - {floor: FF, at: "13.311 15.0 13.311 18.6", why: "suite bedroom east window on the service yard / neighbour"}
     - {floor: FF, at: "8.95 7.6 8.95 9.6", side: [-1, 0], why: "the only first-floor window onto the courtyard (suite lobby): privacy from the courtyard"}
     - {floor: GF, at: "5.4 0 7.8 0", why: "women's majlis north window on the north street"}
     - {floor: GF, at: "13.311 14.5 13.311 17.5", why: "dining east window on the service yard / neighbour"}

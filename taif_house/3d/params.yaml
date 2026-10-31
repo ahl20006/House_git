@@ -50,7 +50,7 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: GF, at: "4.25 10.7 4.25 12.7", sill: 0.0, head: 2.9, note: "riwaq glass to the courtyard, south"}
     - {floor: GF, at: "8.95 9.1 8.95 11.1", sill: 1.1, head: 2.1, note: "kitchen sink window onto the courtyard, over the counter"}
     - {floor: GF, at: "13.311 8.7 13.311 10.1", sill: 1.1, head: 2.1, note: "kitchen east window, over the cooking counter"}
-    - {floor: GF, at: "12.17 3.9 12.714 4.9", sill: 1.5, head: 2.1, note: "maid room window in the cut wall, high sill"}
+    - {floor: GF, at: "12.17 3.9 12.714 4.9", sill: 1.1, head: 2.1, note: "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured glass below +1.60, no screen"}
     - {floor: GF, at: "11.138 2.0 11.464 2.6", sill: 1.6, head: 2.1, note: "maid bath vent window"}
     - {floor: GF, at: "3.6 24 6.2 24", sill: 1.8, head: 2.9, note: "men's majlis high south window"}
     - {floor: GF, at: "7.2 24 9.8 24", sill: 1.8, head: 2.9, note: "men's majlis high south window"}

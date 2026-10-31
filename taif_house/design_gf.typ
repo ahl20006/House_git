@@ -113,10 +113,13 @@
   ((13.311, 7.2), (13.311, 8.1), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
   ((8.95, 9.1), (8.95, 11.1), []),            // sink window onto the courtyard
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
-  ((12.170, 3.9), (12.714, 4.9), []),         // maid room window in the cut wall, high sill ≥ 1.5 m
+  ((12.170, 3.9), (12.714, 4.9), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
   ((11.138, 2.0), (11.464, 2.6), []),         // maid bath vent window in the cut wall
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
+// fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
+#let safety = (((3.3, 6.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.9, 5.0), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.9, 6.9), [E · stair]))
+#let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
 #let tower-pts = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)).map(place)
@@ -134,7 +137,7 @@
   rooms: rooms.map(rotrow),
   air: (("Air tower", tower-pts),),
   arrows: arrows,
-  marks: inner-marks + level-marks + door-marks + tower-marks,
+  marks: inner-marks + level-marks + door-marks + tower-marks + safety-marks,
   limit: outline-gf,
   note: [*Ground floor V7.1* on site option Z4, with *three columns* on x 5.8 (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall) under the edge beam of the first floor's 1.55 m west projection (V6.4: enclosure option A, the gallery glazed on the edge beam; the kitchen's north wall at y 7.0 for the maid room), a colonnade along the courtyard edge: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, entered from the riwaq through a 1.40 m arched opening; its west wall is solid and full height with the arched TV niche 4.40 × 0.70 m (V6.3). *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft, the under-stair store and the three columns (not extra area); blue lines mark the ceiling-height change, the FF projection edge (beam) above on x 5.6, the low wall and the doors, openings and walls of both blocks.],
 )
