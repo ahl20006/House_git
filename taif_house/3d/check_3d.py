@@ -200,8 +200,8 @@ if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_O
 else:
     bad(f"plan extent {lo[:2].round(3).tolist()}–{hi[:2].round(3).tolist()} does not match the outline {ob}")
 RD = P["roof_design"]
-if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and abs(hi[2] - RD["attic"]["top"]) < 1e-4:
-    ok(f"levels: ground slab underside {lo[2]:+.2f}, the attic coping {hi[2]:+.2f} (the highest base mesh within the outline, V8.0: no stair room) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
+if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and (abs(hi[2] - RD["attic"]["top"]) < 1e-4 or abs(hi[2] - RD["hrv_base"]["top"]) < 1e-4):
+    ok(f"levels: ground slab underside {lo[2]:+.2f}, the highest base mesh within the outline {hi[2]:+.2f} (the attic coping +{RD['attic']['top']:.2f} or the HRV base +{RD['hrv_base']['top']:.2f}; no stair room) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
 else:
     bad(f"levels {lo[2]:+.3f}…{hi[2]:+.3f} do not match params")
 for n, want in (("gf_finish_floor", FINISHED["GF"]), ("ff_finish_floor", FINISHED["FF"]), ("gf_slab", STRUCT_TOP["GF"]), ("ff_slab", STRUCT_TOP["FF"]), ("roof_slab", L["roof"])):
@@ -344,39 +344,42 @@ if all(roof_poly.contains(p) for p in over_well) and not any(n.startswith("ff_st
     ok("the internal stair stops at the first floor (V8.0): no flights 3 / 4, no stair room, no trimmers R16–R18; the roof slab is closed over the stair well")
 else:
     bad("the internal roof stair / the roof opening over the well is still in the model")
-tw_ = summary["stair_tower"]
-TWP = RD["stair_tower"]
-fl_ = tw_["flights"]
-lower = [f for f in fl_ if f["name"].startswith("lower")]
-upper = [f for f in fl_ if f["name"].startswith("upper")]
-r_ok = all(f["r"] <= 0.17 + 1e-6 and abs(f["going"] - 0.28) < 1e-3 for f in fl_) and sum(f["n"] for f in lower) == 22 and sum(f["n"] for f in upper) == 22
-z_ok = abs(lower[0]["z0"] + 2 * lower[0]["n"] * lower[0]["r"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] + 2 * upper[0]["n"] * upper[0]["r"] - (L["roof"] + P["roof_finish"])) < 1e-3
-step_ok = TWP["entry"] - TWP["ground"] <= 0.17 + 1e-6
-# headroom: over every tread the soffit of the flight / landing above or the tower's roof (from the flight profiles; the meshes are their extrusions)
-def soffit_above(xm, ym, z):
-    best = tw_["soffit"]
-    for f in fl_:
-        if f["x"][0] - 1e-6 <= xm <= f["x"][1] + 1e-6:
-            pr = Polygon(f["profile"]).buffer(0)
-            seg = pr.intersection(LineString([(ym, z + 0.05), (ym, 50)]))
-            if not seg.is_empty:
-                best = min(best, seg.bounds[1])
-    for l_ in tw_["landings"]:
-        bx = l_["box"]
-        if bx[0] - 1e-6 <= xm <= bx[2] + 1e-6 and bx[1] - 1e-6 <= ym <= bx[3] + 1e-6 and l_["z"] - tw_["waist"] > z + 0.05:
-            best = min(best, l_["z"] - tw_["waist"])
-    return best
-hr_ = [(soffit_above((f["x"][0] + f["x"][1]) / 2, n["y_mid"], n["z"]) - n["z"], f["name"]) for f in fl_ for n in f["nosings"]]
-hmin = min(hr_)
-meshes_ok = all(n in meshes for n in ("ext_tower_wall_n", "ext_tower_wall_e", "ext_tower_wall_s", "ext_tower_wall_w", "ext_tower_roof", "ext_tower_gate_foot", "ext_tower_gate_upper"))
-top_ok = RD["attic"]["top"] < tw_["top"] < AIR["head"][1] and abs(meshes["ext_tower_roof"].bounds[1][2] - tw_["top"]) < 1e-3
-door_ok = tw_["roof_door_head"] - (L["roof"] + P["roof_finish"]) >= 2.0 - 1e-6 and tw_["office_door"][0] >= RD["stair_tower"]["south_landing"][0] - 1e-6
-if r_ok and z_ok and step_ok and hmin[0] >= P["headroom_min"] - 1e-6 and meshes_ok and top_ok and door_ok:
-    ok(f"external stair tower (V8.0): {TWP['box'][2] - TWP['box'][0]:.2f} × {TWP['box'][3] - TWP['box'][1]:.2f} m outside the east wall, top +{tw_['top']:.2f} (above the attic +{RD['attic']['top']:.2f}, below the malqaf +{AIR['head'][1]:.2f}); "
-       f"the entry step {TWP['entry'] - TWP['ground']:.2f}, 22 risers × {lower[0]['r']:.4f} to the office landing +{FINISHED['FF']:.2f} and 22 × {upper[0]['r']:.4f} to the roof landing +{L['roof'] + P['roof_finish']:.2f}, goings {lower[0]['going']:.2f}, flights 1.00 clear; "
-       f"headroom ≥ {hmin[0]:.2f} m (minimum on flight {hmin[1]}); the roof door {tw_['roof_door_head'] - (L['roof'] + P['roof_finish']):.2f} m high through the parapet; the foot gate and the locked gate above the office landing modelled")
+if summary.get("stair_tower"):
+    tw_ = summary["stair_tower"]
+    TWP = RD["stair_tower"]
+    fl_ = tw_["flights"]
+    lower = [f for f in fl_ if f["name"].startswith("lower")]
+    upper = [f for f in fl_ if f["name"].startswith("upper")]
+    r_ok = all(f["r"] <= 0.17 + 1e-6 and abs(f["going"] - 0.28) < 1e-3 for f in fl_) and sum(f["n"] for f in lower) == 22 and sum(f["n"] for f in upper) == 22
+    z_ok = abs(lower[0]["z0"] + 2 * lower[0]["n"] * lower[0]["r"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] + 2 * upper[0]["n"] * upper[0]["r"] - (L["roof"] + P["roof_finish"])) < 1e-3
+    step_ok = TWP["entry"] - TWP["ground"] <= 0.17 + 1e-6
+    # headroom: over every tread the soffit of the flight / landing above or the tower's roof (from the flight profiles; the meshes are their extrusions)
+    def soffit_above(xm, ym, z):
+        best = tw_["soffit"]
+        for f in fl_:
+            if f["x"][0] - 1e-6 <= xm <= f["x"][1] + 1e-6:
+                pr = Polygon(f["profile"]).buffer(0)
+                seg = pr.intersection(LineString([(ym, z + 0.05), (ym, 50)]))
+                if not seg.is_empty:
+                    best = min(best, seg.bounds[1])
+        for l_ in tw_["landings"]:
+            bx = l_["box"]
+            if bx[0] - 1e-6 <= xm <= bx[2] + 1e-6 and bx[1] - 1e-6 <= ym <= bx[3] + 1e-6 and l_["z"] - tw_["waist"] > z + 0.05:
+                best = min(best, l_["z"] - tw_["waist"])
+        return best
+    hr_ = [(soffit_above((f["x"][0] + f["x"][1]) / 2, n["y_mid"], n["z"]) - n["z"], f["name"]) for f in fl_ for n in f["nosings"]]
+    hmin = min(hr_)
+    meshes_ok = all(n in meshes for n in ("ext_tower_wall_n", "ext_tower_wall_e", "ext_tower_wall_s", "ext_tower_wall_w", "ext_tower_roof", "ext_tower_gate_foot", "ext_tower_gate_upper"))
+    top_ok = RD["attic"]["top"] < tw_["top"] < AIR["head"][1] and abs(meshes["ext_tower_roof"].bounds[1][2] - tw_["top"]) < 1e-3
+    door_ok = tw_["roof_door_head"] - (L["roof"] + P["roof_finish"]) >= 2.0 - 1e-6 and tw_["office_door"][0] >= RD["stair_tower"]["south_landing"][0] - 1e-6
+    if r_ok and z_ok and step_ok and hmin[0] >= P["headroom_min"] - 1e-6 and meshes_ok and top_ok and door_ok:
+        ok(f"external stair tower (V8.0): {TWP['box'][2] - TWP['box'][0]:.2f} × {TWP['box'][3] - TWP['box'][1]:.2f} m outside the east wall, top +{tw_['top']:.2f} (above the attic +{RD['attic']['top']:.2f}, below the malqaf +{AIR['head'][1]:.2f}); "
+           f"the entry step {TWP['entry'] - TWP['ground']:.2f}, 22 risers × {lower[0]['r']:.4f} to the office landing +{FINISHED['FF']:.2f} and 22 × {upper[0]['r']:.4f} to the roof landing +{L['roof'] + P['roof_finish']:.2f}, goings {lower[0]['going']:.2f}, flights 1.00 clear; "
+           f"headroom ≥ {hmin[0]:.2f} m (minimum on flight {hmin[1]}); the roof door {tw_['roof_door_head'] - (L['roof'] + P['roof_finish']):.2f} m high through the parapet; the foot gate and the locked gate above the office landing modelled")
+    else:
+        bad(f"stair tower: risers {r_ok}, levels {z_ok}, entry step {step_ok}, headroom {hmin}, meshes {meshes_ok}, top {top_ok}, doors {door_ok}")
 else:
-    bad(f"stair tower: risers {r_ok}, levels {z_ok}, entry step {step_ok}, headroom {hmin}, meshes {meshes_ok}, top {top_ok}, doors {door_ok}")
+    ok("no external stair tower (removed after V8.0): the roof is reached by the maintenance ladder in the suite court (studies/roof.typ page 2), to be modelled at the next build")
 
 # ---------- 7: the structural elements of the zone ----------
 print("7. Structure of the zone (assumed / unconfirmed)")
@@ -621,9 +624,9 @@ else:
     bad(f"attic: setback {setback_ok}, wall {aw.bounds[:, 2].tolist()}, coping {ac.bounds[1][2]}")
 hb = summary["hrv_base"]
 HBP = RD["hrv_base"]
-hb_ok = all(n in meshes for n in ("roof_air_base_shell", "roof_air_base_slab", "roof_air_base_door", "roof_air_base_louvre")) and abs(meshes["roof_air_base_slab"].bounds[1][2] - at["top"]) < 1e-3 and hb["clear"] >= 1.6 - 1e-6
+hb_ok = all(n in meshes for n in ("roof_air_base_shell", "roof_air_base_slab", "roof_air_base_door", "roof_air_base_louvre")) and abs(meshes["roof_air_base_slab"].bounds[1][2] - HBP["top"]) < 1e-3 and hb["clear"] >= 1.6 - 1e-6
 if hb_ok:
-    ok(f"the HRV base under the malqaf (air v3.1): its top +{HBP['top']:.2f} = the attic coping, {hb['clear']:.2f} m clear inside ({hb['inside_area']:.2f} m²), doors y {HBP['doors'][0]}–{HBP['doors'][1]} on its west face, the exhaust louvre on its cut face; the malqaf head (+{AIR['head'][1]:.2f}) the only element above the attic within the outline; the head open on {len(summary['air']['head_openings'])} faces")
+    ok(f"the HRV base under the malqaf (air v3.1): its top +{HBP['top']:.2f} ({HBP['top'] - at['top']:+.2f} to the attic coping), {hb['clear']:.2f} m clear inside ({hb['inside_area']:.2f} m²), doors y {HBP['doors'][0]}–{HBP['doors'][1]} on its west face, the exhaust louvre on its cut face; the malqaf head (+{AIR['head'][1]:.2f}) the only element above the attic within the outline; the head open on {len(summary['air']['head_openings'])} faces")
 else:
     bad(f"HRV base: {hb}")
 sc_ = summary["suite_court"]

@@ -127,13 +127,14 @@
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
 #let tower-pts = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
-// 1 Nov 2026 (owner, studies/south_wing.typ): the external stair tower at the south-east (to the office landing and the roof), the outdoor kitchen, the service gate on the lane, the yard screen: outlines only (CSV)
+// 1 Nov 2026 after V8.0 (owner): the external stair tower is REMOVED (the roof by the maintenance ladder in the suite court, studies/roof.typ); the outdoor kitchen re-placed:
+// the counter and sink against the house's east wall at the south-east, on the path from the kitchen service door (the house's afternoon shade; a 1.2 m canopy proposed),
+// the grill and tannour apart in the south-east garden (≥ 3 m from every opening, the palms and far from the HRV intake, downwind); the yard screen kept;
+// the service gate on the lane PROPOSED TO KEEP (bins, gas, garden workers reach the yard without the drive; its position with the site plan): outlines only (CSV)
 #let site-boxes = (
-  (13.436, 18.22, 16.036, 24.0, [stair tower 2.6 × 5.78 · office + roof]),
-  (14.7, 23.95, 15.6, 24.05, [foot gate (out-opening)]),
-  (16.1, 20.6, 16.7, 23.6, [outdoor kitchen: counter + sink]),
-  (15.0, 27.4, 17.3, 28.9, [grill + tannour (3.4 m from the gate)]),
-  (23.75, 22.6, 24.1, 23.8, [service gate (lane)]),
+  (13.45, 20.8, 14.05, 23.6, [outdoor kitchen: counter + sink (east wall, canopy proposed)]),
+  (15.0, 27.4, 17.3, 28.9, [grill + tannour (3.3 m from the house, ≥ 3 m from the palms)]),
+  (23.75, 22.6, 24.1, 23.8, [service gate (lane) · keep: proposal, position with the site plan]),
   (14.6, 6.5, 14.7, 13.0, [yard screen 1.8 m (bins, gas)]),
 )
 #let site-marks = site-boxes.map(((x0, y0, x1, y1, l)) => {

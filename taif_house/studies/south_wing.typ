@@ -171,7 +171,7 @@
 // ====================================================================================== PAGE 1 · the two plans
 #text(14pt, weight: "bold", fill: green)[South wing study · gym west + south, office east, the court in the middle · and an external stair at the south-east · Taif / Palm House V7.1]
 #v(1pt)
-#text(8pt, fill: gray)[Owner's decisions 1 Nov 2026, APPLIED the same day (docs/PENDING_CHANGES.md): the swap with the suite court 2.5 m clear (y 19.25–21.9), the east enclosed stair tower continuing to the roof, the internal roof stair dropped; the pivoting TV panel NOT applied (it does not fit beside the office door in the 2.1 m shared wall: see the report) · this study keeps its original comparison · every size is a study assumption; the structure is a re-trace of the load paths, not a calculation (X5 stays open)]
+#text(8pt, fill: gray)[Owner's decisions 1 Nov 2026, APPLIED the same day (docs/PENDING_CHANGES.md): the swap with the suite court 2.5 m clear (y 19.25–21.9), the east enclosed stair tower continuing to the roof, the internal roof stair dropped; the pivoting TV panel NOT applied (it does not fit beside the office door in the 2.1 m shared wall: see the report) · this study keeps its original comparison · every size is a study assumption; the structure is a re-trace of the load paths, not a calculation (X5 stays open). *1 Nov 2026 after V8.0: the EXTERNAL STAIR TOWER IS REMOVED* (owner: cost and appearance): the roof by a maintenance ladder in the suite court (studies/roof.typ page 2), the office reached from the court only, visitors met in the men's majlis; §§ 7–11 and the tower in § 12 stay as the record.]
 #v(3pt)
 #let plan(swapped, length: 0.74cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -482,10 +482,11 @@
   poly(((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)), fill: white, stroke: 0.6pt + sky); T((7.6, 22.4), [SUITE COURT\ 25.3 m² axes · 23.1 clear\ open to the sky], fill: sky)
   poly(rp(10.0, 19.25, 13.311, 24.0), fill: rgb("#e3e8d4")); T((11.65, 21.6), [OFFICE\ 15.7 m² · 13.9 clear])
   rect(q((5.9, 19.35)), q((9.9, 20.55)), fill: rgb("#eef5e8"), stroke: (paint: green, thickness: 0.4pt, dash: "dotted")); T((7.9, 20.0), [1.2 m strip · the three doors], size: 3.4pt, fill: green)
-  for (a, b) in (((4.35, 19.25), (5.45, 19.25)), ((5.8, 19.5), (5.8, 20.4)), ((9.05, 19.25), (9.95, 19.25)), ((10.0, 19.5), (10.0, 20.35)), ((13.311, 22.9), (13.311, 23.75))) { line(q(a), q(b), stroke: 2.4pt + red) }
+  for (a, b) in (((4.35, 19.25), (5.45, 19.25)), ((5.8, 19.5), (5.8, 20.4)), ((9.05, 19.25), (9.95, 19.25)), ((10.0, 19.5), (10.0, 20.35))) { line(q(a), q(b), stroke: 2.4pt + red) }   // after V8.0: no visitors' door
   for (a, b) in ((6.0, 7.0), (7.6, 8.6)) { line(q((a, 19.25)), q((b, 19.25)), stroke: 2pt + rgb("#1f7a99")) }
   line(q((4.25, 24.25)), q((10.0, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.2pt, dash: "dashed")); T((7.1, 24.6), [south side: (b) mashrabiya PROPOSED], size: 3.6pt, fill: rgb("#8a5a2b"))
-  line(q((13.436, 18.22)), q((16.036, 18.22)), q((16.036, 24.0)), q((13.436, 24.0)), stroke: (paint: luma(110), thickness: 0.8pt, dash: "dashed")); T((14.75, 21.1), [stair tower], size: 3.6pt, angle: 90deg)
+  line(q((13.436, 18.22)), q((16.036, 18.22)), q((16.036, 24.0)), q((13.436, 24.0)), stroke: (paint: luma(170), thickness: 0.6pt, dash: "dotted")); T((14.75, 21.1), [stair tower REMOVED (after V8.0)], size: 3.2pt, angle: 90deg, fill: luma(110))
+  rect(q((4.35, 20.65)), q((4.70, 21.95)), fill: rgb("#c9a86a"), stroke: 0.4pt + ink); T((5.4, 21.3), [ladder ↑ roof], size: 3pt, fill: rgb("#8a5a2b"), anchor: "west")
   T((6.6, 25.3), [v2 as applied · north up · 1 m = 0.62 cm], size: 4pt, fill: green)
 })
 // the south side of the court (x 4.25–10.0 at y 24): three infills under the facade frame (R8 + the cornice + the parapet +8.40, kept in every option)

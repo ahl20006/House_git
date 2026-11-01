@@ -159,7 +159,7 @@ courtyard_layout:                     # clear faces: the riwaq glass x 4.35, the
     pipe_z: -0.55                     # the pipe invert at the drain, 1 % east under the kitchen floor to the east yard manhole
   pergola: none
 
-# roof (V7.0 / V8.0): the parapets, the cornice, the attic, the stair tower and the HRV base are in 3d/params.yaml `roof_design` (base model); the guards round the roof holes here
+# roof (V7.0 / V8.0): the parapets, the cornice, the attic and the HRV base are in 3d/params.yaml `roof_design` (base model); the guards round the roof holes here (after V8.0: no stair tower; the ladder and the set-back guardrail in params, not built yet)
 
 malqaf_louvres: {slats: 4, depth: 0.12, thickness: 0.04}   # timber slats in the head's three open faces (V8.0)
 
@@ -182,7 +182,7 @@ tv_wall:
 # ---------- 5. views ----------
 views:                                # eye-level and aerial bookmarks: CSV frame (x east, y south) + height above ±0.00 · V8.0: the five release views first
   north:      {title: "the north facade from the north street: the main cornice, the set-back attic, the malqaf on its HRV base", eye: [5.6, -13.5, 1.6], target: [6.6, 0.0, 4.6]}
-  aerial_se:  {title: "aerial from the south-east: the stair tower, the malqaf tower and the roofline", eye: [27.0, 37.0, 19.0], target: [8.0, 12.0, 4.0]}
+  aerial_se:  {title: "aerial from the south-east: the malqaf tower, the lowered attic and the roofline (after V8.0: no stair tower)", eye: [27.0, 37.0, 19.0], target: [8.0, 12.0, 4.0]}
   courtyard:  {title: "the main courtyard from the seating, looking west to the arcade and the arched gallery windows", eye: [8.6, 10.6, 1.35], target: [4.4, 10.2, 2.3]}
   suite_court: {title: "the suite court from its seating, looking north to the clerestory windows and the doors", eye: [7.1, 23.35, 4.8], target: [7.4, 19.0, 5.3]}
   tv:         {title: "inside the double-height living, looking west to the TV wall", eye: [8.3, 16.9, 1.6], target: [4.35, 16.95, 1.9]}
@@ -200,19 +200,11 @@ night:                                # the night view: dark sky, the lanterns a
     - [4.9, 12.0, 5.8, 0.6]           # gallery
     - [8.0, 10.5, 0.4, 0.5]           # the courtyard seating (the riser light)
 
-stair_tower:                         # owner, 1 Nov 2026 (studies/south_wing.typ, studies/roof.typ): the external stair tower; V8.0: BUILT from 3d/params.yaml roof_design.stair_tower (this block: the cameras and the notes)
-  box: [13.436, 18.22, 16.036, 24.0]   # outer faces (CSV), outside the east wall; walls 0.25
-  top: 9.6                           # the roof door's head +9.40 + the slab; above the attic +9.10, below the malqaf +9.80
-  flights: {ground_to_office: 23, office_to_roof: 22, riser_max: 0.17, going: 0.28, width: 1.0, landings: 1.1}
-  landings: {office: 3.6, roof: 7.3, half: [1.87, 5.45]}
-  openings: {south_x: [14.6, 15.8], east_levels: [[1.2, 3.0], [4.9, 6.7]], north: solid, style: "semicircular arches, honey-stone surrounds, bird mesh, unglazed"}
-  doors: {gate: [14.7, 24.0, 15.6, 24.0], office: [13.311, 22.9, 13.311, 23.75], roof: [13.311, 22.9, 13.311, 23.75], gate_above_office_landing: true}
-  cameras: [[15.15, 24.3, 2.6], [13.6, 23.3, 5.9], [13.6, 23.3, 9.3], [12.5, 22.6, 8.4]]   # the foot gate, the office landing, the roof arrival, along the south wing roof (x, y, z)
-  note: "cream plaster, honey-stone plinth and arch surrounds, the main cornice line carried round, a stone coping, black steel gates and rails; replaces the internal roof flights and the stair room"
-outdoor_kitchen:                     # owner, 1 Nov 2026: the counter and sink at the tower's east face (its afternoon shade), the grill and tannour apart in the south-east garden
-  counter: [16.1, 20.6, 16.7, 23.6]
-  grill: [15.0, 27.4, 17.3, 28.9]    # 3.4 m south of the foot gate, ≥ 3 m from the palms, downwind (NW wind) of the house and the tower
-  service_gate_site: [24.84, 27.0]   # in the lane boundary wall (base.typ frame), 8.7 m east of the tower's foot
+# stair_tower: REMOVED after V8.0 (owner, 1 Nov 2026: cost and appearance); the roof by the maintenance ladder in the suite court (3d/params.yaml roof_design.ladder; studies/roof.typ page 2)
+outdoor_kitchen:                     # owner, 1 Nov 2026 after V8.0 (no stair tower): the counter and sink against the house's east wall at the south-east on the path from the kitchen service door, the grill and tannour apart in the south-east garden
+  counter: [13.45, 20.8, 14.05, 23.6]   # on the east wall face (x 13.436): the house's afternoon shade; a 1.2 m canopy proposed (not drawn)
+  grill: [15.0, 27.4, 17.3, 28.9]    # 3.3 m from the house's south-east corner, ≥ 3 m from the palms, downwind (NW wind) of the house and far from the HRV intake (NE roof)
+  service_gate_site: [24.84, 27.0]   # in the lane boundary wall (base.typ frame): proposed to KEEP for the yard (bins, gas, garden workers); position with the site plan
   yard_screen: [14.6, 6.5, 14.7, 13.0]   # 1.8 m screen wall: bins and gas behind it, the path along the house wall in front
 suite_court_v2:                      # owner, 1 Nov 2026 (studies/ff_suite.typ, south_wing.typ): DATA for the 3D builder
   court: [[4.25, 20.55], [5.8, 20.55], [5.8, 19.25], [10.0, 19.25], [10.0, 24.0], [4.25, 24.0]]

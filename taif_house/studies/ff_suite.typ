@@ -1,8 +1,9 @@
 // ff_suite.typ · Taif / Palm House · FIRST FLOOR · focus study of the south wing and the MASTER SUITE (compile THIS file)
 // SOUTH WING v2 (owner, 1 Nov 2026): the gym on the WEST band only (x 0–4.25, over the ground-floor guest block, inside the column frame C6 / C13 / C19 – C7 / C14 / C20)
 // with a small entrance nib at the gallery end (x 4.25–5.8, y 19.25–20.55: the gym and the gallery only touch at a corner); the suite court in the middle
-// (x 4.25–10.0, open to the sky, four sides); the owner's office on the east (x 10.0–13.311) beside the suite bedroom, NO door between them; visitors from the
-// external stair tower. The three court doors (bedroom, gym, office) on the court's north edge along a 1.2 m movement strip; the seating in the south part.
+// (x 4.25–10.0, open to the sky, four sides); the owner's office on the east (x 10.0–13.311) beside the suite bedroom, NO door between them; reached from the
+// suite court only (1 Nov 2026 after V8.0: the external stair tower and the visitors' door are REMOVED; visitors are met in the men's majlis). The maintenance
+// ladder to the roof stands in the court on the gym's east wall (studies/roof.typ page 2). The three court doors (bedroom, gym, office) on the court's north edge along a 1.2 m movement strip; the seating in the south part.
 // One fixed TV in the office and one in the gym (no pivoting panel). First floor, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
 // Local coordinates (metres, x east, y SOUTH) = the main first-floor CSV coordinates (../data/rooms_ff.csv): no conversion.
 // The room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ, which checks that both agree).
@@ -40,7 +41,7 @@
   (pts: ((10.15, 6.5), (13.311, 6.5)), label: [② straight wall to bedroom 1 (y 6.5, on the GF kitchen wall)], at: (13.45, 6.5), anchor: "west"),
   (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ the gallery's south end → the gym's entrance nib (sliding door)], at: (4.4, 18.75), anchor: "west"),
   (pts: ((0, 19.25), (4.25, 19.25)), label: [④ bedroom 3's south wall: a double wall to the gym (Rw ≈ 55 dB)], at: (0.1, 18.4), anchor: "west"),
-  (pts: ((13.311, 19.25), (13.311, 24.0)), label: [⑤ the external stair tower's office landing (visitors)], at: (13.45, 22.2), anchor: "west"),
+  (pts: ((13.311, 19.25), (13.311, 24.0)), label: [⑤ the office's east wall: a window only (the stair tower and the visitors' door removed after V8.0)], at: (13.45, 22.2), anchor: "west"),
 )
 
 // ---------- Rooms ----------
@@ -65,7 +66,7 @@
 )
 
 // ---------- Doors: a, b, label, room, into (unit vector into that room), from ("circ", a room name, or "outside" = the family part), open = no leaf / sliding ----------
-// escape: the gym → court door swings INTO the court, the court → office door INTO the office, the visitors' door OUT onto the stair landing: each opens in the escape direction
+// the gym → court door swings INTO the court, the court → office door INTO the office (simple doors, ordinary privacy locks at most: no visitor lock logic since the stair tower went)
 #let D(a, b, label, room, into, from: "circ", open: false, out: false, lock: none) = (a: a, b: b, label: label, room: room, into: into, from: from, open: open, out: out, lock: lock)
 #let doors = (
   D((9.0, 6.5), (10.1, 6.5), [suite door], "Suite lobby", (0, 1), from: "outside"),
@@ -74,10 +75,9 @@
   D((10.3, 10.6), (10.3, 11.6), [dressing], "Suite dressing", (1, 0)),
   D((9.05, 11.9), (10.05, 11.9), [bedroom], "Suite bedroom", (0, 1)),
   D((4.35, 19.25), (5.45, 19.25), [gym, from the gallery end (sliding)], "Gym", (0, 1), from: "outside", open: true),
-  D((9.05, 19.25), (9.95, 19.25), [court (sliding glass)], "Suite court (open to the sky)", (0, 1), from: "Suite bedroom", open: true, lock: "free from the bedroom side"),
-  D((xn, 19.5), (xn, 20.4), [court (from the gym)], "Suite court (open to the sky)", (1, 0), from: "Gym", lock: "free from the gym side, no key"),
-  D((xo, 19.5), (xo, 20.35), [office (from the court)], "Owner's office", (1, 0), from: "Suite court (open to the sky)", lock: "free from the court side; key only from the office side"),
-  D((13.311, 22.9), (13.311, 23.75), [visitors' door (stair landing)], "Owner's office", (-1, 0), from: "outside", out: true, lock: "thumb-turn inside; key outside"),
+  D((9.05, 19.25), (9.95, 19.25), [court (sliding glass)], "Suite court (open to the sky)", (0, 1), from: "Suite bedroom", open: true),
+  D((xn, 19.5), (xn, 20.4), [court (from the gym)], "Suite court (open to the sky)", (1, 0), from: "Gym"),
+  D((xo, 19.5), (xo, 20.35), [office (from the court)], "Owner's office", (1, 0), from: "Suite court (open to the sky)"),   // after V8.0: the only door of the office (the visitors' door from the stair tower is removed)
 )
 
 // ---------- The gym (v2): the west band, inside the column frame; the treadmill along the 4.75 m length on the stiff 2.75 m solid bay next to the outer wall ----------
@@ -108,7 +108,9 @@
 #let court-strip = (xn + 0.1, 19.35, xo - 0.1, 20.55)                 // 1.2 m clear in front of the three doors
 #let court-furniture = (
   (6.0, 22.95, 8.2, 23.8, [3-seat sofa 2.2 × 0.85]), (5.0, 21.7, 5.75, 22.45, [armchair]), (8.45, 21.7, 9.2, 22.45, [armchair]), (6.5, 21.95, 7.7, 22.65, [table 1.2 × 0.7]),
-  (4.4, 23.2, 5.0, 23.8, [plant]), (9.25, 23.2, 9.85, 23.8, [plant]), (4.4, 20.75, 5.0, 21.35, [tree pot]),
+  (4.4, 23.2, 5.0, 23.8, [tree pot]), (9.25, 23.2, 9.85, 23.8, [plant]),
+  // after V8.0: the maintenance ladder's stone pilaster on the gym's east wall (studies/roof.typ page 2) and its walnut panel in the open position (180°, on the south jamb)
+  (4.35, 20.65, 4.70, 21.95, [ladder pilaster · recess + panel]), (4.70, 21.75, 4.74, 22.65, [panel open]),
 )
 #let court-path = (court-strip, (xn + 0.1, 20.55, xo - 0.1, 21.6))   // the strip + the approach band to the seating (≥ 1.0 m)
 #let court-drains = (((xn + 0.1, 19.45), (xn + 0.1, 20.45)), ((9.0, 19.4), (10.0, 19.4)), ((xo - 0.15, 19.45), (xo - 0.15, 20.4)))   // linear drains in front of the three doors (near-flush thresholds)
@@ -168,9 +170,9 @@
   (2.05, 22.35, 4.15, 23.75, [power rack · barbell · pull-up bar]), (2.1, 21.3, 2.75, 21.95, [kettlebells]), (3.5, 21.05, 4.1, 22.25, [bike]), (2.1, 20.45, 3.9, 21.05, [pilates mat 1.8 × 0.6]),
 )
 // fire safety (studies/fire_escape.typ): the suite bedroom's east window is its escape window (hinged casements, no screen)
-#let escape-windows = (("Suite bedroom", (13.311, 15.0), (13.311, 17.9)),)   // shortened from 18.6 to clear the stair tower's north wall (y 18.22)
-#let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((2.0, 24), (3.9, 24)), ((10.5, 24), (12.8, 24)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 17.9)),
-  ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))   // gym: west (two) and south; office: south only (the tower covers its east wall); the clerestory windows of the living on the court's north wall
+#let escape-windows = (("Suite bedroom", (13.311, 15.0), (13.311, 18.6)),)   // restored to 18.6 after V8.0 (V8.0 had shortened it to 17.9 for the stair tower's north wall)
+#let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((2.0, 24), (3.9, 24)), ((10.5, 24), (12.8, 24)), ((13.311, 22.8), (13.311, 23.7)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
+  ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))   // gym: west (two) and south; office: south and (after V8.0) a 0.90 east window at its south-east corner (morning light, cross-ventilation with the court door; a mashrabiya, non-escape); the clerestory windows of the living on the court's north wall
 #let drains = (
   (((12.86, 7.17), (13.311, 7.0)), [suite bath: WC, shower, tub and vanity to one stack outside the east wall]),
   (((12.6, 8.8), (13.05, 8.3), (13.05, 7.6), (13.311, 7.1)), []),
@@ -192,7 +194,7 @@
   ("Bedroom door → bath door", ((9.5, 11.9), (9.6, 7.1), (10.3, 7.1))),
   ("Bed → court door", ((11.8, 16.0), (9.5, 17.0), (9.5, 19.25))),
   ("Gallery end → gym → court → office door", ((4.9, 19.25), (4.9, 19.95), (xn, 19.95), (xo, 19.95))),
-  ("Office court door → visitors' door", ((xo, 19.95), (12.4, 22.75), (13.311, 23.3))),
+  ("Bed → court → ladder", ((11.8, 16.0), (9.5, 17.0), (9.5, 19.95), (5.9, 19.95), (5.2, 21.3), (4.75, 21.3))),
 )
 
 // ---------- Helpers ----------
@@ -358,7 +360,7 @@
     for E in ((7.1, 23.35), (5.4, 22.1), (8.8, 22.1)) { line(q(E), q((9.5, 19.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 0.4pt, dash: "dotted")) }
     // the court's south side: the recommended mashrabiya screen, PROPOSED (not applied; studies/south_wing.typ)
     line(q((xg, 24.25)), q((xo, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.0pt, dash: "dashed")); content(q((7.1, 24.55)), text(4.2pt, fill: rgb("#8a5a2b"))[south side: mashrabiya screen PROPOSED (owner's choice open)])
-    line(q((13.436, 18.22)), q((16.036, 18.22)), q((16.036, 24.0)), q((13.436, 24.0)), stroke: (paint: luma(110), thickness: 0.8pt, dash: "dashed")); content(q((14.75, 21.0)), angle: 90deg, text(4.4pt, fill: luma(90))[external stair tower (outside)])
+    content(q((13.45, 20.6)), anchor: "west", text(4.2pt, fill: luma(90))[stair tower REMOVED (after V8.0)]); content(q((4.52, 22.3)), anchor: "north", text(3.6pt, fill: rgb("#8a5a2b"))[ladder ↑ roof])
     content(q((8.85, 16.0)), anchor: "east", box(width: 1.9cm, align(right, text(4.6pt, fill: red)[solid wall: no window onto the double-height living])))
     line(q((2.75, 25.3)), q((4.75, 25.3)), stroke: 1.2pt)
     content(q((3.75, 25.7)), text(5.5pt)[2 m])
@@ -380,7 +382,7 @@
     #H[Key numbers]
     - *Suite:* lobby #r2(area(room("Suite lobby").pts)) · bath #r2(area(room("Suite bath").pts)) + WC closet #r2(area(room("Suite WC (closet)").pts)) · dressing #r2(area(room("Suite dressing").pts)) · bedroom #r2(area(room("Suite bedroom").pts)) = *#r2(area(room("Suite lobby").pts) + area(room("Suite bath").pts) + area(room("Suite WC (closet)").pts) + area(room("Suite dressing").pts) + area(room("Suite bedroom").pts)) m² indoors* + the suite court.
     - *Gym* #r2(area(room("Gym").pts)) m² on axes (≈ #r2(clear-approx(room("Gym").pts)) clear; the west band alone #r2(xg * 4.75) / #r2((west-clear.at(2) - west-clear.at(0)) * (west-clear.at(3) - west-clear.at(1)))) · *suite court* #r2(area(room("Suite court (open to the sky)").pts)) m² on axes (≈ #r2(court-clear-area) clear) · *owner's office* #r2(area(room("Owner's office").pts)) m² (≈ #r2(clear-approx(room("Owner's office").pts)) clear).
-    - *Walked:* gallery end → gym → court → office door ≈ #r1(path-len("Gallery end → gym → court → office door")) m; office → the stair landing ≈ #r1(path-len("Office court door → visitors' door")) m; bed → court ≈ #r1(path-len("Bed → court door")) m.
+    - *Walked:* gallery end → gym → court → office door ≈ #r1(path-len("Gallery end → gym → court → office door")) m; bed → court ≈ #r1(path-len("Bed → court door")) m; bed → the ladder's foot ≈ #r1(path-len("Bed → court → ladder")) m.
     #v(2pt)
     #H[Sight lines into the suite bedroom (its court door open; plan)]
     #table(columns: (2fr, auto, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
@@ -422,17 +424,13 @@
     - *Acoustics:* the *double wall to bedroom 3* (y 19.25, x 0–4.25): 200 mm dense block + an independent stud lining with mineral wool, two layers of acoustic board, target *Rw ≈ 55 dB* (≈ 50 dB on site), sealed at the top, no sockets back to back; nothing fixed to it (the rack is freestanding).
     #v(2pt)
     #H[Owner's office · #wd("Owner's office") m on axes, #r2(area(room("Owner's office").pts)) m² (≈ #r2(clear-approx(room("Owner's office").pts)) m² clear)]
-    - East, beside the suite bedroom, *no door between them*. The desk faces the south window (x 10.5–12.8); a sofa on the suite wall; bookshelves on the east wall; one fixed TV on the court wall. *Doors:* the visitors' door from the external stair tower's landing (east wall, y 22.9–23.75, opening out onto the landing, thumb-turn inside) and the court door (x #r2(xo), y 19.5–20.35, opening into the office: *free from the court side, key only from the office side*, so visitors cannot enter the court or the house).
+    - East, beside the suite bedroom, *no door between them*. The desk faces the south window (x 10.5–12.8); a sofa on the suite wall; bookshelves on the east wall; one fixed TV on the court wall; after V8.0 a *0.90 east window* at the south-east corner (y 22.8–23.7, where the visitors' door was: morning light, cross-ventilation with the court door; a mashrabiya, not an escape window). *Door (after V8.0):* the court door only (x #r2(xo), y 19.5–20.35, opening into the office, a simple door): the owner from the bedroom → court → office, the family from the gym → court → office; *visitors are met in the men's majlis*, never upstairs. The external stair tower and its visitors' door are removed.
     #v(2pt)
-    #H[Locks on the route house → court → office → stair → outside]
-    #table(columns: (1.5fr, 1.2fr, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
-      [*Door*], [*opens*], [*lock*],
-      ..doors.filter(d => d.lock != none).map(d => ([#d.label], [#if d.open [sliding] else if d.out [out of its room] else [into #d.room]], [#d.lock])).flatten(),
-      [stair foot gate], [outwards], [panic bar; key / code outside],
-    )
+    #H[Doors on the court (after V8.0: simple doors)]
+    - The three court doors are ordinary doors: the bedroom's sliding glass (a curtain inside), the gym's hinged into the court, the office's hinged into the office; privacy locks at most, no key on either side, no visitor logic (the stair tower is gone). The *ladder's panel* in the court is the one locked element: a key cylinder, the key with the parents (`studies/roof.typ` page 2).
     #v(2pt)
     #H[Questions for the owner]
     + The court's south side: solid wall, mashrabiya screen (recommended) or a 1.1 m wall (`studies/south_wing.typ`).
-    + The clerestory windows on the court: fixed fire-resisting glazing if the court is to count as an escape route (`studies/fire_escape.typ`), or openable vents as today.
+    + The clerestory windows on the court: openable vents as today (the living's smoke outlets); after V8.0 the court is no escape route, so no fire-resisting glazing is needed for that; privacy (sill 1.40 above the court floor, or obscured glass) remains (`studies/fire_escape.typ`).
   ],
 )
