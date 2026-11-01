@@ -49,13 +49,10 @@
 #let tower-ext-top = 9.6                           // its top: the roof door's head +9.40 + the slab; above the attic (+9.10), below the malqaf (+9.80)
 #let tower-door = ((13.311, 22.9), (13.311, 23.75))   // the roof door at +7.30 through the south wing parapet, at the tower's top landing
 #let tw-s-north = 18.22 + 0.125                    // the tower's north face behind the north facade face
-#let sr-s-north = sr.y0 - 0.1 + 0.125              // idem (presentation.typ)
-#let sr-top = 9.70                                 // the V7.0 stair room's top (REMOVED 1 Nov 2026): kept only because presentation.typ still quotes it until the presentation is rebuilt
 #let sr-slab = 0.12                                // its roof: a light RC slab (or an insulated steel deck), assumed
 #let sr-clear = 2.20                               // required clear height over the arrival
 #let sr-soffit = roof-fin + sr-clear               // +9.50
 #let sr-roof = sr-soffit + sr-slab                 // +9.62 (top of its slab)
-#let tower-ext-top = sr-roof + 0.08                       // +9.70 with its edge / coping
 #let sr-door = (0.9, 1.8)                          // in the south wall y 7.9, x 0.9–1.8 (0.90 opening, 2.00 high on the kerb: head +9.45 under the +9.50 soffit), opening out onto the roof
 #let sr-kerb = 0.15                                // the threshold upstand above the roof finish (rain and dust)
 #let trimmers = (("R16", "y 4.85, x 0 → R17"), ("R17", "x 1.2875, y 4.85 → 6.45"), ("R18", "y 6.45, x 1.2875 → 2.75"))   // 0.20 × 0.40 total, soffit +6.80 (as B16–B18)
@@ -117,9 +114,8 @@
 #let D-north = 3.8        // the north facade face → the plot's north boundary (street), at the NW corner (base.typ land: 3.8 m, growing to 5.7 m at the east end)
 #let D-lane = 2.5         // the cut facade face → the lane boundary
 #let D-east = 3.6         // the east facade face → the lane boundary (minimum, at y ≈ 10)
-#let tw-s-north = sr.y0 - 0.1 + 0.125     // the stair room's north face behind the north facade face: 2.225
-#let D-limit = { let ha = attic-top - eye; let ho = tower-ext-top - eye; (ha * tw-s-north - ho * setback) / (ho - ha) }   // the stair room shows above the attic beyond this distance
-#let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (D-limit, [north street, the limit]), (25.0, [north street, 25 m (the far side)]))
+#let D-limit = { let ha = attic-top - eye; let ho = tower-ext-top - eye; (ha * tw-s-north - ho * setback) / (ho - ha) }   // the stair tower (south-east) would show above the attic only beyond this distance (≈ 270 m): hidden from the north street
+#let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (25.0, [north street, 25 m (the far side)]))   // V8.0: no stair room; the stair tower stands 18.3 m behind the north facade, hidden from the north street up to ≈ #r1(D-limit) m
 #let checks = (
   ([the attic itself is hidden by the cornice from the north boundary], hidden(D-north, setback, attic-top, 0, coping-top)),
   ([the HRV base under the tower stays at the attic coping (+9.10): nothing but the tower above the attic], base-top <= attic-top + 1e-9),
@@ -283,7 +279,7 @@
   T((12.0, 1.8), [GF], size: 5pt); T((12.0, 5.4), [FF (bedroom 2 / bedroom 3 at x ≈ 1.4)], size: 5pt); T((12.0, roof + 0.45), [roof #lv(roof) · the courtyard sky hole lies beyond, x 5.8–8.95], size: 4pt, fill: sky)
   T((21.5, 1.8), [men's majlis], size: 4.4pt); T((21.5, 5.4), [office (south wing)], size: 4.4pt)
   // the observers and the sight lines
-  for (D, col, lab) in ((D-north, red, [eye at the north boundary · D = #r1(D-north) m]), (D-limit, sky, [eye at D = #r1(D-limit) m: the stair tower just hidden]), (25.0, luma(110), [eye at 25 m])) {
+  for (D, col, lab) in ((D-north, red, [eye at the north boundary · D = #r1(D-north) m]), (10.0, sky, [eye at 10 m (the street's far side)]), (25.0, luma(110), [eye at 25 m])) {
     let y0 = -0.125 - D
     circle((y0, eye), radius: 0.12, fill: col, stroke: none); T((y0, eye + 0.5), lab, size: 3.6pt, fill: col)
     let ray(yt, zt, yend) = line((y0, eye), (yend, eye + (zt - eye) / (yt - y0) * (yend - y0)), stroke: (paint: col, thickness: 0.5pt, dash: if col == red { "solid" } else { "dashed" }))
@@ -442,7 +438,7 @@
 )
 
 // ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
-#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: court-pts, tower: tower, attic: attic, stair_room: tower-ext,   // 1 Nov 2026: the external stair tower (tools/make_dxf_roof.py still labels this polygon "stair room": to update with the DXF tools)
+#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: court-pts, tower: tower, attic: attic, stair_tower: tower-ext,   // V8.0: the external stair tower at the south-east
   lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4a PV gym roof", z-pv1), ("Z4b PV office roof", z-pv1b), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
-  outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step)), ((11.0, y-step), (11.8, y-step))),
-  levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_room: tower-ext-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>
+  outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step)), ((11.0, y-step), (11.8, y-step))), roof_door: ((13.311, 22.9), (13.311, 23.75)),
+  levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, stair_tower: tower-ext-top, malqaf: tower-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

@@ -107,11 +107,11 @@
 }
 #let pc(v) = str(calc.round(v * 100)) + " %"
 #let cases = (
-  (label: [gym roof edge with a #r2(parapet) m parapet (top +#f2(roof-level + parapet))], top: roof-level + parapet, chosen: false),
-  (label: [gym roof edge with a railing only (solid top +#f2(roof-level)) · *V6.2*], top: roof-level, chosen: true),
+  (label: [the south facade frame with its parapet (top +#f2(south-parapet)) · *V8.0, south wing v2*], top: south-parapet, chosen: true),
+  (label: [the same frame without a parapet (solid top +#f2(roof-level))], top: roof-level, chosen: false),
 )
 #let arm-gap = arm-x - calc.max(..clerestory.map(((a, b)) => b.at(0)))   // the office wall stands this far east of the east clerestory window
-#let light = (winter: sun-share(roof-level, w-alt), equinox: sun-share(roof-level, e-alt), sky: sky-share(roof-level),
+#let light = (winter: sun-share(south-parapet, w-alt), equinox: sun-share(south-parapet, e-alt), sky: sky-share(south-parapet),   // V8.0: the court runs to the south facade
   winter-parapet: sun-share(roof-level + parapet, w-alt), sky-parapet: sky-share(roof-level + parapet))
 #let light-table(size: 7.5pt) = {
   set text(size)
@@ -119,7 +119,7 @@
     [*Behind the #r2(strip) m suite court*], [*Winter noon sun on the windows*], [*Equinox noon sun*], [*Sky seen from the eye*],
     ..cases.map(c => ([#c.label], [#pc(sun-share(c.top, w-alt))], [#pc(sun-share(c.top, e-alt))], [#pc(sky-share(c.top))])).flatten())
 }
-#let light-note = [*How the percentages are defined.* "Sun on the windows": the share of the window height (sill +#f2(cl-sill) to head +#f2(cl-head)) that receives direct sun at solar noon on 21 Dec (winter) or 21 Mar / 23 Sep (equinox) in this section; the ray from each point of the window must pass over the top of the gym's north wall #r2(strip) m away. "Sky seen": from a seated eye #r2(eye.at(1)) m high in the double-height living (CSV y #r2(eye.at(0))), the share of the windows' vertical angle that shows sky rather than the gym. Pure geometry: no reflections, no sky model; a daylight simulation comes later.]
+#let light-note = [*How the percentages are defined.* "Sun on the windows": the share of the window height (sill +#f2(cl-sill) to head +#f2(cl-head)) that receives direct sun at solar noon on 21 Dec (winter) or 21 Mar / 23 Sep (equinox) in this section; the ray from each point of the window must pass over the south facade's parapet #r2(strip) m away (V8.0: the suite court runs to the facade). "Sky seen": from a seated eye #r2(eye.at(1)) m high in the double-height living (CSV y #r2(eye.at(0))), the share of the windows' vertical angle that shows sky rather than the facade. Pure geometry: no reflections, no sky model; a daylight simulation comes later.]
 
 // north–south section through the middle band (x ≈ 7.3), looking west
 #let ns-section(length: 0.6cm, ink: rgb("#3d4a45"), warn: rgb("#b5452f")) = cetz.canvas(length: length, {
@@ -143,9 +143,8 @@
   T((y-living - 0.15, cl-head + 0.6), [#clerestory.len() windows #r2(cl-size.at(0)) × #r2(cl-size.at(1)) · sill +#f2(cl-sill) · head +#f2(cl-head)], size: 5.3pt, fill: rgb("#1f7a99"), anchor: "east")
   rect((y-living, 0), (24, ff-level), fill: rgb("#e9d9c4"), stroke: 0.6pt + ink); T(((y-living + 24) / 2, ff-level / 2), [Men's majlis (GF)])
   line((y-living, ff-level), (y-gym, ff-level), stroke: 2pt + rgb("#e0c060")); T(((y-living + y-gym) / 2, ff-level + 0.35), [suite court #r2(strip) m], size: 5pt)
-  rect((y-gym, ff-level), (24, roof-level), fill: rgb("#cfe3f3"), stroke: 0.6pt + ink); T(((y-gym + 24) / 2, (ff-level + roof-level) / 2), [Gym (FF)])
-  line((y-gym, roof-level), (y-gym, roof-level + guard), stroke: (paint: warn, thickness: 0.8pt, dash: "dotted")); line((24, roof-level), (24, south-parapet), stroke: 0.6pt + ink); T((23.8, south-parapet + 0.3), [parapet +#f2(south-parapet)], size: 4.6pt, anchor: "east")
-  T(((y-gym + 24) / 2, wall-top + 0.3), [railing (not a parapet)], size: 5pt, fill: warn)
+  rect((23.8, ff-level), (24.2, ff-level + 1.1), fill: ink, stroke: none); rect((23.8, roof-level - 0.6), (24.2, south-parapet), fill: ink, stroke: none)
+  T((23.6, ff-level + 1.6), [south side: a 1.10 m base · the frame R8 above (the infill: the owner's choice)], size: 4.6pt, anchor: "east"); T((23.8, south-parapet + 0.3), [parapet +#f2(south-parapet)], size: 4.6pt, anchor: "east")
   circle(eye, radius: 0.12, fill: ink); T((eye.at(0), eye.at(1) - 0.4), [eye +#f2(eye.at(1))], size: 5pt)
   for h in (cl-sill, cl-head) { line(eye, (eye.at(0) + (y-living - eye.at(0)) * 2.0, eye.at(1) + (h - eye.at(1)) * 2.0), stroke: (paint: luma(150), thickness: 0.5pt, dash: "dotted")) }
   let ray(y0, h0, deg, len, col, dash) = line((y0, h0), (y0 + len * calc.cos(deg * 1deg), h0 + len * calc.sin(deg * 1deg)), stroke: (paint: col, thickness: 0.9pt, dash: dash))

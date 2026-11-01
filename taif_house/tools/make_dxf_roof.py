@@ -1,8 +1,8 @@
-"""make_dxf_roof.py · Taif / Palm House V7.1 · writes the DXF of the roof plan (outline, the holes, the attic line, the stair room, the lift head,
-the malqaf head, the reserved zones, the outlets, the walkways, the guards, the attic doors).
+"""make_dxf_roof.py · Taif / Palm House V8.0 · writes the DXF of the roof plan (outline, the holes, the attic line, the external stair tower, the lift head,
+the malqaf head, the reserved zones, the outlets, the walkways, the guards, the attic doors and the roof door).
 
 Run from anywhere:   python taif_house/tools/make_dxf_roof.py
-Output:              taif_house/output/taif_roof_V7.1.dxf   (units: metres, north up, the same site frame as the floor DXFs)
+Output:              taif_house/output/taif_roof_V8.0.dxf   (units: metres, north up, the same site frame as the floor DXFs)
 
 Nothing is typed in twice: the geometry is the <roof-data> metadata of studies/roof.typ (read with `typst eval`), placed on the site with the
 shift of design_gf.typ; the site from base.typ. Coordinates: the Typst frame has y pointing south; the DXF uses y up, so (x, y) becomes (x, -y).
@@ -19,7 +19,7 @@ from pathlib import Path
 import ezdxf
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
-OUT = ROOT / "output" / "taif_roof_V7.1.dxf"
+OUT = ROOT / "output" / "taif_roof_V8.0.dxf"
 
 typst = shutil.which("typst")
 if not typst:
@@ -70,12 +70,12 @@ LAYERS = {
     "ROOF-STEP": (1, "DASHED", "the north block / south wing line y 19.25: the attic's south wall, the parapet step"),
     "ROOF-HOLES": (150, "CONTINUOUS", "the courtyard sky, the suite court, the malqaf shaft"),
     "ROOF-ATTIC": (30, "CONTINUOUS", "the attic screen wall's outer face, set back 1.0 m from the facade face"),
-    "ROOF-STAIR": (252, "CONTINUOUS", "the stair room on the well, the lift shaft (no head above the roof)"),
+    "ROOF-STAIR": (252, "CONTINUOUS", "the external stair tower (south-east, outside the east wall), the lift shaft (no head above the roof)"),
     "ROOF-ZONES": (40, "DASHED", "reserved zones: plant, tank, PV"),
     "ROOF-DRAINS": (4, "CONTINUOUS", "roof outlets"),
     "ROOF-WALKWAYS": (1, "DASHDOT", "0.9 m maintenance walkways"),
     "ROOF-GUARDS": (7, "CONTINUOUS", "black steel bar guards 1.10 m"),
-    "DOORS": (1, "CONTINUOUS", "the attic doors and the stair room door"),
+    "DOORS": (1, "CONTINUOUS", "the attic doors and the roof door from the stair tower"),
     "LABELS": (7, "CONTINUOUS", "labels"), "ANNOTATION": (7, "CONTINUOUS", "title, scale bar"),
 }
 for name, (colour, ltype, desc) in LAYERS.items():
@@ -105,15 +105,15 @@ for T in (site["T1"], site["T2"]):
 lv = data["levels"]
 pline(data["outline"], "ROOF-OUTLINE")
 pline(data["block_s"], "ROOF-STEP")
-for name, P in (("courtyard sky (open) · guard 1.10", data["sky"]), ("suite court (open)", data["court"]), (f"malqaf head +{lv['stair_room'] and lv['attic_top'] and 9.8:.2f}", data["tower"])):
+for name, P in (("courtyard sky (open) · guard 1.10", data["sky"]), ("suite court (open)", data["court"]), (f"malqaf head +{lv['malqaf']:.2f} on the HRV base", data["tower"])):
     pline(P, "ROOF-HOLES")
     label(centroid(P), name, h=0.14)
 e = pline(data["attic"], "ROOF-ATTIC")
 e.set_xdata("HOUSE", [(1000, "attic line"), (1040, lv["attic_top"])])
 label((6.6, 1.5), f"attic screen · set back {lv['setback']:.1f} m · coping +{lv['attic_top']:.2f} · north block coping +{lv['coping']:.2f} · south wing parapet +{lv['south']:.2f}", h=0.14)
-e = pline(data["stair_room"], "ROOF-STAIR")
-e.set_xdata("HOUSE", [(1000, "stair room"), (1040, lv["stair_room"])])
-label(centroid(data["stair_room"]), f"stair room · roof +{lv['stair_room']:.2f}", h=0.12)
+e = pline(data["stair_tower"], "ROOF-STAIR")
+e.set_xdata("HOUSE", [(1000, "stair tower"), (1040, lv["stair_tower"])])
+label(centroid(data["stair_tower"]), f"external stair tower\Ptop +{lv['stair_tower']:.2f}", h=0.12)
 pline(data["lift"], "ROOF-STAIR")
 label(centroid(data["lift"]), "lift shaft · no head above the roof", h=0.1)
 for z in data["zones"]:
@@ -128,9 +128,11 @@ for gline in data["guards"]:
     pline(gline, "ROOF-GUARDS", closed=False)
 for a, b in data["attic_doors"]:
     msp.add_line(dxf(place(a)), dxf(place(b)), dxfattribs={"layer": "DOORS"})
+a, b = data["roof_door"]
+msp.add_line(dxf(place(a)), dxf(place(b)), dxfattribs={"layer": "DOORS"})
 msp.add_line((18, -42), (28, -42), dxfattribs={"layer": "ANNOTATION"})
 msp.add_mtext("10 m", dxfattribs={"layer": "ANNOTATION", "char_height": 0.35, "attachment_point": 8}).set_location((23, -41.7))
-title = ("Taif / Palm House · Roof plan V7.1 (the stair to the roof, the set-back attic, the main cornice, the stepped roofline, the reserved zones)\\P"
+title = ("Taif / Palm House · Roof plan V8.0 (the external stair tower, the set-back attic, the main cornice, the stepped roofline, the reserved zones)\\P"
          "Units: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). The outline on wall centre lines; "
          f"roof slab +{lv['roof']:.2f}; the main cornice +{lv['cornice'][0]:.2f} … +{lv['cornice'][1]:.2f}. Generated by tools/make_dxf_roof.py from studies/roof.typ and base.typ. All sizes assumed.")
 msp.add_mtext(title, dxfattribs={"layer": "ANNOTATION", "char_height": 0.45, "width": 30}).set_location((0, -44))

@@ -1,0 +1,198 @@
+# Taif / Palm House · V8.0 · master document
+
+Concept design of a two-storey courtyard house in Taif. This document describes the whole house as of **V8.0** (git tag `v8.0`, 1 Nov 2026: fire safety at home level, the courtyard layout, the air system with one tower for the courtyard breeze and the HRV intake, the external stair tower for the office visitors and the roof access with the internal roof stair removed, the south wing v2 with the gym on the west, a large suite court and the office on the east, the maid room and kitchen window changes; §4.31–4.36). The open items are listed in `OPEN_ITEMS.md`, and the next steps are in `NEXT_SESSION.md`. The figures below come from the project files: `data/*.csv`, the design files and the studies. They match the presentation `output/Taif_House_V8.0_presentation.pdf` (12 sheets; sheet 05 is the south wing and the suite, sheet 08 the schedules, sheets 11–12 the roof and the elevations with the stair tower). The design language is in `DESIGN_LANGUAGE.md`, the air system in `AIR_SYSTEM.md`.
+
+*Concept design, not for construction. Structure, services, levels and the site survey still need the engineers' and the municipality's review.*
+
+---
+
+## 1. Coordinates and site
+
+- **Units:** metres. **Origin:** survey peg **M1**, the east post of the gate.
+- **Axes:**
+  - x runs east, square to the M line;
+  - y runs along the M line, **southwards**;
+  - the DXFs draw y pointing up, so a point (x, y) is (x, −y) in the DXF.
+- **Two frames:**
+  - **CSV frame:** the room coordinates in `data/rooms_gf.csv` and `data/rooms_ff.csv`. The ground floor's north-west wall corner is at (0, 0).
+  - **Site frame:** CSV + shift.
+- **Placement** (`design_gf.typ`, also used by the first floor):
+  - shift **(0.91, 3.825)** (V6.3: 0.30 m further south than before, a provisional safety margin to the lane setback line until the official survey);
+  - rotation **0°**, so the house is square to the M line;
+  - true north is **21.4°** off the M line and the prevailing NW wind **23.6°** off.
+- **Site data** (`base.typ`, fixed):
+  - the plot and the buildable envelope (**667.87 m²**);
+  - the driveway on the west, the lane on the north-east, the north street wall;
+  - pegs M1–M4 on the M line (y 0, 6.36, 18.52, 28.8);
+  - palms **P1 (20.6, 28.09)** and **P2 (21.39, 31.87)**, both beyond the south facade.
+- **Outside the house (V8.0, `studies/south_wing.typ`, `design_gf.typ` site outlines):** the external stair tower at the south-east (CSV x 13.436–16.036, y 18.22–24.0, 4.1 m spare to the envelope, 3.3 m to the nearest palm trunk), its foot gate, the outdoor counter and sink at the tower's east face, the grill and tannour 3.4 m south of the gate, a service gate in the lane wall, the screened service yard (bins, gas) outside the kitchen's service door.
+
+## 2. Outline, envelope and gaps
+
+- **Ground-floor outline** (wall centre lines, CSV): (0, 0) → (10.051, 0) → (13.311, 6.0) → (13.311, 24.0) → (0, 24.0).
+  - A pentagon whose north-east corner is cut parallel to the lane down to y 6.0; the east wall then runs straight south.
+  - **13.311 × 24.0 m on axes, 13.561 × 24.25 m outside.** Outline on axes 309.68 m²; outside footprint **318.77 m²**, including the courtyard.
+- **First-floor outline:**
+  - the same as the ground floor: the first-floor outer walls stand on the ground-floor outer walls (309.68 m² on axes);
+  - the courtyard sky and the double-height void (40.16 m², 3.15 m wide) have no floor; the suite court (25.30 m², V8.0) is a terrace open to the sky on the men's majlis roof, its south side the facade frame;
+  - the 1.55 m west projection over the courtyard and the void is carried by an edge beam and three columns at x 5.80 (§4.15, §4.25);
+  - the conditioned house is closed round the open courtyard by the steel windows W1 / W2 / W3 (§4.25), arched since V7.1 (§4.30), over a three-arch arcade in the courtyard bay.
+- **Walls:**
+  - allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions (maid wing), ≈ 60 mm steel window frames on the courtyard edges (V7.0);
+  - rooms are stored on wall centre lines; clear areas subtract half of each wall.
+- **Gaps:**
+
+| Gap | Value | Where it comes from |
+|---|---|---|
+| Ground-floor outer west face → M line | **0.785 m** | `design_gf.typ` (m-gap) |
+| First-floor outer west face → M line | **0.785 m** | `design_ff.typ` (on the ground-floor wall) |
+| Nearest outer wall face → envelope (the lane side; the north street line is 0.80 m away) | **0.20 m** (V6.3, provisional) | `design_gf.typ` (env-gap, to confirm by survey) |
+| Palms P1 / P2 → outer walls (trunk faces) | **5.99 m / 7.84 m** | `presentation.typ` (sheet 01) |
+| Floor to floor (assumed) | **3.60 m** | `studies/sections.typ` (to confirm) |
+
+- **Grid of main lines (CSV):**
+  - x = 0 · 2.75 · 4.25 · 5.80 (the colonnade) · 8.95 · 10.0 (the office wall, V8.0) · 13.311;
+  - y = 6.5 · 13.0 · 19.25 · 24.0 (the kitchen's north wall is a partition at y 7.0 since V7.0; the beam line stays at y 6.5).
+- **Bands, west → east:**
+  - west band 0–2.75;
+  - riwaq 2.75–4.25;
+  - middle band 4.25–8.95 (4.70 m on axes = **4.50 m clear**);
+  - east band 8.95–13.311.
+
+## 3. Room schedules
+
+Room numbers follow the CSV order (G.. ground floor, F.. first floor), as in the presentation and the DXFs. *Axes* = wall centre lines; *clear* = inside the walls as drawn.
+
+### 3.1 Ground floor (`data/rooms_gf.csv`, `design_gf.typ`, studies `guest_wing.typ` and `east_wing.typ`)
+
+| No. | Room | Axes (m) | Axes m² | Clear m² | Purpose · doors · rules |
+|---|---|---|---|---|---|
+| G01 | Courtyard | 4.7 × 6.5 | 30.55 | (4.5 × 6.3) | The cool heart, open to the sky, enclosed on four sides; its west 1.55 m under the first-floor projection, a colonnade with a three-arch arcade in this bay (V7.1). **V8.0 layout** (`studies/courtyard_layout.typ`): the seating one step down (−0.15) from the colonnade edge to the kitchen wall (2.93 × 3.60) with three built-in benches (seat +0.30) and a low table; the outdoor TV in a semicircular honey-stone surround on the kitchen wall with the malqaf grille below it; the north enclosure with a water basin and a planter for one tree; no pergola; a drain and an independent overflow; level strips ≥ 0.6 m at the glass. |
+| G02 | Women's majlis | 4.7 × 6.5 | 30.55 | 28.24 | North of the courtyard. Women guests come in through the family door. Solid wall to the maid wing. |
+| G03 | Living (double height) | 4.7 × 6.25 | 29.38 | 27.83 | South of the courtyard: double height with two clerestory windows on the suite court (V8.0: the winter noon sun on their whole height). Entered from the riwaq through a 1.40 m arched opening; its west wall is solid with the arched TV niche 4.40 × 0.70 m (V6.3). Column 2 stands in the glass to the courtyard, column 3 in its south wall. |
+| G04 | Men's majlis | 10.56 × 4.75 | 50.16 | 46.77 | The full width on the south. Entered only from the foyer, through a 1.80 m opening with no door. High south windows; the main seating at the east end. Its roof carries the gym's strip, the suite court terrace and the office (V8.0). |
+| G05 | Maid bath | polygon | 3.84 | 3.03 | WC, basin and compact shower in the sloped corner; V8.0: the WC in the cut-wall corner so the breeze channel's throat passes between it and the shower. Door from the maid room only, 0.70 m. |
+| G06 | Maid room | polygon | 8.39 | 7.28 | Behind a 100 mm partition, y 2.8–7.0 (V7.0); the municipal minimum met. V8.0: its window an escape casement 1.14 × 1.00 at sill +1.10, obscured below +1.60, no screen. |
+| G07 | Laundry | 1.7 × 4.2 | 7.14 | 6.20 | y 2.8–7.0. Open entrance from the kitchen. Machines, sink, shelves on the solid west wall, 0.95 m walkway (the breeze channel's covers in its floor, V8.0). |
+| G08 | Kitchen | 4.36 × 6.0 | 26.17 | 23.99 | y 7.0–13.0. The heavy kitchen, isolated: door to the dining, an open entrance to the laundry, a lockable 0.90 m service door to the east service yard. **V8.0:** the sink under its courtyard window (y 7.3–8.9) looking at the water and the tree, the dishwasher south of it, the counter on to y 12.9 (the outdoor TV on the other face of the wall); the cooking run on the east wall (hob and hood y 10.2–11.2); a filtered make-up air inlet under the stone band, interlocked with the hood. |
+| G09 | Living (normal height) · dining | 4.36 × 6.25 | 27.26 | 25.63 | One room with the living; the ceiling height changes on x 8.95. Door to the kitchen. |
+| G10 | Lift (shaft placeholder) | 2.25 × 2.2 | 4.95 | 4.00 | Installed at construction (V6.3), two stops; the roof is not served. |
+| G11 | Entry cupboard | 0.5 × 0.9 | 0.45 | 0.20 | Shoes and coats on the family lobby. |
+| G12 | Family lobby + riwaq | polygon | 29.52 | 25.28 | From the family entrance to the men's majlis wall. Windows onto the courtyard; the living's arched entrance on its east side. |
+| G13 | Stair | 2.75 × 5.7 | 15.68 | 13.89 | Open, no door. A store under the half landing. **V8.0: it stops at the first floor** (the roof from the external stair tower). |
+| G14 | Utility room (shaft inside) | 2.75 × 2.5 | 6.88 | 5.81 | The west shaft, the main panel, the manifold and the water heater behind one door. |
+| G15 | Hospitality kitchen | 2.75 × 2.5 | 6.88 | 5.81 | A light kitchen for coffee, tea, dates and desserts, open to the riwaq. |
+| G16 | Family basins (2) | 2.75 × 1.5 | 4.13 | 3.28 | An open niche on the riwaq. |
+| G17 | Family WC + basin | 2.75 × 1.7 | 4.68 | 3.79 | WC and basin. Door 1.00 m opening off the basins. |
+| G18 | Serving passage (2 doors) | 2.75 × 1.4 | 3.85 | 3.03 | The only family / guest link: two doors never open together, both locked from the family side. |
+| G19 | Guest WC | 1.5 × 1.75 | 2.63 | 2.02 | Door 0.90 m in the south wall behind a screen wall. |
+| G20 | Guest basins (trough · 3 taps) | 1.5 × 2.15 | 3.22 | 2.53 | One trough with three taps. |
+| G21 | Guest passage | 1.25 × 3.9 | 4.88 | 3.79 | From serving door 2 to the foyer. |
+| G22 | Foyer + entry | 2.75 × 2.6 | 7.15 | 6.00 | Double door 1.40 m; a 1.80 m opening into the men's majlis. |
+| – | Air tower (not a room) | polygon | 1.37 | ≈ 0.83 | In the tip of the cut corner: **one tower, two separate paths** (V8.0, §4.33): the breeze shaft and the HRV's intake compartment. |
+
+- **Rooms:** 277.76 m² on axes, excluding the courtyard and the air tower.
+- **Totals:** 308.31 m² on axes including the courtyard (`tools/schedule.py`), and 309.68 m² with the air tower.
+
+### 3.2 First floor (`data/rooms_ff.csv`, `design_ff.typ`, studies `ff_family.typ` and `ff_suite.typ`)
+
+| No. | Room | Axes (m) | Axes m² | Clear m² | Purpose · doors · rules |
+|---|---|---|---|---|---|
+| F01 | Landing (stair top) | 2.75 × 1.3 | 3.57 | 3.15 | The stair arrives here; since V8.0 it goes no higher (the roof slab is closed over the well). |
+| F02 | Upper gallery (on the west projection) | polygon | 33.26 | 29.38 | The family corridor on the 1.55 m projection, closed to the courtyard by six arched steel windows W1; at its south end the gym's sliding door (V8.0). |
+| F03 | Linen cupboard | 2 × 0.7 | 1.40 | 0.95 | At the gallery's north end. |
+| F04 | Family bath | 2.75 × 1.8 | 4.95 | 4.08 | WC on the west shaft wall, shower, basin; door from the gallery. |
+| F05 | Wardrobe niche (bedroom 2) | 1.5 × 0.6 | 0.90 | 0.51 | Open to bedroom 2. |
+| F06 | Bedroom 2 | 4.25 × 3.4 | 14.45 | 12.88 | Bed, wardrobes, a desk under the west window (an escape casement, no screen). |
+| F07 | Bedroom 3 bath | 2.2 × 1.7 | 3.74 | 2.96 | En-suite, over the GF family WC. |
+| F08 | Bedroom 3 | polygon | 16.87 | 15.02 | An entry with a wardrobe, then the room; its south wall is the double wall to the gym (V8.0, Rw ≈ 55 dB). |
+| F09 | Kids' room (study + gaming) | 4.7 × 3 | 14.10 | 12.49 | Desks under the north window, a gaming corner. |
+| F10 | Family living | 4.7 × 3.5 | 16.45 | 14.85 | On the courtyard edge behind two arched windows W2. |
+| F11 | Family link | 1.2 × 1.2 | 1.44 | 1.10 | To bedroom 1 and the suite door. |
+| F12 | Bedroom 1 | polygon | 15.75 | 13.87 | One room, no bath (open item 17). |
+| F13 | Owner's office | 3.31 × 4.75 | 15.73 | 13.96 | **V8.0, east** beside the suite bedroom, **no door to it**. Visitors come from the stair tower's landing (the visitors' door in the east wall, opening out, thumb-turn inside); its court door opens freely from the court side and locks from the office side. Desk facing the south window, sofa, shelves, a fixed TV. |
+| F14 | Gym | polygon | 22.20 | 19.92 | **V8.0, the west band** (4.25 × 4.75 + an entrance nib 1.55 × 1.3 at the gallery end) inside the column frame C6 / C13 / C19 – C7 / C14 / C20: the treadmill (Life Fitness T5 class, assumed) along the length on the stiff 2.75 m solid bay with 2.0 m behind and 0.5 m each side, a power rack with the barbell and the pull-up bar, kettlebells, a bike, the pilates mat, a fixed TV; windows west and south; its court door free from the gym side. |
+| F15 | Suite court (open to the sky) | polygon | 25.30 | (≈ 23.1) | **V8.0** from the gym to the office, open to the sky, four sides: the three court doors (bedroom, gym, office) on a 1.2 m strip along its north edge, the seating (a sofa, two armchairs, a table, plants) in the south part; the floor falls south to a box gutter with an overflow, linear drains at the near-flush doors; its south side the facade frame with a 1.10 m base, the infill the owner's choice (a mashrabiya screen recommended). |
+| F16 | Suite lobby | 1.35 × 5.4 | 7.29 | 5.98 | From the family link to the bath, the dressing and the bedroom. |
+| F17 | Suite bath | polygon | 10.24 | 8.84 | Freestanding tub, walk-in shower, double vanity; sunken floor to the stack outside the east wall. |
+| F18 | Suite WC (closet) | 1.1 × 1.5 | 1.65 | 1.14 | WC with shattaf; its door sliding (V8.0: as the study says; a hinged leaf clashed with the bath door). |
+| F19 | Suite dressing | 3.01 × 3.45 | 10.39 | 9.05 | His and hers wardrobes, display, make-up table. |
+| F20 | Suite bedroom | polygon | 26.03 | 23.60 | King bed facing south; its court door (sliding glass) opens onto an entry zone formed by a full-height wardrobe 0.6 × 2.3 (the sight-line test: the bed hidden from the gym and office doors and from the court seating with the doors open); the east escape window y 15.0–17.9 (shortened for the stair tower). |
+
+- **Rooms:** 220.43 m² on axes indoors (circulation 45.56 m²), plus the suite court 25.30 m².
+- **Master suite:** **55.60 m²** (lobby, bath, WC closet, dressing, bedroom).
+- **Doors:** every bedroom and bathroom door a 1.00 m opening with a 0.90 m leaf (≥ 0.85 m clear), except the guest WC (0.90) and the maid bath (0.70).
+- **Fixed elements:** stair, lift shaft, west shaft and air tower rise from the ground floor.
+
+## 4. Design decisions and their reasons
+
+1. **Courtyard house.** A small, shaded courtyard at the centre, enclosed on four sides and open to the sky; the rooms the family uses most open onto it; quiet outer walls with small openings.
+2. **One living room, two heights.** The courtyard half double height (a chimney with high windows), the east half (the dining) normal height with the first floor above.
+3. **West service band.** The family entrance, the entry cupboard, the lift, the stair, the utility room with the shaft and the west wash block in one band: services rise in one place, one stiff core.
+4. **West wash block and the two-door serving passage.** One strip of wet rooms on one drain run; the guest side has no door onto the riwaq; the only link is a passage with two doors never open together, both locked from the family side.
+5. **Hospitality kitchen.** A light kitchen beside the serving passage; the east kitchen is the heavy one.
+6. **Guest foyer and majaz.** The double door at one end of the foyer and the majlis opening at the other (partial in the short foyer: open item 13).
+7. **Trough basins.** One trough with three taps for the guests.
+8. **Men's majlis.** Full width on the south, entered only from the foyer; high south windows; the main seating at the east end.
+9. **East service block and maid wing.** The kitchen on the courtyard lines, isolated; the laundry along the women's majlis wall; the maid room and bath in the sloped corner, reached only through the kitchen and the laundry. The maid room meets the municipal minimum since V7.0 (§4.26).
+10. **Air tower** (V8.0: §4.33). The tower fills the tip of the cut corner. The V1 tunnel, the V2 dry duct and their water / pad / earth-pipe ideas are withdrawn; see §4.33.
+11. **Lift at construction, two stops (V6.3).** Ground and first floor; the shaft 2.25 × 2.2 a placeholder; the roof is reached by the stair tower (V8.0).
+12. **Utility room and shaft.** The west shaft inside a utility room with the panel, the manifold and the water heater.
+13. **Plumbing strategy.** West: the shaft and one drain run under the wash block. East: kitchen, laundry and maid bath straight out east to a manhole. Suite bath: a sunken floor to one stack outside the east wall. Courtyard (V8.0): a drain in the seating step and an independent overflow, pipes east. Suite court (V8.0): linear drains at the doors, a box gutter along the south side with an overflow spout. A separate plumbing study is still to do (open item 10).
+14. **First-floor zoning.** The family part on the north and west around the courtyard; the south wing (V8.0: the gym west, the suite court, the office east) and the master suite to the south and east.
+15. **West projection on columns** (V5.0; restored in V6.1; 1.55 m since V7.0). The gallery on a 1.55 m projection over the courtyard and the void, carried by an edge beam on x 5.80 on three columns in existing wall or glass lines; the first-floor west wall on the ground-floor west wall, 0.785 m from the M line. *History:* the split projection of V5.1 was reverted in V6.1 (branch `v5-split-projection`, tag `v6.0`).
+16. **Kids' room.** Study and gaming on the north side; a fourth bedroom later.
+17. **Family living on the courtyard.** A view, not a path.
+18. **Bedrooms.** Bedroom 1 one room without a bath; bedroom 2 with a wardrobe niche; bedroom 3 with its own bath; one family bath by the shaft.
+19. **Master suite.** A lobby to the bath, the dressing and the bedroom (a bent entry); the bedroom on the suite court; V8.0: no door to the office, an entry zone at its court door (§4.35).
+20. **Owner's office.** V8.0: on the east beside the suite, visitors from the stair tower, the house closed to them (§4.35).
+21. **Gym.** V8.0: on the west band (§4.35). *History:* the L-shaped gym of V6.2 (the treadmill alone in an arm at the east end against the suite bedroom) is replaced.
+22. **Suite court and the clerestory light.** V8.0: the court runs from the gym to the office and to the south facade (§4.35); the double-height living's two clerestory windows (+5.00 … +6.00) get the winter noon sun on their whole height (V7.1: 81 %), the obstruction seen from them falls from 40° to 31°. Their privacy: the sill is 1.40 m above the court floor (open item 14).
+22a. **Decisions of 3D phase 3** (24 Oct 2026): X8 the colonnade to the roof; drop beams hidden by gypsum ceilings; the projection edge beam upturned (preference); the kitchen service door; X3 resolved in V6.3.
+23. **V6.3 quick fixes from the design review** (tag `review-1`): the TV wall, the lift at construction, door widths, X3, slab thicknesses in the 3D, the two-children test, the house 0.30 m south.
+24. **Two-children bedroom test (V6.3).** Bedroom 3 takes two beds, two wardrobes and two desks; bedroom 2 two beds, two wardrobes and one desk (`tools/bedroom_test.py`).
+25. **Courtyard enclosure, option A** (V7.0): black steel divided-lite windows W1 / W2 / W3 close the conditioned house round the open courtyard; the projection 1.55 m, the sky 3.15 m.
+26. **Maid room to the municipal minimum** (V7.0): the kitchen's north wall to y 7.0 as a partition; maid room 7.28 m² clear, 2.49 m at the bed.
+27. **Roof access** (V7.0, *superseded in V8.0*): the main stair continued to the roof with a stair room; V8.0 replaces both by the external stair tower (§4.34).
+28. **Roofline: flat roof, main cornice, set-back attic** (V7.0). A honey-stone main cornice at +6.90 … +7.35 all round, a thin band at +3.40, honey stone at the plinth and the corners; on the north block a coped upstand (+7.65) and the attic screen 1.8 m (coping +9.10) set back 1.0 m — since V8.0 a plain pentagon (no stair room) with doors to the strip, the gym roof and the office roof; the south wing a plain parapet +8.40, so the roofline steps. Above the attic only the malqaf on its HRV base (north-east) and, outside the south-east corner, the stair tower.
+29. **Design language** (V7.0, `DESIGN_LANGUAGE.md`): modern classic with a Taif spirit.
+30. **Arched enclosure windows and the courtyard arcade** (V7.1): semicircular heads on W1 (six), W2 (two), W3 (one), crowns +6.60; two Ø0.25 stone columns between C21 and C22, three arches under the projection (decorative unless the engineer uses them).
+31. **Fire safety at home level** (V8.0, owner; review E-08; `studies/fire_escape.typ`). Early warning and safe exit: interconnected mains smoke alarms with sealed battery back-up in every bedroom and on the routes, a heat alarm in the kitchen, CO and gas detectors, extinguishers on each floor and in the kitchen, a fire blanket; escape casements without screens or fixed mashrabiya in every sleeping room (the maid room's at sill +1.10); thumb-turns on the exit doors; the family escape plan. Not adopted: sprinklers, fire doors, a panel, beam detectors, a second majlis door, a safe room (R-33). *The second way out of the first floor* (V8.0): house → the suite court → the office → the stair tower → outside, every door opening in the escape direction without a key; **not counted as designed** because the living's clerestory windows (openable ordinary glass, smoke vents) sit right above the court's movement strip; counted if they become fixed E30 glazing (open item 14).
+32. **Courtyard layout** (V8.0, owner; review Y-02 / Y-03 / Y-04 / E-03; `studies/courtyard_layout.typ`). The seating one step down (−0.15, a honey-stone nosing, a riser light) from the colonnade edge to the kitchen wall, three built-in benches for six to eight and a low table; the outdoor TV (65″ outdoor-rated) in a semicircular honey-stone surround on the kitchen wall, the malqaf grille below it with a manual louvre, the switches for the damper, the assist fan and the fountain beside it; the north enclosure: one honey-stone box with a water basin (a laminar lip, no spray) and a planter for one tree (Laurus nobilis or Ficus nitida); no pergola (open item 18 of V7 resolved); children play in the garden; the drainage section (levels, the drain, an independent overflow, pipes east). **The kitchen sink window** moved north to y 7.3–8.9 over the sink (the dishwasher south of it), leaving the TV wall solid.
+33. **Air system v3 / v3.1** (V8.0, owner; review E-01; `studies/air_system.typ`, `AIR_SYSTEM.md`). **One tower, two completely separate paths:** (a) a gentle natural breeze for the courtyard seating in pleasant weather — a head open on three faces with back-draught flaps (its south face is behind the HRV base), a breeze shaft ≈ 0.54 m², a spring-return damper, a shallow 0.9 × 0.20 channel inside the ground slab with eight removable covers (no pit, no entry, nothing notched), the plenum and the grille under the TV, a quiet EC assist fan behind the grille on its own switch; (b) the fresh-air intake of the house's ventilation: a service compartment ≈ 0.21 m² with its own louvre and a pre-filter, a 750 m³/h class HRV in a **base under the tower** (one mass, top +9.10 = the attic coping, 1.65 m clear, serviced from the roof through doors), supply and extract risers in the compartment; ASHRAE 62.2 rates ≈ 330 m³/h continuous / ≈ 705 m³/h with 24 guests; an ISO ePM1 ≥ 50 % filter; the AC condensers south of the tower; the kitchen hood separate with an interlocked make-up inlet; continuous + boost, a dust mode, everything closing on a power failure. No water, no pads, no earth pipes. Every figure assumed, to be designed by the MEP engineer.
+34. **External stair tower** (V8.0, owner; `studies/south_wing.typ`, `studies/roof.typ`). An enclosed tower outside the east wall at the south-east (2.60 × 5.78 m, top +9.60): cream plaster, a honey-stone plinth and arch surrounds, two arched openings per storey on the east and south faces, the north face solid, the main cornice carried round it. A dog-leg of 2 × 11 risers per storey: from the entry (one step above the ground) to the office landing (+3.60, the visitors' door) and on to the roof (+7.30, the roof door through the south wing parapet); headroom ≥ 2.32 m. A foot gate locked against entry and opening outwards without a key, a locked gate above the office landing, no door from the roof into the house, cameras. Visitors and workers never enter the house. **The internal stair stops at the first floor:** no flights 3–4, no stair room, the roof slab closed over the well. Feasible with conditions: the suite bedroom's east window shortened to y 15.0–17.9; the foundations and the tie to the house by the engineer. **Outside:** a service gate in the lane wall; the outdoor counter and sink at the tower's east face (its shade); the grill and tannour 3.4 m south of the foot gate, downwind; the service yard screened (bins, gas).
+35. **South wing v2** (V8.0, owner; `studies/ff_suite.typ`, `studies/south_wing.typ`). *The gym* on the west band over the guest block, inside the column frame (its load path traced: the west outer wall, B10, B19 between C19 and C20, the double wall on B8 and a new B22), with an entrance nib at the gallery end (the gym and the gallery only touch at a corner); the treadmill along the length with the manufacturer-type zone on the stiff 2.75 m bay; a double wall to bedroom 3. *The suite court* from the gym to the office, open to the sky (25.30 m² axes): the three court doors on a 1.2 m strip along its north edge (bedroom sliding; gym into the court, free from the gym; office into the office, free from the court, key from the office side), the seating in the south, near-flush doors with linear drains and a box gutter. *The office* on the east, no door to the bedroom, one fixed TV in it and one in the gym (no pivoting panel). *Privacy without a screen:* the sight-line test with the doors open fails at the court seating without a fix; the smallest fix, an entry wardrobe 0.6 × 2.3 inside the bedroom, hides the bed from every point tested. *The court's south side* (solid / mashrabiya / 1.1 m wall) compared; the mashrabiya recommended, drawn as proposed, the owner chooses (open item 18). *Structure:* R6 removed; X5 revised, improved, not verified.
+36. **Smaller V8.0 changes:** the maid bath's WC in the cut-wall corner (the air channel's throat); the maid room's escape casement at sill +1.10; the suite WC door sliding; the PV zones moved to the gym and office roofs; a fourth attic door to the office roof.
+
+## 5. Construction notes
+
+The construction and detail notes (structure, the edge beam and columns, the gym's acoustic separation, the suite court's low thresholds, drainage, joinery, doors) are in **`docs/DETAILS.md`**.
+
+## 6. Changelog
+
+| Version | Date | What changed |
+|---|---|---|
+| V1–V2 (C1) | before 11 Oct 2026 | Early concept: 6 × 5 m courtyard, west service band, men's majlis 10 × 5.5 m (`archive/rooms_C1.csv`). |
+| V3.0 | 11 Oct 2026 | Compact courtyard house on site option Z3; services in a utility room; one living room with two heights. |
+| V3.1 | 15 Oct 2026 | Site option Z4; one west wash block with the two-door serving passage; the east service block; `pts` column for non-rectangular rooms. |
+| V3.2 | 16 Oct 2026 | Slope to y 6.0 and width 13.311 m; building 0.26 m east (west face 0.785 m from the M line); middle band 4.50 m clear; living low partition. |
+| V3.3 | 16 Oct 2026 | Building 0.5 m longer south; future lift placeholder; hospitality kitchen; serving passage 1.4 m; trough basins; foyer double door and majlis opening. |
+| V3.4 | 16 Oct 2026 | Smaller air tower (1.0 m deep); the freed space to the maid wing. |
+| V4.0 | 16 Oct 2026 | Ground floor final: maid bath 1.8 m, maid room ≈ 6.0 m² clear accepted; repo cleaned. |
+| V4.1 | 17 Oct 2026 | First-floor baseline: zoning (suite east, children west, family living north) and the first room layout. |
+| V5.0 | 20 Oct 2026 | First floor designed room by room; ground floor coordinated (east duct removed, three columns for a 1.35 m inward projection); first presentation set. |
+| V5.1 | 24 Oct 2026 | Split west projection accepted (M-line approval pending, no columns); L-shaped gym rejected; treadmill at the gym's west end. |
+| V6.0 | 24 Oct 2026 | Clean release: everything labelled V6.0; A3 presentation with 10 sheets; first-floor DXF; master document and open-items list; extended checks. No design change. |
+| V6.1 | 24 Oct 2026 | Split projection reverted to the V5.0 columns solution: the full 1.35 m inward projection on an edge beam and three columns at x 5.6. |
+| V6.2 | 24 Oct 2026 | L-shaped gym with the treadmill arm at the east end (owner's choice), with acoustic separation; suite court 11.97 m². |
+| 3D phases 1–3 | 24 Oct 2026 | 3D model generated from the CSVs (`3d/`), doors and windows, the stair, the colonnade zone, viewer and checks; tags `3d-p2`, `3d-p3`. |
+| Structural study | 24 Oct 2026 | `studies/structure.typ` / `docs/STRUCTURE_STUDY.md` (tags `struct-p1`, `struct-p1b`): column grid, beams, slabs, items for the engineer; every size assumed. |
+| Air system studies | 24 Oct 2026 | Tags `air-p1` (a walk-in tunnel with a water channel) and `air-p2` (a dry malqaf with a small duct): both withdrawn by the V8.0 concept (§4.33). |
+| 3D character | 28 Oct 2026 | `3d/character.yaml` (tags `3d-char1`, `3d-char2`): the style study. |
+| Design review | 30 Oct 2026 | `docs/REQUIREMENTS.md` and `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` (tag `review-1`): 55 findings, 3 critical. |
+| V6.3 | 30 Oct 2026 | Quick fixes from the design review (§4.23). |
+| V7.0 | 31 Oct 2026 | Courtyard enclosure (option A), maid room to the municipal minimum, roof access with the main stair and the stair room, the set-back attic and the main cornice, the design language; the roof study, the enclosure study, the review status; the 3D; a roof DXF. |
+| V7.1 | 31 Oct 2026 | Arched courtyard enclosure windows and the three-arch courtyard arcade. |
+| **V8.0** | **1 Nov 2026** | **Fire safety (home level), courtyard layout, air system (one tower: courtyard breeze + HRV intake), external stair tower (office visitors and roof access; internal roof stair removed), south wing v2 (gym west, large suite court, office east), maid room and kitchen window changes.** In detail, folded from `PENDING_CHANGES.md`: the fire study (review E-08) and the owner's home-level decision applied (alarm marks on both plans, the bedroom windows without fixed mashrabiya, the maid window as an escape casement at +1.10; R-33 without the safe room, R-36); the courtyard layout study and decisions (the seating one step down, the TV wall with the stone surround and the grille below it, the north enclosure, no pergola, the drainage section); the kitchen sink window to y 7.3–8.9; the air system v3 / v3.1 (`studies/air_system.typ`, `AIR_SYSTEM.md`: one tower, two paths, the shallow channel, the assist fan, bird mesh, the HRV base, the condensers south, the make-up inlet; structure note X19); the south wing study (`studies/south_wing.typ`), its first application (an L gym, a 2.5 m court) and the v2 adopted (the gym west, a 25 m² court, the office east; the sight-line test and the entry wardrobe; the court's south side compared); the external stair tower, the internal stair stopped at the first floor, the roof study rewritten (no stair room, a plain-pentagon attic, PV on the gym and office roofs, walkways from the tower), the outdoor kitchen and the service gate; the structure (B19 / B20 / B21 / B22, R6 removed, R8 as the court's frame, R19–R21, X4 superseded, X5 revised and improved, not verified, X16, X19); the fire route via the court not counted while the clerestories are openable glass; the 3D builder brought up to date (the stair tower, the HRV base, the three-face malqaf head, the courtyard layout, the suite court with its base and frame, no stair room, the attic door-head fix) and five renders; the presentation rebuilt (12 sheets), the DXFs regenerated, the review status `Design_Review_status_V8.pdf`. Two check failures fixed on the way (the east wing study's label, the decisions sheet's overflow). |
+
+Earlier documents (the ground-floor V4 description, the first-floor brief, the decisions log, the construction notes and the split-projection study) are in `archive/docs/`. Every version is a git tag (`v3.1` … `v8.0`); the branch `work` is reset to `main` after each release for the next round. The construction notes are in `docs/DETAILS.md`.

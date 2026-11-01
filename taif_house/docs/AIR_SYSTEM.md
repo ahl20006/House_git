@@ -1,6 +1,8 @@
-# Taif / Palm House · V7.1 · air system study v3 (final concept: one tower, two separate air paths)
+# Taif / Palm House · V8.0 · air system v3.1 (one tower, two separate air paths; owner decisions applied)
 
 **Every size and performance figure below is assumed, to be designed by the MEP engineer.** v3.1 adds the owner's decisions on the open items (1 Nov 2026): the assist fan, bird mesh only, the HRV in a base under the tower, the condensers south of the tower, the make-up inlet's position. The drawings are `output/air_system.pdf` (from `studies/air_system.typ`): the tower plan at the head, the breeze path in plan and long section, the breeze estimate, the ventilation airflow, the intake / exhaust separations, the ceiling heights, the controls and the maintenance table.
+
+**V8.0:** applied to the design and the 3D (the HRV base, the head, the channel, the grille under the TV, the assist fan). **Noted:** the head's south face sits behind the HRV base (top +9.10), so the head is open on three faces (north, west and the cut face); its back-draught flaps work the same; the MEP engineer confirms (open item 9).
 
 **v1 and v2 are withdrawn** (tags `air-p1`, `air-p2`): the walk-in tunnel, the underground chamber with human entry, the water channel, the evaporative pads and the deep earth pipes with their cooling claims are gone. The courtyard fountain is a separate system (`studies/courtyard_layout.typ`).
 

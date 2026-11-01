@@ -12,15 +12,16 @@ It reads the project files through the readers of build_3d.py, the summary (3d/o
      heights; the clerestory windows at the levels of studies/sections.typ; the kitchen service door clear of the counters and the columns;
      the X3 window / column C33 clearance reported (flagged, not a failure);
   6. the stair: 22 risers to the finished first-floor level, the arrival on the first-floor slab, the opening edged by the trimmers,
-     the headroom over every tread to the underside of the beams / slab (ray cast in the GLB) ≥ params headroom_min;
+     the headroom over every tread to the underside of the beams / slab ≥ params headroom_min; V8.0: the roof slab closed over the well,
+     the external stair tower (risers, landings at the office and the roof, headroom from the flight profiles, the doors and gates);
   7. the structural elements of the zone: the colonnade to the roof (X8), the upturned edge beam, the flags (assumed / unconfirmed);
   8. the sun positions: noon altitudes equal the formulas of studies/sections.typ, morning / afternoon symmetric; true north from base.typ;
   9. the air system (route, chamber, pads, levels, the wall grille);
  10. the character study (3d/character.yaml, STYLE STUDY): every chr_* mesh named and grouped, the base model untouched (the few replaced
      meshes exist), the outer-window glazing recessed by the reveal, every mashrabiya on a window of the plans and flush with the face,
-     the stone sleeves round the colonnade, the parapet / glass railing on B3 to the railing height, the pergola leaving the sky open,
-     the roof parapet, the arches variant (bays, headroom, where the intermediate columns stand), props in the courtyard, nothing
-     beyond the outer face + the plinth / coping.
+     the stone sleeves round the colonnade, no pergola, the roof guards, the courtyard layout (the step, the benches, the TV and its
+     surround over the grille, the enclosure), the arcade, nothing beyond the outer face + the plinth / coping;
+ 11. the roofline: the cornice, the copings, the attic (a plain pentagon since V8.0), the HRV base under the malqaf, the enclosure windows.
 Ends with "3D CHECKS PASSED" (plus the flagged items) or a list of problems (exit code 1).
 """
 import json
@@ -169,7 +170,7 @@ gf_slab, ff_slab, roof = level_area("gf"), level_area("ff"), level_area("roof")
 ff_voids = COURT_SKY.area + DH_VOID.area + STAIR_OPENING.area + TOWER_HOLE.area
 for label, got, want in (("GF slab = outline + half the outer wall (the slab reaches the outer face)", gf_slab, outer_face.area),
                          ("FF slab = outline + half the outer wall − courtyard sky − double-height void − stair opening − tower shaft", ff_slab, outer_face.area - ff_voids),
-                         ("roof = outline + half the outer wall − courtyard sky − suite court − tower shaft − stair well (V7.0)", roof, outer_face.area - COURT_SKY.area - SUITE_COURT.area - TOWER_HOLE.area - STAIR_OPENING.area),
+                         ("roof = outline + half the outer wall − courtyard sky − suite court − tower shaft (V8.0: the stair well closed)", roof, outer_face.area - COURT_SKY.area - SUITE_COURT.area - TOWER_HOLE.area),
                          ("inside the outline, GF = CSV rooms + courtyard + air tower", outline_poly.area, gf_csv),
                          ("inside the outline, FF = CSV rooms + suite court + stair, lift, shaft, air tower + the two voids", outline_poly.area, ff_csv + COURT_SKY.area + DH_VOID.area)):
     if abs(got - want) < TOL_AREA:
@@ -191,7 +192,7 @@ ok(f"stair opening in the first-floor slab: {so:.2f} m² (x {ST['x0']}–{ST['sp
 # ---------- 4: outline and levels ----------
 print("4. Outline and levels")
 PROUD = ("roof_cornice", "ff_band", "roof_coping_n", "roof_coping_s")   # V7.0: the cornice, the band and the copings stand proud of the facade: checked in 11
-allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col") and "_air_" not in n and not n.startswith("chr_") and n not in PROUD])   # the air system (head above the roof, tunnel below the slab, cap beyond the walls) is checked in 9, the character study in 10
+allv = np.vstack([m.vertices for n, m in meshes.items() if not n.startswith("all_col") and "_air_" not in n and not n.startswith("chr_") and not n.startswith("ext_") and n not in PROUD])   # the air system (head above the roof, tunnel below the slab, cap beyond the walls) is checked in 9, the character study in 10
 lo, hi = allv.min(axis=0), allv.max(axis=0)
 ob = outline_poly.bounds
 if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_OUT / 2), hi[0] - (ob[2] + T_OUT / 2), hi[1] - (ob[3] + T_OUT / 2))):
@@ -199,8 +200,8 @@ if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_O
 else:
     bad(f"plan extent {lo[:2].round(3).tolist()}–{hi[:2].round(3).tolist()} does not match the outline {ob}")
 RD = P["roof_design"]
-if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and abs(hi[2] - RD["stair_room"]["edge"]) < 1e-4:
-    ok(f"levels: ground slab underside {lo[2]:+.2f}, the stair room's edge {hi[2]:+.2f} (the highest base mesh, V7.0) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
+if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and abs(hi[2] - RD["attic"]["top"]) < 1e-4:
+    ok(f"levels: ground slab underside {lo[2]:+.2f}, the attic coping {hi[2]:+.2f} (the highest base mesh within the outline, V8.0: no stair room) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
 else:
     bad(f"levels {lo[2]:+.3f}…{hi[2]:+.3f} do not match params")
 for n, want in (("gf_finish_floor", FINISHED["GF"]), ("ff_finish_floor", FINISHED["FF"]), ("gf_slab", STRUCT_TOP["GF"]), ("ff_slab", STRUCT_TOP["FF"]), ("roof_slab", L["roof"])):
@@ -336,40 +337,46 @@ else:
     ok(f"headroom over every tread ≥ {P['headroom_min']} m to the underside of the beams / slab: minimum {worst[0]:.2f} m at flight {worst[1]['flight']} tread {worst[1]['tread']} (under {clear[st['nosings'].index(worst[1])][1]}; the structural study gives 2.22 before finishes)")
 store = st["landing_level"] - P["stair"]["waist"] - P["finish"] - FINISHED["GF"]
 ok(f"store under the half landing: {store:.2f} m clear (a store, not a room)")
-# V7.0: the upper flights to the roof: the arrival on the roof slab, R16–R18 edging the roof opening, the headroom under the roof slab / trimmers / flight 4
-su = summary["stair_upper"]
-top4 = [n for n in su["nosings"] if n["flight"] == 4][-1]
-roof_poly = outer_face.difference(COURT_SKY).difference(SUITE_COURT).difference(STAIR_OPENING).difference(TOWER_HOLE)
-if abs(top4["z"] - (FINISHED["FF"] + FINISHED["FF"] - FINISHED["GF"])) < 1e-6 and roof_poly.contains(Point(top4["x"], top4["y"] + 0.05)) and STAIR_OPENING.contains(Point(top4["x"], top4["y"] - 0.05)) and abs(summary["voids"]["roof"]["stair_opening"] - STAIR_OPENING.area) < 1e-3:
-    ok(f"stair to the roof (V7.0): flights 3 / 4 repeat 1 / 2 one storey up, upper half landing +{su['landing_level']:.2f}, the top riser lands at +{top4['z']:.2f} on the roof slab; the roof opening = the first-floor one ({STAIR_OPENING.area:.2f} m²)")
+# V8.0: the internal stair stops at the first floor (the roof slab closed over the well); the roof is reached from the EXTERNAL STAIR TOWER at the south-east
+roof_poly = outer_face.difference(COURT_SKY).difference(SUITE_COURT).difference(TOWER_HOLE)
+over_well = [Point(ST["x0"] + 0.3, ST["y0"] + 0.3), Point(ST["x1"] - 0.3, ST["top"] - 0.3)]
+if all(roof_poly.contains(p) for p in over_well) and not any(n.startswith("ff_stair_flight3") or n.startswith("ff_stair_flight4") or n.startswith("roof_stair") for n in meshes) and not any(b["id"] in ("R16", "R17", "R18") for b in summary["structure"]["beams"]):
+    ok("the internal stair stops at the first floor (V8.0): no flights 3 / 4, no stair room, no trimmers R16–R18; the roof slab is closed over the stair well")
 else:
-    bad(f"upper stair: top nosing {top4}, roof opening {summary['voids']['roof']}")
-trim = {i: next((b for b in summary["structure"]["beams"] if b["id"] == i), None) for i in ("R16", "R17", "R18")}
-if any(v is None for v in trim.values()):
-    ok("roof trimmers R16–R18: none (dropped 1 Nov 2026: the roof slab over the well is closed in studies/roof.typ; the model's roof stair is OBSOLETE until the next build, PENDING_CHANGES.md)")
-    r16 = r17 = r18 = None
-elif (r16 := trim["R16"]) is not None and (r17 := trim["R17"]) is not None and (r18 := trim["R18"]) is not None and abs(r16["a"][1] - r16["w"] / 2 - (ST["b16"] - T_IN / 2)) < EPS and abs(r17["a"][0] + r17["w"] / 2 - ST["split"]) < EPS and abs(r18["a"][1] - r18["w"] / 2 - ST["top"]) < EPS and all(abs(b["z1"] - (L["roof"] - T_SLAB)) < EPS for b in (r16, r17, r18)):
-    ok(f"roof trimmers R16 / R17 / R18 edge the roof opening as B16–B18, soffit +{r16['z0']:.2f}")
+    bad("the internal roof stair / the roof opening over the well is still in the model")
+tw_ = summary["stair_tower"]
+TWP = RD["stair_tower"]
+fl_ = tw_["flights"]
+lower = [f for f in fl_ if f["name"].startswith("lower")]
+upper = [f for f in fl_ if f["name"].startswith("upper")]
+r_ok = all(f["r"] <= 0.17 + 1e-6 and abs(f["going"] - 0.28) < 1e-3 for f in fl_) and sum(f["n"] for f in lower) == 22 and sum(f["n"] for f in upper) == 22
+z_ok = abs(lower[0]["z0"] + 2 * lower[0]["n"] * lower[0]["r"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] + 2 * upper[0]["n"] * upper[0]["r"] - (L["roof"] + P["roof_finish"])) < 1e-3
+step_ok = TWP["entry"] - TWP["ground"] <= 0.17 + 1e-6
+# headroom: over every tread the soffit of the flight / landing above or the tower's roof (from the flight profiles; the meshes are their extrusions)
+def soffit_above(xm, ym, z):
+    best = tw_["soffit"]
+    for f in fl_:
+        if f["x"][0] - 1e-6 <= xm <= f["x"][1] + 1e-6:
+            pr = Polygon(f["profile"]).buffer(0)
+            seg = pr.intersection(LineString([(ym, z + 0.05), (ym, 50)]))
+            if not seg.is_empty:
+                best = min(best, seg.bounds[1])
+    for l_ in tw_["landings"]:
+        bx = l_["box"]
+        if bx[0] - 1e-6 <= xm <= bx[2] + 1e-6 and bx[1] - 1e-6 <= ym <= bx[3] + 1e-6 and l_["z"] - tw_["waist"] > z + 0.05:
+            best = min(best, l_["z"] - tw_["waist"])
+    return best
+hr_ = [(soffit_above((f["x"][0] + f["x"][1]) / 2, n["y_mid"], n["z"]) - n["z"], f["name"]) for f in fl_ for n in f["nosings"]]
+hmin = min(hr_)
+meshes_ok = all(n in meshes for n in ("ext_tower_wall_n", "ext_tower_wall_e", "ext_tower_wall_s", "ext_tower_wall_w", "ext_tower_roof", "ext_tower_gate_foot", "ext_tower_gate_upper"))
+top_ok = RD["attic"]["top"] < tw_["top"] < AIR["head"][1] and abs(meshes["ext_tower_roof"].bounds[1][2] - tw_["top"]) < 1e-3
+door_ok = tw_["roof_door_head"] - (L["roof"] + P["roof_finish"]) >= 2.0 - 1e-6 and tw_["office_door"][0] >= RD["stair_tower"]["south_landing"][0] - 1e-6
+if r_ok and z_ok and step_ok and hmin[0] >= P["headroom_min"] - 1e-6 and meshes_ok and top_ok and door_ok:
+    ok(f"external stair tower (V8.0): {TWP['box'][2] - TWP['box'][0]:.2f} × {TWP['box'][3] - TWP['box'][1]:.2f} m outside the east wall, top +{tw_['top']:.2f} (above the attic +{RD['attic']['top']:.2f}, below the malqaf +{AIR['head'][1]:.2f}); "
+       f"the entry step {TWP['entry'] - TWP['ground']:.2f}, 22 risers × {lower[0]['r']:.4f} to the office landing +{FINISHED['FF']:.2f} and 22 × {upper[0]['r']:.4f} to the roof landing +{L['roof'] + P['roof_finish']:.2f}, goings {lower[0]['going']:.2f}, flights 1.00 clear; "
+       f"headroom ≥ {hmin[0]:.2f} m (minimum on flight {hmin[1]}); the roof door {tw_['roof_door_head'] - (L['roof'] + P['roof_finish']):.2f} m high through the parapet; the foot gate and the locked gate above the office landing modelled")
 else:
-    bad("roof trimmers do not edge the roof opening")
-flight4 = meshes["ff_stair_flight4"]
-clear_u = {}
-for i, n in enumerate(su["nosings"]):
-    if n["tread"] == st["per_flight"]:
-        continue
-    pt = Point(n["x"], n["y_mid"])
-    above = [(slab_under("roof", pt), "roof slab")] if roof_poly.contains(pt) else [(RD["stair_room"]["soffit"], "stair room roof")]
-    above += [(z0, bid) for foot, z0, bid in beam_feet if foot.contains(pt) and z0 > n["z"]]
-    if n["flight"] == 3:   # flight 4 crosses above flight 3 only beside it (the central balustrade): nothing of it over flight 3's treads
-        pass
-    z, what = min(above)
-    clear_u[i] = (z - n["z"], what)
-low_u = [(n["flight"], n["tread"], round(c, 2)) for i, n in enumerate(su["nosings"]) if i in clear_u and clear_u[i][0] < P["headroom_min"] - 1e-6]
-worst_u = min((c, su["nosings"][i]) for i, (c, w) in clear_u.items())
-if low_u:
-    bad(f"upper stair headroom under {P['headroom_min']} m at (flight, tread, clear): {low_u}")
-else:
-    ok(f"headroom over every tread of flights 3 / 4 ≥ {P['headroom_min']} m: minimum {worst_u[0]:.2f} m at flight {worst_u[1]['flight']} tread {worst_u[1]['tread']} (under {clear_u[su['nosings'].index(worst_u[1])][1]}); the stair room {summary['stair_room']['clear']:.2f} m clear over the roof arrival")
+    bad(f"stair tower: risers {r_ok}, levels {z_ok}, entry step {step_ok}, headroom {hmin}, meshes {meshes_ok}, top {top_ok}, doors {door_ok}")
 
 # ---------- 7: the structural elements of the zone ----------
 print("7. Structure of the zone (assumed / unconfirmed)")
@@ -537,7 +544,7 @@ else:
     # the roof guards and the character meshes' plan extent
     rg = chr_meshes.get("chr_base_steel_roof_railings")
     if rg is not None and abs(rg.bounds[1][2] - (L["roof"] + P["roof_finish"] + RD["guard"]["height"])) < 1e-3:
-        ok(f"black steel bar guards {RD['guard']['height']} m round the courtyard sky hole and the suite court's open edges (clear of the attic wall; the gym roof edge stays a railing)")
+        ok(f"black steel bar guards {RD['guard']['height']} m round the courtyard sky hole and on the suite court's open edges (the gym roof / nib and the office roof; the north edge is the attic wall, the south the parapet on the frame R8)")
     else:
         bad("roof guards")
     proud = max(C["plinth"]["thickness"], C["feature_walls"]["thickness"], C["quoins"]["thickness"]) + 1e-3
@@ -547,33 +554,26 @@ else:
         ok(f"every character mesh lies within the outer wall face + {proud - 1e-3:.2f} m (plinth, cladding, coping); props and lanterns in the courtyard / under the soffit")
     else:
         bad(f"character meshes beyond the outer face: x {chrv[:, 0].min():.3f}–{chrv[:, 0].max():.3f}, y {chrv[:, 1].min():.3f}–{chrv[:, 1].max():.3f}")
-    # the sunken seating variant: replaces the base model's courtyard floor; depth, steps, level edges at every door and glass wall, the grille over the bench, the drain
-    sk = ch["sunken"]
+    # V8.0: the courtyard layout (studies/courtyard_layout.typ): it replaces the base model's courtyard floor; the step, the level edges at the glass, the benches, the TV over the grille, the enclosure
+    cy_ = ch["courtyard"]
     court_floor = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)
-    px0, py0, px1, py1 = sk["box"]
-    pit = Polygon([(px0, py0), (px1, py0), (px1, py1), (px0, py1)])
-    pf, st_m, cf = chr_meshes.get("chr_sunken_stone_light_pit_floor"), chr_meshes.get("chr_sunken_stone_light_steps"), chr_meshes.get("chr_sunken_stone_light_court_floor")
-    base_ok = all(n in meshes for n in sk["replaces"]) and abs(mesh_area("gf_slab_court", T_SLAB) - court_floor.area) < TOL_AREA
-    floor_ok = pf is not None and abs(pf.bounds[1][2] - (FINISHED["GF"] + sk["floor"])) < 1e-3 and cf is not None and abs(cf.bounds[1][2] - FINISHED["GF"]) < 1e-3 and abs(cf.volume - (court_floor.area - pit.area) * (T_SLAB + P["finish"])) < TOL_AREA
-    tread_tops = sorted({round(float(z), 3) for z in st_m.vertices[:, 2]}) if st_m is not None else []
-    steps_ok = st_m is not None and all(abs(FINISHED["GF"] - sk["riser"] * k - t) < 1e-3 for k, t in zip(range(sk["risers"] - 1, 0, -1), [t for t in tread_tops if t > FINISHED["GF"] + sk["floor"] + 1e-3])) \
-        and abs(sk["risers"] * sk["riser"] + sk["floor"]) < 1e-6
-    # every courtyard door / full-height glass (sill at the floor) keeps a level edge ≥ walking_edge_min in front of it
+    px0, py0, px1, py1 = cy_["step"]
+    pit = Polygon([(px0, py0), (px1, py0), (px1, py1), (px0, py1)]).intersection(court_floor)
+    pf, cf = chr_meshes.get("chr_sunken_stone_light_pit_floor"), chr_meshes.get("chr_sunken_stone_light_court_floor")
+    base_ok = all(n in meshes for n in cy_["replaces"]) and abs(mesh_area("gf_slab_court", T_SLAB) - court_floor.area) < TOL_AREA
+    floor_ok = pf is not None and abs(pf.bounds[1][2] - (FINISHED["GF"] + cy_["floor"])) < 1e-3 and cf is not None and abs(cf.bounds[1][2] - FINISHED["GF"]) < 1e-3 and abs(cf.volume - (court_floor.area - pit.area) * (T_SLAB + P["finish"])) < TOL_AREA
     court_edge = Polygon(court["pts"]).exterior
     low = [o for o in ops if o["floor"] == "GF" and o["sill"] <= FINISHED["GF"] + 1e-6 and court_edge.distance(Point(o["a"])) < SNAP and court_edge.distance(Point(o["b"])) < SNAP]
-    too_close = [(o["name"], round(LineString([o["a"], o["b"]]).distance(pit), 2)) for o in low if LineString([o["a"], o["b"]]).distance(pit) < sk["walking_edge_min"] + T_IN / 2 - 1e-6]
-    edges_ok = court_floor.contains(pit) and min(sk["level_edges"]["north"], sk["level_edges"]["south"], sk["level_edges"]["west"]) >= sk["walking_edge_min"] - 1e-6 and abs(sk["level_edges"]["east"]) < 1e-6
-    g_ = sk["grille"]
-    grille_ok = g_["above_floor"] >= 0.15 and "chr_sunken_stone_grille_upstand" in chr_meshes     # v3 (1 Nov 2026): the grille sits under the outdoor TV on the east wall, no bench in front of it (courtyard_layout); the old bench condition dropped
-    dm = chr_meshes.get("chr_sunken_bronze_drain")
-    drain_ok = dm is not None and pit.contains(Point(sk["drain"])) and abs(dm.bounds[0][2] - (FINISHED["GF"] + sk["floor"] - 0.01)) < 1e-3 and "chr_sunken_bronze_overflow" in chr_meshes and sk["overflow_level"] > sk["floor"]
-    if base_ok and floor_ok and steps_ok and not too_close and edges_ok and grille_ok and drain_ok:
-        ok(f"sunken seating (variant, default {'on' if sk['default'] else 'off'}): the courtyard floor replaced ({', '.join(sk['replaces'])}) by a pit {-sk['floor']:.2f} deep against the east wall, x {px0}–{px1} y {py0}–{py1}, "
-           f"{sk['risers']} risers × {sk['riser']} from the west; level edges north {sk['level_edges']['north']:.2f} / south {sk['level_edges']['south']:.2f} / west {sk['level_edges']['west']:.2f} m (≥ {sk['walking_edge_min']}): "
-           f"no step at any door or glass wall ({len(low)} floor-level openings on the courtyard checked); the grille y {g_['y'][0]}–{g_['y'][1]} over the bench (y {sk['bench']['y'][0]}–{sk['bench']['y'][1]}), "
-           f"{g_['above_seat']:.2f} above the seat and {g_['above_floor']:.2f} above the sunken floor, with an upstand; a drain at the lowest point ({sk['drain'][0]}, {sk['drain'][1]}) and an overflow at {sk['overflow_level']:+.2f} (MEP, A6)")
+    too_close = [(o["name"], round(LineString([o["a"], o["b"]]).distance(pit) - T_IN / 2, 2)) for o in low if LineString([o["a"], o["b"]]).distance(pit) - T_IN / 2 < 0.6 - 1e-6]
+    tv_ok = cy_["tv"]["z"][0] >= cy_["grille"]["z"][1] + 0.1 - 1e-6 and cy_["tv"]["y"][0] <= cy_["grille"]["y"][0] and cy_["grille"]["y"][1] <= cy_["tv"]["y"][1] and cy_["tv_crown"] < STRUCT_TOP["FF"] - T_SLAB and "chr_base_stone_tv_surround" in chr_meshes and "chr_base_bronze_outdoor_tv" in chr_meshes
+    en_ok = all(f"chr_base_{n}" in chr_meshes for n in ("stone_enclosure_walls", "water_basin_water", "foliage_tree_crown", "trunk_planter_soil")) and abs(chr_meshes["chr_base_stone_enclosure_walls"].bounds[1][2] - cy_["enclosure"]["rim"]) < 1e-3
+    seat_ok = abs(cy_["seat"] - 0.30) < 1e-3 and all(f"chr_sunken_{n}" in chr_meshes for n in ("stone_benches", "stone_light_bench_cushions", "stone_bench_backs", "stone_table", "bronze_drain", "bronze_overflow"))
+    if base_ok and floor_ok and not too_close and tv_ok and en_ok and seat_ok and pit.contains(Point(cy_["drain"])):
+        ok(f"courtyard layout (V8.0): the seating one step down ({cy_['floor']:.2f}) x {px0}–{px1} y {py0}–{py1} replacing the base model's courtyard floor; level strips ≥ 0.60 m at every floor-level glass / door ({len(low)} checked; north {cy_['level_edges']['north']:.2f}, south {cy_['level_edges']['south']:.2f}, west {cy_['level_edges']['west']:.2f}); "
+           f"benches (seat +{cy_['seat']:.2f}, backs +{cy_['back_top']:.2f}) and the table; the outdoor TV +{cy_['tv']['z'][0]:.2f} … +{cy_['tv']['z'][1]:.2f} over the malqaf grille (+{cy_['grille']['z'][0]:.2f} … +{cy_['grille']['z'][1]:.2f}), its stone surround's crown +{cy_['tv_crown']:.2f}; "
+           f"the north enclosure (rim +{cy_['enclosure']['rim']:.2f}, water +{cy_['enclosure']['water_level']:.2f}, one tree); the drain at the pit's lowest corner and the overflow")
     else:
-        bad(f"sunken seating: base {base_ok}, floor {floor_ok}, steps {steps_ok} {tread_tops}, too close to a door {too_close}, edges {edges_ok} {sk['level_edges']}, grille {grille_ok}, drain {drain_ok}")
+        bad(f"courtyard layout: base {base_ok}, floor {floor_ok}, too close {too_close}, tv {tv_ok}, enclosure {en_ok}, seats {seat_ok}")
     # the fountain on the east wall between the grille and the sink window
     fo = ch.get("fountain")
     if fo is None:
@@ -598,7 +598,7 @@ else:
 # ---------- 11: the roofline and the enclosure (V7.0, studies/roof.typ and studies/courtyard_enclosure.typ) ----------
 print("11. Roofline and enclosure (V7.0, assumed)")
 rd = summary["roof_design"]
-cn, at, sr = RD["cornice"], RD["attic"], RD["stair_room"]
+cn, at = RD["cornice"], RD["attic"]
 cor = meshes["roof_cornice"]
 cor_ok = abs(cor.bounds[0][2] - cn["z0"]) < 1e-3 and abs(cor.bounds[1][2] - cn["z0"] - cn["h"]) < 1e-3 and abs((cor.bounds[1][0] - cor.bounds[0][0]) - (outline_poly.bounds[2] - outline_poly.bounds[0] + T_OUT + 2 * cn["proj"])) < 1e-3
 band = meshes["ff_band"]
@@ -616,15 +616,21 @@ aw, ac = meshes["roof_attic_wall"], meshes["roof_attic_coping"]
 attic_line = wkt.loads(rd["attic"]["line_wkt"])
 setback_ok = abs(attic_line.bounds[0] - (outline_poly.bounds[0] - T_OUT / 2 + at["setback"])) < 1e-6 and abs(attic_line.bounds[1] - (outline_poly.bounds[1] - T_OUT / 2 + at["setback"])) < 1e-6 and abs(attic_line.bounds[3] - at["y_south"]) < 1e-6
 if setback_ok and abs(aw.bounds[1][2] - at["wall_top"]) < 1e-3 and abs(ac.bounds[1][2] - at["top"]) < 1e-3 and abs(aw.bounds[0][2] - L["roof"]) < 1e-3:
-    ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on the north, the cut, the east and the west (except at the stair room), its south wall on y {at['y_south']}; {len(at['doors'])} doors; ≈ {rd['attic']['length']:.1f} m long")
+    ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on all four sides (a plain pentagon, V8.0), its south wall on y {at['y_south']}; {len(at['doors'])} doors (one to the office roof and the stair tower); ≈ {rd['attic']['length']:.1f} m long")
 else:
     bad(f"attic: setback {setback_ok}, wall {aw.bounds[:, 2].tolist()}, coping {ac.bounds[1][2]}")
-sw, ss = meshes["roof_stair_wall"], meshes["roof_stair_slab"]
-sr_ok = abs(sw.bounds[0][2] - L["roof"]) < 1e-3 and abs(sw.bounds[1][2] - sr["soffit"]) < 1e-3 and abs(ss.bounds[1][2] - sr["soffit"] - sr["slab"]) < 1e-3 and summary["stair_room"]["clear"] >= 2.2 - 1e-6 and "roof_stair_door" in meshes and "roof_stair_glazing" in meshes
-if sr_ok:
-    ok(f"stair room on the well (x {sr['box'][0]}–{sr['box'][2]}, y {sr['box'][1]}–{sr['box'][3]}): walls to +{sr['soffit']:.2f}, {summary['stair_room']['clear']:.2f} m clear over the arrival, roof slab top +{sr['soffit'] + sr['slab']:.2f}, edge +{sr['edge']:.2f}; door {sr['door'][1] - sr['door'][0]:.2f} on a {sr['kerb']} kerb (head +{sr['door_head']:.2f}), window east")
+hb = summary["hrv_base"]
+HBP = RD["hrv_base"]
+hb_ok = all(n in meshes for n in ("roof_air_base_shell", "roof_air_base_slab", "roof_air_base_door", "roof_air_base_louvre")) and abs(meshes["roof_air_base_slab"].bounds[1][2] - at["top"]) < 1e-3 and hb["clear"] >= 1.6 - 1e-6
+if hb_ok:
+    ok(f"the HRV base under the malqaf (air v3.1): its top +{HBP['top']:.2f} = the attic coping, {hb['clear']:.2f} m clear inside ({hb['inside_area']:.2f} m²), doors y {HBP['doors'][0]}–{HBP['doors'][1]} on its west face, the exhaust louvre on its cut face; the malqaf head (+{AIR['head'][1]:.2f}) the only element above the attic within the outline; the head open on {len(summary['air']['head_openings'])} faces")
 else:
-    bad("stair room")
+    bad(f"HRV base: {hb}")
+sc_ = summary["suite_court"]
+if "ff_low_court_south" in meshes and "ff_beam_R8_court" in meshes and abs(meshes["ff_low_court_south"].bounds[1][2] - sc_["base_top"]) < 1e-3 and abs(meshes["ff_beam_R8_court"].bounds[0][2] - sc_["frame_soffit"]) < 1e-3:
+    ok(f"the suite court v2 ({sc_['area']:.2f} m², open to the sky): its south side x {sc_['south_x'][0]}–{sc_['south_x'][1]} a 1.10 m base (+{sc_['base_top']:.2f}) under the facade frame (R8 soffit +{sc_['frame_soffit']:.2f}, the cornice and the parapet carried across); the infill is the owner's choice (mashrabiya recommended, not built)")
+else:
+    bad("the suite court's south side (base / frame)")
 w1 = [o for o in ops if o["floor"] == "FF" and abs(o["a"][0] - PROJ_X) < 1e-6 and abs(o["b"][0] - PROJ_X) < 1e-6]
 w2 = [o for o in ops if o["floor"] == "FF" and abs(o["a"][1] - 6.5) < 1e-6 and abs(o["b"][1] - 6.5) < 1e-6 and o["kind"] == "window"]
 w3 = [o for o in ops if o["name"].startswith("W3")]
@@ -637,9 +643,10 @@ if len(w1) == 6 and all(abs(o["sill"] - b3z) < 1e-6 and o["head"] <= soffit - 0.
        f"W2 two arched windows {w2[0]['width']:.2f} m east of C21, springing +{arched[6]['springing']:.2f}; W3 one arched window {w3[0]['width']:.2f} m over the living's courtyard glass, +{w3[0]['sill']:.2f} to the crown +{w3[0]['head']:.2f} (springing +{arched[8]['springing']:.2f}); no railing on those edges; the sky stays open ({COURT_SKY.area:.2f} m²)")
 else:
     bad(f"enclosure windows: W1 {len(w1)}, W2 {len(w2)}, W3 {len(w3)}, arched {len(arched)} crowns ok {crowns_ok}")
-# V7.1: the courtyard arcade: two intermediate columns on the colonnade line in the courtyard bay, three equal bays, arches below the soffit, clear of the sunken seating and the riwaq door
+# V7.1: the courtyard arcade: two intermediate columns on the colonnade line in the courtyard bay, three equal bays, arches below the soffit, not in the seating step, clear of the riwaq door
 arc = ch.get("arcade", {})
-pit = Polygon([(sk["box"][0], sk["box"][1]), (sk["box"][2], sk["box"][1]), (sk["box"][2], sk["box"][3]), (sk["box"][0], sk["box"][3])]) if ch.get("sunken") else None
+cs_ = ch.get("courtyard", {}).get("step")
+pit = Polygon([(cs_[0], cs_[1]), (cs_[2], cs_[1]), (cs_[2], cs_[3]), (cs_[0], cs_[3])]) if cs_ else None
 riwaq_door = next((o for o in ops if o["floor"] == "GF" and abs(o["a"][0] - 4.25) < 1e-6 and 8.0 < o["a"][1] < 12.0 and o["kind"] != "window"), None)
 if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < c[1] < 13.0 for c in arc["columns"]) and len(arc["bays"]) == 3 and all(b["springing"] >= 2.1 for b in arc["bays"]) \
         and abs(arc["columns"][1][1] - arc["columns"][0][1] - arc["bay_axes"]) < 1e-3 and all(f"chr_base_stone_arcade_column_{k}" in chr_meshes for k in (0, 1)) and "chr_base_plaster_arcade_arches" in chr_meshes:
@@ -649,7 +656,7 @@ if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < 
     aligned = all(any(abs((o["a"][1] + o["b"][1]) / 2 - (b["y"][0] + b["y"][1]) / 2) < 0.1 for b in arc["bays"]) for o in w1_c)
     spans_txt = " / ".join("%.2f" % b["span"] for b in arc["bays"])
     ok(f"courtyard arcade (V7.1, {'structural' if arc['structural'] else 'decorative'}): two Ø{arc['diameter']} stone columns on x {PROJ_X} at y {arc['columns'][0][1]:.3f} / {arc['columns'][1][1]:.3f} (bays {arc['bay_axes']:.3f} m on axes), three semicircular arches under the soffit: spans {spans_txt} m, springing +{min(b['springing'] for b in arc['bays']):.2f} … +{max(b['springing'] for b in arc['bays']):.2f}, crown +{arc['bays'][0]['crown']:.2f}; "
-       f"columns {gap_pit:.2f} m clear of the sunken seating, {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= 0.6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
+       f"the columns stand on the upper level at the seating step's edge (gap {gap_pit:.2f} m), {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= -1e-6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
 else:
     bad(f"arcade: {arc}")
 gal = [w for w in summary["walls"] if w["floor"] == "FF" and w["kind"] == "wall" and abs(w["a"][0] - PROJ_X) < 1e-6 and abs(w["b"][0] - PROJ_X) < 1e-6]

@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V7.1"
+VERSION = "V8.0"
 problems = []
 
 
@@ -203,7 +203,7 @@ elif lost:
 else:
     ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
 # active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
-active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V7.md", "decisions.csv", "review_status.typ")]
+active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V8.md", "decisions.csv", "review_status.typ")]
 active.append(ROOT.parent / "README.md")
 old = []
 for p in active:

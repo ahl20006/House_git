@@ -1,7 +1,7 @@
-# params.yaml · Taif / Palm House V7.1 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
+# params.yaml · Taif / Palm House V8.0 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
 # The geometry itself (rooms, outline, voids, projection, doors, windows, stair, columns, beams) is read from the project files;
 # these are only the levels, thicknesses, heights and the view settings. Every value marked "assumed" is to be confirmed.
-version: V7.1
+version: V8.0
 
 levels:                 # FINISHED floor levels (the levels of the plans and sections); to confirm with the engineer (OPEN_ITEMS.md item 6)
   gf_floor: 0.00        # ground floor finished level ±0.00
@@ -86,14 +86,17 @@ structure:              # the elements taken from studies/structure.typ (phase 3
   column_to_roof: [C21, C22, C23]                              # X8 (owner decision): the colonnade continues to the roof
   edge_beam_upturned: true                                     # B3 option (b), the owner's preference; (a) drop if the engineer decides
 
+suite_court:            # V8.0 · south wing v2 (studies/ff_suite.typ): the court's south side in the first-floor outer wall
+  south_x: [4.25, 10.0]  # between the gym's east wall and the office's west wall
+  base: 1.10             # the solid base (the common base of the three options; the recommended mashrabiya above it is PROPOSED, not built)
+  frame_depth: 0.60      # R8 across the opening (studies/structure.typ), the cornice and the parapet on it
+
 projection:
   width: 1.55           # the first-floor west projection over the courtyard and the double-height void (V5.0 columns solution; V6.4: +0.20 m, enclosure option A)
   # its exact edge (x 5.8) is read from studies/ff_family.typ (proj-x) and checked against this width
 
 roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): the roofline and the stair to the roof, all sizes assumed
-                        # 1 Nov 2026 (owner, studies/south_wing.typ): the INTERNAL STAIR STOPS AT THE FIRST FLOOR and the roof is reached from the EXTERNAL STAIR TOWER
-                        # at the south-east (3d/character.yaml stair_tower); the stair_room block below still describes the V7.0 roof stair so the builder runs:
-                        # to be rewritten at the next 3D build (docs/PENDING_CHANGES.md)
+                        # V8.0: the INTERNAL STAIR STOPS AT THE FIRST FLOOR; the roof is reached from the EXTERNAL STAIR TOWER (stair_tower below); the HRV base under the malqaf
   cornice: {z0: 6.90, h: 0.45, proj: 0.30}          # the main honey-stone cornice on the facade edge all round
   band: {z0: 3.40, h: 0.12, proj: 0.08}             # the thin stone cornice between the floors
   coping_north: {wall_top: 7.57, top: 7.65, overhang: 0.03}   # the north block: a 0.30 upstand on the cornice with its coping (the facade top)
@@ -105,18 +108,34 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     top: 9.10
     overhang: 0.03
     y_south: 19.25
-    doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the south wing roof"]]   # 0.80 openings, 2.0 high
-  stair_room:                                         # on the well's walls (x 0 outer, x 2.75, y 2.2, y 7.9), its own light roof slab
-    box: [0, 2.2, 2.75, 7.9]
-    soffit: 9.50                                      # 2.20 clear over the roof arrival (+7.30)
-    slab: 0.12
-    edge: 9.70
-    door: [0.9, 1.8]                                  # in the south wall, 0.90, opening out onto the roof
-    door_head: 9.45                                   # 2.00 above the kerb
-    kerb: 0.15                                        # above the roof finish: rain and dust
-    window: [6.6, 7.5]                                # in the east wall
-    window_sill: 8.50
-    window_head: 9.10
+    doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the gym roof"], ["11.0 19.25 11.8 19.25", "to the office roof and the stair tower (V8.0)"]]   # 0.80 openings, 2.0 high
+  stair_tower:                                        # V8.0 (owner, 1 Nov 2026; studies/roof.typ, south_wing.typ): the external stair tower at the south-east, outside the east wall
+    box: [13.436, 18.22, 16.036, 24.0]                # its outer faces; walls 0.25; the house's east wall face is its west side below the roof
+    wall: 0.25
+    ground: -0.30                                     # the ground outside
+    entry: -0.13                                      # the entry floor, one step (0.17) above the ground, inside the foot gate
+    office: 3.60                                      # the office landing = the first floor (the visitors' door in the house wall)
+    roof_landing: 7.30                                # the top landing = the roof finish (the roof door through the south wing parapet)
+    risers_per_flight: 11                             # 2 flights per storey (a dog-leg): 22 risers to the office (+ the entry step = 23), 22 to the roof
+    flights: {west: [13.686, 14.686], east: [14.786, 15.786]}   # 1.00 m clear each, a 0.10 gap with the central balustrade
+    south_landing: [22.5, 23.75]                      # y: the entry / the office landing / the top landing
+    north_landing: [18.47, 19.70]                     # y: the half landings
+    soffit: 9.45                                      # the tower roof's soffit: 2.15 m over the top landing
+    top: 9.60                                         # above the attic coping +9.10, below the malqaf head +9.80
+    gate: [14.7, 15.6]                                # x: the foot gate in the south wall (opens outwards, panic bar)
+    gate_head: 2.40                                   # its arched head's crown
+    office_door: [22.9, 23.75]
+    roof_door: [22.9, 23.75]                          # y: in the parapet line x 13.311
+    roof_door_head: 9.40
+    openings: {east_y: [[19.2, 20.1], [21.9, 22.8]], south_x: [[14.75, 15.65]], levels: [[1.2, 3.0], [4.9, 6.7], [7.9, 9.1]]}   # arched (crown = the level's top), unglazed, bird mesh
+  hrv_base:                                           # V8.0 (air system v3.1): the HRV base under the malqaf tower, one mass with it
+    pts: [[8.95, 1.0], [10.594, 1.0], [11.898, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line and the cut facade line
+    wall: 0.20
+    top: 9.10                                         # = the attic coping
+    slab: 0.15
+    doors: [1.3, 2.8]                                 # y: a pair of doors in its west face (the unit behind them, filters and core pulled from the roof)
+    door_head: 8.80
+    exhaust: [2.7, 3.05, 7.6, 8.3]                    # y0 y1 z0 z1: the exhaust louvre on its cut face
   guard: {height: 1.10, post_spacing: 1.5, bar: 0.04}   # black steel bar guards round the courtyard sky hole and the suite court's open edges
 
 sun:                    # Taif; true north from base.typ (#let north), the plans' north is 21.4° west of true north
@@ -148,6 +167,6 @@ sources:                # where build_3d.py reads the geometry (paths from taif_
   air_system: studies/air_system.typ   # "#let air-*": the tower head, base box, tunnel route, water channel and outlet chamber (all assumed)
 
 output:
-  glb: 3d/output/taif_house_V7.1.glb
-  viewer_data: 3d/output/taif_house_V7.1.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
+  glb: 3d/output/taif_house_V8.0.glb
+  viewer_data: 3d/output/taif_house_V8.0.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
   summary: 3d/output/model_summary.json       # what was built, for 3d/check_3d.py

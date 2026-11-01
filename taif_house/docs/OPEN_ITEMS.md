@@ -1,52 +1,38 @@
-# Taif / Palm House · V7.1 · open items
+# Taif / Palm House · V8.0 · open items
 
 Grouped by who has to act. The numbers match `data/open_items.csv` and presentation sheet 10. `tools/check.py` checks that every item is listed here.
 
 ## Survey
-1. **Envelope gap 0.20 m** (V6.3, provisional: the house was moved 0.30 m south; the governing line is the lane, the north street line is 0.80 m away) from the nearest outer wall face to the setback line. Confirm with the official survey before the wall faces are fixed. To reach 0.35 m on the lane the house would need 0.63 m south, or 0.30 m south and 0.17 m west (the west face is 0.785 m from the M line).
+1. **Envelope gap 0.20 m** (V6.3, provisional: the house was moved 0.30 m south; the governing line is the lane, the north street line is 0.80 m away) from the nearest outer wall face to the setback line. Confirm with the official survey before the wall faces are fixed.
 
 ## Structural engineer
-2. **Edge beam and columns:** the edge beam on x 5.6 (spans ≈ 6.5 m and 6.25 m) and the three columns at x 5.6 under the first-floor west projection. To size: beam depth, column sizes and their foundations. The columns stand in the women's majlis south wall (y 6.5), as a pier between the courtyard glass and the living (y 13.0), and in the living's south wall (y 19.25).
-3. **Gym and office over the men's majlis:** loads and vibration (the treadmill), and walls with no wall below. Light walls or beams.
-4. **Arm wall:** the gym arm's west wall (x 11.586) stands on the men's majlis roof with no wall below. Size it with the treadmill's moving load (≈ 1.5–2 kN), as a light wall or on a beam; check the slab for the treadmill's vibration and the floating floor's weight.
-5. **First-floor walls off ground-floor lines:**
-   - y 3.0 over the women's majlis;
-   - the suite walls over the kitchen;
-   - the gym and office walls over the men's majlis.
-   Use light partitions on the slab, or beams.
-6. **Floor-to-floor height 3.6 m** (assumed): confirm the levels, the stair headroom at the slab openings (≥ ≈ 2.1 m; the stair continues to the roof since V7.0, trimmers R16–R18) and the handrails; the attic walls, the cornice and the stair room loads (`STRUCTURE_STUDY.md` X16, X17).
+2. **Edge beam and columns:** the edge beam on x 5.80 (spans ≈ 6.5 m and 6.25 m) and the three columns under the first-floor west projection: beam depth, column sizes and their foundations.
+3. **Men's majlis roof and the guest block under the south wing v2** (X5 revised, improved, not verified): the gym inside the column frame (B19 between C19 and C20, a new B22 under the double wall), the suite court terrace on the majlis roof (a depressed zone, falls, planters), the office wall x 10.0 on rib B21 (non-load-bearing), R8 across the court's south side carrying the cornice and the parapet; the treadmill bay's vibration.
+4. **Stair tower:** the external stair tower (2.60 × 5.78 m, top +9.60) outside the east wall at the south-east: its foundations beside the east strip footing, the tie or joint to the house, the roof door through the parapet.
+5. **First-floor walls off ground-floor lines:** y 3.0 over the women's majlis; the suite walls over the kitchen; the gym nib and the office wall over the men's majlis. Light partitions on the slab, or beams.
+6. **Floor-to-floor height 3.6 m** (assumed): confirm the levels, the stair headroom at the first-floor opening (since V8.0 the stair stops at the first floor; the roof slab is closed over the well) and the handrails.
+7. **Soil report:** none yet: the footing type and depth, the lift pit, the breeze channel's base and sump, the stair tower's footings (X9).
 
 ## Acoustics
-7. **Acoustic wall and floor** between the treadmill arm and the suite bedroom:
-   - a double wall (target ≈ 55 dB airborne, sealed at the top, nothing through it);
-   - a floating floor or dense rubber under the arm;
-   - anti-vibration pads under the treadmill;
-   - the treadmill 0.1 m off the wall.
-   Acoustic / structural engineer to set the build-ups, then check on site. Details in `DETAILS.md`.
+8. **Acoustic wall** between the gym and bedroom 3 (south wing v2): a double wall (target Rw ≈ 55 dB airborne, sealed at the top, nothing fixed to it), a floating floor or dense rubber under the treadmill, anti-vibration pads. Acoustic / structural engineer to set the build-ups, then test on site. Details in `DETAILS.md`.
 
 ## MEP / plumbing engineer
-8. **Main ventilation system (`docs/AIR_SYSTEM.md`, M1–M3):** the house needs a calculated system by the MEP engineer: filtered fresh air to the closed rooms (ERV / heat recovery, the bedrooms first), exhausts for the baths, WCs and the kitchen, the AC sized separately; a roof plant area over the maid wing and the west shaft as a riser are reserved, not designed; duct routes in the gypsum ceilings. The malqaf is a dry natural supplement (night ventilation) with options A / B / C to compare; no water inside the tower or the duct. Its outlet (owner, `3d-char2`) is a low grille at the north end of the courtyard's east wall (the kitchen's west wall) over the sunken seating's bench; the duct runs south under the maid bath and the laundry (their drains cross above it: A6); the women's majlis glass stays complete (A7 resolved); the sunken seating's drain and overflow for the MEP engineer.
-9. **Plumbing study (plumbing.typ) still to do:**
-   - drain falls and manholes;
-   - the east-wall stack;
-   - crossings with the air tunnel;
-   - the suite court's drain at its west end.
-10. **East-wall stack:**
-   - the stack outside the east wall (suite bath, vent stack);
-   - the kitchen extract through the east wall;
-   - the stack between the service door and the kitchen window (y ≈ 7.8–8.3); the hood on the east wall south of y ≈ 8.4, clear of the stack.
+9. **Main ventilation system** (`docs/AIR_SYSTEM.md`, v3.1): one tower, two separate paths; the HRV (750 m³/h class) in the base under the malqaf, the risers, the ducts, the ISO ePM1 filter, the courtyard breeze path with its damper and assist fan, the kitchen make-up air; every figure assumed. *Noted for the MEP engineer:* the head's south face sits behind the HRV base (+9.10), so the head is open on three faces (north, west, cut).
+10. **Plumbing study (plumbing.typ) still to do:** drain falls and manholes; the east-wall stack; the courtyard's pit drain and overflow; the suite court's linear drains, box gutter and overflow; the breeze channel's sump.
+11. **East-wall stack:** the stack outside the east wall (suite bath, vent stack) between the service door and the kitchen window; the kitchen extract through the east wall; the hood clear of the stack.
 
 ## Owner
-11. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end (y 6.7–7.6), near the laundry, to the east service yard (rubbish, deliveries, gas). Drawn (3D phase 3). Lock and hardware with the joinery.
-12. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
-13. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court. Keep the sill above eye level from the court floor, or use obscured glass; settle with the levels.
-14. **Lift shaft size and headroom:** the lift is installed at construction (V6.3, two stops); the shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen. Ask two or three suppliers and use the largest shaft. **V7.0 (roof study):** the lift does not serve the roof; its headroom above the first-floor stop must be **≤ 3.40 m** (the roof slab underside), or **≤ 3.70 m with a 0.30 m raised shaft head** hidden behind the main cornice's coping (+7.65); the shaft lies in the strip in front of the attic, so nothing higher is possible.
+12. **Laundry service door · decided:** a lockable 0.90 m door in the kitchen's east wall at its north end, to the east service yard. Lock and hardware with the joinery.
+13. **Foyer majaz only partial:** the entrance door and the majlis opening overlap in the short foyer. Accept it, or add a curtain or a short screen.
+14. **Clerestory privacy:** the double-height living's clerestory windows open onto the suite court: privacy (their sill 1.40 m above the court floor, or obscured glass) and fire: as openable glass they stop the court route counting as a second way out of the first floor; fixed E30 glazing makes it count (`studies/fire_escape.typ`).
+15. **Lift shaft size:** the lift is installed at construction (two stops); the shaft 2.25 × 2.2 is a placeholder until a supplier's civil drawing is chosen. Its headroom above the first-floor stop must be **≤ 3.40 m** (or ≤ 3.70 m with a 0.30 m raised head hidden behind the coping); the lift does not serve the roof.
 
 ## Design (next rounds)
-15. **Daylight:** a daylight simulation of the courtyard (sky 3.35 m on axes) and the double-height living with the final levels.
-16. **Bedroom 1 bath:** bedroom 1 is far from the family bath. Accept it, or review it in the next detail round.
-17. **Malqaf role after the enclosure** (review E-01; V7.0): the house is sealed round the courtyard (option A), so the grille serves only the courtyard unless the casements of W1 / W2 and the tilt lites of W3 are open (night mode). Decide: a courtyard feature only, the ERV's filtered intake, or drop it (with the MEP engineer).
-18. **Pergola** (V7.0): reconsider after the enclosure (the sky opening is 3.15 m and the edges are glazed): keep, lighten or drop.
+16. **Daylight:** a daylight simulation of the courtyard and the double-height living with the final levels.
+17. **Bedroom 1 bath:** bedroom 1's bathroom route (through the family living and the gallery to the family bath). Accept, or a bath for bedroom 1: first in the next round.
+18. **Suite court south side** (owner): (a) a solid wall, (b) a mashrabiya screen (recommended, drawn as proposed), (c) a 1.1 m wall open above (`studies/south_wing.typ` § 12).
+19. **Food route:** the food route from the kitchen to the men's majlis (review X-01): an outside service path to a majlis serving door, or accept.
+20. **Site and services plan:** parking, the garden door, the service yard, water tanks, gas, the generator, Civil Defense access, the service gate on the lane, the outdoor kitchen.
 
-## From the design review (`docs/review`, tag `review-1`) · the big items, in order
-The status of every critical and major finding after V7.0 is in `output/Design_Review_status_V7.pdf` (`docs/review/review_status.typ`). Resolved in V6.3 / V7.0: the courtyard enclosure, the maid room, roof access, the gallery width, the TV wall, the lift, the door widths. Still open, in the order to take them (also in `NEXT_SESSION.md`): fire and escape (critical); the courtyard's sunken seating, the level play zone and the drainage outfall; the malqaf's value in the sealed house (item 17) and the pergola (item 18); the gym's treadmill clearances and vibration; bedroom 1's bathroom route (item 16); the food route from the kitchen to the men's majlis; the site and roof services plan; structure X5 and the soil report; the legal survey (item 1).
+## The next open items, in order (from the review status `output/Design_Review_status_V8.pdf`)
+Bedroom 1's bathroom route (17); the food route from the kitchen to the men's majlis (19); the south side of the suite court (18, with the clerestory glazing 14); the site and services plan (20); the engineers: structure X5 and the soil report (3, 4, 7), MEP sizing (9, 10); the legal survey (1).

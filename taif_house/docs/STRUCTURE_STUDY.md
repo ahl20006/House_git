@@ -1,4 +1,6 @@
-# Taif / Palm House · V7.0 · preliminary structural study
+# Taif / Palm House · V8.0 · preliminary structural study
+
+*V8.0 (south wing v2 and the external stair tower; `studies/structure.typ`):* the gym inside the column frame C6 / C13 / C19 – C7 / C14 / C20 with **B19** on x 4.25 between C19 and C20 and a new **B22** (C6 – C13) under the double wall to bedroom 3; **B20** the gym nib's wall from C23; **B21** the office's non-load-bearing wall x 10.0 (the office roof spans N–S onto R5 / R8, edge rib **R19**); **R6 removed** (the suite court open to the south facade); **R8** across the court's south side as the facade frame; **R20** over the double wall, **R21** the nib's roof cantilever; R3 on to y 24; the roof slab closed over the stair well (**R16–R18 dropped**, the internal stair stops at the first floor); the external stair tower on its own footings (open item 4). **X5: load path revised, not verified — improved** (see X5 below); X4 superseded; X16 superseded; X19 the air system v3.1 (the channel in the slab, the HRV base on the roof).
 
 *V7.0 additions (in `studies/structure.typ`):* the colonnade C21–C23, the edge beam B3 and the roof edge beam R11 at x 5.80 (the projection 1.55 m); B6 a drop beam on the y 6.5 line (the kitchen's north wall moved to y 7.0 as a partition, W5 dropped: X14); the enclosure windows W1–W3 and their supports (X15); the roof opening over the stair with the trimmers R16 / R17 / R18 and the stair room (X16); the attic walls, the parapets, the cornice and the plant loads (X17). All assumed.
 
@@ -47,10 +49,10 @@ The 3D model carries these thicknesses per bay since V6.3 (`3d/build_3d.py` read
 | FF | maid wing x 8.95–13.311 y 0–6.5 | solid 0.20 | east–west 4.36 m |
 | FF | kitchen roof y 6.5–13 and dining roof y 13–19.25 | ribbed (hollow block) 0.30 | east–west 4.36 m; the suite bath floor sunken 0.15 |
 | FF | men's majlis roof x 2.75–13.311 y 19.25–24 | ribbed 0.30, thickened ribs under the FF walls | north–south 4.75 m |
-| roof | west band, riwaq / gallery line, kids' room / family living, suite, gym route, treadmill arm | solid 0.20 / ribbed 0.30 (suite, office) | 1.5–4.75 m |
+| roof | west band, riwaq / gallery line, kids' room / family living, suite | solid 0.20 / ribbed 0.30 (suite) | 1.5–4.75 m |
 | roof | gallery strip x 4.25–5.6 y 6.5–13 | solid 0.20 | east–west 1.35 m, R3 → R11 on the colonnade (X8) |
 | roof | **double-height living x 4.25–8.95 y 13–19.25** | **flat solid 0.22, no beam in the void** | east–west 4.7 m, R3 → R4 |
-| roof | gym y 21.25–24 | solid 0.20 | north–south 2.75 m |
+| roof | gym x 0–4.25 / office x 10–13.311 (V8.0) | ribbed 0.30 | north–south 4.75 m (the gym from R20, the office from R5, both to R8) |
 
 ### Beams (first floor B, roof R; sizes width × total depth, assumed)
 | Beam | Where | Span (m) | Size | Drop / soffit | Carries |
@@ -65,12 +67,14 @@ The 3D model carries these thicknesses per bay since V6.3 (`3d/build_3d.py` read
 | B9–B14 | south wall, riwaq line x 2.75, west band cross walls | 2.2–5.7 | hidden 0.20–0.30 | – | on walls |
 | B15 | y 1.0, x 8.95–10.594 | 1.64 | 0.20 × 0.35 | edge | air tower opening |
 | B16–B18 | stair trimmers | 1.39 / 1.60 / 1.46 | 0.20 × 0.40 | soffit +3.20 | the L-shaped stair opening (§4.5) |
-| B19–B21 | x 4.25, x 5.6, x 11.586 over the majlis | 4.75 / 2.0 | thickened ribs 0.30 | hidden | office wall, gym route wall, treadmill arm wall (nothing below) |
+| B19 | x 4.25, C19 – C20 (V8.0) | 4.75 | 0.60 × 0.30 hidden or 0.25 × 0.50 drop | hidden / drop | the gym's east wall = the court's west wall (a frame line) |
+| B20 / B21 | x 5.80 (1.3), x 10.0 (4.75) over the majlis (V8.0) | 1.3 / 4.75 | thickened ribs 0.30 | hidden | the gym nib's wall; the office wall (non-load-bearing) |
+| B22 | y 19.25, C6 – C13 (V8.0) | 2.75 | 0.25 × 0.45 | drop | the double wall bedroom 3 / gym over the guest passage and the WC door |
 | R1, R2 | y 6.5 and y 13.0, x 4.25–8.95 | 4.70 | 0.25 × 0.45 | soffit +6.75 | the courtyard sky hole |
 | R3, R4 | x 4.25 and x 8.95, full length | 3.0–6.5 | 0.25 × 0.50 | 0.30 above the FF walls, invisible | the roof over the void spans between them |
 | R11 | x 5.6, y 6.5–13.0 | 6.50 | 0.25 × 0.45 | soffit +6.75 | roof edge of the courtyard sky over the gallery strip, on C21–C22 (X8) |
 | R5 | y 19.25, x 4.25–13.311 | 1.35 + 3.35 + 4.36 | 0.25 × 0.50 | soffit +6.70, 0.70 above the clerestory head | the living's south wall line |
-| R6 | y 21.25, x 5.6–11.586 | 6.0 | 0.25 × 0.50 | soffit +6.70, **drop, not upturned** (X4) | the suite court hole; on the FF walls x 5.6 / x 11.586: **proposed load path, not verified** (X5) |
+| R6 | — | — | — | — | **removed in V8.0** (south wing v2: the suite court open to the south facade); R19 (the office roof's edge rib on x 10.0), R20 (over the double wall y 19.25, x 0–4.25), R21 (the nib roof's cantilever from C23) instead |
 | R7–R10 | north and south walls, riwaq line, air tower head | – | hidden | – | on walls |
 
 ### First-floor walls: what carries them
@@ -97,13 +101,13 @@ The 3D model carries these thicknesses per bay since V6.3 (`3d/build_3d.py` read
 ### 4.3 The living ↔ dining opening (x 8.95, 6.25 m) under the suite wall
 Beam B5, 0.25 × 0.55 total, between C27 (8.95, 13.0) and C28 (8.95, 19.25). It carries the suite bedroom's west wall, half the dining roof and the roof beam above. With the 0.20 slab it drops 0.35 below the dining ceiling: **soffit +3.05 before finishes, 3.05 m clear** (≥ 2.40). **It can sit exactly on the ceiling-height change line:** the dining ceiling is at +3.40 and the living has no ceiling, so the beam's 0.35 m *is* the step between the two heights. Alternatives: a wide-shallow beam 0.60 × 0.40 total (soffit +3.20), or a light suite wall so the beam carries only the slab (0.25 × 0.45 total, soffit +3.15).
 
-### 4.4 The men's majlis roof (10.56 × 4.75 m) under the gym, the arm and the office
-- **Ribbed slab 0.30 spanning north–south 4.75 m** from the majlis north wall (B8) to the south wall (B9). **No column inside the majlis.**
-- The first-floor walls parallel to the ribs (office x 4.25, gym route x 5.6, treadmill arm x 11.586) each stand on a thickened rib (B19–B21): direct and cheap.
-- The gym's north wall y 21.25 runs across the ribs for 7.7 m with nothing below: **a light partition on the slab (recommended)**; or a 200 mm wall on a solid band in the ribbed slab; a 10.56 m drop beam (≈ 0.90 m deep, visible in the majlis) is rejected.
-- **Loads:** it is a **home gym** (light equipment, no dropped heavy weights, one treadmill). The engineer chooses a normal residential-gym live load as they judge (SBC 301 gives 5 kN/m² for gymnasia; what applies to a home gym is the engineer's call); the treadmill ≈ 1.5–2 kN dynamic (manufacturer's data); office 2.5–3 kN/m².
-- **Vibration: not calculated here.** The natural frequency of the 4.75 m ribbed slab and its response under the treadmill arm must be checked by the engineer; the arm gets a floating floor and pads (`DETAILS.md`) in any case.
-- **The gym roof beam R6** (6.0 m, the suite court's south edge) is carried by the two gym walls x 5.6 and x 11.586, which stand on the ribs B20 / B21: **a proposed load path, not verified** (X5).
+### 4.4 The men's majlis roof (10.56 × 4.75 m) under the south wing v2 (V8.0)
+- Span direction north–south, 4.75 m: a ribbed slab 0.30 m; *no column inside the majlis*.
+- **The gym** (x 0–4.25) stands inside the column frame: the west outer wall, B10 (x 2.75, C13 – C14), **B19 between C19 and C20** (its east wall), the double wall on B8 and **B22** (C6 – C13); the treadmill on the 2.75 m solid bay of the west wash block (the stiffest bay).
+- **The suite court** (x 4.25–10): a terrace on the ribbed slab, a depressed zone for the falls; ≈ 3 kN/m² private terrace live load (the engineer), finishes ≈ 2 kN/m², planters local.
+- **The office** (x 10–13.311): its roof spans N–S onto R5 / R8 (edge rib R19); its west wall x 10.0 non-load-bearing on rib B21.
+- **Removed:** the gym's south arm, its north partition, R6 and its two bearings.
+- **Vibration: not calculated here** (the treadmill, X6).
 
 ### 4.5 The stair (x 0–2.75, y 2.2–7.9) · drawn on its own page
 - **Well:** 2.75 × 5.70 m on wall centre lines = **2.525 × 5.50 m clear** (0.25 outer wall west, 0.20 walls north and south; the east side open to the riwaq on the ground floor, a railing on the first floor).
@@ -132,9 +136,9 @@ Beam B5, 0.25 × 0.55 total, between C27 (8.95, 13.0) and C28 (8.95, 19.25). It 
 | X1 | accepted | Column C22 (5.6, 13.0) stands in the courtyard / living glazing; the glass is split 4.45–5.45 + 5.75–8.75. Keep it round Ø0.30. |
 | X2 | accepted | Beam B5 (0.25 × 0.55 total) shows 0.35 m below the dining ceiling on the ceiling-height change line, soffit +3.05 before finishes: it is the step itself. Alternative 0.60 × 0.40 total (soffit +3.20). |
 | X3 | owner decided · resolved (V6.3) | **C33 stays at (13.311, 10.45); the suite bath east window is 0.55 m, y 9.50–10.05 (V6.3).** Its frame (0.05) clears the assumed 0.25 × 0.60 column lying along the wall (y 10.15–10.75) by 0.05 m, and any smaller column by more: no clash for any column ≤ 0.60 along the wall. The GF kitchen window (y 8.7–10.1) is clear. |
-| X4 | rule | The gym roof's north edge R6 must be a drop beam, not upturned: an upstand of 0.40 would raise the solid top to +7.60 and cut the clerestory's winter noon sun from ≈ 81 % to ≈ 40 %. |
-| X5 | **NOT verified** | **Proposed load path, not verified:** R6 (6.0 m) carried by the first-floor walls x 5.6 and x 11.586 standing on ribs of the men's majlis roof (B20, B21), not on columns, because no column may stand in the majlis. Proposal: build those two walls as RC walls 0.20 m so the path roof → wall → rib → GF walls is explicit. **The structural engineer must confirm the supports, the sizes and the deflection of R6, B20 and B21.** In the 3D model (phase 4) R6 and these two walls are to be shown as unconfirmed (own colour / hatch) until then. Loads: a home gym (§4.4). |
-| X6 | flag | The gym's north wall (y 21.25, 7.7 m) runs across the ribs with nothing below: light partition recommended. Home gym (light equipment, one treadmill): live load as the engineer judges; the slab's vibration under the treadmill arm is not calculated and must be checked; floating floor and pads in the arm. |
+| X4 | superseded (V8.0) | R6 is removed: nothing stands in front of the clerestory windows but the facade frame (parapet +8.40, 4.75 m away); the winter noon sun reaches their whole height. |
+| X5 | **load path revised (V8.0), NOT verified — improved** | V7.1 carried R6 (6.0 m) on two first-floor walls on ribs of the majlis roof; V8.0 removes R6; the gym's east wall stands on B19 between the existing columns C19 and C20 (a frame line, not a transfer); the office wall x 10.0 carries only itself on rib B21; the double wall on B8 and the new B22. The engineer confirms B19, B22, R8 across the court, the terrace load, the treadmill bay and the nib's cantilever R21. |
+| X6 | flag | The treadmill (V8.0) on the west wash block's 0.20 solid slab (2.75 m): a floating floor or dense rubber and pads; its response is the engineer's. The nib's south partition (1.55 m) a light partition on the slab. |
 | X7 | flag | The living's south wall (y 19.25, x 5.6–8.95) is 7 m tall with the clerestory, tied at +3.6 only on its south face: its slenderness between C23 and C28 (3.35 m) is not checked here; the engineer confirms it, with RC stiffeners at the window jambs if needed. |
 | X8 | owner decided | **The colonnade columns C21–C23 continue to the roof** inside the gallery railing line (a two-storey colonnade, slender round columns ≈ Ø0.30 assumed). The roof over the gallery strip rests on the roof edge beam R11 (x 5.6, 0.25 × 0.45 total) between C21 and C22: no 1.35 m roof cantilever. The engineer sizes the columns for two storeys and the two roof beams. |
 | X9 | missing | No soil report, no soil data: footing type and depth (pads ≈ 1.5 × 1.5, underside ≈ −1.50), the lift pit, and the air duct (`AIR_SYSTEM.md` v2): a small sealed box 0.9 × 0.9 (top −1.00, underside −1.90) leaving the tower base pit (to −1.95) through the W3 / C24 line and running under the women's majlis to the outlet chamber under the courtyard floor (floor −2.10) between the C21 and C26 pads; the pit as the foundation of C24 / C30 and the W3 / W4 ends; the ground beam of the majlis south wall over the duct mouth (air items A1–A3). |

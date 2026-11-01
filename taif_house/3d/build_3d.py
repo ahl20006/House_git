@@ -395,14 +395,14 @@ slab("gf_slab", outer_face.difference(COURT_FLOOR), STRUCT_TOP["GF"] - T_SLAB, S
 slab("gf_slab_court", COURT_FLOOR, STRUCT_TOP["GF"] - T_SLAB, STRUCT_TOP["GF"], "gf", "the courtyard floor (replaced by the character study's sunken seating)")
 ff_slab_poly = outer_face.difference(unary_union([COURT_SKY, DH_VOID, STAIR_OPENING, TOWER_HOLE]))
 zoned_slab("ff_slab", ff_slab_poly, STRUCT_TOP["FF"], "ff")
-roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE, STAIR_OPENING]))   # V7.0: the stair well is open through the roof too (the stair room above it)
+roof_poly = outer_face.difference(unary_union([COURT_SKY, SUITE_COURT, TOWER_HOLE]))   # V8.0: the roof slab over the stair well is closed (the roof is reached from the external stair tower)
 zoned_slab("roof_slab", roof_poly, STRUCT_TOP["roof"], "roof")
 add(extrude(outer_face.difference(ring).difference(COURT_FLOOR), STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_floor"))
 add(extrude(COURT_FLOOR, STRUCT_TOP["GF"], FINISHED["GF"], COLOURS["finish"], "gf_finish_court"))
 add(extrude(ff_slab_poly.difference(ring), STRUCT_TOP["FF"], FINISHED["FF"], COLOURS["finish"], "ff_finish_floor"))
 add(extrude(roof_poly, STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], COLOURS["finish"], "roof_finish_floor"))
 summary["voids"] = {"ff": {"courtyard_sky": round(COURT_SKY.area, 4), "double_height_living": round(DH_VOID.area, 4), "stair_opening": round(STAIR_OPENING.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4)},
-                    "roof": {"courtyard_sky": round(COURT_SKY.area, 4), "suite_court": round(SUITE_COURT.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4), "stair_opening": round(STAIR_OPENING.area, 4)}}
+                    "roof": {"courtyard_sky": round(COURT_SKY.area, 4), "suite_court": round(SUITE_COURT.area, 4), "tower_shaft": round(TOWER_HOLE.area, 4), "stair_opening": 0.0}}
 
 # ---------- room plates (colour by room type, for the plan views) ----------
 for floor, rooms in (("GF", GF), ("FF", FF_CSV)):
@@ -460,9 +460,10 @@ def build_walls(floor, walls, ops):
         colour = COLOURS[w["kind"]]
         if floor == "FF" and any(on_line(w["a"], (u[0], u[1]), (u[2], u[3])) and on_line(w["b"], (u[0], u[1]), (u[2], u[3])) for u in P["structure"]["unconfirmed_walls"]):
             colour = COLOURS["unconfirmed"]
-            summary["flags"].append(f"FF wall {w['a']}–{w['b']} carries the gym roof beam R6 over the men's majlis ribs: proposed load path, NOT verified (X5)")
+            summary["flags"].append(f"FF wall {w['a']}–{w['b']} stands on a rib of the men's majlis roof (south wing v2, non-load-bearing): NOT verified (X5)")
         footprints.append((name, seg_box(a2, b2, T_IN), z0, top, colour, {"floor": floor, "kind": w["kind"], "name": name, "a": w["a"], "b": w["b"], "t": T_IN, "z0": z0, "z1": top, "length": round(math.dist(a, b), 4)}))
-    footprints.append((f"{floor.lower()}_outer", ring, z0, z1, COLOURS["outer"], {"floor": floor, "kind": "outer", "name": f"{floor.lower()}_outer", "t": T_OUT, "z0": z0, "z1": z1, "length": round(outline_poly.exterior.length, 4)}))
+    outer_fp = ring if floor == "GF" else ring.difference(COURT_SOUTH)   # V8.0: the suite court (v2) is open to the south between the gym and the office: its base and frame below
+    footprints.append((f"{floor.lower()}_outer", outer_fp, z0, z1, COLOURS["outer"], {"floor": floor, "kind": "outer", "name": f"{floor.lower()}_outer", "t": T_OUT, "z0": z0, "z1": z1, "length": round(outline_poly.exterior.length, 4)}))
     for name, foot, zb, zt, colour, rec in footprints:
         solid = foot
         cut = foot if zt > zcut else None
@@ -517,6 +518,9 @@ def on_open_edge(o, floor):
     return any(e["floor"] == floor and e["height"] == 0 and on_line(o["a"], e["a"], e["b"]) and on_line(o["b"], e["a"], e["b"]) for e in OPEN)
 
 
+# V8.0 · south wing v2: the suite court's south side (y 24, between the gym's east wall x 4.25 and the office's west wall x 10.0) in the first-floor outer wall
+_sc = P["suite_court"]
+COURT_SOUTH = box(_sc["south_x"][0] + T_IN / 2, OUTLINE[3][1] - T_OUT, _sc["south_x"][1] - T_IN / 2, OUTLINE[3][1] + T_OUT)
 skipped, open_doors, PLAN_CUTS = [], [], {}
 for floor, rooms, doors, windows in (("GF", GF, GF_DOORS, GF_WINDOWS), ("FF", FF, FF_DOORS, FF_WINDOWS)):
     pieces, walls = wall_pieces(rooms, OPEN, floor)
@@ -539,6 +543,13 @@ unused = [w for w in P["openings"]["windows"] if not w.get("_used")] + [d for d 
 if unused:
     raise SystemExit(f"ERROR: params.yaml opening heights that match no opening of the plans: {[w['at'] for w in unused]}")
 summary["openings_note"] = {"skipped": skipped, "open_edges": open_doors}
+# the court's south side: a solid base to +1.10 (the common base of the three options, studies/south_wing.typ; the recommended mashrabiya above it is PROPOSED, not built)
+# and the facade frame on top: R8 across the opening under the roof slab's edge strip, the cornice and the parapet run on (roofline below)
+_cs = ring.intersection(COURT_SOUTH)
+add(extrude(_cs, STOREY["FF"][0], FINISHED["FF"] + _sc["base"], COLOURS["outer"], "ff_low_court_south"))
+add(extrude(_cs, STRUCT_TOP["roof"] - _sc["frame_depth"], STOREY["FF"][1], COLOURS["outer"], "ff_beam_R8_court"))
+summary["suite_court"] = {"south_x": _sc["south_x"], "base_top": round(FINISHED["FF"] + _sc["base"], 3), "frame_soffit": round(STRUCT_TOP["roof"] - _sc["frame_depth"], 3), "area": round(SUITE_COURT.area, 3),
+                          "note": "south side: the 1.1 m base and the frame built; the infill (solid / mashrabiya (recommended) / open) is the owner's choice"}
 # V7.0 · W3: the living's upper courtyard side (y 13.0, from the colonnade line to the east wall) is closed from the ground-floor wall top to the
 # R2 soffit; a wall piece beside the column and against the east wall, the steel window between (enclosure option A, studies/courtyard_enclosure.typ)
 W3 = P["openings"]["enclosure_w3"]
@@ -620,51 +631,152 @@ for i, (a, b, note) in enumerate(rails_ff):
     add(extrude(seg_box(a, b, bt), base, FINISHED["FF"] + rh, COLOURS["rail"], f"ff_rail_{i:02d}"))
     summary["rails"].append({"a": a, "b": b, "z0": round(base, 3), "z1": round(FINISHED["FF"] + rh, 3), "note": note})
 
-# ---------- V7.0 · the stair to the roof (studies/roof.typ): flights 3 and 4 repeat 1 and 2 one storey up, the roof opening with R16–R18, the stair room ----------
+# ---------- V8.0 · the roof is reached from the EXTERNAL STAIR TOWER at the south-east (studies/roof.typ, south_wing.typ): the internal stair stops at the first floor ----------
 RD = P["roof_design"]
-SR = RD["stair_room"]
 zF = FINISHED["FF"] - FINISHED["GF"]
-add(profile_mesh([(y, z + zF) for y, z in p1], *f1x, COLOURS["stair"], "ff_stair_flight3"))
-add(profile_mesh([(y, z + zF) for y, z in p2], *f2x, COLOURS["stair"], "ff_stair_flight4"))
-add(extrude(box(ST["x0"], ST["y0"], ST["x1"], ST["land"]), zF + land_level - waist - FIN, zF + land_level, COLOURS["stair"], "ff_stair_landing"))
-for bid in ("R16", "R17", "R18"):
-    if bid not in BEAMS:                                     # 1 Nov 2026: R16–R18 dropped in studies/structure.typ (the roof slab over the well is closed; the roof is reached from the external stair tower)
-        summary["flags"].append("Roof stair (V7.0) still modelled but OBSOLETE since 1 Nov 2026: the internal stair stops at the first floor, R16–R18 and the stair room are dropped in studies/roof.typ / structure.typ; the external stair tower is not modelled yet (PENDING_CHANGES.md)")
-        break
-    b = BEAMS[bid]
-    add(extrude(seg_box(b["a"], b["b"], b["w"]), STRUCT_TOP["roof"] - b["d"], STRUCT_TOP["roof"] - T_SLAB, COLOURS["assumed"], f"roof_beam_{bid}"))
-    summary["structure"]["beams"].append({"id": bid, "a": b["a"], "b": b["b"], "w": b["w"], "d": b["d"], "z0": round(STRUCT_TOP["roof"] - b["d"], 3), "z1": round(STRUCT_TOP["roof"] - T_SLAB, 3), "state": "assumed", "note": "roof stair trimmer (V7.0)"})
-z3 = lambda y: zF + z1(y)
-z4 = lambda y: zF + z2(y)
-add(profile_mesh([(ST["land"], z3(ST["land"])), (ST["top"], z3(ST["top"])), (ST["top"], z4(ST["top"]) + hr), (ST["land"], z4(ST["land"]) + hr)], ST["split"] - bt / 2, ST["split"] + bt / 2, COLOURS["rail"], "ff_rail_stair_centre"))
-add(profile_mesh([(ST["land"], z4(ST["land"])), (ST["top"], z4(ST["top"])), (ST["top"], z4(ST["top"]) + hr), (ST["land"], z4(ST["land"]) + hr)], ST["x1"] - bt, ST["x1"], COLOURS["rail"], "ff_rail_stair_east"))
-add(extrude(box(ST["x1"] - bt, ST["y0"], ST["x1"], ST["land"]), zF + land_level, zF + land_level + hr, COLOURS["rail"], "ff_rail_stair_landing"))
-summary["stair_upper"] = {"landing_level": round(zF + land_level, 3), "arrival_level": round(FINISHED["FF"] + zF, 3),
-                          "nosings": [{"flight": 3, "tread": i, "x": round(sum(f1x) / 2, 4), "y": round(ST["top"] - (i - 1) * g, 4), "y_mid": round(ST["top"] - (i - 0.5) * g, 4), "z": round(FINISHED["FF"] + i * r, 4)} for i in range(1, per_flight + 1)]
-                                     + [{"flight": 4, "tread": i, "x": round(sum(f2x) / 2, 4), "y": round(ST["land"] + (i - 1) * g, 4), "y_mid": round(ST["land"] + (i - 0.5) * g, 4), "z": round(zF + land_level + i * r, 4)} for i in range(1, per_flight + 1)]}
-# the stair room on the well's walls: block walls to its soffit, a light roof slab with an edge, the door to the roof on a kerb, a window east
-bx0, by0, bx1, by1 = SR["box"]
-sr_out = box(bx0 - T_OUT / 2, by0 - T_IN / 2, bx1 + T_IN / 2, by1 + T_IN / 2)
-sr_in = box(bx0 + T_OUT / 2, by0 + T_IN / 2, bx1 - T_IN / 2, by1 - T_IN / 2)
-sr_walls = sr_out.difference(sr_in)
 zr, rfin, leaf, glass_t = STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], P["openings"]["leaf"], P["openings"]["glass"]
-sr_door = seg_box((SR["door"][0], by1), (SR["door"][1], by1), T_IN + 0.02)
-sr_win = seg_box((bx1, SR["window"][0]), (bx1, SR["window"][1]), T_IN + 0.02)
-add(extrude(sr_walls.difference(sr_door).difference(sr_win), zr, SR["soffit"], COLOURS["wall"], "roof_stair_wall"))
-add(extrude(sr_walls.intersection(sr_door), zr, rfin + SR["kerb"], COLOURS["wall"], "roof_stair_wall_kerb"))
-add(extrude(sr_walls.intersection(sr_door), SR["door_head"], SR["soffit"], COLOURS["wall"], "roof_stair_wall_doorhead"))
-add(extrude(sr_walls.intersection(sr_win), zr, SR["window_sill"], COLOURS["wall"], "roof_stair_wall_sill"))
-add(extrude(sr_walls.intersection(sr_win), SR["window_head"], SR["soffit"], COLOURS["wall"], "roof_stair_wall_winhead"))
-add(extrude(seg_box((SR["door"][0], by1), (SR["door"][1], by1), leaf), rfin + SR["kerb"], SR["door_head"], COLOURS["door"], "roof_stair_door"))
-add(extrude(seg_box((bx1, SR["window"][0]), (bx1, SR["window"][1]), glass_t), SR["window_sill"], SR["window_head"], COLOURS["glass"], "roof_stair_glazing"))
-add(extrude(sr_out, SR["soffit"], SR["soffit"] + SR["slab"], COLOURS["slab"], "roof_stair_slab"))
-add(extrude(sr_out.difference(sr_out.buffer(-0.1, join_style=2)), SR["soffit"] + SR["slab"], SR["edge"], COLOURS["wall"], "roof_stair_edge"))
-summary["stair_room"] = {"box": SR["box"], "walls_z": [zr, SR["soffit"]], "slab": [SR["soffit"], SR["soffit"] + SR["slab"]], "edge": SR["edge"], "clear": round(SR["soffit"] - rfin, 3),
-                         "door": {"x": SR["door"], "y": by1, "kerb": SR["kerb"], "sill": round(rfin + SR["kerb"], 3), "head": SR["door_head"]}, "window": {"y": SR["window"], "x": bx1, "sill": SR["window_sill"], "head": SR["window_head"]}}
+
+
+def vwall(a, b, t, z0, z1, holes, colour, name):
+    """A vertical wall centred on the line a–b (thickness t) from z0 to z1, the holes given as polygons in (s, z), s along a → b."""
+    L_ = math.dist(a, b)
+    ux, uy = (b[0] - a[0]) / L_, (b[1] - a[1]) / L_
+    prof = box(0, z0, L_, z1)
+    for h in holes:
+        prof = prof.difference(h)
+    out = []
+    for poly in polys(prof):
+        m = trimesh.creation.extrude_polygon(poly, t)                          # (s, z, w)
+        sv, zv, wv = m.vertices[:, 0], m.vertices[:, 1], m.vertices[:, 2] - t / 2
+        m.vertices = np.column_stack([a[0] + ux * sv + uy * wv, a[1] + uy * sv - ux * wv, zv])   # the basis (u, z, (uy, −ux)) is right-handed
+        out.append(m)
+    if not out:
+        return None
+    m = trimesh.util.concatenate(out) if len(out) > 1 else out[0]
+    m.visual.vertex_colors = colour
+    m.metadata["name"] = name
+    return m
+
+
+def arch_hole(s0, s1, z0, crown):
+    """A semicircular-headed opening in a wall's (s, z) plane: the width s1 − s0, the crown at `crown`."""
+    w = s1 - s0
+    spring = crown - w / 2
+    return box(s0, z0, s1, spring).union(Point(s0 + w / 2, spring).buffer(w / 2, resolution=24).intersection(box(s0, spring, s1, crown + 0.01)))
+
+
+def flight_profile(y_from, y_to, z_from, n, r, waist):
+    """A straight flight in the (y, z) plane: n risers of r from y_from to y_to (the last riser lands at y_to), its soffit `waist` thick."""
+    d = 1 if y_to > y_from else -1
+    gg = abs(y_to - y_from) / (n - 1)
+    pts = [(y_from, z_from)]
+    for i in range(1, n):
+        pts += [(round(y_from + d * (i - 1) * gg, 6), z_from + i * r), (round(y_from + d * i * gg, 6) if i < n - 1 else y_to, z_from + i * r)]
+    pts += [(y_to, z_from + n * r), (y_to, z_from + n * r - waist - r), (y_from + d * 0.001, z_from - waist - r)]
+    noses = [{"y_mid": round(y_from + d * (i - 0.5) * gg, 4), "z": round(z_from + i * r, 4)} for i in range(1, n)]
+    return pts, noses, gg
+
+
+TW = RD["stair_tower"]
+tx0, ty0, tx1, ty1 = TW["box"]
+tt = TW["wall"]
+lev = TW["openings"]["levels"]
+# the walls: north solid (the suite bedroom's window is 0.3 m north of it), east with two arched openings per storey, south with the foot gate and the arched openings above,
+# the upper west wall on the house's parapet line (above the roof finish) with the roof door; below the roof the house's east wall is the tower's west side
+east_holes = [arch_hole(y0 - ty0, y1 - ty0, z0, z1) for (y0, y1) in TW["openings"]["east_y"] for (z0, z1) in lev]
+gx0_, gx1_ = TW["gate"]
+south_holes = [arch_hole(gx0_ - tx0, gx1_ - tx0, TW["entry"], TW["gate_head"])] + [arch_hole(x0 - tx0, x1 - tx0, z0, z1) for (x0, x1) in TW["openings"]["south_x"] for (z0, z1) in lev[1:]]
+add(vwall((tx0, ty0 + tt / 2), (tx1, ty0 + tt / 2), tt, TW["ground"], TW["soffit"], [], COLOURS["outer"], "ext_tower_wall_n"))
+add(vwall((tx1 - tt / 2, ty0), (tx1 - tt / 2, ty1), tt, TW["ground"], TW["soffit"], east_holes, COLOURS["outer"], "ext_tower_wall_e"))
+add(vwall((tx0, ty1 - tt / 2), (tx1, ty1 - tt / 2), tt, TW["ground"], TW["soffit"], south_holes, COLOURS["outer"], "ext_tower_wall_s"))
+rd0, rd1 = TW["roof_door"]
+west_x = OUTLINE[2][0]                                                  # the house's east wall line x 13.311
+add(vwall((west_x, ty0), (west_x, ty1), T_OUT, rfin, TW["soffit"], [box(rd0 - ty0, rfin - 0.01, rd1 - ty0, TW["roof_door_head"])], COLOURS["outer"], "ext_tower_wall_w"))
+tbox = box(tx0, ty0, tx1, ty1)
+add(extrude(tbox.union(box(west_x - T_OUT / 2, ty0, tx0, ty1)), TW["soffit"], TW["top"], COLOURS["slab"], "ext_tower_roof"))
+add(extrude(tbox.buffer(0.04, join_style=2).difference(tbox), TW["top"] - 0.15, TW["top"], COLOURS["outer"], "ext_tower_coping"))
+cn_ = RD["cornice"]
+add(extrude(tbox.buffer(cn_["proj"], join_style=2).difference(tbox).difference(box(-1e3, -1e3, tx0, 1e3)), cn_["z0"], cn_["z0"] + cn_["h"], COLOURS["outer"], "ext_tower_cornice"))
+add(extrude(tbox.buffer(0.04, join_style=2).difference(tbox).difference(box(-1e3, -1e3, tx0, 1e3)).difference(box(gx0_, ty1 - 0.5, gx1_, ty1 + 0.5)), TW["ground"], 0.6, COLOURS["outer"], "ext_tower_plinth"))
+# the floor, the landings and the flights: a dog-leg of 2 × 11 risers per storey (the east flight rises north, the west flight south), the entry one step above the ground
+fw_, fe_ = TW["flights"]["west"], TW["flights"]["east"]
+ys_, yn_ = TW["south_landing"][0], TW["north_landing"][1]
+ws = P["stair"]["waist"]
+r_lo = (TW["office"] - TW["entry"]) / (2 * TW["risers_per_flight"])
+r_up = (TW["roof_landing"] - TW["office"]) / (2 * TW["risers_per_flight"])
+n_ = TW["risers_per_flight"]
+inner_x0 = tx0                                                         # below the roof the house wall face is the tower's west side
+add(extrude(box(inner_x0, ty0 + tt, tx1 - tt, ty1 - tt), TW["entry"] - 0.15, TW["entry"], COLOURS["stair"], "ext_tower_floor"))
+runs = [("lower", TW["entry"], r_lo), ("upper", TW["office"], r_up)]
+flights_rec, landings_rec = [], []
+for run, z0_, rr in runs:
+    pe, ne_, gg = flight_profile(ys_, yn_, z0_, n_, rr, ws)                  # east flight: from the south landing north to the north landing
+    add(profile_mesh(pe, fe_[0], fe_[1], COLOURS["stair"], f"ext_tower_flight_{run}_e"))
+    z_mid = z0_ + n_ * rr
+    pw, nw_, _ = flight_profile(yn_, ys_, z_mid, n_, rr, ws)                 # west flight: from the north landing south to the next south landing
+    add(profile_mesh(pw, fw_[0], fw_[1], COLOURS["stair"], f"ext_tower_flight_{run}_w"))
+    flights_rec += [{"name": f"{run}_e", "x": fe_, "y": [ys_, yn_], "z0": round(z0_, 4), "r": round(rr, 4), "n": n_, "going": round(gg, 4), "nosings": ne_, "profile": [[round(a, 4), round(b, 4)] for a, b in pe]},
+                    {"name": f"{run}_w", "x": fw_, "y": [yn_, ys_], "z0": round(z_mid, 4), "r": round(rr, 4), "n": n_, "going": round(gg, 4), "nosings": nw_, "profile": [[round(a, 4), round(b, 4)] for a, b in pw]}]
+    add(extrude(box(fw_[0], ty0 + tt, fe_[1], yn_), z_mid - ws, z_mid, COLOURS["stair"], f"ext_tower_landing_{run}_n"))
+    landings_rec.append({"name": f"{run} north (half)", "box": [fw_[0], ty0 + tt, fe_[1], yn_], "z": round(z_mid, 4)})
+    zt_ = z0_ + 2 * n_ * rr
+    x_l = inner_x0 if run == "lower" else fw_[0]                         # the office landing reaches the office door in the house wall; the top landing the roof door
+    add(extrude(box(x_l, ys_, tx1 - tt, ty1 - tt), zt_ - ws, zt_, COLOURS["stair"], f"ext_tower_landing_{run}_s"))
+    landings_rec.append({"name": "office (visitors' door)" if run == "lower" else "roof (roof door)", "box": [x_l, ys_, tx1 - tt, ty1 - tt], "z": round(zt_, 4)})
+    # the central balustrade between the flights (black steel), handrail height above the nosing line
+    xc_ = (fw_[1] + fe_[0]) / 2
+    zl = lambda y, z0=z0_, rr=rr: z0 + (ys_ - y) / gg * rr                 # the east flight's nosing line
+    add(profile_mesh([(ys_, zl(ys_)), (yn_, zl(yn_)), (yn_, zl(yn_) + P["handrail_height"] + n_ * rr), (ys_, zl(ys_) + P["handrail_height"])], xc_ - 0.02, xc_ + 0.02, COLOURS["rail"], f"ext_tower_rail_{run}"))
+# the gates: the foot gate in the south wall (outwards, panic bar) and the locked gate across the upper east flight's foot (above the office landing)
+add(extrude(box(gx0_, ty1 - tt / 2 - 0.02, gx1_, ty1 - tt / 2 + 0.02), TW["entry"], TW["gate_head"] - 0.45, COLOURS["rail"], "ext_tower_gate_foot"))
+add(extrude(box(fe_[0], ys_ - 0.04, fe_[1], ys_), TW["office"], TW["office"] + 1.5, COLOURS["rail"], "ext_tower_gate_upper"))
+# headroom over every tread: the soffit of the flight or landing above, or the tower's roof soffit
+def _soffit_above(xm, ym, z):
+    best = TW["soffit"]
+    for f in flights_rec:
+        if f["x"][0] - 1e-6 <= xm <= f["x"][1] + 1e-6:
+            yA, yB = f["y"]
+            t_ = (ym - yA) / (yB - yA)
+            if -1e-6 <= t_ <= 1 + 1e-6:
+                under = f["z0"] - ws - f["r"] + t_ * f["n"] * f["r"]
+                if under > z + 0.05:
+                    best = min(best, under)
+    for l_ in landings_rec:
+        bx = l_["box"]
+        if bx[0] - 1e-6 <= xm <= bx[2] + 1e-6 and bx[1] - 1e-6 <= ym <= bx[3] + 1e-6 and l_["z"] - ws > z + 0.05:
+            best = min(best, l_["z"] - ws)
+    return best
+head_min = min((_soffit_above((f["x"][0] + f["x"][1]) / 2, n["y_mid"], n["z"]) - n["z"], f["name"]) for f in flights_rec for n in f["nosings"])
+summary["stair_tower"] = {"box": TW["box"], "top": TW["top"], "soffit": TW["soffit"], "entry": TW["entry"], "office": TW["office"], "roof_landing": TW["roof_landing"], "risers_per_flight": n_,
+                          "riser_lower": round(r_lo, 4), "riser_upper": round(r_up, 4), "flights": flights_rec, "landings": landings_rec, "headroom_min": round(head_min[0], 3), "headroom_at": head_min[1],
+                          "roof_door": TW["roof_door"], "roof_door_head": TW["roof_door_head"], "gate": TW["gate"], "office_door": TW["office_door"], "waist": ws,
+                          "openings": {"east": len(east_holes), "south": len(south_holes) - 1, "gate": 1}}
+summary["flags"].append("Stair tower (V8.0, studies/roof.typ / south_wing.typ): outside the east wall at the south-east, %.2f × %.2f m, top +%.2f; a dog-leg of 2 × %d risers per storey (%.4f / %.4f) from the entry +%.2f to the office landing +%.2f and the roof landing +%.2f; "
+                        "arched openings east and south, the north face solid; the foot gate (outwards) and the locked gate above the office landing; the roof door through the south wing parapet; headroom ≥ %.2f m; all ASSUMED"
+                        % (tx1 - tx0, ty1 - ty0, TW["top"], n_, r_lo, r_up, TW["entry"], TW["office"], TW["roof_landing"], head_min[0]))
+# the HRV base under the malqaf tower (air system v3.1): one mass with the tower, top +9.10 = the attic coping; doors on its west face, the exhaust louvre on its cut face
+HB = RD["hrv_base"]
+hb_poly = Polygon(HB["pts"])
+hb_out = hb_poly.buffer(HB["wall"] / 2, join_style=2)
+hb_in = hb_poly.buffer(-HB["wall"] / 2, join_style=2)
+tower_out_b = Polygon(AIR["tower"]).buffer(T_OUT / 2, join_style=2)
+hb_door = box(8.95 - 0.2, HB["doors"][0], 8.95 + 0.2, HB["doors"][1])
+hb_walls = hb_out.difference(hb_in).difference(tower_out_b)
+add(extrude(hb_walls.difference(hb_door), rfin, HB["top"] - HB["slab"], COLOURS["outer"], "roof_air_base_shell"))
+add(extrude(hb_walls.intersection(hb_door), HB["door_head"], HB["top"] - HB["slab"], COLOURS["outer"], "roof_air_base_doorhead"))
+add(extrude(seg_box((8.95, HB["doors"][0]), (8.95, HB["doors"][1]), leaf), rfin, HB["door_head"], COLOURS["door"], "roof_air_base_door"))
+add(extrude(hb_out.difference(tower_out_b), HB["top"] - HB["slab"], HB["top"], COLOURS["slab"], "roof_air_base_slab"))
+ex0, ex1, ez0, ez1 = HB["exhaust"]
+cut_a, cut_b = HB["pts"][1], HB["pts"][2]
+_cu = ((cut_b[0] - cut_a[0]) / math.dist(cut_a, cut_b), (cut_b[1] - cut_a[1]) / math.dist(cut_a, cut_b))
+_pa = lambda y: (cut_a[0] + _cu[0] * (y - cut_a[1]) / _cu[1], y)
+add(extrude(seg_box(_pa(ex0), _pa(ex1), HB["wall"] + 0.04), ez0, ez1, COLOURS["rail"], "roof_air_base_louvre"))
+summary["hrv_base"] = {"pts": HB["pts"], "top": HB["top"], "clear": round(HB["top"] - HB["slab"] - rfin, 3), "inside_area": round(hb_in.difference(tower_out_b).area, 3), "doors": HB["doors"], "door_head": HB["door_head"]}
 
 # ---------- V7.0 · the roofline (studies/roof.typ): the main cornice, the band between the floors, the north-block coping, the south-wing parapet, the set-back attic ----------
 tower_poly0 = Polygon(AIR["tower"])
-tower_out2 = tower_poly0.buffer(T_OUT / 2 + 0.01, join_style=2)
+tower_out2 = tower_poly0.buffer(T_OUT / 2 + 0.01, join_style=2).union(hb_out.buffer(0.01, join_style=2))   # V8.0: the tower and its HRV base
+roof_door_cut = box(OUTLINE[2][0] - T_OUT / 2 - 0.02, rd0, OUTLINE[2][0] + T_OUT / 2 + 0.02, rd1)
 cn, bd = RD["cornice"], RD["band"]
 add(extrude(outer_face.buffer(cn["proj"], join_style=2).difference(outer_face).difference(tower_out2), cn["z0"], cn["z0"] + cn["h"], COLOURS["outer"], "roof_cornice"))
 add(extrude(outer_face.buffer(bd["proj"], join_style=2).difference(outer_face).difference(tower_out2), bd["z0"], bd["z0"] + bd["h"], COLOURS["outer"], "ff_band"))
@@ -674,26 +786,27 @@ cop_n, par_s = RD["coping_north"], RD["parapet_south"]
 coping_ring = lambda ov: outer_face.buffer(ov, join_style=2).difference(outline_poly.buffer(-T_OUT / 2 - ov, join_style=2))
 add(extrude(ring.intersection(north_half).difference(tower_out2), rfin, cop_n["wall_top"], COLOURS["outer"], "roof_parapet_n"))
 add(extrude(coping_ring(cop_n["overhang"]).intersection(north_half).difference(tower_out2), cop_n["wall_top"], cop_n["top"], COLOURS["outer"], "roof_coping_n"))
-add(extrude(ring.intersection(south_half), rfin, par_s["wall_top"], COLOURS["outer"], "roof_parapet_s"))
-add(extrude(coping_ring(par_s["overhang"]).intersection(south_half), par_s["wall_top"], par_s["top"], COLOURS["outer"], "roof_coping_s"))
+add(extrude(ring.intersection(south_half).difference(roof_door_cut), rfin, par_s["wall_top"], COLOURS["outer"], "roof_parapet_s"))
+add(extrude(coping_ring(par_s["overhang"]).intersection(south_half).difference(roof_door_cut), par_s["wall_top"], par_s["top"], COLOURS["outer"], "roof_coping_s"))
 AT = RD["attic"]
 attic_in = outline_poly.buffer(-(AT["setback"] - T_OUT / 2), join_style=2).intersection(north_half)      # the attic line = the screen wall's outer face
-attic_ring = attic_in.difference(attic_in.buffer(-AT["thickness"], join_style=2)).difference(sr_out).difference(tower_out2)
+attic_ring = attic_in.difference(attic_in.buffer(-AT["thickness"], join_style=2)).difference(tower_out2)   # V8.0: a plain pentagon (no stair room)
 attic_doors = [seg_box(((lambda v: (v[0], v[1]))(tuple(float(x) for x in d[0].split()[:2]))), tuple(float(x) for x in d[0].split()[2:]), AT["thickness"] + 0.02) for d in AT["doors"]]
 attic_solid = attic_ring
 for dbox in attic_doors:
     attic_solid = attic_solid.difference(dbox)
 add(extrude(attic_solid, zr, AT["wall_top"], COLOURS["wall"], "roof_attic_wall"))
 for i, dbox in enumerate(attic_doors):
-    add(extrude(attic_ring.intersection(dbox), rfin + 2.0, AT["wall_top"], COLOURS["wall"], f"roof_attic_wall_doorhead{i}"))
-attic_cop = attic_in.buffer(AT["overhang"], join_style=2).difference(attic_in.buffer(-AT["thickness"] - AT["overhang"], join_style=2)).difference(sr_out).difference(tower_out2)
+    if rfin + 2.0 < AT["wall_top"] - 1e-6:                  # the 2.0 m doors are taller than the 1.8 m attic wall: open to the coping, no head (V8.0 fix: the head was an inverted extrusion)
+        add(extrude(attic_ring.intersection(dbox), rfin + 2.0, AT["wall_top"], COLOURS["wall"], f"roof_attic_wall_doorhead{i}"))
+attic_cop = attic_in.buffer(AT["overhang"], join_style=2).difference(attic_in.buffer(-AT["thickness"] - AT["overhang"], join_style=2)).difference(tower_out2)
 add(extrude(attic_cop, AT["wall_top"], AT["top"], COLOURS["outer"], "roof_attic_coping"))
-summary["roof_design"] = {"cornice": cn, "band": bd, "coping_north": cop_n, "parapet_south": par_s, "attic": {**AT, "line_wkt": attic_in.wkt, "length": round(attic_in.exterior.length - (bx1 - bx0 + T_OUT / 2 + T_IN / 2), 3)},
-                          "stair_room": summary["stair_room"]}
-summary["flags"].append("Roofline (V7.0, studies/roof.typ): the main stone cornice %.2f × %.2f at +%.2f, the north block's coping +%.2f, the attic screen %.1f m high (coping +%.2f) set back %.1f m, the south wing's parapet +%.2f, the stair room on the well (roof +%.2f, %.2f clear), all ASSUMED"
-                        % (cn["h"], cn["proj"], cn["z0"], cop_n["top"], AT["wall_top"] - zr, AT["top"], AT["setback"], par_s["top"], SR["soffit"] + SR["slab"], SR["soffit"] - rfin))
+summary["roof_design"] = {"cornice": cn, "band": bd, "coping_north": cop_n, "parapet_south": par_s, "attic": {**AT, "line_wkt": attic_in.wkt, "length": round(attic_in.exterior.length, 3)},
+                          "stair_tower": {"top": TW["top"], "box": TW["box"]}, "hrv_base": summary["hrv_base"]}
+summary["flags"].append("Roofline (V7.0 / V8.0, studies/roof.typ): the main stone cornice %.2f × %.2f at +%.2f, the north block's coping +%.2f, the attic screen %.1f m high (coping +%.2f) set back %.1f m (a plain pentagon since V8.0), the south wing's parapet +%.2f; no stair room (the roof from the external stair tower); the malqaf on its HRV base (top +%.2f); all ASSUMED"
+                        % (cn["h"], cn["proj"], cn["z0"], cop_n["top"], AT["wall_top"] - zr, AT["top"], AT["setback"], par_s["top"], HB["top"]))
 
-# ---------- the structure of the zone (assumed / unconfirmed): columns C21–C23 (to the roof, X8) and C33, beams B3, B5, R11, R6 ----------
+# ---------- the structure of the zone (assumed / unconfirmed): columns C21–C23 (to the roof, X8) and C33, beams B3, B5, R11 ----------
 for cid in P["structure"]["assumed"]:
     if cid in COLS:
         c = COLS[cid]
@@ -740,11 +853,15 @@ head_ring = tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buf
 h0, h1 = A["head"]
 os_, oh = A["head-opening"]
 head_solid = head_ring
-for a, b in (((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9))):       # louvred openings on the north and west faces, 0.8 wide
+_ta, _tb = (10.051, 0.0), (10.594, 1.0)                             # the tower's cut (north-east) face
+_tl = math.dist(_ta, _tb)
+_tu = ((_tb[0] - _ta[0]) / _tl, (_tb[1] - _ta[1]) / _tl)
+HEAD_OPENINGS = [((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9)), ((_ta[0] + _tu[0] * 0.19, _ta[1] + _tu[1] * 0.19), (_ta[0] + _tu[0] * (_tl - 0.15), _ta[1] + _tu[1] * (_tl - 0.15)))]
+for a, b in HEAD_OPENINGS:       # V8.0: louvred openings on the north, west and cut faces (the four-sided head of air v3; its south face is blind behind the HRV base)
     head_solid = head_solid.difference(seg_box(a, b, T_OUT + 0.02))
-    add(extrude(seg_box(a, b, 0.02), os_, oh, COLOURS["glass"], f"roof_air_louvre_{int(a[1] * 10)}"))
-    add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), h0, os_, COLOURS["outer"], f"roof_air_head_sill_{int(a[1] * 10)}"))
-    add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), oh, h1, COLOURS["outer"], f"roof_air_head_lintel_{int(a[1] * 10)}"))
+    add(extrude(seg_box(a, b, 0.02), os_, oh, COLOURS["glass"], f"roof_air_louvre_{int(a[0] * 10)}_{int(a[1] * 10)}"))
+    add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), h0, os_, COLOURS["outer"], f"roof_air_head_sill_{int(a[0] * 10)}_{int(a[1] * 10)}"))
+    add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), oh, h1, COLOURS["outer"], f"roof_air_head_lintel_{int(a[0] * 10)}_{int(a[1] * 10)}"))
 add(extrude(head_solid, h0, h1, COLOURS["outer"], "roof_air_head"))
 add(extrude(tower_poly.buffer(0.25, join_style=2), h1, h1 + 0.15, COLOURS["slab"], "roof_air_cap"))
 # v3: the shaft's shallow sump at the tower's foot (no pit), the breeze channel inside the ground-slab depth with its own base slab (the covers are its roof), the plenum box under the sink counter
@@ -777,10 +894,11 @@ add(extrude(seg_box((gx - T_IN / 2, gy0), (gx - T_IN / 2, gy1), 0.03), FINISHED[
 add(extrude(seg_box((gx, gy0), (gx, gy1), T_IN - 0.04), zb1, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_plenum"))   # inside the wall, from the chamber's level to the grille head
 add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the building's outline below the ground slab, for the underground plan view
 summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
-                  "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4)}
+                  "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4),
+                  "head_openings": [[list(p), list(q)] for p, q in HEAD_OPENINGS]}
 summary["flags"].append("Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it")
-summary["flags"].append("Air system v3 (studies/air_system.typ): the tower head (four-sided in v3; the model still shows two louvred faces), the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
-                        "the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the plant room, the risers and the ventilation unit are not modelled (PENDING)")
+summary["flags"].append("Air system v3.1 (studies/air_system.typ): the tower head open on three faces (north, west, cut; its south face blind behind the HRV base), the HRV base on the roof, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
+                        "the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled")
 
 # ---------- the sun (Taif) in the model frame ----------
 nx, ny = NORTH                                   # true north on the drawing: canvas x east, y up (= plan north)
