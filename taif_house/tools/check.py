@@ -78,6 +78,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),
     ("studies/fire_escape.typ", OUTPUT / "fire_escape.pdf", ["Fire safety for a family home", "Study checks passed"]),
     ("studies/courtyard_layout.typ", OUTPUT / "courtyard_layout.pdf", ["Courtyard layout", "Study checks passed"]),
+    ("studies/stair_flip.typ", OUTPUT / "stair_flip.pdf", ["Stair flip study", "Study checks passed"]),   # study only (after V8.0): awaiting the owner's decision
     ("presentation.typ", PRESENTATION, []),
 ]
 tmp = Path(tempfile.mkdtemp())
