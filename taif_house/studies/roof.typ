@@ -1,9 +1,9 @@
-// roof.typ · Taif / Palm House V8.0 (work) · ROOF STUDY (design review F-07): the roof screen ("attic") set back behind a main stone cornice on the
+// roof.typ · Taif / Palm House V8.1 · ROOF STUDY (design review F-07): the roof screen ("attic") set back behind a main stone cornice on the
 // north block, the south wing with a low parapet and a set-back guardrail (a stepped roofline), the reserved roof zones, the roof access.
 // Owner decisions (31 Oct 2026, V6.4): roof for maintenance and equipment only; the lift does not go up; flat roof, no tiles; classical
-// roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes. 1 Nov 2026 (V8.0): the MAIN STAIR STOPS AT THE FIRST FLOOR (no stair room, the
-// roof slab over the well closed). 1 Nov 2026 after V8.0 (owner): the EXTERNAL STAIR TOWER IS REMOVED; the roof is reached by a MAINTENANCE LADDER in the
-// suite court (page 2); the attic lowered to 1.40 m above the roof finish, the south wing parapet 0.70 m with a 1.10 m guardrail set back 1.0 m (page 3).
+// roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes. V8.0: the MAIN STAIR STOPS AT THE FIRST FLOOR (no stair room, the roof slab over
+// the well closed). V8.1 (owner): the roof is reached by a MAINTENANCE LADDER in the suite court (page 2); the attic 1.40 m above the roof finish, the south
+// wing parapet 0.70 m with a 1.10 m guardrail set back 1.0 m (page 3). The history is in docs/PROJECT_V8.md § 6.
 // Stand-alone: the geometry is copied from data/rooms_gf.csv, studies/structure.typ (st, the roof beams), 3d/params.yaml (levels), base.typ (site).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
@@ -37,10 +37,10 @@
 #let cornice = (z0: 6.90, h: 0.45, proj: 0.30)   // the MAIN cornice: honey stone, on the facade edge all round, +6.90 … +7.35, projecting 0.30
 #let coping-top = 7.65                            // a 0.30 upstand on the cornice with a stone coping: the facade top of the north block (0.45 above the roof slab)
 #let setback = 1.0                                // the attic set back from the outer facade face
-#let attic-vis = 1.40                             // owner (after V8.0): the attic 1.40 m above the roof finish, coping included (was 1.80): the minimum that hides the condensers and the tank (§ 3)
+#let attic-vis = 1.40                             // owner (V8.1): the attic 1.40 m above the roof finish, coping included (was 1.80): the minimum that hides the condensers and the tank (§ 3)
 #let attic-h = attic-vis + (roof-fin - roof) - 0.1   // the attic screen wall above the roof slab: 1.30 (+ 0.10 coping)
 #let attic-top = roof + attic-h + 0.1             // +8.70 with its stone coping (was +9.10)
-#let parapet-vis = 0.70                           // owner (after V8.0): the south wing's visible parapet 0.70 above the roof finish, coping included (was 1.10)
+#let parapet-vis = 0.70                           // owner (V8.1): the south wing's visible parapet 0.70 above the roof finish, coping included (was 1.10)
 #let south-top = roof-fin + parapet-vis           // +8.00
 #let rail-h = 1.10                                // the fall protection on the south wing: a continuous black steel guardrail 1.10 m SET BACK from the outer edge (not seen from the street)
 #let rail-setback = 1.0                           // from the outer facade face (target 1.0–1.5 m): 0.875 from the wall centre lines, like the attic
@@ -48,11 +48,10 @@
 #let band = (z0: 3.40, h: 0.12, proj: 0.08)       // the thin cornice between the floors, honey stone, at the first-floor slab line
 #let step = attic-top - south-top                 // the step in the roofline at y 19.25
 
-// ---------- The stair (studies/structure.typ); the records of the removed roof stair and stair tower ----------
+// ---------- The stair (studies/structure.typ); the record of the removed V7.0 roof stair room ----------
 #let st = (x0: 0.125, x1: 2.65, y0: 2.30, y1: 7.80, land: 3.55, top: 6.35, split: 1.3875, gap: 0.10, r: 3.6 / 22, g: 0.28, b16: 4.85, b17: 1.2875, b18: 6.45)
 #let sr = (x0: 0, x1: 2.75, y0: 2.2, y1: 7.9)     // the V7.0 stair room (REMOVED 1 Nov 2026; kept only as the record of the old sight-line numbers)
-#let tower-ext-top = 9.6                           // RECORD ONLY: the V8.0 external stair tower (+9.60, outside the east wall at the south-east) is REMOVED (owner, 1 Nov 2026 after V8.0); presentation.typ sheet 11 still cites it until the release
-// ---------- The maintenance ladder (owner, after V8.0): in the suite court, on the gym's east wall, up to the gym roof ----------
+// ---------- The maintenance ladder (owner, V8.1): in the suite court, on the gym's east wall, up to the gym roof ----------
 #let lad = (
   pilaster: (4.35, 20.65, 4.70, 21.95),            // a honey-stone pilaster added on the court face of the gym's east wall (x 4.35), against the nib's south wall (y 20.65 face): 1.30 long, 0.35 proud; the 0.20 structural wall is NOT cut
   recess: (4.40, 20.85, 4.70, 21.75),              // the recess in it: 0.90 wide, 0.30 deep (the back a 0.05 lining on the wall face), full height +3.60 … +7.30
@@ -106,15 +105,15 @@
 #let base-top = 9.10
 #let z-plant = ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0))   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
-#let z-pv1 = rect-pts(0.9, 20.3, 3.2, 23.0)        // after V8.0: PV on the gym roof INSIDE the set-back guardrail (x ≥ 0.875, y ≤ 23.125), west of the ladder's walkway (x 3.25–4.15); it never shades the clerestory windows
-#let z-pv1b = rect-pts(10.1, 20.2, 11.4, 23.0)     // after V8.0: PV on the office roof inside the guardrail, west of its walkway (x 11.5–12.4)
+#let z-pv1 = rect-pts(0.9, 20.3, 3.2, 23.0)        // V8.1: PV on the gym roof INSIDE the set-back guardrail (x ≥ 0.875, y ≤ 23.125), west of the ladder's walkway (x 3.25–4.15); it never shades the clerestory windows
+#let z-pv1b = rect-pts(10.1, 20.2, 11.4, 23.0)     // V8.1: PV on the office roof inside the guardrail, west of its walkway (x 11.5–12.4)
 #let z-pv2 = rect-pts(9.0, 9.5, 11.6, 17.4)        // PV, future: north block east roof inside the attic (morning shade from the east attic wall)
 #let pv-y-min = 19.25 + (roof - 5.0) + 0.5         // a 0.5 m high panel at y ≥ 21.45 + 0.5 keeps the winter noon sun (45°) on the clerestory sills (+5.00)
 #let outlets = ((5.0, 0.45), (0.45, 12.0), (0.45, 17.5), (12.9, 12.5), (11.6, 2.4), (4.5, 4.0), (10.5, 11.0), (4.5, 16.5), (10.5, 17.0), (2.0, 23.2), (11.5, 23.2))
 #let walk = (((3.7, 21.75), (3.7, 19.7), (2.5, 19.7), (2.5, 18.5), (5.0, 18.5), (5.0, 14.0)), ((3.5, 8.5), (3.5, 3.6), (3.5, 1.4)), ((3.5, 3.6), (8.3, 3.6), (8.3, 2.0)), ((3.5, 5.6), (10.2, 5.6), (10.2, 8.6)), ((3.5, 8.5), (5.0, 8.5), (5.0, 14.0), (10.3, 14.0), (10.3, 9.0)),
-             ((10.3, 14.0), (11.4, 14.0), (11.4, 19.7), (11.95, 19.7), (11.95, 23.0)))   // after V8.0: the network starts at the ladder's arrival on the gym roof (the pad x 3.3–4.15, y 20.8–21.8), runs north through the attic opening at x 2.1–2.9 into the north block, then to the tank, the HRV base's doors, the condensers, the PV; a branch through the attic opening at x 11.0–11.8 onto the office roof (PV Z4b); nothing in the no-go strips
+             ((10.3, 14.0), (11.4, 14.0), (11.4, 19.7), (11.95, 19.7), (11.95, 23.0)))   // V8.1: the network starts at the ladder's arrival on the gym roof (the pad x 3.3–4.15, y 20.8–21.8), runs north through the attic opening at x 2.1–2.9 into the north block, then to the tank, the HRV base's doors, the condensers, the PV; a branch through the attic opening at x 11.0–11.8 onto the office roof (PV Z4b); nothing in the no-go strips
 #let guards = (((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0), (5.8, 6.5)), ((5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24.0)), ((10.0, 19.25), (10.0, 24.0)))   // 1.10 m black steel bar guards: round the courtyard sky hole, and the suite court's west (gym roof / nib) and east (office roof) edges; the court's north edge is the attic wall, its south edge the parapet on the facade frame R8
-#let rails = (((rail-off, y-step), (rail-off, 24.125 - rail-setback), (4.25, 24.125 - rail-setback)), ((13.311 - rail-off, y-step), (13.311 - rail-off, 24.125 - rail-setback), (10.0, 24.125 - rail-setback)))   // after V8.0: the continuous 1.10 m guardrail set back 1.0 m from the west, south and east faces of the south wing, from the attic's end walls to the court guards; the strip outside it is a NO-GO zone
+#let rails = (((rail-off, y-step), (rail-off, 24.125 - rail-setback), (4.25, 24.125 - rail-setback)), ((13.311 - rail-off, y-step), (13.311 - rail-off, 24.125 - rail-setback), (10.0, 24.125 - rail-setback)))   // V8.1: the continuous 1.10 m guardrail set back 1.0 m from the west, south and east faces of the south wing, from the attic's end walls to the court guards; the strip outside it is a NO-GO zone
 #let y-rail = 24.125 - rail-setback
 // the protected zones and the no-gap check: every edge of each zone lies on a guard, a rail or the attic wall (≥ 1.10 m); the ladder's gate and pad are in the gym zone; every piece of equipment is inside a zone
 #let zone-gym = ((rail-off, y-step), (5.8, y-step), (5.8, 20.55), (4.25, 20.55), (4.25, y-rail), (rail-off, y-rail))
@@ -143,11 +142,11 @@
 #let in-rect(b, Z) = { let cx = b.map(pt => pt.at(0)).sum() / b.len(); let cy = b.map(pt => pt.at(1)).sum() / b.len(); b.all(pt => inside((cx + 0.98 * (pt.at(0) - cx), cy + 0.98 * (pt.at(1) - cy)), Z)) }   // the polygon's vertices pulled 2 % toward its centroid (zones that share an edge with the attic wall)
 #let lad-gate-seg = ((lad.gate.at(0), lad.gate.at(1)), (lad.gate.at(2), lad.gate.at(3)))
 #let zones = (
-  ([Z1 the maintenance ladder (suite court → gym roof)], area(rect-pts(..lad.pilaster)), [owner, 1 Nov 2026 after V8.0: the external stair tower is *removed*; the roof is reached by a fixed vertical ladder in a recess in a pilaster on the gym's east wall (page 2): #r2(lad-climb) m climb from the court floor #lv(lad.foot) to the gym roof #lv(lad.rung-top), behind a locked walnut-finish panel; the internal stair stops at the first floor, the roof slab over the well closed]),
+  ([Z1 the maintenance ladder (suite court → gym roof)], area(rect-pts(..lad.pilaster)), [V8.1 (owner): the roof is reached by a fixed vertical ladder in a recess in a pilaster on the gym's east wall (page 2): #r2(lad-climb) m climb from the court floor #lv(lad.foot) to the gym roof #lv(lad.rung-top), behind a locked walnut-finish panel; the internal stair stops at the first floor, the roof slab over the well closed]),
   ([Z2a the HRV base under the tower], area(z-erv), [`studies/air_system.typ` v3.1 (owner): the tower rises from a base housing the ventilation unit (one mass): top #lv(base-top) (#r2(base-top - attic-top) m above the lowered attic coping: part of the malqaf mass on the facade, seen by design; § 8), 1.65 m clear inside (a low service compartment: the unit ≈ 110 kg on a plinth right behind a pair of doors 1.5 m high on its west face, filters and the core pulled from the roof terrace, no entry); the intake duct drops inside the tower's compartment; the exhaust louvre on the cut face]),
   ([Z2b plant: AC outdoor units], area(z-plant), [behind the cut / east attic wall, SOUTH of the tower and its base (owner): 2.2 m clear of the base's south wall, 5.15 m south of the intake louvre in plan, so the tower never takes their hot air; over the suite bath (anti-vibration mounts); 0.6 m service space round each unit]),
   ([Z3 water tank(s)], area(z-tank), [≈ 2 × 1.5 m³ between the roof beams R10 and R3, inside the attic (needed only if the owner wants a gravity reserve)]),
-  ([Z4 PV, south wing (gym roof Z4a + office roof Z4b)], area(z-pv1) + area(z-pv1b), [west and east of the court, never in front of the clerestory windows; after V8.0 only inside the set-back guardrail and off the walkways (was 24.6 m²: the no-go strips and the ladder's walkway take the rest); fixing points cast in before waterproofing]),
+  ([Z4 PV, south wing (gym roof Z4a + office roof Z4b)], area(z-pv1) + area(z-pv1b), [west and east of the court, never in front of the clerestory windows; V8.1 only inside the set-back guardrail and off the walkways (was 24.6 m²: the no-go strips and the ladder's walkway take the rest); fixing points cast in before waterproofing]),
   ([Z5 PV, future (north block east)], area(z-pv2), [inside the attic; morning shade from the east attic wall]),
   ([Z6 malqaf head], area(tower), [the tower rises to #lv(tower-top): with its base the one element above the attic, by design; v3: a four-sided head, the breeze shaft and the ventilation intake compartment inside (`studies/air_system.typ`)]),
   ([Z7 the 1.0 m strip in front of the attic], strip-area, [roof behind the main cornice and its coping; falls to its own outlets; a NO-GO zone (the coping is 0.35 above the finish): its two openings in the attic wall get locked gates; entered only on a harness clipped to anchor eyes on the attic wall]),
@@ -165,7 +164,7 @@
 #let cond-top = roof-fin + 0.1 + cond-h   // +8.60
 #let tank-top = roof-fin + 1.0            // 1.0 m horizontal tank(s) on the finish: +8.30
 #let attic-min = cond-top - roof-fin      // the minimum attic height above the finish (coping included) that hides the condensers from every distance: 1.30
-#let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (25.0, [north street, 25 m (the far side)]))   // after V8.0: nothing above the attic but the malqaf and its base, on the facade by design
+#let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (25.0, [north street, 25 m (the far side)]))   // V8.1: nothing above the attic but the malqaf and its base, on the facade by design
 #let checks = (
   ([the attic itself is hidden by the cornice from the north boundary], hidden(D-north, setback, attic-top, 0, coping-top)),
   ([the attic 1.40 m above the finish hides 1.2 m condensers on 0.10 pads from every distance (top #lv(cond-top) ≤ coping #lv(attic-top))], cond-top <= attic-top + 1e-9),
@@ -197,9 +196,9 @@
 #let sun-margin = roof + (19.25 - 13.0) * calc.tan(45.2deg)   // the winter noon ray grazing the hole's south edge passes the attic line at this height
 
 // ====================================================================================== PAGE 1 · roof plan
-#text(14pt, weight: "bold", fill: accent)[Roof study · the maintenance ladder, the lowered attic, the low parapet with the set-back guardrail, the main cornice, the reserved zones · Taif / Palm House V8.0 (work)]
+#text(14pt, weight: "bold", fill: accent)[Roof study · the maintenance ladder, the lowered attic, the low parapet with the set-back guardrail, the main cornice, the reserved zones · Taif / Palm House V8.1]
 #v(1pt)
-#text(8pt, fill: gray)[Design review F-07 (major) · owner decisions 31 Oct 2026, 1 Nov 2026 (V8.0) and 1 Nov 2026 after V8.0 (the stair tower removed, the ladder, the roofline lowered) · flat roof, no tiles · the roof for maintenance and equipment only · no slab level changes · all sizes assumed until the engineer, the ladder supplier and the fall-protection specialist confirm]
+#text(8pt, fill: gray)[Design review F-07 (major) · owner decisions 31 Oct 2026, V8.0 and V8.1 (the maintenance ladder, the roofline lowered) · flat roof, no tiles · the roof for maintenance and equipment only · no slab level changes · all sizes assumed until the engineer, the ladder supplier and the fall-protection specialist confirm]
 #v(3pt)
 #let plan(length: 0.62cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -252,7 +251,7 @@
   [
     #set text(6.5pt)
     #H[1 · Roof plan: what is on the roof]
-    - *Access (owner, 1 Nov 2026 after V8.0):* the external stair tower is *removed* (cost and appearance). The roof is reached by a *fixed maintenance ladder Z1 in the suite court* (page 2): #r2(lad-climb) m from the court floor #lv(lad.foot) to the gym roof #lv(lad.rung-top), in a recess in a stone pilaster on the gym's east wall, behind a locked panel; a self-closing gate in the court's west guard at the top. Workers reach it through the house (gym → court). The main stair stops at the first floor and the roof slab over its well is closed; no door from the roof into the house. The lift stops at the first floor; its shaft needs no head above the roof (§ 5).
+    - *Access (owner, V8.1):* the roof is reached by a *fixed maintenance ladder Z1 in the suite court* (page 2): #r2(lad-climb) m from the court floor #lv(lad.foot) to the gym roof #lv(lad.rung-top), in a recess in a stone pilaster on the gym's east wall, behind a locked panel; a self-closing gate in the court's west guard at the top. Workers reach it through the house (gym → court). The main stair stops at the first floor and the roof slab over its well is closed; no door from the roof into the house. The lift stops at the first floor; its shaft needs no head above the roof (§ 5).
     - *Attic (lowered):* a screen wall #r2(attic-vis) m above the roof finish, coping included (top #lv(attic-top); was 1.80 / +9.10), set back #r2(setback) m from the facade face on the north, the cut (lane), the east and the west sides (a plain pentagon); its south wall stands on the y #r2(y-step) line (beams B8 / R5). Length ≈ #r1(attic-len) m. Two openings to the strip (north, west; gated and locked) and two to the south wing roofs (x 2.1–2.9 and x 11.0–11.8).
     - *The 1.0 m strip* (Z7) in front of the attic: roof behind the main cornice and its low coping, with its own outlets; a no-go zone (harness).
     - *South wing* (y #r2(y-step)–24): the main cornice and a *low visible parapet* #r2(parapet-vis) m above the finish (top #lv(south-top); was 1.10 / +8.40); the fall protection is a *continuous 1.10 m black steel guardrail set back #r2(rail-setback) m* from the west, south and east faces (red), running from the attic's end walls to the court guards: not seen from the street; the strip between it and the parapet (Z8) is a no-go zone. The roofline steps #r2(step) m down from the attic coping.
@@ -267,9 +266,9 @@
   ],
 )
 
-// ====================================================================================== PAGE 2 · the roof access (after V8.0): the maintenance ladder in the suite court
+// ====================================================================================== PAGE 2 · the roof access (V8.1): the maintenance ladder in the suite court
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[The roof access · the maintenance ladder in the suite court (owner, 1 Nov 2026 after V8.0) · enlarged plan and section · the stair tower removed, the main stair stops at the first floor]
+#text(12pt, weight: "bold", fill: accent)[The roof access · the maintenance ladder in the suite court (owner, V8.1) · enlarged plan and section · the main stair stops at the first floor]
 #v(2pt)
 #let lad-plan(length: 2.6cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -348,14 +347,14 @@
   [
     #set text(6.6pt)
     #H[2 · The roof access: the maintenance ladder]
-    - *Owner's decision (1 Nov 2026 after V8.0):* the external stair tower, its gates, landings and the visitors' door to the office are *removed* (cost and appearance); office visitors are met in the men's majlis, the office is the owner's only, reached from the suite court. The roof is reached by a *manufactured vertical fixed ladder* (not site-made; black matte, non-slip rungs, corrosion-protected, aluminium or hot-dip galvanised and powder-coated steel) in the suite court, on the *gym's east wall*, at the north end of the wall against the nib: away from the seating (y ≥ 21.7) and off the door strip (y ≤ 20.55, x ≥ 5.9).
+    - *Owner's decision (V8.1):* a simple roof access (cost and appearance); office visitors are met in the men's majlis, the office is the owner's only, reached from the suite court. The roof is reached by a *manufactured vertical fixed ladder* (not site-made; black matte, non-slip rungs, corrosion-protected, aluminium or hot-dip galvanised and powder-coated steel) in the suite court, on the *gym's east wall*, at the north end of the wall against the nib: away from the seating (y ≥ 21.7) and off the door strip (y ≤ 20.55, x ≥ 5.9).
     - *The recess:* #r2(lad.recess.at(3) - lad.recess.at(1)) wide × #r2(lad.recess.at(2) - lad.recess.at(0)) deep, full height from the court floor #lv(ff) to the gym roof #lv(roof-fin), formed in a *honey-stone pilaster added on the court face of the wall* (#r2(lad.pilaster.at(3) - lad.pilaster.at(1)) × #r2(lad.pilaster.at(2) - lad.pilaster.at(0)) m, cheeks 0.20): the 0.20 m structural wall on B19 (under R3) is *not cut*. If the engineer confirms that wall as non-load-bearing infill between B19 and R3, the recess may instead be cut into a locally rebuilt 0.50 wall and the pilaster disappears (structural coordination, X20). The pilaster's own weight (≈ 1.7 m³ block ≈ 20 kN) stands on the court's depressed slab: the engineer.
     - *The ladder:* stiles #r2(lad.stiles.at(1) - lad.stiles.at(0)) overall, rungs 0.40 clear, pitch #r2(lad.pitch), #lad.n rungs, the *top rung level with the roof finish* (#lv(lad.rung-top)), the lowest #r2(lad-rungs.last() - lad.foot) above the floor; *toe clearance #r2(lad.rung-x - lad.recess.at(0)) m* behind the rung line (≥ 0.18), *body clearance ≥ #r2(lad.body) m* in front of it (the court, with the panel open); climb *#r2(lad-climb) m*. The stiles run on *1.10 m above the roof* (#lv(lad.stile-top)) as the transfer handholds (fixed, so no retractable grab post; if one is preferred it is mechanically fixed, never friction-held). Tools go up in a bag: both hands on the ladder.
     - *The panel:* exterior-grade walnut-finish (marine ply or aluminium composite with a walnut veneer, #r2(lad.panel) thick), hinged on the south jamb, *opens 180°* to lie flat along the pilaster line (x #r2(lad.recess.at(2)), y #r2(lad.recess.at(3))–#r2(lad.recess.at(3) + 0.9)), held open by a *floor drop-bolt* away from the climber; a key cylinder outside (the key with the parents / the maintenance key); *closed it is flush with the pilaster face and offers no hold*: not climbable (children). With the panel closed the court reads a walnut panel in a stone pilaster, in the design language.
     - *The arrival on the roof:* the climber steps from the top rung over the pilaster's top (0.35) through a *self-closing gate 0.90 in the court's west guard* (1.10 m, on x 4.25, directly above the recess), opening *west onto the gym roof*, onto a *standing landing pad* (x 3.3–4.15, y 20.8–21.8) inside the protected zone; from it the walkway north to the attic opening. The guarding is continuous from the pad to every piece of equipment (§ 3 check); the strip outside the set-back guardrail is a no-go zone.
     - *Fall protection:* the climb (#r2(lad-climb) m) is over the 3.0 m threshold of EN ISO 14122-4: the ladder is specified with a *central fall-arrest rail* (EN 353-1 glider) rather than a cage, which would not fit the recess; the specialist confirms the arrangement under the Saudi requirements (SBC / Civil Defense / the labour safety rules) — *not verified here*. Anchor eyes on the attic wall for the no-go strips.
     - *Services:* an IP65 light in the recess head with the switch at the gym's court door (and the court's lights); the recess floor falls 1 % out to a *slot drain* at the pilaster's foot tied into the court's drain line (`studies/ff_suite.typ`); no dust pocket, no standing water.
-    - *The internal stair stops at the first floor* (V8.0): the roof slab over the well is an ordinary bay (no R16–R18), no stair room; the attic a plain pentagon. The lift: no change (§ 5). *3D:* the model still carries the V8.0 stair tower until the next build (`docs/PENDING_CHANGES.md`).
+    - *The internal stair stops at the first floor* (V8.0): the roof slab over the well is an ordinary bay (no R16–R18), no stair room; the attic a plain pentagon. The lift: no change (§ 5). *3D (V8.1):* the pilaster, the closed panel, the stiles, the gate and the set-back guardrail are built from `3d/params.yaml` `roof_design.ladder` / `guardrail_setback`.
   ],
 )
 
@@ -410,7 +409,7 @@
       [*Observer (north street)*], [*cornice*], [*attic*], [*condensers (1.2 m, 2.0 m behind the facade)*],
       ..observers.map(((D, l)) => (l, [#r1(ang(D, 0, coping-top))°], [#r1(ang(D, setback, attic-top))°#if ang(D, setback, attic-top) <= ang(D, 0, coping-top) [ (hidden)]], [#r1(ang(D, 2.0, cond-top))°#if ang(D, 2.0, cond-top) <= calc.max(ang(D, setback, attic-top), ang(D, 0, coping-top)) [ hidden] else [ *shows*]])).flatten())
     #text(6.4pt, fill: gray)[Angles above the horizon from the eye. From the lane boundary (D = #r1(D-lane) m) the condensers (1.2 m on 0.10 pads, 2.0 m behind the cut facade: top #lv(cond-top)) are seen at #r1(ang(D-lane, 2.0, cond-top))° against the attic's #r1(ang(D-lane, setback, attic-top))°: hidden; and from every distance, since #lv(cond-top) ≤ #lv(attic-top). The tank (top #lv(tank-top)) likewise. From the east boundary (D = #r1(D-east) m) the plant zone is likewise hidden. The malqaf head (#lv(tower-top)) and its HRV base (#lv(base-top)), on the facade in the cut tip, are the one element above the attic, by design.]
-    - *Attic height (owner, after V8.0): #r2(attic-vis) m above the roof finish, coping included* (top #lv(attic-top); was 1.80 / +9.10). *Re-run:* the minimum that hides the condensers from the street and the lane at eye level from every distance is #r2(attic-min) m (1.2 m units on 0.10 pads: top #lv(cond-top)); #r2(attic-vis) m leaves 0.10 m of margin, so *1.40 m works* on the condition that the outdoor units are *≤ 1.2 m high* (most 2–7 kW split and VRF condensers are 0.6–1.0 m; a tall unit laid on its side is not allowed: specify the height to the MEP engineer). The tank 1.0 m: hidden with 0.40 m of margin.
+    - *Attic height (owner, V8.1): #r2(attic-vis) m above the roof finish, coping included* (top #lv(attic-top); was 1.80 / +9.10). *Re-run:* the minimum that hides the condensers from the street and the lane at eye level from every distance is #r2(attic-min) m (1.2 m units on 0.10 pads: top #lv(cond-top)); #r2(attic-vis) m leaves 0.10 m of margin, so *1.40 m works* on the condition that the outdoor units are *≤ 1.2 m high* (most 2–7 kW split and VRF condensers are 0.6–1.0 m; a tall unit laid on its side is not allowed: specify the height to the MEP engineer). The tank 1.0 m: hidden with 0.40 m of margin.
     - *The HRV base* (#lv(base-top)) now stands #r2(base-top - attic-top) m above the attic coping: it is on the facade line in the cut tip, the plinth of the malqaf mass (seen by design, like the head). *Option* (owner / MEP): lower it to #lv(attic-top) with 1.25 m clear inside and 1.1 m doors (a horizontal unit ≤ 0.7 m); drawn: kept at #lv(base-top) (1.65 m clear). The ladder's stiles (#lv(lad.stile-top), in the court 2.4 m behind the court's south face) stay below the attic coping and are hidden from the south garden by the parapet up to ≈ 40 m; black matte.
   ],
   [
@@ -482,11 +481,40 @@
   for (z, l) in ((0, [±0.00]), (ff, [+3.60]), (roof, [+7.20]), (coping-top, [#lv(coping-top)]), (south-top, [#lv(south-top)]), (attic-top, [#lv(attic-top)])) { T((y1 + 0.5, z), l, size: 3.4pt, fill: gray, anchor: "west") }
   T((12.0, ground - 0.8), [WEST ELEVATION (from the M line / the neighbour) · N ← → S · 1 m = 0.5 cm], size: 4.4pt, fill: accent)
 })
+#let east-elev(length: 0.42cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, t, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let X(y) = 24.125 - y          // seen from the east (the lane side): north on the right
+  // behind: the attic (set back 1.0), the malqaf on its HRV base at the north end, the set-back guardrail on the south wing (dashed)
+  rect((X(y-step), coping-top), (X(attic-yc), attic-top), fill: cream.darken(6%), stroke: 0.5pt + ink); T((X(12.5), attic-top + 0.3), [attic #lv(attic-top) (set back 1.0)], size: 3.2pt)
+  rect((X(3.4), coping-top), (X(1.0), base-top), fill: cream.darken(6%), stroke: 0.5pt + ink); rect((X(1.0), coping-top), (X(0.0), tower-top), fill: rgb("#8ccbe0"), stroke: 0.5pt + ink); T((X(1.6), tower-top + 0.35), [malqaf #lv(tower-top) on its HRV base #lv(base-top)], size: 3.2pt)
+  line((X(y-step), roof-fin + rail-h), (X(y-rail), roof-fin + rail-h), stroke: (paint: ink, thickness: 0.5pt, dash: "dashed")); T((X(21.2), roof-fin + rail-h + 0.3), [guardrail 1.10 set back 1.0 (hidden at eye level)], size: 3pt)
+  // the facade: the straight east wall y 6–24 and the cut y 0–6 (oblique)
+  line((X(-0.125) - 0.8, ground), (X(24.125) + 0.8, ground), stroke: 0.8pt + ink)
+  rect((X(24.125), ground), (X(6.0), cornice.z0), fill: cream, stroke: 0.6pt + ink)
+  rect((X(6.0), ground), (X(-0.125), cornice.z0), fill: cream.darken(4%), stroke: 0.6pt + ink); T((X(3.0), 1.8), [cut wall (oblique)], size: 3pt, fill: gray)
+  rect((X(24.125), ground), (X(-0.125), 0.6), fill: stone-l, stroke: 0.3pt + ink)
+  rect((X(24.125) - band.proj, band.z0), (X(-0.125) + band.proj, band.z0 + band.h), fill: stone, stroke: 0.3pt + ink)
+  rect((X(24.125) - cornice.proj, cornice.z0), (X(-0.125) + cornice.proj, cornice.z0 + cornice.h), fill: stone, stroke: 0.4pt + ink)
+  rect((X(y-step), cornice.z0 + cornice.h), (X(-0.125), coping-top), fill: stone-l, stroke: 0.4pt + ink)
+  rect((X(24.125), cornice.z0 + cornice.h), (X(y-step), south-top), fill: stone-l, stroke: 0.4pt + ink)
+  T((X(21.7), south-top + 0.3), [south wing parapet #lv(south-top)], size: 3.2pt); T((X(12.5), coping-top + 0.25), [coping #lv(coping-top)], size: 3.2pt)
+  // openings (indicative, from the plans): the kitchen service door and window, the suite bath vent, the suite bedroom's escape window, the office's east window
+  rect((X(8.1), 0.0), (X(7.2), 2.1), fill: rgb("#6b4a2b"), stroke: 0.4pt + ink); T((X(7.65), -0.5), [service door], size: 2.8pt)
+  rect((X(10.1), 1.1), (X(8.7), 2.1), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink); T((X(9.4), 0.75), [kitchen], size: 2.8pt)
+  rect((X(10.05), ff + 1.5), (X(9.5), ff + 2.1), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink)
+  rect((X(18.6), ff + 0.9), (X(15.0), ff + 2.4), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink); T((X(16.8), ff + 0.6), [suite bedroom (escape)], size: 2.8pt)
+  rect((X(23.7), ff + 0.9), (X(22.8), ff + 2.1), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink); T((X(23.25), ff + 0.6), [office], size: 2.8pt)
+  // the outdoor kitchen's counter against the wall (V8.1)
+  rect((X(23.6), ground), (X(20.8), 0.6), fill: stone, stroke: 0.5pt + ink); T((X(22.2), 0.9), [outdoor kitchen counter + sink], size: 2.8pt)
+  for (z, l) in ((0, [±0.00]), (ff, [+3.60]), (cornice.z0, [#lv(cornice.z0)]), (south-top, [#lv(south-top)]), (attic-top, [#lv(attic-top)])) { T((X(-0.125) + 1.0, z), l, size: 3.2pt, fill: gray, anchor: "west") }
+  T((X(12.0), ground - 0.8), [EAST ELEVATION (from the lane) · S ← → N · 1 m = 0.42 cm (V8.1: no stair tower)], size: 4pt, fill: accent)
+})
 #north-elev()
 #v(6pt)
 #west-elev()
 #v(4pt)
-#text(6.8pt)[Cream plaster, honey stone at the plinth (to +0.60), the corners (quoins, dotted), the thin band at the first-floor slab (#r2(band.h) m, projecting #r2(band.proj)) and the main cornice (#r2(cornice.h) m high, projecting #r2(cornice.proj), #lv(cornice.z0) … #lv(cornice.z0 + cornice.h)); the attic plastered cream with a stone coping. The south elevation repeats the west one's south part (parapet #lv(south-top), the court's screened opening under the frame); the east elevation the north block's coping and attic (set back 1.0) over the kitchen / suite windows, then the parapet; no stair tower (removed after V8.0). Openings are indicative here: the real ones are in the plans and the studies.]
+#text(6.8pt)[Cream plaster, honey stone at the plinth (to +0.60), the corners (quoins, dotted), the thin band at the first-floor slab (#r2(band.h) m, projecting #r2(band.proj)) and the main cornice (#r2(cornice.h) m high, projecting #r2(cornice.proj), #lv(cornice.z0) … #lv(cornice.z0 + cornice.h)); the attic plastered cream with a stone coping. The south elevation repeats the west one's south part (parapet #lv(south-top), the court's screened opening under the frame); the east elevation the north block's coping and attic (set back 1.0) over the kitchen / suite windows, then the parapet (the east elevation is drawn below). Openings are indicative here: the real ones are in the plans and the studies.]
 
 // ====================================================================================== PAGE 5 · the cornice, the loads, the records
 #pagebreak()
@@ -520,7 +548,7 @@
   [
     #H[6 · Sizes (assumed, by this study)]
     - *Main cornice:* honey stone, #r2(cornice.h) m high (#lv(cornice.z0) … #lv(cornice.z0 + cornice.h)), projecting #r2(cornice.proj) m with a drip, on the facade edge all round the house; above it a 0.30 m upstand with a stone coping to *#lv(coping-top)* on the north block (the strip's parapet) and the plain parapet to *#lv(south-top)* on the south wing. The thin cornice between the floors: a stone band #r2(band.h) m high at #lv(band.z0), projecting #r2(band.proj).
-    - *Attic (lowered after V8.0):* 200 mm block, plastered cream, stone coping; #r2(attic-h) m above the roof slab + 0.10 coping = #r2(attic-vis) m above the finish (coping #lv(attic-top)); set back #r2(setback) m from the facade face (#r2(in-off) m from the wall centre lines); ≈ #r1(attic-len) m long; on the south on the y #r2(y-step) line (B8 / R5). Four openings 0.80 (two to the strip, gated and locked; two to the south wing roofs).
+    - *Attic (lowered V8.1):* 200 mm block, plastered cream, stone coping; #r2(attic-h) m above the roof slab + 0.10 coping = #r2(attic-vis) m above the finish (coping #lv(attic-top)); set back #r2(setback) m from the facade face (#r2(in-off) m from the wall centre lines); ≈ #r1(attic-len) m long; on the south on the y #r2(y-step) line (B8 / R5). Four openings 0.80 (two to the strip, gated and locked; two to the south wing roofs).
     - *South wing parapet:* #r2(parapet-vis) m above the finish, coping included (top #lv(south-top)); the *guardrail* 1.10 m black steel bars (posts at 1.5 m) set back #r2(rail-setback) m from the outer faces, continuous from the attic's end walls to the court guards; the no-go strips 1.0 m.
     - *Roofline step:* #r2(step) m at y #r2(y-step) (attic coping #lv(attic-top) → parapet #lv(south-top)), plus the 1.0 m plan set-back. *Final heights:* cornice #lv(cornice.z0) … #lv(cornice.z0 + cornice.h), north coping #lv(coping-top), south parapet #lv(south-top), attic coping #lv(attic-top), HRV base #lv(base-top), malqaf head #lv(tower-top), ladder stiles #lv(lad.stile-top) (inside the court). Targets, to confirm at the facade design stage.
     - *Maintenance ladder* (page 2): recess #r2(lad.recess.at(3) - lad.recess.at(1)) × #r2(lad.recess.at(2) - lad.recess.at(0)) in a stone pilaster #r2(lad.pilaster.at(3) - lad.pilaster.at(1)) × #r2(lad.pilaster.at(2) - lad.pilaster.at(0)) on the gym's east wall; climb #r2(lad-climb); stiles to #lv(lad.stile-top); the gate 0.90 and the pad on the gym roof.
@@ -528,7 +556,7 @@
     #H[7 · Loads for the engineer (assumed)]
     - *Attic walls:* 200 block #r2(attic-h) m + coping ≈ #r1(attic-h * 2.5 + 0.3) kN/m (was 4.5), standing on the roof slab #r2(in-off) m inside the outer-wall beams (R7 / R8, the cut and east wall beams): near the supports, but a line load on the slab: thicken the slab edge or add a small hidden beam under it; the south attic wall on R5 / B8.
     - *Parapet and guardrail (south wing):* the 0.70 parapet ≈ 1.8 kN/m on the facade beams (was 2.8); the 1.10 m guardrail on the slab 1.0 m in: posts at 1.5 m on base plates bolted to the slab through the waterproofing (or on a 0.20 kerb), designed for a 0.74 kN/m horizontal load at the top rail and 0.9 kN point load (SBC 301 / ASCE 7 guards): small, but the anchors and the upstand detail are the engineer's.
-    - *Ladder and pilaster:* the pilaster ≈ 20 kN on the court's depressed slab (the men's majlis roof); the ladder's fixings into the pilaster (resin anchors into solid block or a cast-in steel sub-frame): the supplier's loads (≈ 1.5 kN per fixing); the gate posts on the roof edge beam R3. No stair tower: no footings beside the east wall.
+    - *Ladder and pilaster:* the pilaster ≈ 20 kN on the court's depressed slab (the men's majlis roof); the ladder's fixings into the pilaster (resin anchors into solid block or a cast-in steel sub-frame): the supplier's loads (≈ 1.5 kN per fixing); the gate posts on the roof edge beam R3.
     - *Cornice:* stone ≈ 2.5 kN/m hung on the slab edge (anchored precast or cut stone); the thin band 0.3 kN/m.
     - *Plant:* 3–4 AC outdoor units ≈ 1.0 kN each and the ERV ≈ 1.5 kN on pads with anti-vibration mounts (local ≈ 1.5 kN/m²); *tank(s):* up to 3 m³ = 30 kN on ≈ 3.3 m² (≈ 9 kN/m²) on the R10–R3 bay (1.5 m span): to be checked; *PV:* ≈ 0.25 kN/m² plus wind uplift (ballast or cast-in fixing points, 24 m² now, 20 m² future); *malqaf head* as the air study; walkway pads 0.5 kN/m².
     - *Roof live load* for maintenance only: 1.0–1.5 kN/m² (SBC 301, the engineer).
@@ -536,23 +564,23 @@
   [
     #H[8 · Conflicts and open points]
     - *The HRV base vs the lowered attic* (§ 3): the base (#lv(base-top)) is #r2(base-top - attic-top) m above the attic coping; kept as part of the malqaf mass (seen by design) or lowered to #lv(attic-top) with 1.25 m clear inside: owner / MEP.
-    - *Workers through the house:* without the tower, roof maintenance enters by the gym and the suite court (the family's private side); the ladder's key is a household key. Accepted by the decision; the service gate on the lane stays useful for the yard only.
+    - *Workers through the house:* roof maintenance enters by the gym and the suite court (the family's private side); the ladder's key is a household key. Accepted by the decision (V8.1). The site has one entry: the farm's 4 m main gate (no gate on the lane).
     - *PV:* the no-go strips and the ladder's walkway cut the south wing PV to #r1(area(z-pv1) + area(z-pv1b)) m² (was 24.6); Z5 on the north block (#r1(area(z-pv2)) m²) is unchanged: R-31 to revisit with the site plan.
     - *Lift* (§ 5): no overrun if the supplier's headroom is ≤ #r2(lift-avail) m (≤ #r2(lift-avail + lift-raise-max) m with a 0.30 m raised head behind the cornice): a requirement for open item 15.
-    - *Courtyard light* (§ 4): none lost. *First-floor layout:* the office loses its visitors' door and gains an east window; the suite bedroom's escape window is restored to y 15.0–18.6 (`studies/ff_suite.typ`).
-    - *3D, DXF and the presentation:* still carry the V8.0 stair tower and the 1.80 attic until the next build / release (`docs/PENDING_CHANGES.md`).
+    - *Courtyard light* (§ 4): none lost. *First-floor layout:* the office has one door (from the court) and an east window; the suite bedroom's escape window runs y 15.0–18.6 (`studies/ff_suite.typ`).
+    - *3D, DXF and the presentation (V8.1):* the ladder, the 1.40 attic, the 0.70 parapet and the set-back guardrail are built and drawn.
     #v(2pt)
     #H[9 · What this study changes in the files]
-    - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (V8.0), X16 superseded; after V8.0: the stair tower removed, X20 the ladder recess / pilaster, X17 the lowered attic, the 0.70 parapet and the guardrail loads; `studies/fire_escape.typ`: no second stair; the first floor's exits are the main stair and the escape windows, the court a fresh-air area, not an exit; `3d/params.yaml`: the stair tower data removed, the attic / parapet / ladder / guardrail data updated (the model rebuilt at the release).
-    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_ITEMS.md`, `PROJECT_V8.md`: at the release (`docs/PENDING_CHANGES.md`).
-    - `data/decisions.csv`: the stair tower removed, the ladder, the roofline lowered (1 Nov 2026 after V8.0).
+    - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (V8.0), X16 superseded; X20 the ladder recess / pilaster, X17 the lowered attic, the 0.70 parapet and the guardrail loads; `studies/fire_escape.typ`: the first floor's exits are the main stair and the escape windows, the court a fresh-air area, not an exit; `3d/params.yaml`: the attic / parapet / ladder / guardrail data (V8.1).
+    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_ITEMS.md`, `PROJECT_V8.md` (V8.1).
+    - `data/decisions.csv`: the roof by a maintenance ladder, the roofline lowered (V8.1).
     #v(2pt)
     #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
 )
 
 // ---------- Data for tools/make_dxf_roof.py and the presentation (typst eval --in studies/roof.typ "query(<roof-data>).first().value") · CSV frame ----------
-#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: court-pts, tower: tower, attic: attic, ladder: (pilaster: rect-pts(..lad.pilaster), recess: rect-pts(..lad.recess), gate: lad.gate, pad: rect-pts(..lad.pad)), rails: rails,   // after V8.0: no stair tower; the ladder and the set-back guardrails
+#metadata((outline: outline, block_s: block-s, sky: rect-pts(..sky-hole), court: court-pts, tower: tower, attic: attic, ladder: (pilaster: rect-pts(..lad.pilaster), recess: rect-pts(..lad.recess), gate: lad.gate, pad: rect-pts(..lad.pad)), rails: rails,   // V8.1: the ladder and the set-back guardrails
   lift: rect-pts(lift.x0, lift.y0, lift.x1, lift.y1), zones: (("Z2a HRV base under the tower", z-erv), ("Z2b plant: AC units", z-plant), ("Z3 water tank", z-tank), ("Z4a PV gym roof", z-pv1), ("Z4b PV office roof", z-pv1b), ("Z5 PV future", z-pv2)).map(((n, P)) => (name: n, pts: P, area: area(P))),
   outlets: outlets, walkways: walk, guards: guards, attic_doors: (((3.3, in-off), (4.1, in-off)), ((in-off, 12.0), (in-off, 12.8)), ((2.1, y-step), (2.9, y-step)), ((11.0, y-step), (11.8, y-step))),
   levels: (roof: roof, attic_top: attic-top, coping: coping-top, south: south-top, malqaf: tower-top, base: base-top, stile_top: lad.stile-top, cornice: (cornice.z0, cornice.z0 + cornice.h), setback: setback))) <roof-data>

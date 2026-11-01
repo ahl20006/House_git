@@ -25,8 +25,7 @@ for season in ("summer", "winter"):
     for hour in ("09", "12", "15"):
         VIEWS[f"sun_{season}_{hour}.png"] = f"view=top&sun={season}-{hour}&labels=0"
 VIEWS = {k: v + "&character=0" for k, v in VIEWS.items()}          # the plain phase-3 model
-VIEWS.update({"char_north.png": "view=north&character=1", "char_aerial_se.png": "view=aerial_se&character=1", "char_courtyard.png": "view=courtyard&character=1",
-              "char_suite_court.png": "view=suite_court&character=1", "char_tv.png": "view=tv&character=1"})   # V8.0: the five release views (others by name: char_<view>.png)
+VIEWS.update({"char_north.png": "view=north&character=1", "char_aerial_se.png": "view=aerial_se&character=1", "char_suite_court_sw.png": "view=suite_court_sw&character=1"})   # V8.1: the three release views (others by name: char_<view>.png, e.g. char_courtyard.png, char_tv.png)
 only = sys.argv[1:]          # optional: render only these files (any char_<view>[_arches].png name works, e.g. char_street.png, char_eye1_arches.png)
 for name in only:
     m = re.fullmatch(r"char_(\w+)\.png", name)

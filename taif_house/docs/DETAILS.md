@@ -1,6 +1,6 @@
-# Taif / Palm House · V8.0 · construction and detail notes
+# Taif / Palm House · V8.1 · construction and detail notes
 
-*V7.0 / V8.0:* the courtyard enclosure windows W1–W3, the main cornice, the band, the attic and the parapets (`studies/courtyard_enclosure.typ`, `studies/roof.typ`); V8.0: the external stair tower (`studies/south_wing.typ`), the air system's channel and the HRV base (`studies/air_system.typ`), the courtyard layout (`studies/courtyard_layout.typ`) and the fire safety equipment (`studies/fire_escape.typ`); `PROJECT_V8.md` §4.25–4.36. Their details join this file at the detail round.
+*V7.0 / V8.0:* the courtyard enclosure windows W1–W3, the main cornice, the band, the attic and the parapets (`studies/courtyard_enclosure.typ`, `studies/roof.typ`); V8.1: the maintenance ladder (`studies/roof.typ` page 2); V8.0: the air system's channel and the HRV base (`studies/air_system.typ`), the courtyard layout (`studies/courtyard_layout.typ`) and the fire safety equipment (`studies/fire_escape.typ`); `PROJECT_V8.md` §4.25–4.36. Their details join this file at the detail round.
 
 House-wide building rules and details, for the engineer, the carpenter and the contractor. The layout decisions and their reasons are in `PROJECT_V8.md`, and the open items in `OPEN_ITEMS.md`. *Concept notes, to be confirmed by the engineers.*
 
@@ -55,7 +55,7 @@ House-wide building rules and details, for the engineer, the carpenter and the c
 ## Doors (V6.3)
 - Every bedroom and bathroom door on both floors: a **1.00 m structural opening, 0.90 m leaf** (frame 50 mm each side, stop and leaf thickness ≈ 50 mm → ≈ 0.85 m clear), lever handles, 100 mm bottom rail for later kick plates.
 - Hinge sides: family bath hinged at its north jamb (y 9.3) so the leaf clears the basin; bedroom 3's door at y 15.2–16.2 (south of the entry wardrobe); bedroom 3's bath door sliding (y 15.0–16.0); the suite WC closet door **sliding** (V8.0: a hinged leaf opening into the bath clashed with the bath door).
-- **South wing (V8.0):** the gym's door from the gallery end sliding; the three suite court doors on the court's north strip: the bedroom's sliding glass (free from the bedroom), the gym's hinged into the court (free from the gym side), the office's hinged into the office (free from the court side, key only from the office side); the office's visitors' door opening out onto the stair tower's landing (thumb-turn inside); the stair tower's foot gate opening outwards (panic bar) and a locked gate above the office landing.
+- **South wing (V8.0 / V8.1):** the gym's door from the gallery end sliding; the three suite court doors on the court's north strip: the bedroom's sliding glass, the gym's hinged into the court, the office's hinged into the office (the office's only door, V8.1); simple doors with privacy locks at most. **The roof ladder (V8.1):** the walnut-finish panel (exterior grade, marine ply or aluminium composite) on the south jamb, opening 180° onto the pilaster face, a floor drop-bolt to hold it open, a key cylinder; flush and without a hold when closed; the ladder a manufactured product with its fall-arrest rail; the self-closing gate at the top in the court's west guard.
 - Not reached: the guest WC (0.90 m opening, ≈ 0.75 clear: the room is 1.3 m clear wide) and the maid bath (0.70 m: column C31 and the cut wall; to revisit with the maid wing).
 - The lift: sliding landing doors (≥ 0.80 m clear) from the lobby and the gallery at y 0.9–1.9.
 

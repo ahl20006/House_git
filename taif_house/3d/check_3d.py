@@ -13,7 +13,7 @@ It reads the project files through the readers of build_3d.py, the summary (3d/o
      the X3 window / column C33 clearance reported (flagged, not a failure);
   6. the stair: 22 risers to the finished first-floor level, the arrival on the first-floor slab, the opening edged by the trimmers,
      the headroom over every tread to the underside of the beams / slab ≥ params headroom_min; V8.0: the roof slab closed over the well,
-     the external stair tower (risers, landings at the office and the roof, headroom from the flight profiles, the doors and gates);
+     V8.1: the maintenance ladder in the suite court (the pilaster, the recess, the rungs, the stiles above the roof, the gate), the set-back guardrail, the outdoor kitchen;
   7. the structural elements of the zone: the colonnade to the roof (X8), the upturned edge beam, the flags (assumed / unconfirmed);
   8. the sun positions: noon altitudes equal the formulas of studies/sections.typ, morning / afternoon symmetric; true north from base.typ;
   9. the air system (route, chamber, pads, levels, the wall grille);
@@ -337,49 +337,41 @@ else:
     ok(f"headroom over every tread ≥ {P['headroom_min']} m to the underside of the beams / slab: minimum {worst[0]:.2f} m at flight {worst[1]['flight']} tread {worst[1]['tread']} (under {clear[st['nosings'].index(worst[1])][1]}; the structural study gives 2.22 before finishes)")
 store = st["landing_level"] - P["stair"]["waist"] - P["finish"] - FINISHED["GF"]
 ok(f"store under the half landing: {store:.2f} m clear (a store, not a room)")
-# V8.0: the internal stair stops at the first floor (the roof slab closed over the well); the roof is reached from the EXTERNAL STAIR TOWER at the south-east
+# V8.0: the internal stair stops at the first floor (the roof slab closed over the well); V8.1: the roof is reached by the maintenance ladder in the suite court
 roof_poly = outer_face.difference(COURT_SKY).difference(SUITE_COURT).difference(TOWER_HOLE)
 over_well = [Point(ST["x0"] + 0.3, ST["y0"] + 0.3), Point(ST["x1"] - 0.3, ST["top"] - 0.3)]
 if all(roof_poly.contains(p) for p in over_well) and not any(n.startswith("ff_stair_flight3") or n.startswith("ff_stair_flight4") or n.startswith("roof_stair") for n in meshes) and not any(b["id"] in ("R16", "R17", "R18") for b in summary["structure"]["beams"]):
     ok("the internal stair stops at the first floor (V8.0): no flights 3 / 4, no stair room, no trimmers R16–R18; the roof slab is closed over the stair well")
 else:
     bad("the internal roof stair / the roof opening over the well is still in the model")
-if summary.get("stair_tower"):
-    tw_ = summary["stair_tower"]
-    TWP = RD["stair_tower"]
-    fl_ = tw_["flights"]
-    lower = [f for f in fl_ if f["name"].startswith("lower")]
-    upper = [f for f in fl_ if f["name"].startswith("upper")]
-    r_ok = all(f["r"] <= 0.17 + 1e-6 and abs(f["going"] - 0.28) < 1e-3 for f in fl_) and sum(f["n"] for f in lower) == 22 and sum(f["n"] for f in upper) == 22
-    z_ok = abs(lower[0]["z0"] + 2 * lower[0]["n"] * lower[0]["r"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] - FINISHED["FF"]) < 1e-3 and abs(upper[0]["z0"] + 2 * upper[0]["n"] * upper[0]["r"] - (L["roof"] + P["roof_finish"])) < 1e-3
-    step_ok = TWP["entry"] - TWP["ground"] <= 0.17 + 1e-6
-    # headroom: over every tread the soffit of the flight / landing above or the tower's roof (from the flight profiles; the meshes are their extrusions)
-    def soffit_above(xm, ym, z):
-        best = tw_["soffit"]
-        for f in fl_:
-            if f["x"][0] - 1e-6 <= xm <= f["x"][1] + 1e-6:
-                pr = Polygon(f["profile"]).buffer(0)
-                seg = pr.intersection(LineString([(ym, z + 0.05), (ym, 50)]))
-                if not seg.is_empty:
-                    best = min(best, seg.bounds[1])
-        for l_ in tw_["landings"]:
-            bx = l_["box"]
-            if bx[0] - 1e-6 <= xm <= bx[2] + 1e-6 and bx[1] - 1e-6 <= ym <= bx[3] + 1e-6 and l_["z"] - tw_["waist"] > z + 0.05:
-                best = min(best, l_["z"] - tw_["waist"])
-        return best
-    hr_ = [(soffit_above((f["x"][0] + f["x"][1]) / 2, n["y_mid"], n["z"]) - n["z"], f["name"]) for f in fl_ for n in f["nosings"]]
-    hmin = min(hr_)
-    meshes_ok = all(n in meshes for n in ("ext_tower_wall_n", "ext_tower_wall_e", "ext_tower_wall_s", "ext_tower_wall_w", "ext_tower_roof", "ext_tower_gate_foot", "ext_tower_gate_upper"))
-    top_ok = RD["attic"]["top"] < tw_["top"] < AIR["head"][1] and abs(meshes["ext_tower_roof"].bounds[1][2] - tw_["top"]) < 1e-3
-    door_ok = tw_["roof_door_head"] - (L["roof"] + P["roof_finish"]) >= 2.0 - 1e-6 and tw_["office_door"][0] >= RD["stair_tower"]["south_landing"][0] - 1e-6
-    if r_ok and z_ok and step_ok and hmin[0] >= P["headroom_min"] - 1e-6 and meshes_ok and top_ok and door_ok:
-        ok(f"external stair tower (V8.0): {TWP['box'][2] - TWP['box'][0]:.2f} × {TWP['box'][3] - TWP['box'][1]:.2f} m outside the east wall, top +{tw_['top']:.2f} (above the attic +{RD['attic']['top']:.2f}, below the malqaf +{AIR['head'][1]:.2f}); "
-           f"the entry step {TWP['entry'] - TWP['ground']:.2f}, 22 risers × {lower[0]['r']:.4f} to the office landing +{FINISHED['FF']:.2f} and 22 × {upper[0]['r']:.4f} to the roof landing +{L['roof'] + P['roof_finish']:.2f}, goings {lower[0]['going']:.2f}, flights 1.00 clear; "
-           f"headroom ≥ {hmin[0]:.2f} m (minimum on flight {hmin[1]}); the roof door {tw_['roof_door_head'] - (L['roof'] + P['roof_finish']):.2f} m high through the parapet; the foot gate and the locked gate above the office landing modelled")
+# V8.1: the roof is reached by the maintenance ladder in the suite court (no stair tower)
+ld = summary.get("ladder")
+lad_names = ("ff_ladder_pilaster", "ff_ladder_panel", "ff_ladder_stile_0", "ff_ladder_stile_1", "roof_ladder_gate", "roof_guardrail_setback")
+if ld and all(n in meshes for n in lad_names) and not any(n.startswith("ext_tower") for n in meshes):
+    rf_ = L["roof"] + P["roof_finish"]
+    pil_ = meshes["ff_ladder_pilaster"].bounds
+    st_ok = all(abs(meshes[f"ff_ladder_stile_{k}"].bounds[1][2] - ld["stile_top"]) < 1e-3 for k in (0, 1)) and abs(ld["stile_top"] - rf_ - 1.10) < 1e-6
+    rung_ok = abs(ld["rungs"][0] - rf_) < 1e-6 and ld["rungs"][-1] - ld["foot"] <= 0.40 + 1e-6 and all(0.25 - 1e-6 <= a - b <= 0.30 + 1e-6 for a, b in zip(ld["rungs"], ld["rungs"][1:]))
+    pil_ok = abs(pil_[0][2] - FINISHED["FF"]) < 1e-3 and abs(pil_[1][2] - rf_) < 1e-3 and ld["recess"][0] >= ld["pilaster"][0] + 0.05 - 1e-6 and ld["pilaster"][0] >= 4.35 - 1e-6   # the gym wall (x 4.15–4.35) is not cut
+    toe_ok = ld["toe_clearance"] >= 0.18 - 1e-6 and (ld["stiles_y"][1] - ld["stiles_y"][0]) - 0.03 >= 0.40
+    gate_ok = abs(meshes["roof_ladder_gate"].bounds[1][2] - (rf_ + 1.10)) < 1e-3 and abs(ld["gate"][0] - 4.25) < 1e-6
+    gs = summary["guardrail_setback"]
+    gr_ok = abs(meshes["roof_guardrail_setback"].bounds[1][2] - (rf_ + gs["height"])) < 1e-3 and all(abs(min(p_[0] for p_ in l_) - (outline_poly.bounds[0] - T_OUT / 2 + gs["setback"])) < 1e-6 or abs(max(p_[0] for p_ in l_) - (outline_poly.bounds[2] + T_OUT / 2 - gs["setback"])) < 1e-6 for l_ in gs["lines"]) and all(abs(max(p_[1] for p_ in l_) - (outline_poly.bounds[3] + T_OUT / 2 - gs["setback"])) < 1e-6 for l_ in gs["lines"])
+    if st_ok and rung_ok and pil_ok and toe_ok and gate_ok and gr_ok:
+        ok(f"roof access (V8.1): no stair tower; the ladder in a {ld['recess'][3] - ld['recess'][1]:.2f} × {ld['recess'][2] - ld['recess'][0]:.2f} recess of a stone pilaster on the gym's east wall (the wall not cut), climb {ld['climb']:.2f} m, "
+           f"{len(ld['rungs'])} rungs, the top rung at the roof finish +{rf_:.2f}, toe clearance {ld['toe_clearance']:.2f}, the stiles to +{ld['stile_top']:.2f}, the closed walnut panel, the self-closing gate 1.10 in the court's west guard; "
+           f"the guardrail {gs['height']:.2f} m set back {gs['setback']:.1f} m from the south wing's west, south and east faces")
     else:
-        bad(f"stair tower: risers {r_ok}, levels {z_ok}, entry step {step_ok}, headroom {hmin}, meshes {meshes_ok}, top {top_ok}, doors {door_ok}")
+        bad(f"ladder: stiles {st_ok}, rungs {rung_ok}, pilaster {pil_ok}, clearances {toe_ok}, gate {gate_ok}, set-back guardrail {gr_ok}")
 else:
-    ok("no external stair tower (removed after V8.0): the roof is reached by the maintenance ladder in the suite court (studies/roof.typ page 2), to be modelled at the next build")
+    bad("roof access: the ladder meshes are missing or the stair tower is still built")
+ok_k = summary.get("outdoor_kitchen")
+if ok_k and all(n in meshes for n in ("ext_kitchen_counter", "ext_kitchen_grill", "ext_kitchen_tannour")) and ok_k["counter"][0] >= outline_poly.bounds[2] + T_OUT / 2 - 1e-6:
+    gx0g, gy0g, gx1g, gy1g = ok_k["grill"]; gpl_ = Polygon([(gx0g, gy0g), (gx1g, gy0g), (gx1g, gy1g), (gx0g, gy1g)])
+    d_house = gpl_.distance(outer_face)
+    ok(f"the outdoor kitchen (V8.1): the counter against the east wall face (x {ok_k['counter'][0]}), the grill and tannour {d_house:.2f} m from the house") if d_house >= 3.0 - 1e-6 else bad(f"the grill {d_house:.2f} m from the house (< 3 m)")
+else:
+    bad("outdoor kitchen meshes")
 
 # ---------- 7: the structural elements of the zone ----------
 print("7. Structure of the zone (assumed / unconfirmed)")

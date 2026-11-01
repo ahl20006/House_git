@@ -1,7 +1,7 @@
 {
- "version": "V8.0",
+ "version": "V8.1",
  "params": {
-  "version": "V8.0",
+  "version": "V8.1",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -176,10 +176,10 @@
     },
     {
      "floor": "FF",
-     "at": "13.311 15.0 13.311 17.9",
+     "at": "13.311 15.0 13.311 18.6",
      "sill": 0.9,
      "head": 2.4,
-     "note": "suite bedroom east window (1 Nov 2026: shortened from y 18.6 to clear the external stair tower's north wall at y 18.22)",
+     "note": "suite bedroom east window, its escape window (y 15.0\u201318.6)",
      "_used": true
     },
     {
@@ -203,7 +203,7 @@
      "at": "10.5 24 12.8 24",
      "sill": 0.9,
      "head": 2.4,
-     "note": "owner's office south window (east; its east wall is covered by the stair tower)",
+     "note": "owner's office south window (V8.1: and a 0.90 east window at y 22.8\u201323.7, default heights)",
      "_used": true
     },
     {
@@ -355,15 +355,15 @@
     "overhang": 0.03
    },
    "parapet_south": {
-    "wall_top": 8.32,
-    "top": 8.4,
+    "wall_top": 7.92,
+    "top": 8.0,
     "overhang": 0.03
    },
    "attic": {
     "setback": 1.0,
     "thickness": 0.2,
-    "wall_top": 9.0,
-    "top": 9.1,
+    "wall_top": 8.6,
+    "top": 8.7,
     "overhang": 0.03,
     "y_south": 19.25,
     "doors": [
@@ -381,89 +381,90 @@
      ],
      [
       "11.0 19.25 11.8 19.25",
-      "to the office roof and the stair tower (V8.0)"
+      "to the office roof"
      ]
     ]
    },
-   "stair_tower": {
-    "box": [
-     13.436,
-     18.22,
-     16.036,
-     24.0
+   "ladder": {
+    "pilaster": [
+     4.35,
+     20.65,
+     4.7,
+     21.95
     ],
-    "wall": 0.25,
-    "ground": -0.3,
-    "entry": -0.13,
-    "office": 3.6,
-    "roof_landing": 7.3,
-    "risers_per_flight": 11,
-    "flights": {
-     "west": [
-      13.686,
-      14.686
-     ],
-     "east": [
-      14.786,
-      15.786
-     ]
+    "recess": [
+     4.4,
+     20.85,
+     4.7,
+     21.75
+    ],
+    "stiles_y": [
+     21.05,
+     21.55
+    ],
+    "rung_x": 4.6,
+    "rungs": {
+     "top": 7.3,
+     "pitch": 0.28,
+     "count": 13
     },
-    "south_landing": [
-     22.5,
-     23.75
-    ],
-    "north_landing": [
-     18.47,
-     19.7
-    ],
-    "soffit": 9.45,
-    "top": 9.6,
+    "foot": 3.6,
+    "stile_top": 8.4,
+    "panel": {
+     "thickness": 0.04,
+     "finish": "walnut",
+     "hinge": "south",
+     "open_deg": 180,
+     "held_open": "floor drop-bolt",
+     "lock": "key cylinder outside; flush and unclimbable when closed"
+    },
     "gate": [
-     14.7,
-     15.6
+     4.25,
+     20.85,
+     4.25,
+     21.75
     ],
-    "gate_head": 2.4,
-    "office_door": [
-     22.9,
-     23.75
+    "pad": [
+     3.3,
+     20.8,
+     4.15,
+     21.8
     ],
-    "roof_door": [
-     22.9,
-     23.75
-    ],
-    "roof_door_head": 9.4,
-    "openings": {
-     "east_y": [
+    "light_drain": "IP65 light in the recess head; a slot drain at the pilaster's foot into the court's drain line"
+   },
+   "guardrail_setback": {
+    "height": 1.1,
+    "setback": 1.0,
+    "lines": [
+     [
       [
-       19.2,
-       20.1
+       0.875,
+       19.25
       ],
       [
-       21.9,
-       22.8
+       0.875,
+       23.125
+      ],
+      [
+       4.25,
+       23.125
       ]
      ],
-     "south_x": [
+     [
       [
-       14.75,
-       15.65
-      ]
-     ],
-     "levels": [
-      [
-       1.2,
-       3.0
+       12.436,
+       19.25
       ],
       [
-       4.9,
-       6.7
+       12.436,
+       23.125
       ],
       [
-       7.9,
-       9.1
+       10.0,
+       23.125
       ]
      ]
-    }
+    ]
    },
    "hrv_base": {
     "pts": [
@@ -504,6 +505,23 @@
     "post_spacing": 1.5,
     "bar": 0.04
    }
+  },
+  "outdoor_kitchen": {
+   "ground": -0.3,
+   "counter": [
+    13.45,
+    20.8,
+    14.05,
+    23.6
+   ],
+   "counter_top": 0.6,
+   "grill": [
+    15.0,
+    27.4,
+    17.3,
+    28.9
+   ],
+   "platform_top": 0.15
   },
   "sun": {
    "latitude": 21.4,
@@ -581,8 +599,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V8.0.glb",
-   "viewer_data": "3d/output/taif_house_V8.0.js",
+   "glb": "3d/output/taif_house_V8.1.glb",
+   "viewer_data": "3d/output/taif_house_V8.1.js",
    "summary": "3d/output/model_summary.json"
   }
  },
@@ -2757,23 +2775,6 @@
   },
   {
    "floor": "FF",
-   "kind": "door",
-   "name": "visitors' door (stair landing) (Owner's office)",
-   "a": [
-    13.311,
-    22.9
-   ],
-   "b": [
-    13.311,
-    23.75
-   ],
-   "width": 0.85,
-   "sill": 3.52,
-   "head": 5.7,
-   "wall": "ff_outer"
-  },
-  {
-   "floor": "FF",
    "kind": "window",
    "name": "kids' room north window",
    "a": [
@@ -2928,7 +2929,7 @@
   {
    "floor": "FF",
    "kind": "window",
-   "name": "owner's office south window (east; its east wall is covered by the stair tower)",
+   "name": "owner's office south window (V8.1: and a 0.90 east window at y 22.8\u201323.7, default heights)",
    "a": [
     10.5,
     24.0
@@ -2940,6 +2941,23 @@
    "width": 2.3,
    "sill": 4.5,
    "head": 6.0,
+   "wall": "ff_outer"
+  },
+  {
+   "floor": "FF",
+   "kind": "window",
+   "name": "default window",
+   "a": [
+    13.311,
+    22.8
+   ],
+   "b": [
+    13.311,
+    23.7
+   ],
+   "width": 0.9,
+   "sill": 4.5,
+   "head": 5.7,
    "wall": "ff_outer"
   },
   {
@@ -2962,16 +2980,16 @@
   {
    "floor": "FF",
    "kind": "window",
-   "name": "suite bedroom east window (1 Nov 2026: shortened from y 18.6 to clear the external stair tower's north wall at y 18.22)",
+   "name": "suite bedroom east window, its escape window (y 15.0\u201318.6)",
    "a": [
     13.311,
     15.0
    ],
    "b": [
     13.311,
-    17.9
+    18.6
    ],
-   "width": 2.9,
+   "width": 3.6,
    "sill": 4.5,
    "head": 6.0,
    "wall": "ff_outer"
@@ -3458,8 +3476,8 @@
  "flags": [
   "Orange elements (columns C21\u2013C23 to the roof, C33, beams B3, B5, R11, trimmers B16\u2013B18): sizes assumed in studies/structure.typ, not approved by the engineer",
   "FF wall (10.0, 19.25)\u2013(10.0, 24.0) stands on a rib of the men's majlis roof (south wing v2, non-load-bearing): NOT verified (X5)",
-  "Stair tower (V8.0, studies/roof.typ / south_wing.typ): outside the east wall at the south-east, 2.60 \u00d7 5.78 m, top +9.60; a dog-leg of 2 \u00d7 11 risers per storey (0.1695 / 0.1682) from the entry +-0.13 to the office landing +3.60 and the roof landing +7.30; arched openings east and south, the north face solid; the foot gate (outwards) and the locked gate above the office landing; the roof door through the south wing parapet; headroom \u2265 2.32 m; all ASSUMED",
-  "Roofline (V7.0 / V8.0, studies/roof.typ): the main stone cornice 0.45 \u00d7 0.30 at +6.90, the north block's coping +7.65, the attic screen 1.8 m high (coping +9.10) set back 1.0 m (a plain pentagon since V8.0), the south wing's parapet +8.40; no stair room (the roof from the external stair tower); the malqaf on its HRV base (top +9.10); all ASSUMED",
+  "Roof access (V8.1, studies/roof.typ page 2): no stair tower; a manufactured vertical ladder in a 0.90 \u00d7 0.30 recess of a stone pilaster on the gym's east wall in the suite court (the 0.20 wall not cut), 13 rungs at 0.28, the top rung at the roof finish +7.30, the stiles to +8.40, behind a closed walnut panel; a self-closing gate in the court's west guard; a continuous 1.10 m guardrail set back 1.0 m on the south wing; all ASSUMED (the specialist confirms the fall protection)",
+  "Roofline (V7.0 / V8.1, studies/roof.typ): the main stone cornice 0.45 \u00d7 0.30 at +6.90, the north block's coping +7.65, the attic screen 1.4 m high (coping +8.70) set back 1.0 m (a plain pentagon since V8.0), the south wing's parapet +8.00; no stair room (the roof from the external stair tower); the malqaf on its HRV base (top +9.10); all ASSUMED",
   "X3: suite bath east window y 9.5\u201310.05 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance +0.10 m (clear); the column's size and orientation are for the engineer",
   "Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it",
   "Air system v3.1 (studies/air_system.typ): the tower head open on three faces (north, west, cut; its south face blind behind the HRV base), the HRV base on the roof, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled",
@@ -3545,707 +3563,6 @@
   "area": 25.297,
   "note": "south side: the 1.1 m base and the frame built; the infill (solid / mashrabiya (recommended) / open) is the owner's choice"
  },
- "stair_tower": {
-  "box": [
-   13.436,
-   18.22,
-   16.036,
-   24.0
-  ],
-  "top": 9.6,
-  "soffit": 9.45,
-  "entry": -0.13,
-  "office": 3.6,
-  "roof_landing": 7.3,
-  "risers_per_flight": 11,
-  "riser_lower": 0.1695,
-  "riser_upper": 0.1682,
-  "flights": [
-   {
-    "name": "lower_e",
-    "x": [
-     14.786,
-     15.786
-    ],
-    "y": [
-     22.5,
-     19.7
-    ],
-    "z0": -0.13,
-    "r": 0.1695,
-    "n": 11,
-    "going": 0.28,
-    "nosings": [
-     {
-      "y_mid": 22.36,
-      "z": 0.0395
-     },
-     {
-      "y_mid": 22.08,
-      "z": 0.2091
-     },
-     {
-      "y_mid": 21.8,
-      "z": 0.3786
-     },
-     {
-      "y_mid": 21.52,
-      "z": 0.5482
-     },
-     {
-      "y_mid": 21.24,
-      "z": 0.7177
-     },
-     {
-      "y_mid": 20.96,
-      "z": 0.8873
-     },
-     {
-      "y_mid": 20.68,
-      "z": 1.0568
-     },
-     {
-      "y_mid": 20.4,
-      "z": 1.2264
-     },
-     {
-      "y_mid": 20.12,
-      "z": 1.3959
-     },
-     {
-      "y_mid": 19.84,
-      "z": 1.5655
-     }
-    ],
-    "profile": [
-     [
-      22.5,
-      -0.13
-     ],
-     [
-      22.5,
-      0.0395
-     ],
-     [
-      22.22,
-      0.0395
-     ],
-     [
-      22.22,
-      0.2091
-     ],
-     [
-      21.94,
-      0.2091
-     ],
-     [
-      21.94,
-      0.3786
-     ],
-     [
-      21.66,
-      0.3786
-     ],
-     [
-      21.66,
-      0.5482
-     ],
-     [
-      21.38,
-      0.5482
-     ],
-     [
-      21.38,
-      0.7177
-     ],
-     [
-      21.1,
-      0.7177
-     ],
-     [
-      21.1,
-      0.8873
-     ],
-     [
-      20.82,
-      0.8873
-     ],
-     [
-      20.82,
-      1.0568
-     ],
-     [
-      20.54,
-      1.0568
-     ],
-     [
-      20.54,
-      1.2264
-     ],
-     [
-      20.26,
-      1.2264
-     ],
-     [
-      20.26,
-      1.3959
-     ],
-     [
-      19.98,
-      1.3959
-     ],
-     [
-      19.98,
-      1.5655
-     ],
-     [
-      19.7,
-      1.5655
-     ],
-     [
-      19.7,
-      1.735
-     ],
-     [
-      19.7,
-      1.4155
-     ],
-     [
-      22.499,
-      -0.4495
-     ]
-    ]
-   },
-   {
-    "name": "lower_w",
-    "x": [
-     13.686,
-     14.686
-    ],
-    "y": [
-     19.7,
-     22.5
-    ],
-    "z0": 1.735,
-    "r": 0.1695,
-    "n": 11,
-    "going": 0.28,
-    "nosings": [
-     {
-      "y_mid": 19.84,
-      "z": 1.9045
-     },
-     {
-      "y_mid": 20.12,
-      "z": 2.0741
-     },
-     {
-      "y_mid": 20.4,
-      "z": 2.2436
-     },
-     {
-      "y_mid": 20.68,
-      "z": 2.4132
-     },
-     {
-      "y_mid": 20.96,
-      "z": 2.5827
-     },
-     {
-      "y_mid": 21.24,
-      "z": 2.7523
-     },
-     {
-      "y_mid": 21.52,
-      "z": 2.9218
-     },
-     {
-      "y_mid": 21.8,
-      "z": 3.0914
-     },
-     {
-      "y_mid": 22.08,
-      "z": 3.2609
-     },
-     {
-      "y_mid": 22.36,
-      "z": 3.4305
-     }
-    ],
-    "profile": [
-     [
-      19.7,
-      1.735
-     ],
-     [
-      19.7,
-      1.9045
-     ],
-     [
-      19.98,
-      1.9045
-     ],
-     [
-      19.98,
-      2.0741
-     ],
-     [
-      20.26,
-      2.0741
-     ],
-     [
-      20.26,
-      2.2436
-     ],
-     [
-      20.54,
-      2.2436
-     ],
-     [
-      20.54,
-      2.4132
-     ],
-     [
-      20.82,
-      2.4132
-     ],
-     [
-      20.82,
-      2.5827
-     ],
-     [
-      21.1,
-      2.5827
-     ],
-     [
-      21.1,
-      2.7523
-     ],
-     [
-      21.38,
-      2.7523
-     ],
-     [
-      21.38,
-      2.9218
-     ],
-     [
-      21.66,
-      2.9218
-     ],
-     [
-      21.66,
-      3.0914
-     ],
-     [
-      21.94,
-      3.0914
-     ],
-     [
-      21.94,
-      3.2609
-     ],
-     [
-      22.22,
-      3.2609
-     ],
-     [
-      22.22,
-      3.4305
-     ],
-     [
-      22.5,
-      3.4305
-     ],
-     [
-      22.5,
-      3.6
-     ],
-     [
-      22.5,
-      3.2805
-     ],
-     [
-      19.701,
-      1.4155
-     ]
-    ]
-   },
-   {
-    "name": "upper_e",
-    "x": [
-     14.786,
-     15.786
-    ],
-    "y": [
-     22.5,
-     19.7
-    ],
-    "z0": 3.6,
-    "r": 0.1682,
-    "n": 11,
-    "going": 0.28,
-    "nosings": [
-     {
-      "y_mid": 22.36,
-      "z": 3.7682
-     },
-     {
-      "y_mid": 22.08,
-      "z": 3.9364
-     },
-     {
-      "y_mid": 21.8,
-      "z": 4.1045
-     },
-     {
-      "y_mid": 21.52,
-      "z": 4.2727
-     },
-     {
-      "y_mid": 21.24,
-      "z": 4.4409
-     },
-     {
-      "y_mid": 20.96,
-      "z": 4.6091
-     },
-     {
-      "y_mid": 20.68,
-      "z": 4.7773
-     },
-     {
-      "y_mid": 20.4,
-      "z": 4.9455
-     },
-     {
-      "y_mid": 20.12,
-      "z": 5.1136
-     },
-     {
-      "y_mid": 19.84,
-      "z": 5.2818
-     }
-    ],
-    "profile": [
-     [
-      22.5,
-      3.6
-     ],
-     [
-      22.5,
-      3.7682
-     ],
-     [
-      22.22,
-      3.7682
-     ],
-     [
-      22.22,
-      3.9364
-     ],
-     [
-      21.94,
-      3.9364
-     ],
-     [
-      21.94,
-      4.1045
-     ],
-     [
-      21.66,
-      4.1045
-     ],
-     [
-      21.66,
-      4.2727
-     ],
-     [
-      21.38,
-      4.2727
-     ],
-     [
-      21.38,
-      4.4409
-     ],
-     [
-      21.1,
-      4.4409
-     ],
-     [
-      21.1,
-      4.6091
-     ],
-     [
-      20.82,
-      4.6091
-     ],
-     [
-      20.82,
-      4.7773
-     ],
-     [
-      20.54,
-      4.7773
-     ],
-     [
-      20.54,
-      4.9455
-     ],
-     [
-      20.26,
-      4.9455
-     ],
-     [
-      20.26,
-      5.1136
-     ],
-     [
-      19.98,
-      5.1136
-     ],
-     [
-      19.98,
-      5.2818
-     ],
-     [
-      19.7,
-      5.2818
-     ],
-     [
-      19.7,
-      5.45
-     ],
-     [
-      19.7,
-      5.1318
-     ],
-     [
-      22.499,
-      3.2818
-     ]
-    ]
-   },
-   {
-    "name": "upper_w",
-    "x": [
-     13.686,
-     14.686
-    ],
-    "y": [
-     19.7,
-     22.5
-    ],
-    "z0": 5.45,
-    "r": 0.1682,
-    "n": 11,
-    "going": 0.28,
-    "nosings": [
-     {
-      "y_mid": 19.84,
-      "z": 5.6182
-     },
-     {
-      "y_mid": 20.12,
-      "z": 5.7864
-     },
-     {
-      "y_mid": 20.4,
-      "z": 5.9545
-     },
-     {
-      "y_mid": 20.68,
-      "z": 6.1227
-     },
-     {
-      "y_mid": 20.96,
-      "z": 6.2909
-     },
-     {
-      "y_mid": 21.24,
-      "z": 6.4591
-     },
-     {
-      "y_mid": 21.52,
-      "z": 6.6273
-     },
-     {
-      "y_mid": 21.8,
-      "z": 6.7955
-     },
-     {
-      "y_mid": 22.08,
-      "z": 6.9636
-     },
-     {
-      "y_mid": 22.36,
-      "z": 7.1318
-     }
-    ],
-    "profile": [
-     [
-      19.7,
-      5.45
-     ],
-     [
-      19.7,
-      5.6182
-     ],
-     [
-      19.98,
-      5.6182
-     ],
-     [
-      19.98,
-      5.7864
-     ],
-     [
-      20.26,
-      5.7864
-     ],
-     [
-      20.26,
-      5.9545
-     ],
-     [
-      20.54,
-      5.9545
-     ],
-     [
-      20.54,
-      6.1227
-     ],
-     [
-      20.82,
-      6.1227
-     ],
-     [
-      20.82,
-      6.2909
-     ],
-     [
-      21.1,
-      6.2909
-     ],
-     [
-      21.1,
-      6.4591
-     ],
-     [
-      21.38,
-      6.4591
-     ],
-     [
-      21.38,
-      6.6273
-     ],
-     [
-      21.66,
-      6.6273
-     ],
-     [
-      21.66,
-      6.7955
-     ],
-     [
-      21.94,
-      6.7955
-     ],
-     [
-      21.94,
-      6.9636
-     ],
-     [
-      22.22,
-      6.9636
-     ],
-     [
-      22.22,
-      7.1318
-     ],
-     [
-      22.5,
-      7.1318
-     ],
-     [
-      22.5,
-      7.3
-     ],
-     [
-      22.5,
-      6.9818
-     ],
-     [
-      19.701,
-      5.1318
-     ]
-    ]
-   }
-  ],
-  "landings": [
-   {
-    "name": "lower north (half)",
-    "box": [
-     13.686,
-     18.47,
-     15.786,
-     19.7
-    ],
-    "z": 1.735
-   },
-   {
-    "name": "office (visitors' door)",
-    "box": [
-     13.436,
-     22.5,
-     15.786000000000001,
-     23.75
-    ],
-    "z": 3.6
-   },
-   {
-    "name": "upper north (half)",
-    "box": [
-     13.686,
-     18.47,
-     15.786,
-     19.7
-    ],
-    "z": 5.45
-   },
-   {
-    "name": "roof (roof door)",
-    "box": [
-     13.686,
-     22.5,
-     15.786000000000001,
-     23.75
-    ],
-    "z": 7.3
-   }
-  ],
-  "headroom_min": 2.318,
-  "headroom_at": "upper_w",
-  "roof_door": [
-   22.9,
-   23.75
-  ],
-  "roof_door_head": 9.4,
-  "gate": [
-   14.7,
-   15.6
-  ],
-  "office_door": [
-   22.9,
-   23.75
-  ],
-  "waist": 0.15,
-  "openings": {
-   "east": 6,
-   "south": 2,
-   "gate": 1
-  }
- },
  "hrv_base": {
   "pts": [
    [
@@ -4274,6 +3591,110 @@
   ],
   "door_head": 8.8
  },
+ "ladder": {
+  "pilaster": [
+   4.35,
+   20.65,
+   4.7,
+   21.95
+  ],
+  "recess": [
+   4.4,
+   20.85,
+   4.7,
+   21.75
+  ],
+  "rung_x": 4.6,
+  "stiles_y": [
+   21.05,
+   21.55
+  ],
+  "stile_top": 8.4,
+  "rungs": [
+   7.3,
+   7.02,
+   6.74,
+   6.46,
+   6.18,
+   5.9,
+   5.62,
+   5.34,
+   5.06,
+   4.78,
+   4.5,
+   4.22,
+   3.94
+  ],
+  "foot": 3.6,
+  "roof_finish": 7.3,
+  "gate": [
+   4.25,
+   20.85,
+   4.25,
+   21.75
+  ],
+  "panel": {
+   "thickness": 0.04,
+   "finish": "walnut",
+   "hinge": "south",
+   "open_deg": 180,
+   "held_open": "floor drop-bolt",
+   "lock": "key cylinder outside; flush and unclimbable when closed"
+  },
+  "toe_clearance": 0.2,
+  "climb": 3.7
+ },
+ "guardrail_setback": {
+  "height": 1.1,
+  "setback": 1.0,
+  "lines": [
+   [
+    [
+     0.875,
+     19.25
+    ],
+    [
+     0.875,
+     23.125
+    ],
+    [
+     4.25,
+     23.125
+    ]
+   ],
+   [
+    [
+     12.436,
+     19.25
+    ],
+    [
+     12.436,
+     23.125
+    ],
+    [
+     10.0,
+     23.125
+    ]
+   ]
+  ]
+ },
+ "outdoor_kitchen": {
+  "ground": -0.3,
+  "counter": [
+   13.45,
+   20.8,
+   14.05,
+   23.6
+  ],
+  "counter_top": 0.6,
+  "grill": [
+   15.0,
+   27.4,
+   17.3,
+   28.9
+  ],
+  "platform_top": 0.15
+ },
  "roof_design": {
   "cornice": {
    "z0": 6.9,
@@ -4291,15 +3712,15 @@
    "overhang": 0.03
   },
   "parapet_south": {
-   "wall_top": 8.32,
-   "top": 8.4,
+   "wall_top": 7.92,
+   "top": 8.0,
    "overhang": 0.03
   },
   "attic": {
    "setback": 1.0,
    "thickness": 0.2,
-   "wall_top": 9.0,
-   "top": 9.1,
+   "wall_top": 8.6,
+   "top": 8.7,
    "overhang": 0.03,
    "y_south": 19.25,
    "doors": [
@@ -4317,19 +3738,97 @@
     ],
     [
      "11.0 19.25 11.8 19.25",
-     "to the office roof and the stair tower (V8.0)"
+     "to the office roof"
     ]
    ],
    "line_wkt": "POLYGON ((0.875 19.25, 12.436 19.25, 12.436 6.2223575028077205, 9.530602423474472 0.875, 0.875 0.875, 0.875 19.25))",
    "length": 57.705
   },
-  "stair_tower": {
-   "top": 9.6,
-   "box": [
-    13.436,
-    18.22,
-    16.036,
-    24.0
+  "ladder": {
+   "pilaster": [
+    4.35,
+    20.65,
+    4.7,
+    21.95
+   ],
+   "recess": [
+    4.4,
+    20.85,
+    4.7,
+    21.75
+   ],
+   "rung_x": 4.6,
+   "stiles_y": [
+    21.05,
+    21.55
+   ],
+   "stile_top": 8.4,
+   "rungs": [
+    7.3,
+    7.02,
+    6.74,
+    6.46,
+    6.18,
+    5.9,
+    5.62,
+    5.34,
+    5.06,
+    4.78,
+    4.5,
+    4.22,
+    3.94
+   ],
+   "foot": 3.6,
+   "roof_finish": 7.3,
+   "gate": [
+    4.25,
+    20.85,
+    4.25,
+    21.75
+   ],
+   "panel": {
+    "thickness": 0.04,
+    "finish": "walnut",
+    "hinge": "south",
+    "open_deg": 180,
+    "held_open": "floor drop-bolt",
+    "lock": "key cylinder outside; flush and unclimbable when closed"
+   },
+   "toe_clearance": 0.2,
+   "climb": 3.7
+  },
+  "guardrail_setback": {
+   "height": 1.1,
+   "setback": 1.0,
+   "lines": [
+    [
+     [
+      0.875,
+      19.25
+     ],
+     [
+      0.875,
+      23.125
+     ],
+     [
+      4.25,
+      23.125
+     ]
+    ],
+    [
+     [
+      12.436,
+      19.25
+     ],
+     [
+      12.436,
+      23.125
+     ],
+     [
+      10.0,
+      23.125
+     ]
+    ]
    ]
   },
   "hrv_base": {
@@ -4566,7 +4065,7 @@
      23.935,
      6.0
     ],
-    "windows": 20
+    "windows": 21
    },
    {
     "name": "chr_base_steel_window_frames",
@@ -4580,7 +4079,7 @@
      23.95,
      6.6
     ],
-    "windows": 39
+    "windows": 40
    },
    {
     "name": "chr_base_steel_window_lites",
@@ -4594,7 +4093,7 @@
      23.9425,
      6.55
     ],
-    "bars": 81
+    "bars": 82
    },
    {
     "name": "chr_base_plaster_arch_spandrels",
@@ -5311,7 +4810,7 @@
      3.6,
      5.0,
      23.8,
-     4.05
+     4.2
     ]
    },
    {
@@ -5319,12 +4818,25 @@
     "group": "props",
     "material": "foliage",
     "bounds": [
-     4.38,
-     23.18,
-     4.13,
-     5.02,
-     23.82,
-     4.77
+     4.15,
+     22.95,
+     4.95,
+     5.25,
+     24.05,
+     6.05
+    ]
+   },
+   {
+    "name": "chr_props_trunk_court_tree_stem_4",
+    "group": "props",
+    "material": "trunk",
+    "bounds": [
+     4.65,
+     23.45,
+     4.2,
+     4.75,
+     23.55,
+     5.1
     ]
    },
    {
@@ -5351,45 +4863,6 @@
      9.87,
      23.82,
      4.77
-    ]
-   },
-   {
-    "name": "chr_props_stone_court_pot_6",
-    "group": "props",
-    "material": "stone",
-    "bounds": [
-     4.4,
-     20.75,
-     3.6,
-     5.0,
-     21.35,
-     4.2
-    ]
-   },
-   {
-    "name": "chr_props_foliage_court_plant_6",
-    "group": "props",
-    "material": "foliage",
-    "bounds": [
-     4.15,
-     20.5,
-     4.95,
-     5.25,
-     21.6,
-     6.05
-    ]
-   },
-   {
-    "name": "chr_props_trunk_court_tree_stem_6",
-    "group": "props",
-    "material": "trunk",
-    "bounds": [
-     4.65,
-     21.0,
-     4.2,
-     4.75,
-     21.1,
-     5.1
     ]
    },
    {
@@ -5695,7 +5168,7 @@
     "reveal": 0.2
    },
    {
-    "index": 56,
+    "index": 55,
     "floor": "FF",
     "name": "kids' room north window",
     "a": [
@@ -5714,7 +5187,7 @@
     "reveal": 0.2
    },
    {
-    "index": 57,
+    "index": 56,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5733,7 +5206,7 @@
     "reveal": 0.2
    },
    {
-    "index": 58,
+    "index": 57,
     "floor": "FF",
     "name": "bedroom 3 bath window",
     "a": [
@@ -5752,7 +5225,7 @@
     "reveal": 0.2
    },
    {
-    "index": 59,
+    "index": 58,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5771,7 +5244,7 @@
     "reveal": 0.2
    },
    {
-    "index": 60,
+    "index": 59,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5790,7 +5263,7 @@
     "reveal": 0.2
    },
    {
-    "index": 61,
+    "index": 60,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5809,7 +5282,7 @@
     "reveal": 0.2
    },
    {
-    "index": 62,
+    "index": 61,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5828,7 +5301,7 @@
     "reveal": 0.2
    },
    {
-    "index": 63,
+    "index": 62,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5847,7 +5320,7 @@
     "reveal": 0.2
    },
    {
-    "index": 64,
+    "index": 63,
     "floor": "FF",
     "name": "gym south window (v2: the gym on the west band; the TV on the wall in front of the treadmill, x 0.45-1.65)",
     "a": [
@@ -5866,9 +5339,9 @@
     "reveal": 0.2
    },
    {
-    "index": 65,
+    "index": 64,
     "floor": "FF",
-    "name": "owner's office south window (east; its east wall is covered by the stair tower)",
+    "name": "owner's office south window (V8.1: and a 0.90 east window at y 22.8\u201323.7, default heights)",
     "a": [
      10.5,
      24.0
@@ -5880,6 +5353,25 @@
     "normal": [
      -0.0,
      1.0
+    ],
+    "offset": -0.075,
+    "reveal": 0.2
+   },
+   {
+    "index": 65,
+    "floor": "FF",
+    "name": "default window",
+    "a": [
+     13.311,
+     22.8
+    ],
+    "b": [
+     13.311,
+     23.7
+    ],
+    "normal": [
+     1.0,
+     -0.0
     ],
     "offset": -0.075,
     "reveal": 0.2
@@ -5906,14 +5398,14 @@
    {
     "index": 67,
     "floor": "FF",
-    "name": "suite bedroom east window (1 Nov 2026: shortened from y 18.6 to clear the external stair tower's north wall at y 18.22)",
+    "name": "suite bedroom east window, its escape window (y 15.0\u201318.6)",
     "a": [
      13.311,
      15.0
     ],
     "b": [
      13.311,
-     17.9
+     18.6
     ],
     "normal": [
      1.0,
@@ -5923,7 +5415,7 @@
     "reveal": 0.2
    }
   ],
-  "frames": 39,
+  "frames": 40,
   "mashrabiya": [
    {
     "name": "chr_base_timber_mashrabiya_00",
@@ -6045,7 +5537,7 @@
    "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
    "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)"
   ],
-  "lites": 81,
+  "lites": 82,
   "arched_windows": [
    {
     "label": "W1-1",
@@ -6263,7 +5755,7 @@
    }
   },
   "suite_court": {
-   "furniture": 7,
+   "furniture": 6,
    "guards": [
     [
      [
@@ -6277,6 +5769,16 @@
      [
       4.25,
       20.55
+     ],
+     [
+      4.25,
+      20.85
+     ]
+    ],
+    [
+     [
+      4.25,
+      21.75
      ],
      [
       4.25,
@@ -6329,6 +5831,7 @@
    "gf_glass_027",
    "gf_glass_028",
    "gf_glass_029",
+   "ff_glass_055",
    "ff_glass_056",
    "ff_glass_057",
    "ff_glass_058",
@@ -6436,20 +5939,20 @@
   },
   "assign": [
    [
-    "ext_tower_cornice|ext_tower_coping|ext_tower_plinth",
+    "ff_ladder_panel",
+    "timber"
+   ],
+   [
+    "ff_ladder_pilaster|ext_kitchen_counter|ext_kitchen_grill",
     "stone"
    ],
    [
-    "ext_tower_flight|ext_tower_landing|ext_tower_floor",
-    "stone_light"
-   ],
-   [
-    "ext_tower_gate|ext_tower_rail",
-    "steel"
-   ],
-   [
-    "ext_tower_wall|ext_tower_roof",
+    "ext_kitchen_tannour",
     "plaster"
+   ],
+   [
+    "ff_ladder_stile|ff_ladder_rung|roof_ladder_gate|roof_guardrail_setback",
+    "steel"
    ],
    [
     "roof_air_base_door",

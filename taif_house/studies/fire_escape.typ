@@ -114,7 +114,7 @@
   ("Men's majlis", ((12.5, 21.6), (3.0, 22.6), (2.75, 23.0), (0.0, 22.2)), [foyer → guest door]),
 )
 
-// ---------- the first floor's exits (1 Nov 2026 after V8.0): ONE stair + the escape windows (the home-level strategy); the external stair tower is REMOVED ----------
+// ---------- the first floor's exits (V8.1): ONE stair + the escape windows (the home-level strategy) ----------
 // the suite court is a FRESH-AIR AREA for the suite, the gym and the office (open to the sky, walled, no way down), not an exit and not an approved refuge;
 // the maintenance ladder in it (studies/roof.typ page 2) goes UP to the roof behind a locked panel: it is no escape device and the roof is no escape route
 #let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window
@@ -182,7 +182,7 @@
     - *Maid window:* net #r2(rows.last().e.clear-w) × #r2(rows.last().e.clear-h) = #r2(rows.last().e.area) m², one movement, no screen, the strip outside open at both ends: #OK.
     - *Bedroom windows and rescue from outside:* all pass; the west strip is 0.785 m wide and a ladder needs the driveway beyond the M line: #NV → note for the site plan (page 2).
     - *Exit doors:* the family entrance 0.90 m clear (egress door #OK); the service door 0.80 and the guest double door 1.30 clear with both leaves (secondary exits); thumb-turns on all three: a hardware specification (#OK once specified).
-    - *The first floor's exits (1 Nov 2026 after V8.0):* the *main stair* and the *escape windows* of every sleeping room: the home-level strategy of one exit stair per dwelling plus emergency escape openings (IRC R310 / R311 type, #NV against the SBC wording). The external stair tower is *removed*, so there is *no second stair*. *The suite court's role, honestly:* a *fresh-air area* for whoever is in the suite, the gym or the office when the gallery is full of smoke: open to the sky, walled on four sides, with *no way down* (the walls are 4 m; a rescue ladder cannot reach it inside the roof); its north side is the double-height living's wall with the two openable clerestory vents (+5.00 … +6.00) through which the living's smoke may come out, so one waits at its *south end*. The maintenance ladder in the court goes *up* to the roof behind a locked panel: it is *not an escape device*, and the roof is not an escape route. The court is neither an exit nor an approved refuge: the plan (page 4) says "open your window / go to the court for air, call 998, show yourself".
+    - *The first floor's exits (V8.1):* the *main stair* and the *escape windows* of every sleeping room: the home-level strategy of one exit stair per dwelling plus emergency escape openings (IRC R310 / R311 type, #NV against the SBC wording). There is *no second stair*. *The suite court's role, honestly:* a *fresh-air area* for whoever is in the suite, the gym or the office when the gallery is full of smoke: open to the sky, walled on four sides, with *no way down* (the walls are 4 m; a rescue ladder cannot reach it inside the roof); its north side is the double-height living's wall with the two openable clerestory vents (+5.00 … +6.00) through which the living's smoke may come out, so one waits at its *south end*. The maintenance ladder in the court goes *up* to the roof behind a locked panel: it is *not an escape device*, and the roof is not an escape route. The court is neither an exit nor an approved refuge: the plan (page 4) says "open your window / go to the court for air, call 998, show yourself".
     #v(2pt)
     #text(7.5pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
   ],
@@ -200,7 +200,7 @@
     #table(columns: (1.2fr, auto, 2fr), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
       [*Ground floor from*], [*to the exit*], [*Through*],
       ..routes-gf.map(((n, P, l)) => ([#n], [#r1(plen(P)) m], text(6.2pt, l))).flatten())
-    #text(6.2pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides; #r1(stair-len) m walked on it; since V8.0 it stops at the first floor; the roof is reached by the maintenance ladder in the suite court (after V8.0; not an escape route, § 1).]
+    #text(6.2pt, fill: gray)[The stair: two flights 1.21 m clear, risers 0.164, goings 0.28, headroom 2.14 m, handrails both sides; #r1(stair-len) m walked on it; since V8.0 it stops at the first floor; the roof is reached by the maintenance ladder in the suite court (V8.1; not an escape route, § 1).]
   ],
 )
 
@@ -353,7 +353,7 @@
   ],
 )
 
-// ====================================================================================== the suite court's role (after V8.0): a fresh-air area, not an exit
+// ====================================================================================== the suite court's role (V8.1): a fresh-air area, not an exit
 #v(4pt)
-#text(10pt, weight: "bold", fill: accent)[The suite court after V8.0: a fresh-air area, not an exit]
-#text(6.6pt)[The external stair tower (V8.0) and the route house → court → office → stair are *removed* (owner, 1 Nov 2026 after V8.0). The first floor has *one* stair; every sleeping room has its escape window (the suite bedroom's restored to y 15.0–18.6, #r2(3.6) m² gross). The court is open to the sky, walled on four sides, 4 m above the garden, with no way down; the maintenance ladder in it climbs *up* to the roof behind a locked walnut panel (`studies/roof.typ` page 2) and is no escape device. Its clerestory vents are the living's smoke outlets: wait at the court's south end. *Counted as:* a place for air and a phone call, nothing more. The second-way-out question is closed with the home-level strategy; if the owner ever wants a second stair, it returns as a decision, not as a drawing.]
+#text(10pt, weight: "bold", fill: accent)[The suite court (V8.1): a fresh-air area, not an exit]
+#text(6.6pt)[The first floor has *one* stair (V8.1); every sleeping room has its escape window (the suite bedroom's at y 15.0–18.6, #r2(3.6) m² gross). The court is open to the sky, walled on four sides, 4 m above the garden, with no way down; the maintenance ladder in it climbs *up* to the roof behind a locked walnut panel (`studies/roof.typ` page 2) and is no escape device. Its clerestory vents are the living's smoke outlets: wait at the court's south end. *Counted as:* a place for air and a phone call, nothing more. The second-way-out question is closed with the home-level strategy; if the owner ever wants a second stair, it returns as a decision, not as a drawing.]

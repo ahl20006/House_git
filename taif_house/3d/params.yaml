@@ -1,7 +1,7 @@
-# params.yaml · Taif / Palm House V8.0 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
+# params.yaml · Taif / Palm House V8.1 · every dimension the 3D model uses (metres). Nothing is hard-coded in build_3d.py.
 # The geometry itself (rooms, outline, voids, projection, doors, windows, stair, columns, beams) is read from the project files;
 # these are only the levels, thicknesses, heights and the view settings. Every value marked "assumed" is to be confirmed.
-version: V8.0
+version: V8.1
 
 levels:                 # FINISHED floor levels (the levels of the plans and sections); to confirm with the engineer (OPEN_ITEMS.md item 6)
   gf_floor: 0.00        # ground floor finished level ±0.00
@@ -58,10 +58,10 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: GF, at: "5.4 0 7.8 0", sill: 0.9, head: 2.4, note: "women's majlis north window"}
     - {floor: FF, at: "0 14.6 0 15.2", sill: 1.5, head: 2.1, note: "bedroom 3 bath window"}
     - {floor: FF, at: "13.311 9.5 13.311 10.05", sill: 1.5, head: 2.1, note: "suite bath east window, 0.55 m, y 9.50–10.05 (X3, V6.3: its frame clears C33 by 0.05 m)"}
-    - {floor: FF, at: "13.311 15.0 13.311 18.6", sill: 0.9, head: 2.4, note: "suite bedroom east window (after V8.0 restored to y 18.6: the external stair tower is removed)"}
+    - {floor: FF, at: "13.311 15.0 13.311 18.6", sill: 0.9, head: 2.4, note: "suite bedroom east window, its escape window (y 15.0–18.6)"}
     - {floor: FF, at: "5.3 0 8.7 0", sill: 0.9, head: 2.4, note: "kids' room north window"}
     - {floor: FF, at: "2.0 24 3.9 24", sill: 1.2, head: 2.4, note: "gym south window (v2: the gym on the west band; the TV on the wall in front of the treadmill, x 0.45-1.65)"}
-    - {floor: FF, at: "10.5 24 12.8 24", sill: 0.9, head: 2.4, note: "owner's office south window (east; its east wall is covered by the stair tower)"}
+    - {floor: FF, at: "10.5 24 12.8 24", sill: 0.9, head: 2.4, note: "owner's office south window (V8.1: and a 0.90 east window at y 22.8–23.7, default heights)"}
     - {floor: FF, at: "6.0 19.25 7.0 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00 (studies/sections.typ cl-sill / cl-head)"}
     - {floor: FF, at: "7.6 19.25 8.6 19.25", sill: 1.4, head: 2.4, note: "clerestory window of the double-height living = +5.00 … +6.00"}
     # V6.4 · courtyard enclosure option A (studies/courtyard_enclosure.typ): black steel divided-lite windows; the gallery and family living edges are no longer open edges (3d/open_edges.csv)
@@ -96,22 +96,21 @@ projection:
   # its exact edge (x 5.8) is read from studies/ff_family.typ (proj-x) and checked against this width
 
 roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): the roofline and the stair to the roof, all sizes assumed
-                        # V8.0: the INTERNAL STAIR STOPS AT THE FIRST FLOOR; the HRV base under the malqaf. After V8.0 (owner, 1 Nov 2026): the EXTERNAL STAIR TOWER IS REMOVED
-                        # (its block deleted: the builder skips it); the roof by the MAINTENANCE LADDER in the suite court (ladder below, not built yet); the attic lowered, the
-                        # south parapet 0.70 with a set-back GUARDRAIL (guardrail_setback below, not built yet): the model is rebuilt at the release (docs/PENDING_CHANGES.md)
+                        # V8.0: the internal stair stops at the first floor; the HRV base under the malqaf. V8.1: the roof by the MAINTENANCE LADDER in the suite court (ladder),
+                        # the attic 1.40 m above the roof finish, the south parapet 0.70 with a set-back GUARDRAIL (guardrail_setback)
   cornice: {z0: 6.90, h: 0.45, proj: 0.30}          # the main honey-stone cornice on the facade edge all round
   band: {z0: 3.40, h: 0.12, proj: 0.08}             # the thin stone cornice between the floors
   coping_north: {wall_top: 7.57, top: 7.65, overhang: 0.03}   # the north block: a 0.30 upstand on the cornice with its coping (the facade top)
-  parapet_south: {wall_top: 7.92, top: 8.00, overhang: 0.03}  # the south wing (y ≥ 19.25): after V8.0 a low parapet 0.70 above the roof finish (was 1.10 / +8.40); the fall protection is the set-back guardrail
+  parapet_south: {wall_top: 7.92, top: 8.00, overhang: 0.03}  # the south wing (y ≥ 19.25): V8.1 a low parapet 0.70 above the roof finish (was 1.10 / +8.40); the fall protection is the set-back guardrail
   attic:                                              # the roof screen on the north block, set back from the facade face; its south wall on the y 19.25 line
     setback: 1.0
     thickness: 0.20
-    wall_top: 8.60                                    # after V8.0: 1.40 above the roof finish, coping included (was 9.00 / 9.10 = 1.80)
+    wall_top: 8.60                                    # V8.1: 1.40 above the roof finish, coping included (was 9.00 / 9.10 = 1.80)
     top: 8.70
     overhang: 0.03
     y_south: 19.25
-    doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the gym roof"], ["11.0 19.25 11.8 19.25", "to the office roof"]]   # 0.80 openings, full height of the 1.3 m screen (gated and locked to the strip: after V8.0 the strip is a no-go zone)
-  ladder:                                             # after V8.0 (owner, 1 Nov 2026; studies/roof.typ page 2): the maintenance ladder to the roof in the suite court, NOT BUILT YET (the release)
+    doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the gym roof"], ["11.0 19.25 11.8 19.25", "to the office roof"]]   # 0.80 openings, full height of the 1.3 m screen (gated and locked to the strip: V8.1 the strip is a no-go zone)
+  ladder:                                             # V8.1 (studies/roof.typ page 2): the maintenance ladder to the roof in the suite court
     pilaster: [4.35, 20.65, 4.70, 21.95]              # a honey-stone pilaster added on the court face of the gym's east wall (the 0.20 wall is not cut), full height +3.60 … +7.30
     recess: [4.40, 20.85, 4.70, 21.75]                # 0.90 wide, 0.30 deep; the back a 0.05 lining on the wall face
     stiles_y: [21.05, 21.55]                          # 0.50 overall, rungs 0.40 clear; manufactured vertical ladder, black matte, non-slip rungs, corrosion-protected, central fall-arrest rail
@@ -123,19 +122,26 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     gate: [4.25, 20.85, 4.25, 21.75]                  # the self-closing gate in the court's west guard, opening west onto the gym roof
     pad: [3.3, 20.8, 4.15, 21.8]                      # the standing landing on the gym roof, inside the guards
     light_drain: "IP65 light in the recess head; a slot drain at the pilaster's foot into the court's drain line"
-  guardrail_setback:                                  # after V8.0: the continuous 1.10 m black steel guardrail set back 1.0 m from the south wing's west, south and east faces, NOT BUILT YET
+  guardrail_setback:                                  # V8.1: the continuous 1.10 m black steel guardrail set back 1.0 m from the south wing's west, south and east faces
     height: 1.10
     setback: 1.0                                      # from the outer facade face (0.875 from the wall centre lines); the strip outside it is a no-go zone
     lines: [[[0.875, 19.25], [0.875, 23.125], [4.25, 23.125]], [[12.436, 19.25], [12.436, 23.125], [10.0, 23.125]]]   # from the attic's end walls to the court guards
   hrv_base:                                           # V8.0 (air system v3.1): the HRV base under the malqaf tower, one mass with it
     pts: [[8.95, 1.0], [10.594, 1.0], [11.898, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line and the cut facade line
     wall: 0.20
-    top: 9.10                                         # after V8.0 0.40 above the lowered attic coping (+8.70): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
+    top: 9.10                                         # V8.1 0.40 above the lowered attic coping (+8.70): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
     slab: 0.15
     doors: [1.3, 2.8]                                 # y: a pair of doors in its west face (the unit behind them, filters and core pulled from the roof)
     door_head: 8.80
     exhaust: [2.7, 3.05, 7.6, 8.3]                    # y0 y1 z0 z1: the exhaust louvre on its cut face
   guard: {height: 1.10, post_spacing: 1.5, bar: 0.04}   # black steel bar guards round the courtyard sky hole and the suite court's open edges
+
+outdoor_kitchen:        # V8.1 (design_gf.typ site outlines): the counter and sink against the east wall at the south-east, on the path from the kitchen service door; the grill and tannour apart
+  ground: -0.30         # the ground outside the house
+  counter: [13.45, 20.8, 14.05, 23.6]   # on the east wall face (x 13.436): the house's afternoon shade; a canopy proposed (not modelled)
+  counter_top: 0.60     # 0.90 above the ground
+  grill: [15.0, 27.4, 17.3, 28.9]       # a stone platform with the grill and the tannour: ≥ 3 m from every opening and the palms, downwind (NW wind) of the house and far from the HRV intake
+  platform_top: 0.15
 
 sun:                    # Taif; true north from base.typ (#let north), the plans' north is 21.4° west of true north
   latitude: 21.4
@@ -166,6 +172,6 @@ sources:                # where build_3d.py reads the geometry (paths from taif_
   air_system: studies/air_system.typ   # "#let air-*": the tower head, base box, tunnel route, water channel and outlet chamber (all assumed)
 
 output:
-  glb: 3d/output/taif_house_V8.0.glb
-  viewer_data: 3d/output/taif_house_V8.0.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
+  glb: 3d/output/taif_house_V8.1.glb
+  viewer_data: 3d/output/taif_house_V8.1.js   # the same GLB as base64 + the rooms, flags, sun and bookmarks, so viewer.html works from file://
   summary: 3d/output/model_summary.json       # what was built, for 3d/check_3d.py

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V8.0.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V8.1.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
      URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
@@ -51,7 +51,7 @@
   <div class="views">
     <button data-view="nw">north-west</button><button data-view="se">south-east</button><button data-view="top_gf">plan GF</button><button data-view="top_ff">plan FF</button><button data-view="top_air">air system (underground)</button><br>
     <button class="eye" data-view="eye1">eye 1 · living → courtyard</button><button class="eye" data-view="eye2">eye 2 · courtyard → colonnade</button><button class="eye" data-view="eye3">eye 3 · landing → gallery</button><br>
-    <button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_se">aerial SE</button><button class="chr" data-view="courtyard">courtyard → arcade</button><button class="chr" data-view="suite_court">suite court</button><button class="chr" data-view="living">living → courtyard</button><button class="chr" data-view="tv">living → TV wall</button><button class="chr" data-view="w3">living → arched window W3</button><button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
+    <button class="chr" data-view="north">north facade</button><button class="chr" data-view="aerial_se">aerial SE</button><button class="chr" data-view="courtyard">courtyard → arcade</button><button class="chr" data-view="suite_court_sw">suite court → ladder</button><button class="chr" data-view="suite_court">suite court → north</button><button class="chr" data-view="living">living → courtyard</button><button class="chr" data-view="tv">living → TV wall</button><button class="chr" data-view="w3">living → arched window W3</button><button class="chr" data-view="street">street · guest entrance</button><button class="chr" data-view="aerial_sw">aerial SW</button><button class="chr" data-view="night">courtyard at night</button>
   </div>
   <label>sun (Taif, true north from base.typ): <select id="sun"><option value="">off</option></select></label>
   <div id="legend"><span style="background:#ebb032"></span>assumed, not approved by the engineer &nbsp; <span style="background:#cd372d"></span>unconfirmed load path (X5) &nbsp; <span style="background:#78b9e1"></span>glass &nbsp; <span style="background:#464650"></span>railings<br>
@@ -65,7 +65,7 @@
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
-<script src="output/taif_house_V8.0.js"></script>
+<script src="output/taif_house_V8.1.js"></script>
 <script>
 (function () {
   const q = new URLSearchParams(location.search);
@@ -81,7 +81,7 @@
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
     $('pergola').checked = !!CH.defaults.pergola; $('sunken').checked = !!CH.defaults.sunken;
-    $('chrnote').textContent = 'V8.0: the courtyard seating one step down, the TV wall and the water / tree enclosure; the suite court v2; the external stair tower; the malqaf on its HRV base; no stair room';
+    $('chrnote').textContent = 'V8.1: the roof ladder in the suite court (its walnut panel, the stiles above the roof), the attic 1.40 m, the south parapet 0.70 with the set-back guardrail, the outdoor kitchen; V8.0: the courtyard seating one step down, the TV wall, the water / tree enclosure, the suite court v2, the malqaf on its HRV base';
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
 
