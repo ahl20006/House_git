@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V8.1 · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V8.1_presentation.pdf
+// presentation.typ · Taif / Palm House V8.2 · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V8.2_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -13,6 +13,7 @@
 #import "studies/guest_wing.typ" as gw
 #import "studies/sections.typ" as sec
 #import "studies/roof.typ" as rf
+#import "studies/site_plan.typ" as sp   // V8.2: the site and services plan (study: every position proposed, to confirm with the survey and the engineers)
 
 // ================= sheet look (A3 landscape) =================
 #let dark = rgb("#22352e")
@@ -31,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V8.1])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V8.2])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -372,7 +373,7 @@
 }
 
 // ===================================================================================== SHEET 01 · site
-#sheet-head([The house on its site], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls])
+#sheet-head([The house on its site · the site and services plan], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls | V8.2: the site plan (`studies/site_plan.typ`, every position proposed, to confirm with the survey and the engineers)])
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: 0.52cm, {
     import cetz.draw: *
@@ -380,6 +381,25 @@
     line(..env.map(q), close: true, fill: rgb("#e3eedb"), stroke: (paint: accent, dash: "dashed", thickness: 0.7pt))
     line(..drv.map(q), close: true, fill: rgb("#d6e2ea"), stroke: 0.6pt + rgb("#2f5f8a"))
     line(..lane.map(q), stroke: 1.4pt + dark); line(..nwall.map(q), stroke: 1.4pt + dark)
+    // V8.2 · the site plan (study): the garden, the parking bay, the paths, the garden wall, the hedge, the yard screen and the gas cabinet, the foul chambers and the rain chamber
+    line(..sp.garden.map(q), close: true, fill: rgb("#d5e8c8"), stroke: (paint: rgb("#2f7a3f"), thickness: 0.6pt, dash: "dashed"))
+    rect(q((sp.park-opt.at(0), sp.park-opt.at(1))), q((sp.park-opt.at(2), sp.park-opt.at(3))), fill: rgb("#d6e2ee"), stroke: 0.6pt + rgb("#2f5f8a"))
+    line(..sp.path-family.map(q), stroke: (paint: rgb("#b5452f"), thickness: 1.2pt, dash: "dashed"), mark: (end: "stealth", fill: rgb("#b5452f"), scale: 0.5))
+    line(..sp.path-guest.map(q), stroke: 2.2pt + rgb("#c9a86a"), mark: (end: "stealth", fill: rgb("#c9a86a"), scale: 0.5))
+    line(..sp.path-workers.map(q), stroke: (paint: luma(110), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(110), scale: 0.5))
+    line(q(sp.lowwall.at(0)), q(sp.lowwall.at(1)), stroke: 2.6pt + rgb("#c9a86a"))
+    line(q(sp.hedge.at(0)), q(sp.hedge.at(1)), stroke: 2.6pt + rgb("#2f7a3f"))
+    line(q(sp.screen.at(0)), q(sp.screen.at(1)), stroke: 2pt + dark)
+    rect(q((sp.gas-box.at(0), sp.gas-box.at(1))), q((sp.gas-box.at(2), sp.gas-box.at(3))), fill: rgb("#ffe08a"), stroke: 0.6pt + rgb("#b5452f"))
+    for P in sp.sewer { line(..P.map(q), stroke: (paint: rgb("#8a5a2b"), thickness: 0.9pt, dash: "dashed")) }
+    for c in (sp.manhole-e, sp.ch-ne, sp.ch-n, sp.ch-w, sp.ch-gate) { circle(q(c), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#8a5a2b")) }
+    circle(q(sp.rain-ch), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#1f7a99"))
+    content(q((7.7, 2.15)), text(5.5pt, fill: rgb("#2f5f8a"))[family car (kept)])
+    content(q((9.0, 34.0)), text(7pt, fill: rgb("#2f7a3f"))[FAMILY GARDEN])
+    content(q((-2.0, 30.0)), angle: 90deg, text(6pt, fill: rgb("#8a5a2b"))[guest path])
+    content(q((18.5, 17.9)), text(5.5pt, fill: rgb("#2f7a3f"))[hedge 1.8 m])
+    content(q((17.0, 13.3)), anchor: "west", text(5.5pt, fill: rgb("#b5452f"))[LPG])
+    content(q((-2.6, 2.4)), anchor: "east", text(5.5pt, fill: rgb("#8a5a2b"))[→ septic (outside the wall near C1)])
     draw-floor(gf-rooms, gf-walls, (), (), (), shift: shift, labels: false, mini: true)
     for (T, n) in ((T1, [P1]), (T2, [P2])) {
       circle(q(T), radius: 1.0, fill: rgb("#cfdfc3"), stroke: 0.5pt + accent)
@@ -410,6 +430,8 @@
       *Roof access (V8.1):* a maintenance ladder in a recess of the gym's east wall in the suite court, behind a locked walnut panel; the internal stair stops at the first floor; office visitors are met in the men's majlis. One entry to the site: the farm's 4 m main gate.
 
       *Walls on walls:* the first-floor outer walls stand on the ground-floor outer walls, #n3(sec.pj.m-gap) m from the M line; no projection beyond the ground floor.
+
+      *Site and services plan (V8.2, a study; every position proposed, to confirm with the survey and the engineers):* one entry, the farm's 4 m gate; the family's covered parking beyond the plot and one uncovered car in the north strip (kept); guests walk the honey-stone *guest path* along the driveway to their entrance; workers reach the *service yard* (bins, screen, LPG cabinet) along the north and lane-side strips; the *family garden on the south only*, behind a 1.2 m stone wall and a 1.8 m hedge. Foul drains to the existing *septic outside the wall near corner C1*; the water tank east of peg R with the reserved tank beside it; rainwater separate; PV provision with the inverter and batteries in the utility room, no generator; intercom and seven cameras. The plumbing study (rounds 1–2) is a proposal.
     ]
     #ar[
       #ah[المنزل]
@@ -420,6 +442,8 @@
       سلم صيانة في تجويف بجدار النادي داخل فناء الجناح خلف لوح خشبي مقفل؛ الدرج الداخلي يتوقف عند الدور الأول؛ زوار المكتب يُستقبلون في مجلس الرجال. مدخل واحد للموقع: البوابة الرئيسية للمزرعة بعرض 4 م.
       #ah[جدار فوق جدار]
       الجدران الخارجية للدور الأول فوق جدران الأرضي، على بعد #n3(sec.pj.m-gap) م من خط M، ولا بروز خارج الأرضي.
+      #ah[مخطط الموقع والخدمات (V8.2، دراسة)]
+      مدخل واحد (بوابة المزرعة 4 م)؛ موقف سيارة مكشوف في الشريط الشمالي؛ ممر حجري للضيوف بمحاذاة الممر الغربي؛ ساحة الخدمة شرقا؛ حديقة العائلة جنوبا فقط خلف جدار حجري وسياج؛ الصرف إلى خزان التحليل القائم خارج السور قرب C1؛ خزان الماء شرق الوتد R؛ الأمطار منفصلة؛ تجهيز شمسي بلا مولد. كل موقع مقترح حتى الرفع المساحي.
     ]
   ],
 )
@@ -445,7 +469,7 @@
     #en[
       *Middle band:* the women's majlis #wd(gf-rooms, "Women's majlis") m, the courtyard #wd(gf-rooms, "Courtyard") m (#court-clear m clear, open to the sky) and the living room in two heights: double height on the courtyard, normal height with the dining to the east. The living is entered from the riwaq through a #dw((4.25, 13.1)) m arched opening; its west wall is solid and full height with the arched TV niche (V6.3).
 
-      *West band:* entry cupboard and the lift (installed at construction, V6.3), the open stair, the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
+      *West band:* the lift (installed at construction, V6.3), the open stair (flipped, V8.2: the lower flight rises south off the lobby behind a black-bar balustrade; a full-height coat cupboard in the west half of its start strip, the store under the half landing at the south end), the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
 
       *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the air tower in the cut corner. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall, with a three-arch arcade in the courtyard bay (V7.1).
 
@@ -455,7 +479,7 @@
       #ah[الوسط: مجلس النساء والفناء والصالة]
       الفناء #wd(gf-rooms, "Courtyard") م على المحاور و#court-clear م صافيا مفتوح للسماء. الصالة بسقفين: ارتفاع مزدوج على الفناء وارتفاع عادي مع الطعام شرقا، وتُدخل من الرواق عبر فتحة مقوسة #dw((4.25, 13.1)) م؛ جدارها الغربي مصمت كامل الارتفاع مع كوة التلفاز المقوسة (V6.3).
       #ah[الشريط الغربي والرواق]
-      دولاب المدخل والمصعد المستقبلي والدرج المفتوح وغرفة الخدمات مع الشفت ثم كتلة المغاسل (اللوحة 06). الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
+      المصعد والدرج المفتوح (معكوس الاتجاه في V8.2: الجزء السفلي يصعد جنوبا من الردهة خلف درابزين أسود، ودولاب المعاطف في النصف الغربي من شريط البداية) وغرفة الخدمات مع الشفت ثم كتلة المغاسل (اللوحة 06). الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
       #ah[الكتلة الشرقية ومجلس الرجال]
       المطبخ والغسيل وغرفة الخادمة وحمامها وبرج الهواء (اللوحة 06). مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا شفت شرقي.
       #ah[الأعمدة والرواق]

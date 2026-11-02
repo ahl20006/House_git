@@ -523,6 +523,61 @@ def build(g):
                         "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel "
                         "divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two Ø%g stone columns, three semicircular arches under the projection, decorative) "
                         "and semicircular heads on the enclosure windows W1–W3; the living bay keeps no arches (owner, V6.3)" % (cl["diameter"], C["arcade"]["columns"]["diameter"]))
+    # ---------- V8.2 · the suite court's south side: the mashrabiya screen (owner, 2 Nov 2026: option b adopted) on the 1.10 base up to the frame soffit ----------
+    ssd = sc["south_side"]
+    if ssd.get("chosen") == "b":
+        scn = ssd["screen"]
+        sx0, sx1 = P["suite_court"]["south_x"]
+        ya_ = OUTLINE[3][1]                                               # the south wall's centre line (y 24.0)
+        a_, b_ = (sx0 + T_IN / 2, ya_), (sx1 - T_IN / 2, ya_)
+        z0_, z1_ = summary["suite_court"]["base_top"], summary["suite_court"]["frame_soffit"]
+        (ux_, uy_), L_ = unit(a_, b_)
+        f_, s_, (px_, pz_) = scn["frame"], scn["slat"], scn["pitch"]
+        bars_ = [box(0, z0_, L_, z0_ + f_), box(0, z1_ - f_, L_, z1_), box(0, z0_, f_, z1_), box(L_ - f_, z0_, L_, z1_)]
+        x_ = f_ + px_
+        while x_ < L_ - f_ - s_ / 2:
+            bars_.append(box(x_ - s_ / 2, z0_, x_ + s_ / 2, z1_)); x_ += px_
+        z_ = z0_ + f_ + pz_
+        while z_ < z1_ - f_ - s_ / 2:
+            bars_.append(box(0, z_ - s_ / 2, L_, z_ + s_ / 2)); z_ += pz_
+        lattice_ = unary_union(bars_)
+        open_frac = 1 - lattice_.area / (L_ * (z1_ - z0_))
+        name_ = emit("base", "timber", "court_screen", panel(a_, b_, (0.0, 1.0), T_OUT / 2 - scn["depth"], scn["depth"], lattice_), width=round(L_, 3), z=[round(z0_, 3), round(z1_, 3)], open=round(open_frac, 2))
+        rec["court_screen"] = {"name": name_, "x": [a_[0], b_[0]], "y": ya_, "z": [round(z0_, 3), round(z1_, 3)], "open": round(open_frac, 2), "material": scn["material"]}
+        rec["flags"].append("Suite court south side (V8.2, owner 2 Nov 2026): a mashrabiya screen (timber or black steel lattice) on the 1.10 base from +%.2f to the frame soffit +%.2f, %.2f m wide, %d %% open: the palms seen out, no view in" % (z0_, z1_, L_, round(open_frac * 100)))
+
+    # ---------- V8.2 · the coat cupboard in the west half of the stair's start strip (stair flip, design_gf.typ inner boxes) ----------
+    cc = C.get("coat_cupboard")
+    if cc:
+        emit("props", "timber", "coat_cupboard", parts(box(*cc["box"]), gf, gf + cc["height"]), box=cc["box"], height=cc["height"])
+        rec["coat_cupboard"] = {"box": cc["box"], "height": cc["height"]}
+
+    # ---------- V8.2 · the site elements (studies/site_plan.typ, STUDY: every position proposed): paths, the garden, its wall, the hedge, the yard screen, the gas cabinet, the parking bay ----------
+    st_site = C.get("site")
+    if st_site:
+        shx, shy = st_site["shift"]
+        c_ = lambda p: (p[0] - shx, p[1] - shy)
+        ground_ = C["plinth"]["ground"]
+        rec["site"] = []
+        for el in st_site["elements"]:
+            kind, lab, mat = el["kind"], el["label"], el["material"]
+            if kind == "path":
+                pts_ = [c_(p) for p in el["pts"]]
+                poly_ = unary_union([seg_box(p, q, el["width"]) for p, q in zip(pts_, pts_[1:])] + [Point(p).buffer(el["width"] / 2, resolution=6) for p in pts_[1:-1]])
+                meshes_ = parts(poly_, ground_ - 0.005, ground_ + 0.03)
+            elif kind == "slab":
+                meshes_ = parts(Polygon([c_(p) for p in el["pts"]]), ground_ - 0.01, ground_ + 0.012)
+            elif kind in ("wall", "hedge"):
+                pts_ = [c_(p) for p in el["pts"]]
+                poly_ = unary_union([seg_box(p, q, el["width"]) for p, q in zip(pts_, pts_[1:])])
+                meshes_ = parts(poly_, ground_, ground_ + el["height"])
+            else:
+                x0_, y0_, x1_, y1_ = el["box"]
+                meshes_ = parts(box(x0_ - shx, y0_ - shy, x1_ - shx, y1_ - shy), ground_, ground_ + el["height"])
+            n_ = emit("site", mat, lab, meshes_, kind=kind, note=el.get("note", ""))
+            rec["site"].append({"name": n_, "label": lab, "kind": kind})
+        rec["flags"].append("Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers")
+
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
     summary["flags"] += rec["flags"]
 

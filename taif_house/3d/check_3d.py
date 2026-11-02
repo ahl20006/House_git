@@ -459,7 +459,7 @@ chr_meshes = {n: m for n, m in meshes.items() if n.startswith("chr_")}
 if not C.get("enabled", True) or not ch.get("enabled"):
     ok("character study disabled in character.yaml: no chr_* meshes") if not chr_meshes else bad(f"character disabled but {len(chr_meshes)} chr_* meshes in the GLB")
 else:
-    GROUPS = {"base", "pergola", "sunken", "props", "light"}
+    GROUPS = {"base", "pergola", "sunken", "props", "light", "site"}   # V8.2: site = the site plan's elements outside the house
     badnames = [n for n in chr_meshes if len(n.split("_")) < 4 or n.split("_")[1] not in GROUPS or n.split("_")[2] not in C["palette"]]
     listed = {m["name"] for m in ch["meshes"]}
     if badnames or listed != set(chr_meshes):
@@ -545,12 +545,25 @@ else:
     else:
         bad("roof guards")
     proud = max(C["plinth"]["thickness"], C["feature_walls"]["thickness"], C["quoins"]["thickness"]) + 1e-3
-    chrv = np.vstack([m.vertices for m in chr_meshes.values()])
+    chrv = np.vstack([m.vertices for n, m in chr_meshes.items() if not n.startswith("chr_site_")])   # V8.2: the site elements lie outside the house by design (checked below)
     ob = outline_poly.bounds
     if chrv[:, 0].min() > ob[0] - T_OUT / 2 - proud and chrv[:, 1].min() > ob[1] - T_OUT / 2 - proud and chrv[:, 0].max() < ob[2] + T_OUT / 2 + proud and chrv[:, 1].max() < ob[3] + T_OUT / 2 + proud:
-        ok(f"every character mesh lies within the outer wall face + {proud - 1e-3:.2f} m (plinth, cladding, coping); props and lanterns in the courtyard / under the soffit")
+        ok(f"every character mesh of the house lies within the outer wall face + {proud - 1e-3:.2f} m (plinth, cladding, coping); props and lanterns in the courtyard / under the soffit")
     else:
         bad(f"character meshes beyond the outer face: x {chrv[:, 0].min():.3f}–{chrv[:, 0].max():.3f}, y {chrv[:, 1].min():.3f}–{chrv[:, 1].max():.3f}")
+    # V8.2: the site elements (the site plan, study): on the ground round the house, inside the plot's extent, none higher than the hedge; the suite court's mashrabiya screen on the base up to the frame soffit
+    site_m = {n: m for n, m in chr_meshes.items() if n.startswith("chr_site_")}
+    gnd = C["plinth"]["ground"]
+    if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-5.0 <= m.bounds[0][0] and m.bounds[1][0] <= 26.0 and -5.0 <= m.bounds[0][1] and m.bounds[1][1] <= 36.0 for m in site_m.values()):
+        ok(f"{len(site_m)} site elements (V8.2, studies/site_plan.typ: the driveway, three paths, the parking bay, the garden, its wall, the hedge, the yard screen, the gas cabinet) on the ground round the house, inside the plot, the hedge 1.8 m the highest")
+    else:
+        bad(f"site elements: {len(site_m)} meshes, bounds off the ground or outside the plot")
+    scr = chr_meshes.get("chr_base_timber_court_screen")
+    sc_ = summary.get("suite_court", {})
+    if scr is not None and abs(scr.bounds[0][2] - sc_["base_top"]) < 1e-3 and abs(scr.bounds[1][2] - sc_["frame_soffit"]) < 1e-3 and 0.3 <= ch["court_screen"]["open"] <= 0.5:
+        ok(f"the suite court's mashrabiya screen (V8.2, owner): on the 1.10 base from +{sc_['base_top']:.2f} to the frame soffit +{sc_['frame_soffit']:.2f}, {ch['court_screen']['open'] * 100:.0f} % open, {scr.bounds[1][0] - scr.bounds[0][0]:.2f} m wide between the gym's and the office's walls")
+    else:
+        bad("the suite court's mashrabiya screen: missing, or not from the base top to the frame soffit, or its openness outside 30–50 %")
     # V8.0: the courtyard layout (studies/courtyard_layout.typ): it replaces the base model's courtyard floor; the step, the level edges at the glass, the benches, the TV over the grille, the enclosure
     cy_ = ch["courtyard"]
     court_floor = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)

@@ -1,12 +1,12 @@
-# DXFs · Taif / Palm House V8.1 · ground floor, first floor and roof
+# DXFs · Taif / Palm House V8.2 · ground floor, first floor and roof
 
 Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …), one per floor. Both are in the same coordinate frame, so they overlay exactly.
 
 | File | Shows | Same plan as |
 |---|---|---|
-| `output/taif_ground_floor_V8.1.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
-| `output/taif_roof_V8.1.dxf` | the site, the roof outline, the north block / south wing line, the holes (courtyard sky, suite court, malqaf shaft), the attic line, the maintenance ladder's pilaster in the suite court and the set-back guardrails (V8.1), the lift shaft, the reserved zones, the outlets, the walkways, the guards and the attic doors (`tools/make_dxf_roof.py` from `studies/roof.typ`) |
-| `output/taif_first_floor_V8.1.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
+| `output/taif_ground_floor_V8.2.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
+| `output/taif_roof_V8.2.dxf` | the site, the roof outline, the north block / south wing line, the holes (courtyard sky, suite court, malqaf shaft), the attic line, the maintenance ladder's pilaster in the suite court and the set-back guardrails (V8.2), the lift shaft, the reserved zones, the outlets, the walkways, the guards and the attic doors (`tools/make_dxf_roof.py` from `studies/roof.typ`) |
+| `output/taif_first_floor_V8.2.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
 
 ## Units and coordinates
 - **Units:** metres (`$INSUNITS = 6`). Draw scale 1:1.
@@ -14,7 +14,7 @@ Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCA
 - **Axes:** x is east, square to the M line; y runs along the M line. The Typst drawings count y southwards; the DXFs have y pointing **up** (north up), so a Typst point (x, y) is (x, −y) in the DXF.
 - **The building** sits on site option **Z4**, shifted (0.91, 3.825) from the room coordinates (V6.3: 0.30 m further south than before, provisional until the survey) in `data/rooms_*.csv`, with rotation 0°:
   - **ground floor:** a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), its north-east corner cut along the lane down to y 6.0;
-  - **first floor:** the same outline (the first-floor walls stand on the ground-floor walls); the 1.55 m west projection over the courtyard and the void (V8.1) is carried by an edge beam on x 5.6 and three columns.
+  - **first floor:** the same outline (the first-floor walls stand on the ground-floor walls); the 1.55 m west projection over the courtyard and the void (V8.2) is carried by an edge beam on x 5.6 and three columns.
 - **Walls:** room outlines are on **wall centre lines**; wall thickness is not drawn. Clear sizes (`docs/PROJECT_V6.md`) assume 250 mm outer, 200 mm inner and 100 mm dry partition walls.
 - **Extended data:** every room polyline carries its name and area as extended data (application `HOUSE`), so a CAD user can list them. The first-floor room labels carry the room numbers F01–F21.
 
@@ -40,7 +40,7 @@ Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCA
 | VOIDS | the courtyard (open to the sky) and the double-height living (no floor) |
 | ROOMS-FAMILY / -GUEST (master suite) / -SERVICE / -CIRC / -OPEN (suite court) / -GYM / -CORE · ROOM-LABELS | one closed polyline per room · number, name and area |
 | DOORS · OPENINGS · WINDOWS | hinged doors · sliding doors and openings · windows |
-| FURNITURE | furniture and fixtures from the two first-floor studies, including the treadmill on the gym's west band and the suite court's seating (V8.1) |
+| FURNITURE | furniture and fixtures from the two first-floor studies, including the treadmill on the gym's west band and the suite court's seating (V8.2) |
 | MARKS | the edge beam of the west projection (x 5.8) and the three columns below it |
 | ANNOTATION | title, scale bar |
 

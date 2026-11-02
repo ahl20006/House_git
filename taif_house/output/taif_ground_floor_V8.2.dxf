@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461346.9128703703
+2461348.0585995372
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461346.9128703703
+2461348.0585995372
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-166
+16A
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{3C982DE6-6616-457D-8766-E61B6DDEFF55}
+{44F3338E-A0E8-4644-86D6-3F474D677AB7}
   9
 $VERSIONGUID
   2
-{8BEF0E9B-C86E-4D3C-9AC9-958667407AB8}
+{ACA94ED7-79BC-480E-B7D9-5F92A17F6CE4}
   9
 $EXTNAMES
 290
@@ -3833,7 +3833,7 @@ AcAecLayerStandard
   0
 APPID
   5
-163
+167
 330
 3
 100
@@ -3847,7 +3847,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-164
+168
 330
 3
 100
@@ -7221,11 +7221,11 @@ CF
 100
 AcDbEntity
   8
-ROOMS-CORE
+ROOMS-CIRC
 100
 AcDbPolyline
  90
-4
+6
  70
 1
  10
@@ -7233,23 +7233,31 @@ AcDbPolyline
  20
 -3.8249999999999993
  10
-3.66
+5.16
  20
 -3.8249999999999993
  10
+5.16
+ 20
+-23.075
+ 10
 3.66
  20
--4.725000000000001
+-23.075
+ 10
+3.66
+ 20
+-6.025
  10
 3.16
  20
--4.725000000000001
+-6.025
 1001
 HOUSE
 1000
-Entry cupboard
+Family lobby + riwaq
 1040
-0.45
+29.975
   0
 MTEXT
   5
@@ -7263,9 +7271,9 @@ ROOM-LABELS
 100
 AcDbMText
  10
-3.41
+4.373302752293578
  20
--4.2749999999999995
+-13.137155963302751
  30
 0.0
  40
@@ -7273,89 +7281,11 @@ AcDbMText
  71
 5
   1
-Entry cupboard\P0.45 m²
+Family lobby + riwaq\P29.97 m²
   0
 LWPOLYLINE
   5
 D1
-330
-17
-100
-AcDbEntity
-  8
-ROOMS-CIRC
-100
-AcDbPolyline
- 90
-8
- 70
-1
- 10
-3.66
- 20
--3.8249999999999993
- 10
-5.16
- 20
--3.8249999999999993
- 10
-5.16
- 20
--23.075
- 10
-3.66
- 20
--23.075
- 10
-3.66
- 20
--6.025
- 10
-3.16
- 20
--6.025
- 10
-3.16
- 20
--4.725000000000001
- 10
-3.66
- 20
--4.725000000000001
-1001
-HOUSE
-1000
-Family lobby + riwaq
-1040
-29.525
-  0
-MTEXT
-  5
-D2
-330
-17
-100
-AcDbEntity
-  8
-ROOM-LABELS
-100
-AcDbMText
- 10
-4.387984758679087
- 20
--13.272226926333612
- 30
-0.0
- 40
-0.14
- 71
-5
-  1
-Family lobby + riwaq\P29.52 m²
-  0
-LWPOLYLINE
-  5
-D3
 330
 17
 100
@@ -7393,7 +7323,7 @@ Stair
   0
 MTEXT
   5
-D4
+D2
 330
 17
 100
@@ -7417,7 +7347,7 @@ Stair\P15.68 m²
   0
 LWPOLYLINE
   5
-D5
+D3
 330
 17
 100
@@ -7455,7 +7385,7 @@ Utility room (shaft inside)
   0
 MTEXT
   5
-D6
+D4
 330
 17
 100
@@ -7479,7 +7409,7 @@ Utility room (shaft inside)\P6.87 m²
   0
 LWPOLYLINE
   5
-D7
+D5
 330
 17
 100
@@ -7517,7 +7447,7 @@ Hospitality kitchen
   0
 MTEXT
   5
-D8
+D6
 330
 17
 100
@@ -7541,7 +7471,7 @@ Hospitality kitchen\P6.88 m²
   0
 LWPOLYLINE
   5
-D9
+D7
 330
 17
 100
@@ -7579,7 +7509,7 @@ Family basins (2)
   0
 MTEXT
   5
-DA
+D8
 330
 17
 100
@@ -7603,7 +7533,7 @@ Family basins (2)\P4.12 m²
   0
 LWPOLYLINE
   5
-DB
+D9
 330
 17
 100
@@ -7641,7 +7571,7 @@ Family WC + basin
   0
 MTEXT
   5
-DC
+DA
 330
 17
 100
@@ -7665,7 +7595,7 @@ Family WC + basin\P4.67 m²
   0
 LWPOLYLINE
   5
-DD
+DB
 330
 17
 100
@@ -7703,7 +7633,7 @@ Serving passage (2 doors)
   0
 MTEXT
   5
-DE
+DC
 330
 17
 100
@@ -7727,7 +7657,7 @@ Serving passage (2 doors)\P3.85 m²
   0
 LWPOLYLINE
   5
-DF
+DD
 330
 17
 100
@@ -7765,7 +7695,7 @@ Guest WC
   0
 MTEXT
   5
-E0
+DE
 330
 17
 100
@@ -7789,7 +7719,7 @@ Guest WC\P2.63 m²
   0
 LWPOLYLINE
   5
-E1
+DF
 330
 17
 100
@@ -7827,7 +7757,7 @@ Guest basins (trough · 3 taps)
   0
 MTEXT
   5
-E2
+E0
 330
 17
 100
@@ -7851,7 +7781,7 @@ Guest basins (trough · 3 taps)\P3.23 m²
   0
 LWPOLYLINE
   5
-E3
+E1
 330
 17
 100
@@ -7889,7 +7819,7 @@ Guest passage
   0
 MTEXT
   5
-E4
+E2
 330
 17
 100
@@ -7913,7 +7843,7 @@ Guest passage\P4.87 m²
   0
 LWPOLYLINE
   5
-E5
+E3
 330
 17
 100
@@ -7951,7 +7881,7 @@ Foyer + entry
   0
 MTEXT
   5
-E6
+E4
 330
 17
 100
@@ -7975,7 +7905,7 @@ Foyer + entry\P7.15 m²
   0
 LWPOLYLINE
   5
-E7
+E5
 330
 17
 100
@@ -8007,7 +7937,7 @@ AcDbPolyline
   0
 MTEXT
   5
-E8
+E6
 330
 17
 100
@@ -8031,7 +7961,7 @@ Air tower
   0
 LWPOLYLINE
   5
-E9
+E7
 330
 17
 100
@@ -8063,7 +7993,7 @@ AcDbPolyline
   0
 MTEXT
   5
-EA
+E8
 330
 17
 100
@@ -8087,7 +8017,7 @@ shaft
   0
 LWPOLYLINE
   5
-EB
+E9
 330
 17
 100
@@ -8103,11 +8033,11 @@ AcDbPolyline
  10
 0.9100000000000001
  20
--10.725000000000001
+-10.375
  10
 3.66
  20
--10.725000000000001
+-10.375
  10
 3.66
  20
@@ -8116,6 +8046,62 @@ AcDbPolyline
 0.9100000000000001
  20
 -11.725000000000001
+  0
+MTEXT
+  5
+EA
+330
+17
+100
+AcDbEntity
+  8
+MARKS
+100
+AcDbMText
+ 10
+2.285
+ 20
+-11.05
+ 30
+0.0
+ 40
+0.12
+ 71
+5
+  1
+store under the half landing · 1.65 m
+  0
+LWPOLYLINE
+  5
+EB
+330
+17
+100
+AcDbEntity
+  8
+MARKS
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1.0350000000000001
+ 20
+-6.125
+ 10
+2.2974999999999994
+ 20
+-6.125
+ 10
+2.2974999999999994
+ 20
+-7.575
+ 10
+1.0350000000000001
+ 20
+-7.575
   0
 MTEXT
   5
@@ -8129,9 +8115,9 @@ MARKS
 100
 AcDbMText
  10
-2.285
+1.6662499999999998
  20
--11.225000000000001
+-6.85
  30
 0.0
  40
@@ -8139,7 +8125,7 @@ AcDbMText
  71
 5
   1
-under-stair store
+coat cupboard · full height
   0
 LWPOLYLINE
   5
@@ -8747,13 +8733,13 @@ AcDbLine
  10
 3.66
  20
--3.9250000000000007
+-10.525
  30
 0.0
  11
 3.66
  21
--4.625
+-11.425
  31
 0.0
   0
@@ -8771,7 +8757,7 @@ AcDbMText
  10
 3.7600000000000002
  20
--4.395
+-11.095
  30
 0.0
  40
@@ -8779,11 +8765,107 @@ AcDbMText
  71
 1
   1
-entry cupboard (y 0–0.9), open to the family lobby; the strip in front of the lift door is lobby
+the store under the half landing: a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
   0
 LINE
   5
 105
+330
+17
+100
+AcDbEntity
+  8
+WINDOWS
+100
+AcDbLine
+ 10
+0.9100000000000001
+ 20
+-10.525
+ 30
+0.0
+ 11
+0.9100000000000001
+ 21
+-11.425
+ 31
+0.0
+  0
+MTEXT
+  5
+106
+330
+17
+100
+AcDbEntity
+  8
+WINDOWS
+100
+AcDbMText
+ 10
+1.0099999999999998
+ 20
+-11.095
+ 30
+0.0
+ 40
+0.08
+ 71
+1
+  1
+the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
+  0
+LINE
+  5
+107
+330
+17
+100
+AcDbEntity
+  8
+DOORS
+100
+AcDbLine
+ 10
+3.3100000000000005
+ 20
+-3.8249999999999993
+ 30
+0.0
+ 11
+3.81
+ 21
+-3.8249999999999993
+ 31
+0.0
+  0
+MTEXT
+  5
+108
+330
+17
+100
+AcDbEntity
+  8
+DOORS
+100
+AcDbMText
+ 10
+3.66
+ 20
+-3.9450000000000003
+ 30
+0.0
+ 40
+0.08
+ 71
+1
+  1
+the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
+  0
+LINE
+  5
+109
 330
 17
 100
@@ -8807,7 +8889,7 @@ AcDbLine
   0
 MTEXT
   5
-106
+10A
 330
 17
 100
@@ -8831,7 +8913,7 @@ hospitality kitchen, open to the riwaq
   0
 LINE
   5
-107
+10B
 330
 17
 100
@@ -8855,7 +8937,7 @@ AcDbLine
   0
 MTEXT
   5
-108
+10C
 330
 17
 100
@@ -8879,7 +8961,7 @@ family basins, open to the riwaq
   0
 LINE
   5
-109
+10D
 330
 17
 100
@@ -8903,7 +8985,7 @@ AcDbLine
   0
 MTEXT
   5
-10A
+10E
 330
 17
 100
@@ -8927,7 +9009,7 @@ family WC door 1.00 m opening (0.90 leaf, ≥ 0.85 clear, V6.3), off the basins
   0
 LINE
   5
-10B
+10F
 330
 17
 100
@@ -8951,7 +9033,7 @@ AcDbLine
   0
 MTEXT
   5
-10C
+110
 330
 17
 100
@@ -8975,7 +9057,7 @@ hospitality kitchen / basins wall, full height
   0
 LINE
   5
-10D
+111
 330
 17
 100
@@ -8999,7 +9081,7 @@ AcDbLine
   0
 MTEXT
   5
-10E
+112
 330
 17
 100
@@ -9023,7 +9105,7 @@ serving door 1 (0.90), to the riwaq, lockable from the riwaq side; opposite: the
   0
 LINE
   5
-10F
+113
 330
 17
 100
@@ -9047,7 +9129,7 @@ AcDbLine
   0
 MTEXT
   5
-110
+114
 330
 17
 100
@@ -9071,7 +9153,7 @@ serving door 2 (1.05, guest side), lockable from inside the passage
   0
 LINE
   5
-111
+115
 330
 17
 100
@@ -9095,7 +9177,7 @@ AcDbLine
   0
 MTEXT
   5
-112
+116
 330
 17
 100
@@ -9119,7 +9201,7 @@ family / guest line
   0
 LINE
   5
-113
+117
 330
 17
 100
@@ -9143,7 +9225,7 @@ AcDbLine
   0
 MTEXT
   5
-114
+118
 330
 17
 100
@@ -9167,7 +9249,7 @@ guest WC door 0.90 m opening (≈ 0.75 clear: the 1.3 m wide WC cannot take a 1.
   0
 LINE
   5
-115
+119
 330
 17
 100
@@ -9191,7 +9273,7 @@ AcDbLine
   0
 MTEXT
   5
-116
+11A
 330
 17
 100
@@ -9215,7 +9297,7 @@ WC screen wall
   0
 LINE
   5
-117
+11B
 330
 17
 100
@@ -9239,7 +9321,7 @@ AcDbLine
   0
 MTEXT
   5
-118
+11C
 330
 17
 100
@@ -9263,7 +9345,7 @@ guest entrance, double door 1.40 m (two leaves), opens in, north end of the foye
   0
 LINE
   5
-119
+11D
 330
 17
 100
@@ -9287,7 +9369,7 @@ AcDbLine
   0
 MTEXT
   5
-11A
+11E
 330
 17
 100
@@ -9311,7 +9393,7 @@ open passage into the men's majlis, 1.80 m, no door, south end of the foyer's ea
   0
 LINE
   5
-11B
+11F
 330
 17
 100
@@ -9335,7 +9417,7 @@ AcDbLine
   0
 MTEXT
   5
-11C
+120
 330
 17
 100
@@ -9359,7 +9441,7 @@ living room: arched entrance from the riwaq, 1.40 m, no door (head ≈ 2.60); V6
   0
 LINE
   5
-11D
+121
 330
 17
 100
@@ -9383,7 +9465,7 @@ AcDbLine
   0
 MTEXT
   5
-11E
+122
 330
 17
 100
@@ -9407,7 +9489,7 @@ open entrance kitchen ↔ laundry (no door); V6.4: the kitchen's north wall at y
   0
 LINE
   5
-11F
+123
 330
 17
 100
@@ -9431,7 +9513,7 @@ AcDbLine
   0
 MTEXT
   5
-120
+124
 330
 17
 100
@@ -9455,7 +9537,7 @@ laundry ↔ maid room, 1.00 m opening (V6.3), north end of the 100 mm partition
   0
 LINE
   5
-121
+125
 330
 17
 100
@@ -9479,7 +9561,7 @@ AcDbLine
   0
 MTEXT
   5
-122
+126
 330
 17
 100
@@ -9503,7 +9585,7 @@ maid room ↔ maid bath, 0.70 m clear (sliding or opening out)
   0
 LINE
   5
-123
+127
 330
 17
 100
@@ -9527,7 +9609,7 @@ AcDbLine
   0
 MTEXT
   5
-124
+128
 330
 17
 100
@@ -9551,7 +9633,7 @@ kitchen ↔ dining
   0
 LINE
   5
-125
+129
 330
 17
 100
@@ -9575,7 +9657,7 @@ AcDbLine
   0
 MTEXT
   5
-126
+12A
 330
 17
 100
@@ -9599,7 +9681,7 @@ kitchen service door 0.90 to the east yard, lockable (owner decision), north end
   0
 LINE
   5
-127
+12B
 330
 17
 100
@@ -9623,7 +9705,7 @@ AcDbLine
   0
 MTEXT
   5
-128
+12C
 330
 17
 100
@@ -9647,7 +9729,7 @@ sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): i
   0
 LINE
   5
-129
+12D
 330
 17
 100
@@ -9671,7 +9753,7 @@ AcDbLine
   0
 MTEXT
   5
-12A
+12E
 330
 17
 100
@@ -9695,7 +9777,7 @@ kitchen window, east
   0
 LINE
   5
-12B
+12F
 330
 17
 100
@@ -9719,7 +9801,7 @@ AcDbLine
   0
 MTEXT
   5
-12C
+130
 330
 17
 100
@@ -9743,7 +9825,7 @@ maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, 
   0
 LINE
   5
-12D
+131
 330
 17
 100
@@ -9767,7 +9849,7 @@ AcDbLine
   0
 MTEXT
   5
-12E
+132
 330
 17
 100
@@ -9791,7 +9873,7 @@ maid bath vent window in the cut wall
   0
 LINE
   5
-12F
+133
 330
 17
 100
@@ -9815,7 +9897,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-130
+134
 330
 17
 100
@@ -9847,7 +9929,7 @@ AcDbPolyline
   0
 MTEXT
   5
-131
+135
 330
 17
 100
@@ -9871,7 +9953,7 @@ sink
   0
 LWPOLYLINE
   5
-132
+136
 330
 17
 100
@@ -9903,7 +9985,7 @@ AcDbPolyline
   0
 MTEXT
   5
-133
+137
 330
 17
 100
@@ -9927,7 +10009,7 @@ d/w
   0
 LWPOLYLINE
   5
-134
+138
 330
 17
 100
@@ -9959,7 +10041,7 @@ AcDbPolyline
   0
 MTEXT
   5
-135
+139
 330
 17
 100
@@ -9983,7 +10065,7 @@ counter 0.6
   0
 LWPOLYLINE
   5
-136
+13A
 330
 17
 100
@@ -10015,7 +10097,7 @@ AcDbPolyline
   0
 MTEXT
   5
-137
+13B
 330
 17
 100
@@ -10039,7 +10121,7 @@ cooking counter 0.6
   0
 LWPOLYLINE
   5
-138
+13C
 330
 17
 100
@@ -10071,7 +10153,7 @@ AcDbPolyline
   0
 MTEXT
   5
-139
+13D
 330
 17
 100
@@ -10095,7 +10177,7 @@ hob + hood · extract through the east wall
   0
 LWPOLYLINE
   5
-13A
+13E
 330
 17
 100
@@ -10127,7 +10209,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13B
+13F
 330
 17
 100
@@ -10151,7 +10233,7 @@ fridge + tall storage
   0
 LWPOLYLINE
   5
-13C
+140
 330
 17
 100
@@ -10183,7 +10265,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13D
+141
 330
 17
 100
@@ -10207,7 +10289,7 @@ washer
   0
 LWPOLYLINE
   5
-13E
+142
 330
 17
 100
@@ -10239,7 +10321,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13F
+143
 330
 17
 100
@@ -10263,7 +10345,7 @@ dryer
   0
 LWPOLYLINE
   5
-140
+144
 330
 17
 100
@@ -10295,7 +10377,7 @@ AcDbPolyline
   0
 MTEXT
   5
-141
+145
 330
 17
 100
@@ -10319,7 +10401,7 @@ utility sink
   0
 LWPOLYLINE
   5
-142
+146
 330
 17
 100
@@ -10351,7 +10433,7 @@ AcDbPolyline
   0
 MTEXT
   5
-143
+147
 330
 17
 100
@@ -10375,7 +10457,7 @@ folding · shelves
   0
 LWPOLYLINE
   5
-144
+148
 330
 17
 100
@@ -10407,7 +10489,7 @@ AcDbPolyline
   0
 MTEXT
   5
-145
+149
 330
 17
 100
@@ -10431,7 +10513,7 @@ drying rail · ironing
   0
 LWPOLYLINE
   5
-146
+14A
 330
 17
 100
@@ -10463,7 +10545,7 @@ AcDbPolyline
   0
 MTEXT
   5
-147
+14B
 330
 17
 100
@@ -10487,7 +10569,7 @@ single bed 0.9 × 2.0
   0
 LWPOLYLINE
   5
-148
+14C
 330
 17
 100
@@ -10519,7 +10601,7 @@ AcDbPolyline
   0
 MTEXT
   5
-149
+14D
 330
 17
 100
@@ -10543,7 +10625,7 @@ ward- robe
   0
 LWPOLYLINE
   5
-14A
+14E
 330
 17
 100
@@ -10575,7 +10657,7 @@ AcDbPolyline
   0
 MTEXT
   5
-14B
+14F
 330
 17
 100
@@ -10599,7 +10681,7 @@ shower
   0
 LWPOLYLINE
   5
-14C
+150
 330
 17
 100
@@ -10631,7 +10713,7 @@ AcDbPolyline
   0
 MTEXT
   5
-14D
+151
 330
 17
 100
@@ -10655,7 +10737,7 @@ WC
   0
 LWPOLYLINE
   5
-14E
+152
 330
 17
 100
@@ -10687,7 +10769,7 @@ AcDbPolyline
   0
 MTEXT
   5
-14F
+153
 330
 17
 100
@@ -10711,7 +10793,7 @@ basin
   0
 LWPOLYLINE
   5
-150
+154
 330
 17
 100
@@ -10743,7 +10825,7 @@ AcDbPolyline
   0
 MTEXT
   5
-151
+155
 330
 17
 100
@@ -10767,7 +10849,7 @@ counter · sink · fridge · microwave
   0
 LWPOLYLINE
   5
-152
+156
 330
 17
 100
@@ -10799,7 +10881,7 @@ AcDbPolyline
   0
 MTEXT
   5
-153
+157
 330
 17
 100
@@ -10823,7 +10905,7 @@ counter · trays
   0
 LWPOLYLINE
   5
-154
+158
 330
 17
 100
@@ -10855,7 +10937,7 @@ AcDbPolyline
   0
 MTEXT
   5
-155
+159
 330
 17
 100
@@ -10879,7 +10961,7 @@ basin counter (2)
   0
 LWPOLYLINE
   5
-156
+15A
 330
 17
 100
@@ -10911,7 +10993,7 @@ AcDbPolyline
   0
 MTEXT
   5
-157
+15B
 330
 17
 100
@@ -10935,7 +11017,7 @@ trough 1.8 · 3 taps
   0
 LWPOLYLINE
   5
-158
+15C
 330
 17
 100
@@ -10967,7 +11049,7 @@ AcDbPolyline
   0
 MTEXT
   5
-159
+15D
 330
 17
 100
@@ -10991,7 +11073,7 @@ shoes · hooks
   0
 LINE
   5
-15A
+15E
 330
 17
 100
@@ -11015,7 +11097,7 @@ AcDbLine
   0
 MTEXT
   5
-15B
+15F
 330
 17
 100
@@ -11039,7 +11121,7 @@ Family entry
   0
 LINE
   5
-15C
+160
 330
 17
 100
@@ -11063,7 +11145,7 @@ AcDbLine
   0
 MTEXT
   5
-15D
+161
 330
 17
 100
@@ -11087,7 +11169,7 @@ Guest entry
   0
 LINE
   5
-15E
+162
 330
 17
 100
@@ -11111,7 +11193,7 @@ AcDbLine
   0
 MTEXT
   5
-15F
+163
 330
 17
 100
@@ -11135,7 +11217,7 @@ N
   0
 LINE
   5
-160
+164
 330
 17
 100
@@ -11159,7 +11241,7 @@ AcDbLine
   0
 MTEXT
   5
-161
+165
 330
 17
 100
@@ -11183,7 +11265,7 @@ AcDbMText
   0
 MTEXT
   5
-162
+166
 330
 17
 100
@@ -11205,7 +11287,7 @@ AcDbMText
  71
 1
   3
-Taif / Palm House · Ground floor V8.1 (the courtyard layout, three columns at x 5.80, site option Z4)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room outlines on wall centre lines. Generated by
+Taif / Palm House · Ground floor V8.2 (the courtyard layout, three columns at x 5.80, site option Z4)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room outlines on wall centre lines. Generated by
   1
  tools/make_dxf.py from design_gf.typ, data/rooms_gf.csv, base.typ and studies/.
   0
@@ -12299,7 +12381,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-165
+169
   0
 DICTIONARYVAR
   5
@@ -12311,7 +12393,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-01T18:54:32.172857+00:00
+1.4.4 @ 2026-11-02T22:24:23.620415+00:00
   0
 VISUALSTYLE
   5
@@ -13015,7 +13097,7 @@ X-Ray
   0
 DICTIONARYVAR
   5
-165
+169
 330
 2D
 100
@@ -13023,7 +13105,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-01T18:54:32.204861+00:00
+1.4.4 @ 2026-11-02T22:24:23.639501+00:00
   0
 ENDSEC
   0
