@@ -5,6 +5,7 @@
 // Nothing here changes the room CSVs or the design files: inventory, constraints, scores, alternatives, three scenarios, a recommendation, the utility room.
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00. Geometry copied from data/rooms_*.csv, design_gf.typ, studies/*.typ.
 #import "@preview/cetz:0.4.2"
+#import "../base.typ": dist as sdist
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.2pt)
 #let ink = rgb("#3d4a45")
@@ -51,7 +52,7 @@
 #let west-stack = (1.5, 9.8)                   // the stack's foot in the shaft (east side)
 #let fwc-stack = (1.5, 14.9)                   // the family WC's stack (bedroom 3's bath drains straight down into it)
 #let east-stack = (13.311, 7.05)               // the suite bath's stack outside the east wall (V6.3), beside the suite WC closet
-#let mh-east = (14.3, 13.5)                    // the east-yard manhole (site plan)
+#let mh-east = (14.3, 13.5)                    // the east-yard FOUL chamber (site plan); the rain has its own chamber (round 2)
 #let mh-west = (-1.9, 24.7)                    // the west run's manhole on the driveway (site plan)
 #let west-run = ((0.5, 10.5), (0.5, 21.6), (-1.9, 24.7))   // the buried ground-floor run under the west wash block, south to the west manhole
 #let channel = (((10.2, 1.0), (10.2, 10.5)), ((10.2, 10.5), (9.05, 10.5)))   // the malqaf breeze channel in the ground slab (air v3.1): 0.9 × 0.20 inside the slab depth
@@ -74,7 +75,7 @@
   (fl: "GF", room: "Kitchen", fix: "sink + dishwasher", p: (9.35, 8.6), to: "E-MH", route: ((9.35, 8.6), (9.35, 9.9), (13.311, 9.9), (14.3, 13.5)), use: "daily"),
   (fl: "GF", room: "Laundry", fix: "washer · dryer · utility sink · floor drain", p: (9.35, 4.0), to: "E-MH", route: ((9.35, 4.0), (9.35, 6.6), (13.311, 6.6), (14.3, 13.5)), use: "daily / rare (floor drain)"),
   (fl: "GF", room: "Maid bath", fix: "WC · basin · shower", p: (10.6, 2.2), to: "E-MH", route: ((10.6, 2.2), (12.0, 2.2), (12.5, 3.0), (14.0, 6.0), (14.3, 13.5)), use: "daily"),
-  (fl: "GF", room: "Courtyard", fix: "step drain · overflow · basin + planter", p: (8.6, 12.1), to: "RAIN", route: ((8.6, 12.1), (13.311, 12.1), (14.3, 13.5)), use: "rain / washing"),
+  (fl: "GF", room: "Courtyard", fix: "step drain · overflow · basin + planter", p: (8.6, 12.1), to: "RAIN", route: ((8.6, 12.1), (13.311, 12.1), (14.8, 12.1)), use: "rain / washing"),
   (fl: "GF", room: "Air tower", fix: "breeze channel sump · HRV condensate", p: (9.8, 0.8), to: "E-MH", route: ((9.8, 0.8), (10.6, 1.0), (12.0, 2.2), (14.0, 6.0), (14.3, 13.5)), use: "rare"),
   // first floor, west cluster
   (fl: "FF", room: "Family bath (F-b)", fix: "shower", p: (2.0, 10.45), to: "W-SHAFT", route: ((2.0, 10.45), (1.5, 10.2)), use: "daily"),
@@ -293,7 +294,7 @@
     - *Slabs:* the west band, the riwaq, the maid wing and the women's majlis roof are *solid 0.20*: a sunken bathroom zone there means a thicker bay (0.35 with the top depressed 0.15) or a raised floor; the kitchen, dining and men's majlis roofs are *ribbed 0.30*: a 0.10–0.15 depressed zone is possible (the suite bath has one). The family bath F-b over the utility room / hospitality kitchen is on the solid west band: its sunken zone needs the thicker bay (X10-type detail) or its drains stay suspended above the two *service* rooms behind panels (allowed by principle 4).
     - *The malqaf breeze channel* (amber) in the ground slab from the tower south on x 10.2 to y 10.5 then west under the kitchen's sink counter: the kitchen's drain crosses it (the sink's branch passes *under* the channel's base slab, or the channel bridges it: the engineers); the *foundations* (pads ≈ 1.5 × 1.5 under the columns, strip footings under the RC walls): the buried drains pass between them; the *courtyard*: its drains run east under the kitchen floor to the east manhole's rain branch.
     #H[The two stacks and the routes to the septic]
-    - *West:* the shaft (0–1.5 × 9.2–10.4) carries the west stack and vent from the family bath / WC compartment down to the buried west run, which collects the hospitality kitchen, the family basins, the family WC (its own small stack takes bedroom 3's bath from above) and the guest WC and basins, and leaves under the west wall to the *west manhole* on the driveway. *East:* the stack outside the east wall beside the suite WC closet takes the suite bath, drops to the yard and runs south to the *east manhole*, which also takes the kitchen, the laundry, the maid bath (buried, east) and the courtyard's rain branch. Both manholes run to the *collector manhole* at the garden's south-east and the *existing septic* (site plan; the capacity, the condition and the well distance flagged).
+    - *West:* the shaft (0–1.5 × 9.2–10.4) carries the west stack and vent from the family bath / WC compartment down to the buried west run, which collects the hospitality kitchen, the family basins, the family WC (its own small stack takes bedroom 3's bath from above) and the guest WC and basins, and leaves under the west wall to the *west manhole* on the driveway. *East:* the stack outside the east wall beside the suite WC closet takes the suite bath, drops to the yard and runs south to the *east manhole* (foul only), which also takes the kitchen, the laundry and the maid bath (buried, east); the courtyard's rain goes to its own chamber (round 2, A2). Both manholes run to the *collector manhole* at the garden's south-east and the *existing septic* (site plan; the capacity, the condition and the well distance flagged).
     #H[Overlay verdicts]
     #table(columns: (1fr, 1.6fr, auto), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
       ..([First-floor wet room], [Below it], [Verdict]).map(c => text(6pt, weight: "bold", fill: accent, c)),
@@ -322,7 +323,7 @@
     #H[The rooms that score poorly, and their alternatives]
     - *The suite bath and its WC closet (over the kitchen):* the only first-floor wet room over a problem room, and the house's longest first-floor branch (the vanity on the west wall, #r1(L(wet-rows.find(p => p.fix == "double vanity (west wall)"))) m). *Alternatives:* (a) *keep it* with its sunken tanked slab 0.15 (exists, X10), every branch inside the sunken zone, the vanity branch along the north wall; nothing in the kitchen's ceiling; (b) *move the vanity to the east side* beside the stack (#r1(L(vanity-B)) m) and the tub to the north wall (#r1(L(tub-B)) m): the branches shorten, the room keeps its function (a double vanity still faces the east light from the window); (c) *swap the bath and the dressing* (the bath over the kitchen's south part / the dining): still over the kitchen and farther from the stack: worse; (d) *move the bath over the laundry / maid wing* (y ≤ 7.0): the suite lobby and bedroom 1 are there: not possible without re-planning the suite. *Chosen for B and C: (b).*
     - *The suite court's gutter outlets* (rain, in the men's majlis's south wall): (a) keep, with acoustic lagging; (b) run the two outlets to the court's ends and down inside the *gym's and the office's* walls to the garden: no pipe in a majlis wall. *Chosen for B: (b).*
-    - *The courtyard's drain, overflow and basin* (#r1(L(wet-rows.find(p => p.room == "Courtyard"))) m east under the kitchen floor): buried, fine; anti-odour drain and the basin's own trap; a cleanout at the kitchen's west wall. Keep.
+    - *The courtyard's drain, overflow and basin* (#r1(L(wet-rows.find(p => p.room == "Courtyard"))) m east under the kitchen floor to its own rain chamber, never the foul one): buried, fine; anti-odour drain and the basin's own trap; a cleanout at the kitchen's west wall. Keep.
     - *The maid bath* (#r1(L(wet-rows.find(p => p.room == "Maid bath"))) m round the cut corner): (a) keep; (b) *align its fixtures on the cut wall* with one short branch out through the cut wall to the strip, and the breeze channel's sump and the HRV condensate into the same branch. *Chosen for C.*
     - *The ground-floor shower* (G-07, deferred to this study): *P1* (the family WC + basins as one wet room on the west run, 0.5–1.5 m branches, a level floor drain in the ground slab: easy) scores as well as any fixture here; *P2* (the hospitality kitchen, 1 m from the shaft) is the plumbing optimum but re-plans three rooms; *P1-lite* (the family WC room only) is P1 without the basins. *Chosen for B and C: P1*, for its function as much as its plumbing.
     - *The laundry:* fine (buried east); C adds the east heater and manifold cabinet beside the washer and moves the utility sink next to it (one trap group).
@@ -386,8 +387,369 @@
     - *The room is small:* with the shaft it leaves #r2(ut-free) m² of free floor; a 200 L cylinder or a heat-pump unit does not fit (a roof heat pump would); the batteries and the water share one room by the owner's decision, with the layout above as the condition. *The electrical engineer confirms* the battery cabinet's space, its ventilation (a lithium cabinet, ventilated to the riwaq or the shaft), its fire safety (a steel cabinet, ≥ 0.5 m from combustibles, the smoke alarm by the stair, ideally a 60-minute separation to the stair store) and the panel's position.
     - *If the engineer wants more:* the store under the stair's half landing (north of this wall, 2.525 × 1.25, 1.65 m high, the stair above it, dry) can take the battery cabinet instead, with a fire-rated door; the owner's decision today is the utility room.
     #v(3pt)
-    #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
+    #text(8pt)[#if all-ok [*Round 1 checks passed* (#checks.len())] else [*ROUND 1 CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
     #v(2pt)
-    #text(6pt, fill: gray)[Checks: #checks.map(c => c.at(0)).join([ · ]). Every size is assumed, to be designed by the plumbing engineer; nothing here changes the room CSVs or the design files.]
+    #text(6pt, fill: gray)[Round 1 checks: #checks.map(c => c.at(0)).join([ · ]). Every size is assumed, to be designed by the plumbing engineer; nothing here changes the room CSVs or the design files. Round 2 (3 Nov 2026) follows on pages 6–11.]
+  ],
+)
+
+// ---------- round 2 uses the site plan's corrected positions (site frame: the house = CSV + (0.91, 3.825)) ----------
+#let S(p) = (p.at(0) + 0.91, p.at(1) + 3.825)
+#let septic = (-10.5, -1.9, -6.5, 0.5)
+#let tank-old = (0.8, 47.8, 3.8, 50.3)
+#let sep-rule = (septic-well: 30.0, septic-tank: 15.0, drain-pipe: 1.5, tank-house: 5.0)
+#let inv-septic = -1.19                        // from studies/site_plan.typ (computed there; copied)
+#let pbox-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
+#let ground-gate = -0.40
+
+// ====================================================================================== ROUND 2 (3 Nov 2026) · the owner's provisional baseline; A2 corrections; A1 the suite bath over the kitchen; A3 the east stack; A4 smells
+// Baseline (owner, provisional): scenario B; the suite bathtub STAYS by the south wall / the east window; P1 and the suite court's outlets down the gym and office walls are the direction.
+// EVERY SIZE IS ASSUMED, TO BE DESIGNED BY THE PLUMBING ENGINEER; nothing here is proven (no cost, length or depth is more than an estimate on the drawings' geometry).
+#let ffl = 3.60                                  // the first floor's finished level (params.yaml)
+#let fin = 0.08                                  // the finish build-up assumed in the house (screed + tiles)
+#let slab-top = ffl - fin                        // +3.52 the ribbed slab's top (normal)
+#let sunk = 0.15                                 // the suite bath's depressed zone (structure.typ, X10)
+#let sunk-top = slab-top - sunk                  // +3.37
+#let slab-d = 0.30                               // the ribbed slab's depth
+#let soffit = sunk-top - slab-d                  // +3.07 under the depressed zone (the engineer: the depth kept)
+#let k-ceil = 2.90                               // the kitchen's gypsum ceiling under the bath (assumed): the lights only, no pipe
+#let tank-m = 0.003; #let prot = 0.020           // the tanking membrane on the sunken slab + its protection screed
+#let pipe-floor = sunk-top + tank-m + prot       // +3.393: the lowest a pipe's bottom may lie (option a)
+#let tile = 0.014; #let mem2 = 0.002; #let screed = 0.050
+#let pipe-top = ffl - tile - mem2 - screed       // +3.534: the highest a pipe's crown may lie under the screed (option a)
+#let zone = pipe-top - pipe-floor                // the pipe zone's height
+#let g = 0.02                                    // the fall of every branch (1:50), assumed
+#let stack = (13.311, 7.05)                      // the east stack, outside the wall (x 13.436 … 13.6, behind the cladding)
+#let wall-in = 13.186                            // the east wall's inner face
+#let sw = 0.20                                   // the service wall (option b): x 12.986 … 13.186, y 6.5 … 9.5; a 0.45 m high duct y 9.5 … 10.45 under the window
+#let sw-x = wall-in - sw
+#let win = ((13.311, 9.5), (13.311, 10.05))      // the bath's east window, sill +1.5 head +2.1 above the floor (params.yaml)
+#let hood-y = 10.2                               // the kitchen's hood zone starts here on the east wall (y 10.2–11.2): no drain south of it
+// the fixtures (studies/ff_suite.typ): WC in the closet on the east wall, the walk-in shower on the east wall, the freestanding tub on the south wall by the east window, the double vanity on the west wall
+#let fx = (
+  (id: "WC", name: "WC (closet)", box: (12.536, 6.95, 13.186, 7.4), out: (13.0, 7.17), od: 0.110, trap: "integral, 50 mm seal",
+   a: (body: 0.07, route: ((13.0, 7.17), (13.186, 7.1))), b: (how: "wall-hung on the service wall's frame; the outlet HORIZONTAL at +0.18 straight through the wall into the stack's branch", route: ((13.0, 7.17), (13.186, 7.1)), lvl: ffl + 0.18)),
+  (id: "SH", name: "shower (east wall)", box: (12.086, 8.1, 13.186, 9.5), out: (13.1, 8.2), od: 0.050, trap: "channel trap, 50 mm seal (+ membrane valve)",
+   a: (body: 0.09, route: ((12.6, 8.8), (13.1, 8.2), (13.186, 7.1))), b: (how: "a wall-drain channel along the service wall; the trap body INSIDE the wall cavity; the outlet runs north inside the cavity to the stack", route: ((13.1, 8.2), (13.1, 7.1), (13.186, 7.1)), lvl: ffl - 0.09)),
+  (id: "TUB", name: "tub (south wall, by the window)", box: (11.486, 9.6, 13.186, 10.35), out: (12.3, 10.0), od: 0.050, trap: "tub trap, 50 mm seal (+ AAV in option b)",
+   a: (body: 0.08, route: ((12.3, 10.0), (13.1, 7.3), (13.186, 7.1))), b: (how: "the tub on a 0.12 plinth with a removable front: the trap in the plinth's void ABOVE the floor; the pipe in the plinth, then in the low duct under the window, then in the service wall to the stack", route: ((12.3, 10.0), (13.1, 10.0), (13.1, 7.1), (13.186, 7.1)), lvl: ffl + 0.04)),
+  (id: "VAN", name: "double vanity (west wall)", box: (10.4, 7.75, 10.95, 9.35), out: (10.9, 8.55), od: 0.040, trap: "bottle trap under the basin, 75 mm seal (visible)",
+   a: (body: 0.07, route: ((10.9, 8.55), (11.6, 7.7), (13.1, 7.3), (13.186, 7.1))), b: (how: "the Ø 40 in a chase in the north wall at +0.45 (one jointless pipe from the trap), along the closet's north wall into the service wall, down to the stack", route: ((10.9, 8.55), (10.9, 6.6), (13.0, 6.6), (13.1, 7.1), (13.186, 7.1)), lvl: ffl + 0.45)),
+)
+#let runlen(P) = range(P.len() - 1).map(i => dist(P.at(i), P.at(i + 1))).sum()
+#let bot-a(f) = ffl - f.a.body - f.od - g * runlen(f.a.route)          // option a: the pipe's bottom (outside) where it meets the stack, if its crown starts just under the screed
+#let top-a(f) = ffl - f.a.body                                          // option a: the trap's outlet crown at the fixture
+#let fits-a(f) = bot-a(f) >= pipe-floor - 1e-9 and top-a(f) <= pipe-top + 1e-9
+#let bot-b(f) = f.b.lvl - f.od - g * runlen(f.b.route)                  // option b: the pipe's bottom at the stack
+#let a-rows = fx.map(f => (f, top-a(f), bot-a(f), fits-a(f)))
+#let tub = fx.find(f => f.id == "TUB")
+#let tub-branch = runlen(tub.b.route)
+#let vent-top = 7.20 + 1.0                                               // the stack's vent terminal 1.0 m above the roof slab (assumed)
+#let win-head = ffl + 2.1
+#let hrv-intake = (9.8, 0.5)
+#let duct = (12.95, 7.0, 13.3, 7.35)                                     // A3 option (b): the internal duct in the kitchen's north-east corner
+#let service-door = ((13.311, 7.2), (13.311, 8.1))                       // the kitchen's service door on the east wall
+#let duct-hits-door = duct.at(3) > service-door.at(0).at(1)              // the duct's south edge passes the door's north jamb
+#let condensate = (
+  ([AC indoor units (fan-coils, FF ceilings / the roof zone Z2b)], [Ø 25 PVC condensate pipe at 1 %, to a *tundish with an air gap* over a trapped waste in the nearest bathroom (the suite bath's service wall; the family bath's shaft) or to the roof's rain outlet (never a foul pipe directly)], [the receiving trap is a daily-used fixture's (the vanity / the channel): never dries], [the pan and the pipe flushed each season; the tundish is visible]),
+  ([the HRV unit (roof plant, its base)], [Ø 25 to a *tundish with an air gap* over the roof's rain outlet (rain system: a condensate is clean water), with a dry-season drip tray], [no trap needed on the rain side; the outlet's leaf guard kept clear], [the HRV's drain pan cleaned at the filter change]),
+  ([the malqaf / tower sump (the breeze channel's base, GF)], [a *trapped gully with an anti-odour membrane and a sealed access cover* at the channel's lowest point, drained by a *trapped air-break* (the gully's water seal + a 50 mm membrane valve) into the east foul branch (the maid bath's); it takes the channel's washing water and any wind-blown rain], [the membrane valve closes when the seal dries; a *trap primer* from the nearest cold tap (the laundry) or a monthly bucket of water (the maintenance list)], [through the tower's base door: the cover lifted, the gully basket and the membrane washed]),
+  ([the heaters' drip trays (utility room, laundry) and the washer's tray], [the tray's Ø 32 to a floor drain with an *anti-odour membrane* (the west shaft's / the laundry's), an air gap at the tray], [the floor drain primed by the tray's rare water: a membrane valve, not a water seal alone], [the tray and the drain visible, cleaned with the room]),
+  ([the kitchen's RO unit (its reject water) and the dishwasher], [to the sink's trap through an air-gap fitting (the RO) and a standpipe or the sink trap's spigot above its seal (the dishwasher): never a direct joint to the drain], [daily use keeps the sink's trap wet], [the air-gap fitting on the counter, the standpipe behind the dishwasher]),
+)
+#let smells = (
+  ([the foul stacks' vent terminals (the west shaft, the east stack)], [open vents to the roof ≥ 1.0 m above the roof and ≥ 0.9 m above any opening within 3 m; ≥ 3 m from the HRV intake (#r1(dist(stack, hrv-intake)) / #r1(dist((1.5, 9.8), hrv-intake)) m) and the malqaf; a bird cage; no AAV in place of the main vents]),
+  ([the WCs' and basins' traps], [every fixture its own trap, 50 mm seal minimum (basins 75 mm bottle traps); no S-trap siphoning: the branches ventilated (the stacks' vents, a secondary vent or an AAV where a branch exceeds the unvented length)]),
+  ([the showers' and the floors' drains], [the shower channel is the only floor drain in each bathroom (no separate floor gully to dry out); the channels' traps with a membrane valve; the rarely used floor drains (the utility room, the laundry, the shaft, the tower sump, the courtyard's step drain) get *anti-odour membrane traps* and a *trap primer* or a listed monthly fill]),
+  ([the tub's trap], [a 50 mm seal in the plinth, used weekly; with the AAV it cannot siphon; the plinth panel vents to the room (no closed cavity)]),
+  ([the cleanouts and the rodding eyes (the stacks, the buried runs' bends)], [sealed screw caps with gaskets, inside the shaft / behind the cladding; none in a habitable room]),
+  ([the inspection chambers (the yard, the driveway, the north strip)], [sealed double-seal covers (recessed, gasketed) with the invert benched; the collector chamber by the gate the same; no open gully into the foul system outside]),
+  ([the septic tank (outside the wall near C1)], [its vent ≥ 2 m high on the wall's outer side, away from the gate (#r1(dist((septic.at(2), septic.at(1)), (0, 0))) m) and the north parking bay; its lid sealed; de-sludged on a schedule; no vent at the gate post]),
+  ([the kitchen's sink and the dishwasher], [a deep trap (75 mm) with the dishwasher's hose above the seal; the grease kept out (a small grease trap under the sink is optional: the engineer); the hospitality kitchen the same]),
+  ([the laundry's washer standpipe], [a trapped standpipe ≥ 0.6 m high, the hose not sealed into it (an air gap)]),
+  ([the maid bath and the guest WC (less used)], [their traps still used weekly; the guest WC's floor is the shower-free type: no floor drain at all]),
+  ([the courtyard, the suite court (rain)], [on the separate rain system, never connected to the foul one: no sewer gas can reach their drains; their gullies with leaf baskets]),
+  ([the condensate (AC, HRV), the tower sump, the drip trays], [as the table on the round-2 corrections page: air gaps over tundishes or trapped air-breaks, never a direct joint to a drain or a vent]),
+  ([the pipes themselves], [acoustic (triple-layer) soil pipes with push-fit sealed joints, pressure-tested before closing; the stacks never cut by a floor's finish: a sleeve and a fire collar at each slab]),
+)
+#let checks2 = (
+  ([option a: every drain fits the sunken zone's pipe height (#r2(zone) m from the protection screed +#r2(pipe-floor) to the screed's underside +#r2(pipe-top)); the deepest bottom at the stack #r2(calc.min(..a-rows.map(r => r.at(2))))], a-rows.all(r => r.at(3))),
+  ([option b: every pipe in the service wall, the duct or the plinth stays above the depressed slab (+#r2(sunk-top)) and the tub's branch reaches the stack at about the floor level, inside the cavity (+#r2(bot-b(tub)), the tray at +#r2(sunk-top))], fx.all(f => bot-b(f) >= sunk-top) and bot-b(tub) >= ffl - 0.10),
+  ([no drain south of the hood zone's start (y #r1(hood-y)) at the east wall: the tub's outlet at y #r1(tub.out.at(1))], fx.all(f => f.a.route.all(p => p.at(1) < hood-y) and f.b.route.all(p => p.at(1) < hood-y))),
+  ([the east stack's vent #r1(vent-top - win-head) m above the bath window's head and #r1(dist(stack, hrv-intake)) m from the HRV intake], vent-top - win-head >= 0.9 and dist(stack, hrv-intake) >= 3.0),
+  ([the tub's branch #r2(tub-branch) m ≤ 4 m (BS EN 12056 unvented 50 mm limit) but > 1.07 m (the UPC trap-arm limit): an AAV in the plinth specified], tub-branch <= 4.0 and tub-branch > 1.07),
+  ([the internal east duct (A3 option b) would overlap the kitchen's service door (y 7.2–8.1): reported], duct-hits-door),
+  ([the rain points never drain to a foul collector; the condensate list gives every device a method], pts.filter(p => p.use.starts-with("rain")).all(p => p.to == "RAIN") and condensate.len() == 5),
+)
+#let all-ok2 = checks2.all(c => c.at(1))
+
+// ---------- drawings ----------
+#let bath-plan(opt, length: 2.0cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, body, size: 3.4pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
+  let R(b, fill: none, stroke: none) = rect(q((b.at(0), b.at(1))), q((b.at(2), b.at(3))), fill: fill, stroke: stroke)
+  R((10.3, 6.5, 13.311, 10.45), fill: rgb("#e6f0f5"))
+  R((10.175, 6.375, 13.436, 10.575), fill: none, stroke: 1.2pt + ink)
+  line(q((12.211, 6.5)), q((12.211, 8.0)), q((13.311, 8.0)), stroke: 0.8pt + ink)
+  line(q((12.211, 6.8)), q((12.211, 7.8)), stroke: 2pt + red); T((12.15, 7.3), [sliding], size: 2.4pt, fill: red, angle: 90deg)
+  line(q((10.3, 6.65)), q((10.3, 7.65)), stroke: 2pt + red); T((10.45, 7.15), [door], size: 2.4pt, fill: red, angle: 90deg)
+  line(q(win.at(0)), q(win.at(1)), stroke: 2.4pt + blue); T((13.5, 9.78), [window sill +1.5], size: 2.4pt, fill: blue, anchor: "west")
+  R((12.5, 10.2, 13.311, 10.45), fill: red.transparentize(55%)); T((12.9, 10.33), [hood zone below (y ≥ 10.2)], size: 2.2pt, fill: red)
+  if opt == "b" { R((sw-x, 6.5, wall-in, 9.5), fill: rgb("#d9d1c0"), stroke: 0.5pt + ink); T((13.086, 8.0), [service wall 0.20], size: 2.4pt, angle: 90deg); R((sw-x, 9.5, wall-in, 10.45), fill: rgb("#e8e2d4"), stroke: (paint: ink, thickness: 0.4pt, dash: "dashed")); T((13.086, 9.98), [duct 0.45 h], size: 2.2pt, angle: 90deg); R((11.386, 9.5, 13.186, 10.45), fill: none, stroke: (paint: amber, thickness: 0.6pt, dash: "dashed")); T((11.3, 9.9), [plinth 0.12\ removable front], size: 2.3pt, fill: amber, anchor: "east") }
+  for f in fx { R(f.box, fill: white, stroke: 0.5pt + ink); T(((f.box.at(0) + f.box.at(2)) / 2, (f.box.at(1) + f.box.at(3)) / 2), f.id, size: 3pt) }
+  for f in fx { let P = if opt == "a" { f.a.route } else { f.b.route }; line(..P.map(q), stroke: (paint: if opt == "a" { red } else { green }, thickness: 1.2pt), mark: (end: ">", fill: if opt == "a" { red } else { green }, scale: 0.4)); circle(q(f.out), radius: 0.06, fill: ink, stroke: none) }
+  circle(q((13.52, 7.05)), radius: 0.09, fill: rgb("#8a5a2b"), stroke: none); T((13.65, 7.05), [stack Ø 110\ + vent], size: 2.4pt, fill: rgb("#8a5a2b"), anchor: "west")
+  R((13.436, 6.6, 13.62, 7.5), fill: none, stroke: (paint: rgb("#8a5a2b"), thickness: 0.5pt, dash: "dotted")); T((13.65, 7.55), [removable cladding], size: 2.2pt, fill: rgb("#8a5a2b"), anchor: "west")
+  line(q((11.0, 10.45)), q((11.0, 6.5)), stroke: none)
+  T((11.8, 6.25), [N ↑ · suite bath + WC closet · option #opt · 1 m = #length], size: 3pt, fill: accent)
+  T((10.1, 10.7), [kitchen below: the slab soffit +#r2(soffit), the ceiling +#r2(k-ceil), nothing but the lights], size: 2.5pt, fill: gray, anchor: "west")
+})
+// section 1: along the east wall (N–S), x ≈ 13.1, looking east: y 6.5 → 10.45; the levels from the kitchen ceiling to the window head
+#let sec-ns(opt, length: 2.0cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, body, size: 3.2pt, fill: ink, anchor: "center", angle: 0deg) = content((p.at(0), p.at(1)), anchor: anchor, angle: angle, text(size, fill: fill, body))
+  let y0 = 6.5; let y1 = 10.45
+  let sx(y) = y - y0                      // horizontal: y (south) to the right
+  let z(l) = (l - 2.75) * 1.0             // vertical: 1 m = length (the window +2.75 … +4.3)
+  let band(l0, l1, fill, label) = { rect((sx(y0), z(l0)), (sx(y1), z(l1)), fill: fill, stroke: 0.3pt + luma(140)); T((sx(y1) + 0.05, (z(l0) + z(l1)) / 2), label, size: 2.4pt, anchor: "west") }
+  band(soffit - 0.05, soffit, luma(120), [slab soffit +#r2(soffit)])
+  band(soffit, sunk-top, rgb("#cfc6b4"), [ribbed slab 0.30, depressed 0.15 → top +#r2(sunk-top)])
+  band(sunk-top, pipe-floor, rgb("#7a9ab0"), [tanking + protection +#r2(pipe-floor)])
+  band(pipe-floor, pipe-top, rgb("#efe7d2"), [pipe zone / fill #r2(zone)])
+  band(pipe-top, ffl - tile, rgb("#ded8c8"), [screed + 2nd membrane])
+  band(ffl - tile, ffl, luma(80), [tiles · FFL +#r2(ffl)])
+  line((sx(y0), z(k-ceil)), (sx(y1), z(k-ceil)), stroke: (paint: gray, thickness: 0.6pt, dash: "dashed")); T((sx(y1) + 0.05, z(k-ceil)), [kitchen ceiling +#r2(k-ceil)], size: 2.4pt, anchor: "west")
+  // the window and the hood zone
+  line((sx(9.5), z(ffl + 0.62)), (sx(10.05), z(ffl + 0.62)), stroke: 1.6pt + blue); T((sx(9.78), z(ffl + 0.55)), [window above (sill +1.5)], size: 2.2pt, fill: blue)
+  rect((sx(10.2), z(k-ceil - 0.05)), (sx(y1), z(soffit)), fill: red.transparentize(50%), stroke: none); T((sx(10.32), z(k-ceil - 0.12)), [hood zone], size: 2.2pt, fill: red)
+  // the stack outside at y 7.05 (shown as a vertical line) and the branches
+  line((sx(7.05), z(k-ceil - 0.1)), (sx(7.05), z(ffl + 0.62)), stroke: 1.6pt + rgb("#8a5a2b")); T((sx(7.05), z(ffl + 0.68)), [stack (outside the wall) → vent +#r2(vent-top)], size: 2.4pt, fill: rgb("#8a5a2b"))
+  for f in fx {
+    let (lv-fix, lv-stack, col) = if opt == "a" { (top-a(f) - f.od / 2, bot-a(f) + f.od / 2, red) } else { (f.b.lvl - f.od / 2, bot-b(f) + f.od / 2, green) }
+    let yf = f.out.at(1); let ys = 7.05
+    if f.id == "VAN" { yf = 6.6 }
+    line((sx(yf), z(lv-fix)), (sx(ys), z(lv-stack)), stroke: (paint: col, thickness: f.od * 20pt))
+    T((sx(yf) + (if yf > ys { 0.05 } else { -0.05 }), z(lv-fix) + 0.07), [#f.id Ø #str(calc.round(f.od * 1000)) · +#r2(lv-fix - f.od / 2) → +#r2(lv-stack - f.od / 2)], size: 2.2pt, fill: col, anchor: if yf > ys { "west" } else { "east" })
+  }
+  if opt == "b" { rect((sx(y0), z(sunk-top)), (sx(9.5), z(ffl + 0.62)), fill: rgb("#d9d1c0").transparentize(60%), stroke: (paint: ink, thickness: 0.4pt, dash: "dashed")); T((sx(8.3), z(ffl + 0.5)), [service wall cavity, down to the tray (front panels)], size: 2.2pt); rect((sx(9.5), z(ffl)), (sx(y1), z(ffl + 0.45)), fill: rgb("#e8e2d4"), stroke: (paint: ink, thickness: 0.4pt, dash: "dashed")); T((sx(9.98), z(ffl + 0.38)), [duct], size: 2.2pt); rect((sx(9.6), z(ffl)), (sx(10.35), z(ffl + 0.12)), fill: amber.transparentize(40%), stroke: none); T((sx(9.98), z(ffl + 0.2)), [plinth], size: 2.0pt, fill: amber) }
+  for yy in (y0, 7.05, 8.1, 9.5, y1) { line((sx(yy), z(k-ceil - 0.15)), (sx(yy), z(k-ceil - 0.1)), stroke: 0.4pt + ink); T((sx(yy), z(k-ceil - 0.22)), [y #r2(yy)], size: 2.2pt) }
+  T((sx(8.5), z(ffl + 0.8)), [SECTION 1 · N–S along the east wall, looking east · option #opt · 1 m = #length · the window above (+5.1 … +5.7) and the vent (+#r2(vent-top)) are beyond the frame], size: 3pt, fill: accent)
+})
+// section 2: E–W through the shower (y ≈ 8.8), looking south: x 10.3 → 13.6 (the stack outside)
+#let sec-ew(opt, length: 2.0cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, body, size: 3.2pt, fill: ink, anchor: "center", angle: 0deg) = content((p.at(0), p.at(1)), anchor: anchor, angle: angle, text(size, fill: fill, body))
+  let x0 = 10.3; let x1 = 13.7
+  let sx(x) = x - x0
+  let z(l) = (l - 2.75) * 1.0
+  let ztop = ffl + 0.62
+  let band(l0, l1, fill) = rect((sx(x0), z(l0)), (sx(13.311), z(l1)), fill: fill, stroke: 0.3pt + luma(140))
+  band(soffit - 0.05, soffit, luma(120)); band(soffit, sunk-top, rgb("#cfc6b4")); band(sunk-top, pipe-floor, rgb("#7a9ab0")); band(pipe-floor, pipe-top, rgb("#efe7d2")); band(pipe-top, ffl - tile, rgb("#ded8c8")); band(ffl - tile, ffl, luma(80))
+  rect((sx(13.186), z(k-ceil - 0.1)), (sx(13.436), z(ztop)), fill: luma(100), stroke: none); T((sx(13.31), z(ffl + 0.3)), [east wall 0.25], size: 2.2pt, fill: white, angle: 90deg)
+  rect((sx(13.436), z(k-ceil - 0.1)), (sx(13.6), z(ztop)), fill: rgb("#8a5a2b").transparentize(70%), stroke: (paint: rgb("#8a5a2b"), thickness: 0.4pt, dash: "dotted")); T((sx(13.52), z(ffl + 0.3)), [stack + cladding], size: 2.1pt, fill: rgb("#8a5a2b"), angle: 90deg)
+  rect((sx(10.175), z(k-ceil - 0.1)), (sx(10.3), z(ztop)), fill: luma(160), stroke: none)
+  line((sx(x0), z(k-ceil)), (sx(13.186), z(k-ceil)), stroke: (paint: gray, thickness: 0.6pt, dash: "dashed")); T((sx(11.7), z(k-ceil + 0.07)), [kitchen ceiling +#r2(k-ceil) · nothing but the lights · the slab soffit +#r2(soffit)], size: 2.3pt, fill: gray)
+  // the vanity (west) and the shower (east)
+  rect((sx(10.4), z(ffl + 0.55)), (sx(10.95), z(ffl + 0.62)), fill: white, stroke: 0.5pt + ink); T((sx(10.68), z(ffl + 0.5)), [vanity (its trap above, out of frame)], size: 2.1pt)
+  rect((sx(12.086), z(ffl)), (sx(13.186), z(ffl + 0.02)), fill: luma(60), stroke: none); T((sx(12.6), z(ffl + 0.12)), [shower floor, 2 % to the channel], size: 2.3pt)
+  if opt == "a" {
+    // the vanity's Ø 40 drops into the floor and runs east in the fill; the shower gully in the fill
+    let v = fx.find(f => f.id == "VAN"); let s = fx.find(f => f.id == "SH")
+    line((sx(10.9), z(ffl + 0.55)), (sx(10.9), z(ffl - v.a.body - v.od / 2)), (sx(13.186), z(bot-a(v) + v.od / 2)), stroke: (paint: red, thickness: 0.8pt))
+    T((sx(11.9), z(ffl - 0.02)), [VAN Ø 40 in the fill, 3 m, 2 % · bottom at the stack +#r2(bot-a(v))], size: 2.2pt, fill: red)
+    rect((sx(12.95), z(ffl - s.a.body)), (sx(13.15), z(ffl)), fill: red.transparentize(40%), stroke: none); T((sx(12.6), z(ffl - 0.2)), [SH gully 0.09 in the fill\ → the stack +#r2(bot-a(s))], size: 2.2pt, fill: red)
+  } else {
+    rect((sx(sw-x), z(ffl)), (sx(wall-in), z(ztop)), fill: rgb("#d9d1c0"), stroke: 0.5pt + ink); T((sx(13.086), z(ffl + 0.3)), [service wall 0.20], size: 2.1pt, angle: 90deg)
+    rect((sx(sw-x), z(sunk-top)), (sx(wall-in), z(ffl)), fill: rgb("#d9d1c0").transparentize(40%), stroke: (paint: ink, thickness: 0.4pt, dash: "dashed")); T((sx(13.086), z(ffl - 0.11)), [cavity down to the slab], size: 2.0pt, angle: 90deg)
+    let v = fx.find(f => f.id == "VAN"); let s = fx.find(f => f.id == "SH")
+    line((sx(10.9), z(ffl + 0.55)), (sx(10.9), z(v.b.lvl)), stroke: (paint: green, thickness: 0.8pt)); T((sx(10.35), z(ffl + 0.38)), [VAN Ø 40 → the north wall's chase at +0.45, jointless → the service wall], size: 2.2pt, fill: green, anchor: "west")
+    rect((sx(12.9), z(ffl - 0.1)), (sx(sw-x), z(ffl)), fill: green.transparentize(30%), stroke: none); rect((sx(sw-x + 0.02), z(ffl - 0.12)), (sx(wall-in - 0.02), z(ffl + 0.05)), fill: green.transparentize(50%), stroke: 0.4pt + green)
+    T((sx(12.4), z(ffl - 0.22)), [SH channel body in the screed; its TRAP in the wall cavity → the stack +#r2(bot-b(s))], size: 2.2pt, fill: green)
+    rect((sx(sw-x), z(ffl + 0.3)), (sx(wall-in), z(ffl + 0.6)), fill: none, stroke: (paint: green, thickness: 0.5pt, dash: "dotted")); T((sx(12.95), z(ffl + 0.5)), [front panel 0.6 × 1.0 above the channel\ (continues up, out of frame)], size: 2.1pt, fill: green, anchor: "east")
+  }
+  for xx in (x0, 12.086, 13.186, 13.311) { line((sx(xx), z(k-ceil - 0.15)), (sx(xx), z(k-ceil - 0.1)), stroke: 0.4pt + ink); T((sx(xx), z(k-ceil - 0.22)), [x #r2(xx)], size: 2.2pt) }
+  T((sx(11.8), z(ffl + 0.8)), [SECTION 2 · E–W through the shower (y 8.8), looking south · option #opt · 1 m = #length], size: 3pt, fill: accent)
+})
+
+// ====================================================================================== PAGE 6 · round 2: the baseline and A2 (corrections)
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[Round 2 (3 Nov 2026) · the owner's provisional baseline · corrections: rain and sewage fully separate; condensate and the tower sump]
+#v(2pt)
+#grid(columns: (1fr, 1fr), gutter: 12pt,
+  [
+    #set text(6.4pt)
+    #H[The baseline for round 2 (owner, provisional)]
+    - *Scenario B* is the direction: the ground-floor shower *P1* (the family WC + basins as one wet room) and the *suite court's outlets down the gym's and the office's walls*; the cleanouts, the two vent stacks, the anti-odour drains, the manifold system, two heaters, the leak protection as round 1.
+    - *The suite bathtub STAYS* on the south wall by the east window (round 1's "tub to the north wall" is dropped). The vanity's move "beside the stack" of round 1 clashed with the shower once the tub stays: *the vanity stays on the west wall*; how its 3 m drain is handled is the subject of A1 (page 7–9).
+    - Nothing is applied: the room CSVs and the design files are unchanged; every size assumed, to be designed by the plumbing engineer.
+    #v(2pt)
+    #H[A2 · Rainwater and sewage fully separate (corrected)]
+    - *Corrected:* round 1 and the site plan let the *courtyard's drain and overflow* reach the east manhole's "rain branch" beside the foul branches, and the site plan's manholes carried rain and foul to one collector. Now: the east yard chamber is *foul only*; the courtyard's outlet (x 13.311, y 12.1) runs to its *own rain chamber* in the strip (#r1(dist(S((13.311, 12.1)), (15.7, 15.9))) m) and the east soakaway; the *suite court's* three linear drains and box gutter leave down the *gym's and the office's walls* to the garden's south soakaway; the *roof's 11 outlets* discharge at the plinth to the driveway's channel and the two soakaways; the *site* surface water falls to the soakaways and the channel. *Nothing of the rain enters the septic*, and no foul pipe is tied to a rain pipe anywhere (the round-1 inventory: every "rain" point to RAIN, checked).
+    - *The final discharge* (the engineer, with the soil report): soakaways ≥ 5 m from the house's foundations and ≥ 10 m from the well (assumed rules), sized for Taif's storms; each with a *safe surface overflow* towards the lane side / the driveway's channel to the street, never towards the house; the garden's soakaway doubles as the palms' watering sump if the owner wishes.
+    - *The site plan is corrected the same way* (`studies/site_plan.typ` page 4: the rain chamber, the foul chambers, the septic now north-west near C1 and the inverts computed).
+  ],
+  [
+    #set text(6.3pt)
+    #H[A2 · Condensate and the tower sump: the connection decided for each device]
+    #table(columns: (1fr, 1.6fr, 1.1fr, 1fr), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Device], [Connection (never direct into a drain or a vent)], [The trap kept wet], [Cleaning]).map(c => text(6pt, weight: "bold", fill: accent, c)),
+      ..condensate.map(r => r.map(c => text(5.6pt, c))).flatten())
+    #v(2pt)
+    #text(6pt, fill: gray)[*The detail (A2):* a *tundish* is an open funnel with a visible air gap of ≥ 2 × the pipe's bore (≥ 50 mm) between the condensate pipe's end and the funnel's rim, draining to a trapped fixture: a blocked drain shows as a drip at the tundish, and no sewer gas can climb the condensate pipe. A *trapped air-break* is a gully whose water seal (50 mm) separates the device from the drain, with a *membrane (ball or flap) valve* that closes when the seal dries, and a *trap primer* (a small bleed from a cold tap through a vacuum breaker) or a listed monthly fill. Every size assumed, the plumbing engineer designs.]
+    #v(3pt)
+    #H[A2 · The site drainage corrected (summary of the site plan, page 4)]
+    - *The septic* is *outside the farm wall near corner C1* (north-west, the north street), approximate; the foul drains of both clusters run *north and west*: the east main from the yard's foul chamber round the cut wall, along the north strip's north edge to the *collector chamber inside the gate*; the west branch from the driveway's west chamber (the west run now falls *north* inside the house); then under the wall west of the gate's post to the septic.
+    - *Falls (assumed):* the main at 1 %, the branches 1.5 %, 0.03 m through each chamber → the septic's inlet at #r2(inv-septic) below the house floor, ≈ #r2(ground-gate - inv-septic) m below the ground at the gate: *the septic's inlet level must be surveyed*; if it is higher, a packaged pump station at the collector chamber (flagged).
+    - *The tanks:* the existing one east of peg R, the reserved future tank beside it, ≥ #r1(sep-rule.tank-house) m from the house (#r1(pbox-dist(tank-old, S((0, 24)))) m); the water pipe ≥ #r1(sep-rule.drain-pipe) m from the foul drains on the driveway; the septic ≥ #r1(sep-rule.septic-tank) m from the tanks and ≥ #r1(sep-rule.septic-well) m from the well (rules assumed, to confirm by the engineer).
+  ],
+)
+
+// ====================================================================================== PAGE 7 · A1 the suite bath: the enlarged plans (a / b)
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[A1 · The suite bathroom over the kitchen · enlarged plans: (a) every drain in the sunken tanked slab (current) · (b) the east service wall + the tub's plinth]
+#v(2pt)
+#grid(columns: (auto, auto, 1fr), gutter: 8pt,
+  bath-plan("a"), bath-plan("b"),
+  [
+    #set text(6.2pt)
+    #H[The room and the stack]
+    - The bath x 10.3–13.311, y 6.5–10.45 (3.01 × 3.95 on axes) with the WC closet in its north-east part (12.211–13.311 × 6.5–8.0, sliding door); the *stack outside the east wall* at y 7.05 behind a removable cladding panel, its branch fittings at the first-floor level, its vent to the roof; the *east window* y 9.5–10.05 (sill +1.5); the *hood zone* of the kitchen below starts at y 10.2 on the east wall: the depressed slab reaches y 10.45 but *no drain runs south of y 10.15* (the tub's outlet at y #r1(tub.out.at(1)); checked).
+    - *Fixtures* (`studies/ff_suite.typ`): the WC in the closet on the east wall (its outlet #r2(dist((13.0, 7.17), (13.186, 7.1))) m from the wall), the walk-in shower on the east wall y 8.1–9.5, the freestanding tub on the south wall by the window (its waste at x 12.3), the double vanity on the west wall (its trap #r1(runlen(fx.find(f => f.id == "VAN").a.route)) m from the stack by the floor route).
+    #H[(a) all in the sunken tanked slab (current, red)]
+    - The ribbed slab's top is depressed 0.15 over the whole bath (+#r2(sunk-top)); the build-up from it: the tanking membrane and its protection screed (+#r2(pipe-floor)), the *pipe zone #r2(zone) m*, a lightweight fill, the 50 mm screed, the second membrane under the tiles, the tiles (+#r2(ffl)). The four drains lie in the fill at 2 % to the east wall and pass through it into the stack's branches: all four fit (page 8), the WC's Ø 110 with #r2(bot-a(fx.at(0)) - pipe-floor) m and the tub's flat trap on its diagonal with #r2(bot-a(tub) - pipe-floor) m to spare at the stack: tight.
+    - *Buried:* the WC's bend, the shower's gully and its outlet, the tub's trap and its 3.1 m outlet, the vanity's 3 m outlet and every joint of them. Reached only by lifting tiles, screed and the second membrane; the tanking under them stays.
+    #H[(b) the east service wall + the tub's plinth (green)]
+    - A *0.20 m service wall* inside the east wall from the closet to the shower's end (y 6.5–9.5, full height, its cavity down to the depressed slab), continued as a *0.45 m high duct* under the window to the south wall; the *WC wall-hung* on the wall's frame with its outlet *horizontal at +0.18 straight through the wall into the stack* (0 m of floor pipe); the *shower channel along the service wall with its trap body inside the wall cavity*; the *tub on a 0.12 m plinth with a removable front* (its trap in the plinth's void above the floor; the pipe in the plinth, the duct and the wall to the stack, #r2(tub-branch) m at 2 %, arriving at +#r2(bot-b(tub)), at about the floor level inside the wall cavity, #r2(bot-b(tub) - sunk-top) m above the tray); the *vanity's Ø 40 in a chase in the north wall at +0.45* (one jointless pipe from its bottle trap) into the service wall. *What still lies in the floor:* the shower channel's body only (set in the screed at the wall, its trap in the wall). Note: the door on the west wall (y 6.65–7.65) is not touched; the chase runs behind the plaster above the skirting.
+    #H[(c) a raised floor with removable panels]
+    - A floor on pedestals over the tanked slab with lift-out tiles is practical only where no water falls on it: it cannot be sealed and removable at once in the shower. It works for the *tub's zone* (= the plinth of (b)) and for a *dry strip along the west wall* under the vanity (0.6 wide, lift-out stone slabs over the vanity's pipe): used in (b) as the plinth; the west strip is an option if the owner prefers the vanity's pipe in the floor to a wall chase.
+  ],
+)
+
+// ====================================================================================== PAGE 8 · A1 the sections
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[A1 · Dimensioned sections · the levels available in the floor build-up and the sunken slab against every drain · the kitchen ceiling below]
+#v(2pt)
+#grid(columns: (1fr, 1fr), gutter: 8pt, sec-ns("a"), sec-ns("b"))
+#v(2pt)
+#grid(columns: (1fr, 1fr), gutter: 8pt, sec-ew("a"), sec-ew("b"))
+#v(3pt)
+#grid(columns: (1.1fr, 1fr), gutter: 10pt,
+  [
+    #set text(6.2pt)
+    #table(columns: (auto, 1fr, auto, auto, auto, auto, auto, auto, auto), inset: 1.6pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Drain], [Trap], [OD], [run m], [bends], [(a) crown at the fixture], [(a) bottom at the stack], [(a) fits], [(b) bottom at the stack]).map(c => text(5.8pt, weight: "bold", fill: accent, c)),
+      ..fx.map(f => (text(5.5pt)[#f.id], text(5.5pt)[#f.trap], text(5.5pt)[Ø #str(calc.round(f.od * 1000))], text(5.5pt)[#r2(runlen(f.a.route)) / #r2(runlen(f.b.route))], text(5.5pt)[#(f.a.route.len() - 2) / #(f.b.route.len() - 2)], text(5.5pt)[+#r2(top-a(f))], text(5.5pt)[+#r2(bot-a(f))], text(5.5pt, fill: if fits-a(f) { green } else { red }, weight: "bold")[#if fits-a(f) [yes, #r2(bot-a(f) - pipe-floor) spare] else [NO]], text(5.5pt)[+#r2(bot-b(f)) (above +#r2(sunk-top))])).flatten())
+    #text(5.6pt, fill: gray)[Levels above the ground floor ±0.00; "bottom" = the pipe's outside bottom at the stack after the fall of 2 % (1:50) over the run; the joints: at the trap, at each bend and at the stack's branch fitting. The build-up: finish 0.08 (params.yaml), the depression 0.15 (structure.typ), tanking 3 mm + protection 20 mm, screed 50 mm, membrane 2 mm, tiles 14 mm: ASSUMED. The waterproofing: (1) a liquid tanking on the depressed slab turned 0.15 up the walls (the tray, the second line against leaks), (2) a bonded membrane under the tiles turned up the walls (the first line); in (b) the service wall stands on the tray inside the tanking, its cavity drained to the stack's branch through a weep (a leak in the cavity shows at the tray's tell-tale).]
+  ],
+  [
+    #set text(6.3pt)
+    #H[What the sections show]
+    - *(a):* the pipe zone is #r2(zone) m; the WC's Ø 110 (an S-trap pan, its bend 0.07 under the tiles) fits with #r2(bot-a(fx.at(0)) - pipe-floor) m to spare over its 0.19 m run; the shower gully (0.09 body) and the vanity (0.07 bend) fit with #r2(bot-a(fx.at(1)) - pipe-floor) and #r2(bot-a(fx.at(3)) - pipe-floor) m to spare; *the tub fits only with a flat 0.08 trap on the straight diagonal under the shower* (#r2(bot-a(tub) - pipe-floor) m to spare): at the limit of the build-up, with a 0.10 trap or a run along the walls it does not fit at 2 %. Nothing hangs under the slab: *the kitchen ceiling carries only the lights* (the soffit +#r2(soffit) under the depressed zone, the gypsum at +#r2(k-ceil)): also in (a). But every drain and joint is under 0.07 m of screed, membrane and tile.
+    - *(b):* no pipe below the tiles except the channel's body (0.10 deep in the screed, at the wall); the WC's outlet at +0.18, the channel's trap at +#r2(ffl - 0.09) in the cavity, the tub's pipe from +#r2(ffl + 0.02) to +#r2(bot-b(tub)), the vanity's chase from +0.45 to +#r2(bot-b(fx.find(f => f.id == "VAN"))): all above the tray, reached from the room side.
+    - *The kitchen ceiling under the bath:* in both options *nothing but the structure* (the ribbed slab, its depressed zone), the ceiling's lights and the HRV ducts of the kitchen itself (which run south of the hood zone). *No drain under the hood zone* (y ≥ 10.2): checked.
+    - *The tub by the window (proved):* its trap sits in the plinth at +#r2(ffl + 0.02) … +#r2(ffl + 0.12); the pipe falls 2 % over #r2(tub-branch) m to +#r2(bot-b(tub)) at the stack: about the finished floor's level, inside the service wall's cavity and #r2(bot-b(tub) - sunk-top) m above the tray; *no part of it is in the floor's screed or fill*. *Access:* the plinth's front panel (clip-on stone, 1.7 × 0.12) for the trap's cleaning and replacement; the pop-up waste from inside the tub. *Ventilation:* the branch is #r2(tub-branch) m: within BS EN 12056-2's unvented 50 mm limit (4 m) but beyond the UPC's trap-arm limit, so an *air admittance valve in the plinth* (accessible, above the trap's weir) or a secondary vent up the service wall to the stack's vent: the engineer's code decides; with the AAV the trap cannot siphon.
+  ],
+)
+
+// ====================================================================================== PAGE 9 · A1 the comparison and the access of every drain
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[A1 · Comparison (a) sunken slab · (b) service wall + plinth · (c) raised floor · the access of EVERY drain and joint · the recommendation]
+#v(2pt)
+#grid(columns: (1fr, 1fr), gutter: 10pt,
+  [
+    #set text(6.2pt)
+    #table(columns: (1fr, 1.1fr, 1.3fr, 1fr), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Criterion], [(a) sunken slab, all buried], [(b) service wall + tub plinth], [(c) raised floor]).map(c => text(6pt, weight: "bold", fill: accent, c)),
+      [Maintenance access], [none without lifting tiles, screed and the second membrane (the tanking stays); blockages rodded from the fixtures and the stack's eye], [the WC, the tub, the vanity's trap and all joints at the stack reachable without cutting anything; the channel's insert from the front; its body = the one local opening], [the panels lift where dry; in the shower the sealing defeats it],
+      [Leak containment], [the tanked tray holds the leak; it shows at the tray's tell-tale (late)], [the same tray as the second line; the cavity and the plinth are dry voids with sensors (early)], [the tray; the void is inspectable],
+      [Noise], [pipes in the fill: quiet], [the WC frame and the pipes in a cavity: lined with 25 mm mineral wool, the pipe acoustic; quiet], [a hollow floor drums: needs a damping fill],
+      [Structure], [the depressed zone exists (X10); no change], [the same depressed zone; the service wall is light (steel frame + boards, ≈ 0.6 kN/m) on the slab; the bath loses 0.20 m in width (2.8 clear) and the closet 0.20 (0.9 clear: still a closet)], [the same slab; the floor's pedestals],
+      [Relative cost], [1.0], [≈ 1.2 (the frame, the wall-drain channel, the plinth, the chase)], [≈ 1.3 and worse in the shower],
+      [Function], [as designed], [a wall-hung WC and vanity (the owner's "high quality"); the tub on a plinth: a step of 0.12], [a step in the floor],
+    )
+    #v(3pt)
+    #H[Recommendation: (b), with the honest limit]
+    - *(b)*: the east service wall with the wall-hung WC, the wall-drain shower channel and the tub's plinth; the vanity's jointless chase. Every drain, trap and joint but one is reached from the room side or from the stack's cladding outside without cutting a finish; *the one exception is the shower channel's body* (its insert, strainer and seal come out from the front; the body itself, if it ever fails, needs a local opening ≈ 1.4 × 0.3 m of tiles and screed along the wall and the membrane re-made there, the tray below untouched). That is the smallest opening in the room and the best practical compromise: a channel body is a passive part with no moving element.
+    - *Keep the depressed tanked slab* in (b) too: it holds the channel's depth and is the second line against any leak; the cavity's weep and a tell-tale show a leak before it spreads. The kitchen ceiling under the bath carries nothing.
+    - *Also in (b):* the stack's four branch fittings and the rodding eye sit *outside, behind the cladding* (page 10): a blockage anywhere in the bath is cleared from the yard without entering the suite.
+  ],
+  [
+    #set text(5.9pt)
+    #H[Every drain and joint (option b): buried or accessible, and how it is reached]
+    #table(columns: (auto, 1fr, 1fr, 1fr, auto), inset: 1.6pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Item], [(1) blockage], [(2) leak: shows first at · how reached], [(3) broken pipe: replace], [removed]).map(c => text(5.6pt, weight: "bold", fill: accent, c)),
+      [WC pan + its seal], [through the pan; the stack's eye outside], [the pan's foot / the cavity sensor · the closet], [unbolt the pan (2 bolts), the outlet bend through the frame's opening], [nothing],
+      [WC cistern + valve], [—], [the flush plate's opening], [through the flush plate (standard)], [the plate],
+      [WC outlet bend → the wall → the stack], [the stack's rodding eye], [the cavity sensor; outside at the branch (cladding off)], [from the closet after the pan, and from outside], [the cladding panel],
+      [shower channel: grating, strainer, trap insert], [lift the grating, pull the insert, rod the outlet], [—], [the insert is the wear part: swapped from the front], [nothing],
+      [shower channel body (in the screed)], [as above], [the tray's tell-tale (the tanking holds it)], [*the one local opening*: ≈ 1.4 × 0.3 m of tiles + screed, the membrane re-made], [tiles + screed, locally],
+      [shower outlet Ø 50 in the wall cavity → the stack], [the stack's eye; the channel's outlet], [the cavity sensor; the front panel 0.6 × 1.0 above the channel (dry zone, tiled panel on a frame)], [through the front panel], [the panel],
+      [tub waste + pop-up], [from inside the tub], [the plinth void (sensor)], [from the plinth], [the plinth's front],
+      [tub trap + AAV (in the plinth)], [the plinth's front panel], [the plinth void], [the plinth's front panel], [the front panel],
+      [tub outlet Ø 50 in the plinth, the duct, the wall], [the stack's eye], [the duct's and the cavity's sensor; the duct's top is a lift-off stone shelf under the window], [the duct's lid, the wall's front panel], [the lid / a panel],
+      [vanity bottle trap], [unscrew it (visible)], [visible], [visible], [nothing],
+      [vanity Ø 40 in the north wall's chase], [rod from the trap], [the chase's foot at the wall's base above the floor; the cavity sensor], [open the chase: a 0.10 m plaster strip (dry wall zone, no waterproofing)], [plaster + tile strip],
+      [the four joints at the stack + the rodding eye], [the eye], [outside at the cladding's foot (a drip)], [from outside, the panel off], [the cladding panel],
+    )
+    #text(5.4pt, fill: gray)[Sensors: a cable leak sensor in the service wall's cavity at the tray level, one in the plinth, one in the duct; the tray's tell-tale is a Ø 20 weep from the tanking's lowest corner through the wall into the stack's cladding zone (a drip there = a leak above). All wired to the house's automatic main shut-off valve.]
+  ],
+)
+
+// ====================================================================================== PAGE 10 · A3 the east stack
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[A3 · The east stack: (a) the external stack on the east wall behind removable cladding vs (b) an internal accessible duct in the kitchen's north-east corner]
+#v(2pt)
+#grid(columns: (1.15fr, 1fr), gutter: 10pt,
+  [
+    #set text(6.2pt)
+    #table(columns: (1fr, 1.4fr, 1.4fr), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Criterion], [(a) external stack behind removable cladding (current)], [(b) internal duct 0.35 × 0.35 in the kitchen's NE corner]).map(c => text(6pt, weight: "bold", fill: accent, c)),
+      [Real access: where you stand, the panel, what you move], [in the *service yard*, on the ground: a 0.6 × 2.4 m cladding panel (honey-stone slats on a frame, 4 clips) off the wall; the FF branch fittings at +3.4 … +3.9 reached from a 2-step platform or a ladder in the yard; the bins (0.8 m north) rolled aside; nothing inside the house touched], [in the *kitchen*: a 0.6 × 2.1 m door in the corner; you stand in the kitchen's north-east corner, where the *service door (y 7.2–8.1) opens*: the duct's footprint (y 7.0–7.35) overlaps the door's jamb (#if duct-hits-door [reported]): the door must move 0.4 m south (and the bins and the gas pipe with it); the tall storage / fridge beside it moved; the FF panel in the WC closet's corner (0.5 × 1.2) behind the WC: the WC's frame limits it],
+      [Noise], [outside the wall: nothing heard inside; the pipe acoustic and insulated anyway], [a soil stack in a kitchen wall: needs the acoustic pipe, a lined duct (mineral wool) and a heavy door; audible in the kitchen at night in the worst case],
+      [Odour and fire], [the vent outside, up the wall to the roof; the branch joints outside: a leak or a smell stays outside; no fire separation needed], [the duct is a flue through the kitchen roof slab: a fire collar at the slab, the duct fire-rated (60 min) on the kitchen side (the hood zone is 3 m south); a smell from a joint enters the kitchen],
+      [Weather and heat], [the pipe behind the cladding: shaded, ventilated; UV-stable pipe; the east face gets the morning sun only (the yard's screen shades the foot)], [none: inside],
+      [The east facade], [the cladding panel is part of the east wall's service-yard face (the family's door, the bins, the screen): a 0.6 m stone-slat panel between the service door and the laundry's wall reads as a utility feature on the utility side; not on a show facade], [nothing outside; but the service door moves],
+      [Structure], [none: the stack hangs on the wall; the branches pass through the wall in sleeves (three Ø 110 / 50 holes in the 0.25 wall; no column at y 7.05: the east wall's columns stand at y 6.0 and 10.45)], [a 0.35 × 0.35 opening through the ribbed kitchen roof slab at the corner, trimmed (the engineer); and the maid wing's solid slab is not involved],
+      [Relative cost], [1.0 (the pipe, the cladding panel, the sleeves)], [≈ 1.5 (the duct, the slab opening and trimmer, the fire collar, the door moved, the kitchen corner rebuilt)],
+      [What it helps], [the vertical stack AND its four branch connections (all outside)], [the vertical stack only: the branches still cross the service wall (page 9)],
+    )
+  ],
+  [
+    #set text(6.4pt)
+    #H[Recommendation: (a) the external stack behind removable cladding]
+    - Round 1 leaned to the internal duct; the enlarged study *reverses that*: at the kitchen's north-east corner the duct collides with the service door and brings a soil stack, a slab opening and a fire-rated flue into the kitchen for a gain that is only the vertical pipe. The external stack puts the vertical AND every branch connection of the suite bath *outside the house*, reachable from the yard with a ladder, and keeps the kitchen's ceiling and corner clean.
+    - *Conditions for (a):* an acoustic, UV-stable Ø 110 pipe with a *rodding eye at the yard level and at +3.3* (under the branches); the four branch fittings at +3.4 … +3.9 behind one cladding panel 0.6 × 2.4 (clips, no tools); the cladding ventilated top and bottom; the vent carried 1.0 m above the roof (+#r2(vent-top)), #r1(vent-top - win-head) m above the bath window's head and #r1(dist(stack, hrv-intake)) m from the HRV intake; the sleeves through the wall sealed both sides (fire and water); the stack's foot into the yard's foul chamber with a bend and a cleanout. The pipe's run on the wall is *inside the service yard's screen*: unseen from the garden and the lane.
+    - *The west cluster* keeps its stack inside the *shaft* (doors on both floors): the inside solution is right there because the shaft exists and is in a service room, not a kitchen.
+    #v(3pt)
+    #H[What a duct would need, if the owner still wants it]
+    - The service door moved to y 7.6–8.5 (the bins and the gas pipe with it), the kitchen's corner unit shortened by 0.4 m, a trimmed 0.35 × 0.35 slab opening (X10's zone), a 60-minute duct with a fire collar, a 0.6 × 2.1 access door in the kitchen and a 0.5 × 1.2 panel in the closet; and the branches still cross the service wall. Cost ≈ 1.5 × (a). Not recommended.
+  ],
+)
+
+// ====================================================================================== PAGE 11 · A4 smells
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[A4 · Every possible source of drain smell in the house and on the site, and how each is prevented (the owner's priority)]
+#v(2pt)
+#grid(columns: (1.45fr, 1fr), gutter: 10pt,
+  [
+    #set text(6.3pt)
+    #table(columns: (1fr, 2.2fr), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      ..([Source], [Prevention (every item assumed, the plumbing engineer designs)]).map(c => text(6pt, weight: "bold", fill: accent, c)),
+      ..smells.map(r => r.map(c => text(5.8pt, c))).flatten())
+    #v(2pt)
+    #text(6pt, fill: gray)[The rule behind the list: a smell needs an open path from the sewer to a room. The paths are a dry or siphoned trap, an unsealed cleanout or cover, a vent terminal near an opening or an intake, and a direct joint from a device to a drain. Each is closed above; the rarely used drains are the only ones that need care (a membrane valve and a primer or a listed fill), and the design keeps them few: no floor gully in any bathroom but the shower's channel.]
+  ],
+  [
+    #set text(6.4pt)
+    #H[The list for the owner (round 2)]
+    + *A1:* the suite bath as *(b)* (service wall, wall-hung WC and vanity, wall-drain channel, the tub on a plinth with an AAV): accepted? The one local opening (the channel body) accepted as the compromise?
+    + *A3:* the east stack *external behind removable cladding* (not the internal duct): accepted?
+    + *A2:* the rain system separate with two soakaways and surface overflows; the condensate by tundishes and trapped air-breaks: noted.
+    + *A0:* the septic's position near C1 and the tanks east of peg R to be measured; the *septic's inlet level* decides whether a pump station is needed at the gate's collector chamber; the municipality's consent for the septic outside the wall.
+    + The monthly maintenance list (the rarely used drains, the tower sump, the tundishes) accepted as a duty, or trap primers everywhere (more pipe, no duty)?
+    #v(4pt)
+    #text(8pt)[#if all-ok and all-ok2 [*Study checks passed* (#(checks.len() + checks2.len()): round 1 #checks.len(), round 2 #checks2.len())] else [*STUDY CHECKS FAILED:* #(checks + checks2).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
+    #v(2pt)
+    #text(6pt, fill: gray)[Round 2 checks: #checks2.map(c => c.at(0)).join([ · ]). Every size is assumed, to be designed by the plumbing engineer; no estimate here (cost, length, depth) is proven; nothing in the room CSVs or the design files changes until the owner decides.]
   ],
 )
