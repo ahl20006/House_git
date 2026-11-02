@@ -49,7 +49,7 @@ assign:
   - ["_slab$", plaster]               # the slab edges between the storeys are plastered over with the walls
   - ["_slab_court$|finish_court$", stone_light]   # the courtyard floor of the base model (shown when the sunken seating is off)
   - ["finish_floor", marble]         # V7.1: marble inside (the courtyard floor stays honey-light stone, below)
-  - ["_door_", timber]                # the doors walnut
+  - ["_door_", timber]                # the doors walnut (the store's low door under the half landing too)
   - ["_rail_", steel]                 # the stair balustrades and the well railings: black steel bars
   - ["roof_cornice|ff_band|roof_coping|roof_attic_coping", stone]   # V7.0: the main cornice, the band between the floors, the copings (honey stone)
   - ["roof_attic|roof_parapet|ff_void_wall", plaster]   # V7.0: the attic, the parapets, the W3 wall piece (V8.0: no stair room)

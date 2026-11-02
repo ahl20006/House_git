@@ -187,7 +187,7 @@ for k, v in want_voids.items():
     else:
         bad(f"void {k}: built {summary['voids']['ff'][k]} != {v:.2f}")
 so = summary["voids"]["ff"]["stair_opening"]
-ok(f"stair opening in the first-floor slab: {so:.2f} m² (x {ST['x0']}–{ST['split']} y {ST['y0']}–{ST['b16'] - T_IN / 2:.2f} + x {ST['split']}–{ST['x1']} y {ST['y0']}–{ST['top']})") if 7.5 < so < 9.0 else bad(f"stair opening {so:.2f} m², expected about 8.2")
+ok(f"stair opening in the first-floor slab: {so:.2f} m² ({STAIR_OPENING.wkt[:60]}…; dir {ST.get('dir', -1):+d}, the lower flight on the {'east' if int(ST.get('lower_e', 0)) else 'west'} half)") if 7.5 < so < 9.0 else bad(f"stair opening {so:.2f} m², expected about 8.2")
 
 # ---------- 4: outline and levels ----------
 print("4. Outline and levels")
@@ -296,15 +296,17 @@ else:
 # arrival: the top nosing at the finished first-floor level, the slab just beyond it, the opening just before it
 top_n = [n for n in st["nosings"] if n["flight"] == 2][-1]
 ff_poly = outer_face.difference(COURT_SKY).difference(DH_VOID).difference(STAIR_OPENING).difference(TOWER_HOLE)
-beyond, before = Point(top_n["x"], top_n["y"] + 0.05), Point(top_n["x"], top_n["y"] - 0.05)
+_sd = st.get("dir", -1)
+beyond, before = Point(top_n["x"], top_n["y"] - _sd * 0.05), Point(top_n["x"], top_n["y"] + _sd * 0.05)
 if abs(top_n["z"] - FINISHED["FF"]) < 1e-6 and ff_poly.contains(beyond) and STAIR_OPENING.contains(before):
-    ok(f"arrival: the top riser lands at +{top_n['z']:.2f} on the first-floor slab (arrival strip y {st['arrival_y'][0]}–{st['arrival_y'][1]} inside the stair box, then the landing room)")
+    ok(f"arrival: the top riser lands at +{top_n['z']:.2f} on the first-floor slab (arrival strip y {st['arrival_y'][0]}–{st['arrival_y'][1]} inside the stair box, then the gallery's north part beside the lift door)" if _sd > 0 else f"arrival: the top riser lands at +{top_n['z']:.2f} on the first-floor slab (arrival strip y {st['arrival_y'][0]}–{st['arrival_y'][1]} inside the stair box, then the landing room)")
 else:
     bad(f"arrival: top nosing z {top_n['z']} at y {top_n['y']}, slab beyond {ff_poly.contains(beyond)}, opening before {STAIR_OPENING.contains(before)}")
 # the trimmers edge the opening
 b16, b17, b18 = (next(b for b in summary["structure"]["beams"] if b["id"] == i) for i in ("B16", "B17", "B18"))
 ox0, oy0, ox1, oy1 = STAIR_OPENING.bounds
-edge_ok = abs(b16["a"][1] - b16["w"] / 2 - (ST["b16"] - T_IN / 2)) < EPS and abs(b17["a"][0] + b17["w"] / 2 - ST["split"]) < EPS and abs(b18["a"][1] - b18["w"] / 2 - ST["top"]) < EPS
+_le = int(ST.get("lower_e", 0)) == 1
+edge_ok = abs(b16["a"][1] + _sd * b16["w"] / 2 - (ST["b16"] + _sd * T_IN / 2)) < EPS and abs(b17["a"][0] + (-1 if _le else 1) * b17["w"] / 2 - ST["split"]) < EPS and abs(b18["a"][1] + _sd * b18["w"] / 2 - ST["top"]) < EPS
 if edge_ok and all(abs(b["z1"] - (STRUCT_TOP["FF"] - T_SLAB)) < EPS for b in (b16, b17, b18)):
     ok(f"trimmers B16 (y {b16['a'][1]}), B17 (x {b17['a'][0]}), B18 (y {b18['a'][1]}) edge the opening, {b16['w']} × {b16['d']} total, soffit +{b16['z0']:.2f} (structural; +{b16['z0'] - FINISHED['GF']:.2f} above the finished ground floor)")
 else:

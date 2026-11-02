@@ -1,4 +1,5 @@
-// stair_flip.typ · Taif / Palm House V8.0 (work) · STUDY ONLY (owner's idea, 1 Nov 2026 after V8.0): flip the main stair's direction.
+// stair_flip.typ · Taif / Palm House V8.1 · the stair flip study (1 Nov 2026) · ADOPTED by the owner on 2 Nov 2026: option B, F-b, the balustrade, the store door onto the
+// riwaq, a small west window at the half landing, a glazed side light at the family entrance, the entry cupboard removed (applied to the design files on `work`). This file is the record.
 // CURRENT: the stair well in the west band (x 0–2.75, y 2.2–7.9 on axes; 2.525 × 5.50 clear) between the lift (north) and the first-floor landing
 // (south); the lower flight on the WEST half starts at the SOUTH end (from the riwaq), the half landing at the north end, the upper flight on the
 // EAST half arrives at the SOUTH end on the arrival strip and the landing room (y 7.9–9.2). FLIPPED (proposal): the same well and the same stair
@@ -334,7 +335,7 @@
 // ====================================================================================== PAGE 1 · the ground floor
 #text(14pt, weight: "bold", fill: accent)[Stair flip study · the main stair turned round: start and arrival at the NORTH end, next to the lift · Taif / Palm House V8.0 (work) · STUDY ONLY]
 #v(1pt)
-#text(8pt, fill: gray)[Owner's idea, 1 Nov 2026 after V8.0 · the same well (2.75 × 5.7 on axes, 2.525 × 5.50 clear), the same 22 risers × 0.164 / goings 0.28, flights #r2(wf) clear · nothing in the design files changes until the owner decides · all sizes assumed]
+#text(8pt, fill: gray)[*ADOPTED 2 Nov 2026 (owner): option B, the freed landing as F-b, the balustrade, the store door onto the riwaq, the half-landing window, the entrance side light, the entry cupboard removed; applied to the design files.* Owner's idea, 1 Nov 2026 · the same well (2.75 × 5.7 on axes, 2.525 × 5.50 clear), the same 22 risers × 0.164 / goings 0.28, flights #r2(wf) clear · nothing in the design files changes until the owner decides · all sizes assumed]
 #v(3pt)
 #grid(columns: (auto, auto, 1fr), gutter: 8pt,
   plan-gf(CUR), plan-gf(FLP),

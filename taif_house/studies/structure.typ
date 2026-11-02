@@ -83,9 +83,9 @@
   ("B13", (0, 10.4), (2.75, 10.4), "2.75", "hidden 0.20", "hidden", "utility / hospitality kitchen wall"),
   ("B14", (0, 14.4), (2.75, 14.4), "2.75", "hidden 0.20", "hidden", "basins / family WC wall · FF bedroom 2 / bath 3 wall"),
   ("B15", (8.95, 1.0), (10.594, 1.0), "1.64", "0.20×0.35 edge", "edge", "air tower opening (the tower rises through both slabs)"),
-  ("B16", (0, 4.85), (1.3875, 4.85), "1.39", "0.20×0.40 total, soffit +3.20", "trimmer", "stair opening edge over flight 1 (headroom 2.22 m at tread 6, to the beam soffit); its east end on B17 (beam on beam: normal at a stair well)"),
-  ("B17", (1.2875, 4.85), (1.2875, 6.45), "1.60", "0.20×0.40 total, soffit +3.20", "trimmer", "stair opening, on flight 1's side of the split (x 1.19–1.39), never over flight 2; ends on B16 and B18"),
-  ("B18", (1.2875, 6.45), (2.75, 6.45), "1.46", "0.20×0.40 total, soffit +3.20", "trimmer", "stair opening, the arrival edge (top riser line y 6.35); to the riwaq line beam B10"),
+  ("B16", (1.4875, 5.25), (2.75, 5.25), "1.36", "0.20×0.40 total, soffit +3.20", "trimmer", "stair flip (2 Nov 2026, B16′): the opening edge over the lower (east) flight beside tread 6 (headroom 2.22 m to the beam soffit); from the riwaq line beam B10 to B17′ (beam on beam: normal at a stair well)"),
+  ("B17", (1.4875, 3.65), (1.4875, 5.25), "1.60", "0.20×0.40 total, soffit +3.20", "trimmer", "B17′: on the lower flight's side of the split (x 1.39–1.59), never over the upper (west) flight; ends on B16′ and B18′"),
+  ("B18", (0, 3.65), (1.4875, 3.65), "1.49", "0.20×0.40 total, soffit +3.20", "trimmer", "B18′: the arrival edge (top riser line y 3.75) under the arrival strip, from the west wall to B17′"),
   ("B19", (4.25, 19.25), (4.25, 24), "4.75", "0.60×0.30 hidden (in the ribbed slab depth) or 0.25×0.50 drop, between C19 and C20", "hidden", "v2: the gym's east wall = the court's west wall, on a beam between two existing columns (a frame line, no transfer); its roof edge R3 above"),
   ("B20", (5.8, 19.25), (5.8, 20.55), "1.3 (+ rib to y 24)", "hidden rib 0.30", "hidden", "v2: the gym nib's east wall from C23, a light partition with the court door; nothing below"),
   ("B21", (10.0, 19.25), (10.0, 24), "4.75", "hidden rib 0.30", "hidden", "v2: the court / office wall x 10.0, NON-load-bearing (the office roof spans N–S onto R5 / R8): its own weight only on a thickened rib"),
@@ -109,7 +109,7 @@
 // slab bays: (level, rect x0 y0 x1 y1, type, thickness, direction "EW" | "NS" | "cant W", note)
 #let slabs-ff = (
   ((0, 0, 2.75, 2.2), "lift: FF slab opening (the lift is installed at construction, V6.3)", "0.20 solid", "NS", "lift"),
-  ((0, 2.2, 2.75, 7.9), "stair: L-shaped opening + flight slabs", "0.15 flights", "NS", "opening x 0.125–1.39 y 2.30–4.75 + x 1.39–2.65 y 2.30–6.35 (about 8.2 m2), see the stair page"),
+  ((0, 2.2, 2.75, 7.9), "stair: L-shaped opening + flight slabs", "0.15 flights", "NS", "flipped (2 Nov 2026): opening x 0.125–1.39 y 3.75–7.80 + x 1.39–2.65 y 5.35–7.80 (about 8.2 m2), the arrival strip y 2.30–3.75 and the slab over the lower flight's treads 1–6 at the north end, see the stair page"),
   ((0, 7.9, 2.75, 10.4), "solid", "0.20", "EW", "utility; shaft opening 1.5×1.2 framed"),
   ((0, 10.4, 2.75, 24), "solid", "0.20", "EW", "west wash block, 2.75 m bays"),
   ((2.75, 0, 4.25, 19.25), "solid", "0.20", "EW", "riwaq, 1.5 m"),
@@ -343,10 +343,13 @@
 
 // ================= PAGE 5 · the stair =================
 #pagebreak()
-#text(12pt, weight: "bold", fill: green)[The stair · plan at the first-floor opening and section · all sizes assumed]
-#h(6pt) #text(7pt, fill: gray)[well x 0–2.75 · y 2.2–7.9 (wall centre lines) · 22 risers × 0.164 = 3.60 m · goings 0.28 · two flights side by side · headroom measured to the beam soffits]
+#text(12pt, weight: "bold", fill: green)[The stair (flipped, option B · owner 2 Nov 2026) · plan at the first-floor opening and section · all sizes assumed]
+#h(6pt) #text(7pt, fill: gray)[well x 0–2.75 · y 2.2–7.9 (wall centre lines) · 22 risers × 0.164 = 3.60 m · goings 0.28 · two flights side by side · the lower flight on the EAST half starts at the NORTH end off the family lobby, the half landing at the SOUTH end, the upper flight on the west half arrives at the NORTH end beside the lift door · headroom measured to the beam soffits]
 #v(2pt)
-#let st = (x0: 0.125, x1: 2.65, y0: 2.30, y1: 7.80, land: 3.55, top: 6.35, split: 1.3875, gap: 0.10, r: 3.6 / 22, g: 0.28, b16: 4.85, b17: 1.2875, b18: 6.45)
+#let st = (x0: 0.125, x1: 2.65, y0: 2.30, y1: 7.80, land: 6.55, top: 3.75, split: 1.3875, gap: 0.10, r: 3.6 / 22, g: 0.28, b16: 5.25, b17: 1.4875, b18: 3.65, dir: 1, lower_e: 1)   // FLIPPED, option B (owner, 2 Nov 2026; studies/stair_flip.typ): the lower flight on the EAST half rises SOUTH (dir +1) from the first riser y 3.75 to the half landing y 6.55–7.80; the upper flight on the west half returns north to the top riser y 3.75; the arrival / start strip y 2.30–3.75
+#let st-lo = (st.split + st.gap / 2, st.x1)      // the lower flight (east)
+#let st-up = (st.x0, st.split - st.gap / 2)      // the upper flight (west)
+#let st-first = st.top                           // the first riser line (GF) = the top riser line (FF): 3.75
 #grid(columns: (auto, auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: 1.5cm, {
     import cetz.draw: *
@@ -354,84 +357,87 @@
     // walls (centre lines x 0, 2.75; y 2.2, 7.9) and the clear well
     rect(q((-0.125, 2.1)), q((0.125, 8.0)), fill: luma(190), stroke: none)
     rect(q((-0.125, 2.1)), q((2.85, 2.3)), fill: luma(190), stroke: none); rect(q((-0.125, 7.8)), q((2.85, 8.0)), fill: luma(190), stroke: none)
-    rect(q((2.65, 2.1)), q((2.85, 2.4)), fill: luma(190), stroke: none); rect(q((2.65, 6.8)), q((2.85, 8.0)), fill: luma(190), stroke: none)
-    line(q((2.75, 2.4)), q((2.75, 6.8)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.6pt)); T((2.9, 4.6), [open to the riwaq (GF) · railing (FF)], size: 3.6pt, angle: 90deg, anchor: "center")
-    // FF slab (hatched grey) and the opening (white)
+    rect(q((2.65, 2.1)), q((2.85, 2.3)), fill: luma(190), stroke: none); rect(q((2.65, st.land)), q((2.85, 8.0)), fill: luma(190), stroke: none)
+    line(q((2.75, 2.3)), q((2.75, st-first)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.6pt)); T((2.95, 3.0), [arrival → gallery (FF) · start ← lobby (GF)], size: 3.2pt, angle: 90deg)
+    line(q((2.72, st-first)), q((2.72, st.land)), stroke: 1.2pt + luma(60)); T((2.95, 5.15), [balustrade 0.90 on the riwaq (GF) · railing 1.10 (FF)], size: 3.2pt, angle: 90deg)
+    // FF slab (grey) and the opening (white): the slab over the arrival strip (full width) and over the lower flight's treads 1–6 (east half, to B16′)
     rect(q((st.x0, st.y0)), q((st.x1, st.y1)), fill: luma(225), stroke: none)
-    rect(q((st.x0, st.y0)), q((st.split, st.b16 - 0.1)), fill: white, stroke: 0.4pt + ink)
-    rect(q((st.split, st.y0)), q((st.x1, st.top)), fill: white, stroke: 0.4pt + ink)
-    // half landing
-    rect(q((st.x0, st.y0)), q((st.x1, st.land)), fill: rgb("#f3dfb8"), stroke: 0.3pt + ink); T((1.39, 2.92), [half landing +1.80\ 1.25 deep · store below], size: 4pt)
-    // flight 1 (west, up to the north) and flight 2 (east, up to the south)
+    rect(q((st-up.at(0), st-first)), q((st-up.at(1), st.y1)), fill: white, stroke: 0.4pt + ink)
+    rect(q((st-lo.at(0), st.b16 + 0.1)), q((st-lo.at(1), st.y1)), fill: white, stroke: 0.4pt + ink)
+    // half landing (south end)
+    rect(q((st.x0, st.land)), q((st.x1, st.y1)), fill: rgb("#f3dfb8"), stroke: 0.3pt + ink); T((1.39, 7.17), [half landing +1.80 · 1.25 deep\ store below (door onto the riwaq, 1.65 m)], size: 3.8pt)
+    // the lower flight (east, up to the south) and the upper flight (west, up to the north)
     for i in range(10) {
-      let y = st.top - i * st.g
-      line(q((st.x0, y)), q((st.split - st.gap / 2, y)), stroke: 0.4pt + ink)
-      line(q((st.split + st.gap / 2, st.land + i * st.g)), q((st.x1, st.land + i * st.g)), stroke: 0.4pt + ink)
-      T((st.x0 + 0.18, y - 0.14), [#(i + 1)], size: 3.2pt); T((st.x1 - 0.18, st.land + i * st.g + 0.14), [#(i + 12)], size: 3.2pt)
+      let y = st-first + i * st.g
+      line(q((st-lo.at(0), y)), q((st-lo.at(1), y)), stroke: 0.4pt + ink)
+      line(q((st-up.at(0), st.land - i * st.g)), q((st-up.at(1), st.land - i * st.g)), stroke: 0.4pt + ink)
+      T((st-lo.at(1) - 0.18, y + 0.14), [#(i + 1)], size: 3.2pt); T((st-up.at(0) + 0.18, st.land - i * st.g - 0.14), [#(i + 12)], size: 3.2pt)
     }
-    line(q((st.x0, st.land)), q((st.split - st.gap / 2, st.land)), stroke: 0.4pt + ink); line(q((st.split + st.gap / 2, st.top)), q((st.x1, st.top)), stroke: 0.4pt + ink)
-    line(q((0.75, st.top + 0.6)), q((0.75, st.land + 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((0.42, 5.0), [UP · flight 1], size: 3.8pt, fill: red, angle: 90deg)
-    line(q((2.02, st.land + 0.35)), q((2.02, st.top - 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((2.34, 5.0), [flight 2 · UP], size: 3.8pt, fill: red, angle: 90deg)
-    rect(q((st.split - st.gap / 2, st.land)), q((st.split + st.gap / 2, st.top)), fill: luma(120), stroke: none); T((st.split, 5.0), [gap 0.10 · handrail], size: 3.2pt, angle: 90deg)
-    T((2.02, 7.05), [arrival at +3.60\ y 6.35–7.80], size: 3.8pt); T((0.75, 7.05), [GF: start of flight 1\ FF: slab], size: 3.8pt)
+    line(q((st-lo.at(0), st.land)), q((st-lo.at(1), st.land)), stroke: 0.4pt + ink); line(q((st-up.at(0), st-first)), q((st-up.at(1), st-first)), stroke: 0.4pt + ink)
+    line(q((2.02, st-first - 0.6)), q((2.02, st.land - 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((2.34, 5.1), [UP · lower flight], size: 3.8pt, fill: red, angle: 90deg)
+    line(q((0.75, st.land - 0.35)), q((0.75, st-first + 0.35)), stroke: 0.8pt + red, mark: (end: "stealth", fill: red, scale: 0.5)); T((0.42, 5.1), [upper flight · UP], size: 3.8pt, fill: red, angle: 90deg)
+    rect(q((st.split - st.gap / 2, st-first)), q((st.split + st.gap / 2, st.land)), fill: luma(120), stroke: none); T((st.split, 5.1), [gap 0.10 · handrail], size: 3.2pt, angle: 90deg)
+    T((0.75, 3.0), [arrival at +3.60\ y 2.30–3.75 (full width)], size: 3.8pt); T((2.02, 2.95), [GF: start of the\ lower flight], size: 3.6pt)
+    rect(q((st.x0, st.y0)), q((st-up.at(1), st-first)), fill: none, stroke: (paint: luma(120), dash: "dotted", thickness: 0.5pt)); T((0.75, 3.55), [GF: coat cupboard below], size: 3pt, fill: luma(110))
     // trimmers
-    line(q((st.x0, st.b16)), q((st.split, st.b16)), stroke: 2.2pt + red); T((0.7, st.b16 + 0.22), [B16 0.20×0.40 · soffit +3.20], size: 3.4pt, fill: red)
-    line(q((st.b17, st.b16)), q((st.b17, st.b18)), stroke: 2.2pt + red); T((st.b17 - 0.12, 5.65), [B17], size: 3.4pt, fill: red, angle: 90deg)
-    line(q((st.b17, st.b18)), q((2.75, st.b18)), stroke: 2.2pt + red); T((2.1, st.b18 + 0.22), [B18], size: 3.4pt, fill: red)
-    T((0.75, 3.9), [opening], size: 4pt, fill: luma(100)); T((2.02, 4.7), [opening], size: 4pt, fill: luma(100))
+    line(q((2.75, st.b16)), q((st.b17, st.b16)), stroke: 2.2pt + red); T((2.1, st.b16 + 0.22), [B16′ 0.20×0.40 · soffit +3.20], size: 3.4pt, fill: red)
+    line(q((st.b17, st.b16)), q((st.b17, st.b18)), stroke: 2.2pt + red); T((st.b17 + 0.12, 4.45), [B17′], size: 3.4pt, fill: red, angle: 90deg)
+    line(q((st.x0 - 0.125, st.b18)), q((st.b17, st.b18)), stroke: 2.2pt + red); T((0.7, st.b18 - 0.22), [B18′], size: 3.4pt, fill: red)
+    T((2.02, 6.2), [opening], size: 4pt, fill: luma(100)); T((0.75, 5.4), [opening], size: 4pt, fill: luma(100))
     // dimensions
     line(q((st.x0, 1.75)), q((st.x1, 1.75)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((1.39, 1.55), [2.525 clear], size: 3.6pt)
     line(q((st.x0, 1.95)), q((st.split - st.gap / 2, 1.95)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((0.72, 2.12), [1.21], size: 3.4pt)
     line(q((st.split + st.gap / 2, 1.95)), q((st.x1, 1.95)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((2.05, 2.12), [1.21], size: 3.4pt)
-    line(q((3.25, st.y0)), q((3.25, st.y1)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((3.45, 5.05), [5.50 clear = 1.25 + 2.80 + 1.45], size: 3.6pt, angle: 90deg)
+    line(q((3.25, st.y0)), q((3.25, st.y1)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((3.45, 5.05), [5.50 clear = 1.45 + 2.80 + 1.25], size: 3.6pt, angle: 90deg)
     T((1.39, 1.2), [stair plan at the first-floor slab · white = opening · grey = slab · north up], size: 4.4pt, fill: green)
   }),
   cetz.canvas(length: 1.5cm, {
     import cetz.draw: *
     let T(p, t, size: 4.4pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
-    // section along flight 1 (x ≈ 0.75), looking east: horizontal = y (north left), vertical = level
+    // section along the lower (east) flight (x ≈ 2.0), looking west: horizontal = y (north left), vertical = level
     let Y(y) = y - st.y0
     line((Y(1.9), 0), (Y(8.3), 0), stroke: 0.8pt + ink)
     rect((Y(2.1), 0), (Y(2.3), 7.2), fill: luma(190), stroke: none); rect((Y(7.8), 0), (Y(8.0), 7.2), fill: luma(190), stroke: none)
-    // flight 1 steps
+    // the lower flight's steps: from the first riser y 3.75 south to the landing y 6.55
     for i in range(11) {
-      let y = st.top - i * st.g; let z = i * st.r
-      line((Y(y), z), (Y(y), z + st.r), stroke: 0.6pt + ink); line((Y(y), z + st.r), (Y(y - st.g), z + st.r), stroke: 0.6pt + ink)
+      let y = st-first + i * st.g; let z = i * st.r
+      line((Y(y), z), (Y(y), z + st.r), stroke: 0.6pt + ink); line((Y(y), z + st.r), (Y(y + st.g), z + st.r), stroke: 0.6pt + ink)
     }
-    line((Y(5.88), 0), (Y(st.land), 1.5), (Y(st.land), 1.65), stroke: 0.4pt + luma(120))   // flight 1 soffit, 0.15 slab + waist
-    // half landing slab and the store below
-    rect((Y(st.y0), 1.8 - 0.15), (Y(st.land), 1.8), fill: luma(120), stroke: none); T((Y(2.9), 0.8), [store\ ≈ 1.65 headroom], size: 3.6pt)
-    // flight 2 behind (dashed): from the landing up to the south
-    line(..range(11).map(i => (Y(st.land + i * st.g), 1.8 + i * st.r)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.6pt)); T((Y(6.0), 2.35), [flight 2 beyond (east)], size: 3.6pt, fill: luma(110), anchor: "west")
-    // FF slab over flight 1 lower treads (y 4.75–7.80) + B16 trimmer; B18 beyond
-    rect((Y(4.75), 3.4), (Y(7.8), 3.6), fill: luma(120), stroke: none)
-    rect((Y(4.75), 3.2), (Y(4.95), 3.4), fill: red, stroke: none); T((Y(4.85), 3.05), [B16 soffit +3.20], size: 3.4pt, fill: red)
-    rect((Y(6.35), 3.2), (Y(6.55), 3.4), fill: red.transparentize(50%), stroke: none); T((Y(6.45), 3.05), [B18 beyond], size: 3.2pt, fill: red)
+    line((Y(4.22), 0), (Y(st.land), 1.5), (Y(st.land), 1.65), stroke: 0.4pt + luma(120))   // the flight soffit, 0.15 slab + waist
+    // the half landing slab and the store below (door onto the riwaq)
+    rect((Y(st.land), 1.8 - 0.15), (Y(st.y1), 1.8), fill: luma(120), stroke: none); T((Y(7.2), 0.8), [store\ ≈ 1.65 headroom\ door → riwaq], size: 3.4pt)
+    // the upper flight beyond (dashed): from the landing up to the north
+    line(..range(11).map(i => (Y(st.land - i * st.g), 1.8 + i * st.r)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.6pt)); T((Y(4.3), 2.35), [upper flight beyond (west)], size: 3.6pt, fill: luma(110), anchor: "west")
+    // FF slab over the arrival strip and the lower flight's treads 1–6 (y 2.30–5.35) + the trimmers B18′ (arrival edge) and B16′
+    rect((Y(2.3), 3.4), (Y(st.b16 + 0.1), 3.6), fill: luma(120), stroke: none)
+    rect((Y(st.b16 - 0.1), 3.2), (Y(st.b16 + 0.1), 3.4), fill: red, stroke: none); T((Y(st.b16), 3.05), [B16′ soffit +3.20], size: 3.4pt, fill: red)
+    rect((Y(st.b18 - 0.1), 3.2), (Y(st.b18 + 0.1), 3.4), fill: red.transparentize(50%), stroke: none); T((Y(st.b18), 3.05), [B18′ (west half)], size: 3.2pt, fill: red)
+    rect((Y(2.3), 3.6), (Y(st-first), 3.68), fill: luma(200), stroke: none); T((Y(3.0), 3.9), [arrival +3.60], size: 3.4pt)
     // roof
-    rect((Y(4.75), 7.0), (Y(7.8), 7.2), fill: luma(120), stroke: none); rect((Y(4.75), 6.8), (Y(4.95), 7.0), fill: red, stroke: none); T((Y(3.5), 7.45), [V8.0: the roof slab over the well is closed (no R16–R18); V8.1: the roof is reached by the maintenance ladder in the suite court (X20)], size: 3.4pt, fill: red)
+    rect((Y(2.3), 7.0), (Y(7.8), 7.2), fill: luma(120), stroke: none); T((Y(5.0), 7.45), [V8.0: the roof slab over the well is closed (no R16–R18); V8.1: the roof is reached by the maintenance ladder in the suite court (X20)], size: 3.4pt, fill: red)
     // headroom at tread 6
     let z6 = 6 * st.r
-    line((Y(4.67), z6), (Y(4.67), 3.2), stroke: (paint: green, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(4.55), 2.1), [2.22 ≥ 2.10\ tread 6 → B16], size: 3.4pt, fill: green, anchor: "east")
-    line((Y(5.5), 3 * st.r), (Y(5.5), 3.4), stroke: (paint: green, thickness: 0.5pt, dash: "dotted"), mark: (start: "|", end: "|", scale: 0.4)); T((Y(5.6), 2.4), [2.91 to the slab], size: 3.2pt, fill: green, anchor: "west")
+    line((Y(5.43), z6), (Y(5.43), 3.2), stroke: (paint: green, thickness: 0.6pt), mark: (start: "|", end: "|", scale: 0.4)); T((Y(5.55), 2.1), [2.22 ≥ 2.10\ tread 6 → B16′], size: 3.4pt, fill: green, anchor: "west")
+    line((Y(4.6), 3 * st.r), (Y(4.6), 3.4), stroke: (paint: green, thickness: 0.5pt, dash: "dotted"), mark: (start: "|", end: "|", scale: 0.4)); T((Y(4.5), 2.4), [2.91 to the slab], size: 3.2pt, fill: green, anchor: "east")
     for (z, l) in ((0, [±0.00]), (1.8, [+1.80]), (3.6, [+3.60]), (7.2, [+7.20])) { T((Y(1.85), z), l, size: 3.6pt, fill: gray, anchor: "east") }
     T((Y(2.2), -0.4), [N], size: 4pt); T((Y(7.9), -0.4), [S], size: 4pt)
-    T((Y(5.0), 7.7), [section along flight 1 (x ≈ 0.75), looking east], size: 4.4pt, fill: green)
+    T((Y(5.0), 7.7), [section along the lower flight (x ≈ 2.0), looking west], size: 4.4pt, fill: green)
   }),
   [
     #set text(6.6pt)
     #H[Numbers (assumed)]
-    - *Well:* 2.75 × 5.70 m on wall centre lines = *2.525 × 5.50 m clear* (0.25 outer wall west, 0.20 walls north and south; the east side is open to the riwaq on the ground floor and a railing on the first floor).
+    - *Well:* 2.75 × 5.70 m on wall centre lines = *2.525 × 5.50 m clear* (0.25 outer wall west, 0.20 walls north and south; on the east the start opening (y 2.3–3.75) and a 0.90 balustrade along the lower flight (y 3.75–6.55) on the ground floor, a railing on the first floor; the store's wall y 6.55–7.9).
     - *Rise:* 3.60 m = *22 risers × 0.164 m*, 11 per flight; *goings 0.28 m*, 10 per flight = 2.80 m.
-    - *Plan:* half landing 1.25 m (y 2.30–3.55) at the north end, flights y 3.55–6.35, arrival 1.45 m (y 6.35–7.80) at the south end: *1.25 + 2.80 + 1.45 = 5.50 = the clear length. It fits.*
-    - *Flight clear width:* (2.525 − 0.10 gap) / 2 = *1.21 m each*, ≈ 1.13 m between a wall handrail (0.08) and the central handrail; ≥ 0.90 m (residential). Flight 1 west, up to the north; flight 2 east, up to the south.
-    - *Flight slabs:* 0.15 m solid, spanning landing to landing (2.80 m); the half landing on the stair walls (store under it, ≈ 1.65 m headroom: a store, not a room).
+    - *Plan (flipped, option B):* the arrival / start strip 1.45 m (y 2.30–3.75) at the north end, flights y 3.75–6.55, the half landing 1.25 m (y 6.55–7.80) at the south end: *1.45 + 2.80 + 1.25 = 5.50 = the clear length. It fits.* The lower flight on the east half rises south, straight off the family lobby; the upper flight on the west half returns north and arrives beside the lift door. The west half of the start strip (1.21 × 1.45, full height) is the coat cupboard by the entrance.
+    - *Flight clear width:* (2.525 − 0.10 gap) / 2 = *1.21 m each*, ≈ 1.13 m between a wall handrail (0.08) and the central handrail; ≥ 0.90 m (residential).
+    - *Flight slabs:* 0.15 m solid, spanning landing to landing (2.80 m); the half landing on the stair walls (store under it, ≈ 1.65 m headroom: a store, not a room; its low door onto the riwaq by the courtyard glass).
     #v(2pt)
     #H[Opening in the first-floor slab (L-shaped, ≈ 8.2 m²)]
-    - *Over flight 1 only beyond tread 6:* the slab above a tread must leave ≥ 2.10 m to the *beam* soffit (+3.20 with 0.40 total trimmers), so treads with a level ≤ 1.10 m may stay under the slab: treads 1–6 (tread 6 at +0.98 → 2.22 m). The opening edge B16 is at y 4.85 (beam 4.75–4.95), north of tread 6 (y 4.67–4.95) — tread 7 (y 4.39–4.67, +1.15) is under open sky.
-    - *Over flight 2 and the half landing:* fully open (x 1.39–2.65, y 2.30–6.35 and x 0.125–1.39, y 2.30–4.75).
-    - *Trimmers, 0.20 × 0.40 total, soffit +3.20:* B16 (y 4.85, from the west wall to B17), B17 (x 1.29, on flight 1's side of the split so it is never over flight 2, from B16 to B18), B18 (y 6.45, the arrival edge, from B17 to the riwaq line beam B10). B16 and B18 bear on B17: one beam-on-beam zigzag, normal at a stair well; the engineer takes the torsion.
-    - *Headroom:* 2.22 m at tread 6 to B16; 2.91 m at tread 3 to the slab; under B17 (over flight 1 treads 1–5, level ≤ 0.82) ≥ 2.38 m; flight 2 and the half landing are under flight 4 and the upper half landing (≥ 3.4 m, the same geometry one storey up; V6.4: the stair continues to the roof, studies/roof.typ). *No conflict with the reservation.*
-    - *Arrival:* flight 2 lands at +3.60 on the arrival strip y 6.35–7.80 inside the stair box, then the landing room (y 7.9–9.2) and the gallery.
+    - *Over the lower flight only beyond tread 6:* the slab above a tread must leave ≥ 2.10 m to the *beam* soffit (+3.20 with 0.40 total trimmers), so treads with a level ≤ 1.10 m may stay under the slab: treads 1–6 (tread 6 at +0.98 → 2.22 m). The opening edge B16′ is at y 5.25 (beam 5.15–5.35), over tread 6's south part (y 5.15–5.43) — tread 7 (y 5.43–5.71, +1.15) is under open sky.
+    - *Over the upper flight and the half landing:* fully open (x 0.125–1.39, y 3.75–7.80 and x 1.39–2.65, y 5.35–7.80).
+    - *Trimmers, 0.20 × 0.40 total, soffit +3.20 (the same zigzag as V8.1, mirrored):* B16′ (y 5.25, from the riwaq line beam B10 to B17′), B17′ (x 1.49, on the lower flight's side of the split so it is never over the upper flight, from B16′ to B18′), B18′ (y 3.65, the arrival edge, from the west wall to B17′). B16′ and B18′ bear on B17′: one beam-on-beam zigzag, normal at a stair well; the engineer takes the torsion. *Option for the engineer:* 0.20 × *0.30* trimmers (soffit +3.30) would give 2.32 m at tread 6 if the 1.4–1.6 m spans allow it.
+    - *Headroom (over the full width of every tread):* 2.22 m at tread 6 to B16′ (the trimmer spans the whole east half); 2.91 m at tread 3 to the slab; under B17′ (over the lower flight's inner 0.10 strip, treads 1–5, level ≤ 0.82) ≥ 2.38 m; the upper flight and the half landing under the open well to the roof slab (≥ 3.4 m). *No conflict with the reservation.*
+    - *Arrival:* the upper flight lands at +3.60 on the arrival strip y 2.30–3.75 inside the stair box, which opens east onto the gallery's north part 0.10 m south of the lift notch; the former landing room (y 7.9–9.2) is the family bath's north part (F-b) behind a wall on B12.
   ],
 )
 
@@ -472,7 +478,7 @@
     - *Loads:* it is a *home gym* (light equipment, no dropped heavy weights, one treadmill): the engineer chooses a normal residential-gym live load as they judge (SBC 301 gives 5 kN/m² for gymnasia; what applies to a home gym is the engineer's call); the treadmill ≈ 1.5–2 kN dynamic (manufacturer's data); office 2.5–3 kN/m². *Vibration: not calculated here.* The natural frequency of the 4.75 m ribbed slab and its response under the treadmill (now beside the stiff west edge, on B19) must be checked by the engineer; the treadmill gets a floating floor and pads (DETAILS.md) in any case (X6).
     #v(3pt)
     #H[5 · The stair (x 0–2.75, y 2.2–7.9)]
-    - Drawn on the stair page: two flights of 1.21 m clear, 22 risers of 0.164 m, goings 0.28, a half landing 1.25 m deep at the north end, the arrival at the south end; the L-shaped opening of about 8.2 m² and the trimmers B16–B18 (0.40 total, soffit +3.20); headroom 2.22 m at the opening edge, measured to the trimmer soffit. *It fits the reservation.*
+    - Drawn on the stair page: two flights of 1.21 m clear, 22 risers of 0.164 m, goings 0.28; *flipped (option B, 2 Nov 2026)*: the half landing 1.25 m deep at the south end, the start and the arrival at the north end beside the lift; the L-shaped opening of about 8.2 m² and the trimmers B16′–B18′ (0.40 total, soffit +3.20); headroom 2.22 m at the opening edge, measured to the trimmer soffit (0.30 trimmers would give 2.32 m: the engineer). *It fits the reservation.*
     #H[6 · Glazing and the grid]
     - *Courtyard glazing* (x 4.25 y 6.8–8.9 and 10.7–12.7; x 8.95 y 9.1–11.1): no column in the openings (C17, C18, C26, C27 at the corners); beams B4 / B6 above the heads. *Women's majlis south glazing* (y 6.5, x 5.1–8.1): C21 at x 5.8 sits in it → the glazing is 5.1–5.6 + 6.0–8.1 (accepted with the colonnade; V6.4). *Living glazing* (y 13.0, x 4.45–8.75): C22 at x 5.8 is the pier (the columns solution, tag v5.0). *Clerestory* (y 19.25, x 6.0–7.0 and 7.6–8.6, +5.00–6.00): C23 at x 5.6 and C28 at x 8.95 are clear of it; the roof beam R5 soffit +6.70 is 0.70 above the head. *Suite bath east window*, shortened by the owner to y 9.6–10.2: the clearance to C33 depends on the column's length along the wall, see X3.
     #v(3pt)
@@ -510,7 +516,7 @@
   ("X20", "V8.1 · coordination", [*The maintenance ladder's recess (studies/roof.typ page 2):* a honey-stone *pilaster 1.30 × 0.35 added on the court face of the gym's east wall* (x 4.35–4.70, y 20.65–21.95) holds the 0.90 × 0.30 recess for the ladder; the *0.20 wall on B19 (under R3) is not cut*. The pilaster (≈ 1.7 m³ block ≈ 20 kN) stands on the court's depressed slab (the men's majlis roof): a local load for the engineer. *Alternative:* if the engineer confirms the x 4.25 wall as non-load-bearing infill between B19 and R3, the recess may be cut into a locally rebuilt 0.50 wall (the pilaster disappears). The ladder's fixings (≈ 1.5 kN each) into solid block or a cast-in steel sub-frame; the gate posts of the court guard on R3; the stiles 1.10 above the roof. The pilaster's foundation is the slab: *no footing*.]),
   ("X13", "open", [*Which walls are RC:* this study proposes W1–W4 (lift, shaft, laundry wall, cut wall) as RC 0.20 m for stiffness (W5, the kitchen north wall, dropped in V6.4), plus the two gym walls of X5. The engineer confirms the lateral system (frame + walls) under SBC 301 and the wind / seismic case for Taif.]),
   ("X14", "open", [*Slab types:* ribbed 0.30 (hollow block) for the 4.36–4.75 m bays and the men's majlis roof; solid 0.20 elsewhere and 0.22 flat over the double-height living. The engineer may unify (all ribbed, or all solid 0.20–0.25) for buildability; the clean soffit over the void is the only architectural wish.]),
-  ("X15", "open", [*Stair* (drawn on the stair page): flight widths 1.21 m clear, 22 risers × 0.164, the L-shaped opening and the trimmers B16–B18 with their torsion, the store under the half landing (≈ 1.65 m headroom), handrails; the arrival strip y 6.35–7.80 at the first floor.]),
+  ("X15", "open", [*Stair* (drawn on the stair page; flipped 2 Nov 2026, option B): flight widths 1.21 m clear, 22 risers × 0.164, the L-shaped opening turned round and the trimmers B16′–B18′ with their torsion (B18′ on the west wall, B16′ on B10), the store under the half landing at the south end (≈ 1.65 m headroom), handrails; the arrival strip y 2.30–3.75 at the first floor; a wall on B12 (y 7.9) closes the opening's south side (the family bath's north part).]),
 )
 #table(columns: (auto, auto, 1fr), stroke: none, inset: 2.4pt, fill: (_, y) => if calc.even(y) { rgb("#efece4") },
   [*No.*], [*State*], [*Conflict / question*],

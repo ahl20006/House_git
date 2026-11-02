@@ -239,7 +239,10 @@ COURT_SKY = Polygon(court["pts"]).intersection(east_of_projection)
 DH_VOID = Polygon(dh_living["pts"]).intersection(east_of_projection)
 SUITE_COURT = Polygon(next(r for r in FF if r["colour"] in ("open", "terrace"))["pts"])   # open to the sky: a hole in the roof
 # the stair opening in the first-floor slab (studies/structure.typ: over flight 1 beyond the trimmer B16, over the half landing and flight 2)
-STAIR_OPENING = unary_union([box(ST["x0"], ST["y0"], ST["split"], ST["b16"] - T_IN / 2), box(ST["split"], ST["y0"], ST["x1"], ST["top"])])
+_SD = int(ST.get("dir", -1)); _LE = int(ST.get("lower_e", 0)) == 1   # the stair's direction (see the stair section below)
+_lo_x = (ST["split"], ST["x1"]) if _LE else (ST["x0"], ST["split"]); _up_x = (ST["x0"], ST["split"]) if _LE else (ST["split"], ST["x1"])
+_edge = ST["b16"] + _SD * T_IN / 2
+STAIR_OPENING = unary_union([box(_lo_x[0], ST["y0"] if _SD < 0 else _edge, _lo_x[1], _edge if _SD < 0 else ST["y1"]), box(_up_x[0], ST["y0"] if _SD < 0 else ST["top"], _up_x[1], ST["top"] if _SD < 0 else ST["y1"])])
 
 
 # ---------- wall pieces: every room edge, split where other edges start or end, deduplicated, minus the outline and the open edges ----------
@@ -582,21 +585,27 @@ if abs(risers * r - (FINISHED["FF"] - FINISHED["GF"])) > 1e-6:
 per_flight = risers // 2
 waist = P["stair"]["waist"]
 land_level = FINISHED["GF"] + per_flight * r
-f1x = (ST["x0"], ST["split"] - ST["gap"] / 2)       # flight 1: west, rises to the north
-f2x = (ST["split"] + ST["gap"] / 2, ST["x1"])       # flight 2: east, rises to the south
+# the direction (studies/structure.typ st): dir −1 = the lower flight rises north from a south start (V8.1), +1 = it rises south from a north start (the flip, 2 Nov 2026);
+# lower_e 1 = the lower flight on the east half (the flip, option B), 0 = on the west half
+SD = int(ST.get("dir", -1))
+LOWER_E = int(ST.get("lower_e", 0)) == 1
+west_x, east_x = (ST["x0"], ST["split"] - ST["gap"] / 2), (ST["split"] + ST["gap"] / 2, ST["x1"])
+f1x = east_x if LOWER_E else west_x               # flight 1 = the lower flight
+f2x = west_x if LOWER_E else east_x               # flight 2 = the upper flight
 # flight 1 profile: nosings from (top, 0) up to (land, land_level); soffit back down
 p1 = [(ST["top"], FINISHED["GF"])]
 for i in range(1, per_flight):
-    p1 += [(ST["top"] - (i - 1) * g, FINISHED["GF"] + i * r), (ST["top"] - i * g, FINISHED["GF"] + i * r)]
-p1 += [(ST["land"], FINISHED["GF"] + per_flight * r - r), (ST["land"], land_level), (ST["land"], land_level - waist - r), (ST["top"] - 0.001, FINISHED["GF"])]
+    p1 += [(ST["top"] + SD * (i - 1) * g, FINISHED["GF"] + i * r), (ST["top"] + SD * i * g, FINISHED["GF"] + i * r)]
+p1 += [(ST["land"], FINISHED["GF"] + per_flight * r - r), (ST["land"], land_level), (ST["land"], land_level - waist - r), (ST["top"] + SD * 0.001, FINISHED["GF"])]
 add(profile_mesh(p1, *f1x, COLOURS["stair"], "gf_stair_flight1"))
 # flight 2 profile: from the landing (land, land_level) up to (top, FF)
 p2 = [(ST["land"], land_level)]
 for i in range(1, per_flight):
-    p2 += [(ST["land"] + (i - 1) * g, land_level + i * r), (ST["land"] + i * g, land_level + i * r)]
-p2 += [(ST["top"], land_level + per_flight * r - r), (ST["top"], FINISHED["FF"]), (ST["top"], FINISHED["FF"] - waist - r), (ST["land"] + 0.001, land_level - waist - r)]
+    p2 += [(ST["land"] - SD * (i - 1) * g, land_level + i * r), (ST["land"] - SD * i * g, land_level + i * r)]
+p2 += [(ST["top"], land_level + per_flight * r - r), (ST["top"], FINISHED["FF"]), (ST["top"], FINISHED["FF"] - waist - r), (ST["land"] - SD * 0.001, land_level - waist - r)]
 add(profile_mesh(p2, *f2x, COLOURS["stair"], "gf_stair_flight2"))
-add(extrude(box(ST["x0"], ST["y0"], ST["x1"], ST["land"]), land_level - waist - FIN, land_level, COLOURS["stair"], "gf_stair_landing"))
+landing_y = (ST["y0"], ST["land"]) if SD < 0 else (ST["land"], ST["y1"])
+add(extrude(box(ST["x0"], landing_y[0], ST["x1"], landing_y[1]), land_level - waist - FIN, land_level, COLOURS["stair"], "gf_stair_landing"))
 # trimmers (B16–B18 from the structural study, total depth incl. the slab): the part below the slab
 for bid in ("B16", "B17", "B18"):
     b = BEAMS[bid]
@@ -604,21 +613,27 @@ for bid in ("B16", "B17", "B18"):
     summary["structure"]["beams"].append({"id": bid, "a": b["a"], "b": b["b"], "w": b["w"], "d": b["d"], "z0": round(STRUCT_TOP["FF"] - b["d"], 3), "z1": round(STRUCT_TOP["FF"] - T_SLAB, 3), "state": "assumed", "note": "stair trimmer"})
 # balustrades (panels, assumed): central between the flights, the east side of flight 2 and the landing (open to the riwaq), the first-floor well edges
 hr, rh, bt = P["handrail_height"], P["railing_height"], P["stair"]["balustrade"]
-z1 = lambda y: FINISHED["GF"] + (ST["top"] - y) / g * r            # flight 1 nosing line
-z2 = lambda y: land_level + (y - ST["land"]) / g * r                # flight 2 nosing line
-add(profile_mesh([(ST["land"], z1(ST["land"])), (ST["top"], z1(ST["top"])), (ST["top"], z2(ST["top"]) + hr), (ST["land"], z2(ST["land"]) + hr)], ST["split"] - bt / 2, ST["split"] + bt / 2, COLOURS["rail"], "gf_rail_stair_centre"))
-add(profile_mesh([(ST["land"], z2(ST["land"])), (ST["top"], z2(ST["top"])), (ST["top"], z2(ST["top"]) + hr), (ST["land"], z2(ST["land"]) + hr)], ST["x1"] - bt, ST["x1"], COLOURS["rail"], "gf_rail_stair_east"))
+z1 = lambda y: FINISHED["GF"] + SD * (y - ST["top"]) / g * r       # flight 1 (lower) nosing line
+z2 = lambda y: land_level - SD * (y - ST["land"]) / g * r           # flight 2 (upper) nosing line
+ya_, yb_ = sorted((ST["land"], ST["top"]))
+add(profile_mesh([(ya_, z1(ya_)), (yb_, z1(yb_)), (yb_, z2(yb_) + hr), (ya_, z2(ya_) + hr)], ST["split"] - bt / 2, ST["split"] + bt / 2, COLOURS["rail"], "gf_rail_stair_centre"))
+z_e = z1 if LOWER_E else z2                                         # the flight on the east half (open to the riwaq): its balustrade
+add(profile_mesh([(ya_, z_e(ya_)), (yb_, z_e(yb_)), (yb_, z_e(yb_) + hr), (ya_, z_e(ya_) + hr)], ST["x1"] - bt, ST["x1"], COLOURS["rail"], "gf_rail_stair_east"))
 gf_open_stair = next(e for e in OPEN if e["floor"] == "GF" and "stair" in e["note"])
-add(extrude(box(ST["x1"] - bt, min(gf_open_stair["a"][1], gf_open_stair["b"][1]), ST["x1"], ST["land"]), land_level, land_level + hr, COLOURS["rail"], "gf_rail_stair_landing"))
-rails_ff = [((ST["x0"], ST["b16"] - T_IN / 2), (ST["split"], ST["b16"] - T_IN / 2), "stair well, over flight 1"),
-            ((ST["split"], ST["b16"] - T_IN / 2), (ST["split"], ST["top"]), "stair well, between the flights"),
-            ((2.75, ST["y0"]), (2.75, ST["top"]), "gallery edge on the stair well")]
+oa_, ob_ = sorted((gf_open_stair["a"][1], gf_open_stair["b"][1]))
+land_rail = (max(oa_, landing_y[0]), min(ob_, landing_y[1]))      # the half landing's east edge where it is open to the riwaq (none when the store's wall closes it)
+if land_rail[1] - land_rail[0] > 0.05:
+    add(extrude(box(ST["x1"] - bt, land_rail[0], ST["x1"], land_rail[1]), land_level, land_level + hr, COLOURS["rail"], "gf_rail_stair_landing"))
+edge_lo = ST["b16"] + SD * T_IN / 2                                 # the slab edge over the lower flight (the trimmer B16's face on the opening side)
+rails_ff = [((f1x[0], edge_lo), (f1x[1], edge_lo), "stair well, over flight 1"),
+            ((ST["split"], edge_lo), (ST["split"], ST["top"]), "stair well, between the flights"),
+            ((2.75, ST["y0"] if SD < 0 else ST["top"]), (2.75, ST["top"] if SD < 0 else ST["y1"]), "gallery edge on the stair well")]
 summary["stair"] = {"risers": risers, "riser": round(r, 4), "going": g, "per_flight": per_flight, "landing_level": round(land_level, 3), "well": [ST["x0"], ST["y0"], ST["x1"], ST["y1"]],
-                    "flight1_x": f1x, "flight2_x": f2x, "landing_y": [ST["y0"], ST["land"]], "flights_y": [ST["land"], ST["top"]], "arrival_y": [ST["top"], ST["y1"]],
+                    "flight1_x": f1x, "flight2_x": f2x, "landing_y": list(landing_y), "flights_y": [ya_, yb_], "arrival_y": [ST["top"], ST["y1"]] if SD < 0 else [ST["y0"], ST["top"]], "dir": SD, "lower_e": LOWER_E,
                     "opening_area": round(STAIR_OPENING.area, 3), "opening_wkt": STAIR_OPENING.wkt,
                     # tread i (level i × r) runs from the nosing of riser i to riser i + 1; the top riser of each flight lands on the half landing / the first floor
-                    "nosings": [{"flight": 1, "tread": i, "x": round(sum(f1x) / 2, 4), "y": round(ST["top"] - (i - 1) * g, 4), "y_mid": round(ST["top"] - (i - 0.5) * g, 4), "z": round(FINISHED["GF"] + i * r, 4)} for i in range(1, per_flight + 1)]
-                             + [{"flight": 2, "tread": i, "x": round(sum(f2x) / 2, 4), "y": round(ST["land"] + (i - 1) * g, 4), "y_mid": round(ST["land"] + (i - 0.5) * g, 4), "z": round(land_level + i * r, 4)} for i in range(1, per_flight + 1)],
+                    "nosings": [{"flight": 1, "tread": i, "x": round(sum(f1x) / 2, 4), "y": round(ST["top"] + SD * (i - 1) * g, 4), "y_mid": round(ST["top"] + SD * (i - 0.5) * g, 4), "z": round(FINISHED["GF"] + i * r, 4)} for i in range(1, per_flight + 1)]
+                             + [{"flight": 2, "tread": i, "x": round(sum(f2x) / 2, 4), "y": round(ST["land"] - SD * (i - 1) * g, 4), "y_mid": round(ST["land"] - SD * (i - 0.5) * g, 4), "z": round(land_level + i * r, 4)} for i in range(1, per_flight + 1)],
                     "flight_clear_width": round(f1x[1] - f1x[0], 4)}
 
 # ---------- railings on the first-floor open edges (gallery on the upturned edge beam, courtyard edge, stair well) ----------

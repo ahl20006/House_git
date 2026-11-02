@@ -163,9 +163,9 @@
 #let gf-doors = (
   G((3.0, 0), (4.0, 0), (0, 1), "hinged"),               // family entry
   G((2.25, 0.9), (2.25, 1.9), (-1, 0), "sliding"),       // lift landing door (the lift is installed at construction, V6.3)
-  G((2.75, 0.1), (2.75, 0.8), (-1, 0), "open"),          // entry cupboard (y 0–0.9)
   G((4.25, 0.6), (4.25, 1.6), (1, 0), "hinged"),         // women's majlis (indicative)
-  G((2.75, 2.4), (2.75, 6.8), (-1, 0), "open"),          // open stair
+  G((2.75, 2.3), (2.75, 6.55), (-1, 0), "open"),         // open stair (flipped 2 Nov 2026): the start strip and the lower flight's balustrade on the riwaq
+  G((2.75, 6.7), (2.75, 7.6), (-1, 0), "hinged"),        // the store under the half landing: a low door (head 1.55) onto the riwaq
   G((2.75, 8.2), (2.75, 9.0), (-1, 0), "hinged"),        // utility room (indicative)
   G((4.25, 9.1), (4.25, 10.5), (1, 0), "sliding"),       // courtyard glass door (indicative)
   G((2.75, 10.6), (2.75, 12.7), (-1, 0), "open"),        // hospitality kitchen
@@ -189,6 +189,7 @@
 #let gf-windows = (
   ((8.95, 7.3), (8.95, 8.9)), ((13.311, 8.7), (13.311, 10.1)), ((12.170, 3.9), (12.714, 4.9)), ((11.138, 2.0), (11.464, 2.6)),   // studied
   ((5.1, 6.5), (5.6, 6.5)), ((6.0, 6.5), (8.1, 6.5)), ((4.45, 13.0), (5.55, 13.0)), ((6.05, 13.0), (8.75, 13.0)), ((4.25, 6.8), (4.25, 8.9)), ((4.25, 10.7), (4.25, 12.7)),   // courtyard glass (indicative)
+  ((0, 6.7), (0, 7.6)), ((2.4, 0), (2.9, 0)),   // the stair's half-landing window (west, small, obscured) and the entrance side light (obscured), flip 2 Nov 2026
   ((5.4, 0), (7.8, 0)), ((3.6, 24), (6.2, 24)), ((7.2, 24), (9.8, 24)), ((10.8, 24), (12.6, 24)), ((13.311, 14.5), (13.311, 17.5)),          // outer (indicative)
 )
 #let gf-lowwalls = ()   // V6.3: the living's west wall is solid and full height (the TV wall); no low partition
@@ -506,7 +507,7 @@
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
 #sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
-#let fam-focus = ("Landing (stair top)", "Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
+#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Family WC (compartment)", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *

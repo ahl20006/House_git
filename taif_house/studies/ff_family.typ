@@ -17,7 +17,7 @@
 
 // ---------- Fixed inside the zone (rising from the ground floor) ----------
 #let fixed = (
-  (name: "Stair (arrives at its south end)", pts: rect-pts(0, 2.2, 2.75, 7.9)),
+  (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
   (name: "Air tower", pts: ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)), parts: (((8.95, 0), (10.594, 0), (10.594, 1.0), (8.95, 1.0)),)),
@@ -60,11 +60,12 @@
 // ---------- Rooms ----------
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
-  R("Landing (stair top)", rect-pts(0, 7.9, 2.75, 9.2), "circ"),
   R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (5.8, 6.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
     parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 5.8, 19.25))),
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
-  R("Family bath (bed 1 + 2, family living)", rect-pts(1.5, 9.2, 4.25, 11.0), "wet"),
+  R("Family bath (bed 1 + 2, family living)", ((1.5, 7.9), (2.75, 7.9), (2.75, 9.2), (4.25, 9.2), (4.25, 11.0), (1.5, 11.0)), "wet",   // F-b (stair flip): an L with the former landing room; a wall on y 7.9 (B12) closes the stair opening's south side
+    parts: (rect-pts(1.5, 7.9, 2.75, 9.2), rect-pts(1.5, 9.2, 4.25, 11.0))),
+  R("Family WC (compartment)", rect-pts(0, 7.9, 1.5, 9.2), "wet"),   // the separate WC by the shaft stack (two children at once)
   R("Wardrobe niche (bed 2)", rect-pts(0, 10.4, 1.5, 11.0), "store"),
   R("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4), "family"),
   R("Bedroom 3 bath (en-suite)", rect-pts(0, 14.4, 2.2, 16.1), "wet"),
@@ -87,6 +88,7 @@
   D((4.25, 1.9), (4.25, 2.9), [kids' room], "Kids' room (study + gaming)", (1, 0)),
   D((4.25, 3.1), (4.25, 4.5), [living, open to the gallery], "Family living", (1, 0), open: true),
   D((4.25, 9.3), (4.25, 10.3), [family bath], "Family bath (bed 1 + 2, family living)", (-1, 0)),
+  D((1.5, 8.25), (1.5, 9.05), [WC (sliding)], "Family WC (compartment)", (-1, 0), from: "Family bath (bed 1 + 2, family living)", open: true),
   D((0.1, 11.0), (1.4, 11.0), [wardrobe], "Wardrobe niche (bed 2)", (0, -1), from: "Bedroom 2", open: true),
   D((4.25, 11.1), (4.25, 12.1), [bed 2], "Bedroom 2", (-1, 0)),
   D((4.25, 15.2), (4.25, 16.2), [bed 3], "Bedroom 3", (-1, 0)),
@@ -103,7 +105,7 @@
   // family living on the courtyard edge: TV on the west wall, a sofa facing it (courtyard on its left), a loveseat facing the courtyard
   (4.35, 4.6, 4.75, 6.1, [TV wall]), (6.6, 4.3, 7.45, 6.3, [sofa · faces TV]), (5.4, 4.15, 6.4, 4.95, [loveseat · faces courtyard]), (5.25, 5.35, 6.25, 6.05, [table]),
   // family bath: WC on the shaft wall, shower, basin by the door
-  (1.6, 9.35, 2.25, 9.8, [WC]), (1.6, 10.0, 2.5, 10.9, [shower]), (2.8, 10.35, 3.6, 10.9, [basin]),
+  (0.2, 8.3, 0.85, 8.75, [WC]), (1.6, 10.0, 2.5, 10.9, [shower]), (2.6, 10.4, 3.8, 10.9, [double basin 1.2]), (1.6, 8.0, 2.65, 8.4, [towels · linen]),   // F-b: the WC in its compartment by the shaft, a double basin, the shower; the former landing holds the linen
   // bedroom 2 (4.25 m wide): wardrobe in the niche + on the east wall, desk under the west window, bed head to the south wall
   (0.125, 10.5, 1.4, 11.1, [wardrobe]), (0.125, 11.3, 0.725, 12.5, [desk]), (0.85, 11.65, 1.3, 12.1, []),
   (1.2, 12.3, 2.6, 14.3, [bed 1.4 × 2.0]), (0.75, 13.9, 1.15, 14.3, []), (2.65, 13.9, 3.05, 14.3, []), (3.55, 12.2, 4.15, 14.2, [wardrobe]),
@@ -122,7 +124,7 @@
   ((5.8, 6.783), (5.8, 8.383)), ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60
 #let drains = (
-  (((1.93, 9.57), (1.5, 9.57)), [family bath: WC on the west shaft wall]),
+  (((0.55, 8.6), (0.55, 9.2), (0.75, 9.5)), [family WC compartment: the pan 0.4 m from the shaft, into the west stack]),
   (((2.05, 10.45), (1.75, 10.1), (1.5, 9.9)), []),
   (((3.2, 10.6), (2.7, 9.95), (1.5, 9.95)), []),
   (((1.62, 14.82), (1.62, 14.95)), [bedroom 3 bath: over the GF family WC stack]),
@@ -132,7 +134,6 @@
 
 // ---------- Walking routes: (name, rect, wall allowance across it, what is deducted) ----------
 #let routes = (
-  ("Landing", rect-pts(0, 7.9, 2.75, 9.2), 0.1, [½ wall on the south side; the north side is the stair arrival]),
   ("Gallery north (beside the stair)", rect-pts(2.75, 0.7, 4.25, 9.2), 0.2, [½ wall each side]),
   ("Gallery on the projection", rect-pts(4.25, 6.5, 5.8, 19.25), 0.125, [½ wall (rooms side) + ½ window frame W1 on the B3 upstand (void side)]),
   ("Walk behind the sofa (in the living)", rect-pts(4.25, 3.0, 8.95, 4.1), 0.1, [½ wall on the kids' room side; the sofa side is open]),
@@ -141,14 +142,16 @@
 )
 // walking paths for distances (polylines)
 #let paths = (
-  ("Stair top → kids' room door", ((1.4, 8.3), (3.5, 8.3), (3.5, 2.4), (4.25, 2.4))),
-  ("Stair top → family living (opening)", ((1.4, 8.3), (3.5, 8.3), (3.5, 3.55), (4.8, 3.55), (4.8, 4.1))),
-  ("Stair top → bedroom 1 door", ((1.4, 8.3), (3.5, 8.3), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (9.55, 5.9), (9.55, 5.3))),
-  ("Stair top → ① suite door", ((1.4, 8.3), (3.5, 8.3), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (9.55, 5.9), (9.55, 6.5))),
-  ("Stair top → family bath door", ((1.4, 8.3), (4.9, 8.3), (4.9, 9.8), (4.25, 9.8))),
-  ("Stair top → bedroom 2 door", ((1.4, 8.3), (4.9, 8.3), (4.9, 11.6), (4.25, 11.6))),
-  ("Stair top → bedroom 3 door", ((1.4, 8.3), (4.9, 8.3), (4.9, 15.0), (4.25, 15.0))),
-  ("Stair top → gallery's south end (L)", ((1.4, 8.3), (4.9, 8.3), (4.9, 19.25))),
+  // the stair top (flipped, option B): the arrival strip's opening onto the gallery's north part, x 2.75, y 2.3–3.75
+  ("Stair top → kids' room door", ((2.9, 3.05), (3.5, 3.05), (3.5, 2.4), (4.25, 2.4))),
+  ("Stair top → family living (opening)", ((2.9, 3.05), (3.5, 3.05), (3.5, 3.55), (4.8, 3.55), (4.8, 4.1))),
+  ("Stair top → bedroom 1 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (9.55, 5.9), (9.55, 5.3))),
+  ("Stair top → ① suite door", ((2.9, 3.05), (3.5, 3.05), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (9.55, 5.9), (9.55, 6.5))),
+  ("Stair top → family bath door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 9.8), (4.25, 9.8))),
+  ("Stair top → bedroom 2 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 11.6), (4.25, 11.6))),
+  ("Stair top → bedroom 3 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 15.0), (4.25, 15.0))),
+  ("Stair top → gallery's south end (L)", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 19.25))),
+  ("Stair top → lift door", ((2.9, 3.05), (3.5, 3.05), (3.5, 1.4), (2.5, 1.4))),
   ("Bedroom 2 door → family bath door", ((4.25, 11.6), (4.7, 11.6), (4.7, 9.8), (4.25, 9.8))),
   ("Family living → family bath door", ((4.25, 3.8), (3.5, 3.8), (3.5, 8.6), (4.9, 8.6), (4.9, 9.8), (4.25, 9.8))),
   ("Bedroom 3 door → its own bath door", ((4.25, 15.0), (3.7, 15.0), (3.7, 15.65), (2.2, 15.65))),
@@ -182,7 +185,7 @@
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm for the steel window W1 / W2 on the void edges (V6.4), nothing where the edge is open, 200 mm elsewhere
-#let open-edges = (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((4.25, 19.25), (5.6, 19.25)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
+#let open-edges = (((2.75, 2.2), (2.75, 3.75)), ((4.25, 19.25), (5.6, 19.25)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
 #let outer-edges = (((0, 0), (0, 24)), ((0, 0), (10.051, 0)), ((10.051, 0), (13.311, 6.0)), ((13.311, 6.0), (13.311, 24)), ((0, 24), (13.311, 24)))
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }
@@ -274,8 +277,8 @@
       rect(q((x0, y0)), q((x1, y1)), fill: white.transparentize(25%), stroke: (paint: luma(110), thickness: 0.4pt, dash: "dashed"))
       content(q(((x0 + x1) / 2, (y0 + y1) / 2)), angle: if (y1 - y0) > (x1 - x0) * 1.3 { 90deg } else { 0deg }, text(4.2pt, fill: luma(80), l))
     }
-    let label-at = ("Gallery (north part + on the projection)": (4.25, 11.0), "Bedroom 3": (2.225, 16.75), "Bedroom 2": (1.225, 11.6), "Bedroom 3 bath (en-suite)": (0.425, 15.75), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Family bath (bed 1 + 2, family living)": (2.95, 9.65), "Wardrobe niche (bed 2)": (0.4, 10.75), "Linen cupboard": (3.25, 0.35), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
-    let short = ("Family bath (bed 1 + 2, family living)": "Bath", "Bedroom 3 bath (en-suite)": "Bath 3", "Kids' room (study + gaming)": "Kids' room", "Linen cupboard": "Linen", "Family link": "Link", "Gallery (north part + on the projection)": "Gallery", "Wardrobe niche (bed 2)": "niche")
+    let label-at = ("Gallery (north part + on the projection)": (4.25, 11.0), "Bedroom 3": (2.225, 16.75), "Bedroom 2": (1.225, 11.6), "Bedroom 3 bath (en-suite)": (0.425, 15.75), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Family bath (bed 1 + 2, family living)": (2.95, 9.65), "Wardrobe niche (bed 2)": (0.4, 10.75), "Linen cupboard": (3.25, 0.35), "Family WC (compartment)": (0.75, 8.55), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
+    let short = ("Family bath (bed 1 + 2, family living)": "Bath", "Bedroom 3 bath (en-suite)": "Bath 3", "Kids' room (study + gaming)": "Kids' room", "Linen cupboard": "Linen", "Family link": "Link", "Gallery (north part + on the projection)": "Gallery", "Wardrobe niche (bed 2)": "niche", "Family WC (compartment)": "WC")
     for r in rooms {
       let (x0, y0, x1, y1) = bbox(r.pts)
       let c = label-at.at(r.name, default: ((x0 + x1) / 2, (y0 + y1) / 2))
@@ -306,7 +309,7 @@
     // courtyard view from the living
     line(q((5.9, 5.0)), q((5.9, 7.8)), stroke: (paint: rgb("#2f8a3f"), thickness: 0.6pt, dash: "dotted"), mark: (end: ">", fill: rgb("#2f8a3f"), scale: 0.4))
     content(q((6.0, 7.9)), anchor: "north-west", text(4.8pt, fill: rgb("#2f8a3f"))[courtyard view])
-    content(q((1.4, 8.1)), text(4.8pt, fill: red)[▲ stair top])
+    content(q((1.0, 3.0)), text(4.8pt, fill: red)[▲ stair top (flipped)])
     line(q((0, 24.8)), q((2, 24.8)), stroke: 1.2pt)
     content(q((1, 25.2)), text(5.5pt)[2 m])
   }),
@@ -352,7 +355,7 @@
     - *Widths:* rooms #r2(bed2.at(2) - bed2.at(0)) m on axes (≥ 4.0 m clear), gallery #r2(proj-x - bed2.at(2)) m (≥ 1.0 m clear).
     - *Carried on:* an edge beam along x #r2(proj-x) and #columns.len() columns, each in an existing wall or glass line, none free-standing in a room: column 1 in the women's majlis south wall (y 6.5), column 2 a pier in the glass between the courtyard and the living (y 13.0), column 3 in the living's south wall (y 19.25). On the ground floor it reads as a colonnade along the courtyard edge.
     - *Why columns and not a cantilever wall:* walls stand directly on walls; the earlier split projection (a west wall on cantilever beams, 0.11 m from the M line) was reverted.
-    - *Gallery:* closed to the courtyard by the steel window W1 on the upstand of the edge beam (sill +3.82, guarding transom +4.70, head +6.75, four inward casements; V6.4, enclosure option A), wider at the stair top; every west room door opens from it; no room opens onto the stair landing. Clear 1.405 m (1.235 m at the three column sleeves Ø0.40).
+    - *Gallery:* closed to the courtyard by the steel window W1 on the upstand of the edge beam (sill +3.82, guarding transom +4.70, head +6.75, four inward casements; V6.4, enclosure option A), the stair arrives at its north end beside the lift door (the flip, option B); every west room door opens from it. Clear 1.405 m (1.235 m at the three column sleeves Ø0.40).
     #v(3pt)
     #H[Kids' room · family living · bedroom 1]
     - *Kids' room* #r2(area(room("Kids").pts)) m²: two study desks + PC desk under the north window, a gaming corner (TV on the east wall), solid door from the gallery.
@@ -360,7 +363,7 @@
     - *Bedroom 1:* one room, no bath, its south wall straight on y 6.5; it uses the family bath.
     #v(3pt)
     #H[Family bath · #r3(bath.at(2) - bath.at(0)) × #r2(bath.at(3) - bath.at(1)) m, beside the west shaft]
-    - WC on the shaft wall, shower, basin by the door; door from the gallery (opening in, swing clear), not onto the landing. For bedrooms 1 and 2, the family living and the kids' room. Its west wall is the shaft (x 1.5), its east wall the band's gallery wall.
+    - *F-b (the stair flip, owner 2 Nov 2026):* an L with the former landing room: a *separate WC compartment* 1.5 × 1.3 by the shaft (the pan on its west wall, a sliding door, its own stack into the shaft), the *shower* 0.9 × 0.9, a *double basin* 1.2 m on the south wall, the towels and linen in the north part; door from the gallery (opening in, swing clear). Two children at once. For bedrooms 1 and 2, the family living and the kids' room; a wall on y 7.9 (on B12) closes the stair opening's south side.
   ],
   [
     #H[Bedroom 2 · #r2(bed2.at(2) - bed2.at(0)) × #r2(bed2.at(3) - bed2.at(1)) m + wardrobe niche #r3(niche.at(2) - niche.at(0)) m]
@@ -393,7 +396,7 @@
       [*Walking distance*], [*m*],
       ..paths.map(((n, P)) => ([#n], [#r1(plen(P))])).flatten(),
     )
-    Stair top → every room, the suite door and the gallery's south end runs only on the landing, the gallery, the family link and the walking line through the living (checked: every door's approach is on circulation, no furniture in a route).
+    Stair top → every room, the suite door and the gallery's south end runs only on the arrival strip, the gallery, the family link and the walking line through the living (checked: every door's approach is on circulation, no furniture in a route).
   ],
   [
     #H[Engineer]

@@ -98,15 +98,15 @@
   (name: "Kitchen service door (east wall)", a: (13.311, 7.2), b: (13.311, 8.1), width: 0.9, swing: "outward to the yard, single leaf", clear: 0.9 - 2 * R.frame, egress: false),
   (name: "Guest entrance (west wall)", a: (0, 21.5), b: (0, 22.9), width: 1.4, swing: "inward, two 0.70 leaves", clear: 1.4 - 2 * R.frame, egress: false),
 )
-#let stair-top = (2.0, 7.6)
+#let stair-top = (0.75, 3.1)        // the flipped stair (owner, 2 Nov 2026): the upper flight's top riser at y 3.75 on the west half; the arrival strip y 2.3–3.75 opens onto the gallery
 #let stair-len = 2 * calc.sqrt(2.8 * 2.8 + 1.8 * 1.8) + 1.25
-#let gf-from-stair = ((0.75, 6.8), (3.5, 6.8), (3.5, 0.0))
+#let gf-from-stair = ((2.04, 3.1), (3.5, 3.1), (3.5, 0.0))   // the foot (the east flight's first riser at y 3.75) → the lobby → the family entrance: 3 m
 #let routes-ff = (
-  ("Master suite bedroom", ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [suite lobby → family link → family living → gallery → landing · refuge: the suite court]),
-  ("Bedroom 1", ((9.55, 5.3), (9.55, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 8.5), (2.0, 8.5), stair-top), [family link → family living → gallery → landing · refuge: its cut-wall window]),
-  ("Kids' room", ((4.25, 2.4), (3.5, 2.4), (3.5, 8.5), (2.0, 8.5), stair-top), [gallery → landing · refuge: its north window]),
-  ("Bedroom 2", ((4.25, 11.6), (5.0, 11.6), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing · refuge: its west window]),
-  ("Bedroom 3", ((4.25, 15.7), (5.0, 15.7), (5.0, 8.5), (2.0, 8.5), stair-top), [gallery on the projection → landing · refuge: its west window]),
+  ("Master suite bedroom", ((9.5, 11.9), (9.5, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 3.1), stair-top), [suite lobby → family link → family living → gallery north → the arrival · refuge: the suite court]),
+  ("Bedroom 1", ((9.55, 5.3), (9.55, 5.9), (4.25, 3.8), (3.5, 3.8), (3.5, 3.1), stair-top), [family link → family living → gallery north → the arrival · refuge: its cut-wall window]),
+  ("Kids' room", ((4.25, 2.4), (3.5, 2.4), (3.5, 3.1), stair-top), [gallery north → the arrival · refuge: its north window]),
+  ("Bedroom 2", ((4.25, 11.6), (5.0, 11.6), (5.0, 8.5), (3.5, 8.5), (3.5, 3.1), stair-top), [gallery on the projection → gallery north → the arrival · refuge: its west window]),
+  ("Bedroom 3", ((4.25, 15.7), (5.0, 15.7), (5.0, 8.5), (3.5, 8.5), (3.5, 3.1), stair-top), [gallery on the projection → gallery north → the arrival · refuge: its west window]),
 )
 #let routes-gf = (
   ("Maid room", ((12.0, 5.5), (10.65, 3.4), (10.1, 3.4), (10.1, 7.0), (12.5, 7.65), (13.311, 7.65)), [laundry → kitchen → service door · refuge: her window]),

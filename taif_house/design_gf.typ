@@ -70,7 +70,8 @@
 // ---------- Outlines drawn INSIDE a host room (not counted as area, no overlap check): (x0, y0, x1, y1, label), CSV ----------
 #let inner-boxes = (
   (0.0, 9.2, 1.5, 10.4, [shaft]),                 // west service shaft, inside the utility room
-  (0.0, 6.9, 2.75, 7.9, [under-stair store]),
+  (0.0, 6.55, 2.75, 7.9, [store under the half landing · 1.65 m]),   // stair flip (V8.1 work): the half landing is at the south end
+  (0.125, 2.3, 1.3875, 3.75, [coat cupboard · full height]),   // the west half of the start strip: the family's coat / shoe cupboard by the entrance (sliding doors onto the strip)
   (5.65, 6.35, 5.95, 6.65, [col 1]),             // three columns under the first floor's west projection edge beam (x 5.8, V6.4), each in a wall / glass line:
   (5.65, 12.85, 5.95, 13.15, [col 2]),           // the women's majlis south wall (y 6.5), the courtyard / living glass (y 13.0), the living's south wall (y 19.25)
   (5.65, 19.1, 5.95, 19.4, [col 3]),
@@ -93,7 +94,9 @@
 // west band and west wash block (studies/guest_wing.typ: local y + 10.4 = CSV y)
 #let west-lines = (
   ((2.25, 0.9), (2.25, 1.9), []),            // lift door (sliding landing door; the lift is installed at construction, V6.3)
-  ((2.75, 0.1), (2.75, 0.8), []),             // entry cupboard (y 0–0.9), open to the family lobby; the strip in front of the lift door is lobby
+  ((2.75, 6.7), (2.75, 7.6), []),            // the store under the half landing: a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
+  ((0.0, 6.7), (0.0, 7.6), []),              // the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
+  ((2.4, 0.0), (2.9, 0.0), []),              // the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
   ((2.75, 10.6), (2.75, 12.7), []),           // hospitality kitchen, open to the riwaq
   ((2.75, 13.0), (2.75, 14.3), []),           // family basins, open to the riwaq
   ((1.5, 14.4), (2.5, 14.4), []),            // family WC door 1.00 m opening (0.90 leaf, ≥ 0.85 clear, V6.3), off the basins
@@ -121,7 +124,7 @@
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
-#let safety = (((3.3, 6.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.9, 5.0), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.9, 6.9), [E · stair]))
+#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.9, 5.0), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
@@ -193,7 +196,7 @@
 ], [
   #text(11pt, weight: "bold", fill: accent)[One band that serves the house]
 
-  Everything that serves the house sits in one band on the west: the family entrance with its entry cupboard, the lift shaft (the lift is installed at construction), the stair, the utility room with the service shaft and the west wash block, one strip of wet rooms on one drain run (hospitality kitchen, family basins, family WC, guest WC, guest basins). Pipes, cables and air rise in one place, the structure gains one stiff core, and every service can be reached for maintenance without breaking a wall. The family lobby and riwaq run along this band as one straight strip on the courtyard side, the family's covered route from the front door to the living room.
+  Everything that serves the house sits in one band on the west: the family entrance with the coat cupboard beside the stair's foot, the lift shaft (the lift is installed at construction), the stair, the utility room with the service shaft and the west wash block, one strip of wet rooms on one drain run (hospitality kitchen, family basins, family WC, guest WC, guest basins). Pipes, cables and air rise in one place, the structure gains one stiff core, and every service can be reached for maintenance without breaking a wall. The family lobby and riwaq run along this band as one straight strip on the courtyard side, the family's covered route from the front door to the living room.
 
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Family, guests and service, each in their place]
