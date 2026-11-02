@@ -59,6 +59,11 @@
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S) in every bedroom, outside the sleeping areas and at the stair top; one extinguisher at the stair top (E)
 #let safety = (((11.0, 3.5), [S · bed 1]), ((2.0, 12.7), [S · bed 2]), ((2.0, 17.5), [S · bed 3]), ((6.5, 1.5), [S · kids]), ((11.0, 15.6), [S · suite]), ((9.5, 9.0), [S · suite lobby]), ((4.8, 11.0), [S · gallery]), ((3.4, 5.0), [S · gallery N]), ((6.5, 4.75), [S · family living]), ((1.4, 3.0), [S · stair top]), ((2.95, 3.4), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
+// owner, 2 Nov 2026 (bedroom 1: option A, studies/bedroom1_bath.typ): low-level motion-sensor night lights (NL) along the route bedroom 1 → family link → family living → gallery → family bath; a note for the electrical design
+#let night-lights = (((9.55, 5.95), [NL · link]), ((8.5, 4.6), [NL · living E]), ((5.4, 3.5), [NL · living W]), ((3.4, 5.6), [NL · gallery N]), ((3.4, 8.3), [NL · gallery]), ((4.9, 9.6), [NL · bath door]))
+#let night-marks = night-lights.map(((p, l)) => ((place(p), place((p.at(0), p.at(1) + 0.3))), l))
+// owner, 2 Nov 2026: the suite court's south side is a mashrabiya screen on the 1.10 m base up to the facade frame (studies/south_wing.typ § 12 b)
+#let screen-marks = (((place((4.25, 24.0)), place((10.0, 24.0))), [mashrabiya screen (owner)]),)
 #let r3(v) = str(calc.round(v, digits: 3))
 
 // ---------- PAGE 1: plan in the site, with the framework checks ----------
@@ -69,7 +74,7 @@
   extras: (("Void · double-height living", living-void.map(place)),) + ff-open.map(r => (r.name, r.P.map(place))),
   rooms: fixed + ff-rooms.map(r => as-row(r.name, r.P, r.colour)),
   air: (("Air tower", tower-csv.map(place)),),
-  marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])) + safety-marks,
+  marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])) + safety-marks + night-marks + screen-marks,
   limit: outline-csv.map(place),
   note: [*First floor V8.1.* The gallery runs on a *#num(sec.pj.depth) m west projection* along the courtyard and the double-height void (x #num(sec.x-court)–#num(sec.pj-edge), y #num(sec.y-court)–#num(sec.y-living)), on an *edge beam and #sec.pj.columns columns* at x #num(sec.pj-edge), each in an existing wall or glass line; the first-floor west wall stands on the GF west wall (#r3(ff-m-gap) m from the M line). Courtyard sky and void #r3(sec.pj.sky) m on axes. West rooms #num(sec.pj.room) m and gallery #num(sec.pj.gallery) m on axes: *bedroom 2*, *bedroom 3 with its own bath*, the *family bath* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* is one room on the straight y 6.5 line. The *south wing v2* (1 Nov 2026): the *gym* on the west band (the treadmill with its 2.0 / 0.5 m zone, an acoustic double wall to bedroom 3, an entrance nib at the gallery end), the *suite court* from the gym to the office (≈ 25 m², open to the sky, the three court doors on a 1.2 m strip along its north edge) in front of the clerestory windows, the *owner's office* on the east beside the suite (no door to the bedroom; reached from the court only; visitors are met in the men's majlis), and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair (its arrival at the north end since the flip), lift and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
     #linebreak()

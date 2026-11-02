@@ -1,4 +1,5 @@
-// gf_shower.typ · Taif / Palm House V8.1 (work) · STUDY ONLY (design review G-07, ageing in place; 2 Nov 2026): a ground-floor shower.
+// gf_shower.typ · Taif / Palm House V8.1 · the ground-floor shower study (design review G-07, ageing in place; 2 Nov 2026) · OWNER'S DECISION 2 Nov 2026: DEFERRED TO THE
+// PLUMBING STUDY (open item 10); P1 stays the preferred option, P1-lite the fallback. This file is the record.
 // The ground floor has WCs but no shower; with the lift the showers upstairs are reachable, but a ground-floor shower helps an injured or elderly
 // person and a guest staying over. Three positions are studied (the family WC enlarged, the hospitality kitchen, the maid wing's laundry): size,
 // a level walk-in shower ≥ 0.9 × 1.2, a turning circle where possible, access from the family side, the drain to a stack, ventilation, privacy,
@@ -138,7 +139,7 @@
 // ====================================================================================== PAGE 1
 #text(14pt, weight: "bold", fill: accent)[A ground-floor shower · design review G-07, ageing in place · three positions compared · Taif / Palm House V8.1 · STUDY ONLY]
 #v(1pt)
-#text(8pt, fill: gray)[2 Nov 2026 · today the ground floor has the family WC, the guest WC and the maid bath (the only shower, the maid's) · a level walk-in shower ≥ #r2(shower-min.at(0)) × #r2(shower-min.at(1)) m, a #r1(turn) m turning circle where possible, access from the family side, a drain to a stack, ventilation, privacy · nothing in the design files changes until the owner decides · all sizes assumed]
+#text(8pt, fill: gray)[*DEFERRED to the plumbing study by the owner (2 Nov 2026): P1 preferred, P1-lite the fallback.* 2 Nov 2026 · today the ground floor has the family WC, the guest WC and the maid bath (the only shower, the maid's) · a level walk-in shower ≥ #r2(shower-min.at(0)) × #r2(shower-min.at(1)) m, a #r1(turn) m turning circle where possible, access from the family side, a drain to a stack, ventilation, privacy · nothing in the design files changes until the owner decides · all sizes assumed]
 #v(3pt)
 #grid(columns: (auto, auto, auto, 1fr), gutter: 7pt,
   west-plan("today"), west-plan("P1"), west-plan("P2"),

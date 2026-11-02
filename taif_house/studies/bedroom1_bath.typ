@@ -1,4 +1,5 @@
-// bedroom1_bath.typ · Taif / Palm House V8.1 (work) · STUDY ONLY (design review F-05, 2 Nov 2026): a bathroom for bedroom 1?
+// bedroom1_bath.typ · Taif / Palm House V8.1 · the bedroom 1 bathroom study (design review F-05, 2 Nov 2026) · OWNER'S DECISION 2 Nov 2026: OPTION A ADOPTED
+// (no private bathroom; the wet areas stay in the two clusters; bedroom 1 keeps its size; low-level motion-sensor night lights along the route: design_ff.typ). This file is the record.
 // Bedroom 1 (north-east, over the maid wing) has no bathroom; its walk to the family bath crosses the family living and the gallery.
 // Option A: accept the route (the family bath, enlarged by the stair flip, is enough). Option B: a private bathroom for bedroom 1: the best position,
 // the drain route to a stack, the room left with its furniture, the windows, the structure. Compare, recommend, wait for the owner's decision.
@@ -117,7 +118,7 @@
 // ====================================================================================== PAGE 1
 #text(14pt, weight: "bold", fill: accent)[Bedroom 1's bathroom · design review F-05 · accept the route (A) or a private bathroom (B)? · Taif / Palm House V8.1 · STUDY ONLY]
 #v(1pt)
-#text(8pt, fill: gray)[2 Nov 2026, after the stair flip (option B, F-b) · bedroom 1 is the north-east room over the maid wing, #r2(area(bed1)) m² on axes, 13.9 m² clear, one room without a bath · nothing in the design files changes until the owner decides · all sizes assumed]
+#text(8pt, fill: gray)[*OPTION A ADOPTED by the owner (2 Nov 2026): no private bathroom; the wet areas stay grouped in the two clusters; night lights along the route.* 2 Nov 2026, after the stair flip (option B, F-b) · bedroom 1 is the north-east room over the maid wing, #r2(area(bed1)) m² on axes, 13.9 m² clear, one room without a bath · nothing in the design files changes until the owner decides · all sizes assumed]
 #v(3pt)
 #grid(columns: (auto, auto, 1fr), gutter: 8pt,
   plan("A"), plan("B2"),

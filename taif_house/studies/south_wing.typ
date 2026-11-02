@@ -484,7 +484,7 @@
   rect(q((5.9, 19.35)), q((9.9, 20.55)), fill: rgb("#eef5e8"), stroke: (paint: green, thickness: 0.4pt, dash: "dotted")); T((7.9, 20.0), [1.2 m strip · the three doors], size: 3.4pt, fill: green)
   for (a, b) in (((4.35, 19.25), (5.45, 19.25)), ((5.8, 19.5), (5.8, 20.4)), ((9.05, 19.25), (9.95, 19.25)), ((10.0, 19.5), (10.0, 20.35))) { line(q(a), q(b), stroke: 2.4pt + red) }   // after V8.0: no visitors' door
   for (a, b) in ((6.0, 7.0), (7.6, 8.6)) { line(q((a, 19.25)), q((b, 19.25)), stroke: 2pt + rgb("#1f7a99")) }
-  line(q((4.25, 24.25)), q((10.0, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.2pt, dash: "dashed")); T((7.1, 24.6), [south side: (b) mashrabiya PROPOSED], size: 3.6pt, fill: rgb("#8a5a2b"))
+  line(q((4.25, 24.25)), q((10.0, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.2pt, dash: "dashed")); T((7.1, 24.6), [south side: (b) mashrabiya ADOPTED (owner 2 Nov 2026), full height on the 1.10 base], size: 3.6pt, fill: rgb("#8a5a2b"))
   line(q((13.436, 18.22)), q((16.036, 18.22)), q((16.036, 24.0)), q((13.436, 24.0)), stroke: (paint: luma(170), thickness: 0.6pt, dash: "dotted")); T((14.75, 21.1), [stair tower REMOVED (after V8.0)], size: 3.2pt, angle: 90deg, fill: luma(110))
   rect(q((4.35, 20.65)), q((4.70, 21.95)), fill: rgb("#c9a86a"), stroke: 0.4pt + ink); T((5.4, 21.3), [ladder ↑ roof], size: 3pt, fill: rgb("#8a5a2b"), anchor: "west")
   T((6.6, 25.3), [v2 as applied · north up · 1 m = 0.62 cm], size: 4pt, fill: green)
@@ -493,7 +493,7 @@
 #let frame-soffit = 6.70
 #let opts = (
   (k: "a", name: [(a) a solid wall], base: 6.70, open: 0.0),
-  (k: "b", name: [(b) a mashrabiya on a 0.90 base], base: L.ff + 0.9, open: 0.40),
+  (k: "b", name: [(b) a mashrabiya on the 1.10 base, to the frame · ADOPTED], base: L.ff + 1.1, open: 0.40),
   (k: "c", name: [(c) a 1.10 m wall, open above], base: L.ff + 1.1, open: 1.0),
 )
 #let court-elev(o, length: 0.36cm) = cetz.canvas(length: length, {
@@ -536,7 +536,7 @@
       [Wind and dust], [still; dust settles from above only], [the lattice breaks the wind and some dust; the court ventilated], [wind and dust straight in from the south],
       [South elevation], [a blank panel in the frame: reads as a closed box], [a timber / black steel screen in the honey-stone frame: the design language (the mashrabiya and the arch)], [a big open loggia: the wing reads as two blocks with a hole],
     )
-    - *Recommended: (b) the mashrabiya screen* on a 0.90 m solid base, under the facade frame (R8, the cornice and the parapet carried across): privacy and the palm view together, dust and wind softened, and the facade keeps its line. *Proposed only* (drawn dashed); the owner chooses. The 3D shows the common 1.1 m base.
+    - *ADOPTED by the owner (2 Nov 2026): (b) the mashrabiya screen* on the 1.10 m base up to the facade frame's soffit, the full height of the opening under the parapet (R8, the cornice and the parapet carried across): a timber or black steel lattice ≈ 40 % open in the design language, the palms seen out, no view in. Applied to `design_ff.typ` (mark) and `3d/character.yaml` (data; built at the release). The clerestory windows above stay openable (open item 14 closed).
     #v(2pt)
     #H[The double-height living's clerestory light (computed, section through the windows, +5.00 … +6.00)]
     #table(columns: (2.4fr, auto, auto, auto), inset: 2pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
