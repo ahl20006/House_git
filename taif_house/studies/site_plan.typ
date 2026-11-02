@@ -42,7 +42,13 @@
 #let drv-w = 3.95
 
 // ---------- 1 · Access, parking, paths (proposed) ----------
-#let park-opt = (5.0, 0.9, 10.0, 3.4)               // one uncovered family car in the north setback strip (optional; municipality)
+#let park-opt = (5.2, 0.9, 10.2, 3.4)               // one uncovered family car in the north setback strip: KEPT (owner, 2 Nov 2026: the municipality allows parking inside the plot)
+// the swept path of a standard car (4.5 × 1.8, outer turning radius 5.5 m): a forward 90° turn from the driveway into the 4–4.6 m strip does not fit, so the car
+// enters in a 3-point manoeuvre: (1) in through the gate and south on the driveway to y ≈ 7, (2) reverse north-east into the strip with the wheel turned, (3) forward west
+// into the bay (nose west). The bay starts 0.3 m east of the family entrance's path (x 4.9): the entrance stays clear.
+#let car-R = 5.5
+#let swept = (((-2.0, 0.5), (-2.0, 7.0)), ((-2.0, 7.0), (-1.2, 5.0), (0.6, 3.2), (3.0, 2.5)), ((3.0, 2.5), (5.2, 2.15), (10.2, 2.15)))   // the three moves (centre line, schematic)
+#let bay-clear-of-entrance = park-opt.at(0) - d-family.at(1).at(0)
 #let path-family = ((-1.0, 2.6), (d-family.at(0).at(0) + 0.5, 2.6), (d-family.at(0).at(0) + 0.5, 3.825))
 #let path-guest = ((-1.0, 39.6), (-1.0, 26.0), (0.9, 26.0))            // from the farm parking (south) along the driveway's east band to the guest door
 #let path-workers = ((-1.0, 1.5), (11.3, 1.5), (16.4, 10.2), (16.4, 17.0))   // from the gate along the north strip and the lane-side strip to the service yard, east of the screen
@@ -98,7 +104,7 @@
   ([the gas cabinet ≥ #r1(gas-rule) m from every opening of the house (service door #r2(seg-box-dist(..d-service, gas-box)), kitchen window #r2(seg-box-dist(..w-kitchen, gas-box)), hood outlet #r2(seg-box-dist(..hood-out, gas-box)), dining window #r2(seg-box-dist(..w-dining, gas-box)))], calc.min(seg-box-dist(..d-service, gas-box), seg-box-dist(..w-kitchen, gas-box), seg-box-dist(..hood-out, gas-box), seg-box-dist(..w-dining, gas-box)) >= gas-rule - 1e-9),
   ([the gas cabinet ≥ 3 m from the manhole (#r2(box-dist(gas-box, manhole-e))) and the grill (#r1(box-dist(gas-box, grill.at(0))))], box-dist(gas-box, manhole-e) >= 3.0 and box-dist(gas-box, grill.at(0)) >= 3.0),
   ([the gas cabinet ≥ 1.5 m from the lane boundary (#r1(calc.min(..range(lane.len() - 1).map(i => seg-box-dist(lane.at(i), lane.at(i + 1), gas-box)))))], calc.min(..range(lane.len() - 1).map(i => seg-box-dist(lane.at(i), lane.at(i + 1), gas-box))) >= 1.5),
-  ([the optional parking bay inside the plot, 0.4 m off the house's north wall, inside the setback (so: the municipality's rule)], ((park-opt.at(0), park-opt.at(1)), (park-opt.at(2), park-opt.at(1)), (park-opt.at(2), park-opt.at(3)), (park-opt.at(0), park-opt.at(3))).all(p => inside(p, land)) and park-opt.at(3) <= 3.825 - 0.4 + 1e-9),
+  ([the family parking bay (kept) inside the plot, 0.4 m off the house's north wall, #r2(bay-clear-of-entrance) m clear of the family entrance's path], ((park-opt.at(0), park-opt.at(1)), (park-opt.at(2), park-opt.at(1)), (park-opt.at(2), park-opt.at(3)), (park-opt.at(0), park-opt.at(3))).all(p => inside(p, land)) and park-opt.at(3) <= 3.825 - 0.4 + 1e-9 and bay-clear-of-entrance >= 0.1 - 1e-9),
   ([the guest path never enters the family garden (west of its low wall) and ends at the guest door], path-guest.all(p => p.at(0) <= 0.9 + 1e-9) and dist(path-guest.last(), (0.91, 26.0)) < 0.05),
   ([the workers' path stays north of the garden's hedge and east of the house], path-workers.slice(1).all(p => p.at(1) <= 18.5) and path-workers.last().at(0) > east-face),
   ([the new tank's reserve inside the plot and ≥ 1.0 m from the house's north wall], ((tank-new.at(0), tank-new.at(1)), (tank-new.at(2), tank-new.at(1)), (tank-new.at(2), tank-new.at(3)), (tank-new.at(0), tank-new.at(3))).all(p => inside(p, land)) and 3.825 - tank-new.at(3) >= 1.0),
@@ -154,8 +160,9 @@
     line(..pg.map(q), stroke: 1.6pt + stone, mark: (end: "stealth", fill: stone, scale: 0.5)); T((-1.7, 32.0), [GUEST PATH · honey stone · lit], size: 3pt, fill: rgb("#8a5a2b"), angle: 90deg)
     for p in lamps.filter(p => p.at(1) <= ymax) { circle(q(p), radius: 0.15, fill: amber, stroke: none) }
     line(..path-workers.map(q), stroke: (paint: luma(90), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(90), scale: 0.5)); T((13.0, 0.9), [workers: gate → lane side → yard], size: 2.8pt, fill: luma(90))
-    R(park-opt, fill: rgb("#d6e2ee"), stroke: (paint: blue, thickness: 0.6pt, dash: "dashed")); T((7.5, 2.15), [optional car 5 × 2.5\ (setback: municipality?)], size: 2.8pt, fill: blue)
-    arc(q((0.0, 2.6)), start: 180deg, stop: 90deg, radius: 2.5, stroke: (paint: blue, thickness: 0.5pt, dash: "dotted"), anchor: "origin")
+    R(park-opt, fill: rgb("#d6e2ee"), stroke: 0.7pt + blue); T((7.7, 2.15), [family car 5 × 2.5 · KEPT\ (parking in the plot allowed)], size: 2.8pt, fill: blue)
+    for (k, P) in swept.enumerate() { line(..P.map(q), stroke: (paint: blue, thickness: 1.0pt, dash: if k == 1 { "dashed" } else { "solid" }), mark: (end: "stealth", fill: blue, scale: 0.45)) }
+    T((-1.4, 7.6), [1 in], size: 2.6pt, fill: blue); T((1.4, 4.6), [2 reverse], size: 2.6pt, fill: blue); T((7.0, 1.4), [3 forward into the bay], size: 2.6pt, fill: blue)
     poly(if full { garden } else { garden-c }, fill: rgb("#dcecd2").transparentize(20%), stroke: (paint: green, thickness: 0.7pt, dash: "dashed")); T((9.0, if full { 34.0 } else { 29.2 }), [FAMILY GARDEN (south only: the palms)], size: 3.4pt, fill: green)
     line(q(lowwall.at(0)), q((0.6, calc.min(lowwall.at(1).at(1), ymax))), stroke: 2.2pt + stone); T((1.3, 29.0), [low stone wall 1.2 m + planting], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
     line(q(hedge.at(0)), q(hedge.at(1)), stroke: (paint: green, thickness: 2.2pt)); T((18.3, 17.9), [hedge 1.8 m], size: 2.8pt, fill: green)
@@ -235,7 +242,7 @@
     #H[1 · Access and parking]
     - *One entry:* the farm is fully walled; the existing *4 m main gate* on the north street (peg M1 is its east post) is the only entry; no other gate (the lane-side gate of V8.0 is dropped). A *video intercom and a camera* at the gate (page 5).
     - *The driveway* (#r2(drv-w) m, west of the M line) stays: the cars' lane from the gate to the farm parking and the family's existing *covered parking for two cars south of the old house* (beyond the plot, assumed position: from the survey). No new carport.
-    - *Optional: one uncovered family car* in the north setback strip, a 5 × 2.5 bay 0.4 m off the house's north wall, between the family entrance path and the house's cut corner (dashed). The turn off the driveway is tight (≈ 2.5 m radius into a 4 m deep strip: a reversing manoeuvre); *parking in the setback is for the municipality to allow* (drawn as optional, not counted on).
+    - *One uncovered family car KEPT* (owner, 2 Nov 2026: parking inside the plot is allowed by the municipality): a 5 × 2.5 bay in the north setback strip, 0.4 m off the house's north wall, #r2(bay-clear-of-entrance) m east of the family entrance's path, which stays clear. *The swept path* of a standard car (4.5 × 1.8, outer radius ≈ #r1(car-R) m) shows that a forward 90° turn from the driveway into a 4–4.6 m deep strip does not fit; the car enters in a *3-point manoeuvre* (in through the gate and 7 m south on the driveway; reverse north-east into the strip; forward west into the bay, nose west) and leaves forward onto the driveway; the parked car stays clear of the entrance, and the manoeuvre crosses the entrance path at grade (the kerb flush there), as on any driveway. *Improvement if wanted:* round the family entrance path's kerb and keep the reserve tank's lid flush, so the strip's west end (x 0–5.2) is usable as the turning pocket; a shorter car fits in one move.
     - *Guests* park in the large existing *farm parking south of the building* (no new design) and walk the *guest path*: a 1.2 m *honey-stone band along the driveway's east edge* from the plot's south end north to the *guest entrance (the west foyer)*, #r1(plen(path-guest)) m, with bollard lights every 2 m; it never enters the family areas (the garden is behind its low wall, the north strip and the east yard are far). The driveway keeps 2.75 m beside it for one car.
     - *The family* enters by the north: gate → the north strip → the *family entrance* (#r1(plen(path-family)) m); *workers and deliveries*: gate → the north strip → the lane-side strip (2.5–3 m wide east of the cut wall) → the *service yard* east of the screen (#r1(plen(path-workers)) m), never through the garden or past the guest door.
     #v(2pt)
@@ -248,14 +255,14 @@
 
 // ====================================================================================== PAGE 2 · around the house (enlarged)
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[Around the house (enlarged, y ≤ 30 m) · the strips, the paths, the optional car, the garden's edges]
+#text(12pt, weight: "bold", fill: accent)[Around the house (enlarged, y ≤ 30 m) · the strips, the paths, the family car (kept), the garden's edges]
 #v(2pt)
 #grid(columns: (auto, 1fr), gutter: 10pt,
   site("access", length: 0.5cm, full: false),
   [
     #set text(6.5pt)
     #H[Around the house]
-    - *North strip* (4–4.6 m to the boundary): the family entrance path from the driveway, the optional car, the reserve for the future tank (page 4), the workers' path along its north edge. *West strip* (0.785 m inside the M line) + the driveway: the guest path, the rescue ladder stand for bedrooms 2 and 3 (fire study P2: keep it open at night), the fire vehicle. *East strip* (2.5–9 m to the lane): the yard, the workers' path, the rain soakaway. *South:* the garden.
+    - *North strip* (4–4.6 m to the boundary): the family entrance path from the driveway, the family car (kept), the reserve for the future tank (page 4), the workers' path along its north edge. *West strip* (0.785 m inside the M line) + the driveway: the guest path, the rescue ladder stand for bedrooms 2 and 3 (fire study P2: keep it open at night), the fire vehicle. *East strip* (2.5–9 m to the lane): the yard, the workers' path, the rain soakaway. *South:* the garden.
     - *Levels (page 4):* the house floor ±0.00 is assumed 0.30 m above the ground around it; every strip falls 2 % away from the walls; the driveway and the north strip fall to the gate; *to be set from the survey* (the street level at the gate, the farm's levels, the lane).
   ],
 )
@@ -287,7 +294,7 @@
     #H[4 · Utilities]
     - *Water:* the *existing ground tank stays* (position assumed near the old house: from the survey); its supply pipe to the house is drawn along the driveway's west edge to the *utility room* (the manifold, the heater, the main valve) through the west wall: #r1(plen(pipe-old)) m assumed; the engineer checks the pump and the pipe size. *Reserve for a future new ground tank* near the house: an underground tank 3.5 × 2.5 × 2.0 m (≈ 17 m³, a 20 m³ class) under the north strip beside the family entrance path (CSV-frame x 0.1–3.6, y −3.5 … −1.0), 1.0 m off the house wall, with its *truck fill point on the driveway* 2 m away (the only vehicle access); the municipality's water truck stands inside the gate. Also the fire reserve, if the Civil Defense asks for one.
     - *Sewage:* the house connects to the *existing septic tank* (position assumed south-east beyond the plot: from the survey): the east manhole (the kitchen, the laundry, the maid bath, the suite stack) runs south along the east strip; the west manhole on the driveway (the west wash block's run) runs south and east under the garden's south edge; both meet a *collector manhole* at the garden's south-east, then ≈ #r1(plen(sewer.at(2))) m to the septic. Falls 1–2 % (≈ 0.5 m over the run): the septic's inlet must lie ≥ 1.0 m below the house's ground floor. *Flags for the engineer:* the septic's capacity for the new house (≈ 12 persons with staff), its condition and age, its distance from the well (≥ 30 m in Saudi municipal practice; drawn #r1(box-dist(septic, well)) m on assumed positions), the soakaway's soil (the soil report, open item 7).
-    - *Power:* *solar PV provision only* (the roof zones reserved: Z4a / Z4b on the south wing, Z5 on the north block); the *conduits* from the roof come down the *west shaft* to the utility room, where the *inverter and the battery cabinet* go on the north wall beside the main panel (≈ 1.2 × 0.4 m wall space, ventilated; or in the store under the stair's half landing if the utility room is full: the electrical engineer). *No generator* (review E-05: *no generator, owner*). *Note:* until the PV and the batteries are installed there is *no backup during power cuts* (the lift, the HRV, the pumps and the gas valve stop; the gas valve fails closed).
+    - *Power:* *solar PV provision only* (the roof zones reserved: Z4a / Z4b on the south wing, Z5 on the north block); the *conduits* from the roof come down the *west shaft* to the *utility room*, where the *inverter and the battery cabinet* go (owner, 2 Nov 2026: the utility room; the electrical engineer confirms the space, the ventilation and the fire safety; the room's layout with the water kept away from the batteries is in `studies/plumbing.typ`). *No generator* (review E-05: *no generator, owner*). *Note:* until the PV and the batteries are installed there is *no backup during power cuts* (the lift, the HRV, the pumps and the gas valve stop; the gas valve fails closed).
     - *Rainwater:* the roof's 11 outlets reach the ground in internal downpipes and discharge at the plinth: north (1), west (2, into the driveway's channel), the cut and the east wall (2, into the *east soakaway* in the strip), south (2, into the garden); the *courtyard's drain and overflow* and the *suite court's gutter* go east to the manhole's *rain branch* and the east soakaway, *never into the septic*; a second soakaway in the garden takes the south downpipes. The soakaways are sized by the soil report.
     #v(2pt)
     #H[7 · Levels (to be set from the survey)]

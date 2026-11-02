@@ -82,6 +82,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/bedroom1_bath.typ", OUTPUT / "bedroom1_bath.pdf", ["design review F-05", "Study checks passed"]),   # study only: awaiting the owner's decision
     ("studies/gf_shower.typ", OUTPUT / "gf_shower.pdf", ["A ground-floor shower", "Study checks passed"]),   # deferred to the plumbing study (owner, 2 Nov 2026): the record
     ("studies/site_plan.typ", OUTPUT / "site_plan.pdf", ["Site and services plan", "Study checks passed"]),   # every site position proposed, to confirm with the survey and the engineers
+    ("studies/plumbing.typ", OUTPUT / "plumbing.pdf", ["Plumbing and wet-room study", "Study checks passed"]),   # round 1, study only: every size assumed, to be designed by the plumbing engineer
     ("presentation.typ", PRESENTATION, []),
 ]
 tmp = Path(tempfile.mkdtemp())
