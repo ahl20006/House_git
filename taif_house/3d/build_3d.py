@@ -3,7 +3,7 @@ Phases 1–3: slabs and finishes, outer and interior walls, doors and windows (g
 balustrades, the colonnade columns, the edge beam, beam B5, the roof beams R6 / R11 (marked assumed / unconfirmed), railings,
 coloured room plates, the sun positions and the eye-level bookmarks for the viewer.
 V7.0: the courtyard enclosure (W1 / W2 as windows in the walls on the former open edges, W3 as a wall piece over the living's courtyard
-glass), the stair to the roof (flights 3 / 4, the roof opening with R16–R18, the stair room), the roofline of studies/roof.typ (the main
+glass), the internal stair to the first floor (V8.0: no roof stair; V8.1: the roof by the maintenance ladder), the roofline of studies/roof.typ (the main
 cornice, the band between the floors, the north-block coping, the south-wing parapet, the set-back attic with its doors and coping) and the
 roof guards; all from 3d/params.yaml `roof_design` / `enclosure_w3` and the project files.
 

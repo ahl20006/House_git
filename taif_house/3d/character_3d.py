@@ -5,11 +5,11 @@ and adds the character meshes, named chr_<group>_<material>_<label> so the viewe
                   colonnade's stone sleeves (base and capital bands), the timber soffit and fascia under the projection, the roof
                   parapet with its coping and the roof railings, the malqaf head's timber louvres, the courtyard fountain pier
   (V7.0: the gallery railing variants are gone: the gallery edge is the wall with the steel window W1; the roof parapets, the cornice,
-  the attic and the stair room are base-model meshes of build_3d.py, re-coloured here; the windows get black steel frames and divided lites)
+  the attic is a base-model mesh of build_3d.py, re-coloured here; the windows get black steel frames and divided lites)
   group pergola   timber beams over the north part of the courtyard sky (toggle)
   (V6.3: the arches variant is removed, the owner wants no arches between the colonnade columns; the group base now also holds the
   living's TV wall: the entrance arch head, the arched TV niche with its pier, cabinet, TV and shelves)
-  group sunken    V8.0: the courtyard seating one step down (studies/courtyard_layout.typ): the floor with the step, three benches, the low
+  group sunken    3 Nov 2026: the courtyard layout (studies/courtyard_layout.typ): the movable furniture, the linear drains and the overflow on the LEVEL floor (was: the seating one step down, three benches, the low
                   table, the drain and the overflow; it replaces the base model's courtyard floor meshes gf_slab_court / gf_finish_court while it is on
                   (the TV with its stone surround and the water / tree enclosure are in the group base; the suite court furniture in props)
   group light     the hanging lanterns (point lights in the night view)
@@ -389,32 +389,22 @@ def build(g):
     else:
         rec["fountain"] = None
 
-    # ---------- V8.0 · the courtyard layout (studies/courtyard_layout.typ, owner 1 Nov 2026): the seating one step down, the benches and the table (group "sunken": they replace
-    # the base model's courtyard floor), the outdoor TV with its semicircular stone surround on the kitchen wall, the north enclosure with the water basin, the planter and the tree ----------
+    # ---------- 3 Nov 2026 · the courtyard layout REVISED (studies/courtyard_layout.typ, owner): the whole floor LEVEL (the base model's courtyard floor stays, no step, no benches),
+    # movable furniture (group "sunken" = the layout toggle in the viewer), the enclosure (water + tree) on the kitchen wall in front of the sink window, the outdoor TV south of it
+    # with its stone surround, the malqaf grille below it (base model), the linear drains and the overflow ----------
     cly = C["courtyard_layout"]
-    court_floor = g["COURT_FLOOR"]                             # the base model's courtyard floor (gf_slab_court + gf_finish_court, hidden while the layout is on)
-    st_ = cly["step"]
-    px0, py0, px1, py1 = st_["box"]
-    pit = box(px0, py0, px1, py1).intersection(court_floor)
-    zf = gf + st_["floor"]
-    emit("sunken", "stone_light", "court_floor", parts(court_floor.difference(pit), STRUCT_TOP["GF"] - T_SLAB, gf), replaces=["gf_slab_court", "gf_finish_court"])
-    emit("sunken", "stone_light", "pit_floor", parts(pit, zf - T_SLAB, zf), level=st_["floor"])
-    emit("sunken", "stone", "step_nosing", parts(pit.buffer(st_["nosing"], join_style=2).difference(pit).intersection(court_floor), gf - 0.02, gf + 0.003), nosing=st_["nosing"])
-    seat, back_top = zf + cly["seat_height"], gf + cly["bench_back"]
-    bodies, cushions, backs = [], [], []
-    for x0, y0, x1, y1, side in cly["benches"]:
-        bb_ = box(x0, y0, x1, y1)
-        bodies += parts(bb_, zf, seat - 0.06)
-        cushions += parts(bb_, seat - 0.06, seat)
-        t_ = 0.12
-        backs += parts({"west": box(x0, y0, x0 + t_, y1), "north": box(x0, y0, x1, y0 + t_), "south": box(x0, y1 - t_, x1, y1)}[side], seat, back_top)
-    emit("sunken", "stone", "benches", bodies, n=len(cly["benches"]))
-    emit("sunken", "stone_light", "bench_cushions", cushions)
-    emit("sunken", "stone", "bench_backs", backs)
-    tb = cly["table"]["box"]
-    emit("sunken", "stone", "table", parts(box(*tb), zf + cly["table"]["height"] - 0.05, zf + cly["table"]["height"]) + parts(box(tb[0] + 0.12, tb[1] + 0.12, tb[2] - 0.12, tb[3] - 0.12), zf, zf + cly["table"]["height"] - 0.05))
+    court_floor = g["COURT_FLOOR"]
+    zf = gf + cly["floor"]
+    for k, (x0, y0, x1, y1, kind) in enumerate(cly["furniture"]):
+        bx_ = box(x0, y0, x1, y1)
+        if kind in ("sofa", "armchair"):
+            emit("sunken", "timber", f"court_{kind}_{k}", parts(bx_, zf, zf + 0.32) + parts(box(x0, y0, x0 + 0.12, y1), zf + 0.32, zf + 0.75))   # the back on the west side: it faces the TV on the east wall
+            emit("sunken", "stone_light", f"court_{kind}_cushion_{k}", parts(bx_.buffer(-0.04), zf + 0.32, zf + 0.42))
+        else:
+            emit("sunken", "stone", f"court_table_{k}", parts(bx_, zf + 0.35, zf + 0.40) + parts(bx_.buffer(-0.12), zf, zf + 0.35))
     dr = cly["drainage"]
-    emit("sunken", "bronze", "drain", parts(box(dr["pit_drain_at"][0] - 0.08, dr["pit_drain_at"][1] - 0.08, dr["pit_drain_at"][0] + 0.08, dr["pit_drain_at"][1] + 0.08), zf - 0.01, zf + 0.005), at=dr["pit_drain_at"])
+    for k, (x0, y0, x1, y1) in enumerate(dr["linear_drains"]):
+        emit("sunken", "bronze", f"linear_drain_{k}", parts(box(x0, y0, x1, y1), zf - 0.012, zf + 0.003), box=[x0, y0, x1, y1])
     emit("sunken", "bronze", "overflow", parts(box(dr["overflow_at"][0] - 0.08, dr["overflow_at"][1] - 0.08, dr["overflow_at"][0] + 0.08, dr["overflow_at"][1] + 0.08), zf - 0.01, zf + 0.005), at=dr["overflow_at"])
     # the outdoor TV and its stone surround on the courtyard face of the kitchen wall (on the stone cladding), the malqaf grille below it (base model)
     tvd, fr_ = cly["tv"], cly["tv_frame"]
@@ -428,19 +418,18 @@ def build(g):
     prof = prof.union(disc((c_, jz1), fr_["radius"] + fr_["band"], 32).difference(disc((c_, jz1), fr_["radius"], 32)).intersection(box(c_ - 3, jz1, c_ + 3, jz1 + 3)))
     tv_crown = jz1 + fr_["radius"] + fr_["band"]
     emit("base", "stone", "tv_surround", panel(wa, wb, nw, face, fr_["proj"], prof), crown=round(tv_crown, 3))
-    # the north enclosure: one honey-stone box (rim +0.45), the water basin (west) with its laminar lip and the pump cover, the planter (east) with the tree
+    # the enclosure on the kitchen wall in front of the sink window: the planter (rim +0.45) in the north part with the tree, the RAISED water trough (rim +0.95) in the south part, the pump chamber between
     en = cly["enclosure"]
     ebox = box(*en["box"]).intersection(court_floor)
     w_in, p_in, pump = box(*en["water"]["inside"]), box(*en["planter"]["inside"]), box(*en["pump_cover"])
-    rim = gf + en["rim"]
-    emit("base", "stone", "enclosure_walls", parts(ebox.difference(w_in).difference(p_in), gf, rim), rim=en["rim"])
+    rim, wrim = gf + en["rim"], gf + en["water"]["rim"]
+    water_part = box(en["box"][0], en["water"]["inside"][1] - en["wall"], en["box"][2], en["box"][3]).intersection(ebox)
+    emit("base", "stone", "enclosure_walls", parts(ebox.difference(water_part).difference(p_in), gf, rim) + parts(water_part.difference(w_in), gf, wrim), rim=en["rim"], water_rim=en["water"]["rim"])
     wl = gf + en["water"]["level"]
-    emit("base", "stone", "basin_floor", parts(w_in, wl - en["water"]["depth"] - 0.05, wl - en["water"]["depth"]))
-    emit("base", "water", "basin_water", parts(w_in.difference(pump), wl - en["water"]["depth"], wl), level=en["water"]["level"])
+    emit("base", "stone", "basin_floor", parts(w_in, gf, wl - en["water"]["depth"]))
+    emit("base", "water", "basin_water", parts(w_in, wl - en["water"]["depth"], wl), level=en["water"]["level"])
     emit("base", "bronze", "pump_cover", parts(pump, rim - 0.03, rim))
-    div = box(w_in.bounds[2], w_in.bounds[1], p_in.bounds[0], w_in.bounds[3])
-    emit("base", "stone", "basin_divider", parts(div, rim, gf + en["water"]["spout_z"] + 0.05))
-    emit("base", "bronze", "basin_lip", parts(box(div.bounds[0] - 0.06, 7.55, div.bounds[0], 7.95), gf + en["water"]["spout_z"] - 0.02, gf + en["water"]["spout_z"]))
+    emit("base", "bronze", "basin_lip", parts(box(w_in.bounds[2] - 0.06, w_in.bounds[1] + 0.1, w_in.bounds[2], w_in.bounds[3] - 0.1), gf + en["water"]["spout_z"] - 0.02, gf + en["water"]["spout_z"]))   # the laminar lip on the wall side
     soil_top = rim - 0.10
     emit("base", "trunk", "planter_soil", parts(p_in, rim - en["planter"]["depth"], soil_top))
     tr_ = en["tree"]
@@ -451,14 +440,17 @@ def build(g):
     emit("base", "foliage", "tree_crown", [crown], at=list(tc))
     gy0, gz0, gy1, gz1 = AIR["grille"]
     court_in = court_floor.bounds
-    rec["courtyard"] = {"default": True, "replaces": ["gf_slab_court", "gf_finish_court"], "step": st_["box"], "floor": st_["floor"], "seat": round(seat, 3), "back_top": round(back_top, 3),
-                        "table_top": round(zf + cly["table"]["height"], 3), "tv": {"y": tvd["y"], "z": tvd["z"]}, "tv_crown": round(tv_crown, 3), "grille": {"y": [gy0, gy1], "z": [gz0, gz1]},
-                        "enclosure": {"box": en["box"], "rim": en["rim"], "water_level": en["water"]["level"]}, "tree": {"at": list(tc), "crown_centre": tr_["crown_centre"], "radius": tr_["crown_radius"]},
-                        "drain": dr["pit_drain_at"], "overflow": dr["overflow_at"],
-                        "level_edges": {"north": round(py0 - court_in[1], 3), "south": round(court_in[3] - py1, 3), "west": round(px0 - court_in[0], 3), "east": round(court_in[2] - px1, 3)}}
-    rec["flags"].append("Courtyard layout (V8.0, studies/courtyard_layout.typ, owner): the seating one step down (%.2f) from the colonnade edge to the kitchen wall with three benches (seat +%.2f) and a low table; "
-                        "the outdoor TV (+%.2f … +%.2f) in a semicircular honey-stone surround (crown +%.2f) on the kitchen wall with the malqaf grille below it; the north enclosure: a water basin and a planter with one tree; no pergola"
-                        % (st_["floor"], seat, tvd["z"][0], tvd["z"][1], tv_crown))
+    sz = cly["seating_zone"]
+    rec["courtyard"] = {"default": True, "replaces": [], "level": True, "floor": cly["floor"], "seating_zone": sz, "furniture": len(cly["furniture"]),
+                        "tv": {"y": tvd["y"], "z": tvd["z"]}, "tv_crown": round(tv_crown, 3), "grille": {"y": [gy0, gy1], "z": [gz0, gz1]},
+                        "enclosure": {"box": en["box"], "rim": en["rim"], "water_rim": en["water"]["rim"], "water_level": en["water"]["level"]}, "sink_window": cly["sink_window"],
+                        "tree": {"at": list(tc), "crown_centre": tr_["crown_centre"], "radius": tr_["crown_radius"]},
+                        "overflow": dr["overflow_at"], "linear_drains": dr["linear_drains"],
+                        "level_edges": {"north": round(en["box"][1] - court_in[1], 3), "south": round(court_in[3] - sz[3], 3), "west": round(sz[0] - court_in[0], 3)}}
+    rec["flags"].append("Courtyard layout (3 Nov 2026, owner, studies/courtyard_layout.typ): the whole floor LEVEL with gentle falls to linear drains (no step, no benches); movable modern furniture for 4–6 "
+                        "(a sofa, two armchairs, a low table) facing the outdoor TV (+%.2f … +%.2f) in its stone surround on the kitchen wall with the malqaf grille below it (+%.2f … +%.2f); the enclosure "
+                        "(a planter with the tree, rim +%.2f, and a raised water trough, rim +%.2f) on the kitchen wall in front of the sink window as the view from the sink; the north side in front of the women's majlis glass freed"
+                        % (tvd["z"][0], tvd["z"][1], gz0, gz1, en["rim"], en["water"]["rim"]))
 
     # ---------- V8.0 · the suite court (south wing v2): its outdoor furniture (seating for five, a table, plants) on the first floor ----------
     sc = C["suite_court_v2"]

@@ -31,7 +31,7 @@
 // ---------- The rooms (data/rooms_gf.csv, data/rooms_ff.csv), by class: wet, service, habitable (no drains above), circ, open ----------
 #let gf = (
   ("Lift shaft", rect-pts(0, 0, 2.25, 2.2), "nodrain"), ("Stair", rect-pts(0, 2.2, 2.75, 7.9), "circ"), ("Utility room (shaft)", rect-pts(0, 7.9, 2.75, 10.4), "service"),
-  ("Hospitality kitchen", rect-pts(0, 10.4, 2.75, 12.9), "wet"), ("Family basins", rect-pts(0, 12.9, 2.75, 14.4), "wet"), ("Family WC", rect-pts(0, 14.4, 2.75, 16.1), "wet"),
+  ("Hospitality kitchen", rect-pts(0, 10.4, 2.75, 12.9), "wet"), ("Family powder room", rect-pts(0, 12.9, 2.75, 16.1), "wet"),
   ("Serving passage", rect-pts(0, 16.1, 2.75, 17.5), "circ"), ("Guest WC", rect-pts(1.25, 17.5, 2.75, 19.25), "wet"), ("Guest basins", rect-pts(1.25, 19.25, 2.75, 21.4), "wet"),
   ("Guest passage", rect-pts(0, 17.5, 1.25, 21.4), "circ"), ("Foyer", rect-pts(0, 21.4, 2.75, 24), "circ"), ("Lobby + riwaq", ((2.25, 0), (4.25, 0), (4.25, 19.25), (2.75, 19.25), (2.75, 2.2), (2.25, 2.2)), "circ"),
   ("Women's majlis", rect-pts(4.25, 0, 8.95, 6.5), "habitable"), ("Courtyard", rect-pts(4.25, 6.5, 8.95, 13.0), "open"), ("Living (double height)", rect-pts(4.25, 13.0, 8.95, 19.25), "habitable"),
@@ -40,7 +40,7 @@
   ("Kitchen", rect-pts(8.95, 7.0, 13.311, 13.0), "kitchen"), ("Dining", rect-pts(8.95, 13.0, 13.311, 19.25), "habitable"),
 )
 #let ff-wet = (
-  ("Family bath (F-b)", ((1.5, 7.9), (2.75, 7.9), (2.75, 9.2), (4.25, 9.2), (4.25, 11.0), (1.5, 11.0))), ("Family WC (compartment)", rect-pts(0, 7.9, 1.5, 9.2)),
+  ("Bedroom 2 bath", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4))), ("Family WC", rect-pts(0, 7.9, 2.75, 9.2)),
   ("Bedroom 3 bath", rect-pts(0, 14.4, 2.2, 16.1)), ("Suite bath", ((10.3, 6.5), (12.211, 6.5), (12.211, 8), (13.311, 8), (13.311, 10.45), (10.3, 10.45))), ("Suite WC closet", rect-pts(12.211, 6.5, 13.311, 8)),
 )
 #let ff-dry = (("Kids' room", rect-pts(4.25, 0, 8.95, 3.0)), ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)), ("Bedroom 1", ((8.95, 1), (10.594, 1), (13.311, 6), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))), ("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4)), ("Bedroom 3", ((2.2, 14.4), (4.25, 14.4), (4.25, 19.25), (0, 19.25), (0, 16.1), (2.2, 16.1))), ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))), ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)), ("Gym", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24), (0, 24))), ("Office", rect-pts(10, 19.25, 13.311, 24)))
@@ -66,8 +66,8 @@
 #let pts = (
   // ground floor, west cluster
   (fl: "GF", room: "Hospitality kitchen", fix: "sink", p: (0.8, 10.8), to: "W-RUN", route: ((0.8, 10.8), (0.5, 10.8)), use: "daily"),
-  (fl: "GF", room: "Family basins", fix: "2 basins (wudu)", p: (1.0, 13.25), to: "W-RUN", route: ((1.0, 13.25), (0.5, 13.25)), use: "daily"),
-  (fl: "GF", room: "Family WC", fix: "WC + basin", p: (0.6, 15.6), to: "W-RUN", route: ((0.6, 15.6), (0.5, 15.6)), use: "daily"),
+  (fl: "GF", room: "Family powder room", fix: "2 stone basins (vanity)", p: (1.0, 13.3), to: "W-RUN", route: ((1.0, 13.3), (0.5, 13.3)), use: "daily"),
+  (fl: "GF", room: "Family powder room", fix: "wall-hung WC (south service wall)", p: (0.95, 15.6), to: "W-RUN", route: ((0.95, 15.6), (0.5, 15.6)), use: "daily"),
   (fl: "GF", room: "Guest WC", fix: "WC + basin", p: (1.6, 18.6), to: "W-RUN", route: ((1.6, 18.6), (0.5, 18.6)), use: "guests"),
   (fl: "GF", room: "Guest basins", fix: "trough, 3 taps", p: (2.4, 20.3), to: "W-RUN", route: ((2.4, 20.3), (2.4, 21.6), (0.5, 21.6)), use: "guests"),
   (fl: "GF", room: "Utility room", fix: "heater drip tray · condensate", p: (1.75, 10.1), to: "W-SHAFT", route: ((1.75, 10.1), (1.5, 10.1)), use: "rare"),
@@ -75,12 +75,13 @@
   (fl: "GF", room: "Kitchen", fix: "sink + dishwasher", p: (9.35, 8.6), to: "E-MH", route: ((9.35, 8.6), (9.35, 9.9), (13.311, 9.9), (14.3, 13.5)), use: "daily"),
   (fl: "GF", room: "Laundry", fix: "washer · dryer · utility sink · floor drain", p: (9.35, 4.0), to: "E-MH", route: ((9.35, 4.0), (9.35, 6.6), (13.311, 6.6), (14.3, 13.5)), use: "daily / rare (floor drain)"),
   (fl: "GF", room: "Maid bath", fix: "WC · basin · shower", p: (10.6, 2.2), to: "E-MH", route: ((10.6, 2.2), (12.0, 2.2), (12.5, 3.0), (14.0, 6.0), (14.3, 13.5)), use: "daily"),
-  (fl: "GF", room: "Courtyard", fix: "step drain · overflow · basin + planter", p: (8.6, 12.1), to: "RAIN", route: ((8.6, 12.1), (13.311, 12.1), (14.8, 12.1)), use: "rain / washing"),
+  (fl: "GF", room: "Courtyard", fix: "2 linear drains (level floor) · overflow · trough + planter", p: (8.6, 12.6), to: "RAIN", route: ((8.6, 12.6), (13.311, 12.6), (14.8, 12.6)), use: "rain / washing"),
   (fl: "GF", room: "Air tower", fix: "breeze channel sump · HRV condensate", p: (9.8, 0.8), to: "E-MH", route: ((9.8, 0.8), (10.6, 1.0), (12.0, 2.2), (14.0, 6.0), (14.3, 13.5)), use: "rare"),
   // first floor, west cluster
-  (fl: "FF", room: "Family bath (F-b)", fix: "shower", p: (2.0, 10.45), to: "W-SHAFT", route: ((2.0, 10.45), (1.5, 10.2)), use: "daily"),
-  (fl: "FF", room: "Family bath (F-b)", fix: "double basin", p: (3.2, 10.65), to: "W-SHAFT", route: ((3.2, 10.65), (1.5, 10.3)), use: "daily"),
-  (fl: "FF", room: "Family WC (compartment)", fix: "WC", p: (0.5, 8.55), to: "W-SHAFT", route: ((0.5, 8.55), (0.5, 9.2), (1.0, 9.4)), use: "daily"),
+  (fl: "FF", room: "Bedroom 2 bath", fix: "shower channel (trap in the service wall)", p: (3.6, 9.3), to: "W-SHAFT", route: ((3.6, 9.3), (3.6, 9.2), (1.5, 9.2)), use: "daily"),
+  (fl: "FF", room: "Bedroom 2 bath", fix: "wall-hung WC (service wall)", p: (2.3, 9.3), to: "W-SHAFT", route: ((2.3, 9.3), (2.3, 9.2), (1.5, 9.2)), use: "daily"),
+  (fl: "FF", room: "Bedroom 2 bath", fix: "vanity basin (niche on the shaft)", p: (0.75, 10.45), to: "W-SHAFT", route: ((0.75, 10.45), (0.75, 10.4)), use: "daily"),
+  (fl: "FF", room: "Family WC", fix: "wall-hung WC + basin (service wall)", p: (0.85, 9.05), to: "W-SHAFT", route: ((0.85, 9.05), (0.85, 9.2)), use: "daily"),
   (fl: "FF", room: "Bedroom 3 bath", fix: "shower · WC · basin", p: (1.0, 15.0), to: "FWC", route: ((1.0, 15.0), (1.5, 14.9)), use: "daily"),
   // first floor, east cluster
   (fl: "FF", room: "Suite WC closet", fix: "WC", p: (12.8, 7.2), to: "E-STACK", route: ((12.8, 7.2), (13.311, 7.05)), use: "daily"),
@@ -124,7 +125,7 @@
 #let maid-C = (fl: "GF", room: "Maid bath", fix: "WC · basin · shower on the cut wall", p: (11.2, 2.3), to: "E-MH", route: ((11.2, 2.3), (12.5, 3.0), (14.0, 6.0), (14.3, 13.5)), use: "daily")
 #let east-duct = (12.95, 7.0, 13.3, 7.35)       // C: the internal east duct in the kitchen's NE corner, under the suite WC closet's corner
 #let scen-A = wet-rows
-#let scen-B = wet-rows.filter(p => p.fix != "double vanity (west wall)" and p.fix != "tub (by the east window)" and p.room != "Suite court" and not (p.room == "Family basins") and not (p.room == "Family WC")) + (vanity-B, tub-B, p1-shower, court-B)
+#let scen-B = wet-rows.filter(p => p.fix != "double vanity (west wall)" and p.fix != "tub (by the east window)" and p.room != "Suite court") + (vanity-B, tub-B, court-B)   // 3 Nov 2026: P1 withdrawn (owner: no ground-floor shower); the powder room's rows stay
 #let scen-C = scen-B.filter(p => p.room != "Maid bath") + (maid-C,)
 #let s-total(S) = S.map(p => L(p)).sum()
 #let s-over(S) = S.filter(p => p.fl == "FF" and p.room.contains("Suite")).map(p => p.room).dedup().len()   // wet rooms over a problem room (the suite bath over the kitchen, unavoidable)
@@ -228,7 +229,7 @@
   let poly(P, fill: none, stroke: none) = line(..P.map(q), close: true, fill: fill, stroke: stroke)
   for (n, P, k) in gf { poly(P, fill: if k == "wet" { wet } else if k == "kitchen" { rgb("#f3d6c4") } else { rgb("#f2efe8") }, stroke: 0.3pt + luma(150)) }
   for (n, P) in ff-wet { poly(P, fill: blue.transparentize(60%), stroke: 0.8pt + blue) }
-  if name != "A" { rect(q((0, 12.9)), q((2.75, 16.1)), fill: green.transparentize(50%), stroke: 0.8pt + green); T((1.4, 14.5), [P1 wet room], size: 2.6pt, fill: white) }
+  if name != "A" { rect(q((0, 12.9)), q((2.75, 16.1)), fill: green.transparentize(50%), stroke: 0.8pt + green); T((1.4, 14.5), [powder room], size: 2.6pt, fill: white) }
   if name == "C" { rect(q((east-duct.at(0), east-duct.at(1))), q((east-duct.at(2), east-duct.at(3))), fill: rgb("#8a5a2b"), stroke: none); T((12.4, 7.2), [E duct], size: 2.5pt, fill: rgb("#8a5a2b"), anchor: "east") }
   for p in S { line(..p.route.map(q), stroke: (paint: if p.fl == "GF" { blue } else { rgb("#8a5a2b") }, thickness: 0.7pt), mark: (end: ">", fill: if p.fl == "GF" { blue } else { rgb("#8a5a2b") }, scale: 0.35)); circle(q(p.p), radius: 0.18, fill: if p.fl == "GF" { blue } else { rgb("#8a5a2b") }, stroke: none) }
   rect(q((shaft.at(0), shaft.at(1))), q((shaft.at(2), shaft.at(3))), fill: luma(120), stroke: none)
@@ -247,7 +248,7 @@
   R(panel-clear, fill: none, stroke: (paint: amber, thickness: 0.5pt, dash: "dotted")); T((0.8, 8.55), [0.9 clear\ in front of\ the panel], size: 2.6pt, fill: amber)
   line(q(ut-door.at(0)), q(ut-door.at(1)), stroke: 2.4pt + red); arc(q(ut-door.at(1)), start: 90deg, stop: 180deg, radius: 0.75, stroke: (paint: red, thickness: 0.4pt, dash: "dotted"), anchor: "origin"); T((2.95, 9.8), [door (moved south,\ proposal) · hinged S], size: 2.6pt, fill: red, anchor: "west")
   line(q(shaft-door.at(0)), q(shaft-door.at(1)), stroke: 2pt + rgb("#8a5a2b")); T((0.75, 9.05), [shaft panels (north face)], size: 2.5pt, fill: rgb("#8a5a2b"))
-  line(q((0.125, 7.9)), q((2.65, 7.9)), stroke: (paint: blue, thickness: 0.8pt, dash: "dashed")); T((1.4, 7.7), [the family bath above (y 7.9–11): its slab sunken and tanked; the WC compartment over x 0–1.5 only], size: 2.5pt, fill: blue)
+  line(q((0.125, 7.9)), q((2.65, 7.9)), stroke: (paint: blue, thickness: 0.8pt, dash: "dashed")); T((1.4, 7.7), [the family WC (y 7.9–9.2) and bedroom 2's bath above: every fixture on the service wall y 9.2 into the shaft; the floor dry over the batteries], size: 2.5pt, fill: blue)
   line(q((2.0, 8.5)), q((2.0, 9.35)), stroke: 0.4pt + ink, mark: (start: "|", end: "|", scale: 0.4)); T((2.1, 8.9), [≥ 0.9 clear], size: 2.5pt, anchor: "west")
   circle(q((1.8, 10.05)), radius: 0.06, fill: blue, stroke: none); T((2.2, 10.45), [leak sensor + drip tray\ under the heater], size: 2.4pt, fill: blue)
   T((1.4, 10.75), [UTILITY ROOM · 2.525 × 2.3 clear · 1 m = 2.4 cm · north up], size: 3.4pt, fill: accent)
@@ -262,7 +263,7 @@
   [
     #set text(6.4pt)
     #H[Principles applied in every scenario (owner's goals: maintenance without breaking floors or walls, no smells, low leak risk, quality, controlled cost)]
-    + *Two clusters only:* west round the shaft (the utility room, the hospitality kitchen, the family basins and WC, the guest WC and basins; above: the family bath F-b and its WC compartment, bedroom 3's bath) and east along the east wall (the kitchen, the laundry, the maid bath; above: the suite bath and its WC closet). *No third cluster* (bedroom 1 stays without a bath: decided).
+    + *Two clusters only:* west round the shaft (the utility room, the hospitality kitchen, the family powder room, the guest WC and basins; above: the family WC and bedroom 2's bath on one service wall by the shaft (3 Nov 2026), bedroom 3's bath) and east along the east wall (the kitchen, the laundry, the maid bath; above: the suite bath and its WC closet). *No third cluster* (bedroom 1 stays without a bath: decided).
     + *Ground floor:* the drains buried under the ground slab, a *cleanout at every change of direction*, an *inspection chamber outside each cluster* (the west manhole on the driveway, the east manhole in the yard), reachable from above; then the collector manhole and the existing septic (site plan).
     + *Stacks:* vertical stacks inside the *west shaft* (doors on each floor) or an *accessible duct* (scenario C: an internal east duct); acoustic (triple-layer) pipes on every stack; the east stack today runs outside the east wall behind a removable cladding.
     + *First-floor bathrooms:* a *sunken waterproofed slab* (0.10–0.15 m, the leak kept inside the bathroom) wherever the bay allows it (the ribbed bays; the suite bath has it, X10), OR suspended drains only above *service rooms and corridors* behind access panels with acoustic lagging; *never* above bedrooms, the majlis, the living or the kitchen's hood zone.
@@ -294,7 +295,7 @@
     - *Slabs:* the west band, the riwaq, the maid wing and the women's majlis roof are *solid 0.20*: a sunken bathroom zone there means a thicker bay (0.35 with the top depressed 0.15) or a raised floor; the kitchen, dining and men's majlis roofs are *ribbed 0.30*: a 0.10–0.15 depressed zone is possible (the suite bath has one). The family bath F-b over the utility room / hospitality kitchen is on the solid west band: its sunken zone needs the thicker bay (X10-type detail) or its drains stay suspended above the two *service* rooms behind panels (allowed by principle 4).
     - *The malqaf breeze channel* (amber) in the ground slab from the tower south on x 10.2 to y 10.5 then west under the kitchen's sink counter: the kitchen's drain crosses it (the sink's branch passes *under* the channel's base slab, or the channel bridges it: the engineers); the *foundations* (pads ≈ 1.5 × 1.5 under the columns, strip footings under the RC walls): the buried drains pass between them; the *courtyard*: its drains run east under the kitchen floor to the east manhole's rain branch.
     #H[The two stacks and the routes to the septic]
-    - *West:* the shaft (0–1.5 × 9.2–10.4) carries the west stack and vent from the family bath / WC compartment down to the buried west run, which collects the hospitality kitchen, the family basins, the family WC (its own small stack takes bedroom 3's bath from above) and the guest WC and basins, and leaves under the west wall to the *west manhole* on the driveway. *East:* the stack outside the east wall beside the suite WC closet takes the suite bath, drops to the yard and runs south to the *east manhole* (foul only), which also takes the kitchen, the laundry and the maid bath (buried, east); the courtyard's rain goes to its own chamber (round 2, A2). Both manholes run to the *collector manhole* at the garden's south-east and the *existing septic* (site plan; the capacity, the condition and the well distance flagged).
+    - *West:* the shaft (0–1.5 × 9.2–10.4) carries the west stack and vent from the family WC and bedroom 2's bath (their service wall y 9.2, 3 Nov 2026) down to the buried west run, which collects the hospitality kitchen, the family powder room (its south service wall holds bedroom 3's stack from above) and the guest WC and basins, and leaves under the west wall to the *west manhole* on the driveway. *East:* the stack outside the east wall beside the suite WC closet takes the suite bath, drops to the yard and runs south to the *east manhole* (foul only), which also takes the kitchen, the laundry and the maid bath (buried, east); the courtyard's rain goes to its own chamber (round 2, A2). Both manholes run to the *collector manhole* at the garden's south-east and the *existing septic* (site plan; the capacity, the condition and the well distance flagged).
     #H[Overlay verdicts]
     #table(columns: (1fr, 1.6fr, auto), inset: 1.8pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
       ..([First-floor wet room], [Below it], [Verdict]).map(c => text(6pt, weight: "bold", fill: accent, c)),
@@ -325,7 +326,7 @@
     - *The suite court's gutter outlets* (rain, in the men's majlis's south wall): (a) keep, with acoustic lagging; (b) run the two outlets to the court's ends and down inside the *gym's and the office's* walls to the garden: no pipe in a majlis wall. *Chosen for B: (b).*
     - *The courtyard's drain, overflow and basin* (#r1(L(wet-rows.find(p => p.room == "Courtyard"))) m east under the kitchen floor to its own rain chamber, never the foul one): buried, fine; anti-odour drain and the basin's own trap; a cleanout at the kitchen's west wall. Keep.
     - *The maid bath* (#r1(L(wet-rows.find(p => p.room == "Maid bath"))) m round the cut corner): (a) keep; (b) *align its fixtures on the cut wall* with one short branch out through the cut wall to the strip, and the breeze channel's sump and the HRV condensate into the same branch. *Chosen for C.*
-    - *The ground-floor shower* (G-07, deferred to this study): *P1* (the family WC + basins as one wet room on the west run, 0.5–1.5 m branches, a level floor drain in the ground slab: easy) scores as well as any fixture here; *P2* (the hospitality kitchen, 1 m from the shaft) is the plumbing optimum but re-plans three rooms; *P1-lite* (the family WC room only) is P1 without the basins. *Chosen for B and C: P1*, for its function as much as its plumbing.
+    - *The ground-floor shower* (G-07; *withdrawn by the owner on 3 Nov 2026: no shower and no hidden provision on the ground floor; the family WC and basins become one powder room*; the text below is the round-1 record): *P1* (the family WC + basins as one wet room on the west run, 0.5–1.5 m branches, a level floor drain in the ground slab: easy) scores as well as any fixture here; *P2* (the hospitality kitchen, 1 m from the shaft) is the plumbing optimum but re-plans three rooms; *P1-lite* (the family WC room only) is P1 without the basins. *Chosen for B and C: P1*, for its function as much as its plumbing.
     - *The laundry:* fine (buried east); C adds the east heater and manifold cabinet beside the washer and moves the utility sink next to it (one trap group).
   ],
 )
@@ -362,7 +363,7 @@
     #v(2pt)
     #H[Decisions needed from the owner]
     + *Scenario:* A, B (recommended) or C; and, with B, *the internal east duct* from C (yes / no, subject to the engineer).
-    + *The GF shower:* P1 confirmed as the wet room of the west cluster (or P1-lite / P2)?
+    + *The GF shower:* ~~P1 confirmed as the wet room of the west cluster (or P1-lite / P2)?~~ *Decided 3 Nov 2026: no ground-floor shower; the powder room instead.*
     + *The suite bath:* the vanity moved to the east side beside the stack (B) — accepted?
     + *The suite court's outlets* down the gym / office walls instead of the majlis wall (B)?
     + *Heaters:* two electric cylinders (west ≈ 100–120 L in the utility room, east ≈ 150 L in the laundry), or a central heat-pump unit on the roof with a ring main (less space inside, more pipe)? (to be sized by the engineer)
@@ -579,7 +580,7 @@
   [
     #set text(6.4pt)
     #H[The baseline for round 2 (owner, provisional)]
-    - *Scenario B* is the direction: the ground-floor shower *P1* (the family WC + basins as one wet room) and the *suite court's outlets down the gym's and the office's walls*; the cleanouts, the two vent stacks, the anti-odour drains, the manifold system, two heaters, the leak protection as round 1.
+    - *Scenario B* is the direction: ~~the ground-floor shower P1~~ (withdrawn 3 Nov 2026: no ground-floor shower; the family WC and basins are one *powder room* on the same buried run) and the *suite court's outlets down the gym's and the office's walls*; the cleanouts, the two vent stacks, the anti-odour drains, the manifold system, two heaters, the leak protection as round 1.
     - *The suite bathtub STAYS* on the south wall by the east window (round 1's "tub to the north wall" is dropped). The vanity's move "beside the stack" of round 1 clashed with the shower once the tub stays: *the vanity stays on the west wall*; how its 3 m drain is handled is the subject of A1 (page 7–9).
     - Nothing is applied: the room CSVs and the design files are unchanged; every size assumed, to be designed by the plumbing engineer.
     #v(2pt)
@@ -741,7 +742,10 @@
   ],
   [
     #set text(6.4pt)
-    #H[The list for the owner (round 2)]
+    #H[Decided by the owner, 3 Nov 2026 (recorded in data/decisions.csv)]
+    - *The east stack: EXTERNAL* on the east wall behind removable cladding (A3 option a; not the internal duct). *Rarely used drains: automatic trap primers* (the courtyard, the suite court, the utility room, the laundry, the shaft, the tower sump; no monthly duty). *Rain and sewage fully separate; condensate by tundishes / trapped air-breaks: adopted.* *The suite bathroom's approach (option b, the service wall): NOT decided, open for discussion.* *No ground-floor shower* (the family WC + basins become one powder room; P1 withdrawn). *First floor (3 Nov 2026):* the F-b bath split into bedroom 2's en-suite and a family WC on one service wall by the shaft (applied); bedroom 1's hotel-layout en-suite (B4) studied and not applied (`studies/bedroom1_bath.typ`).
+    #v(3pt)
+    #H[The list for the owner (round 2, as it stood)]
     + *A1:* the suite bath as *(b)* (service wall, wall-hung WC and vanity, wall-drain channel, the tub on a plinth with an AAV): accepted? The one local opening (the channel body) accepted as the compromise?
     + *A3:* the east stack *external behind removable cladding* (not the internal duct): accepted?
     + *A2:* the rain system separate with two soakaways and surface overflows; the condensate by tundishes and trapped air-breaks: noted.

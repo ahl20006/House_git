@@ -8,7 +8,7 @@
 # a stone colonnade with an upper gallery around a courtyard open to the sky. Simple, not ornate. No arches between the colonnade
 # columns (owner, V6.3: the arches variant of r1–r2 is removed); the arches of the house are the living's entrance and its TV niche.
 # Revision 3 (V7.0): the design language (docs/DESIGN_LANGUAGE.md): cream plaster, honey stone, black steel divided-lite windows, walnut;
-# the courtyard enclosure W1–W3, the stair room, the attic, the cornice and the parapets come from the base model (3d/params.yaml roof_design).
+# the courtyard enclosure W1–W3, the attic, the cornice and the parapets come from the base model (3d/params.yaml roof_design).
 # Revision 2: lighter, warmer colours; the views rendered with the sun and shadows; the malqaf outlet on the kitchen wall (owner
 # decision, studies/air_system.typ) with the sunken seating under it (variant toggle); the north-wall stone pier removed.
 
@@ -126,44 +126,45 @@ feature_walls:                        # Taif stone cladding (0.03) on selected f
 
 # fountain: REMOVED (owner, 1 Nov 2026, studies/courtyard_layout.typ): no wall fountain on the kitchen wall (the outdoor TV and the malqaf grille are there); the water basin, the planter and the tree are in the north enclosure (courtyard_layout.enclosure); character_3d.py builds no fountain until the courtyard_layout builder update
 
-courtyard_layout:                     # clear faces: the riwaq glass x 4.35, the kitchen wall x 8.85, the women's majlis glass y 6.6, the living glass y 12.9; the soffit edge x 5.925
-  step: {box: [5.925, 8.7, 8.85, 12.3], floor: -0.15, nosing: 0.08, riser_light: true}   # the seating one step down, from the colonnade edge to the kitchen wall; honey-stone nosing, linear light in the riser
-  seat_height: 0.45                   # above the pit floor (seat +0.30)
-  bench_back: 0.75                    # the backs' top, above ±0.00 (0.90 above the pit floor)
-  bench_depth: 0.75
-  benches:                            # x0 y0 x1 y1 side: the west bench on the step edge facing the TV (gaps of 0.75 at both ends to step down), the north and south benches from the kitchen wall
-    - [5.925, 9.45, 6.675, 11.55, west]
-    - [6.675, 8.7, 8.85, 9.45, north]
-    - [6.675, 11.55, 8.85, 12.3, south]
-  table: {box: [7.125, 9.9, 7.825, 11.1], height: 0.40}   # low, for meals
-  tv: {wall: "8.95 6.5 8.95 13.0", y: [9.77, 11.23], z: [0.52, 1.38], model: "65in outdoor-rated (partial sun, IP55/56); size, bracket, ventilation and clearances per the chosen model"}
-  tv_frame: {inner_width: 1.70, jamb_z: [0.45, 1.45], radius: 0.85, band: 0.10, proj: 0.06, material: stone}   # a semicircular honey-stone surround, visual only, no cavity
-  sink_window_proposal: {y: [7.3, 8.9], note: "APPLIED 1 Nov 2026: the sink window is at y 7.3-8.9 (design_gf.typ, studies/east_wing.typ, params.yaml); the TV wall y 9.0-12.9 is solid"}
-  enclosure:                          # one honey-stone box at the north end with two separate basins
-    box: [5.925, 7.1, 8.85, 8.4]
+courtyard_layout:                     # 3 Nov 2026 (owner, studies/courtyard_layout.typ): the whole courtyard floor LEVEL (no step, no benches), modern MOVABLE furniture, the enclosure
+                                      # (water + tree) moved to the NORTH END OF THE EAST (kitchen) WALL in front of the sink window, the TV south of it. Clear faces: the riwaq glass x 4.35,
+                                      # the kitchen wall x 8.85, the women's majlis glass y 6.6, the living glass y 12.9; the soffit edge x 5.925
+  level: true
+  floor: 0.0                          # the whole floor at the inside level less the falls (drainage below); no step anywhere
+  seating_zone: [5.925, 7.1, 8.85, 12.3]   # the open strip east of the soffit edge between the north (0.5) and south (0.6) cleaning strips; the enclosure takes its north-east part
+  furniture:                          # x0 y0 x1 y1 kind · movable, modern: a 3-seat sofa facing the TV, two armchairs, a low table (4–6 people)
+    - [5.95, 9.55, 6.85, 11.75, sofa]
+    - [7.3, 9.5, 8.05, 10.25, armchair]
+    - [7.3, 11.05, 8.05, 11.8, armchair]
+    - [7.15, 10.4, 7.95, 10.9, table]
+  tv: {wall: "8.95 6.5 8.95 13.0", y: [9.82, 11.28], z: [0.60, 1.46], model: "65in outdoor-rated (partial sun, IP55/56); size, bracket, ventilation and clearances per the chosen model"}   # on the kitchen wall south of the enclosure, centred on the seating (y 10.55); its bottom +0.60 over the grille (+0.10 … +0.45)
+  tv_frame: {inner_width: 1.70, jamb_z: [0.50, 1.50], radius: 0.85, band: 0.10, proj: 0.06, material: stone}   # a semicircular honey-stone surround, visual only, no cavity; crown +2.45
+  sink_window: {y: [7.3, 8.9], sill: 1.1, head: 2.1}   # the kitchen sink window (design_gf.typ, params.yaml): the enclosure stands in front of it as the view from the sink
+  enclosure:                          # one honey-stone box against the kitchen wall face (x 8.85) from the north cleaning strip: two separate basins
+    box: [7.55, 7.1, 8.85, 9.5]
     wall: 0.15
-    rim: 0.45
-    water: {inside: [6.075, 7.25, 7.55, 8.25], depth: 0.35, level: 0.25, spout_z: 0.60}   # a laminar lip on the divider, water over stone, no spray; own drain + overflow; pump and filter under the cover
-    planter: {inside: [7.70, 7.25, 8.70, 8.25], depth: 0.70}                              # own drain; drip irrigation; fixed
-    pump_cover: [6.1, 7.3, 6.6, 7.8]
-    tree: {species: "Laurus nobilis standard, or clipped Ficus nitida; final choice by a Taif nursery", stem: 2.0, crown_centre: 3.0, crown_radius: 1.0}
-  drainage:                           # levels (studies/courtyard_layout.typ section): the inside floors ±0.00
-    court_at_glass: -0.015            # the courtyard finish at the three glass lines and the riwaq door (a 15 mm threshold, R-08)
+    rim: 0.45                         # the planter's rim (a ledge)
+    planter: {inside: [7.70, 7.25, 8.70, 8.30], depth: 0.70}   # the NORTH part (sunny): the tree, its crown in front of the window's north half; own drain, drip irrigation
+    water: {inside: [7.70, 8.75, 8.70, 9.35], depth: 0.35, level: 0.85, rim: 0.95, spout_z: 1.05}   # the SOUTH part: a RAISED trough, rim +0.95 (below the sill +1.10, seen from the sink), water +0.85, a laminar lip on the wall side over stone, no spray; own drain + overflow
+    pump_cover: [7.75, 8.35, 8.25, 8.58]   # the pump and filter chamber in the divider between the two basins
+    tree: {species: "Laurus nobilis standard, or clipped Ficus nitida; final choice by a Taif nursery", stem: 2.0, crown_centre: 3.0, crown_radius: 0.9}
+  drainage:                           # levels (studies/courtyard_layout.typ): the inside floors ±0.00; gentle falls AWAY from the three glass lines and the riwaq door to the kitchen wall foot
+    court_at_glass: -0.015            # at the three glass lines and the riwaq door (a 15 mm threshold, R-08)
     fall: 0.01
-    court_at_edge: -0.03              # at the step edge
-    pit_edge: -0.15
-    pit_drain: -0.19
-    pit_drain_at: [8.6, 12.1]         # SE corner of the pit: a Ø100 gully with a silt bucket
-    overflow_at: [8.6, 8.9]           # NE corner: an independent gully to its own pipe east
-    overflow_rim: -0.08
-    pipe_z: -0.55                     # the pipe invert at the drain, 1 % east under the kitchen floor to the east yard manhole
+    court_at_wall: -0.06              # at the kitchen wall foot: the main linear drain
+    linear_drains:                    # x0 y0 x1 y1: slot drains with silt baskets, each to the separate RAIN system (never the foul); automatic trap primers
+      - [8.73, 9.6, 8.85, 12.8]       # along the kitchen wall foot south of the enclosure (under the TV)
+      - [4.35, 9.0, 4.47, 10.6]       # at the riwaq door's threshold (wind-driven rain at the door)
+    overflow_at: [8.6, 12.6]          # SE corner: an independent gully, rim −0.03, its own pipe east to the rain chamber
+    overflow_rim: -0.03
+    pipe_z: -0.55                     # the pipe invert at the drains, 1 % east under the kitchen floor to the east RAIN chamber (never the foul chamber)
   pergola: none
 
 # roof (V7.0 / V8.1): the parapets, the cornice, the attic, the HRV base, the ladder and the set-back guardrail are in 3d/params.yaml `roof_design` (base model); the guards round the roof holes here
 
 malqaf_louvres: {slats: 4, depth: 0.12, thickness: 0.04}   # timber slats in the head's three open faces (V8.0)
 
-props:                                # scale only, simple shapes (the courtyard benches and table: courtyard_layout; the suite court's furniture: suite_court_v2)
+props:                                # scale only, simple shapes (the courtyard's movable furniture: courtyard_layout; the suite court's furniture: suite_court_v2)
   lanterns:                           # hanging between the columns under the soffit edge; point lights in the night view
     size: [0.25, 0.25, 0.4]
     drop: 0.6                         # rod from the soffit
@@ -225,10 +226,11 @@ site:
     - {label: driveway, kind: slab, pts: [[-3.95, 0.73], [0, 0], [0, 38.86], [-3.95, 39.59]], material: concrete, note: "the existing driveway 3.95 m west of the M line (stays)"}
     - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 3.825]], width: 1.0, material: stone, note: "the family entrance path from the driveway"}
     - {label: path_guest, kind: path, pts: [[-1.0, 39.6], [-1.0, 26.0], [0.9, 26.0]], width: 1.2, material: stone, note: "the guest path in honey stone along the driveway's east edge to the guest entrance"}
-    - {label: path_workers, kind: path, pts: [[-1.0, 1.5], [11.3, 1.5], [16.4, 10.2], [16.4, 17.0]], width: 0.9, material: stone_light, note: "the workers' path along the north and lane-side strips to the yard"}
+    - {label: path_workers, kind: path, pts: [[-1.0, 0.7], [8.3, -1.0], [11.8, 0.8], [14.6, 7.3], [16.9, 10.6], [16.9, 11.8]], width: 0.9, material: stone_light, note: "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade"}
     - {label: parking_bay, kind: box, box: [5.2, 0.9, 10.2, 3.4], height: 0.02, material: stone_light, note: "the uncovered family car in the north strip (kept, owner 2 Nov 2026)"}
     - {label: garden, kind: slab, pts: [[0.9, 27.95], [14.35, 27.95], [14.35, 19.6], [22.5, 19.6], [26.74, 33.94], [0.9, 38.7]], material: foliage, note: "the family garden on the south only, round the palms"}
     - {label: garden_wall, kind: wall, pts: [[0.6, 27.95], [0.6, 38.7]], width: 0.3, height: 1.2, material: stone, note: "the 1.2 m honey-stone wall between the garden and the guest path"}
     - {label: hedge, kind: hedge, pts: [[14.35, 18.5], [22.2, 18.5]], width: 0.6, height: 1.8, material: foliage, note: "the 1.8 m hedge between the service yard and the garden"}
-    - {label: yard_screen, kind: box, box: [15.51, 10.325, 15.61, 16.825], height: 1.8, material: plaster, note: "the 1.8 m service yard screen (design_gf.typ site outlines, CSV x 14.6–14.7, y 6.5–13.0)"}
-    - {label: gas_cabinet, kind: box, box: [15.76, 12.825, 16.26, 13.825], height: 1.0, material: steel, note: "the ventilated LPG cabinet on the screen's outer face"}
+    - {label: yard_screen, kind: box, box: [16.11, 11.425, 16.21, 16.825], height: 1.8, material: plaster, note: "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2–15.3, y 7.6–13.0) so the outdoor counter has a working strip"}
+    - {label: gas_cabinet, kind: box, box: [16.26, 11.625, 16.76, 12.625], height: 1.0, material: steel, note: "the ventilated LPG cabinet on the screen's outer face at its north end, ≥ 3 m from the grill"}
+    - {label: bins, kind: box, box: [14.61, 9.125, 15.41, 9.925], height: 1.1, material: steel, note: "the bins north of the service door, outside the food area"}

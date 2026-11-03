@@ -77,9 +77,9 @@
   (5.65, 19.1, 5.95, 19.4, [col 3]),
   (4.35, 14.5, 5.05, 14.75, [TV niche pier]),       // V6.3: the living's west wall is solid; an arched TV niche 4.40 wide × 0.70 deep between this pier and the south wall, head ≈ 3.0–3.2 m
   (4.35, 14.75, 5.05, 19.15, [TV niche 4.40 × 0.70]),
-  (5.925, 8.7, 8.85, 12.3, [seating −0.15]),         // V7.1 courtyard layout (studies/courtyard_layout.typ): the seating one step down from the colonnade edge to the kitchen wall
-  (5.925, 7.1, 8.85, 8.4, [fountain + tree]),        // the north enclosure: water basin (west) and planting basin (east)
-  (8.75, 9.77, 8.85, 11.23, [outdoor TV]),           // on the kitchen wall, the malqaf grille below it (y 10.0–11.0)
+  (5.925, 7.1, 8.85, 12.3, [seating · level · movable]),   // 3 Nov 2026 courtyard layout (studies/courtyard_layout.typ): the whole floor LEVEL, movable furniture east of the colonnade
+  (7.55, 7.1, 8.85, 9.5, [water + tree]),            // the enclosure on the kitchen wall in front of the sink window (the tree north, the raised water trough south)
+  (8.75, 9.82, 8.85, 11.28, [outdoor TV]),           // on the kitchen wall south of the enclosure, the malqaf grille below it (y 10.05–11.05)
 )
 #let inner-marks = inner-boxes.map(((x0, y0, x1, y1, l)) => {
   let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)
@@ -98,9 +98,8 @@
   ((0.0, 6.7), (0.0, 7.6), []),              // the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
   ((2.4, 0.0), (2.9, 0.0), []),              // the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
   ((2.75, 10.6), (2.75, 12.7), []),           // hospitality kitchen, open to the riwaq
-  ((2.75, 13.0), (2.75, 14.3), []),           // family basins, open to the riwaq
-  ((1.5, 14.4), (2.5, 14.4), []),            // family WC door 1.00 m opening (0.90 leaf, ≥ 0.85 clear, V6.3), off the basins
-  ((0.0, 12.9), (2.75, 12.9), []),           // hospitality kitchen / basins wall, full height
+  ((2.75, 13.05), (2.75, 14.05), []),         // the family powder room's door 1.00 m from the riwaq (3 Nov 2026: the basins + the WC as one room, no shower on the ground floor)
+  ((0.0, 12.9), (2.75, 12.9), []),           // hospitality kitchen / powder room wall, full height
   ((2.75, 16.25), (2.75, 17.15), []),         // serving door 1 (0.90), to the riwaq, lockable from the riwaq side; opposite: the living's solid west wall (the TV wall, V6.3)
   ((0.1, 17.5), (1.15, 17.5), [serving doors 1 + 2]),   // serving door 2 (1.05, guest side), lockable from inside the passage
   ((0.0, 17.5), (2.75, 17.5), []),           // family / guest line
@@ -130,13 +129,16 @@
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
 #let tower-pts = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
-// V8.1 (owner): the outdoor kitchen: the counter and sink against the house's east wall at the south-east, on the path from the kitchen service door (the house's
-// afternoon shade; a 1.2 m canopy proposed), the grill and tannour apart in the south-east garden (≥ 3 m from every opening, the palms and far from the HRV intake,
-// downwind); the yard screen (bins, gas). No gate on the lane: the farm's single 4 m main gate is the only entry. Outlines only (CSV)
+// 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
+// window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV
+// intake, downwind of the house in the north-west wind); the yard re-planned: the screen 1.8 m east of the counter's working strip, the gas cabinet on its outer face at the
+// north end (≥ 3 m from the grill), the bins north of the service door away from the food. No gate on the lane. Outlines only (CSV)
 #let site-boxes = (
-  (13.45, 20.8, 14.05, 23.6, [outdoor kitchen: counter + sink (east wall, canopy proposed)]),
-  (15.0, 27.4, 17.3, 28.9, [grill + tannour (3.3 m from the house, ≥ 3 m from the palms)]),
-  (14.6, 6.5, 14.7, 13.0, [yard screen 1.8 m (bins, gas)]),
+  (13.45, 8.3, 14.05, 10.1, [outdoor counter + sink, by the service door (canopy optional)]),   // 3 Nov 2026 (owner): next to the kitchen service door, a few steps from it
+  (16.5, 12.6, 17.6, 13.8, [grill + tannour (≥ 3 m from every opening, downwind)]),
+  (15.2, 7.6, 15.3, 13.0, [yard screen 1.8 m]),
+  (13.7, 5.3, 14.5, 6.1, [bins]),
+  (15.35, 7.8, 15.85, 8.8, [LPG cabinet (on the screen's outer face)]),
 )
 #let site-marks = site-boxes.map(((x0, y0, x1, y1, l)) => {
   let P = ((x0, y0), (x1, y0), (x1, y1), (x0, y1)).map(place)

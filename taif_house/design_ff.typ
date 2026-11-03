@@ -60,7 +60,7 @@
 #let safety = (((11.0, 3.5), [S · bed 1]), ((2.0, 12.7), [S · bed 2]), ((2.0, 17.5), [S · bed 3]), ((6.5, 1.5), [S · kids]), ((11.0, 15.6), [S · suite]), ((9.5, 9.0), [S · suite lobby]), ((4.8, 11.0), [S · gallery]), ((3.4, 5.0), [S · gallery N]), ((6.5, 4.75), [S · family living]), ((1.4, 3.0), [S · stair top]), ((2.95, 3.4), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 // owner, 2 Nov 2026 (bedroom 1: option A, studies/bedroom1_bath.typ): low-level motion-sensor night lights (NL) along the route bedroom 1 → family link → family living → gallery → family bath; a note for the electrical design
-#let night-lights = (((9.55, 5.95), [NL · link]), ((8.5, 4.6), [NL · living E]), ((5.4, 3.5), [NL · living W]), ((3.4, 5.6), [NL · gallery N]), ((3.4, 8.3), [NL · gallery]), ((4.9, 9.6), [NL · bath door]))
+#let night-lights = (((9.55, 5.95), [NL · link]), ((8.5, 4.6), [NL · living E]), ((5.4, 3.5), [NL · living W]), ((3.4, 5.6), [NL · gallery N]), ((3.4, 8.3), [NL · gallery]), ((3.1, 8.65), [NL · bath door]))
 #let night-marks = night-lights.map(((p, l)) => ((place(p), place((p.at(0), p.at(1) + 0.3))), l))
 // owner, 2 Nov 2026: the suite court's south side is a mashrabiya screen on the 1.10 m base up to the facade frame (studies/south_wing.typ § 12 b)
 #let screen-marks = (((place((4.25, 24.0)), place((10.0, 24.0))), [mashrabiya screen (owner)]),)
@@ -102,7 +102,7 @@
   - *Master suite:* #num(suite-area) m² indoors (lobby, bath + WC closet, dressing, bedroom), + the suite court #num(used-out) m².
   - *Circulation:* #num(circulation) m² (gallery, family link, suite lobby; the stair arrives on the gallery's north part since the flip).
   - *Courtyard sky* #r3(sec.pj.sky) × #num(13.0 - sec.y-court) m and *double-height void* #r3(sec.pj.sky) × #num(sec.y-living - 13.0) m on axes; the ground-floor courtyard and living keep their full floor.
-  - *West rooms:* #num(sec.pj.room) m on axes (≈ #r3(sec.pj.room-clear) m clear); *gallery* #num(sec.pj.gallery) m (≈ #r3(sec.pj.gallery-clear) m clear); *family bath* #num(sec.pj.bath-w) m wide.
+  - *West rooms:* #num(sec.pj.room) m on axes (≈ #r3(sec.pj.room-clear) m clear); *gallery* #num(sec.pj.gallery) m (≈ #r3(sec.pj.gallery-clear) m clear); *bedroom 2's bath* #num(sec.pj.bath-w) m wide (3 Nov 2026).
   - *Edge beam* on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns; the FF west wall on the GF west wall, #r3(ff-m-gap) m from the M line.
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Where the detail is]

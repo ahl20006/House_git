@@ -139,11 +139,11 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     exhaust: [2.7, 3.05, 7.6, 8.3]                    # y0 y1 z0 z1: the exhaust louvre on its cut face
   guard: {height: 1.10, post_spacing: 1.5, bar: 0.04}   # black steel bar guards round the courtyard sky hole and the suite court's open edges
 
-outdoor_kitchen:        # V8.1 (design_gf.typ site outlines): the counter and sink against the east wall at the south-east, on the path from the kitchen service door; the grill and tannour apart
+outdoor_kitchen:        # 3 Nov 2026 (owner; design_gf.typ site outlines, studies/site_plan.typ): the counter and sink against the east wall NEXT TO the kitchen service door (its north end), the grill and tannour a little apart in the yard
   ground: -0.30         # the ground outside the house
-  counter: [13.45, 20.8, 14.05, 23.6]   # on the east wall face (x 13.436): the house's afternoon shade; a canopy proposed (not modelled)
+  counter: [13.45, 8.3, 14.05, 10.1]    # on the east wall face (x 13.436) south of the service door (y 7.2–8.1), under the kitchen window; a canopy over it OPTIONAL (not modelled)
   counter_top: 0.60     # 0.90 above the ground
-  grill: [15.0, 27.4, 17.3, 28.9]       # a stone platform with the grill and the tannour: ≥ 3 m from every opening and the palms, downwind (NW wind) of the house and far from the HRV intake
+  grill: [16.5, 12.6, 17.6, 13.8]       # a stone platform with the grill and the tannour in the yard's south part: ≥ 3 m from every door, window and the hood outlet, 13 m from the HRV intake, downwind (NW wind) of the house, ≥ 3 m from the gas cabinet
   platform_top: 0.15
 
 sun:                    # Taif; true north from base.typ (#let north), the plans' north is 21.4° west of true north

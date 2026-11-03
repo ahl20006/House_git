@@ -125,7 +125,7 @@
 #let short = (
   "Lift (shaft placeholder)": "Lift", "Utility room (shaft inside)": "Utility · shaft", "Family lobby + riwaq": "Riwaq",
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
-  "Serving passage (2 doors)": "Serving", "Family WC + basin": "Family WC", "Upper gallery (on the west projection)": "Gallery",
+  "Serving passage (2 doors)": "Serving", "Family powder room (WC · 2 basins)": "Powder room", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
   "Suite WC (closet)": "WC",
 )
@@ -170,8 +170,7 @@
   G((2.75, 8.2), (2.75, 9.0), (-1, 0), "hinged"),        // utility room (indicative)
   G((4.25, 9.1), (4.25, 10.5), (1, 0), "sliding"),       // courtyard glass door (indicative)
   G((2.75, 10.6), (2.75, 12.7), (-1, 0), "open"),        // hospitality kitchen
-  G((2.75, 13.0), (2.75, 14.3), (-1, 0), "open"),        // family basins
-  G((1.5, 14.4), (2.5, 14.4), (0, 1), "hinged"),         // family WC, 1.00 m opening (V6.3)
+  G((2.75, 13.05), (2.75, 14.05), (-1, 0), "hinged"),    // the family powder room (3 Nov 2026: the basins + the WC as one room, a 1.00 m door from the riwaq)
   G((2.75, 16.25), (2.75, 17.15), (-1, 0), "hinged"),    // serving door 1
   G((0.1, 17.5), (1.15, 17.5), (0, -1), "hinged"),       // serving door 2
   G((1.45, 19.25), (2.35, 19.25), (0, -1), "hinged"),    // guest WC, 0.90 m opening (V6.3)
@@ -358,7 +357,7 @@
 #let fill-in(s) = { let t = s; for (k, v) in vals { t = t.replace("{" + k + "}", v) }; t }
 #let ff-label-at = (
   "Upper gallery (on the west projection)": (sec.pj-edge - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.3, 8.9),
-  "Bedroom 1": (11.0, 4.6), "Family bath": (2.9, 9.7), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
+  "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
 #let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (9.6, 1.9), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2))
@@ -459,8 +458,8 @@
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
     let cc = bbox(clear-poly(court-r, gf-walls))
     dim((cc.at(0), 7.2), (cc.at(2), 7.2), (0, 0), [#n2(cc.at(2) - cc.at(0)) m clear])
-    rect(q((5.925, 8.7)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((7.4, 12.0)), text(6.5pt, fill: orange)[seating −0.15])
-    rect(q((5.925, 7.1)), q((8.85, 8.4)), fill: rgb("#cfe3ee"), stroke: 0.5pt + dark); content(q((7.4, 7.75)), text(6.5pt)[water · tree])
+    rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((6.9, 12.0)), text(6.5pt, fill: orange)[seating · level])
+    rect(q((7.55, 7.1)), q((8.85, 9.5)), fill: rgb("#cfe3ee"), stroke: 0.5pt + dark); content(q((8.2, 8.3)), text(6pt)[water\ tree])
     line(q((8.8, 9.77)), q((8.8, 11.23)), stroke: 2.4pt + dark); content(q((8.55, 10.5)), angle: 90deg, text(5.5pt)[TV])
     north-arrow((17.4, 1.0))
     scale-bar((0, 25.6))
@@ -531,7 +530,7 @@
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
 #sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
-#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Family bath", "Family WC (compartment)", "Wardrobe niche (bedroom 2)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
+#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Bedroom 2 bath (en-suite)", "Family WC (gallery)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *
@@ -545,9 +544,9 @@
     #en[
       *Kids' room* #wd(ff-rooms, "Kids' room (study + gaming)") m: two study desks and a PC desk under the north window, a gaming corner; solid door from the gallery. *Family living* #wd(ff-rooms, "Family living") m on the courtyard edge: a view, not a path.
 
-      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with a wardrobe niche beside the shaft; *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m², one room without a bath.
+      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with its own bath beside the shaft (3 Nov 2026; the family WC next to it, from the gallery); *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m², one room without a bath.
 
-      *Family bath* #wd(ff-rooms, "Family bath") m by the west shaft (WC on the shaft wall, shower, basin), door from the gallery, for bedrooms 1 and 2, the family living and the kids' room.
+      *Bedroom 2's bath* #wd(ff-rooms, "Bedroom 2 bath (en-suite)") m and the *family WC* #wd(ff-rooms, "Family WC (gallery)") m by the west shaft (3 Nov 2026: the F-b bath split; every fixture on one service wall into the shaft), the family WC's door from the gallery, for bedroom 1, the family living and the kids' room.
     ]
     #ar[
       #ah[غرفة الأطفال: دراسة وألعاب]
@@ -557,7 +556,7 @@
       #ah[غرف النوم]
       النوم 2: #wd(ff-rooms, "Bedroom 2") م بتجويف دولاب بجانب الشفت. النوم 3: #ffa("Bedroom 3") م² مع حمام خاص #wd(ff-rooms, "Bedroom 3 bath") م فوق دورة العائلة. النوم 1: #ffa("Bedroom 1") م² غرفة واحدة بلا حمام.
       #ah[حمام العائلة]
-      #wd(ff-rooms, "Family bath") م بجوار الشفت الغربي: مرحاض على جدار الشفت ودش ومغسلة، والباب من الممر.
+      حمام غرفة النوم 2 #wd(ff-rooms, "Bedroom 2 bath (en-suite)") م ودورة المياه العائلية #wd(ff-rooms, "Family WC (gallery)") م بجوار الشفت الغربي (3 نوفمبر 2026)، وباب دورة المياه من الممر.
       #ah[التخزين]
       دولاب البياضات في نهاية الممر الشمالية (#wd(ff-rooms, "Linen cupboard") م). الدواليب المدمجة صناديق نجارة مثبتة بين الجدارين.
     ]
@@ -634,7 +633,7 @@
   [
     #let (wx0, wy0, wx1, wy1) = bbox(wb.rooms.map(r => r.P).join())
     #en[
-      *West wash block* (#n2(wx1 - wx0) × #n2(wy1 - wy0) m): one strip of wet rooms on one drain run. Family side, open to the riwaq: hospitality kitchen #wd(gf-rooms, "Hospitality kitchen") m (a light kitchen for coffee, tea, dates and desserts), family basins, family WC.
+      *West wash block* (#n2(wx1 - wx0) × #n2(wy1 - wy0) m): one strip of wet rooms on one drain run. Family side, open to the riwaq: hospitality kitchen #wd(gf-rooms, "Hospitality kitchen") m (a light kitchen for coffee, tea, dates and desserts); the family powder room #wd(gf-rooms, "Family powder room (WC · 2 basins)") m (3 Nov 2026: the basins and the WC as one luxurious room with a door from the riwaq; no shower on the ground floor).
 
       The *serving passage* #wd(gf-rooms, "Serving passage (2 doors)") m (#clear-wd(gf-rooms, gf-walls, "Serving passage (2 doors)") m clear) is the only family / guest link: door 1 (#dw((2.75, 16.25)) m) from the riwaq and door 2 (#dw((0.1, 17.5)) m) from the guest side are never open together and both lock from the family side.
 
@@ -709,9 +708,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.7pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.55pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
-  ..decisions.map(d => (text(4.4pt)[#d.version], text(4.4pt, weight: "bold")[#d.topic], text(4.4pt)[#fill-in(d.decision)], text(4.4pt)[#fill-in(d.reason)], align(right, text(4.8pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())
+  ..decisions.map(d => (text(4.0pt)[#d.version], text(4.0pt, weight: "bold")[#d.topic], text(4.0pt)[#fill-in(d.decision)], text(4.0pt)[#fill-in(d.reason)], align(right, text(4.4pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())   // 3 Nov 2026: 4.0 / 4.4 pt so the 12 sheets hold the 57 rows
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()

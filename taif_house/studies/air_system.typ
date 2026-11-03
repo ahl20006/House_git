@@ -40,9 +40,9 @@
 #let air-chamber = (9.05, 10.0, 9.7, 11.0)   // v3: the fixed plenum box under the sink counter, 0.65 × 1.0, from the channel to the wall-base plenum; cleaned from the grille side (no entry)
 #let air-cover = (9.7, 2.9, 10.6, 3.7)  // the first of the removable sealed covers in the laundry floor (0.9 × 0.8 each, gasketed, flush)
 #let air-grille-x = 8.95                // the wall the grille is in: the courtyard's east wall = the kitchen's west wall; the grille on its courtyard face (x 8.85)
-#let air-grille = (10.0, 0.05, 11.0, 0.40)   // the outlet grille (y0, z0, y1, z1): 1.0 × 0.35 below the outdoor TV, a manually adjustable louvre directing the air along the floor, removable
+#let air-grille = (10.05, 0.10, 11.05, 0.45)   // the outlet grille (y0, z0, y1, z1): 1.0 × 0.35 below the outdoor TV (3 Nov 2026: the TV at y 9.82–11.28, +0.60 … +1.46; the courtyard floor LEVEL), its bottom 0.10 above the floor, a manually adjustable louvre directing the air along the floor, removable
 #let air-fan = (9.05, 10.1, 9.65, 10.9, -0.05, 0.30)   // v3.1 (owner): the assist fan box in the plenum directly behind the grille (x0, y0, x1, y1, z0, z1), slid out through the grille opening for service
-#let air-sunken = (-0.15, 5.925, 8.7, 8.85, 12.3)   // the seating one step down (studies/courtyard_layout.typ): floor level, x0, y0, x1, y1
+#let air-sunken = (0.0, 5.925, 7.1, 8.85, 12.3)   // 3 Nov 2026: the seating zone on the LEVEL courtyard floor (studies/courtyard_layout.typ; no step): floor level, x0, y0, x1, y1
 #let air-length = plen(air-route)       // the channel axis length, tower wall → plenum
 #let air-throat = (0.5, 0.20)           // under the maid bath, between the shower and the WC
 #let air-covers = 8                     // five in the laundry (y 2.9–6.9), three in the kitchen walkway (y 7.1–9.5)
@@ -137,7 +137,7 @@
   ([the tower's clear section holds the breeze shaft (≥ 0.5 m²) and the service compartment (≥ 0.18 m², the two Ø250 risers and the intake box) with the partition], breeze-area >= 0.5 - 1e-6 and service-area >= 0.18),
   ([the channel stays inside the ground-slab depth (no beam or footing notched): top −0.08, underside −0.28], calc.abs(air-duct.at(1) + 0.08) < 1e-6 and calc.abs(air-duct.at(2) + 0.28) < 1e-6),
   ([the channel is straight with one bend, ≤ 11 m], air-route.len() == 3 and air-length <= 11.0),
-  ([the grille is below the TV (+0.52) and ≥ 0.15 above the seating floor], air-grille.at(3) <= 0.52 - 0.1 and air-grille.at(1) >= -0.15 + 0.15),
+  ([the grille is below the TV (+0.60) and ≥ 0.10 above the level courtyard floor], air-grille.at(3) <= 0.60 - 0.1 and air-grille.at(1) >= air-sunken.at(0) + 0.10 - 1e-9),
   ([every intake separation meets its allowance], sep.all(((l, d, need, b)) => d >= need)),
   ([the base's top does not rise above the attic coping (+9.10) and its clear height takes the unit on its plinth with 0.5 m spare], base-top <= 9.10 + 1e-6 and base-clear-h >= unit.size.at(2) + 0.1 + 0.5),
   ([the condensers stay south of the base with ≥ 2 m clear and ≥ 5 m from the intake in plan], ac-clear >= 2.0 and condensers.at(1) - intake.at(1) >= 5.0),
@@ -210,7 +210,7 @@
   T((x0 + 0.65, 4.9), [channel 0.9 × 0.20 in the slab\ 5 covers in the laundry walkway], size: 3.2pt, fill: orange, anchor: "west"); T((x0 + 0.65, 8.3), [3 covers in the kitchen walkway\ (between the counters)], size: 3.2pt, fill: orange, anchor: "west")
   rect(q((air-chamber.at(0), air-chamber.at(1))), q((air-chamber.at(2), air-chamber.at(3))), fill: rgb("#fbd3a8"), stroke: 0.6pt + orange); T((9.37, 11.35), [plenum under\ the sink counter], size: 3.2pt, fill: orange)
   line(q((air-grille-x - 0.1, air-grille.at(0))), q((air-grille-x - 0.1, air-grille.at(2))), stroke: 2.6pt + orange); T((8.3, 10.5), [grille under the TV\ #f2(air-grille.at(1)) … #f2(air-grille.at(3))], size: 3.4pt, fill: orange, anchor: "east")
-  rect(q((5.925, 8.7)), q((8.85, 12.3)), fill: none, stroke: (paint: luma(120), dash: "dotted", thickness: 0.5pt)); T((7.4, 12.6), [seating −0.15], size: 3.4pt, fill: luma(110))
+  rect(q((air-sunken.at(1), air-sunken.at(2))), q((air-sunken.at(3), air-sunken.at(4))), fill: none, stroke: (paint: luma(120), dash: "dotted", thickness: 0.5pt)); T((7.4, 12.6), [seating zone (level, movable furniture)], size: 3.6pt, fill: luma(110))
   rect(q((9.05, 7.5)), q((9.65, 12.9)), fill: none, stroke: (paint: luma(140), thickness: 0.4pt)); T((9.35, 8.2), [sink\ counter], size: 3pt, fill: luma(110))
   line(q((8.95, 7.3)), q((8.95, 8.9)), stroke: 2pt + blue); T((8.3, 8.1), [sink window\ (moved north)], size: 3.2pt, fill: blue, anchor: "east")
   line(q((x0, 1.0)), q((x0, y1)), q((air-route.at(2).at(0), y1)), stroke: (paint: red, thickness: 0.9pt), mark: (end: "stealth", fill: red, scale: 0.5))

@@ -53,8 +53,8 @@
   m-gap: ff-west - m-line - outer-half, columns: columns.len(), col-x: pj-edge, spans: spans,
   outline: area(ff-outline), void: pj-void, floor: area(ff-outline) - pj-void,
   indoor: ff.filter(r => r.colour not in ("open", "terrace")).map(r => area(r.P)).sum(), court: ff.filter(r => r.colour in ("open", "terrace")).map(r => area(r.P)).sum(),
-  circ: ff.filter(r => r.colour == "circ").map(r => area(r.P)).sum(), bath: area(P-of("Family bath")), bath-w: calc.max(..xs("Family bath")) - calc.min(..xs("Family bath")),
-  gym: area(P-of("Gym")), niche: area(P-of("Wardrobe niche (bedroom 2)")),
+  circ: ff.filter(r => r.colour == "circ").map(r => area(r.P)).sum(), bath: area(P-of("Bedroom 2 bath (en-suite)")) + area(P-of("Family WC (gallery)")), bath-w: calc.max(..xs("Bedroom 2 bath (en-suite)")) - calc.min(..xs("Bedroom 2 bath (en-suite)")),   // 3 Nov 2026: the F-b bath split into bedroom 2's en-suite and the family WC
+  gym: area(P-of("Gym")), niche: 0.0,   // the wardrobe niche is bedroom 2's vanity niche since 3 Nov 2026
 )
 
 // ---------- Record: the split projection studied in V5.1–V6.0 and reverted in V6.1 (git tag v6.0) ----------

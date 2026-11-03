@@ -1,5 +1,5 @@
-// gf_shower.typ · Taif / Palm House V8.1 · the ground-floor shower study (design review G-07, ageing in place; 2 Nov 2026) · OWNER'S DECISION 2 Nov 2026: DEFERRED TO THE
-// PLUMBING STUDY (open item 10); P1 stays the preferred option, P1-lite the fallback. This file is the record.
+// gf_shower.typ · Taif / Palm House V8.2 · the ground-floor shower study (design review G-07, ageing in place; 2 Nov 2026) · OWNER'S DECISION 3 Nov 2026: NOT NEEDED (owner):
+// NO shower and no hidden provision on the ground floor; G-07 closed; the family WC and basins become one luxurious powder room (studies/guest_wing.typ). This file is the record of the study.
 // The ground floor has WCs but no shower; with the lift the showers upstairs are reachable, but a ground-floor shower helps an injured or elderly
 // person and a guest staying over. Three positions are studied (the family WC enlarged, the hospitality kitchen, the maid wing's laundry): size,
 // a level walk-in shower ≥ 0.9 × 1.2, a turning circle where possible, access from the family side, the drain to a stack, ventilation, privacy,
@@ -191,7 +191,7 @@
     #H[Decision needed from the owner]
     + *P1* (the family WC + basins as one accessible wet room; the basins behind a door by day, recommended), *P1-lite* (the family WC room only: shower + WC, no turning circle), or *P2* (the hospitality kitchen as the wet room, three rooms re-planned)?
     #v(3pt)
-    #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
+    #text(8pt)[*CLOSED 3 Nov 2026 (owner): not needed; no ground-floor shower.* #if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
     #v(2pt)
     #text(6pt, fill: gray)[Checks: #checks.map(c => c.at(0)).join([ · ]). The family WC's fixtures today are assumed (they are not in the files). Nothing here changes the room CSVs, the design files or the structure; every size is assumed.]
   ],

@@ -135,7 +135,7 @@
 #let n-ext = items.filter(i => i.k == "E").len()
 // the checks of the alarm positions: distance to the hob (photoelectric alarms ≥ 3.0 m), to the shower bathrooms' doors (≥ 0.9 m), inside every bedroom
 #let hob = (13.1, 10.7)
-#let bath-doors = (("family bath", (4.25, 9.8), "FF"), ("bedroom 3 bath", (2.2, 15.5), "FF"), ("suite bath", (10.3, 7.15), "FF"), ("maid bath", (11.065, 2.8), "GF"))
+#let bath-doors = (("family WC", (2.75, 8.65), "FF"), ("bedroom 2 bath", (2.15, 11.0), "FF"), ("bedroom 3 bath", (2.2, 15.5), "FF"), ("suite bath", (10.3, 7.15), "FF"), ("maid bath", (11.065, 2.8), "GF"))
 #let near-hob = smoke.filter(i => i.floor == "GF").map(i => (i, dist(i.p, hob)))
 #let near-bath = smoke.map(i => (i, calc.min(..bath-doors.filter(b => b.at(2) == i.floor).map(b => dist(i.p, b.at(1))))))
 #let hob-ok = near-hob.all(((i, d)) => d >= R.cook-dist)

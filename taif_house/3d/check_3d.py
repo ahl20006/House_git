@@ -366,12 +366,12 @@ if ld and all(n in meshes for n in lad_names) and not any(n.startswith("ext_towe
     else:
         bad(f"ladder: stiles {st_ok}, rungs {rung_ok}, pilaster {pil_ok}, clearances {toe_ok}, gate {gate_ok}, set-back guardrail {gr_ok}")
 else:
-    bad("roof access: the ladder meshes are missing or the stair tower is still built")
+    bad("roof access: the ladder meshes are missing")
 ok_k = summary.get("outdoor_kitchen")
 if ok_k and all(n in meshes for n in ("ext_kitchen_counter", "ext_kitchen_grill", "ext_kitchen_tannour")) and ok_k["counter"][0] >= outline_poly.bounds[2] + T_OUT / 2 - 1e-6:
     gx0g, gy0g, gx1g, gy1g = ok_k["grill"]; gpl_ = Polygon([(gx0g, gy0g), (gx1g, gy0g), (gx1g, gy1g), (gx0g, gy1g)])
     d_house = gpl_.distance(outer_face)
-    ok(f"the outdoor kitchen (V8.1): the counter against the east wall face (x {ok_k['counter'][0]}), the grill and tannour {d_house:.2f} m from the house") if d_house >= 3.0 - 1e-6 else bad(f"the grill {d_house:.2f} m from the house (< 3 m)")
+    ok(f"the outdoor kitchen (3 Nov 2026): the counter against the east wall face beside the service door (x {ok_k['counter'][0]}, y {ok_k['counter'][1]}–{ok_k['counter'][3]}), the grill and tannour {d_house:.2f} m from the house") if d_house >= 3.0 - 1e-6 else bad(f"the grill {d_house:.2f} m from the house (< 3 m)")
 else:
     bad("outdoor kitchen meshes")
 
@@ -554,8 +554,8 @@ else:
     # V8.2: the site elements (the site plan, study): on the ground round the house, inside the plot's extent, none higher than the hedge; the suite court's mashrabiya screen on the base up to the frame soffit
     site_m = {n: m for n, m in chr_meshes.items() if n.startswith("chr_site_")}
     gnd = C["plinth"]["ground"]
-    if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-5.0 <= m.bounds[0][0] and m.bounds[1][0] <= 26.0 and -5.0 <= m.bounds[0][1] and m.bounds[1][1] <= 36.0 for m in site_m.values()):
-        ok(f"{len(site_m)} site elements (V8.2, studies/site_plan.typ: the driveway, three paths, the parking bay, the garden, its wall, the hedge, the yard screen, the gas cabinet) on the ground round the house, inside the plot, the hedge 1.8 m the highest")
+    if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-5.0 <= m.bounds[0][0] and m.bounds[1][0] <= 26.0 and -6.0 <= m.bounds[0][1] and m.bounds[1][1] <= 36.0 for m in site_m.values()):
+        ok(f"{len(site_m)} site elements (V8.2 / 3 Nov 2026, studies/site_plan.typ: the driveway, three paths (the workers' along the boundary wall), the parking bay, the garden, its wall, the hedge, the yard screen, the gas cabinet, the bins) on the ground round the house, inside the plot, the hedge 1.8 m the highest")
     else:
         bad(f"site elements: {len(site_m)} meshes, bounds off the ground or outside the plot")
     scr = chr_meshes.get("chr_base_timber_court_screen")
@@ -564,26 +564,30 @@ else:
         ok(f"the suite court's mashrabiya screen (V8.2, owner): on the 1.10 base from +{sc_['base_top']:.2f} to the frame soffit +{sc_['frame_soffit']:.2f}, {ch['court_screen']['open'] * 100:.0f} % open, {scr.bounds[1][0] - scr.bounds[0][0]:.2f} m wide between the gym's and the office's walls")
     else:
         bad("the suite court's mashrabiya screen: missing, or not from the base top to the frame soffit, or its openness outside 30–50 %")
-    # V8.0: the courtyard layout (studies/courtyard_layout.typ): it replaces the base model's courtyard floor; the step, the level edges at the glass, the benches, the TV over the grille, the enclosure
+    # 3 Nov 2026: the courtyard layout revised (studies/courtyard_layout.typ, owner): the floor LEVEL (the base model's courtyard floor kept, no pit, no benches), the movable furniture inside
+    # the seating zone and clear of the enclosure, the enclosure on the kitchen wall in front of the sink window (the water rim below the sill), the TV south of it over the grille, the drains
     cy_ = ch["courtyard"]
     court_floor = Polygon(court["pts"]).buffer(-T_IN / 2, join_style=2)
-    px0, py0, px1, py1 = cy_["step"]
-    pit = Polygon([(px0, py0), (px1, py0), (px1, py1), (px0, py1)]).intersection(court_floor)
-    pf, cf = chr_meshes.get("chr_sunken_stone_light_pit_floor"), chr_meshes.get("chr_sunken_stone_light_court_floor")
-    base_ok = all(n in meshes for n in cy_["replaces"]) and abs(mesh_area("gf_slab_court", T_SLAB) - court_floor.area) < TOL_AREA
-    floor_ok = pf is not None and abs(pf.bounds[1][2] - (FINISHED["GF"] + cy_["floor"])) < 1e-3 and cf is not None and abs(cf.bounds[1][2] - FINISHED["GF"]) < 1e-3 and abs(cf.volume - (court_floor.area - pit.area) * (T_SLAB + P["finish"])) < TOL_AREA
-    court_edge = Polygon(court["pts"]).exterior
-    low = [o for o in ops if o["floor"] == "GF" and o["sill"] <= FINISHED["GF"] + 1e-6 and court_edge.distance(Point(o["a"])) < SNAP and court_edge.distance(Point(o["b"])) < SNAP]
-    too_close = [(o["name"], round(LineString([o["a"], o["b"]]).distance(pit) - T_IN / 2, 2)) for o in low if LineString([o["a"], o["b"]]).distance(pit) - T_IN / 2 < 0.6 - 1e-6]
-    tv_ok = cy_["tv"]["z"][0] >= cy_["grille"]["z"][1] + 0.1 - 1e-6 and cy_["tv"]["y"][0] <= cy_["grille"]["y"][0] and cy_["grille"]["y"][1] <= cy_["tv"]["y"][1] and cy_["tv_crown"] < STRUCT_TOP["FF"] - T_SLAB and "chr_base_stone_tv_surround" in chr_meshes and "chr_base_bronze_outdoor_tv" in chr_meshes
-    en_ok = all(f"chr_base_{n}" in chr_meshes for n in ("stone_enclosure_walls", "water_basin_water", "foliage_tree_crown", "trunk_planter_soil")) and abs(chr_meshes["chr_base_stone_enclosure_walls"].bounds[1][2] - cy_["enclosure"]["rim"]) < 1e-3
-    seat_ok = abs(cy_["seat"] - 0.30) < 1e-3 and all(f"chr_sunken_{n}" in chr_meshes for n in ("stone_benches", "stone_light_bench_cushions", "stone_bench_backs", "stone_table", "bronze_drain", "bronze_overflow"))
-    if base_ok and floor_ok and not too_close and tv_ok and en_ok and seat_ok and pit.contains(Point(cy_["drain"])):
-        ok(f"courtyard layout (V8.0): the seating one step down ({cy_['floor']:.2f}) x {px0}–{px1} y {py0}–{py1} replacing the base model's courtyard floor; level strips ≥ 0.60 m at every floor-level glass / door ({len(low)} checked; north {cy_['level_edges']['north']:.2f}, south {cy_['level_edges']['south']:.2f}, west {cy_['level_edges']['west']:.2f}); "
-           f"benches (seat +{cy_['seat']:.2f}, backs +{cy_['back_top']:.2f}) and the table; the outdoor TV +{cy_['tv']['z'][0]:.2f} … +{cy_['tv']['z'][1]:.2f} over the malqaf grille (+{cy_['grille']['z'][0]:.2f} … +{cy_['grille']['z'][1]:.2f}), its stone surround's crown +{cy_['tv_crown']:.2f}; "
-           f"the north enclosure (rim +{cy_['enclosure']['rim']:.2f}, water +{cy_['enclosure']['water_level']:.2f}, one tree); the drain at the pit's lowest corner and the overflow")
+    def _b2(m):
+        return Polygon([(m.bounds[0][0], m.bounds[0][1]), (m.bounds[1][0], m.bounds[0][1]), (m.bounds[1][0], m.bounds[1][1]), (m.bounds[0][0], m.bounds[1][1])])
+    level_ok = cy_.get("level") and not cy_["replaces"] and all(n in meshes for n in ("gf_slab_court", "gf_finish_court")) and not any("pit_floor" in n or "bench" in n or "step_nosing" in n for n in chr_meshes)
+    sz = cy_["seating_zone"]; szp = Polygon([(sz[0], sz[1]), (sz[2], sz[1]), (sz[2], sz[3]), (sz[0], sz[3])])
+    eb = cy_["enclosure"]["box"]; ebp = Polygon([(eb[0], eb[1]), (eb[2], eb[1]), (eb[2], eb[3]), (eb[0], eb[3])])
+    furn = [m for n, m in chr_meshes.items() if n.startswith("chr_sunken_timber_court_") or n.startswith("chr_sunken_stone_court_table")]
+    furn_ok = len(furn) >= 3 and all(szp.buffer(0.01).contains(_b2(m)) and ebp.intersection(_b2(m)).area < 1e-6 for m in furn) and all(m.bounds[0][2] >= FINISHED["GF"] - 1e-6 for m in furn)
+    sw = cy_["sink_window"]
+    enc_ok = abs(eb[2] - court_floor.bounds[2]) < 1e-3 and eb[1] <= sw["y"][0] + 1e-6 and eb[3] >= sw["y"][1] - 1e-6 and cy_["enclosure"]["water_rim"] < sw["sill"] and cy_["enclosure"]["water_rim"] > cy_["enclosure"]["rim"] \
+        and all(f"chr_base_{n}" in chr_meshes for n in ("stone_enclosure_walls", "water_basin_water", "foliage_tree_crown", "trunk_planter_soil")) and abs(chr_meshes["chr_base_stone_enclosure_walls"].bounds[1][2] - cy_["enclosure"]["water_rim"]) < 1e-3
+    tv_ok = cy_["tv"]["z"][0] >= cy_["grille"]["z"][1] + 0.1 - 1e-6 and cy_["tv"]["y"][0] <= cy_["grille"]["y"][0] and cy_["grille"]["y"][1] <= cy_["tv"]["y"][1] and cy_["tv_crown"] < STRUCT_TOP["FF"] - T_SLAB and "chr_base_stone_tv_surround" in chr_meshes and "chr_base_bronze_outdoor_tv" in chr_meshes and cy_["tv"]["y"][0] >= eb[3] - 1e-6 and cy_["grille"]["z"][0] >= 0.10 - 1e-6
+    gaps_ok = cy_["level_edges"]["north"] >= 0.5 - 1e-6 and cy_["level_edges"]["south"] >= 0.6 - 1e-6 and cy_["level_edges"]["west"] >= 1.5 - 1e-6
+    drains_ok = len(cy_["linear_drains"]) >= 2 and court_floor.buffer(0.01).contains(Point(cy_["overflow"])) and "chr_sunken_bronze_overflow" in chr_meshes
+    if level_ok and furn_ok and enc_ok and tv_ok and gaps_ok and drains_ok:
+        ok(f"courtyard layout (3 Nov 2026): the floor LEVEL (no step, no benches; the base floor kept); {len(furn)} movable pieces inside the seating zone x {sz[0]}–{sz[2]} y {sz[1]}–{sz[3]}, clear of the enclosure; "
+           f"the enclosure on the kitchen wall in front of the sink window (y {eb[1]}–{eb[3]}; the planter rim +{cy_['enclosure']['rim']:.2f}, the water rim +{cy_['enclosure']['water_rim']:.2f} below the sill +{sw['sill']:.2f}); "
+           f"the outdoor TV +{cy_['tv']['z'][0]:.2f} … +{cy_['tv']['z'][1]:.2f} south of it over the malqaf grille (+{cy_['grille']['z'][0]:.2f} … +{cy_['grille']['z'][1]:.2f}), its surround's crown +{cy_['tv_crown']:.2f}; "
+           f"the cleaning strips north {cy_['level_edges']['north']:.2f} / south {cy_['level_edges']['south']:.2f}, the colonnade walkway {cy_['level_edges']['west']:.2f} free; {len(cy_['linear_drains'])} linear drains and the overflow")
     else:
-        bad(f"courtyard layout: base {base_ok}, floor {floor_ok}, too close {too_close}, tv {tv_ok}, enclosure {en_ok}, seats {seat_ok}")
+        bad(f"courtyard layout: level {level_ok}, furniture {furn_ok}, enclosure {enc_ok}, tv {tv_ok}, gaps {gaps_ok}, drains {drains_ok}")
     # the fountain on the east wall between the grille and the sink window
     fo = ch.get("fountain")
     if fo is None:
@@ -655,7 +659,7 @@ else:
     bad(f"enclosure windows: W1 {len(w1)}, W2 {len(w2)}, W3 {len(w3)}, arched {len(arched)} crowns ok {crowns_ok}")
 # V7.1: the courtyard arcade: two intermediate columns on the colonnade line in the courtyard bay, three equal bays, arches below the soffit, not in the seating step, clear of the riwaq door
 arc = ch.get("arcade", {})
-cs_ = ch.get("courtyard", {}).get("step")
+cs_ = ch.get("courtyard", {}).get("seating_zone")   # 3 Nov 2026: the level seating zone (no step)
 pit = Polygon([(cs_[0], cs_[1]), (cs_[2], cs_[1]), (cs_[2], cs_[3]), (cs_[0], cs_[3])]) if cs_ else None
 riwaq_door = next((o for o in ops if o["floor"] == "GF" and abs(o["a"][0] - 4.25) < 1e-6 and 8.0 < o["a"][1] < 12.0 and o["kind"] != "window"), None)
 if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < c[1] < 13.0 for c in arc["columns"]) and len(arc["bays"]) == 3 and all(b["springing"] >= 2.1 for b in arc["bays"]) \
@@ -666,7 +670,7 @@ if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < 
     aligned = all(any(abs((o["a"][1] + o["b"][1]) / 2 - (b["y"][0] + b["y"][1]) / 2) < 0.1 for b in arc["bays"]) for o in w1_c)
     spans_txt = " / ".join("%.2f" % b["span"] for b in arc["bays"])
     ok(f"courtyard arcade (V7.1, {'structural' if arc['structural'] else 'decorative'}): two Ø{arc['diameter']} stone columns on x {PROJ_X} at y {arc['columns'][0][1]:.3f} / {arc['columns'][1][1]:.3f} (bays {arc['bay_axes']:.3f} m on axes), three semicircular arches under the soffit: spans {spans_txt} m, springing +{min(b['springing'] for b in arc['bays']):.2f} … +{max(b['springing'] for b in arc['bays']):.2f}, crown +{arc['bays'][0]['crown']:.2f}; "
-       f"the columns stand on the upper level at the seating step's edge (gap {gap_pit:.2f} m), {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= -1e-6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
+       f"the columns stand clear of the level seating zone (gap {gap_pit:.2f} m), {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= -1e-6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
 else:
     bad(f"arcade: {arc}")
 gal = [w for w in summary["walls"] if w["floor"] == "FF" and w["kind"] == "wall" and abs(w["a"][0] - PROJ_X) < 1e-6 and abs(w["b"][0] - PROJ_X) < 1e-6]
