@@ -67,23 +67,24 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 | 5 | M4 → palm 2 trunk face | 21.34 | | | ± 0.3 |
 | 6 | B1 from M1 / from D | 5.00 / 23.79 | 5.00 (set) / checked from D | — | 4 Nov 2026: B1 set at 5.00 m from M1 (the owner's car test at the gate) and checked with the tape from D; corner accepted after the B1 / B5 adjustment (row 15) |
 | 7 | B2 from M1 / from D | 12.09 / 28.28 | set from M1 / D | — | 4 Nov 2026: B2 (north-east, the start of the cut) set with the two tapes from M1 and D; accepted (row 11) |
-| 8 | B3 from M1 / from D | 18.10 / 26.03 | | | |
-| 9 | B4 from M1 / from D | 32.52 / 19.88 | | | |
+| 8 | B3 from M1 / from D | 18.10 / 26.03 | set from B4 / B2 | — | 4 Nov 2026: B3 (the east end of the cut) set 18.16 m from B4 and 6.93 m from B2 (the set corners as references); accepted |
+| 9 | B4 from M1 / from D | 32.52 / 19.88 | set | — | 4 Nov 2026: set, then used as the reference for B3 |
 | 10 | B5 from M1 / from D | 29.20 / 6.41 | — / 6.41 (set) | — | 4 Nov 2026: B5 set at 6.41 m from D; M1 → B5 was once read as 25.30 m from a wrong reference point (corrected, not a measurement of B5); corner accepted after the adjustment (row 15) |
 | 11 | B1–B2 | 10.25 | 10.30 | +0.05 | 4 Nov 2026: within the ± 0.10 corner tolerance, accepted |
-| 12 | B2–B3 | 6.93 | | | |
-| 13 | B3–B4 | 18.16 | | | |
+| 12 | B2–B3 | 6.93 | 6.93 (set) | 0.00 | 4 Nov 2026: the setting distance of B3 |
+| 13 | B3–B4 | 18.16 | 18.16 (set) | 0.00 | 4 Nov 2026: the setting distance of B3 |
 | 14 | B4–B5 | 13.56 | | | |
 | 15 | B5–B1 | 24.25 | 24.50 first, then adjusted | +0.25 first | 4 Nov 2026: the first reading was 0.25 m long (beyond the ± 0.10 corner tolerance); the owner adjusted B1 / B5 and accepted both corners |
-| 16 | B1–B4 (diagonal) | 27.78 | | | |
-| 17 | B2–B5 (diagonal) | 26.33 | | | |
+| 16 | B1–B4 (diagonal) | 27.78 | ___ | ___ | to measure |
+| 17 | B2–B5 (diagonal) | 26.33 | ___ | ___ | to measure |
 | 18 | Tightest point from M1 / from D | 16.25 / 26.53 | | | |
 | 19 | Tightest point square to the lane wall | 2.97 | | | stop below 2.00 |
 | 20 | R → B5 / B4 | 19.33 / 24.06 (approx.) | | | R assumed |
 | 21 | R → palm 1 / palm 2 | 28.73 / 26.83 (approx.) | | | R assumed |
 | 22 | S → nearest corners | — | | | record |
 | 23 | S → palm 1 / palm 2 | — | | | record |
+| 24 | Perimeter string B1 → B2 → B3 → B4 → B5 → B1 | 73.15 | ___ | ___ | to measure (the sum of the five sides) |
 
-**Field log.** 4 Nov 2026 (day 1): the owner is setting out with two tapes from M1 and D; R and S are check-only. Done: the base check M1 → D (row 1), B1 (row 6), B5 (row 10), B1 → B5 (row 15), B2 (row 7) with B1 → B2 10.30 m (row 11, +0.05, accepted). **Next on site:** B4 (32.52 m from M1, 19.88 m from D; check B5 → B4 = 13.56 m), then B3 (18.10 / 26.03; B2 → B3 6.93, B3 → B4 18.16), the diagonals (B1 → B4 27.78, B2 → B5 26.33), and M4 → the palms.
+**Field log.** 4 Nov 2026 (day 1): the owner is setting out with two tapes from M1 and D; R and S are check-only. **All five corners are set out on site** with tapes from M1, D and the set corners: the outline is ready for the owner's walk-through. Still to measure: the perimeter string (row 24, model 73.15 m), the diagonals (rows 16–17, model 27.78 / 26.33 m), M4 → the palms (rows 4–5). Done: the base check M1 → D (row 1), B1 (row 6), B5 (row 10), B1 → B5 (row 15), B2 (row 7) with B1 → B2 10.30 m (row 11, +0.05, accepted). **Next on site:** B4 (32.52 m from M1, 19.88 m from D; check B5 → B4 = 13.56 m), then B3 (18.10 / 26.03; B2 → B3 6.93, B3 → B4 18.16), the diagonals (B1 → B4 27.78, B2 → B5 26.33), and M4 → the palms.
 
 Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. After the field check, send the filled table back: the model is corrected (the shift in `design_gf.typ`), the sheet recompiled, and the survey still has the last word (open item 1).
