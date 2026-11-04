@@ -3,7 +3,7 @@
 Grouped by who has to act. The numbers match `data/open_items.csv` and presentation sheet 10. `tools/check.py` checks that every item is listed here. **Closed in V8.3:** the ground-floor shower (G-07: not needed, owner; the powder room instead); the plumbing decisions of 3 Nov 2026 (the east stack external, trap primers, rain / sewage separate). **Closed in V8.2:** the clerestory glazing (openable, as drawn), bedroom 1's bathroom (option A), the suite court's south side (a mashrabiya screen), the food route (accepted), the site and services plan (done as a study: its open points are the survey, the municipality and the plumbing decisions below).
 
 ## Survey
-1. **Envelope gap 0.20 m** (V6.3, provisional: the house was moved 0.30 m south; the governing line is the lane, the north street line is 0.80 m away) from the nearest outer wall face to the setback line. Confirm with the official survey before the wall faces are fixed.
+1. **Envelope gap 0.79 m** (4 Nov 2026, owner on site: the house moved 1.238 m south so that corner B1 is 5.00 m from M1; the governing line is the lane notch on the cut wall B2–B3, the north street line is 2.0 m away; the V6.3 shift-south note is closed) from the nearest outer wall face to the setback line. Confirm with the official survey before the wall faces are fixed: the field check in `docs/SITE_SETOUT.md` with `studies/setout_v83.typ`.
 
 ## Structural engineer
 2. **Edge beam and columns:** the edge beam on x 5.80 (spans ≈ 6.5 m and 6.25 m) and the three columns under the first-floor west projection: beam depth, column sizes and their foundations.

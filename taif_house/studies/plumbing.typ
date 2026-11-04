@@ -394,12 +394,12 @@
   ],
 )
 
-// ---------- round 2 uses the site plan's corrected positions (site frame: the house = CSV + (0.91, 3.825)) ----------
-#let S(p) = (p.at(0) + 0.91, p.at(1) + 3.825)
+// ---------- round 2 uses the site plan's corrected positions (site frame: the house = CSV + (0.91, 5.063); 4 Nov 2026: the house 1.238 m further south) ----------
+#let S(p) = (p.at(0) + 0.91, p.at(1) + 5.063)
 #let septic = (-10.5, -1.9, -6.5, 0.5)
 #let tank-old = (0.8, 47.8, 3.8, 50.3)
 #let sep-rule = (septic-well: 30.0, septic-tank: 15.0, drain-pipe: 1.5, tank-house: 5.0)
-#let inv-septic = -1.19                        // from studies/site_plan.typ (computed there; copied)
+#let inv-septic = -1.20                        // from studies/site_plan.typ (computed there; copied; 4 Nov 2026: the main 1.24 m longer)
 #let pbox-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
 #let ground-gate = -0.40
 

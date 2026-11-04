@@ -4,7 +4,7 @@
 // this study keeps its original comparison (court 2.0 m) as the record.
 // Stand-alone: the current first floor is read from ../data/rooms_ff.csv; the site from ../base.typ (land, envelope, lane, drive, palms);
 // levels from 3d/params.yaml and studies/roof.typ; the structure from studies/structure.typ (copied). CSV frame: x east, y south, wall centre lines.
-// Site frame (base.typ): the house is placed at CSV + (0.91, 3.825), square to the M line. Every size is a study assumption.
+// Site frame (base.typ): the house is placed at CSV + (0.91, 5.063) (4 Nov 2026), square to the M line. Every size is a study assumption.
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": land, env, lane, drv, T1, T2, north, seg-dist, edges, dist, inside
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
@@ -22,7 +22,7 @@
 #let H(t) = text(9.2pt, weight: "bold", fill: green, t)
 #let area(P) = calc.abs(range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); a.at(0) * b.at(1) - b.at(0) * a.at(1) }).sum()) / 2
 #let rp(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
-#let shift = (0.91, 3.825)
+#let shift = (0.91, 5.063)   // 4 Nov 2026 (owner, on site): the house 1.238 m further south
 #let site(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let bdist(p, P) = calc.min(..edges(P).map(e => seg-dist(p, ..e)))
 #let ldist(p, L) = calc.min(..range(L.len() - 1).map(i => seg-dist(p, L.at(i), L.at(i + 1))))

@@ -2,7 +2,7 @@
 // Drawn on the site base (base.typ: the plot, the M line, the gate, the palms); the old house, the old majlis, the well, the existing parking, the
 // existing ground tank and the septic tank are NOT in the project files: they are drawn where the owner's brief places them, dotted, "assumed".
 // EVERY SITE POSITION HERE IS PROPOSED, TO CONFIRM WITH THE OFFICIAL SURVEY AND THE ENGINEERS. No system is designed: positions, routes and rules only.
-// Site frame (base.typ): origin = peg M1 = the main gate's east post; y along the M line southwards; x east. The house = the CSV frame + (0.91, 3.825).
+// Site frame (base.typ): origin = peg M1 = the main gate's east post; y along the M line southwards; x east. The house = the CSV frame + (0.91, 5.063) (4 Nov 2026: the owner moved the house 1.238 m south on site, B1 5.00 m from M1).
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, dist, seg-dist, edges, ray
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
@@ -25,7 +25,8 @@
 #let inside(p, P) = ray(p, P)
 
 // ---------- The house in the site frame ----------
-#let shift = (0.91, 3.825)
+#let shift = (0.91, 5.063)   // 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3; everything attached to the house moves with it, the gate, the driveway, the tanks and the septic stay
+#let dy = 1.238                // the house's move south since V8.3 (the positions below that were fixed in the site frame in V8.2–V8.3 and belong to the house carry it)
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let house = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)).map(S)
 #let court = ((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0)).map(S)
@@ -49,14 +50,17 @@
 #let car-R = 5.5
 #let swept = (((-2.0, 0.5), (-2.0, 7.0)), ((-2.0, 7.0), (-1.2, 5.0), (0.6, 3.2), (3.0, 2.5)), ((3.0, 2.5), (5.2, 2.15), (10.2, 2.15)))   // the three moves (centre line, schematic)
 #let bay-clear-of-entrance = park-opt.at(0) - d-family.at(1).at(0)
-#let path-family = ((-1.0, 2.6), (d-family.at(0).at(0) + 0.5, 2.6), (d-family.at(0).at(0) + 0.5, 3.825))
-#let path-guest = ((-1.0, 39.6), (-1.0, 26.0), (0.9, 26.0))            // from the farm parking (south) along the driveway's east band to the guest door
+#let north-face = shift.at(1) - 0.125                                   // the house's north outer wall face (site y)
+#let bay-gap = north-face - park-opt.at(3)                             // the bay stays where it was (in the setback strip): the gap to the house's north wall
+#let strip-depth = (dist-to-nwall: north-face - (1.2 - 2.79 * ((0.785 + 6.5) / 15.14)), to-setback: north-face - (3.05 - 1.69 * (0.785 / 9.18)))   // at the north-west corner: to the boundary wall / to the north setback line
+#let path-family = ((-1.0, 2.6), (d-family.at(0).at(0) + 0.5, 2.6), (d-family.at(0).at(0) + 0.5, north-face))
+#let path-guest = ((-1.0, 39.6), (-1.0, S((0, 22.2)).at(1)), (0.9, S((0, 22.2)).at(1)))            // from the farm parking (south) along the driveway's east band to the guest door
 #let path-workers = ((-1.0, 0.7), (8.3, -1.0), (11.8, 0.8), (14.6, 7.3), (16.9, 10.6), (16.9, 11.8))   // 3 Nov 2026 (proposal): from the gate along the FARM'S NORTH BOUNDARY WALL (not the house's north facade), then the lane-side strip to the yard east of the screen: the north strip stays a calm family space
-#let lamps = range(7).map(i => (-0.4, 27.0 + i * 2.0))               // bollard lights on the guest path
+#let lamps = range(6).map(i => (-0.4, 28.2 + i * 2.0))               // bollard lights on the guest path
 // ---------- 2 · The family garden (south) and its separation ----------
-#let garden = ((0.9, 27.95), (14.35, 27.95), (14.35, 19.6), (22.5, 19.6), (26.74, 33.94), (0.9, 38.7))
-#let lowwall = ((0.6, 27.95), (0.6, 38.7))                          // a 1.2 m honey-stone wall with planting between the garden and the guest path / driveway
-#let hedge = ((14.35, 18.5), (22.2, 18.5))                           // a 1.8 m hedge between the service yard / workers' path and the garden
+#let garden = ((0.9, 29.188), (14.35, 29.188), (14.35, 20.838), (22.5, 20.838), (26.74, 33.94), (0.9, 38.7))
+#let lowwall = ((0.6, 29.188), (0.6, 38.7))                          // a 1.2 m honey-stone wall with planting between the garden and the guest path / driveway
+#let hedge = ((14.35, 19.738), (22.2, 19.738))                           // a 1.8 m hedge between the service yard / workers' path and the garden
 // ---------- 3 · The service yard (east) ----------
 #let screen = (S((15.2, 7.6)), S((15.3, 13.0)))                      // 3 Nov 2026: the 1.8 m yard screen moved east (design_gf.typ) so the outdoor counter keeps a 1.0 m working strip; its north end at the envelope line
 #let bins = (S((13.7, 5.3)), S((14.5, 6.1)))                        // north of the service door, outside the screened yard, away from the food
@@ -70,7 +74,7 @@
 #let hrv-site = S((9.8, 0.5))                                          // the HRV intake (roof, the malqaf tower)
 #let okit-zone = (counter-box.at(0), counter-box.at(1), counter-box.at(2) + 1.0, counter-box.at(3))   // the counter + its 1.0 m working strip: the workers' path must not cross it
 #let manhole-e = S((14.3, 13.5))                                     // the east-yard FOUL chamber (kitchen, laundry, maid bath, the suite stack): at the yard's south end; rain NEVER enters it (3 Nov 2026)
-#let rain-ch = (15.7, 15.9)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system
+#let rain-ch = (15.7, 17.138)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system
 // ---------- 4 · Utilities (positions approximate, to be measured on site; 3 Nov 2026: the owner's information on the septic and the tank) ----------
 #let C1 = (-6.5, 1.2)                                                 // corner C1: the plot's north-west corner on the north street (drawn at the north wall's west end in base.typ; exact position from the survey)
 #let septic = (-10.5, -1.9, -6.5, 0.5)                               // EXISTING septic tank: OUTSIDE the farm wall near C1, under the street side (owner); approximate, to be measured on site; capacity, condition and inlet level for the engineer
@@ -80,11 +84,11 @@
 #let tank-old = (0.8, 47.8, 3.8, 50.3)                               // EXISTING ground tank (in use): just EAST of peg R, south of the old house (owner); approximate, to be measured
 #let tank-new = (4.3, 47.8, 7.8, 50.3)                               // RESERVE: the future tank 3.5 × 2.5 × 2.0 (≈ 17 m³) NEXT TO the existing one (not under the north strip any more)
 #let fill-pt = (-2.0, 48.5)                                           // the water truck stands on the driveway's end beside the tanks
-#let pipe-old = ((0.8, 48.0), (-0.6, 48.0), (-0.6, 12.9), (0.9, 12.9))   // the supply pipe from the tanks to the utility room: under the guest path band on the driveway's east edge (assumed route)
+#let pipe-old = ((0.8, 48.0), (-0.6, 48.0), (-0.6, 14.138), (0.9, 14.138))   // the supply pipe from the tanks to the utility room: under the guest path band on the driveway's east edge (assumed route)
 #let well = (-7.0, 45.0)                                             // EXISTING well, position assumed (the survey)
 // foul drainage (3 Nov 2026): both clusters → inspection chambers → NORTH and WEST to the septic near C1, under the boundary wall west of the gate
-#let ch-w = (-2.4, 14.5)                                              // the west chamber on the driveway (the west wash block's run, which now falls NORTH inside the house and leaves under the west wall at the hospitality kitchen)
-#let ch-ne = (16.0, 10.2)                                             // the east strip's chamber under the workers' path (the bend round the cut wall)
+#let ch-w = (-2.4, 15.738)                                              // the west chamber on the driveway (the west wash block's run, which now falls NORTH inside the house and leaves under the west wall at the hospitality kitchen)
+#let ch-ne = (16.0, 11.438)                                             // the east strip's chamber under the workers' path (the bend round the cut wall)
 #let ch-n = (11.0, 0.6)                                               // the north strip's chamber (its north edge, under the workers' path, north of the parking bay)
 #let ch-gate = (-2.6, 1.6)                                            // the collector chamber on the driveway inside the gate (the pump station's place if the septic's inlet is too high)
 #let sewer-e = (manhole-e, ch-ne, ch-n, ch-gate)                      // the east main
@@ -113,16 +117,16 @@
 #let inverter = S((2.0, 8.3))                                        // the inverter + battery cabinet on the utility room's north wall (beside the main panel)
 #let rain-pts = ((S((5.0, -0.25)), [N]), ((-0.3, S((0, 12.0)).at(1)), [W]), ((-0.3, S((0, 17.5)).at(1)), [W]), (S((13.6, 12.5)), [E]), (S((11.9, 2.2)), [cut]), (S((2.0, 24.3)), [S]), (S((11.5, 24.3)), [S]))
 #let court-out = S((13.311, 12.1))                                    // the courtyard's drain + overflow branch leaves the east wall here → the rain chamber (never the foul chamber)
-#let soak-e = (16.5, 14.5); #let soak-s = (10.0, 31.0)
+#let soak-e = (16.5, 15.738); #let soak-s = (10.0, 32.238)
 // ---------- 5 · Security ----------
 #let cams = (
   ("C1", (-0.2, 0.3), [the gate (with the video intercom)], 225),
-  ("C2", (0.8, 3.7), [the driveway, looking south], 180),
-  ("C3", (4.4, 3.75), [the family entrance], 0),
-  ("C4", (0.85, 25.0), [the guest entrance and the path], 225),
-  ("C5", (14.3, 9.9), [the service yard, looking south], 180),
-  ("C6", (8.0, 27.9), [the garden and the south facade], 180),
-  ("C7", (14.3, 27.9), [the suite court's outside (the screen) and the east garden], 240),
+  ("C2", (0.8, 4.938), [the driveway, looking south], 180),
+  ("C3", (4.4, 4.988), [the family entrance], 0),
+  ("C4", (0.85, 26.238), [the guest entrance and the path], 225),
+  ("C5", (14.3, 11.138), [the service yard, looking south], 180),
+  ("C6", (8.0, 29.138), [the garden and the south facade], 180),
+  ("C7", (14.3, 29.138), [the suite court's outside (the screen) and the east garden], 240),
 )
 #let intercom = (-0.3, 0.9)
 #let panel = S((1.4, 9.0))                                           // the alarm panel in the utility room
@@ -139,9 +143,9 @@
   ([the gas cabinet ≥ #r1(gas-rule) m from every opening of the house (service door #r2(seg-box-dist(..d-service, gas-box)), kitchen window #r2(seg-box-dist(..w-kitchen, gas-box)), hood outlet #r2(seg-box-dist(..hood-out, gas-box)), dining window #r2(seg-box-dist(..w-dining, gas-box)))], calc.min(seg-box-dist(..d-service, gas-box), seg-box-dist(..w-kitchen, gas-box), seg-box-dist(..hood-out, gas-box), seg-box-dist(..w-dining, gas-box)) >= gas-rule - 1e-9),
   ([the gas cabinet ≥ 3 m from the manhole (#r2(box-dist(gas-box, manhole-e))) and the grill (#r1(box-dist(gas-box, grill.at(0))))], box-dist(gas-box, manhole-e) >= 3.0 and box-dist(gas-box, grill.at(0)) >= 3.0),
   ([the gas cabinet ≥ 1.5 m from the lane boundary (#r1(calc.min(..range(lane.len() - 1).map(i => seg-box-dist(lane.at(i), lane.at(i + 1), gas-box)))))], calc.min(..range(lane.len() - 1).map(i => seg-box-dist(lane.at(i), lane.at(i + 1), gas-box))) >= 1.5),
-  ([the family parking bay (kept) inside the plot, 0.4 m off the house's north wall, #r2(bay-clear-of-entrance) m clear of the family entrance's path], ((park-opt.at(0), park-opt.at(1)), (park-opt.at(2), park-opt.at(1)), (park-opt.at(2), park-opt.at(3)), (park-opt.at(0), park-opt.at(3))).all(p => inside(p, land)) and park-opt.at(3) <= 3.825 - 0.4 + 1e-9 and bay-clear-of-entrance >= 0.1 - 1e-9),
-  ([the guest path never enters the family garden (west of its low wall) and ends at the guest door], path-guest.all(p => p.at(0) <= 0.9 + 1e-9) and dist(path-guest.last(), (0.91, 26.0)) < 0.05),
-  ([the workers' path stays north of the garden's hedge and east of the house], path-workers.slice(1).all(p => p.at(1) <= 18.5) and path-workers.last().at(0) > east-face),
+  ([the family parking bay (kept) inside the plot, #r2(bay-gap) m off the house's north wall (≥ 0.4), #r2(bay-clear-of-entrance) m clear of the family entrance's path], ((park-opt.at(0), park-opt.at(1)), (park-opt.at(2), park-opt.at(1)), (park-opt.at(2), park-opt.at(3)), (park-opt.at(0), park-opt.at(3))).all(p => inside(p, land)) and bay-gap >= 0.4 - 1e-9 and bay-clear-of-entrance >= 0.1 - 1e-9),
+  ([the guest path never enters the family garden (west of its low wall) and ends at the guest door], path-guest.all(p => p.at(0) <= 0.9 + 1e-9) and dist(path-guest.last(), (0.91, S((0, 22.2)).at(1))) < 0.05),
+  ([the workers' path stays north of the garden's hedge and east of the house], path-workers.slice(1).all(p => p.at(1) <= hedge.at(0).at(1)) and path-workers.last().at(0) > east-face),
   ([the tanks (existing + reserve) ≥ #r1(sep-rule.tank-house) m from the house's south-west corner and its footings (#r1(calc.min(box-dist(tank-old, S((0, 24))), box-dist(tank-new, S((0, 24))))) m, assumed positions)], calc.min(box-dist(tank-old, S((0, 24))), box-dist(tank-new, S((0, 24)))) >= sep-rule.tank-house),
   ([the septic OUTSIDE the plot's wall near C1 (every corner outside the land polygon), its inlet ≥ 1.0 m below the house floor on the computed falls (#r2(inv-septic)) and #r2(inv-septic - ground-gate) m below the assumed ground at the gate], ((septic.at(0), septic.at(1)), (septic.at(2), septic.at(1)), (septic.at(2), septic.at(3)), (septic.at(0), septic.at(3))).all(p => not inside(p, land)) and inv-septic <= -1.0),
   ([the septic ≥ #r1(sep-rule.septic-tank) m from both water tanks (#r1(calc.min(box-dist(septic, (tank-old.at(0), tank-old.at(1))), box-dist(septic, (tank-new.at(0), tank-new.at(1)))))) and the foul chambers ≥ #r1(sep-rule.septic-tank) m from them (#r1(calc.min(..(ch-w, ch-gate, ch-n, ch-ne, manhole-e).map(c => calc.min(box-dist(tank-old, c), box-dist(tank-new, c))))))], calc.min(box-dist(septic, (tank-old.at(0), tank-old.at(1))), box-dist(septic, (tank-new.at(0), tank-new.at(1)))) >= sep-rule.septic-tank and calc.min(..(ch-w, ch-gate, ch-n, ch-ne, manhole-e).map(c => calc.min(box-dist(tank-old, c), box-dist(tank-new, c)))) >= sep-rule.septic-tank),
@@ -162,7 +166,7 @@
 #let env-c = ((0, 30.0), (0, 3.05), (9.18, 1.36), (9.67, 1.22), (10.48, 1.65), (13.55, 7.3), (14.06, 8.86), (15.35, 9.4), (18.4, 14.8), (21.13, 21.04), (23.59, 30.0))
 #let drv-c = ((-3.95, 0.73), (0, 0), (0, 30.0), (-3.95, 30.0))
 #let lane-c = ((8.64, -1.59), (11.96, 0.17), (15.39, 6.51), (15.68, 7.37), (16.75, 7.83), (20.19, 13.91), (23.02, 20.37), (25.66, 30.0))
-#let garden-c = ((0.9, 27.95), (14.35, 27.95), (14.35, 19.6), (22.5, 19.6), (25.57, 30.0), (0.9, 30.0))
+#let garden-c = ((0.9, 29.188), (14.35, 29.188), (14.35, 20.838), (22.5, 20.838), (25.57, 30.0), (0.9, 30.0))
 #let site(layer, length: 0.29cm, full: true) = cetz.canvas(length: length, {
   import cetz.draw: *
   let T(p, body, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
@@ -189,9 +193,9 @@
   }
   // the house
   poly(house, fill: rgb("#f3efe4"), stroke: 1.1pt + ink); poly(court, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue); poly(scourt, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue)
-  T((7.5, 15.5), [HOUSE ±0.00], size: 4pt); T((8.3, 13.6), [courtyard], size: 2.8pt, fill: blue); T((8.0, 25.9), [suite court], size: 2.8pt, fill: blue)
+  T((7.5, 16.738), [HOUSE ±0.00], size: 4pt); T((8.3, 14.838), [courtyard], size: 2.8pt, fill: blue); T((8.0, 27.138), [suite court], size: 2.8pt, fill: blue)
   line(q(d-family.at(0)), q(d-family.at(1)), stroke: 2.6pt + red); line(q(d-guest.at(0)), q(d-guest.at(1)), stroke: 2.6pt + red); line(q(d-service.at(0)), q(d-service.at(1)), stroke: 2.6pt + red)
-  T((4.4, 4.7), [family entrance], size: 2.8pt, fill: red); T((1.5, 24.7), [guest entrance], size: 2.8pt, fill: red, anchor: "west"); T((14.6, 10.5), [service door], size: 2.8pt, fill: red, anchor: "west")
+  T((4.4, 5.938), [family entrance], size: 2.8pt, fill: red); T((1.5, 25.938), [guest entrance], size: 2.8pt, fill: red, anchor: "west"); T((14.6, 11.738), [service door], size: 2.8pt, fill: red, anchor: "west")
   for (T_, n) in ((T1, [P1]), (T2, [P2])) { if T_.at(1) <= ymax { circle(q(T_), radius: 1.0, fill: rgb("#cfdfc3"), stroke: 0.5pt + accent); circle(q(T_), radius: 0.27, fill: accent, stroke: none); T((T_.at(0) + 1.4, T_.at(1)), n, size: 3pt, fill: accent) } }
   for p in Ms { if p.at(1) <= ymax { circle(q(p), radius: 0.18, fill: red, stroke: none) } }
   T((-0.6, 0.0), [M1], size: 2.6pt, fill: red, anchor: "east")
@@ -204,13 +208,13 @@
     R(park-opt, fill: rgb("#d6e2ee"), stroke: 0.7pt + blue); T((7.7, 2.15), [family car 5 × 2.5 · KEPT\ (parking in the plot allowed)], size: 2.8pt, fill: blue)
     for (k, P) in swept.enumerate() { line(..P.map(q), stroke: (paint: blue, thickness: 1.0pt, dash: if k == 1 { "dashed" } else { "solid" }), mark: (end: "stealth", fill: blue, scale: 0.45)) }
     T((-1.4, 7.6), [1 in], size: 2.6pt, fill: blue); T((1.4, 4.6), [2 reverse], size: 2.6pt, fill: blue); T((7.0, 1.4), [3 forward into the bay], size: 2.6pt, fill: blue)
-    poly(if full { garden } else { garden-c }, fill: rgb("#dcecd2").transparentize(20%), stroke: (paint: green, thickness: 0.7pt, dash: "dashed")); T((9.0, if full { 34.0 } else { 29.2 }), [FAMILY GARDEN (south only: the palms)], size: 3.4pt, fill: green)
-    line(q(lowwall.at(0)), q((0.6, calc.min(lowwall.at(1).at(1), ymax))), stroke: 2.2pt + stone); T((1.3, 29.0), [low stone wall 1.2 m + planting], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
-    line(q(hedge.at(0)), q(hedge.at(1)), stroke: (paint: green, thickness: 2.2pt)); T((18.3, 17.9), [hedge 1.8 m], size: 2.8pt, fill: green)
+    poly(if full { garden } else { garden-c }, fill: rgb("#dcecd2").transparentize(20%), stroke: (paint: green, thickness: 0.7pt, dash: "dashed")); T((9.0, if full { 34.0 } else { 29.75 }), [FAMILY GARDEN (south only: the palms)], size: 3.4pt, fill: green)
+    line(q(lowwall.at(0)), q((0.6, calc.min(lowwall.at(1).at(1), ymax))), stroke: 2.2pt + stone); T((1.3, 30.238), [low stone wall 1.2 m + planting], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
+    line(q(hedge.at(0)), q(hedge.at(1)), stroke: (paint: green, thickness: 2.2pt)); T((18.3, 19.138), [hedge 1.8 m], size: 2.8pt, fill: green)
     line(q(screen.at(0)), q(screen.at(1)), stroke: 2pt + ink); R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink)
-    R(gas-box, fill: rgb("#ffe08a"), stroke: 0.6pt + red); T((17.0, 13.3), [LPG], size: 2.8pt, fill: red, anchor: "west")
-    R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.15, 13.0), [outdoor counter], size: 2.6pt, anchor: "west")
-    R(grill-box, fill: stone, stroke: 0.4pt + ink); T((grill-box.at(2) + 0.15, 17.2), [grill + tannour], size: 2.6pt, anchor: "west")
+    R(gas-box, fill: rgb("#ffe08a"), stroke: 0.6pt + red); T((17.0, 14.538), [LPG], size: 2.8pt, fill: red, anchor: "west")
+    R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.15, 14.238), [outdoor counter], size: 2.6pt, anchor: "west")
+    R(grill-box, fill: stone, stroke: 0.4pt + ink); T((grill-box.at(2) + 0.15, 18.438), [grill + tannour], size: 2.6pt, anchor: "west")
   }
   if layer == "utilities" {
     line(..pipe-old.map(q), stroke: (paint: blue, thickness: 1pt, dash: "dashed")); T((-1.2, 20.0), [water pipe → utility room], size: 2.6pt, fill: blue, angle: 90deg)
@@ -223,12 +227,12 @@
     R(septic, fill: rgb("#e9d9c4"), stroke: dotted(rgb("#8a5a2b"))); T((-8.5, -2.6), [EXISTING septic · outside the wall near C1\ approx. · inlet #r2(inv-septic) (computed) · level? capacity? condition?], size: 2.6pt, fill: rgb("#8a5a2b"))
     circle(q(C1), radius: 0.2, fill: red, stroke: none); T((-6.5, 2.0), [C1], size: 2.6pt, fill: red)
     line(q((septic.at(2), septic.at(3))), q(well), stroke: (paint: red, thickness: 0.4pt, dash: "dotted")); T((-7.5, 24.0), [#r1(box-dist(septic, well)) m septic ↔ well (approx.) ≥ #r1(sep-rule.septic-well)], size: 2.6pt, fill: red, angle: 90deg)
-    circle(q(pv-riser), radius: 0.3, fill: amber, stroke: none); T((2.0, 13.9), [PV conduits ↓ west shaft], size: 2.6pt, fill: amber, anchor: "west")
-    R((inverter.at(0) - 0.6, inverter.at(1) - 0.2, inverter.at(0) + 0.6, inverter.at(1) + 0.2), fill: amber, stroke: none); T((3.6, 12.0), [inverter + batteries\ (utility room)], size: 2.6pt, fill: amber, anchor: "west")
+    circle(q(pv-riser), radius: 0.3, fill: amber, stroke: none); T((2.0, 15.138), [PV conduits ↓ west shaft], size: 2.6pt, fill: amber, anchor: "west")
+    R((inverter.at(0) - 0.6, inverter.at(1) - 0.2, inverter.at(0) + 0.6, inverter.at(1) + 0.2), fill: amber, stroke: none); T((3.6, 13.238), [inverter + batteries\ (utility room)], size: 2.6pt, fill: amber, anchor: "west")
     for (p, l) in rain-pts { circle(q(p), radius: 0.22, fill: rgb("#1f7a99"), stroke: none) }
     T((-0.9, 15.8), [rain ↓], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "east")
-    circle(q(soak-e), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((17.5, 14.5), [soakaway E], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
-    circle(q(soak-s), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((11.0, 31.0), [soakaway S], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
+    circle(q(soak-e), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((17.5, 15.738), [soakaway E], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
+    circle(q(soak-s), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((11.0, 32.238), [soakaway S], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
     line(q(S((13.6, 12.5))), q(soak-e), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); line(q(S((4.25, 23.6))), q(soak-s), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); line(q(S((10.0, 23.6))), q(soak-s), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); T((9.3, 29.6), [suite court ↓], size: 2.4pt, fill: rgb("#1f7a99"))
   }
   if layer == "security" {
@@ -239,11 +243,11 @@
       line(q(p), q((p.at(0) + d * calc.sin(a0 * 1deg), p.at(1) - d * calc.cos(a0 * 1deg))), q((p.at(0) + d * calc.sin(a1 * 1deg), p.at(1) - d * calc.cos(a1 * 1deg))), close: true, fill: red.transparentize(88%), stroke: none)
     }
     circle(q(intercom), radius: 0.3, fill: blue, stroke: none); T((-0.3, 1.8), [video intercom], size: 2.6pt, fill: blue)
-    R((panel.at(0) - 0.3, panel.at(1) - 0.3, panel.at(0) + 0.3, panel.at(1) + 0.3), fill: amber, stroke: none); T((2.9, 12.8), [alarm panel], size: 2.6pt, fill: amber, anchor: "west")
+    R((panel.at(0) - 0.3, panel.at(1) - 0.3, panel.at(0) + 0.3, panel.at(1) + 0.3), fill: amber, stroke: none); T((2.9, 14.038), [alarm panel], size: 2.6pt, fill: amber, anchor: "west")
     for p in keypads { R((p.at(0) - 0.2, p.at(1) - 0.2, p.at(0) + 0.2, p.at(1) + 0.2), fill: amber, stroke: none) }
-    T((3.5, 5.5), [keypad], size: 2.4pt, fill: amber); T((1.5, 22.2), [keypad], size: 2.4pt, fill: amber, anchor: "west")
+    T((3.5, 6.738), [keypad], size: 2.4pt, fill: amber); T((1.5, 23.438), [keypad], size: 2.4pt, fill: amber, anchor: "west")
     line(q((-2.0, 1.0)), q((-2.0, 29.0)), stroke: (paint: rgb("#7a0000"), thickness: 2.5pt, dash: "dashed")); T((-3.0, 15.0), [fire vehicle on the driveway], size: 2.8pt, fill: rgb("#7a0000"), angle: 90deg)
-    line(q((0.0, 16.0)), q((east-face, 16.0)), stroke: (paint: rgb("#7a0000"), thickness: 0.5pt, dash: "dotted")); T((7.5, 16.7), [hose ≈ #r1(hose) m (≤ 45)], size: 2.6pt, fill: rgb("#7a0000"))
+    line(q((0.0, 17.238)), q((east-face, 17.238)), stroke: (paint: rgb("#7a0000"), thickness: 0.5pt, dash: "dotted")); T((7.5, 17.938), [hose ≈ #r1(hose) m (≤ 45)], size: 2.6pt, fill: rgb("#7a0000"))
   }
   // north arrow and scale
   line(q((24.0, 2.5)), q((24.0 + 3 * north.at(0), 2.5 - 3 * north.at(1))), stroke: 0.9pt + ink, mark: (end: "stealth", fill: ink, scale: 0.6)); T((24.6, 0.3), [true N], size: 3pt)
@@ -254,28 +258,28 @@
   import cetz.draw: *
   let T(p, body, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
   let R(b, fill: none, stroke: none) = rect(q((b.at(0), b.at(1))), q((b.at(2), b.at(3))), fill: fill, stroke: stroke)
-  // the house's east wall y 10–19 (site), the kitchen behind it, the strip, the lane boundary
-  R((11.5, 9.5, east-face - 0.25, 19.5), fill: rgb("#f3efe4")); T((12.6, 14.5), [KITCHEN\ (hob + hood on\ this wall)], size: 3.4pt)
-  R((east-face - 0.25, 9.5, east-face, 19.5), fill: luma(120))
-  R((east-face, 9.5, 20.5, 19.5), fill: rgb("#eef3e6"))
-  line(..env.filter(p => p.at(1) >= 9.0 and p.at(1) <= 20).map(q), stroke: (paint: accent, dash: "dashed", thickness: 0.5pt)); T((17.5, 15.9), [envelope line], size: 2.6pt, fill: accent, angle: -60deg)
-  line(q((east-face, 9.8)), q((east-face, 9.0)), q((16.4, 9.0)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.5pt))
+  // the house's east wall y 11.2–20.2 (site, 4 Nov 2026), the kitchen behind it, the strip, the lane boundary
+  R((11.5, 10.738, east-face - 0.25, 20.738), fill: rgb("#f3efe4")); T((12.6, 15.738), [KITCHEN\ (hob + hood on\ this wall)], size: 3.4pt)
+  R((east-face - 0.25, 10.738, east-face, 20.738), fill: luma(120))
+  R((east-face, 10.738, 20.5, 20.738), fill: rgb("#eef3e6"))
+  line(..env.filter(p => p.at(1) >= 9.0 and p.at(1) <= 21.5).map(q), stroke: (paint: accent, dash: "dashed", thickness: 0.5pt)); T((18.1, 17.138), [envelope line], size: 2.6pt, fill: accent, angle: -60deg)
+  line(q((east-face, 11.038)), q((east-face, 10.238)), q((16.4, 10.238)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.5pt))
   // the openings in the east wall
-  line(q(d-service.at(0)), q(d-service.at(1)), stroke: 3pt + red); T((east-face + 0.1, 11.45), [service door 0.90 (the family's door out, east)], size: 3pt, fill: red, anchor: "west")
-  line(q(w-kitchen.at(0)), q(w-kitchen.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 13.2), [kitchen window], size: 3pt, fill: blue, anchor: "east")
-  line(q(hood-out.at(0)), q(hood-out.at(1)), stroke: 2.6pt + luma(90)); T((east-face - 0.35, 14.5), [hood outlet], size: 3pt, fill: luma(90), anchor: "east")
-  line(q(w-dining.at(0)), q(w-dining.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 19.0), [dining window], size: 3pt, fill: blue, anchor: "east")
+  line(q(d-service.at(0)), q(d-service.at(1)), stroke: 3pt + red); T((east-face + 0.1, 12.688), [service door 0.90 (the family's door out, east)], size: 3pt, fill: red, anchor: "west")
+  line(q(w-kitchen.at(0)), q(w-kitchen.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 14.438), [kitchen window], size: 3pt, fill: blue, anchor: "east")
+  line(q(hood-out.at(0)), q(hood-out.at(1)), stroke: 2.6pt + luma(90)); T((east-face - 0.35, 15.738), [hood outlet], size: 3pt, fill: luma(90), anchor: "east")
+  line(q(w-dining.at(0)), q(w-dining.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 20.238), [dining window], size: 3pt, fill: blue, anchor: "east")
   // the screen, the bins, the gas cabinet, the manhole, the workers' path
-  line(q(screen.at(0)), q(screen.at(1)), stroke: 2.4pt + ink); T((screen.at(0).at(0) - 0.15, 14.6), [screen 1.8 m], size: 3pt, angle: 90deg)
+  line(q(screen.at(0)), q(screen.at(1)), stroke: 2.4pt + ink); T((screen.at(0).at(0) - 0.15, 15.838), [screen 1.8 m], size: 3pt, angle: 90deg)
   R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.1, (counter-box.at(1) + counter-box.at(3)) / 2), [outdoor counter + sink\ (by the service door;\ canopy optional)], size: 2.8pt, anchor: "west")
   R(grill-box, fill: stone, stroke: 0.4pt + ink); T(((grill-box.at(0) + grill-box.at(2)) / 2, grill-box.at(3) + 0.25), [grill + tannour], size: 2.8pt)
-  R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink); T((15.5, 9.5), [bins], size: 3pt)
-  R(gas-box, fill: rgb("#ffe08a"), stroke: 0.8pt + red); T((16.9, 12.1), [LPG cabinet 1.0 × 0.5\ ventilated, on the screen's\ outer face (north end);\ the pipe through the screen\ base to the hob], size: 2.8pt, fill: red, anchor: "west")
-  circle(q(manhole-e), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b")); T((15.7, 17.3), [foul chamber (kitchen, laundry,\ maid bath, the suite stack);\ the courtyard's rain: its own chamber], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
-  line(q((16.9, 9.5)), q((16.9, 11.8)), stroke: (paint: luma(90), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(90), scale: 0.5)); T((17.1, 10.3), [workers' path (deliveries, gas, bins):\ ends at the gas cabinet, never in the food area], size: 2.8pt, fill: luma(90), anchor: "west")
+  R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink); T((15.5, 10.738), [bins], size: 3pt)
+  R(gas-box, fill: rgb("#ffe08a"), stroke: 0.8pt + red); T((16.9, 13.338), [LPG cabinet 1.0 × 0.5\ ventilated, on the screen's\ outer face (north end);\ the pipe through the screen\ base to the hob], size: 2.8pt, fill: red, anchor: "west")
+  circle(q(manhole-e), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b")); T((15.7, 18.538), [foul chamber (kitchen, laundry,\ maid bath, the suite stack);\ the courtyard's rain: its own chamber], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
+  line(q((16.9, 10.738)), q((16.9, 13.038)), stroke: (paint: luma(90), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(90), scale: 0.5)); T((17.1, 11.538), [workers' path (deliveries, gas, bins):\ ends at the gas cabinet, never in the food area], size: 2.8pt, fill: luma(90), anchor: "west")
   // distances
   for (a, b, l) in ((gas.at(0), S((13.311, 8.75)), [#r2(seg-box-dist(..w-kitchen, gas-box))]), ((gas.at(0).at(0), gas.at(1).at(1)), (grill.at(0).at(0), grill.at(0).at(1)), [#r2(box-dist(gas-box, grill.at(0))) to the grill])) { line(q(a), q(b), stroke: 0.4pt + red, mark: (start: "|", end: "|", scale: 0.4)); T(((a.at(0) + b.at(0)) / 2 + 0.3, (a.at(1) + b.at(1)) / 2), l, size: 2.8pt, fill: red, anchor: "west") }
-  T((15.5, 8.6), [SERVICE YARD (3 Nov 2026) · 1 m = 1.25 cm · north up · the hedge at y 18.5 closes the yard from the garden], size: 3.4pt, fill: accent)
+  T((15.5, 9.838), [SERVICE YARD (3 Nov 2026; the house 1.24 m further south since 4 Nov 2026) · 1 m = 1.25 cm · north up · the hedge at y #r1(hedge.at(0).at(1)) closes the yard from the garden], size: 3.4pt, fill: accent)
 })
 
 // ====================================================================================== PAGE 1 · the whole plot: access, parking, paths, the garden
@@ -290,7 +294,7 @@
     #H[1 · Access and parking]
     - *One entry:* the farm is fully walled; the existing *4 m main gate* on the north street (peg M1 is its east post) is the only entry; no other gate (the lane-side gate of V8.0 is dropped). A *video intercom and a camera* at the gate (page 5).
     - *The driveway* (#r2(drv-w) m, west of the M line) stays: the cars' lane from the gate to the farm parking and the family's existing *covered parking for two cars south of the old house* (beyond the plot, assumed position: from the survey). No new carport.
-    - *One uncovered family car KEPT* (owner, 2 Nov 2026: parking inside the plot is allowed by the municipality): a 5 × 2.5 bay in the north setback strip, 0.4 m off the house's north wall, #r2(bay-clear-of-entrance) m east of the family entrance's path, which stays clear. *The swept path* of a standard car (4.5 × 1.8, outer radius ≈ #r1(car-R) m) shows that a forward 90° turn from the driveway into a 4–4.6 m deep strip does not fit; the car enters in a *3-point manoeuvre* (in through the gate and 7 m south on the driveway; reverse north-east into the strip; forward west into the bay, nose west) and leaves forward onto the driveway; the parked car stays clear of the entrance, and the manoeuvre crosses the entrance path at grade (the kerb flush there), as on any driveway. *Improvement if wanted:* round the family entrance path's kerb and keep the reserve tank's lid flush, so the strip's west end (x 0–5.2) is usable as the turning pocket; a shorter car fits in one move.
+    - *One uncovered family car KEPT* (owner, 2 Nov 2026: parking inside the plot is allowed by the municipality): a 5 × 2.5 bay in the north setback strip, now #r2(bay-gap) m off the house's north wall (4 Nov 2026: the house moved 1.24 m south, the bay stayed), #r2(bay-clear-of-entrance) m east of the family entrance's path, which stays clear. *The swept path* of a standard car (4.5 × 1.8, outer radius ≈ #r1(car-R) m): the strip is now #r1(strip-depth.dist-to-nwall) m deep at the house's north-west corner (boundary wall to wall face; #r1(strip-depth.to-setback) m to the north setback line), so a forward 90° turn from the driveway comes within reach of a short car and the manoeuvre has 1.24 m more room; until it is tried with the owner's car, the plan keeps the *3-point manoeuvre* (in through the gate and 7 m south on the driveway; reverse north-east into the strip; forward west into the bay, nose west) and leaves forward onto the driveway; the parked car stays clear of the entrance, and the manoeuvre crosses the entrance path at grade (the kerb flush there), as on any driveway. *Improvement if wanted:* round the family entrance path's kerb and keep the reserve tank's lid flush, so the strip's west end (x 0–5.2) is usable as the turning pocket; a shorter car fits in one move.
     - *Guests* park in the large existing *farm parking south of the building* (no new design) and walk the *guest path*: a 1.2 m *honey-stone band along the driveway's east edge* from the plot's south end north to the *guest entrance (the west foyer)*, #r1(plen(path-guest)) m, with bollard lights every 2 m; it never enters the family areas (the garden is behind its low wall, the north strip and the east yard are far). The driveway keeps 2.75 m beside it for one car.
     - *The family* enters by the north: gate → the north strip → the *family entrance* (#r1(plen(path-family)) m). *Workers and deliveries (3 Nov 2026, proposal):* gate → *along the farm's north boundary wall* (not along the house's north facade) → the lane-side strip (2.5–3 m wide east of the cut wall) → the gas cabinet and the bins at the *service yard* east of the screen (#r1(plen(path-workers)) m), never through the garden, past the guest door, across the parking bay or through the outdoor kitchen: the north strip in front of the house stays a *calm family space* (the entrance path, the car).
     #v(2pt)
@@ -310,7 +314,7 @@
   [
     #set text(6.5pt)
     #H[Around the house]
-    - *North strip* (4–4.6 m to the boundary): the family entrance path from the driveway, the family car (kept), the foul drain to the septic under its north edge (page 4); *3 Nov 2026:* the workers' path moved to the farm's boundary wall, so the strip in front of the house is the family's. *West strip* (0.785 m inside the M line) + the driveway: the guest path, the rescue ladder stand for bedrooms 2 and 3 (fire study P2: keep it open at night), the fire vehicle. *East strip* (2.5–9 m to the lane): the yard, the workers' path, the rain soakaway. *South:* the garden.
+    - *North strip* (#r1(strip-depth.dist-to-nwall) m from the house's north wall face to the boundary wall at the north-west corner, 4 Nov 2026; #r1(strip-depth.to-setback) m to the north setback line): the family entrance path from the driveway, the family car (kept), the foul drain to the septic under its north edge (page 4); *3 Nov 2026:* the workers' path moved to the farm's boundary wall, so the strip in front of the house is the family's. *West strip* (0.785 m inside the M line) + the driveway: the guest path, the rescue ladder stand for bedrooms 2 and 3 (fire study P2: keep it open at night), the fire vehicle. *East strip* (2.5–9 m to the lane): the yard, the workers' path, the rain soakaway. *South:* the garden.
     - *Levels (page 4):* the house floor ±0.00 is assumed 0.30 m above the ground around it; every strip falls 2 % away from the walls; the driveway and the north strip fall to the gate; *to be set from the survey* (the street level at the gate, the farm's levels, the lane).
   ],
 )
@@ -326,7 +330,7 @@
     #H[3 · The service yard (east)]
     - *The outdoor kitchen (owner, 3 Nov 2026):* the *counter and sink NEXT TO the kitchen service door*, against the east wall south of it (CSV y 8.3–10.1, under the kitchen window; #r2(seg-box-dist(..d-service, counter-box)) m from the door), a *canopy over it optional* (shown dashed); the *grill and tannour a little apart* in the yard's south part (CSV x 16.5–17.6, y 12.6–13.8): #r2(seg-box-dist(..d-service, grill-box)) m from the service door, #r2(seg-box-dist(..w-kitchen, grill-box)) m from the kitchen window, #r2(seg-box-dist(..hood-out, grill-box)) m from the hood outlet, #r2(seg-box-dist(..w-dining, grill-box)) m from the dining window, #r1(box-dist(grill-box, hrv-site)) m from the HRV intake, downwind of the house in the north-west wind, #r1(calc.min(box-dist(grill-box, T1), box-dist(grill-box, T2))) m from the nearest palm. *The yard re-planned:* the *1.8 m screen* moved east to CSV x 15.2 (its north end at y 7.6 on the envelope line) so the counter keeps a #r2(screen.at(0).at(0) - counter-box.at(2)) m working strip; the *bins* north of the service door (CSV y 5.3–6.1), outside the food area; the *gas cabinet* on the screen's outer face at its north end, #r2(box-dist(gas-box, grill.at(0))) m from the grill; the *manhole* (the foul chamber) at the yard's south end; the workers reach the gas and the bins from the lane-side strip without crossing the outdoor kitchen.
     - *The gas cylinders:* in a *ventilated outdoor cabinet 1.0 × 0.5 on the screen's outer (east) face at its north end* (CSV x 15.35–15.85, y 7.8–8.8), so the delivery man changes cylinders from the workers' path without entering the yard; the pipe through the screen's base to the hob on the east wall (≈ 3 m). *The rule used (assumed, to confirm with the Civil Defense):* NFPA 58 as adopted in Saudi practice for small cylinders outdoors: ≥ *1.5 m* from any opening into the building below the cylinder's relief valve (doors, windows, the hood outlet), ≥ *3 m* from ignition sources, mechanical air intakes, drains and manholes (LPG is heavier than air), the cabinet ventilated top and bottom, the cylinders upright, the regulator and the shut-off outside, the gas detector and the automatic valve inside (fire study). *Measured:* the service door #r2(seg-box-dist(..d-service, gas-box)) m, the kitchen window #r2(seg-box-dist(..w-kitchen, gas-box)) m, the hood outlet #r2(seg-box-dist(..hood-out, gas-box)) m, the dining window #r2(seg-box-dist(..w-dining, gas-box)) m, the manhole #r2(box-dist(gas-box, manhole-e)) m, the grill #r1(box-dist(gas-box, grill.at(0))) m, the HRV intake on the roof > 10 m, the lane boundary #r1(calc.min(..range(lane.len() - 1).map(i => seg-box-dist(lane.at(i), lane.at(i + 1), gas-box)))) m. #if checks.at(0).at(1) and checks.at(1).at(1) [#OK] else [#text(fill: red)[NO]]
-    - *Screened from the guests' path:* the yard is on the east, the guest path on the west; nothing of the yard is seen from it. The *workers' path* (3 Nov 2026 proposal: along the farm's boundary wall, then the lane-side strip) ends at the gas cabinet and the bins east of the screen, never in the outdoor kitchen; the *hedge* at y 18.5 stops it short of the garden.
+    - *Screened from the guests' path:* the yard is on the east, the guest path on the west; nothing of the yard is seen from it. The *workers' path* (3 Nov 2026 proposal: along the farm's boundary wall, then the lane-side strip) ends at the gas cabinet and the bins east of the screen, never in the outdoor kitchen; the *hedge* at y #r1(hedge.at(0).at(1)) stops it short of the garden.
     #v(2pt)
   ],
 )

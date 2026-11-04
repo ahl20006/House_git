@@ -7,7 +7,7 @@
 #show: setup
 
 // ---------- Place the whole building ----------
-#let shift = (0.91, 3.825)   // site-test option Z4: outer west face 0.785 m from the M line; V6.3: 0.30 m further south than before (3.525) as a PROVISIONAL safety margin to the north / lane setback line, until the official survey
+#let shift = (0.91, 5.063)   // site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout_v83.typ)
 #let rot = 0deg               // square to the M line
 
 // ---------- Rows from the CSV (# at the start of a name switches the row off) ----------

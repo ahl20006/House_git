@@ -554,7 +554,8 @@ else:
     # V8.2: the site elements (the site plan, study): on the ground round the house, inside the plot's extent, none higher than the hedge; the suite court's mashrabiya screen on the base up to the frame soffit
     site_m = {n: m for n, m in chr_meshes.items() if n.startswith("chr_site_")}
     gnd = C["plinth"]["ground"]
-    if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-5.0 <= m.bounds[0][0] and m.bounds[1][0] <= 26.0 and -6.0 <= m.bounds[0][1] and m.bounds[1][1] <= 36.0 for m in site_m.values()):
+    shx, shy = C["site"]["shift"]   # the plot's extent is checked in the SITE frame (4 Nov 2026: the house moved 1.238 m south, the driveway and the paths did not)
+    if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-4.1 <= m.bounds[0][0] + shx and m.bounds[1][0] + shx <= 26.9 and -2.2 <= m.bounds[0][1] + shy and m.bounds[1][1] + shy <= 39.9 for m in site_m.values()):
         ok(f"{len(site_m)} site elements (V8.2 / 3 Nov 2026, studies/site_plan.typ: the driveway, three paths (the workers' along the boundary wall), the parking bay, the garden, its wall, the hedge, the yard screen, the gas cabinet, the bins) on the ground round the house, inside the plot, the hedge 1.8 m the highest")
     else:
         bad(f"site elements: {len(site_m)} meshes, bounds off the ground or outside the plot")

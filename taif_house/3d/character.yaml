@@ -221,16 +221,16 @@ coat_cupboard: {box: [0.125, 2.3, 1.3875, 3.75], height: 2.4}   # design_gf.typ 
 # ---------- V8.2 · the site elements of studies/site_plan.typ that the builder supports (STUDY, every position proposed, to confirm with the survey) ----------
 # SITE frame (origin peg M1; the house = CSV + shift): the builder subtracts the shift. kinds: path (a polyline strip), slab (a polygon), wall / hedge (a polyline with a height), box (x0 y0 x1 y1 with a height)
 site:
-  shift: [0.91, 3.825]
+  shift: [0.91, 5.063]   # 4 Nov 2026 (owner, on site): the house 1.238 m further south; the elements attached to the house moved with it, the driveway and the parking bay stayed
   elements:
     - {label: driveway, kind: slab, pts: [[-3.95, 0.73], [0, 0], [0, 38.86], [-3.95, 39.59]], material: concrete, note: "the existing driveway 3.95 m west of the M line (stays)"}
-    - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 3.825]], width: 1.0, material: stone, note: "the family entrance path from the driveway"}
-    - {label: path_guest, kind: path, pts: [[-1.0, 39.6], [-1.0, 26.0], [0.9, 26.0]], width: 1.2, material: stone, note: "the guest path in honey stone along the driveway's east edge to the guest entrance"}
+    - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 4.938]], width: 1.0, material: stone, note: "the family entrance path from the driveway"}
+    - {label: path_guest, kind: path, pts: [[-1.0, 39.6], [-1.0, 27.263], [0.9, 27.263]], width: 1.2, material: stone, note: "the guest path in honey stone along the driveway's east edge to the guest entrance"}
     - {label: path_workers, kind: path, pts: [[-1.0, 0.7], [8.3, -1.0], [11.8, 0.8], [14.6, 7.3], [16.9, 10.6], [16.9, 11.8]], width: 0.9, material: stone_light, note: "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade"}
     - {label: parking_bay, kind: box, box: [5.2, 0.9, 10.2, 3.4], height: 0.02, material: stone_light, note: "the uncovered family car in the north strip (kept, owner 2 Nov 2026)"}
-    - {label: garden, kind: slab, pts: [[0.9, 27.95], [14.35, 27.95], [14.35, 19.6], [22.5, 19.6], [26.74, 33.94], [0.9, 38.7]], material: foliage, note: "the family garden on the south only, round the palms"}
-    - {label: garden_wall, kind: wall, pts: [[0.6, 27.95], [0.6, 38.7]], width: 0.3, height: 1.2, material: stone, note: "the 1.2 m honey-stone wall between the garden and the guest path"}
-    - {label: hedge, kind: hedge, pts: [[14.35, 18.5], [22.2, 18.5]], width: 0.6, height: 1.8, material: foliage, note: "the 1.8 m hedge between the service yard and the garden"}
-    - {label: yard_screen, kind: box, box: [16.11, 11.425, 16.21, 16.825], height: 1.8, material: plaster, note: "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2–15.3, y 7.6–13.0) so the outdoor counter has a working strip"}
-    - {label: gas_cabinet, kind: box, box: [16.26, 11.625, 16.76, 12.625], height: 1.0, material: steel, note: "the ventilated LPG cabinet on the screen's outer face at its north end, ≥ 3 m from the grill"}
-    - {label: bins, kind: box, box: [14.61, 9.125, 15.41, 9.925], height: 1.1, material: steel, note: "the bins north of the service door, outside the food area"}
+    - {label: garden, kind: slab, pts: [[0.9, 29.188], [14.35, 29.188], [14.35, 20.838], [22.5, 20.838], [26.74, 33.94], [0.9, 38.7]], material: foliage, note: "the family garden on the south only, round the palms"}
+    - {label: garden_wall, kind: wall, pts: [[0.6, 29.188], [0.6, 38.7]], width: 0.3, height: 1.2, material: stone, note: "the 1.2 m honey-stone wall between the garden and the guest path"}
+    - {label: hedge, kind: hedge, pts: [[14.35, 19.738], [22.2, 19.738]], width: 0.6, height: 1.8, material: foliage, note: "the 1.8 m hedge between the service yard and the garden"}
+    - {label: yard_screen, kind: box, box: [16.11, 12.663, 16.21, 18.063], height: 1.8, material: plaster, note: "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2–15.3, y 7.6–13.0) so the outdoor counter has a working strip"}
+    - {label: gas_cabinet, kind: box, box: [16.26, 12.863, 16.76, 13.863], height: 1.0, material: steel, note: "the ventilated LPG cabinet on the screen's outer face at its north end, ≥ 3 m from the grill"}
+    - {label: bins, kind: box, box: [14.61, 10.363, 15.41, 11.163], height: 1.1, material: steel, note: "the bins north of the service door, outside the food area"}
