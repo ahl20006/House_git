@@ -1,49 +1,51 @@
-# Site set-out · field instructions · تعليمات التوقيع في الموقع
+# Site set-out · field instructions and results · تعليمات التوقيع في الموقع ونتائجه
 
 Taif / Palm House · V8.3 with the owner's site decision of 4 Nov 2026 (the house 1.238 m further south: corner B1 exactly 5.00 m from M1). Sheet: `studies/setout_v83.typ` → `output/setout_v83.pdf` (page 1 the test on the land, page 2 the tape table). Every value below is taken from that sheet; if a value here ever differs from the sheet, **the sheet is right**. Concept only: the official survey fixes the wall faces.
 
 Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to the M line. Corners are the **outer wall faces**. Tapes in metres, read to the centimetre.
 
-## 1 · Reference points on site · النقاط المرجعية
+## 1 · The method · الطريقة
+
+Two tapes from two fixed points: swing each tape and draw its arc on the ground; the corner is where the two arcs cross **on the house side** (east of the driveway). Drive a peg, mark the point on it, and only then move to the next corner.
+
+**WARNING · تنبيه:** two arcs cross at **two** points, and where the arcs run nearly tangent the crossing is poorly defined. **Always confirm a new corner with a third distance or a diagonal** before setting the next corner from it (day 1: B4 was first set at the wrong crossing, 5.5 m off, and B3 at a tangent crossing, 2.1 m off; both caught by the diagonals from B1).
+
+## 2 · Reference points on site · النقاط المرجعية
 
 | Point | What | Position (x, y) | Use |
 |---|---|---|---|
 | **M1** | the main gate's east post | 0.00, 0.00 | the origin: every tape 1 starts here |
 | **D** | the dakka corner | −5.49, 27.89 | every tape 2 starts here |
 | **R**, **S** | helper pegs (approximate; R assumed on the M line's extension at the farm parking) | R ≈ 0.00, 48.5; S not in the model | check only: measure, record, do not set out from them |
-| M2, M3, M4 | the old pegs on the M line | gone | M4 is re-established in step 2 |
+| M2, M3, M4 | the old pegs on the M line | gone | M4 is re-established in step 3 |
 
-## 2 · Base check · الفحص الأساسي
+## 3 · Base check · الفحص الأساسي
 
-1. **M1 → D = 28.43 m.** Measured 4 Nov 2026: **28.50 m** (+0.07 m, 0.25 %): accepted within the concept tolerance (row 1 of the results table).
+1. **M1 → D = 28.43 m.** Measured 4 Nov 2026: **28.50 m** (+0.07 m, 0.25 %): accepted within the concept tolerance.
 2. **Re-establish M4** on the M line: from M1 **28.80 m**, from D **5.56 m** (the two tapes meet on the M line, south of the gate).
 3. **M4 → the trunk faces:** palm 1 ≈ **20.35 m**, palm 2 ≈ **21.34 m** (± 0.3 m). Within the tolerance → the frame sits on the ground. (The brief's 20.36 / 21.35 came from the field CSV's palm positions; the sheet uses `base.typ`: 1 cm apart, within the tolerance.)
 
-## 3 · The corners by two tapes · الأركان بشريطين
+## 4 · Target table · جدول الأهداف (outer wall faces, the new position)
 
-Swing tape 1 from M1 and tape 2 from D; where they meet **on the house side, east of the driveway** is the corner. Drive a peg, mark the corner on it. Verified against the sheet (every value equal).
+Verified against the sheet: every value equal.
 
 | Corner | Where | x east | y along M | Tape 1 from M1 | Tape 2 from D |
 |---|---|---|---|---|---|
 | **B1** | north-west corner | 0.79 | 4.94 | **5.00** | **23.79** |
-| **B2** | north end of the cut wall | 11.04 | 4.94 | **12.09** | **28.28** |
-| **B3** | south end of the cut wall (the east wall starts) | 14.35 | 11.03 | **18.10** | **26.03** |
+| **B2** | north end of the cut wall (north-east) | 11.04 | 4.94 | **12.09** | **28.28** |
+| **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.03 | **18.10** | **26.03** |
 | **B4** | south-east corner | 14.35 | 29.19 | **32.52** | **19.88** |
 | **B5** | south-west corner | 0.79 | 29.19 | **29.20** | **6.41** |
-
-Then check with the string (method B on the sheet): string M1 → M4, y along the string from M1, 3-4-5 square, x east. The west wall face B1–B5 lies 0.785 m east of the string.
-
-## 4 · Sides and diagonals · الأضلاع والأقطار
 
 | Side | m | | Diagonal | m |
 |---|---|---|---|---|
 | B1–B2 | **10.25** | | B1–B4 | **27.78** |
 | B2–B3 | **6.93** | | B2–B5 | **26.33** |
-| B3–B4 | **18.16** | | | |
+| B3–B4 | **18.16** | | B1–B3 | **14.87** |
 | B4–B5 | **13.56** | | | |
-| B5–B1 | **24.25** | | | |
+| B5–B1 | **24.25** | | **Perimeter** | **73.15** |
 
-A side or a diagonal more than 0.10 m off → re-measure the two corners from M1 and D before anything else.
+String check (method B on the sheet): string M1 → M4, y along the string from M1, 3-4-5 square, x east. The west wall face B1–B5 lies 0.785 m east of the string. A side or a diagonal more than 0.10 m off → re-measure the two corners before anything else.
 
 ## 5 · The tightest point check · فحص أضيق نقطة
 
@@ -56,35 +58,43 @@ The nearest wall to a setback line is the **cut wall B2–B3** at the lane notch
 
 Measure from R and from S to the two nearest corners (B5 and B4 for R) and to both palm trunk faces; record them in the table. Model values for R, assumed position only: R → B5 19.33, R → B4 24.06, R → palm 1 28.73, R → palm 2 26.83. They are for the record, not for setting out.
 
-## 7 · Results table · جدول النتائج
+## 7 · Field results, day 1 · نتائج الموقع، اليوم الأول
 
-| # | Item | Model (m) | Measured (m) | Difference (m) | Note |
+**4 Nov 2026, the owner on site**, with string and two tapes from M1 and D and from the set corners; R and S check-only. All five corners set and checked; the diagonals exact. An excellent result.
+
+| # | Item | Measured (m) | Model (m) | Difference (m) | Note |
 |---|---|---|---|---|---|
-| 1 | M1 → D | 28.43 | 28.50 | +0.07 | 4 Nov 2026, owner; 0.25 %, accepted within the concept tolerance |
-| 2 | M4 from M1 | 28.80 | | | |
-| 3 | M4 from D | 5.56 | | | |
-| 4 | M4 → palm 1 trunk face | 20.35 | | | ± 0.3 |
-| 5 | M4 → palm 2 trunk face | 21.34 | | | ± 0.3 |
-| 6 | B1 from M1 / from D | 5.00 / 23.79 | 5.00 (set) / checked from D | — | 4 Nov 2026: B1 set at 5.00 m from M1 (the owner's car test at the gate) and checked with the tape from D; corner accepted after the B1 / B5 adjustment (row 15) |
-| 7 | B2 from M1 / from D | 12.09 / 28.28 | set from M1 / D | — | 4 Nov 2026: B2 (north-east, the start of the cut) set with the two tapes from M1 and D; accepted (row 11) |
-| 8 | B3 from M1 / from D | 18.10 / 26.03 | set from B4 / B2 | — | 4 Nov 2026: B3 (the east end of the cut) set 18.16 m from B4 and 6.93 m from B2 (the set corners as references); accepted |
-| 9 | B4 from M1 / from D | 32.52 / 19.88 | set | — | 4 Nov 2026: set, then used as the reference for B3 |
-| 10 | B5 from M1 / from D | 29.20 / 6.41 | — / 6.41 (set) | — | 4 Nov 2026: B5 set at 6.41 m from D; M1 → B5 was once read as 25.30 m from a wrong reference point (corrected, not a measurement of B5); corner accepted after the adjustment (row 15) |
-| 11 | B1–B2 | 10.25 | 10.30 | +0.05 | 4 Nov 2026: within the ± 0.10 corner tolerance, accepted |
-| 12 | B2–B3 | 6.93 | 6.93 (set) | 0.00 | 4 Nov 2026: the setting distance of B3 |
-| 13 | B3–B4 | 18.16 | 18.16 (set) | 0.00 | 4 Nov 2026: the setting distance of B3 |
-| 14 | B4–B5 | 13.56 | | | |
-| 15 | B5–B1 | 24.25 | 24.50 first, then adjusted | +0.25 first | 4 Nov 2026: the first reading was 0.25 m long (beyond the ± 0.10 corner tolerance); the owner adjusted B1 / B5 and accepted both corners |
-| 16 | B1–B4 (diagonal) | 27.78 | ___ | ___ | to measure |
-| 17 | B2–B5 (diagonal) | 26.33 | ___ | ___ | to measure |
-| 18 | Tightest point from M1 / from D | 16.25 / 26.53 | | | |
-| 19 | Tightest point square to the lane wall | 2.97 | | | stop below 2.00 |
-| 20 | R → B5 / B4 | 19.33 / 24.06 (approx.) | | | R assumed |
-| 21 | R → palm 1 / palm 2 | 28.73 / 26.83 (approx.) | | | R assumed |
-| 22 | S → nearest corners | — | | | record |
-| 23 | S → palm 1 / palm 2 | — | | | record |
-| 24 | Perimeter string B1 → B2 → B3 → B4 → B5 → B1 | 73.15 | ___ | ___ | to measure (the sum of the five sides) |
+| 1 | M1 → D | 28.50 | 28.43 | +0.07 | accepted (0.25 %) |
+| 2 | M1 → B1 | 5.00 | 5.00 | 0 | the owner's choice (the car test at the gate) |
+| 3 | M1 → B5 | 29.30 | 29.20 | +0.10 | accepted |
+| 4 | M1 → B2 | 12.16 | 12.09 | +0.07 | accepted (the same +0.07 as M1 → D) |
+| 5 | B1 → B2 | 10.25 | 10.25 | 0 | final (the first reading 10.30) |
+| 6 | B2 → B3 | 6.93 | 6.93 | 0 | after B2 was re-set |
+| 7 | B3 → B4 | 18.16 | 18.16 | 0 | |
+| 8 | B5 → B4 | 13.56 | 13.56 | 0 | |
+| 9 | B1 → B3 | 14.87 | 14.87 | 0 | the check diagonal of the cut |
+| 10 | Diagonal B1 → B4 | 27.78 | 27.78 | 0 | exact |
+| 11 | Diagonal B2 → B5 | 26.33 | 26.33 | 0 | exact |
+| 12 | Perimeter string round the five blocks | 74.0 | 73.15 | +0.85 | the string runs round the outside of the blocks, plus sag; accepted (the diagonals are exact) |
+| 13 | B1 → B5 | adjusted | 24.25 | (+0.25 first) | the first reading 24.50; B1 / B5 adjusted, both corners accepted |
+| 14 | M4 from M1 / from D | | 28.80 / 5.56 | | still to do |
+| 15 | M4 → palm 1 trunk face | | 20.35 | | still to do (± 0.3; the brief's 20.36) |
+| 16 | M4 → palm 2 trunk face | | 21.34 | | still to do (± 0.3; the brief's 21.35) |
+| 17 | Tightest point from M1 / from D | | 16.25 / 26.53 | | still to do |
+| 18 | Tightest point square to the lane wall | | 2.97 | | still to do; stop below 2.00 |
+| 19 | R → B5 / B4 | | 19.33 / 24.06 (approx.) | | still to do; R assumed |
+| 20 | R → palm 1 / palm 2 | | 28.73 / 26.83 (approx.) | | still to do; R assumed |
+| 21 | S → nearest corners | | — | | record |
+| 22 | S → palm 1 / palm 2 | | — | | record |
 
-**Field log.** 4 Nov 2026 (day 1): the owner is setting out with two tapes from M1 and D; R and S are check-only. **All five corners are set out on site** with tapes from M1, D and the set corners: the outline is ready for the owner's walk-through. Still to measure: the perimeter string (row 24, model 73.15 m), the diagonals (rows 16–17, model 27.78 / 26.33 m), M4 → the palms (rows 4–5). Done: the base check M1 → D (row 1), B1 (row 6), B5 (row 10), B1 → B5 (row 15), B2 (row 7) with B1 → B2 10.30 m (row 11, +0.05, accepted). **Next on site:** B4 (32.52 m from M1, 19.88 m from D; check B5 → B4 = 13.56 m), then B3 (18.10 / 26.03; B2 → B3 6.93, B3 → B4 18.16), the diagonals (B1 → B4 27.78, B2 → B5 26.33), and M4 → the palms.
+**Corrections made on site (lessons) · دروس اليوم الأول**
 
-Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. After the field check, send the filled table back: the model is corrected (the shift in `design_gf.typ`), the sheet recompiled, and the survey still has the last word (open item 1).
+- **B5:** B1 → B5 first read 24.50 m (+0.25), adjusted; an early M1 → B5 reading of 25.30 m was taken from a wrong point, corrected.
+- **B4:** first set at the **wrong intersection** of the two arcs (M1 → B4 read 35.94 m against 32.52, ≈ 5.5 m south); re-set from B5 13.56 m and M1 32.52 m; then B1 → B4 = 27.78 m exact.
+- **B3:** the first point (tangent arcs from B2 / B4) gave B1 → B3 = 12.77 m, rejected; re-set on the 18.16 m arc from B4 until B1 → B3 = 14.87 m.
+- **B2:** B2 → B3 then read 7.50 m (+0.57); B2 re-set from B1 10.25 m and B3 6.93 m; then B2 → B5 = 26.33 m exact.
+- The lesson behind all four: two arcs cross twice and a near-tangent crossing is vague; a corner is only set when a third distance or a diagonal confirms it (section 1).
+
+**Status:** all five corners set and checked; the outline is on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the tightest-point check, the R and S check distances, photos.
+
+Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. The model is not changed by the day-1 results (every difference within the tolerance); the official survey still has the last word (open item 1).

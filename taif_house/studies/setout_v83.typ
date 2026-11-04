@@ -119,7 +119,8 @@
 #let palm-check(t) = if inside(t, building) { -1 } else { edge-dist(t, building) - r-palm }
 #let b1-m1 = dist(building.at(0), M1)
 #let sides = range(building.len()).map(i => ([B#(i + 1)–B#(calc.rem(i + 1, building.len()) + 1)], dist(building.at(i), building.at(calc.rem(i + 1, building.len())))))
-#let diags = (([B1–B4], dist(building.at(0), building.at(3))), ([B2–B5], dist(building.at(1), building.at(4))))
+#let diags = (([B1–B4], dist(building.at(0), building.at(3))), ([B2–B5], dist(building.at(1), building.at(4))), ([B1–B3 (the cut's check)], dist(building.at(0), building.at(2))))
+#let perimeter = sides.map(e => e.at(1)).sum()
 
 // ---------- Colours and drawing helpers ----------
 #let ink = rgb("#3d4a45"); #let accent = rgb("#2f6b4f"); #let envc = rgb("#e3f0dd")
@@ -234,7 +235,7 @@
 #text(14pt, weight: "bold", fill: accent)[Set-out sheet · tape and string] #h(1fr) #text(8pt, fill: gray)[corners B1… = the outer wall faces of design_gf.typ · reference points M1 and D (M2–M4 are gone)]
 #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
 #text(7.6pt)[
-  *Method A (two tapes, no square):* from M1 and from D, swing the two tapes; where they meet (on the house side, east of the driveway) is the corner. \
+  *Method A (two tapes, no square):* from M1 and from D, swing the two tapes and draw the arcs on the ground; where they cross (on the house side, east of the driveway) is the corner. *Two arcs cross at two points and a near-tangent crossing is vague: confirm every new corner with a third distance or a diagonal before setting the next one from it.* \
   *Method B (string):* re-establish M4 (from M1 #f2(dist(M1, M4)) m, from D #f2(dist(D, M4)) m), string M1 → M4, measure *y* along the string from M1, square off with 3-4-5 (3 m along, 4 m out, 5 m diagonal), measure *x* east, drive the peg. Use B to check every corner set out with A, then check the sides and the diagonals.
 ]
 #v(3pt)
@@ -259,6 +260,7 @@
     table.header([*Side / diagonal*], [*Model (m)*], [*Measured*], [*Difference*]),
     ..sides.map(((l, v)) => (l, [*#f2(v)*], [], [])).flatten(),
     ..diags.map(((l, v)) => (l, [*#f2(v)*], [], [])).flatten(),
+    [Perimeter B1 → … → B1], [*#f2(perimeter)*], [], [],
   )),
   text(8pt, table(
     columns: (auto, auto, 1fr, 1fr), stroke: 0.4pt + rgb("#9aa39f"), inset: 4pt, align: horizon,
