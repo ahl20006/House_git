@@ -1,4 +1,4 @@
-# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V8.2, 3 Nov 2026)
+# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V8.3, 3 Nov 2026)
 
 The owner's brief written as numbered, testable requirements. Each has a criterion the design can be checked against; where the owner gave no number, the criterion is a reasonable measurable proxy and is marked *(proxy)*. The design review `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` checks every requirement against the project files (`data/*.csv`, the design files and the studies) and records **met / partly / not met** with evidence.
 

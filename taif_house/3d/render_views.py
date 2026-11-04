@@ -26,7 +26,8 @@ for season in ("summer", "winter"):
         VIEWS[f"sun_{season}_{hour}.png"] = f"view=top&sun={season}-{hour}&labels=0"
 VIEWS = {k: v + "&character=0" for k, v in VIEWS.items()}          # the plain phase-3 model
 VIEWS.update({"char_north.png": "view=north&character=1", "char_aerial_se.png": "view=aerial_se&character=1", "char_suite_court_sw.png": "view=suite_court_sw&character=1"})   # V8.1: the three release
-VIEWS.update({"char_lobby.png": "view=lobby&character=1", "char_court_screen.png": "view=court_screen&character=1", "char_aerial_sw.png": "view=aerial_sw&character=1"})   # V8.2: the three release views (the lobby and the stair start, the court through the mashrabiya, the aerial from the south-west with the garden and the paths) views (others by name: char_<view>.png, e.g. char_courtyard.png, char_tv.png)
+VIEWS.update({"char_lobby.png": "view=lobby&character=1", "char_court_screen.png": "view=court_screen&character=1", "char_aerial_sw.png": "view=aerial_sw&character=1"})   # V8.2: the three release views (the lobby and the stair start, the court through the mashrabiya, the aerial from the south-west with the garden and the paths)
+VIEWS.update({"char_living.png": "view=living&character=1"})   # V8.3: the two release views are char_living.png (the courtyard from the living) and char_lobby.png (the family entrance and the stair) views (others by name: char_<view>.png, e.g. char_courtyard.png, char_tv.png)
 only = sys.argv[1:]          # optional: render only these files (any char_<view>[_arches].png name works, e.g. char_street.png, char_eye1_arches.png)
 for name in only:
     m = re.fullmatch(r"char_(\w+)\.png", name)

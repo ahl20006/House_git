@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V8.2 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V8.3 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -9,7 +9,7 @@ It
   4. rebuilds the three DXFs (tools/make_dxf.py, make_dxf_ff.py, make_dxf_roof.py) and reads the floor ones back: same rooms, same areas as the two CSVs;
   5. checks that every open item of data/open_items.csv is in docs/OPEN_ITEMS.md, and that the active files carry no old version label;
   6. rebuilds the 3D model (3d/build_3d.py) and runs its own checks (3d/check_3d.py: rooms enclosed, walls, slab areas, outline, levels);
-and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1). Needs typst, pdftotext and ezdxf.
+and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1). Needs typst, pdftotext (or pypdf) and ezdxf.
 """
 import ast
 import csv
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V8.2"
+VERSION = "V8.3"
 problems = []
 
 
@@ -91,12 +91,24 @@ typst = shutil.which("typst")
 pdftotext = shutil.which("pdftotext")
 if not typst:
     bad("typst not found on PATH")
-if not pdftotext:
-    bad("pdftotext not found on PATH (Git for Windows: C:\\Program Files\\Git\\ucrt64\\bin)")
+try:
+    import pypdf as _pypdf
+except ImportError:
+    _pypdf = None
+if not pdftotext and not _pypdf:
+    bad("neither pdftotext (Git for Windows: C:\\Program Files\\Git\\ucrt64\\bin) nor pypdf (pip install pypdf) is available")
+pdftotext = pdftotext or (_pypdf and "pypdf")   # either reader lets the text checks run
 
 
 def pdf_text(path, layout=True):
-    return subprocess.run([pdftotext] + (["-layout"] if layout else []) + [str(path), "-"], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
+    """The PDF's text, one form feed per page: pdftotext when it works, else pypdf (pdftotext.exe can lose its poppler DLL after a Git for Windows update)."""
+    if pdftotext and pdftotext != "pypdf":
+        r = subprocess.run([pdftotext] + (["-layout"] if layout else []) + [str(path), "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if r.returncode == 0 and r.stdout.strip():
+            return r.stdout
+    if _pypdf is None:
+        return ""
+    return "".join((page.extract_text() or "") + "\f" for page in _pypdf.PdfReader(str(path)).pages)
 
 
 for src, out, musts in jobs if typst else []:

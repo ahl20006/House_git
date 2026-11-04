@@ -1,4 +1,6 @@
-# Taif / Palm House · V8.2 · preliminary structural study
+# Taif / Palm House · V8.3 · preliminary structural study
+
+*V8.3 (`studies/structure.typ` X21):* the first-floor 0.20 service wall on y 9.2 (light, on the solid west-band slab) for the family WC and bedroom 2's en-suite; the ground-floor powder room: the wall on y 14.4 removed, so the hidden beam **B14** becomes a drop beam or the bay spans 3.2 m (the engineer); a 0.25 service wall on y 16.1 with bedroom 3's stack; no ground-floor shower, no sunken zone.
 
 *V8.2 (`studies/structure.typ`):* the **stair flipped** (option B): the trimmers mirrored (**B16′** y 5.25 from B10 to B17′, **B17′** x 1.4875, **B18′** y 3.65 from the west wall; 0.20 × 0.40, soffit +3.20; 0.30 trimmers the engineer's option for 2.32 m headroom), the first-floor opening turned round (≈ 8.2 m²), headroom 2.22 m at tread 6 (X15); a **wall on y 7.9 on B12** closes the opening's south side (the family bath F-b); **B14** on y 14.4 becomes a drop beam if the ground-floor shower P1 removes the family WC's wall (deferred). *Plumbing proposals (not applied):* the suite bath's 0.20 m service wall on the depressed slab (light, ≈ 0.6 kN/m), no slab opening for an east duct (the external stack recommended), the kitchen's ceiling under the bath carries nothing.
 

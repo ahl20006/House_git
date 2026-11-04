@@ -1,7 +1,7 @@
 {
- "version": "V8.2",
+ "version": "V8.3",
  "params": {
-  "version": "V8.2",
+  "version": "V8.3",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -622,8 +622,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V8.2.glb",
-   "viewer_data": "3d/output/taif_house_V8.2.js",
+   "glb": "3d/output/taif_house_V8.3.glb",
+   "viewer_data": "3d/output/taif_house_V8.3.js",
    "summary": "3d/output/model_summary.json"
   }
  },

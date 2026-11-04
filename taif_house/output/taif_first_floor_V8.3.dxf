@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461348.058680556
+2461349.3962152777
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461348.058680556
+2461349.3962152777
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-19F
+19E
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{985A4AFB-FB82-4039-8883-8C0F8D7593FA}
+{4B0253C3-DCE5-4EDB-ABEC-68FF517F2455}
   9
 $VERSIONGUID
   2
-{F10F5FA1-7DD1-4A71-B0CA-8A3071490441}
+{B717140E-931F-43E0-B21E-0E38D41CDC27}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -3803,7 +3803,7 @@ AcAecLayerStandard
   0
 APPID
   5
-19C
+19B
 330
 3
 100
@@ -3817,7 +3817,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-19D
+19C
 330
 3
 100
@@ -6835,11 +6835,11 @@ AcDbPolyline
  20
 -11.725000000000001
  10
-2.41
+3.66
  20
 -11.725000000000001
  10
-2.41
+3.66
  20
 -13.024999999999999
  10
@@ -6849,9 +6849,9 @@ AcDbPolyline
 1001
 HOUSE
 1000
-Family WC (compartment)
+Family WC (gallery)
 1040
-1.95
+3.575
   0
 MTEXT
   5
@@ -6865,9 +6865,9 @@ ROOM-LABELS
 100
 AcDbMText
  10
-1.6600000000000001
+2.2850000000000006
  20
--12.375000000000009
+-12.375000000000005
  30
 0.0
  40
@@ -6875,7 +6875,7 @@ AcDbMText
  71
 5
   1
-F03 Family WC (compartment)\P1.95 m²
+F03 Family WC (gallery)\P3.57 m²
   0
 LWPOLYLINE
   5
@@ -6895,14 +6895,6 @@ AcDbPolyline
  10
 2.41
  20
--11.725000000000001
- 10
-3.66
- 20
--11.725000000000001
- 10
-3.66
- 20
 -13.024999999999999
  10
 5.16
@@ -6912,16 +6904,24 @@ AcDbPolyline
 5.16
  20
 -14.825
+ 10
+0.9100000000000001
+ 20
+-14.825
+ 10
+0.9100000000000001
+ 20
+-14.225000000000001
  10
 2.41
  20
--14.825
+-14.225000000000001
 1001
 HOUSE
 1000
-Family bath
+Bedroom 2 bath (en-suite)
 1040
-6.575
+5.85
   0
 MTEXT
   5
@@ -6935,9 +6935,9 @@ ROOM-LABELS
 100
 AcDbMText
  10
-3.5996387832699637
+3.4580769230769244
  20
--13.541920152091249
+-14.01730769230769
  30
 0.0
  40
@@ -6945,73 +6945,11 @@ AcDbMText
  71
 5
   1
-F04 Family bath\P6.58 m²
+F04 Bedroom 2 bath (en-suite)\P5.85 m²
   0
 LWPOLYLINE
   5
 C3
-330
-17
-100
-AcDbEntity
-  8
-ROOMS-FAMILY
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-0.9100000000000001
- 20
--14.225000000000001
- 10
-2.41
- 20
--14.225000000000001
- 10
-2.41
- 20
--14.825
- 10
-0.9100000000000001
- 20
--14.825
-1001
-HOUSE
-1000
-Wardrobe niche (bedroom 2)
-1040
-0.9
-  0
-MTEXT
-  5
-C4
-330
-17
-100
-AcDbEntity
-  8
-ROOM-LABELS
-100
-AcDbMText
- 10
-1.6599999999999977
- 20
--14.524999999999979
- 30
-0.0
- 40
-0.13
- 71
-5
-  1
-F05 Wardrobe niche (bedroom 2)\P0.90 m²
-  0
-LWPOLYLINE
-  5
-C5
 330
 17
 100
@@ -7049,7 +6987,7 @@ Bedroom 2
   0
 MTEXT
   5
-C6
+C4
 330
 17
 100
@@ -7069,11 +7007,11 @@ AcDbMText
  71
 5
   1
-F06 Bedroom 2\P14.45 m²
+F05 Bedroom 2\P14.45 m²
   0
 LWPOLYLINE
   5
-C7
+C5
 330
 17
 100
@@ -7111,7 +7049,7 @@ Bedroom 3 bath
   0
 MTEXT
   5
-C8
+C6
 330
 17
 100
@@ -7131,11 +7069,11 @@ AcDbMText
  71
 5
   1
-F07 Bedroom 3 bath\P3.74 m²
+F06 Bedroom 3 bath\P3.74 m²
   0
 LWPOLYLINE
   5
-C9
+C7
 330
 17
 100
@@ -7181,7 +7119,7 @@ Bedroom 3
   0
 MTEXT
   5
-CA
+C8
 330
 17
 100
@@ -7201,11 +7139,11 @@ AcDbMText
  71
 5
   1
-F08 Bedroom 3\P16.87 m²
+F07 Bedroom 3\P16.87 m²
   0
 LWPOLYLINE
   5
-CB
+C9
 330
 17
 100
@@ -7243,7 +7181,7 @@ Kids' room (study + gaming)
   0
 MTEXT
   5
-CC
+CA
 330
 17
 100
@@ -7263,11 +7201,11 @@ AcDbMText
  71
 5
   1
-F09 Kids' room (study + gaming)\P14.10 m²
+F08 Kids' room (study + gaming)\P14.10 m²
   0
 LWPOLYLINE
   5
-CD
+CB
 330
 17
 100
@@ -7305,7 +7243,7 @@ Family living
   0
 MTEXT
   5
-CE
+CC
 330
 17
 100
@@ -7325,11 +7263,11 @@ AcDbMText
  71
 5
   1
-F10 Family living\P16.45 m²
+F09 Family living\P16.45 m²
   0
 LWPOLYLINE
   5
-CF
+CD
 330
 17
 100
@@ -7367,7 +7305,7 @@ Family link
   0
 MTEXT
   5
-D0
+CE
 330
 17
 100
@@ -7387,11 +7325,11 @@ AcDbMText
  71
 5
   1
-F11 Family link\P1.44 m²
+F10 Family link\P1.44 m²
   0
 LWPOLYLINE
   5
-D1
+CF
 330
 17
 100
@@ -7441,7 +7379,7 @@ Bedroom 1
   0
 MTEXT
   5
-D2
+D0
 330
 17
 100
@@ -7461,11 +7399,11 @@ AcDbMText
  71
 5
   1
-F12 Bedroom 1\P15.75 m²
+F11 Bedroom 1\P15.75 m²
   0
 LWPOLYLINE
   5
-D3
+D1
 330
 17
 100
@@ -7503,7 +7441,7 @@ Owner's office
   0
 MTEXT
   5
-D4
+D2
 330
 17
 100
@@ -7523,11 +7461,11 @@ AcDbMText
  71
 5
   1
-F13 Owner's office\P15.73 m²
+F12 Owner's office\P15.73 m²
   0
 LWPOLYLINE
   5
-D5
+D3
 330
 17
 100
@@ -7573,7 +7511,7 @@ Gym
   0
 MTEXT
   5
-D6
+D4
 330
 17
 100
@@ -7593,11 +7531,11 @@ AcDbMText
  71
 5
   1
-F14 Gym\P22.20 m²
+F13 Gym\P22.20 m²
   0
 LWPOLYLINE
   5
-D7
+D5
 330
 17
 100
@@ -7643,7 +7581,7 @@ Suite court (open to the sky)
   0
 MTEXT
   5
-D8
+D6
 330
 17
 100
@@ -7663,11 +7601,11 @@ AcDbMText
  71
 5
   1
-F15 Suite court (open to the sky)\P25.30 m²
+F14 Suite court (open to the sky)\P25.30 m²
   0
 LWPOLYLINE
   5
-D9
+D7
 330
 17
 100
@@ -7705,7 +7643,7 @@ Suite lobby
   0
 MTEXT
   5
-DA
+D8
 330
 17
 100
@@ -7725,11 +7663,11 @@ AcDbMText
  71
 5
   1
-F16 Suite lobby\P7.29 m²
+F15 Suite lobby\P7.29 m²
   0
 LWPOLYLINE
   5
-DB
+D9
 330
 17
 100
@@ -7775,7 +7713,7 @@ Suite bath
   0
 MTEXT
   5
-DC
+DA
 330
 17
 100
@@ -7795,11 +7733,11 @@ AcDbMText
  71
 5
   1
-F17 Suite bath\P10.24 m²
+F16 Suite bath\P10.24 m²
   0
 LWPOLYLINE
   5
-DD
+DB
 330
 17
 100
@@ -7837,7 +7775,7 @@ Suite WC (closet)
   0
 MTEXT
   5
-DE
+DC
 330
 17
 100
@@ -7857,11 +7795,11 @@ AcDbMText
  71
 5
   1
-F18 Suite WC (closet)\P1.65 m²
+F17 Suite WC (closet)\P1.65 m²
   0
 LWPOLYLINE
   5
-DF
+DD
 330
 17
 100
@@ -7899,7 +7837,7 @@ Suite dressing
   0
 MTEXT
   5
-E0
+DE
 330
 17
 100
@@ -7919,11 +7857,11 @@ AcDbMText
  71
 5
   1
-F19 Suite dressing\P10.39 m²
+F18 Suite dressing\P10.39 m²
   0
 LWPOLYLINE
   5
-E1
+DF
 330
 17
 100
@@ -7969,7 +7907,7 @@ Suite bedroom
   0
 MTEXT
   5
-E2
+E0
 330
 17
 100
@@ -7989,11 +7927,11 @@ AcDbMText
  71
 5
   1
-F20 Suite bedroom\P26.03 m²
+F19 Suite bedroom\P26.03 m²
   0
 LINE
   5
-E3
+E1
 330
 17
 100
@@ -8017,7 +7955,7 @@ AcDbLine
   0
 LINE
   5
-E4
+E2
 330
 17
 100
@@ -8041,7 +7979,7 @@ AcDbLine
   0
 LINE
   5
-E5
+E3
 330
 17
 100
@@ -8065,7 +8003,7 @@ AcDbLine
   0
 LINE
   5
-E6
+E4
 330
 17
 100
@@ -8089,7 +8027,7 @@ AcDbLine
   0
 LINE
   5
-E7
+E5
 330
 17
 100
@@ -8099,61 +8037,37 @@ DOORS
 100
 AcDbLine
  10
-5.16
+3.66
  20
--13.125
+-12.024999999999999
  30
 0.0
  11
-5.16
+3.66
  21
--14.125
+-12.925
  31
 0.0
   0
 LINE
   5
-E8
+E6
 330
 17
 100
 AcDbEntity
   8
-OPENINGS
+DOORS
 100
 AcDbLine
  10
-2.41
- 20
--12.075
- 30
-0.0
- 11
-2.41
- 21
--12.875
- 31
-0.0
-  0
-LINE
-  5
-E9
-330
-17
-100
-AcDbEntity
-  8
-OPENINGS
-100
-AcDbLine
- 10
-1.0099999999999998
+2.6099999999999994
  20
 -14.825
  30
 0.0
  11
-2.3100000000000005
+3.5100000000000002
  21
 -14.825
  31
@@ -8161,7 +8075,7 @@ AcDbLine
   0
 LINE
   5
-EA
+E7
 330
 17
 100
@@ -8185,7 +8099,7 @@ AcDbLine
   0
 LINE
   5
-EB
+E8
 330
 17
 100
@@ -8209,7 +8123,7 @@ AcDbLine
   0
 LINE
   5
-EC
+E9
 330
 17
 100
@@ -8233,7 +8147,7 @@ AcDbLine
   0
 LINE
   5
-ED
+EA
 330
 17
 100
@@ -8257,7 +8171,7 @@ AcDbLine
   0
 LINE
   5
-EE
+EB
 330
 17
 100
@@ -8281,7 +8195,7 @@ AcDbLine
   0
 LINE
   5
-EF
+EC
 330
 17
 100
@@ -8305,7 +8219,7 @@ AcDbLine
   0
 LINE
   5
-F0
+ED
 330
 17
 100
@@ -8329,7 +8243,7 @@ AcDbLine
   0
 LINE
   5
-F1
+EE
 330
 17
 100
@@ -8353,7 +8267,7 @@ AcDbLine
   0
 LINE
   5
-F2
+EF
 330
 17
 100
@@ -8377,7 +8291,7 @@ AcDbLine
   0
 LINE
   5
-F3
+F0
 330
 17
 100
@@ -8401,7 +8315,7 @@ AcDbLine
   0
 LINE
   5
-F4
+F1
 330
 17
 100
@@ -8425,7 +8339,7 @@ AcDbLine
   0
 LINE
   5
-F5
+F2
 330
 17
 100
@@ -8449,7 +8363,7 @@ AcDbLine
   0
 LINE
   5
-F6
+F3
 330
 17
 100
@@ -8473,7 +8387,7 @@ AcDbLine
   0
 LINE
   5
-F7
+F4
 330
 17
 100
@@ -8497,7 +8411,7 @@ AcDbLine
   0
 LINE
   5
-F8
+F5
 330
 17
 100
@@ -8521,7 +8435,7 @@ AcDbLine
   0
 LINE
   5
-F9
+F6
 330
 17
 100
@@ -8545,7 +8459,7 @@ AcDbLine
   0
 LINE
   5
-FA
+F7
 330
 17
 100
@@ -8569,7 +8483,7 @@ AcDbLine
   0
 LINE
   5
-FB
+F8
 330
 17
 100
@@ -8593,7 +8507,7 @@ AcDbLine
   0
 LINE
   5
-FC
+F9
 330
 17
 100
@@ -8617,7 +8531,7 @@ AcDbLine
   0
 LINE
   5
-FD
+FA
 330
 17
 100
@@ -8641,7 +8555,7 @@ AcDbLine
   0
 LINE
   5
-FE
+FB
 330
 17
 100
@@ -8665,7 +8579,7 @@ AcDbLine
   0
 LINE
   5
-FF
+FC
 330
 17
 100
@@ -8689,7 +8603,7 @@ AcDbLine
   0
 LINE
   5
-100
+FD
 330
 17
 100
@@ -8713,7 +8627,7 @@ AcDbLine
   0
 LINE
   5
-101
+FE
 330
 17
 100
@@ -8737,7 +8651,7 @@ AcDbLine
   0
 LINE
   5
-102
+FF
 330
 17
 100
@@ -8761,7 +8675,7 @@ AcDbLine
   0
 LINE
   5
-103
+100
 330
 17
 100
@@ -8785,7 +8699,7 @@ AcDbLine
   0
 LINE
   5
-104
+101
 330
 17
 100
@@ -8809,7 +8723,7 @@ AcDbLine
   0
 LINE
   5
-105
+102
 330
 17
 100
@@ -8833,7 +8747,7 @@ AcDbLine
   0
 LINE
   5
-106
+103
 330
 17
 100
@@ -8857,7 +8771,7 @@ AcDbLine
   0
 LINE
   5
-107
+104
 330
 17
 100
@@ -8881,7 +8795,7 @@ AcDbLine
   0
 LINE
   5
-108
+105
 330
 17
 100
@@ -8905,7 +8819,7 @@ AcDbLine
   0
 LINE
   5
-109
+106
 330
 17
 100
@@ -8929,7 +8843,7 @@ AcDbLine
   0
 LINE
   5
-10A
+107
 330
 17
 100
@@ -8953,7 +8867,7 @@ AcDbLine
   0
 LINE
   5
-10B
+108
 330
 17
 100
@@ -8977,7 +8891,7 @@ AcDbLine
   0
 LINE
   5
-10C
+109
 330
 17
 100
@@ -9001,7 +8915,7 @@ AcDbLine
   0
 LINE
   5
-10D
+10A
 330
 17
 100
@@ -9025,7 +8939,7 @@ AcDbLine
   0
 LINE
   5
-10E
+10B
 330
 17
 100
@@ -9049,7 +8963,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-10F
+10C
 330
 17
 100
@@ -9081,7 +8995,7 @@ AcDbPolyline
   0
 MTEXT
   5
-110
+10D
 330
 17
 100
@@ -9105,7 +9019,7 @@ study desk
   0
 LWPOLYLINE
   5
-111
+10E
 330
 17
 100
@@ -9137,7 +9051,7 @@ AcDbPolyline
   0
 MTEXT
   5
-112
+10F
 330
 17
 100
@@ -9161,7 +9075,7 @@ study desk
   0
 LWPOLYLINE
   5
-113
+110
 330
 17
 100
@@ -9193,7 +9107,7 @@ AcDbPolyline
   0
 MTEXT
   5
-114
+111
 330
 17
 100
@@ -9217,103 +9131,103 @@ PC desk
   0
 LWPOLYLINE
   5
+112
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+6.41
+ 20
+-4.675000000000001
+ 10
+6.91
+ 20
+-4.675000000000001
+ 10
+6.91
+ 20
+-5.175000000000001
+ 10
+6.41
+ 20
+-5.175000000000001
+  0
+LWPOLYLINE
+  5
+113
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+7.61
+ 20
+-4.675000000000001
+ 10
+8.11
+ 20
+-4.675000000000001
+ 10
+8.11
+ 20
+-5.175000000000001
+ 10
+7.61
+ 20
+-5.175000000000001
+  0
+LWPOLYLINE
+  5
+114
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+8.91
+ 20
+-4.675000000000001
+ 10
+9.41
+ 20
+-4.675000000000001
+ 10
+9.41
+ 20
+-5.175000000000001
+ 10
+8.91
+ 20
+-5.175000000000001
+  0
+LWPOLYLINE
+  5
 115
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-6.41
- 20
--4.675000000000001
- 10
-6.91
- 20
--4.675000000000001
- 10
-6.91
- 20
--5.175000000000001
- 10
-6.41
- 20
--5.175000000000001
-  0
-LWPOLYLINE
-  5
-116
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-7.61
- 20
--4.675000000000001
- 10
-8.11
- 20
--4.675000000000001
- 10
-8.11
- 20
--5.175000000000001
- 10
-7.61
- 20
--5.175000000000001
-  0
-LWPOLYLINE
-  5
-117
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-8.91
- 20
--4.675000000000001
- 10
-9.41
- 20
--4.675000000000001
- 10
-9.41
- 20
--5.175000000000001
- 10
-8.91
- 20
--5.175000000000001
-  0
-LWPOLYLINE
-  5
-118
 330
 17
 100
@@ -9345,7 +9259,7 @@ AcDbPolyline
   0
 MTEXT
   5
-119
+116
 330
 17
 100
@@ -9369,7 +9283,7 @@ AcDbMText
   0
 LWPOLYLINE
   5
-11A
+117
 330
 17
 100
@@ -9401,7 +9315,7 @@ AcDbPolyline
   0
 MTEXT
   5
-11B
+118
 330
 17
 100
@@ -9425,7 +9339,7 @@ TV ≤ 50
   0
 LWPOLYLINE
   5
-11C
+119
 330
 17
 100
@@ -9457,7 +9371,7 @@ AcDbPolyline
   0
 MTEXT
   5
-11D
+11A
 330
 17
 100
@@ -9481,7 +9395,7 @@ TV wall
   0
 LWPOLYLINE
   5
-11E
+11B
 330
 17
 100
@@ -9513,7 +9427,7 @@ AcDbPolyline
   0
 MTEXT
   5
-11F
+11C
 330
 17
 100
@@ -9537,7 +9451,7 @@ sofa · faces TV
   0
 LWPOLYLINE
   5
-120
+11D
 330
 17
 100
@@ -9569,7 +9483,7 @@ AcDbPolyline
   0
 MTEXT
   5
-121
+11E
 330
 17
 100
@@ -9593,7 +9507,7 @@ loveseat · faces courtyard
   0
 LWPOLYLINE
   5
-122
+11F
 330
 17
 100
@@ -9625,7 +9539,7 @@ AcDbPolyline
   0
 MTEXT
   5
-123
+120
 330
 17
 100
@@ -9649,7 +9563,7 @@ table
   0
 LWPOLYLINE
   5
-124
+121
 330
 17
 100
@@ -9663,25 +9577,25 @@ AcDbPolyline
  70
 1
  10
-1.1100000000000003
+1.3600000000000003
  20
--12.125
+-12.325
  10
-1.7599999999999998
+2.16
  20
--12.125
+-12.325
  10
-1.7599999999999998
+2.16
  20
--12.575
+-12.875
  10
-1.1100000000000003
+1.3600000000000003
  20
--12.575
+-12.875
   0
 MTEXT
   5
-125
+122
 330
 17
 100
@@ -9691,9 +9605,9 @@ FURNITURE
 100
 AcDbMText
  10
-1.435
+1.7600000000000002
  20
--12.35
+-12.6
  30
 0.0
  40
@@ -9705,7 +9619,7 @@ WC
   0
 LWPOLYLINE
   5
-126
+123
 330
 17
 100
@@ -9719,23 +9633,103 @@ AcDbPolyline
  70
 1
  10
-2.51
+2.46
  20
--13.825
+-12.375
  10
-3.41
+2.76
  20
--13.825
+-12.375
  10
-3.41
+2.76
  20
--14.725000000000001
+-12.875
  10
-2.51
+2.46
  20
--14.725000000000001
+-12.875
   0
 MTEXT
+  5
+124
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbMText
+ 10
+2.61
+ 20
+-12.625
+ 30
+0.0
+ 40
+0.08
+ 71
+5
+  1
+basin
+  0
+LWPOLYLINE
+  5
+125
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2.3599999999999994
+ 20
+-12.325
+ 10
+2.46
+ 20
+-12.325
+ 10
+2.46
+ 20
+-12.975000000000001
+ 10
+2.3599999999999994
+ 20
+-12.975000000000001
+  0
+MTEXT
+  5
+126
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbMText
+ 10
+2.4099999999999997
+ 20
+-12.65
+ 30
+0.0
+ 40
+0.08
+ 71
+5
+  1
+screen
+  0
+LWPOLYLINE
   5
 127
 330
@@ -9745,21 +9739,29 @@ AcDbEntity
   8
 FURNITURE
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-2.96
+4.06
  20
--14.275
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-shower
+-13.125
+ 10
+5.0600000000000005
+ 20
+-13.125
+ 10
+5.0600000000000005
+ 20
+-14.725000000000001
+ 10
+4.06
+ 20
+-14.725000000000001
   0
-LWPOLYLINE
+MTEXT
   5
 128
 330
@@ -9769,29 +9771,21 @@ AcDbEntity
   8
 FURNITURE
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-3.5100000000000002
+4.5600000000000005
  20
--14.225000000000001
- 10
-4.71
- 20
--14.225000000000001
- 10
-4.71
- 20
--14.725000000000001
- 10
-3.5100000000000002
- 20
--14.725000000000001
+-13.925
+ 30
+0.0
+ 40
+0.08
+ 71
+5
+  1
+shower 1.0 × 1.6
   0
-MTEXT
+LWPOLYLINE
   5
 129
 330
@@ -9801,21 +9795,29 @@ AcDbEntity
   8
 FURNITURE
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-4.11
+2.8100000000000005
  20
--14.475000000000001
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-double basin 1.2
+-13.125
+ 10
+3.6100000000000003
+ 20
+-13.125
+ 10
+3.6100000000000003
+ 20
+-13.675
+ 10
+2.8100000000000005
+ 20
+-13.675
   0
-LWPOLYLINE
+MTEXT
   5
 12A
 330
@@ -9825,29 +9827,21 @@ AcDbEntity
   8
 FURNITURE
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-2.51
+3.2100000000000004
  20
--11.825
- 10
-3.56
- 20
--11.825
- 10
-3.56
- 20
--12.225000000000001
- 10
-2.51
- 20
--12.225000000000001
+-13.4
+ 30
+0.0
+ 40
+0.08
+ 71
+5
+  1
+WC
   0
-MTEXT
+LWPOLYLINE
   5
 12B
 330
@@ -9857,30 +9851,6 @@ AcDbEntity
   8
 FURNITURE
 100
-AcDbMText
- 10
-3.035
- 20
--12.025
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-towels · linen
-  0
-LWPOLYLINE
-  5
-12C
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
 AcDbPolyline
  90
 4
@@ -9889,23 +9859,23 @@ AcDbPolyline
  10
 1.0350000000000001
  20
--14.325
+-14.274999999999999
  10
 2.3100000000000005
  20
--14.325
+-14.274999999999999
  10
 2.3100000000000005
  20
--14.925
+-14.725000000000001
  10
 1.0350000000000001
  20
--14.925
+-14.725000000000001
   0
 MTEXT
   5
-12D
+12C
 330
 17
 100
@@ -9917,7 +9887,7 @@ AcDbMText
  10
 1.6725000000000003
  20
--14.625
+-14.5
  30
 0.0
  40
@@ -9925,11 +9895,11 @@ AcDbMText
  71
 5
   1
-wardrobe
+vanity · basin
   0
 LWPOLYLINE
   5
-12E
+12D
 330
 17
 100
@@ -9961,7 +9931,7 @@ AcDbPolyline
   0
 MTEXT
   5
-12F
+12E
 330
 17
 100
@@ -9985,7 +9955,7 @@ desk
   0
 LWPOLYLINE
   5
-130
+12F
 330
 17
 100
@@ -10017,7 +9987,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-131
+130
 330
 17
 100
@@ -10049,7 +10019,7 @@ AcDbPolyline
   0
 MTEXT
   5
-132
+131
 330
 17
 100
@@ -10073,6 +10043,38 @@ bed 1.4 × 2.0
   0
 LWPOLYLINE
   5
+132
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1.6600000000000001
+ 20
+-17.725
+ 10
+2.0600000000000005
+ 20
+-17.725
+ 10
+2.0600000000000005
+ 20
+-18.125
+ 10
+1.6600000000000001
+ 20
+-18.125
+  0
+LWPOLYLINE
+  5
 133
 330
 17
@@ -10087,57 +10089,25 @@ AcDbPolyline
  70
 1
  10
-1.6600000000000001
+3.56
  20
 -17.725
  10
-2.0600000000000005
+3.96
  20
 -17.725
  10
-2.0600000000000005
+3.96
  20
 -18.125
  10
-1.6600000000000001
+3.56
  20
 -18.125
   0
 LWPOLYLINE
   5
 134
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-3.56
- 20
--17.725
- 10
-3.96
- 20
--17.725
- 10
-3.96
- 20
--18.125
- 10
-3.56
- 20
--18.125
-  0
-LWPOLYLINE
-  5
-135
 330
 17
 100
@@ -10169,7 +10139,7 @@ AcDbPolyline
   0
 MTEXT
   5
-136
+135
 330
 17
 100
@@ -10193,7 +10163,7 @@ wardrobe
   0
 LWPOLYLINE
   5
-137
+136
 330
 17
 100
@@ -10225,7 +10195,7 @@ AcDbPolyline
   0
 MTEXT
   5
-138
+137
 330
 17
 100
@@ -10249,7 +10219,7 @@ shower
   0
 LWPOLYLINE
   5
-139
+138
 330
 17
 100
@@ -10281,7 +10251,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13A
+139
 330
 17
 100
@@ -10305,7 +10275,7 @@ WC
   0
 LWPOLYLINE
   5
-13B
+13A
 330
 17
 100
@@ -10337,7 +10307,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13C
+13B
 330
 17
 100
@@ -10361,7 +10331,7 @@ basin
   0
 LWPOLYLINE
   5
-13D
+13C
 330
 17
 100
@@ -10393,7 +10363,7 @@ AcDbPolyline
   0
 MTEXT
   5
-13E
+13D
 330
 17
 100
@@ -10417,7 +10387,7 @@ wardrobe
   0
 LWPOLYLINE
   5
-13F
+13E
 330
 17
 100
@@ -10449,7 +10419,7 @@ AcDbPolyline
   0
 MTEXT
   5
-140
+13F
 330
 17
 100
@@ -10473,6 +10443,38 @@ bed 1.4 × 2.0
   0
 LWPOLYLINE
   5
+140
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1.0350000000000001
+ 20
+-20.375
+ 10
+1.4350000000000005
+ 20
+-20.375
+ 10
+1.4350000000000005
+ 20
+-20.775
+ 10
+1.0350000000000001
+ 20
+-20.775
+  0
+LWPOLYLINE
+  5
 141
 330
 17
@@ -10489,55 +10491,23 @@ AcDbPolyline
  10
 1.0350000000000001
  20
--20.375
+-22.275
  10
 1.4350000000000005
  20
--20.375
+-22.275
  10
 1.4350000000000005
  20
--20.775
+-22.675
  10
 1.0350000000000001
  20
--20.775
+-22.675
   0
 LWPOLYLINE
   5
 142
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-1.0350000000000001
- 20
--22.275
- 10
-1.4350000000000005
- 20
--22.275
- 10
-1.4350000000000005
- 20
--22.675
- 10
-1.0350000000000001
- 20
--22.675
-  0
-LWPOLYLINE
-  5
-143
 330
 17
 100
@@ -10569,7 +10539,7 @@ AcDbPolyline
   0
 MTEXT
   5
-144
+143
 330
 17
 100
@@ -10593,7 +10563,7 @@ wardrobe
   0
 LWPOLYLINE
   5
-145
+144
 330
 17
 100
@@ -10625,7 +10595,7 @@ AcDbPolyline
   0
 MTEXT
   5
-146
+145
 330
 17
 100
@@ -10649,7 +10619,7 @@ desk
   0
 LWPOLYLINE
   5
-147
+146
 330
 17
 100
@@ -10681,7 +10651,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-148
+147
 330
 17
 100
@@ -10713,7 +10683,7 @@ AcDbPolyline
   0
 MTEXT
   5
-149
+148
 330
 17
 100
@@ -10737,7 +10707,7 @@ bed 1.4 × 2.0
   0
 LWPOLYLINE
   5
-14A
+149
 330
 17
 100
@@ -10769,7 +10739,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-14B
+14A
 330
 17
 100
@@ -10801,7 +10771,7 @@ AcDbPolyline
   0
 MTEXT
   5
-14C
+14B
 330
 17
 100
@@ -10825,7 +10795,7 @@ desk
   0
 LWPOLYLINE
   5
-14D
+14C
 330
 17
 100
@@ -10857,7 +10827,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-14E
+14D
 330
 17
 100
@@ -10889,7 +10859,7 @@ AcDbPolyline
   0
 MTEXT
   5
-14F
+14E
 330
 17
 100
@@ -10913,7 +10883,7 @@ wardrobe wall 2.6 m
   0
 LWPOLYLINE
   5
-150
+14F
 330
 17
 100
@@ -10945,7 +10915,7 @@ AcDbPolyline
   0
 MTEXT
   5
-151
+150
 330
 17
 100
@@ -10969,7 +10939,7 @@ WC · shattaf
   0
 LWPOLYLINE
   5
-152
+151
 330
 17
 100
@@ -11001,7 +10971,7 @@ AcDbPolyline
   0
 MTEXT
   5
-153
+152
 330
 17
 100
@@ -11025,7 +10995,7 @@ walk-in shower 1.1 × 1.4 (glass)
   0
 LWPOLYLINE
   5
-154
+153
 330
 17
 100
@@ -11057,7 +11027,7 @@ AcDbPolyline
   0
 MTEXT
   5
-155
+154
 330
 17
 100
@@ -11081,7 +11051,7 @@ freestanding tub 1.7 × 0.75
   0
 LWPOLYLINE
   5
-156
+155
 330
 17
 100
@@ -11113,7 +11083,7 @@ AcDbPolyline
   0
 MTEXT
   5
-157
+156
 330
 17
 100
@@ -11137,7 +11107,7 @@ double vanity 1.6 m · mirror
   0
 LWPOLYLINE
   5
-158
+157
 330
 17
 100
@@ -11169,7 +11139,7 @@ AcDbPolyline
   0
 MTEXT
   5
-159
+158
 330
 17
 100
@@ -11193,7 +11163,7 @@ towels
   0
 LWPOLYLINE
   5
-15A
+159
 330
 17
 100
@@ -11225,7 +11195,7 @@ AcDbPolyline
   0
 MTEXT
   5
-15B
+15A
 330
 17
 100
@@ -11249,7 +11219,7 @@ his wardrobes 3.25 m (sliding)
   0
 LWPOLYLINE
   5
-15C
+15B
 330
 17
 100
@@ -11281,7 +11251,7 @@ AcDbPolyline
   0
 MTEXT
   5
-15D
+15C
 330
 17
 100
@@ -11305,7 +11275,7 @@ her wardrobes 2.1 m (sliding)
   0
 LWPOLYLINE
   5
-15E
+15D
 330
 17
 100
@@ -11337,7 +11307,7 @@ AcDbPolyline
   0
 MTEXT
   5
-15F
+15E
 330
 17
 100
@@ -11361,7 +11331,7 @@ shoes · bags display
   0
 LWPOLYLINE
   5
-160
+15F
 330
 17
 100
@@ -11393,7 +11363,7 @@ AcDbPolyline
   0
 MTEXT
   5
-161
+160
 330
 17
 100
@@ -11417,7 +11387,7 @@ make-up · full mirror
   0
 LWPOLYLINE
   5
-162
+161
 330
 17
 100
@@ -11449,7 +11419,7 @@ AcDbPolyline
   0
 MTEXT
   5
-163
+162
 330
 17
 100
@@ -11473,7 +11443,7 @@ ottoman
   0
 LWPOLYLINE
   5
-164
+163
 330
 17
 100
@@ -11505,7 +11475,7 @@ AcDbPolyline
   0
 MTEXT
   5
-165
+164
 330
 17
 100
@@ -11529,6 +11499,38 @@ king bed 1.8 × 2.0
   0
 LWPOLYLINE
   5
+165
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+11.31
+ 20
+-17.825
+ 10
+11.76
+ 20
+-17.825
+ 10
+11.76
+ 20
+-18.275
+ 10
+11.31
+ 20
+-18.275
+  0
+LWPOLYLINE
+  5
 166
 330
 17
@@ -11543,57 +11545,25 @@ AcDbPolyline
  70
 1
  10
-11.31
+13.66
  20
 -17.825
  10
-11.76
+14.096
  20
 -17.825
  10
-11.76
+14.096
  20
 -18.275
  10
-11.31
+13.66
  20
 -18.275
   0
 LWPOLYLINE
   5
 167
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-13.66
- 20
--17.825
- 10
-14.096
- 20
--17.825
- 10
-14.096
- 20
--18.275
- 10
-13.66
- 20
--18.275
-  0
-LWPOLYLINE
-  5
-168
 330
 17
 100
@@ -11625,7 +11595,7 @@ AcDbPolyline
   0
 MTEXT
   5
-169
+168
 330
 17
 100
@@ -11649,7 +11619,7 @@ wardrobe · entry zone
   0
 LWPOLYLINE
   5
-16A
+169
 330
 17
 100
@@ -11681,7 +11651,7 @@ AcDbPolyline
   0
 MTEXT
   5
-16B
+16A
 330
 17
 100
@@ -11705,7 +11675,7 @@ sitting
   0
 LWPOLYLINE
   5
-16C
+16B
 330
 17
 100
@@ -11737,7 +11707,7 @@ AcDbPolyline
   0
 MTEXT
   5
-16D
+16C
 330
 17
 100
@@ -11761,7 +11731,7 @@ desk 1.6 × 0.8 · faces S
   0
 LWPOLYLINE
   5
-16E
+16D
 330
 17
 100
@@ -11790,6 +11760,38 @@ AcDbPolyline
 12.06
  20
 -24.675
+  0
+LWPOLYLINE
+  5
+16E
+330
+17
+100
+AcDbEntity
+  8
+FURNITURE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+11.61
+ 20
+-25.724999999999998
+ 10
+12.11
+ 20
+-25.724999999999998
+ 10
+12.11
+ 20
+-26.224999999999998
+ 10
+11.61
+ 20
+-26.224999999999998
   0
 LWPOLYLINE
   5
@@ -11807,57 +11809,25 @@ AcDbPolyline
  70
 1
  10
-11.61
+12.41
  20
 -25.724999999999998
  10
-12.11
+12.91
  20
 -25.724999999999998
  10
-12.11
+12.91
  20
 -26.224999999999998
  10
-11.61
+12.41
  20
 -26.224999999999998
   0
 LWPOLYLINE
   5
 170
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-12.41
- 20
--25.724999999999998
- 10
-12.91
- 20
--25.724999999999998
- 10
-12.91
- 20
--26.224999999999998
- 10
-12.41
- 20
--26.224999999999998
-  0
-LWPOLYLINE
-  5
-171
 330
 17
 100
@@ -11889,7 +11859,7 @@ AcDbPolyline
   0
 MTEXT
   5
-172
+171
 330
 17
 100
@@ -11913,7 +11883,7 @@ bookshelves
   0
 LWPOLYLINE
   5
-173
+172
 330
 17
 100
@@ -11945,7 +11915,7 @@ AcDbPolyline
   0
 MTEXT
   5
-174
+173
 330
 17
 100
@@ -11969,7 +11939,7 @@ sofa 1.7
   0
 LWPOLYLINE
   5
-175
+174
 330
 17
 100
@@ -12001,7 +11971,7 @@ AcDbPolyline
   0
 MTEXT
   5
-176
+175
 330
 17
 100
@@ -12025,7 +11995,7 @@ cabinet
   0
 LWPOLYLINE
   5
-177
+176
 330
 17
 100
@@ -12057,7 +12027,7 @@ AcDbPolyline
   0
 MTEXT
   5
-178
+177
 330
 17
 100
@@ -12081,7 +12051,7 @@ TV (office)
   0
 LWPOLYLINE
   5
-179
+178
 330
 17
 100
@@ -12113,7 +12083,7 @@ AcDbPolyline
   0
 MTEXT
   5
-17A
+179
 330
 17
 100
@@ -12137,7 +12107,7 @@ AcDbMText
   0
 LWPOLYLINE
   5
-17B
+17A
 330
 17
 100
@@ -12169,7 +12139,7 @@ AcDbPolyline
   0
 MTEXT
   5
-17C
+17B
 330
 17
 100
@@ -12193,7 +12163,7 @@ armchair
   0
 LWPOLYLINE
   5
-17D
+17C
 330
 17
 100
@@ -12225,7 +12195,7 @@ AcDbPolyline
   0
 MTEXT
   5
-17E
+17D
 330
 17
 100
@@ -12249,7 +12219,7 @@ armchair
   0
 LWPOLYLINE
   5
-17F
+17E
 330
 17
 100
@@ -12281,7 +12251,7 @@ AcDbPolyline
   0
 MTEXT
   5
-180
+17F
 330
 17
 100
@@ -12305,7 +12275,7 @@ table 1.2 × 0.7
   0
 LWPOLYLINE
   5
-181
+180
 330
 17
 100
@@ -12337,7 +12307,7 @@ AcDbPolyline
   0
 MTEXT
   5
-182
+181
 330
 17
 100
@@ -12361,7 +12331,7 @@ tree pot
   0
 LWPOLYLINE
   5
-183
+182
 330
 17
 100
@@ -12393,7 +12363,7 @@ AcDbPolyline
   0
 MTEXT
   5
-184
+183
 330
 17
 100
@@ -12417,7 +12387,7 @@ plant
   0
 LWPOLYLINE
   5
-185
+184
 330
 17
 100
@@ -12449,7 +12419,7 @@ AcDbPolyline
   0
 MTEXT
   5
-186
+185
 330
 17
 100
@@ -12473,7 +12443,7 @@ ladder pilaster · recess + panel
   0
 LWPOLYLINE
   5
-187
+186
 330
 17
 100
@@ -12505,7 +12475,7 @@ AcDbPolyline
   0
 MTEXT
   5
-188
+187
 330
 17
 100
@@ -12529,7 +12499,7 @@ panel open
   0
 LWPOLYLINE
   5
-189
+188
 330
 17
 100
@@ -12561,7 +12531,7 @@ AcDbPolyline
   0
 MTEXT
   5
-18A
+189
 330
 17
 100
@@ -12585,7 +12555,7 @@ treadmill → S
   0
 LWPOLYLINE
   5
-18B
+18A
 330
 17
 100
@@ -12617,7 +12587,7 @@ AcDbPolyline
   0
 MTEXT
   5
-18C
+18B
 330
 17
 100
@@ -12641,7 +12611,7 @@ TV (gym)
   0
 LWPOLYLINE
   5
-18D
+18C
 330
 17
 100
@@ -12673,7 +12643,7 @@ AcDbPolyline
   0
 MTEXT
   5
-18E
+18D
 330
 17
 100
@@ -12697,7 +12667,7 @@ power rack · barbell · pull-up bar
   0
 LWPOLYLINE
   5
-18F
+18E
 330
 17
 100
@@ -12729,7 +12699,7 @@ AcDbPolyline
   0
 MTEXT
   5
-190
+18F
 330
 17
 100
@@ -12753,7 +12723,7 @@ kettlebells
   0
 LWPOLYLINE
   5
-191
+190
 330
 17
 100
@@ -12785,7 +12755,7 @@ AcDbPolyline
   0
 MTEXT
   5
-192
+191
 330
 17
 100
@@ -12809,7 +12779,7 @@ bike
   0
 LWPOLYLINE
   5
-193
+192
 330
 17
 100
@@ -12841,7 +12811,7 @@ AcDbPolyline
   0
 MTEXT
   5
-194
+193
 330
 17
 100
@@ -12865,7 +12835,7 @@ pilates mat 1.8 × 0.6
   0
 LINE
   5
-195
+194
 330
 17
 100
@@ -12889,6 +12859,38 @@ AcDbLine
   0
 LWPOLYLINE
   5
+195
+330
+17
+100
+AcDbEntity
+  8
+MARKS
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+6.56
+ 20
+-10.174999999999999
+ 10
+6.86
+ 20
+-10.174999999999999
+ 10
+6.86
+ 20
+-10.475
+ 10
+6.56
+ 20
+-10.475
+  0
+LWPOLYLINE
+  5
 196
 330
 17
@@ -12905,55 +12907,23 @@ AcDbPolyline
  10
 6.56
  20
--10.174999999999999
+-16.675
  10
 6.86
  20
--10.174999999999999
+-16.675
  10
 6.86
  20
--10.475
+-16.974999999999998
  10
 6.56
  20
--10.475
+-16.974999999999998
   0
 LWPOLYLINE
   5
 197
-330
-17
-100
-AcDbEntity
-  8
-MARKS
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-6.56
- 20
--16.675
- 10
-6.86
- 20
--16.675
- 10
-6.86
- 20
--16.974999999999998
- 10
-6.56
- 20
--16.974999999999998
-  0
-LWPOLYLINE
-  5
-198
 330
 17
 100
@@ -12985,7 +12955,7 @@ AcDbPolyline
   0
 LINE
   5
-199
+198
 330
 17
 100
@@ -13009,7 +12979,7 @@ AcDbLine
   0
 MTEXT
   5
-19A
+199
 330
 17
 100
@@ -13033,7 +13003,7 @@ AcDbMText
   0
 MTEXT
   5
-19B
+19A
 330
 17
 100
@@ -13055,7 +13025,7 @@ AcDbMText
  71
 1
   3
-Taif / Palm House · First floor V8.2 (south wing v2; west projection on an edge beam and three columns; FF west face 0.785 m from the M line)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room out
+Taif / Palm House · First floor V8.3 (south wing v2; west projection on an edge beam and three columns; FF west face 0.785 m from the M line)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room out
   1
 lines on wall centre lines. Generated by tools/make_dxf_ff.py from design_ff.typ, data/rooms_ff.csv, base.typ and the first-floor studies.
   0
@@ -14149,7 +14119,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-19E
+19D
   0
 DICTIONARYVAR
   5
@@ -14161,7 +14131,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-02T22:24:30.157602+00:00
+1.4.5 @ 2026-11-04T06:30:33.043667+00:00
   0
 VISUALSTYLE
   5
@@ -14865,7 +14835,7 @@ X-Ray
   0
 DICTIONARYVAR
   5
-19E
+19D
 330
 2D
 100
@@ -14873,7 +14843,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-02T22:24:30.178609+00:00
+1.4.5 @ 2026-11-04T06:30:33.075130+00:00
   0
 ENDSEC
   0

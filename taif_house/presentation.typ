@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V8.2 · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V8.2_presentation.pdf
+// presentation.typ · Taif / Palm House V8.3 · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V8.3_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V8.2])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V8.3])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -472,7 +472,7 @@
 
       *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the air tower in the cut corner. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall, with a three-arch arcade in the courtyard bay (V7.1).
 
-      *Courtyard (V8.0):* the seating one step down (−0.15) from the colonnade edge to the kitchen wall with three benches and a low table; the outdoor TV in a semicircular honey-stone surround on the kitchen wall with the malqaf grille below it; the north enclosure with a water basin and one tree; no pergola. The kitchen's sink window is at y 7.3–8.9 over the sink. *Outside (V8.1):* the outdoor kitchen at the south-east (the counter against the east wall on the service-door path, the grill and tannour apart in the garden); the yard screen for the bins and the gas.
+      *Courtyard (revised V8.3):* the whole floor level (no step), modern movable sofas and armchairs for 4–6 with a low table facing the outdoor TV in its semicircular honey-stone surround on the kitchen wall (the malqaf grille below it); the water + tree enclosure on the kitchen wall in front of the sink window (y 7.3–8.9): the tree north, a raised water trough south, the view from the sink; gentle falls to linear drains on the rain system; the north side in front of the women's majlis glass free; no pergola. *Outside (V8.3):* the outdoor counter and sink next to the kitchen service door (canopy optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every opening, downwind); the yard screen, the gas cabinet at its north end, the bins north of the door.
     ]
     #ar[
       #ah[الوسط: مجلس النساء والفناء والصالة]
@@ -483,8 +483,8 @@
       المطبخ والغسيل وغرفة الخادمة وحمامها وبرج الهواء (اللوحة 06). مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا شفت شرقي.
       #ah[الأعمدة والرواق]
       #sec.pj.columns أعمدة على x #n2(sec.pj.col-x) (في جدار مجلس النساء الجنوبي، وبين زجاج الفناء والصالة، وفي جدار الصالة الجنوبي) تحمل جسر حافة البروز في الدور الأول (الخط البرتقالي المتقطع)، فيصبح على حافة الفناء رواق بأعمدة وثلاثة أقواس.
-      #ah[الفناء (V8.0)]
-      جلسة منخفضة درجة واحدة (−0.15) من حافة الرواق إلى جدار المطبخ بثلاث مصاطب وطاولة منخفضة، وتلفاز خارجي في إطار حجري نصف دائري على جدار المطبخ تحته فتحة الملقف، وحوض ماء وشجرة في الطرف الشمالي، بلا عريشة. نافذة حوض المطبخ عند y 7.3–8.9.
+      #ah[الفناء (معدل V8.3)]
+      أرضية مستوية بلا درجة، أثاث متحرك عصري لأربعة إلى ستة مع طاولة منخفضة أمام التلفاز الخارجي في إطاره الحجري على جدار المطبخ وتحته فتحة الملقف، والنافورة والشجرة على جدار المطبخ أمام نافذة المغسلة، ومصارف خطية إلى نظام الأمطار؛ والمطبخ الخارجي بجوار باب الخدمة والشواية على بعد ≥ 3 م من الفتحات. وض ماء وشجرة في الطرف الشمالي، بلا عريشة. نافذة حوض المطبخ عند y 7.3–8.9.
     ]
   ],
 )

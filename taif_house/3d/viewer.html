@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V8.2.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V8.3.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
      URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
@@ -65,7 +65,7 @@
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
-<script src="output/taif_house_V8.2.js"></script>
+<script src="output/taif_house_V8.3.js"></script>
 <script>
 (function () {
   const q = new URLSearchParams(location.search);
@@ -81,7 +81,7 @@
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
     $('pergola').checked = !!CH.defaults.pergola; $('sunken').checked = !!CH.defaults.sunken;
-    $('chrnote').textContent = 'V8.2: the main stair flipped (the lower flight rises south off the lobby), the coat cupboard, the larger family bath, the suite court\'s mashrabiya screen, the site elements (paths, the garden wall and hedge, the yard screen, the north parking bay); V8.1: the roof ladder in the suite court (its walnut panel, the stiles above the roof), the attic 1.40 m, the south parapet 0.70 with the set-back guardrail, the outdoor kitchen; V8.0: the courtyard seating one step down, the TV wall, the water / tree enclosure, the suite court v2, the malqaf on its HRV base';
+    $('chrnote').textContent = 'V8.3: the level courtyard with movable seating, the water + tree enclosure in front of the kitchen window, the TV moved south; the outdoor kitchen by the service door and the yard re-planned; bedroom 2\'s en-suite and the family WC; the ground-floor powder room; V8.2: the main stair flipped (the lower flight rises south off the lobby), the coat cupboard, the larger family bath, the suite court\'s mashrabiya screen, the site elements (paths, the garden wall and hedge, the yard screen, the north parking bay); V8.1: the roof ladder in the suite court (its walnut panel, the stiles above the roof), the attic 1.40 m, the south parapet 0.70 with the set-back guardrail, the outdoor kitchen; V8.0: the courtyard seating one step down, the TV wall, the water / tree enclosure, the suite court v2, the malqaf on its HRV base';
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
 
