@@ -114,7 +114,9 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 
 Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. The model is not changed by the day-1 results (every difference within the tolerance); the official survey still has the last word (open item 1).
 
-## 8 · The old house and its annex · البيت القديم وملحقه (next site visit)
+## 8 · The old house, its annex, the covered parking and the water tank · البيت القديم وملحقه والمظلة والخزان (next site visit)
+
+**The owner's answers (5 Nov 2026):** the old house is west of the driveway along the west boundary, as on the deed sketch (confirmed; its corners still to be measured); **the old majlis is part of the old house** (no separate building); the **covered parking for two cars is south of the old house**, west of the driveway; the **existing ground tank is south of the old house, west of the driveway, near peg R** (not in the new house's garden), the reserved tank next to it; the **septic outside the north wall near C1 serves the old house** and takes the new house's drains. Nothing of the farm lies south of the build land.
 
 The scanned deed carries a plan sketch with the old house (a one-storey reinforced-concrete building, *بناء دور مسلح*) and a thin-line annex (*ملحق*, probably the dakka / carport / yard) near plot corner 1 on the west boundary, west of the driveway. They were digitised from the sketch (georeferenced on seven deed corners, rms 1.36 m; checked on the well, 0.84 m, and on D, 1.01 m): **approximate, ± 1–3 m, to be measured on site.** Study: `studies/whole_farm.typ` → `output/whole_farm.pdf`. Model position (design frame): the house envelope ≈ 22.1 × 10.2 m at x −18.2 … −6.0, y 5.6 … 28.5 (the sketch shows an L); the annex ≈ 12.0 × 6.0 m at x −10.8 … −3.8, y 16.6 … 28.7, its south corner about 1 m from D.
 
@@ -133,4 +135,18 @@ Measure each corner by two tapes from the pair given (the pair whose arcs cross 
 
 Also tape the sides as a check: the house W1–W2 22.1, W2–W3 10.2, W3–W4 22.1, W4–W1 10.2 (diagonals 24.3); the annex A1–A2 12.0, A2–A3 6.0, A3–A4 12.0, A4–A1 6.0. Note on site whether the house is an L (the sketch suggests the west part is deeper), where its doors face, and what the annex is (dakka, carport, yard wall). Then the corners are corrected in `data/deed_sketch.csv` and the whole-farm study recompiled.
 
-**Still without data (to be measured when convenient):** the old majlis, the covered parking, the farm parking, the existing water tank (the site plan's "just east of peg R" no longer fits the fitted R: it would be the south garden), the reserved tank's place, the septic (position, inlet level, capacity), the south gate, the workers' house position, the service gate position.
+**The covered parking and the water tank** (owner, 5 Nov 2026: south of the old house, west of the driveway, near peg R; drawn in `studies/site_plan.typ` at the positions below, **assumed sizes**: the parking 5.5 × 5.5 open to the driveway, the tank 3 × 2.5). Measure the parking's four corners (its roof posts or walls at ground level) and the tank's lid centre and fill point; note the tank's size, its pump and where its pipe runs today.
+
+| # | Point | Where (model) | Tape 1 | Tape 2 | Check (third tape) | Measured 1 / 2 / check | Note |
+|---|---|---|---|---|---|---|---|
+| P1 | covered parking, north-east (at the driveway) | x −4.5, y 29.2 | D → 1.64 | M1 → 29.54 | R → 6.72 | | D is beside it: the short tape is decisive |
+| P2 | covered parking, south-east (at the driveway) | x −4.5, y 34.7 | M1 → 34.99 | R → 3.33 | D → 6.88 | | the arcs cross at 89° |
+| P3 | covered parking, south-west | x −10.0, y 34.7 | M1 → 36.11 | R → 8.82 | D → 8.17 | | |
+| P4 | covered parking, north-west | x −10.0, y 29.2 | M1 → 30.86 | R → 10.58 | D → 4.70 | | |
+| K1 | water tank, fill point (north-east corner) | x −4.5, y 35.7 | D → 7.87 | R → 3.38 | M1 → 35.98 | | the arcs cross at 86° |
+| K0 | water tank, lid centre | x −6.0, y 36.95 | D → 9.08 | R → 5.18 | M1 → 37.43 | | |
+| K2 | water tank, south-east corner | x −4.5, y 38.2 | D → 10.36 | R → 4.57 | M1 → 38.46 | | |
+
+Also tape: the parking's sides P1–P2 and P3–P4 (model 5.5), P2–P3 and P4–P1 (5.5), the gap from the old house's south wall to the parking, the gap from the parking to the tank (model 1.0), the tank's length and width, the tank's east side to the driveway's west edge (model 0.55). Where the water truck stands today and where the old house's drain enters the septic (and the septic's lids) also go on the sketch.
+
+**Still without data (to be measured when convenient):** the septic (its position near C1, its lids, its inlet level, its capacity for both houses, the old house's connection), the reserved tank's place beside the existing one, where guests park (the brief's farm parking south of the build land is withdrawn), the south gate, the workers' house position, the service gate position.

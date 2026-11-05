@@ -3,6 +3,9 @@
 // data/deed_sketch.csv (the old house and its annex digitised from the scanned deed site/inputs/Scanned_20190818-1737.pdf, georeferenced on 7 deed corners).
 // Design frame: origin M1 = the gate's east post G′ · y along the M line southwards · x east, square to it. The new house = the room CSVs + shift (design_gf.typ).
 // EVERY OLD BUILDING IS APPROXIMATE (the deed sketch ± 1–3 m; the v3 survey where it says MEASURED); the official survey has the last word.
+// 5 Nov 2026, THE OWNER'S ANSWERS: the old house WEST of the driveway as on the sketch (confirmed); the old majlis is PART OF it; the covered parking (2 cars) and the
+// existing ground tank are SOUTH of the old house, west of the driveway near peg R, the reserved tank next to the existing one; the septic outside the north wall near C1
+// serves the old house; NOTHING of the farm lies south of the build land (the brief's south boxes removed).
 #import "@preview/cetz:0.4.2"
 #import "../design_gf.typ": shift, outline-csv-gf
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.6pt)
@@ -42,15 +45,18 @@
 #let court = ((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(P)
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)).map(P)
 #let west-wall = (house.at(0), house.at(4))
-// without data: drawn dashed, "to be measured" (the approximate positions of studies/site_plan.typ, V8.2–V8.3, where they exist)
+// without data: drawn dotted, "to be measured" (the owner's answers of 5 Nov 2026 placed; the boxes as in studies/site_plan.typ)
+#let carport = (-10.0, 29.2, -4.5, 34.7)      // covered parking, 2 cars, SOUTH of the old house, west of the driveway, open to the driveway
+#let tank-old = (-7.5, 35.7, -4.5, 38.2)      // the existing ground tank, SOUTH of the old house, west of the driveway, near peg R
+#let tank-new = (-11.0, 35.7, -7.5, 38.2)     // the reserved tank next to it, west
+#let septic-box = (-10.5, -1.9, -6.5, 0.5)    // the septic outside the north wall near C1 (it serves the old house)
 #let assumed = (
-  ([old majlis], (20.0, 45.5, 26.0, 49.0)),
-  ([covered parking (2 cars)], (12.5, 42.0, 18.0, 47.0)),
-  ([farm parking (guests)], (-8.0, 41.0, 2.0, 49.0)),
-  ([existing water tank], (0.8, 47.8, 3.8, 50.3)),
-  ([reserved tank], (4.3, 47.8, 7.8, 50.3)),
-  ([existing septic (outside the wall)], (-10.5, -1.9, -6.5, 0.5)),
+  ([covered parking (2 cars, owner 5 Nov 2026)], carport),
+  ([existing tank], tank-old),
+  ([reserved tank], tank-new),
+  ([existing septic (outside the wall)], septic-box),
 )
+#let drv-w = 3.95
 
 // ---------- geometry ----------
 #let dist(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2))
@@ -101,6 +107,10 @@
 #let d-old-drv = calc.min(..old-all.map(A => seg-poly-dist(drv-west, A)))
 #let annex-in-drv = (old-house + annex).filter(p => inside(p, drv)).len()
 #let route-width = d-old-west                                                              // the corridor between the old buildings and the new house's west wall (the driveway + the west strip)
+#let box-pt-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
+#let old-south = calc.max(..(old-house + annex).map(p => p.at(1)))
+#let d-tank-R = box-pt-dist(tank-old, R)
+#let d-tank-house = calc.min(..(tank-old, tank-new).map(b => calc.min(..sample(house).map(p => box-pt-dist(b, p)))))
 #let d-annex-D = calc.min(..annex.map(p => dist(p, D)))
 #let d-well = dist(well, well-sk)
 #let d-old-house-house = poly-dist(old-house, house)
@@ -115,6 +125,7 @@
   ([the annex's south corner lies within 2 m of the fitted dakka corner D (#r2(d-annex-D) m): the sketch and the field agree], d-annex-D < 2.0),
   ([the new house's walls lie inside the buildable envelope], house-in-env),
   ([the old house (deed sketch) is clear of the new house (#r1(d-old-house-house) m), the M line (#r1(d-old-M) m) and the driveway's east edge; its annex touches the driveway's west edge (#r2(d-old-drv) m)], d-old-house-house > 5 and d-old-M > 0),
+  ([the covered parking and the tanks (owner, 5 Nov 2026) lie west of the driveway and south of the old house (y ≥ #r1(old-south)), #r1(tank-old.at(1) - carport.at(3)) m apart, the existing tank #r1(d-tank-R) m from peg R and the tanks #r1(d-tank-house) m from the new house (≥ 5)], (carport, tank-old, tank-new).all(b => b.at(2) <= -drv-w + 1e-9 and b.at(1) >= old-south) and tank-old.at(1) - carport.at(3) >= 0.5 and d-tank-R <= 6 and d-tank-house >= 5),
 )
 #let all-ok = checks.all(c => c.at(1))
 
@@ -178,10 +189,12 @@
     T((-2.0, 12.0), [DRIVEWAY 4.00 m], size: 5.5pt, fill: blue, angle: 90deg)
     T((-2.0, 0.6), [MAIN GATE 4 m], size: 5.5pt, fill: red, anchor: "west", angle: 0deg)
     T((7.5, 17.0), [NEW HOUSE ±0.00\ (V8.3, moved south 4 Nov 2026)], size: 6pt, fill: violet)
-    T((-12.0, 17.0), [OLD HOUSE\ one-storey RC (deed sketch)\ ± 1–3 m, to be measured], size: 5.5pt, fill: brown, angle: -85deg)
+    T((-12.0, 17.0), [OLD HOUSE\ one-storey RC (deed sketch)\ ± 1–3 m, to be measured\ the old majlis INSIDE it (owner)], size: 5.5pt, fill: brown, angle: -85deg)
     T((-7.3, 22.5), [annex / dakka\ (deed sketch)], size: 5pt, fill: brown, angle: -85deg)
-    for (l, b) in assumed { if b.at(3) <= box.at(3) and b.at(1) >= box.at(1) { T(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), [#l\ to be measured], size: 4.5pt, fill: luma(90)) } }
+    for (l, b) in assumed { if b.at(3) <= box.at(3) and b.at(1) >= box.at(1) { T(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), [#l\ to be measured], size: if b.at(2) - b.at(0) < 4 { 3.4pt } else { 4.5pt }, fill: luma(90)) } }
+    T((-7.75, 39.3), [tanks: owner 5 Nov 2026, south of the old house near R], size: 4pt, fill: luma(90))
     T((12.0, 36.8), [illustrative south line (open)], size: 5pt, fill: accent, angle: -10deg)
+    T((10.0, 44.0), [no farm building south of the build land (owner, 5 Nov 2026) · where guests park: to be asked], size: 5pt, fill: luma(110))
     T((19.5, 3.0), [LANE (outside the wall)], size: 5.5pt, angle: -60deg)
     T((-10.0, -1.5), [NORTH STREET], size: 6pt)
     T((-22.0, 10.0), [neighbour (west)], size: 5pt, fill: luma(120), angle: -85deg)
@@ -198,7 +211,8 @@
     T((-2.0, 20.0), [DRIVEWAY], size: 5pt, fill: blue, angle: 90deg)
     T((20.0, 29.0), [palms], size: 5pt, fill: accent, anchor: "west")
     T((D.at(0) - 1.2, D.at(1)), [D], size: 5.5pt, fill: brown, anchor: "east"); T((R.at(0) - 1.2, R.at(1) + 1.0), [R], size: 5.5pt, fill: brown, anchor: "east"); T((S.at(0) + 1.2, S.at(1)), [S], size: 5.5pt, fill: brown, anchor: "west")
-    for (l, b) in assumed { T(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), [#l\ (to be measured)], size: 4.2pt, fill: luma(90)) }
+    for (l, b) in assumed.filter(((l, b)) => b.at(2) - b.at(0) >= 4) { T(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), [#l\ (to be measured)], size: 4.2pt, fill: luma(90)) }
+    T((-7.75, 39.5), [tanks (to be measured)], size: 4.2pt, fill: luma(90))
     T((40.0, 60.0), [FARM PLOT (deed) #r1(a-plot) m²], size: 7pt, fill: ink)
     T((-6.0, 80.0), [south gate: not in the inputs (to be measured)], size: 5pt, fill: luma(90), angle: -85deg)
     T((10.0, -4.5), [NORTH STREET], size: 6pt); T((40.0, 20.0), [LANE], size: 6pt, angle: -55deg); T((-30.0, 70.0), [MAIN ROAD (west)], size: 6pt, angle: -85deg)
@@ -241,12 +255,13 @@
     #text(7pt)[
       - Plot: #r1(a-plot) m² from the 20 corners (deed 7 737.85). Build land to the illustrative south line #r1(area(land)) m²; envelope #r1(area(env)) m².
       - The old house (deed sketch): a one-storey reinforced-concrete building ≈ #r1(dist(old-house.at(0), old-house.at(1))) × #r1(dist(old-house.at(0), old-house.at(3))) m (its envelope; the sketch shows an L) along the west boundary, #r1(d-old-west) m from the new house's west wall, #r1(d-old-M) m from the M line, #r1(d-old-house-house) m from the nearest wall of the new house. Its annex ≈ #r1(dist(annex.at(0), annex.at(1))) × #r1(dist(annex.at(1), annex.at(2))) m touches the driveway's west edge (#r2(d-old-drv) m; the field check puts the dakka 1.5 m clear: the sketch is ± 1–3 m); its south corner #r2(d-annex-D) m from D.
-      - The route to the old majlis (assumed position) passes between the old buildings and the new house: the narrowest clear width is the driveway's #r2(3.95) m plus the west strip, #r1(route-width) m from the annex to the new house's west wall.
+      - The old majlis is PART OF the old house (owner, 5 Nov 2026): the guests' route to it is the driveway from the gate to the old house, #r2(drv-w) m wide, #r1(route-width) m from the annex to the new house's west wall; the new house's paths are not touched.
+      - The covered parking (2 cars) and the existing ground tank are SOUTH of the old house, west of the driveway, near peg R (owner, 5 Nov 2026; the tank #r1(d-tank-R) m from R, the reserved tank west of it, #r1(tank-old.at(1) - carport.at(3)) m between the parking and the tanks, the tanks #r1(d-tank-house) m from the new house); the septic outside the north wall near C1 serves the old house. Nothing of the farm lies south of the build land: the brief's south boxes are withdrawn.
       - The palms #r1(palms-house.dist-poly.at(0)) / #r1(palms-house.dist-poly.at(1)) m from the new house; the well #r1(d-well-house) m (ring edge); the service gate #r1(d-sgate-house) m.
     ]
     #v(4pt)
     #text(9pt, weight: "bold", fill: accent)[To be measured on site] \
-    #text(7pt)[the old house's and the annex's corners (W1–W4, A1–A4: the field sheet in `docs/SITE_SETOUT.md` § 8); the old majlis; the covered parking; the farm parking; the existing water tank and the reserved tank's place; the septic (position, inlet, capacity); the south gate; the workers' house position; the service gate position. Peg S lies #r1(dist(S, T2) - 0.265) m from palm 2's trunk: check it on site.]
+    #text(7pt)[the old house's and the annex's corners (W1–W4, A1–A4), the covered parking's corners (P1–P4) and the tank's lid / fill point (K0, K1): the field sheet in `docs/SITE_SETOUT.md` § 8; the reserved tank's place; the septic (position, lids, inlet level, capacity for both houses, the old house's connection); where guests park; the south gate; the workers' house position; the service gate position. Peg S lies #r1(dist(S, T2) - 0.265) m from palm 2's trunk: check it on site.]
   ],
 )
 
@@ -274,9 +289,9 @@
     #text(7pt)[
       - *The new house, the driveway and the paths:* no. The old house is #r1(d-old-west) m west of the new house's west wall and #r1(d-old-M) m west of the M line; the driveway (x −3.95 … 0) runs between them and keeps its 3.95 m; the guest path on the driveway's east edge and the fire vehicle's stand are unaffected. The annex's east edge sits on the driveway's west edge (#r2(d-old-drv) m): within the sketch's tolerance; the field check gives the dakka 1.5 m clear.
       - *The service yard, the garden, the outdoor kitchen:* all on the east and south; nothing of the old house reaches them.
-      - *The site plan's "farm beyond the plot" (V8.2):* it placed the old house SOUTH of the build land (y 42–49) with the covered parking, the farm parking and the tank beside it. The deed sketch puts the old house WEST of the driveway (y 5.6–28.5). Either the sketch's building is the "old house" of the brief, or there is a second building in the south: *the owner must say which*; until then the south items stay dotted ("to be measured") and the old-house box of the site plan follows the deed sketch.
-      - *Peg R (v2: least-squares fitted at x #r2(R.at(0)), y #r2(R.at(1))):* the site plan assumed R at y 48.5 and drew the existing tank "just east of peg R". East of the fitted R is the south garden (y 34–36), 5 m from the new house's south-west corner: the tank's real position must be measured before the garden and the soakaways are fixed.
-      - *Corner C1:* the deed puts the plot's north-west corner at x #r2(plot.at(0).at(0)), 10 m further west than the site plan's C1 (−6.5); the septic "near C1" is therefore approximate: to be measured.
+      - *The owner's answers (5 Nov 2026):* the old house is WEST of the driveway as on the deed sketch (confirmed; its corners still to be measured); the old majlis is PART OF it (no separate building); the covered parking for two cars and the existing ground tank are SOUTH of the old house, west of the driveway near peg R (the tank is NOT in the new house's garden; the reserved tank goes next to it, west); the septic outside the north wall near C1 serves the old house and takes the new house's drains (site plan page 4: the route, #r1(37.9) m from the yard's chamber, the falls, a chamber at every bend, the driveway crossed once; its capacity for both houses, its inlet level and a pump are flagged for the engineer and the survey). Nothing of the farm lies south of the build land: the brief's south boxes (old house, parking, tank, farm parking) are withdrawn. *Where guests park is to be asked.*
+      - *The carport and the tanks against each other and the new house:* #r1(tank-old.at(1) - carport.at(3)) m between the carport and the tanks (no clash); the car route gate → driveway → a right turn into the carport (open to the east) is the owner's existing one; the water truck stands on the driveway beside the tanks; the tanks #r1(d-tank-house) m from the new house; the supply pipe crosses the driveway once (y 36.5) to the guest path band and the utility room.
+      - *Corner C1:* the deed puts the plot's north-west corner at x #r2(plot.at(0).at(0)), 10 m further west than the site plan's old C1 (−6.5); the septic "near C1" stays approximate: to be measured (its lids, its inlet level).
     ]
     #v(3pt)
     #text(7pt, fill: gray)[Whole-farm study #if all-ok [checks passed] else [CHECKS FAILED] (#checks.len()): #checks.map(c => c.at(0)).join([ · ]).]

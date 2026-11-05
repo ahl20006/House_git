@@ -397,9 +397,9 @@
 // ---------- round 2 uses the site plan's corrected positions (site frame: the house = CSV + (0.91, 5.063); 4 Nov 2026: the house 1.238 m further south) ----------
 #let S(p) = (p.at(0) + 0.91, p.at(1) + 5.063)
 #let septic = (-10.5, -1.9, -6.5, 0.5)
-#let tank-old = (0.8, 47.8, 3.8, 50.3)
+#let tank-old = (-7.5, 35.7, -4.5, 38.2)         // 5 Nov 2026 (owner): south of the old house, west of the driveway near peg R (copied from studies/site_plan.typ)
 #let sep-rule = (septic-well: 30.0, septic-tank: 15.0, drain-pipe: 1.5, tank-house: 5.0)
-#let inv-septic = -1.20                        // from studies/site_plan.typ (computed there; copied; 4 Nov 2026: the main 1.24 m longer)
+#let inv-septic = -1.23                        // from studies/site_plan.typ (computed there; copied; 5 Nov 2026: the chamber at the wall added, the main 37.9 m)
 #let pbox-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
 #let ground-gate = -0.40
 
@@ -601,7 +601,7 @@
     #H[A2 · The site drainage corrected (summary of the site plan, page 4)]
     - *The septic* is *outside the farm wall near corner C1* (north-west, the north street), approximate; the foul drains of both clusters run *north and west*: the east main from the yard's foul chamber round the cut wall, along the north strip's north edge to the *collector chamber inside the gate*; the west branch from the driveway's west chamber (the west run now falls *north* inside the house); then under the wall west of the gate's post to the septic.
     - *Falls (assumed):* the main at 1 %, the branches 1.5 %, 0.03 m through each chamber → the septic's inlet at #r2(inv-septic) below the house floor, ≈ #r2(ground-gate - inv-septic) m below the ground at the gate: *the septic's inlet level must be surveyed*; if it is higher, a packaged pump station at the collector chamber (flagged).
-    - *The tanks:* the existing one east of peg R, the reserved future tank beside it, ≥ #r1(sep-rule.tank-house) m from the house (#r1(pbox-dist(tank-old, S((0, 24)))) m); the water pipe ≥ #r1(sep-rule.drain-pipe) m from the foul drains on the driveway; the septic ≥ #r1(sep-rule.septic-tank) m from the tanks and ≥ #r1(sep-rule.septic-well) m from the well (rules assumed, to confirm by the engineer).
+    - *The tanks:* the existing one SOUTH of the old house, west of the driveway near peg R (owner, 5 Nov 2026), the reserved future tank beside it (west), the supply pipe across the driveway, ≥ #r1(sep-rule.tank-house) m from the house (#r1(pbox-dist(tank-old, S((0, 24)))) m); the water pipe ≥ #r1(sep-rule.drain-pipe) m from the foul drains on the driveway; the septic ≥ #r1(sep-rule.septic-tank) m from the tanks and ≥ #r1(sep-rule.septic-well) m from the well (rules assumed, to confirm by the engineer).
   ],
 )
 
@@ -749,7 +749,7 @@
     + *A1:* the suite bath as *(b)* (service wall, wall-hung WC and vanity, wall-drain channel, the tub on a plinth with an AAV): accepted? The one local opening (the channel body) accepted as the compromise?
     + *A3:* the east stack *external behind removable cladding* (not the internal duct): accepted?
     + *A2:* the rain system separate with two soakaways and surface overflows; the condensate by tundishes and trapped air-breaks: noted.
-    + *A0:* the septic's position near C1 and the tanks east of peg R to be measured; the *septic's inlet level* decides whether a pump station is needed at the gate's collector chamber; the municipality's consent for the septic outside the wall.
+    + *A0:* the septic's position near C1 (it serves the old house: its capacity for both houses) and the tanks south of the old house west of the driveway to be measured; the *septic's inlet level* decides whether a pump station is needed at the gate's collector chamber; the municipality's consent for the septic outside the wall.
     + The monthly maintenance list (the rarely used drains, the tower sump, the tundishes) accepted as a duty, or trap primers everywhere (more pipe, no duty)?
     #v(4pt)
     #text(8pt)[#if all-ok and all-ok2 [*Study checks passed* (#(checks.len() + checks2.len()): round 1 #checks.len(), round 2 #checks2.len())] else [*STUDY CHECKS FAILED:* #(checks + checks2).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]
