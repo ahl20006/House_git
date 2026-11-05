@@ -4,7 +4,7 @@
 // Design frame: origin = peg M1 (the gate's east post) · y = metres along the M line, southwards · x = metres square to the M line, east (towards the lane).
 // Field instructions: docs/SITE_SETOUT.md. Concept only – not for permit.
 #import "@preview/cetz:0.4.2"
-#import "../base.typ": land, env, drv, lane, nwall, T1, T2, north
+#import "../base.typ": land, env, drv, lane, nwall, T1, T2, north, D, R, S as peg-S
 #import "../design_gf.typ": shift, outline-csv-gf
 
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -26,11 +26,11 @@
 
 // ---------- Reference points on site (4 Nov 2026) ----------
 #let M1 = (0.0, 0.0)             // the gate's east post: the origin
-#let D  = (-5.49, 27.89)         // the dakka corner (field check 3 Oct 2026)
+// D (the dakka's south corner), R and S come from base.typ: the v2 field check's least-squares fit (5 Nov 2026: R and S are reference points, no longer the +/- 2 m helpers of v1)
 #let M4 = (0.0, 28.8)            // the old peg M4 on the M line, to re-establish from M1 and D (M2–M4 are gone)
-#let R  = (0.0, 48.5)            // helper peg R: ASSUMED on the M line's extension at the farm parking (studies/site_plan.typ); check only
 #let r-palm = 0.265              // the palms' trunk radius (base.typ)
 #let refs = (("M1", M1), ("D", D))
+#let refs2 = (("R", R), ("S", peg-S))   // the second pair of reference points (v2 fit): checks of every corner
 
 // ---------- Geometry helpers ----------
 #let dist(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2))
@@ -160,8 +160,7 @@
   for (n, p) in (("M1", M1), ("M4", M4)) { rect(q(p.at(0) - 0.3, p.at(1) - 0.3), q(p.at(0) + 0.3, p.at(1) + 0.3), fill: accent, stroke: none); lab((-0.5, p.at(1)), text(weight: "bold", n), size: 5.6pt, fill: accent, anchor: "east") }
   circle(q(..D), radius: 0.3, fill: brown, stroke: none)
   lab((D.at(0) - 0.5, D.at(1)), text(weight: "bold")[D], size: 5.8pt, fill: brown, anchor: "east")
-  circle(q(..R), radius: 0.3, fill: none, stroke: 0.8pt + brown)
-  lab((R.at(0) + 0.5, R.at(1) - 0.2), [R (assumed)], size: 5.2pt, fill: brown, anchor: "west")
+  for (n, p) in refs2 { circle(q(..p), radius: 0.3, fill: brown, stroke: none); lab((p.at(0) + 0.5, p.at(1) - 0.2), text(weight: "bold", n), size: 5.6pt, fill: brown, anchor: "west") }
   for (p, n) in ((T1, [palm 1]), (T2, [palm 2])) {
     circle(q(..p), radius: r-palm, fill: accent, stroke: none)
     lab((p.at(0) + 0.6, p.at(1)), text(weight: "bold", n), size: 5.8pt, fill: accent, anchor: "west")
@@ -272,11 +271,19 @@
     [M4 → palm 2 trunk face], [*#f2(dist(M4, T2) - r-palm)*], [], [],
     [Tightest point on #edge-wall: M1 → / D →], [*#f2(edge-from.at(0).at(1)) / #f2(edge-from.at(1).at(1))*], [], [],
     [  from it square to the lane wall (stop below #f2(lane-stop))], [*#f2(edge-lane)*], [], [],
-    [R (assumed) → B5 / B4], [#f2(dist(R, building.at(4))) / #f2(dist(R, building.at(3))) (approx.)], [], [],
-    [R (assumed) → palm 1 / palm 2 trunk face], [#f2(dist(R, T1) - r-palm) / #f2(dist(R, T2) - r-palm) (approx.)], [], [],
+    [R → palm 1 / palm 2 trunk face], [*#f2(dist(R, T1) - r-palm) / #f2(dist(R, T2) - r-palm)*], [], [],
+    [S → palm 1 / palm 2 trunk face], [*#f2(dist(peg-S, T1) - r-palm) / #f2(dist(peg-S, T2) - r-palm)*], [], [],
+    [M1 → R / D → R · M1 → S / D → S · R → S], [#f2(dist(M1, R)) / #f2(dist(D, R)) · #f2(dist(M1, peg-S)) / #f2(dist(D, peg-S)) · #f2(dist(R, peg-S))], [], [],
   )),
 )
 #v(4pt)
-#text(7pt, fill: gray)[Margin = distance to the nearest setback line or the south line (the M line has no setback, so a wall on it is fine): positive = inside by that much; negative = outside. Palms: trunk radius #f2(r-palm) m. Peg R is assumed (not in the project files): measure from it to the nearest corners and both palms and record; peg S likewise. Tolerances: the concept accepts ± 0.1 m on a corner and ± 0.3 m on the palms; the official survey fixes the wall faces. Source: base.typ (site baseline v2, field check 3 Oct 2026), design_gf.typ (the house).]
+#text(8pt, table(
+  columns: (12mm, 30mm, 30mm, 1fr, 1fr), stroke: 0.4pt + rgb("#9aa39f"), inset: 4pt, align: horizon,
+  fill: (_, y) => if y == 0 { rgb("#e1e9e3") },
+  table.header([*Corner*], [*Tape 3 (R → m)*], [*Tape 4 (S → m)*], [*Measured on site*], [*Notes*]),
+  ..building.enumerate().map(((i, p)) => ([*B#(i + 1)*], [R → *#f2(dist(p, R))*], [S → *#f2(dist(p, peg-S))*], [], [])).flatten(),
+))
+#v(3pt)
+#text(7pt, fill: gray)[Margin = distance to the nearest setback line or the south line (the M line has no setback, so a wall on it is fine): positive = inside by that much; negative = outside. Palms: trunk radius #f2(r-palm) m. R and S are the v2 field check's fitted pegs (03 Oct 2026, rms 0.27 m): usable as reference points; the R / S tapes check every corner set from M1 and D. Tolerances: the concept accepts ± 0.1 m on a corner and ± 0.3 m on the palms; the official survey fixes the wall faces. Source: base.typ (site baseline v2, field check 3 Oct 2026), design_gf.typ (the house).]
 #v(2pt)
 #text(6.5pt, fill: gray)[Set-out sheet checks: status #status · tightest point #f2(edge-m) m on #edge-wall · B1 from M1 #f2(b1-m1) m · palms #f2(palm-check(T1)) / #f2(palm-check(T2)) m from the walls.]

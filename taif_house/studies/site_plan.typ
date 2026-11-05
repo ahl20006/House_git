@@ -4,7 +4,7 @@
 // EVERY SITE POSITION HERE IS PROPOSED, TO CONFIRM WITH THE OFFICIAL SURVEY AND THE ENGINEERS. No system is designed: positions, routes and rules only.
 // Site frame (base.typ): origin = peg M1 = the main gate's east post; y along the M line southwards; x east. The house = the CSV frame + (0.91, 5.063) (4 Nov 2026: the owner moved the house 1.238 m south on site, B1 5.00 m from M1).
 #import "@preview/cetz:0.4.2"
-#import "../base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, dist, seg-dist, edges, ray
+#import "../base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, dist, seg-dist, edges, ray, C1, R, S as peg-S, well, site-pts
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.2pt)
 #let ink = rgb("#3d4a45")
@@ -76,16 +76,16 @@
 #let manhole-e = S((14.3, 13.5))                                     // the east-yard FOUL chamber (kitchen, laundry, maid bath, the suite stack): at the yard's south end; rain NEVER enters it (3 Nov 2026)
 #let rain-ch = (15.7, 17.138)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system
 // ---------- 4 · Utilities (positions approximate, to be measured on site; 3 Nov 2026: the owner's information on the septic and the tank) ----------
-#let C1 = (-6.5, 1.2)                                                 // corner C1: the plot's north-west corner on the north street (drawn at the north wall's west end in base.typ; exact position from the survey)
+// corner C1: the plot's north-west corner on the north street: from base.typ (5 Nov 2026: the deed, x −16.70; the site plan had assumed −6.5)
 #let septic = (-10.5, -1.9, -6.5, 0.5)                               // EXISTING septic tank: OUTSIDE the farm wall near C1, under the street side (owner); approximate, to be measured on site; capacity, condition and inlet level for the engineer
 #let septic-in = (-6.5, -0.7)                                         // its inlet (assumed at its east end, facing the gate)
 #let wall-x = ((-5.0, 1.2 - 2.79 * (1.5 / 15.14)))                    // where the drain crosses UNDER the boundary wall (west of the gate's west post)
-#let pegR = (0.0, 48.5)                                               // peg R: assumed on the M line's extension at the farm parking, south of the old house (NOT in the project files: from the survey)
-#let tank-old = (0.8, 47.8, 3.8, 50.3)                               // EXISTING ground tank (in use): just EAST of peg R, south of the old house (owner); approximate, to be measured
+#let pegR = R                                                         // peg R: 5 Nov 2026 from base.typ (v2: least-squares fitted at x −1.19, y 35.05; the site plan had assumed (0, 48.5) at the farm parking)
+#let tank-old = (0.8, 47.8, 3.8, 50.3)                               // EXISTING ground tank (in use): "just EAST of peg R, south of the old house" (owner); approximate, to be measured. 5 Nov 2026: with the fitted R (y 35) "east of R" would be the south garden, 5 m from the house: the position is UNRESOLVED, kept here until measured
 #let tank-new = (4.3, 47.8, 7.8, 50.3)                               // RESERVE: the future tank 3.5 × 2.5 × 2.0 (≈ 17 m³) NEXT TO the existing one (not under the north strip any more)
 #let fill-pt = (-2.0, 48.5)                                           // the water truck stands on the driveway's end beside the tanks
 #let pipe-old = ((0.8, 48.0), (-0.6, 48.0), (-0.6, 14.138), (0.9, 14.138))   // the supply pipe from the tanks to the utility room: under the guest path band on the driveway's east edge (assumed route)
-#let well = (-7.0, 45.0)                                             // EXISTING well, position assumed (the survey)
+// the well: from base.typ (5 Nov 2026: v3 survey, x −4.63, y 64.11; the site plan had assumed (−7, 45))
 // foul drainage (3 Nov 2026): both clusters → inspection chambers → NORTH and WEST to the septic near C1, under the boundary wall west of the gate
 #let ch-w = (-2.4, 15.738)                                              // the west chamber on the driveway (the west wash block's run, which now falls NORTH inside the house and leaves under the west wall at the hospitality kitchen)
 #let ch-ne = (16.0, 11.438)                                             // the east strip's chamber under the workers' path (the bend round the cut wall)
@@ -185,11 +185,12 @@
   if full {
     // the farm beyond the plot (assumed: old house, its covered parking, the farm parking, the old majlis, the well, the septic, the tank)
     line(q((-9, 40.5)), q((30, 40.5)), stroke: (paint: luma(150), thickness: 0.5pt, dash: "dashed")); T((10, 41.3), [the farm beyond the plot · ASSUMED positions, from the survey], size: 3.2pt, fill: luma(110))
-    R((4.0, 42.0, 12.0, 49.0), stroke: dotted(ink)); T((8.0, 45.5), [OLD HOUSE (existing)], size: 3.2pt, fill: luma(90))
+    R((4.0, 42.0, 12.0, 49.0), stroke: dotted(red)); T((8.0, 45.5), [old house as the brief placed it:\ NOT here per the deed sketch (5 Nov 2026)], size: 2.8pt, fill: red)
+    poly(site-pts("old house pt"), stroke: (paint: rgb("#8a5a2b"), thickness: 0.8pt, dash: "dashed")); poly(site-pts("old house annex pt"), stroke: (paint: rgb("#8a5a2b"), thickness: 0.6pt, dash: "dashed")); T((-12.0, 17.0), [OLD HOUSE (deed sketch,\ ± 1–3 m, to be measured)], size: 3.0pt, fill: rgb("#8a5a2b"), angle: -85deg)
     R((12.5, 42.0, 18.0, 47.0), stroke: dotted(ink)); T((15.25, 44.5), [covered family parking\ (2 cars, existing, stays)], size: 3pt, fill: luma(90))
     R((-8.0, 41.0, 2.0, 49.0), stroke: dotted(ink)); T((-3.0, 45.0), [FARM PARKING (existing)\ guests park here], size: 3.2pt, fill: luma(90))
     R((20.0, 45.5, 26.0, 49.0), stroke: dotted(ink)); T((23.0, 47.2), [old majlis (existing)], size: 3pt, fill: luma(90))
-    circle(q(well), radius: 0.5, stroke: dotted(blue)); T((well.at(0), well.at(1) + 1.3), [well (existing, position?)], size: 2.8pt, fill: blue)
+    if well.at(1) <= 50 { circle(q(well), radius: 2.5, stroke: dotted(blue)); T((well.at(0), well.at(1) + 3.6), [well (v3 survey, ring 5 m)], size: 2.8pt, fill: blue) } else { T((well.at(0), 49.6), [well: #r1(well.at(1)) m south of M1 (v3 survey), off this sheet ↓], size: 2.8pt, fill: blue) }
   }
   // the house
   poly(house, fill: rgb("#f3efe4"), stroke: 1.1pt + ink); poly(court, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue); poly(scourt, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue)
@@ -220,7 +221,7 @@
     line(..pipe-old.map(q), stroke: (paint: blue, thickness: 1pt, dash: "dashed")); T((-1.2, 20.0), [water pipe → utility room], size: 2.6pt, fill: blue, angle: 90deg)
     R(tank-old, fill: rgb("#d6e2ee"), stroke: dotted(blue)); T((2.3, 49.05), [EXISTING tank (in use)\ east of peg R · approx.], size: 2.6pt, fill: blue)
     R(tank-new, fill: rgb("#bcd9ea"), stroke: 0.7pt + blue); T((6.05, 49.05), [RESERVE: future tank\ 3.5 × 2.5 × 2.0 ≈ 17 m³], size: 2.6pt, fill: blue); circle(q(fill-pt), radius: 0.3, fill: blue, stroke: none); T((-2.0, 47.6), [truck fill], size: 2.6pt, fill: blue)
-    circle(q(pegR), radius: 0.2, fill: red, stroke: none); T((-0.5, 48.5), [R (assumed)], size: 2.6pt, fill: red, anchor: "east")
+    circle(q(pegR), radius: 0.2, fill: red, stroke: none); T((pegR.at(0) - 0.5, pegR.at(1)), [R (v2 fit)], size: 2.6pt, fill: red, anchor: "east"); circle(q(peg-S), radius: 0.2, fill: red, stroke: none); T((peg-S.at(0) + 0.5, peg-S.at(1)), [S (v2 fit)], size: 2.6pt, fill: red, anchor: "west")
     for P in sewer { line(..P.map(q), stroke: (paint: rgb("#8a5a2b"), thickness: 1.1pt, dash: "dashed"), mark: (end: ">", fill: rgb("#8a5a2b"), scale: 0.45)) }
     for (p, l, a) in ((manhole-e, [foul CH east #r2(inv-mh-e)], "west"), (ch-ne, [CH #r2(inv-ne)], "west"), (ch-n, [CH #r2(inv-n)], "west"), (ch-w, [CH west #r2(inv-ch-w)], "east"), (ch-gate, [collector CH #r2(inv-gate)\ (pump station if needed)], "east")) { circle(q(p), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#8a5a2b")); T((p.at(0) + (if a == "west" { 0.5 } else { -0.5 }), p.at(1)), l, size: 2.5pt, fill: rgb("#8a5a2b"), anchor: a) }
     circle(q(rain-ch), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#1f7a99")); T((rain-ch.at(0) + 0.5, rain-ch.at(1)), [rain CH], size: 2.5pt, fill: rgb("#1f7a99"), anchor: "west"); line(q(court-out), q(rain-ch), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); line(q(rain-ch), q(soak-e), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted"))

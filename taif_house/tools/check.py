@@ -68,6 +68,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("design_ff.typ", OUTPUT / "design_ff.pdf", ["All checks passed", "matches the two studies room for room"]),
     ("studies/site_test.typ", OUTPUT / "site_test.pdf", []),
     ("studies/setout_v83.typ", OUTPUT / "setout_v83.pdf", ["Set-out sheet checks: status OK"]),   # 4 Nov 2026: the set-out sheet (the status from the tightest point on ANY wall); site_test.typ is superseded
+    ("studies/whole_farm.typ", OUTPUT / "whole_farm.pdf", ["Whole-farm study checks passed"]),   # 5 Nov 2026: the whole farm on the site baseline v2 (data/site_v2.csv) with the old buildings from the deed sketch
     ("studies/guest_wing.typ", OUTPUT / "guest_wing.pdf", ["All rooms inside the block, no overlaps, no gaps"]),
     ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", ["All rooms inside the block, no overlaps"]),
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", ["All rooms inside the zone"]),

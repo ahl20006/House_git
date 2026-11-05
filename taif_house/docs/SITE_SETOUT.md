@@ -16,8 +16,11 @@ Two tapes from two fixed points: swing each tape and draw its arc on the ground;
 |---|---|---|---|
 | **M1** | the main gate's east post | 0.00, 0.00 | the origin: every tape 1 starts here |
 | **D** | the dakka corner | −5.49, 27.89 | every tape 2 starts here |
-| **R**, **S** | helper pegs (approximate; R assumed on the M line's extension at the farm parking) | R ≈ 0.00, 48.5; S not in the model | check only: measure, record, do not set out from them |
+| **R** | reference peg R (v2 field check, least-squares fitted: a reference point, no longer the ± 2 m helper of v1) | −1.19, 35.05 (on the driveway, 8.35 m from D) | tapes 3 from R check every corner; also usable for setting out |
+| **S** | reference peg S (v2 field check, least-squares fitted) | 16.27, 34.48 (in the build land, 5.5 m from palm 2) | tapes 4 from S check every corner |
 | M2, M3, M4 | the old pegs on the M line | gone | M4 is re-established in step 3 |
+
+Tape distances between the reference points (model): M1 → D 28.43 · M1 → R 35.07 · D → R 8.35 · M1 → S 38.13 · D → S 22.74 · R → S 17.47. Source: `data/site_v2.csv` (the site baseline v2 in the design frame, written by `tools/site_frame.py`).
 
 ## 3 · Base check · الفحص الأساسي
 
@@ -36,6 +39,18 @@ Verified against the sheet: every value equal.
 | **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.03 | **18.10** | **26.03** |
 | **B4** | south-east corner | 14.35 | 29.19 | **32.52** | **19.88** |
 | **B5** | south-west corner | 0.79 | 29.19 | **29.20** | **6.41** |
+
+Check tapes from R and S (v2 fitted pegs; use them to confirm every corner set from M1 and D):
+
+| Corner | from R | from S |
+|---|---|---|
+| B1 | 30.17 | 33.35 |
+| B2 | 32.49 | 30.00 |
+| B3 | 28.60 | 23.52 |
+| B4 | 16.60 | 5.63 |
+| B5 | 6.18 | 16.36 |
+
+R → palm 1 / palm 2 trunk face 22.62 / 22.54; S → palm 1 / palm 2 trunk face 7.47 / 5.49.
 
 | Side | m | | Diagonal | m |
 |---|---|---|---|---|
@@ -82,10 +97,10 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 | 16 | M4 → palm 2 trunk face | | 21.34 | | still to do (± 0.3; the brief's 21.35) |
 | 17 | Tightest point from M1 / from D | | 16.25 / 26.53 | | still to do |
 | 18 | Tightest point square to the lane wall | | 2.97 | | still to do; stop below 2.00 |
-| 19 | R → B5 / B4 | | 19.33 / 24.06 (approx.) | | still to do; R assumed |
-| 20 | R → palm 1 / palm 2 | | 28.73 / 26.83 (approx.) | | still to do; R assumed |
-| 21 | S → nearest corners | | — | | record |
-| 22 | S → palm 1 / palm 2 | | — | | record |
+| 19 | R → B5 / B4 | | 6.18 / 16.60 | | still to do (5 Nov 2026: R is the v2 fitted peg, not the assumed one) |
+| 20 | R → palm 1 / palm 2 | | 22.62 / 22.54 | | still to do |
+| 21 | S → B4 / B3 | | 5.63 / 23.52 | | still to do (5 Nov 2026: S is the v2 fitted peg) |
+| 22 | S → palm 1 / palm 2 | | 7.47 / 5.49 | | still to do |
 
 **Corrections made on site (lessons) · دروس اليوم الأول**
 
@@ -95,6 +110,27 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 - **B2:** B2 → B3 then read 7.50 m (+0.57); B2 re-set from B1 10.25 m and B3 6.93 m; then B2 → B5 = 26.33 m exact.
 - The lesson behind all four: two arcs cross twice and a near-tangent crossing is vague; a corner is only set when a third distance or a diagonal confirms it (section 1).
 
-**Status:** all five corners set and checked; the outline is on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the tightest-point check, the R and S check distances, photos.
+**Status:** all five corners set and checked; the outline is on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the tightest-point check, the R and S check distances (rows 19–22), the old house (§ 8), photos.
 
 Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. The model is not changed by the day-1 results (every difference within the tolerance); the official survey still has the last word (open item 1).
+
+## 8 · The old house and its annex · البيت القديم وملحقه (next site visit)
+
+The scanned deed carries a plan sketch with the old house (a one-storey reinforced-concrete building, *بناء دور مسلح*) and a thin-line annex (*ملحق*, probably the dakka / carport / yard) near plot corner 1 on the west boundary, west of the driveway. They were digitised from the sketch (georeferenced on seven deed corners, rms 1.36 m; checked on the well, 0.84 m, and on D, 1.01 m): **approximate, ± 1–3 m, to be measured on site.** Study: `studies/whole_farm.typ` → `output/whole_farm.pdf`. Model position (design frame): the house envelope ≈ 22.1 × 10.2 m at x −18.2 … −6.0, y 5.6 … 28.5 (the sketch shows an L); the annex ≈ 12.0 × 6.0 m at x −10.8 … −3.8, y 16.6 … 28.7, its south corner about 1 m from D.
+
+Measure each corner by two tapes from the pair given (the pair whose arcs cross nearest to a right angle) and confirm with the third distance. Mark the corners at the outer wall face at ground level.
+
+| # | Corner | Where | Tape 1 | Tape 2 | Check (third tape) | Measured 1 / 2 / check | Note |
+|---|---|---|---|---|---|---|---|
+| W1 | old house, north-west | x −16.1, y 5.6 | M1 → 17.06 | D → 24.73 | R → 33.05 | | |
+| W2 | old house, south-west | x −18.2, y 27.6 | M1 → 33.02 | R → 18.59 | D → 12.72 | | |
+| W3 | old house, south-east | x −8.0, y 28.5 | M1 → 29.62 | R → 9.47 | D → 2.63 | | the arcs cross at 118°: the D check is short and decisive |
+| W4 | old house, north-east | x −6.0, y 6.5 | M1 → 8.84 | R → 28.92 | D → 21.37 | | |
+| A1 | annex, north-east (on the driveway's west edge) | x −3.8, y 16.7 | M1 → 17.11 | D → 11.34 | R → 18.56 | | the M1 / R arcs are near-tangent (159°): use M1 and D, check with R |
+| A2 | annex, south-east (≈ the dakka corner D) | x −4.8, y 28.7 | M1 → 29.06 | R → 7.35 | D → 1.01 | | if this is D itself, say so |
+| A3 | annex, south-west | x −10.8, y 28.6 | M1 → 30.57 | R → 11.62 | D → 5.41 | | |
+| A4 | annex, north-west | x −9.8, y 16.6 | M1 → 19.29 | R → 20.37 | D → 12.10 | | |
+
+Also tape the sides as a check: the house W1–W2 22.1, W2–W3 10.2, W3–W4 22.1, W4–W1 10.2 (diagonals 24.3); the annex A1–A2 12.0, A2–A3 6.0, A3–A4 12.0, A4–A1 6.0. Note on site whether the house is an L (the sketch suggests the west part is deeper), where its doors face, and what the annex is (dakka, carport, yard wall). Then the corners are corrected in `data/deed_sketch.csv` and the whole-farm study recompiled.
+
+**Still without data (to be measured when convenient):** the old majlis, the covered parking, the farm parking, the existing water tank (the site plan's "just east of peg R" no longer fits the fitted R: it would be the south garden), the reserved tank's place, the septic (position, inlet level, capacity), the south gate, the workers' house position, the service gate position.

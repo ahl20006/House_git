@@ -44,6 +44,24 @@
 #let T2 = (21.39, 31.87)
 #let Ms = ((0, 0), (0, 6.36), (0, 18.52), (0, 28.8))
 #let north = (0.365, 0.931)   // true north on the drawing (canvas coordinates)
+// 5 Nov 2026: the site baseline v2 (site/inputs/taif_north_zone_final_v2.csv, the field check of 03 Oct 2026) is the SOURCE OF TRUTH: tools/site_frame.py writes it to
+// data/site_v2.csv in this frame, and the literals above are asserted against it below (they are kept literal because tools/make_dxf*.py and 3d/ read them by name).
+#let D  = (-5.49, 27.89)      // the dakka's south corner (v2: least-squares fit); the second reference point of the set-out
+#let R  = (-1.19, 35.05)      // reference peg R (v2: least-squares fit, no longer the +/- 2 m helper of v1)
+#let S  = (16.27, 34.48)      // reference peg S (v2: least-squares fit)
+#let C1 = (-16.70, 3.08)      // the plot's north-west corner (deed corner 1)
+#let well = (-4.63, 64.11)    // the water well's centre (ring 5.0 m; v3 survey)
+#let site-v2 = csv("data/site_v2.csv", row-type: dictionary)
+#let site-pt(name) = { let r = site-v2.find(r => r.item == name); assert(r != none, message: "data/site_v2.csv: missing " + name); (float(r.x), float(r.y)) }
+#let site-pts(prefix) = site-v2.filter(r => r.item.starts-with(prefix)).map(r => (float(r.x), float(r.y)))
+#let site-same(a, b) = a.len() == b.len() and a.zip(b).all(((p, c)) => calc.abs(p.at(0) - c.at(0)) < 0.02 and calc.abs(p.at(1) - c.at(1)) < 0.02)
+#assert(site-same(land, site-pts("build land pt")), message: "base.typ land differs from data/site_v2.csv")
+#assert(site-same(env, site-pts("buildable envelope pt")), message: "base.typ env differs from data/site_v2.csv")
+#assert(site-same(drv, site-pts("driveway pt")), message: "base.typ drv differs from data/site_v2.csv")
+#assert(site-same(lane, site-pts("plot corner ").slice(1, 9)), message: "base.typ lane differs from the deed corners 2-9")
+#assert(site-same((T1, T2), (site-pt("palm 1 trunk centre (r 0.26 m)"), site-pt("palm 2 trunk centre (r 0.26 m)"))), message: "base.typ palms differ from data/site_v2.csv")
+#assert(site-same(Ms, (site-pt("gate east post G' = M1"), site-pt("M line peg M2 (6.36 m from M1)"), site-pt("M line peg M3 (18.52 m from M1)"), site-pt("M line peg M4 (28.80 m from M1)"))), message: "base.typ Ms differ from data/site_v2.csv")
+#assert(site-same((D, R, S, C1, well), (site-pt("dakka corner D (south corner of the dakka)"), site-pt("reference peg R"), site-pt("reference peg S"), site-pt("plot corner 1"), site-pt("water well centre (ring 5.0 m)"))), message: "base.typ D / R / S / C1 / well differ from data/site_v2.csv")
 #let spare = 0.5              // required spare to the north and lane setback lines
 
 // Ground-floor outline: west on the M line, north and lane walls 0.5 m inside the setbacks, south at y = 26.80

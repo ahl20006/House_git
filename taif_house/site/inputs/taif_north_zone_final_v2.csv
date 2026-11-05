@@ -1,0 +1,103 @@
+TAIF FARM - FINAL SITE BASELINE v2 (north zone),Al-Taif / Al-Hawiyah / Al-Sayl Al-Sagheer,"deed licence 798, 15/11/1440 H"
+"CRS: UTM metres (deed coordinates). Field check 03 Oct 2026, 44 tapes, least-squares fit rms 0.27 m. Concept baseline - not for permit. Replaces v1 (24 Sep)."
+
+ref,item,easting_m,northing_m,source
+F1,plot corner 1,653027.85,2380760.78,DEED
+F1,plot corner 2,653049.74,2380774.36,DEED
+F1,plot corner 3,653053.47,2380773.93,DEED
+F1,plot corner 4,653058.98,2380769.28,DEED
+F1,plot corner 5,653059.56,2380768.58,DEED
+F1,plot corner 6,653060.73,2380768.55,DEED
+F1,plot corner 7,653066.15,2380764.14,DEED
+F1,plot corner 8,653071.14,2380759.15,DEED
+F1,plot corner 9,653080.30,2380746.87,DEED
+F1,plot corner 10,653107.76,2380718.04,DEED
+F1,plot corner 11,653130.12,2380694.28,DEED
+F1,plot corner 12,653142.72,2380675.68,DEED
+F1,plot corner 13,653139.29,2380673.36,DEED
+F1,plot corner 14,653141.02,2380668.68,DEED
+F1,plot corner 15,653066.61,2380641.55,DEED
+F1,plot corner 16,653062.54,2380651.87,DEED
+F1,plot corner 17,653060.98,2380658.08,DEED
+F1,plot corner 18,653058.17,2380664.28,DEED
+F1,plot corner 19,653051.28,2380682.85,DEED
+F1,plot corner 20,653041.10,2380714.11,DEED
+F2,gate west post G,653038.86,2380767.61,TAPED: C1->G 12.89 along the wall (pro rata to the deed)
+F2,gate east post G' = M1,653042.28,2380769.73,TAPED: G'->C2 8.74 along the wall; gate 4.00
+F3,M line peg M2 (6.36 m from M1),653044.59,2380763.81,TAPED along the straight M line; direction from LSQ fit
+F3,M line peg M3 (18.52 m from M1),653049.03,2380752.48,TAPED along the straight M line; direction from LSQ fit
+F3,M line peg M4 (28.80 m from M1),653052.77,2380742.91,TAPED along the straight M line; direction from LSQ fit
+F3,M line at the illustrative south line,653056.44,2380733.54,driveway east edge = build land west edge
+F4,dakka corner D (south corner of the dakka),653047.33,2380741.76,"LSQ fit (M1, M3, M4, R)"
+F5,driveway pt1,653038.86,2380767.61,"DECIDED: straight M line, 4.00 m gate"
+F5,driveway pt2,653042.28,2380769.73,"DECIDED: straight M line, 4.00 m gate"
+F5,driveway pt3,653056.44,2380733.54,"DECIDED: straight M line, 4.00 m gate"
+F5,driveway pt4,653053.03,2380731.42,"DECIDED: straight M line, 4.00 m gate"
+F6,build land pt1,653042.28,2380769.73,deed + M line + ILLUSTRATIVE south line
+F6,build land pt2,653049.74,2380774.36,deed + M line + ILLUSTRATIVE south line
+F6,build land pt3,653053.47,2380773.93,deed + M line + ILLUSTRATIVE south line
+F6,build land pt4,653058.98,2380769.28,deed + M line + ILLUSTRATIVE south line
+F6,build land pt5,653059.56,2380768.58,deed + M line + ILLUSTRATIVE south line
+F6,build land pt6,653060.73,2380768.55,deed + M line + ILLUSTRATIVE south line
+F6,build land pt7,653066.15,2380764.14,deed + M line + ILLUSTRATIVE south line
+F6,build land pt8,653071.14,2380759.15,deed + M line + ILLUSTRATIVE south line
+F6,build land pt9,653079.55,2380747.88,deed + M line + ILLUSTRATIVE south line
+F6,build land pt10,653056.44,2380733.54,deed + M line + ILLUSTRATIVE south line
+F7,buildable envelope pt1,653056.44,2380733.54,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt2,653043.39,2380766.89,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt3,653051.32,2380771.81,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt4,653051.73,2380772.12,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt5,653052.64,2380772.01,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt6,653057.55,2380767.87,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt7,653058.60,2380766.60,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt8,653060.00,2380766.57,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt9,653064.81,2380762.65,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt10,653069.62,2380757.84,build land minus 3 m north / 2 m lane setbacks
+F7,buildable envelope pt11,653077.84,2380746.82,build land minus 3 m north / 2 m lane setbacks
+F8,palm 1 trunk centre (r 0.26 m),653071.70,2380751.09,LSQ fit; 4.38 m from the lane line; +/-0.3 m
+F8,palm 2 trunk centre (r 0.26 m),653073.81,2380747.85,LSQ fit; 4.61 m from the lane line; +/-0.3 m
+F9,lane wall mark E2,653053.22,2380774.11,LSQ fit; 0.15 m from the deed line
+F9,lane wall mark E3,653059.53,2380768.35,LSQ fit; 0.23 m from the deed line
+F9,lane wall mark E4,653065.59,2380764.67,LSQ fit; 0.06 m from the deed line
+F9,lane wall mark E5,653075.01,2380753.37,LSQ fit; 0.35 m from the deed line
+F9,lane wall mark E6,653077.40,2380750.15,LSQ fit; 0.37 m from the deed line
+F10,water well centre (ring 5.0 m),653061.32,2380708.34,from v3
+F11,reference peg R,653053.94,2380736.66,LSQ fit
+F11,reference peg S,653069.99,2380743.55,LSQ fit
+F12,south line end (driveway side),653056.43,2380733.54,ILLUSTRATIVE – user decision open
+F12,south line end (lane side),653079.56,2380747.88,ILLUSTRATIVE – user decision open
+F13,sheep barn pt1,653050.86,2380684.25,"from v3, unchanged: MEASURED"
+F13,sheep barn pt2,653056.28,2380686.01,"from v3, unchanged: MEASURED"
+F13,sheep barn pt3,653064.14,2380661.88,"from v3, unchanged: MEASURED"
+F13,sheep barn pt4,653058.72,2380660.11,"from v3, unchanged: MEASURED"
+F13,workers house pt1,653059.19,2380658.69,"from v3, unchanged: size MEASURED, position ESTIMATED"
+F13,workers house pt2,653063.44,2380660.07,"from v3, unchanged: size MEASURED, position ESTIMATED"
+F13,workers house pt3,653067.61,2380647.24,"from v3, unchanged: size MEASURED, position ESTIMATED"
+F13,workers house pt4,653063.36,2380645.86,"from v3, unchanged: size MEASURED, position ESTIMATED"
+F13,shade house pt1,653079.03,2380659.93,"from v3, unchanged: MEASURED"
+F13,shade house pt2,653106.19,2380670.11,"from v3, unchanged: MEASURED"
+F13,shade house pt3,653110.31,2380659.14,"from v3, unchanged: MEASURED"
+F13,shade house pt4,653083.14,2380648.96,"from v3, unchanged: MEASURED"
+F13,service gate (east wall),653133.82,2380688.82,"from v3, unchanged: opening 4.56 m MEASURED, position ESTIMATED"
+
+AREAS
+plot (deed),7737.85 m2
+build land (to illustrative south line),774 m2
+setback strips inside it,106 m2
+buildable envelope after setbacks,668 m2
+driveway (to the south line),154 m2
+
+DECISIONS
+"Driveway = straight M line from the gate east post; meets the north wall at about 100 deg (fit range 97-102); 4.00 m gate, about 3.95 m clear square to the line"
+"Setbacks: 3 m north street (front), 2 m lane (side) - confirm with Balady / engineering office"
+"Old house and carport: not shown - not measured, outside the build land"
+"South line: OPEN - drawn illustratively, parallel to the north wall, 3 m south of palm 2 centre"
+
+WARNING
+v1 drew the driveway square to the north wall (88 deg); the 03 Oct tapes give about 100 deg. v2 replaces v1.
+
+KNOWN TOLERANCES (left to the official survey)
+Driveway angle +/-2.5 deg (about +/-1.5 m at the south end); design from the M pegs on the ground
+Palms +/-0.3 m
+Lane wall vs deed line: within 0.1-0.4 m (checked)
+Gate on the deed: +/-0.3 m
