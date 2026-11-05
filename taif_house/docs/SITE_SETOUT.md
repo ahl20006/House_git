@@ -101,6 +101,8 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 | 20 | R → palm 1 / palm 2 | | 22.62 / 22.54 | | still to do |
 | 21 | S → B4 / B3 | | 5.63 / 23.52 | | still to do (5 Nov 2026: S is the v2 fitted peg) |
 | 22 | S → palm 1 / palm 2 | | 7.47 / 5.49 | | still to do |
+| 23 | B2 square to the boundary wall's **inner face** (2.60 incl. the wall; the municipality measures from the wall) | **2.40** | 3.08 to the deed line | **−0.68** | the owner's reading, day 1 (reported 5 Nov 2026): B2 is the nearest point of the house to the wall. The wall stands inside the deed line (the deed line is the plot limit; the v2 frame rms 0.27 m; B2 set +0.07 from M1). If the setback is counted 2.0 m from the wall, B2's margin is 0.40 m, not the model's 1.08. The model's nearest point is the cut wall at the notch (2.92 to the deed line, row 18 still to do): if B2 is really the nearest, the notch is ≥ 2.40 from the wall. Study: `studies/rotation_b2.typ` |
+| 24 | B1 → the old house's yard wall across the driveway (the route's narrowest point; it widens going south) | **4.77** | 4.74 to the driveway's west edge (v2); 6.96 to the deed-sketch old house (W4) | **+0.03** | the tape; the yard wall IS the driveway's west edge there. The deed-sketch old house is ≈ 2 m too far west at the north (digitised ± 1–3 m): W4 to be measured (§ 8). The route is 4.77 m at B1 and widens southwards, as the sketch's east face does |
 
 **Corrections made on site (lessons) · دروس اليوم الأول**
 
@@ -111,6 +113,8 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 - The lesson behind all four: two arcs cross twice and a near-tangent crossing is vague; a corner is only set when a third distance or a diagonal confirms it (section 1).
 
 **Status:** all five corners set and checked; the outline is on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the tightest-point check, the R and S check distances (rows 19–22), the old house (§ 8), photos.
+
+**Decision (owner, day 1, recorded 5 Nov 2026): no reduction of the cut wall until the official survey.** The owner's idea of a small rotation of the house about B2 (B2 fixed, the south end moving east, 0.10 … 0.40 m at B5) is studied in `studies/rotation_b2.typ` → `output/rotation_b2.pdf` with these field values; the recommendation there (0.30 m, after the notch check of row 18) changes nothing here until the owner decides: this sheet's values stand.
 
 Tolerances: ± 0.10 m on a corner, ± 0.30 m on the palms (concept). Anything larger: report with the measured numbers before changing the model. The model is not changed by the day-1 results (every difference within the tolerance); the official survey still has the last word (open item 1).
 
