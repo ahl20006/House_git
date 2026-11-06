@@ -1,6 +1,6 @@
 # Site set-out · field instructions and results · تعليمات التوقيع في الموقع ونتائجه
 
-Taif / Palm House · V8.3 with the owner's site decision of 4 Nov 2026 (the house 1.238 m further south: corner B1 exactly 5.00 m from M1). Sheet: `studies/setout_v83.typ` → `output/setout_v83.pdf` (page 1 the test on the land, page 2 the tape table). Every value below is taken from that sheet; if a value here ever differs from the sheet, **the sheet is right**. Concept only: the official survey fixes the wall faces.
+Taif / Palm House · V8.3 with the owner's site decisions of 4 Nov 2026 (the house 1.238 m further south: corner B1 5.00 m from M1) and **6 Nov 2026 (a further 0.50 m south, from `studies/shift_south.typ`: B1 5.49 m from M1; the shift (0.91, 5.563))**. Sheet: `studies/setout_v83.typ` → `output/setout_v83.pdf` (page 1 the test on the land, page 2 the tape table). Every value below is taken from that sheet; if a value here ever differs from the sheet, **the sheet is right**. Concept only: the official survey fixes the wall faces.
 
 Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to the M line. Corners are the **outer wall faces**. Tapes in metres, read to the centimetre.
 
@@ -28,27 +28,27 @@ Tape distances between the reference points (model): M1 → D 28.43 · M1 → R 
 2. **Re-establish M4** on the M line: from M1 **28.80 m**, from D **5.56 m** (the two tapes meet on the M line, south of the gate).
 3. **M4 → the trunk faces:** palm 1 ≈ **20.35 m**, palm 2 ≈ **21.34 m** (± 0.3 m). Within the tolerance → the frame sits on the ground. (The brief's 20.36 / 21.35 came from the field CSV's palm positions; the sheet uses `base.typ`: 1 cm apart, within the tolerance.)
 
-## 4 · Target table · جدول الأهداف (outer wall faces, the new position)
+## 4 · Target table · جدول الأهداف (outer wall faces, the position of 6 Nov 2026: 0.50 m south of the day-1 blocks)
 
 Verified against the sheet: every value equal.
 
 | Corner | Where | x east | y along M | Tape 1 from M1 | Tape 2 from D |
 |---|---|---|---|---|---|
-| **B1** | north-west corner | 0.79 | 4.94 | **5.00** | **23.79** |
-| **B2** | north end of the cut wall (north-east) | 11.04 | 4.94 | **12.09** | **28.28** |
-| **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.03 | **18.10** | **26.03** |
-| **B4** | south-east corner | 14.35 | 29.19 | **32.52** | **19.88** |
-| **B5** | south-west corner | 0.79 | 29.19 | **29.20** | **6.41** |
+| **B1** | north-west corner | 0.79 | 5.44 | **5.49** | **23.31** |
+| **B2** | north end of the cut wall (north-east) | 11.04 | 5.44 | **12.30** | **27.88** |
+| **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.53 | **18.41** | **25.71** |
+| **B4** | south-east corner | 14.35 | 29.69 | **32.97** | **19.92** |
+| **B5** | south-west corner | 0.79 | 29.69 | **29.70** | **6.53** |
 
 Check tapes from R and S (v2 fitted pegs; use them to confirm every corner set from M1 and D):
 
 | Corner | from R | from S |
 |---|---|---|
-| B1 | 30.17 | 33.35 |
-| B2 | 32.49 | 30.00 |
-| B3 | 28.60 | 23.52 |
-| B4 | 16.60 | 5.63 |
-| B5 | 6.18 | 16.36 |
+| B1 | 29.68 | 32.91 |
+| B2 | 32.04 | 29.51 |
+| B3 | 28.19 | 23.03 |
+| B4 | 16.44 | 5.16 |
+| B5 | 5.71 | 16.21 |
 
 R → palm 1 / palm 2 trunk face 22.62 / 22.54; S → palm 1 / palm 2 trunk face 7.47 / 5.49.
 
@@ -64,9 +64,9 @@ String check (method B on the sheet): string M1 → M4, y along the string from 
 
 ## 5 · The tightest point check · فحص أضيق نقطة
 
-The nearest wall to a setback line is the **cut wall B2–B3** at the lane notch: the tightest point lies at x 13.37, y 9.23 (**M1 → 16.25 m, D → 26.53 m**), **0.79 m** inside the setback line (model).
+The nearest wall to a setback line is the **cut wall B2–B3** at the lane notch: the tightest point lies at x 13.15, y 9.34 (**M1 → 16.13 m, D → 26.30 m**), **1.02 m** inside the setback line (model; 0.79 at the day-1 position). Row 18 (day 1, at the old point M1 16.25 / D 26.53) read 2.20–2.30 m to the wall as built: at the new position that is ≈ 0.30–0.40 m from a setback counted from the wall.
 
-- From that point, measure **square to the lane wall** (the farm's boundary wall on the lane). Expected from the sheet: **≈ 2.97 m** (the brief's ≈ 2.8 m was an estimate; the sheet's value governs).
+- From that point, measure **square to the lane wall** (the farm's boundary wall on the lane). Expected from the sheet: **≈ 3.20 m** to the deed line, ≈ 2.48–2.58 m to the wall as built (rows 18 and 23).
 - **Less than 2.00 m = stop and report** (the house would be in the setback: do not set out further).
 
 ## 6 · R and S · الأوتاد المساعدة
@@ -112,7 +112,9 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 - **B2:** B2 → B3 then read 7.50 m (+0.57); B2 re-set from B1 10.25 m and B3 6.93 m; then B2 → B5 = 26.33 m exact.
 - The lesson behind all four: two arcs cross twice and a near-tangent crossing is vague; a corner is only set when a third distance or a diagonal confirms it (section 1).
 
-**Status:** all five corners set and checked; the outline is on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the R and S check distances (rows 19–22; row 18, the tightest point, measured 2.20–2.30 on day 1), the old house (§ 8), photos.
+**Second set-out · 6 Nov 2026 · a further 0.50 m south (owner's decision after `studies/shift_south.typ`):** every block moves **0.50 m straight south along the string M1 → M4**, x unchanged: from each day-1 block measure 0.50 m parallel to the string (square off with 3-4-5 if the block is away from it), drive the new peg, then check the sides and the diagonals (unchanged) and the tapes of § 4 from M1 and D and the R / S tapes. Targets from M1 / D: B1 **5.49 / 23.31** · B2 **12.30 / 27.88** · B3 **18.41 / 25.71** · B4 **32.97 / 19.92** · B5 **29.70 / 6.53**. The day-1 results above stay as the record of the first set-out; the differences in rows 2–4 refer to the day-1 targets.
+
+**Status:** all five corners set and checked on day 1; the 0.50 m move to be made on site. **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the R and S check distances (rows 19–22; row 18, the tightest point, measured 2.20–2.30 on day 1), the old house (§ 8), photos.
 
 **Decision (owner, day 1, recorded 5 Nov 2026): no reduction of the cut wall until the official survey.** The owner's idea of a small rotation of the house about B2 (B2 fixed, the south end moving east, 0.10 … 0.40 m at B5) is studied in `studies/rotation_b2.typ` → `output/rotation_b2.pdf` with these field values; the recommendation there (0.30 m, after the notch check of row 18) changes nothing here until the owner decides: this sheet's values stand.
 

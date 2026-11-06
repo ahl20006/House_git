@@ -88,6 +88,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/rotation_b2.typ", OUTPUT / "rotation_b2.pdf", ["Rotation about B2 study", "Study checks passed"]),   # 5 Nov 2026: study only (the owner's idea), nothing moved; the owner decides   # rounds 1–2, study only: every size assumed, to be designed by the plumbing engineer
     ("studies/placement_steps.typ", OUTPUT / "placement_steps.pdf", ["Placement in three steps", "Study checks passed"]),   # 5 Nov 2026: study only (the owner's three steps), nothing moved; the owner decides step by step
     ("studies/shift_south.typ", OUTPUT / "shift_south.pdf", ["Shift south study", "Study checks passed"]),   # 6 Nov 2026: study only (the house 0.40–0.60 m south), nothing moved; the owner decides
+    ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
     ("presentation.typ", PRESENTATION, []),
     ("docs/review/vv_review_v8_3.typ", OUTPUT / "VV_Review_V8.3.pdf", ["Interim verification and validation review"]),   # review only (3 Nov 2026)
 ]

@@ -9,6 +9,7 @@
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": land, env, drv, lane, nwall, T1, T2, north, D, R, S as peg-S
 #import "../design_gf.typ": shift, outline-csv-gf
+#let shift = (0.91, 5.063)   // THE DAY-1 POSITION this study was made at (6 Nov 2026: the 0.50 m south of shift_south.typ was adopted, design_gf.typ now 5.563): the study stays as issued
 
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
@@ -21,7 +22,6 @@
 #let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 #assert(outline-csv-gf.len() == expected.len() and outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6),
   message: "the ground-floor outline changed: update placement_steps.typ")
-#assert(calc.abs(shift.at(0) - 0.91) < 1e-9 and calc.abs(shift.at(1) - 5.063) < 1e-9, message: "the house moved (design_gf.typ shift): re-read this study")
 #let B0 = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125)).map(S)   // B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW (outer faces)
 #let spare = 0.5                 // the spare wanted from the deed setback lines (setout_v83.typ)
 #let stop-rule = 0.40            // the owner's STOP rule (step 2) and the minimum kept from the wall as built (step 3)

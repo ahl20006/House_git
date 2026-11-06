@@ -1,4 +1,4 @@
-// setout_v83.typ · Taif / Palm House · BUILDING TEST + SET-OUT SHEET · V8.3 with the owner's site decision of 4 Nov 2026
+// setout_v83.typ · Taif / Palm House · BUILDING TEST + SET-OUT SHEET · V8.3 with the owner's site decisions of 4 Nov 2026 (B1 5.00 m from M1) and 6 Nov 2026 (a further 0.50 m south: B1 5.49 m)
 // Supersedes studies/site_test.typ (V6.3, building.csv). The building = design_gf.typ's outline + shift (outer wall faces); the site = base.typ.
 // The STATUS comes from the tightest point on ANY wall (every edge sampled at 5 cm), not only from the corners: the lane notch bites the cut wall between B2 and B3.
 // Design frame: origin = peg M1 (the gate's east post) · y = metres along the M line, southwards · x = metres square to the M line, east (towards the lane).
@@ -182,7 +182,7 @@
   plan,
   [
     #text(14pt, weight: "bold", fill: accent)[Taif / Palm House] \
-    #text(10pt, weight: "bold")[Building test on the land · V8.3 · the house moved south (owner, 4 Nov 2026)] \
+    #text(10pt, weight: "bold")[Building test on the land · V8.3 · the house moved south (owner, 4 Nov 2026) and a further 0.50 m south (owner, 6 Nov 2026)] \
     #text(7pt, fill: gray)[Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to it · the house = the room CSVs + (#f2(shift.at(0)), #f2(shift.at(1))) · B1 #f2(b1-m1) m from M1]
     #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
 
@@ -216,7 +216,7 @@
       [Envelope corners poking into the building], [#env-in-building.len()],
       [Palm 1: building to trunk face], [#if palm-check(T1) < 0 [INSIDE] else [#f2(palm-check(T1)) m]],
       [Palm 2: building to trunk face], [#if palm-check(T2) < 0 [INSIDE] else [#f2(palm-check(T2)) m]],
-      [B1 from M1 (the owner's rule: 5.00 m)], [#f2(b1-m1) m],
+      [B1 from M1 (the owner's rule of 4 Nov: 5.00 m; 6 Nov 2026: + 0.50 m south = 5.49)], [#f2(b1-m1) m],
     )
 
     #sub-head[First, check the frame on the ground]

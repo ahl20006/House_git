@@ -7,7 +7,7 @@
 #show: setup
 
 // ---------- Place the whole building ----------
-#let shift = (0.91, 5.063)   // site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout_v83.typ)
+#let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south, B1 5.49 m from M1 (studies/shift_south.typ, adopted); before: 5.063 = site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout_v83.typ)
 #let rot = 0deg               // square to the M line
 
 // ---------- Rows from the CSV (# at the start of a name switches the row off) ----------

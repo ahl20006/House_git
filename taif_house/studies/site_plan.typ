@@ -4,7 +4,7 @@
 // tank are SOUTH of the old house, west of the driveway near peg R; the reserved tank next to the existing one; the septic outside the north wall near C1 serves the old
 // house and takes the new house's drains too; NOTHING of the farm lies south of the build land. Every old-building position is approximate, to be measured on site.
 // EVERY SITE POSITION HERE IS PROPOSED, TO CONFIRM WITH THE OFFICIAL SURVEY AND THE ENGINEERS. No system is designed: positions, routes and rules only.
-// Site frame (base.typ): origin = peg M1 = the main gate's east post; y along the M line southwards; x east. The house = the CSV frame + (0.91, 5.063) (4 Nov 2026: the owner moved the house 1.238 m south on site, B1 5.00 m from M1).
+// Site frame (base.typ): origin = peg M1 = the main gate's east post; y along the M line southwards; x east. The house = the CSV frame + (0.91, 5.563) (6 Nov 2026: 0.50 m further south; before 5.063) (4 Nov 2026: the owner moved the house 1.238 m south on site, B1 5.00 m from M1).
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, dist, seg-dist, edges, ray, C1, R, S as peg-S, well, site-pts
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
@@ -27,8 +27,8 @@
 #let inside(p, P) = ray(p, P)
 
 // ---------- The house in the site frame ----------
-#let shift = (0.91, 5.063)   // 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3; everything attached to the house moves with it, the gate, the driveway, the tanks and the septic stay
-#let dy = 1.238                // the house's move south since V8.3 (the positions below that were fixed in the site frame in V8.2–V8.3 and belong to the house carry it)
+#let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south (studies/shift_south.typ adopted; every house-attached literal below carries it); 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3; everything attached to the house moves with it, the gate, the driveway, the tanks and the septic stay
+#let dy = 1.738                // the house's move south since V8.3 (the positions below that were fixed in the site frame in V8.2–V8.3 and belong to the house carry it)
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let house = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)).map(S)
 #let court = ((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0)).map(S)
@@ -60,9 +60,9 @@
 #let path-workers = ((-1.0, 0.7), (8.3, -1.0), (11.8, 0.8), (14.6, 7.3), (16.9, 10.6), (16.9, 11.8))   // 3 Nov 2026 (proposal): from the gate along the FARM'S NORTH BOUNDARY WALL (not the house's north facade), then the lane-side strip to the yard east of the screen: the north strip stays a calm family space
 #let lamps = range(6).map(i => (-0.4, 28.2 + i * 2.0))               // bollard lights on the guest path
 // ---------- 2 · The family garden (south) and its separation ----------
-#let garden = ((0.9, 29.188), (14.35, 29.188), (14.35, 20.838), (22.5, 20.838), (26.74, 33.94), (0.9, 38.7))
-#let lowwall = ((0.6, 29.188), (0.6, 38.7))                          // a 1.2 m honey-stone wall with planting between the garden and the guest path / driveway
-#let hedge = ((14.35, 19.738), (22.2, 19.738))                           // a 1.8 m hedge between the service yard / workers' path and the garden
+#let garden = ((0.9, 29.688), (14.35, 29.688), (14.35, 21.338), (22.5, 21.338), (26.74, 33.94), (0.9, 38.7))
+#let lowwall = ((0.6, 29.688), (0.6, 38.7))                          // a 1.2 m honey-stone wall with planting between the garden and the guest path / driveway
+#let hedge = ((14.35, 20.238), (22.2, 20.238))                           // a 1.8 m hedge between the service yard / workers' path and the garden
 // ---------- 3 · The service yard (east) ----------
 #let screen = (S((15.2, 7.6)), S((15.3, 13.0)))                      // 3 Nov 2026: the 1.8 m yard screen moved east (design_gf.typ) so the outdoor counter keeps a 1.0 m working strip; its north end at the envelope line
 #let bins = (S((13.7, 5.3)), S((14.5, 6.1)))                        // north of the service door, outside the screened yard, away from the food
@@ -76,7 +76,7 @@
 #let hrv-site = S((9.8, 0.5))                                          // the HRV intake (roof, the malqaf tower)
 #let okit-zone = (counter-box.at(0), counter-box.at(1), counter-box.at(2) + 1.0, counter-box.at(3))   // the counter + its 1.0 m working strip: the workers' path must not cross it
 #let manhole-e = S((14.3, 13.5))                                     // the east-yard FOUL chamber (kitchen, laundry, maid bath, the suite stack): at the yard's south end; rain NEVER enters it (3 Nov 2026)
-#let rain-ch = (15.7, 17.138)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system
+#let rain-ch = (15.7, 17.638)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system
 // ---------- 4 · Utilities (positions approximate, to be measured on site; 3 Nov 2026: the owner's information on the septic and the tank) ----------
 // corner C1: the plot's north-west corner on the north street: from base.typ (5 Nov 2026: the deed, x −16.70; the site plan had assumed −6.5)
 #let septic = (-10.5, -1.9, -6.5, 0.5)                               // EXISTING septic tank: OUTSIDE the farm wall near C1, under the street side (owner); approximate, to be measured on site; capacity, condition and inlet level for the engineer
@@ -90,11 +90,11 @@
 #let tank-old = (-7.5, 35.7, -4.5, 38.2)                              // EXISTING ground tank (in use): SOUTH of the old house, WEST of the driveway, near peg R (owner, 5 Nov 2026); 3 × 2.5 assumed, its lid and fill point to be measured
 #let tank-new = (-11.0, 35.7, -7.5, 38.2)                             // RESERVE: the future tank 3.5 × 2.5 × 2.0 (≈ 17 m³) NEXT TO the existing one, west of it, west of the driveway
 #let fill-pt = (-2.6, 37.0)                                           // the water truck stands on the driveway beside the tanks (y 33–39); its hose to the fill point at the existing tank's north-east corner
-#let pipe-old = ((-4.5, 36.5), (-0.6, 36.5), (-0.6, 14.138), (0.9, 14.138))   // the supply pipe: from the tank ACROSS the driveway (a sleeve under the drive at y 36.5), then north under the guest path band on the driveway's east edge to the utility room
+#let pipe-old = ((-4.5, 36.5), (-0.6, 36.5), (-0.6, 14.638), (0.9, 14.638))   // the supply pipe: from the tank ACROSS the driveway (a sleeve under the drive at y 36.5), then north under the guest path band on the driveway's east edge to the utility room
 // the well: from base.typ (5 Nov 2026: v3 survey, x −4.63, y 64.11; the site plan had assumed (−7, 45))
 // foul drainage (3 Nov 2026): both clusters → inspection chambers → NORTH and WEST to the septic near C1, under the boundary wall west of the gate
-#let ch-w = (-2.4, 15.738)                                              // the west chamber on the driveway (the west wash block's run, which now falls NORTH inside the house and leaves under the west wall at the hospitality kitchen)
-#let ch-ne = (16.0, 11.438)                                             // the east strip's chamber under the workers' path (the bend round the cut wall)
+#let ch-w = (-2.4, 16.238)                                              // the west chamber on the driveway (the west wash block's run, which now falls NORTH inside the house and leaves under the west wall at the hospitality kitchen)
+#let ch-ne = (16.0, 11.938)                                             // the east strip's chamber under the workers' path (the bend round the cut wall)
 #let ch-n = (11.0, 0.6)                                               // the north strip's chamber (its north edge, under the workers' path, north of the parking bay)
 #let ch-gate = (-2.6, 1.6)                                            // the collector chamber on the driveway inside the gate (the pump station's place if the septic's inlet is too high)
 #let sewer-e = (manhole-e, ch-ne, ch-n, ch-gate)                      // the east main
@@ -125,16 +125,16 @@
 #let inverter = S((2.0, 8.3))                                        // the inverter + battery cabinet on the utility room's north wall (beside the main panel)
 #let rain-pts = ((S((5.0, -0.25)), [N]), ((-0.3, S((0, 12.0)).at(1)), [W]), ((-0.3, S((0, 17.5)).at(1)), [W]), (S((13.6, 12.5)), [E]), (S((11.9, 2.2)), [cut]), (S((2.0, 24.3)), [S]), (S((11.5, 24.3)), [S]))
 #let court-out = S((13.311, 12.1))                                    // the courtyard's drain + overflow branch leaves the east wall here → the rain chamber (never the foul chamber)
-#let soak-e = (16.5, 15.738); #let soak-s = (10.0, 32.238)
+#let soak-e = (16.5, 16.238); #let soak-s = (10.0, 32.738)
 // ---------- 5 · Security ----------
 #let cams = (
   ("C1", (-0.2, 0.3), [the gate (with the video intercom)], 225),
-  ("C2", (0.8, 4.938), [the driveway, looking south], 180),
-  ("C3", (4.4, 4.988), [the family entrance], 0),
-  ("C4", (0.85, 26.238), [the guest entrance and the path], 225),
-  ("C5", (14.3, 11.138), [the service yard, looking south], 180),
-  ("C6", (8.0, 29.138), [the garden and the south facade], 180),
-  ("C7", (14.3, 29.138), [the suite court's outside (the screen) and the east garden], 240),
+  ("C2", (0.8, 5.438), [the driveway, looking south], 180),
+  ("C3", (4.4, 5.488), [the family entrance], 0),
+  ("C4", (0.85, 26.738), [the guest entrance and the path], 225),
+  ("C5", (14.3, 11.638), [the service yard, looking south], 180),
+  ("C6", (8.0, 29.638), [the garden and the south facade], 180),
+  ("C7", (14.3, 29.638), [the suite court's outside (the screen) and the east garden], 240),
 )
 #let intercom = (-0.3, 0.9)
 #let panel = S((1.4, 9.0))                                           // the alarm panel in the utility room
@@ -175,7 +175,7 @@
 #let env-c = ((0, 30.0), (0, 3.05), (9.18, 1.36), (9.67, 1.22), (10.48, 1.65), (13.55, 7.3), (14.06, 8.86), (15.35, 9.4), (18.4, 14.8), (21.13, 21.04), (23.59, 30.0))
 #let drv-c = ((-3.95, 0.73), (0, 0), (0, 30.0), (-3.95, 30.0))
 #let lane-c = ((8.64, -1.59), (11.96, 0.17), (15.39, 6.51), (15.68, 7.37), (16.75, 7.83), (20.19, 13.91), (23.02, 20.37), (25.66, 30.0))
-#let garden-c = ((0.9, 29.188), (14.35, 29.188), (14.35, 20.838), (22.5, 20.838), (25.57, 30.0), (0.9, 30.0))
+#let garden-c = ((0.9, 29.688), (14.35, 29.688), (14.35, 21.338), (22.5, 21.338), (25.57, 30.0), (0.9, 30.0))
 #let site(layer, length: 0.29cm, full: true) = cetz.canvas(length: length, {
   import cetz.draw: *
   let T(p, body, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
@@ -201,9 +201,9 @@
   }
   // the house
   poly(house, fill: rgb("#f3efe4"), stroke: 1.1pt + ink); poly(court, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue); poly(scourt, fill: rgb("#dbe9f4"), stroke: 0.4pt + blue)
-  T((7.5, 16.738), [HOUSE ±0.00], size: 4pt); T((8.3, 14.838), [courtyard], size: 2.8pt, fill: blue); T((8.0, 27.138), [suite court], size: 2.8pt, fill: blue)
+  T((7.5, 17.238), [HOUSE ±0.00], size: 4pt); T((8.3, 15.338), [courtyard], size: 2.8pt, fill: blue); T((8.0, 27.638), [suite court], size: 2.8pt, fill: blue)
   line(q(d-family.at(0)), q(d-family.at(1)), stroke: 2.6pt + red); line(q(d-guest.at(0)), q(d-guest.at(1)), stroke: 2.6pt + red); line(q(d-service.at(0)), q(d-service.at(1)), stroke: 2.6pt + red)
-  T((4.4, 5.938), [family entrance], size: 2.8pt, fill: red); T((1.5, 25.938), [guest entrance], size: 2.8pt, fill: red, anchor: "west"); T((14.6, 11.738), [service door], size: 2.8pt, fill: red, anchor: "west")
+  T((4.4, 6.438), [family entrance], size: 2.8pt, fill: red); T((1.5, 26.438), [guest entrance], size: 2.8pt, fill: red, anchor: "west"); T((14.6, 12.238), [service door], size: 2.8pt, fill: red, anchor: "west")
   for (T_, n) in ((T1, [P1]), (T2, [P2])) { if T_.at(1) <= ymax { circle(q(T_), radius: 1.0, fill: rgb("#cfdfc3"), stroke: 0.5pt + accent); circle(q(T_), radius: 0.27, fill: accent, stroke: none); T((T_.at(0) + 1.4, T_.at(1)), n, size: 3pt, fill: accent) } }
   for p in Ms { if p.at(1) <= ymax { circle(q(p), radius: 0.18, fill: red, stroke: none) } }
   T((-0.6, 0.0), [M1], size: 2.6pt, fill: red, anchor: "east")
@@ -217,12 +217,12 @@
     for (k, P) in swept.enumerate() { line(..P.map(q), stroke: (paint: blue, thickness: 1.0pt, dash: if k == 1 { "dashed" } else { "solid" }), mark: (end: "stealth", fill: blue, scale: 0.45)) }
     T((-1.4, 7.6), [1 in], size: 2.6pt, fill: blue); T((1.4, 4.6), [2 reverse], size: 2.6pt, fill: blue); T((7.0, 1.4), [3 forward into the bay], size: 2.6pt, fill: blue)
     poly(if full { garden } else { garden-c }, fill: rgb("#dcecd2").transparentize(20%), stroke: (paint: green, thickness: 0.7pt, dash: "dashed")); T((9.0, if full { 34.0 } else { 29.75 }), [FAMILY GARDEN (south only: the palms)], size: 3.4pt, fill: green)
-    line(q(lowwall.at(0)), q((0.6, calc.min(lowwall.at(1).at(1), ymax))), stroke: 2.2pt + stone); T((1.3, 30.238), [low stone wall 1.2 m + planting], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
-    line(q(hedge.at(0)), q(hedge.at(1)), stroke: (paint: green, thickness: 2.2pt)); T((18.3, 19.138), [hedge 1.8 m], size: 2.8pt, fill: green)
+    line(q(lowwall.at(0)), q((0.6, calc.min(lowwall.at(1).at(1), ymax))), stroke: 2.2pt + stone); T((1.3, 30.738), [low stone wall 1.2 m + planting], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
+    line(q(hedge.at(0)), q(hedge.at(1)), stroke: (paint: green, thickness: 2.2pt)); T((18.3, 19.638), [hedge 1.8 m], size: 2.8pt, fill: green)
     line(q(screen.at(0)), q(screen.at(1)), stroke: 2pt + ink); R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink)
-    R(gas-box, fill: rgb("#ffe08a"), stroke: 0.6pt + red); T((17.0, 14.538), [LPG], size: 2.8pt, fill: red, anchor: "west")
-    R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.15, 14.238), [outdoor counter], size: 2.6pt, anchor: "west")
-    R(grill-box, fill: stone, stroke: 0.4pt + ink); T((grill-box.at(2) + 0.15, 18.438), [grill + tannour], size: 2.6pt, anchor: "west")
+    R(gas-box, fill: rgb("#ffe08a"), stroke: 0.6pt + red); T((17.0, 15.038), [LPG], size: 2.8pt, fill: red, anchor: "west")
+    R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.15, 14.738), [outdoor counter], size: 2.6pt, anchor: "west")
+    R(grill-box, fill: stone, stroke: 0.4pt + ink); T((grill-box.at(2) + 0.15, 18.938), [grill + tannour], size: 2.6pt, anchor: "west")
   }
   if layer == "utilities" {
     line(..pipe-old.map(q), stroke: (paint: blue, thickness: 1pt, dash: "dashed")); T((-1.2, 20.0), [water pipe → utility room], size: 2.6pt, fill: blue, angle: 90deg)
@@ -236,12 +236,12 @@
     R(septic, fill: rgb("#e9d9c4"), stroke: dotted(rgb("#8a5a2b"))); T((-8.5, -2.6), [EXISTING septic · outside the wall near C1\ approx. · inlet #r2(inv-septic) (computed) · level? capacity? condition?], size: 2.6pt, fill: rgb("#8a5a2b"))
     circle(q(C1), radius: 0.2, fill: red, stroke: none); T((-6.5, 2.0), [C1], size: 2.6pt, fill: red)
     line(q((septic.at(2), septic.at(3))), q(well), stroke: (paint: red, thickness: 0.4pt, dash: "dotted")); T((-7.5, 24.0), [#r1(box-dist(septic, well)) m septic ↔ well (approx.) ≥ #r1(sep-rule.septic-well)], size: 2.6pt, fill: red, angle: 90deg)
-    circle(q(pv-riser), radius: 0.3, fill: amber, stroke: none); T((2.0, 15.138), [PV conduits ↓ west shaft], size: 2.6pt, fill: amber, anchor: "west")
-    R((inverter.at(0) - 0.6, inverter.at(1) - 0.2, inverter.at(0) + 0.6, inverter.at(1) + 0.2), fill: amber, stroke: none); T((3.6, 13.238), [inverter + batteries\ (utility room)], size: 2.6pt, fill: amber, anchor: "west")
+    circle(q(pv-riser), radius: 0.3, fill: amber, stroke: none); T((2.0, 15.638), [PV conduits ↓ west shaft], size: 2.6pt, fill: amber, anchor: "west")
+    R((inverter.at(0) - 0.6, inverter.at(1) - 0.2, inverter.at(0) + 0.6, inverter.at(1) + 0.2), fill: amber, stroke: none); T((3.6, 13.738), [inverter + batteries\ (utility room)], size: 2.6pt, fill: amber, anchor: "west")
     for (p, l) in rain-pts { circle(q(p), radius: 0.22, fill: rgb("#1f7a99"), stroke: none) }
     T((-0.9, 15.8), [rain ↓], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "east")
-    circle(q(soak-e), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((17.5, 15.738), [soakaway E], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
-    circle(q(soak-s), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((11.0, 32.238), [soakaway S], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
+    circle(q(soak-e), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((17.5, 16.238), [soakaway E], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
+    circle(q(soak-s), radius: 0.8, stroke: (paint: rgb("#1f7a99"), dash: "dashed", thickness: 0.6pt)); T((11.0, 32.738), [soakaway S], size: 2.6pt, fill: rgb("#1f7a99"), anchor: "west")
     line(q(S((13.6, 12.5))), q(soak-e), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); line(q(S((4.25, 23.6))), q(soak-s), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); line(q(S((10.0, 23.6))), q(soak-s), stroke: (paint: rgb("#1f7a99"), thickness: 0.6pt, dash: "dotted")); T((9.3, 29.6), [suite court ↓], size: 2.4pt, fill: rgb("#1f7a99"))
   }
   if layer == "security" {
@@ -252,11 +252,11 @@
       line(q(p), q((p.at(0) + d * calc.sin(a0 * 1deg), p.at(1) - d * calc.cos(a0 * 1deg))), q((p.at(0) + d * calc.sin(a1 * 1deg), p.at(1) - d * calc.cos(a1 * 1deg))), close: true, fill: red.transparentize(88%), stroke: none)
     }
     circle(q(intercom), radius: 0.3, fill: blue, stroke: none); T((-0.3, 1.8), [video intercom], size: 2.6pt, fill: blue)
-    R((panel.at(0) - 0.3, panel.at(1) - 0.3, panel.at(0) + 0.3, panel.at(1) + 0.3), fill: amber, stroke: none); T((2.9, 14.038), [alarm panel], size: 2.6pt, fill: amber, anchor: "west")
+    R((panel.at(0) - 0.3, panel.at(1) - 0.3, panel.at(0) + 0.3, panel.at(1) + 0.3), fill: amber, stroke: none); T((2.9, 14.538), [alarm panel], size: 2.6pt, fill: amber, anchor: "west")
     for p in keypads { R((p.at(0) - 0.2, p.at(1) - 0.2, p.at(0) + 0.2, p.at(1) + 0.2), fill: amber, stroke: none) }
-    T((3.5, 6.738), [keypad], size: 2.4pt, fill: amber); T((1.5, 23.438), [keypad], size: 2.4pt, fill: amber, anchor: "west")
+    T((3.5, 7.238), [keypad], size: 2.4pt, fill: amber); T((1.5, 23.938), [keypad], size: 2.4pt, fill: amber, anchor: "west")
     line(q((-2.0, 1.0)), q((-2.0, 29.0)), stroke: (paint: rgb("#7a0000"), thickness: 2.5pt, dash: "dashed")); T((-3.0, 15.0), [fire vehicle on the driveway], size: 2.8pt, fill: rgb("#7a0000"), angle: 90deg)
-    line(q((0.0, 17.238)), q((east-face, 17.238)), stroke: (paint: rgb("#7a0000"), thickness: 0.5pt, dash: "dotted")); T((7.5, 17.938), [hose ≈ #r1(hose) m (≤ 45)], size: 2.6pt, fill: rgb("#7a0000"))
+    line(q((0.0, 17.738)), q((east-face, 17.738)), stroke: (paint: rgb("#7a0000"), thickness: 0.5pt, dash: "dotted")); T((7.5, 18.438), [hose ≈ #r1(hose) m (≤ 45)], size: 2.6pt, fill: rgb("#7a0000"))
   }
   // north arrow and scale
   line(q((24.0, 2.5)), q((24.0 + 3 * north.at(0), 2.5 - 3 * north.at(1))), stroke: 0.9pt + ink, mark: (end: "stealth", fill: ink, scale: 0.6)); T((24.6, 0.3), [true N], size: 3pt)
@@ -268,27 +268,27 @@
   let T(p, body, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
   let R(b, fill: none, stroke: none) = rect(q((b.at(0), b.at(1))), q((b.at(2), b.at(3))), fill: fill, stroke: stroke)
   // the house's east wall y 11.2–20.2 (site, 4 Nov 2026), the kitchen behind it, the strip, the lane boundary
-  R((11.5, 10.738, east-face - 0.25, 20.738), fill: rgb("#f3efe4")); T((12.6, 15.738), [KITCHEN\ (hob + hood on\ this wall)], size: 3.4pt)
-  R((east-face - 0.25, 10.738, east-face, 20.738), fill: luma(120))
-  R((east-face, 10.738, 20.5, 20.738), fill: rgb("#eef3e6"))
-  line(..env.filter(p => p.at(1) >= 9.0 and p.at(1) <= 21.5).map(q), stroke: (paint: accent, dash: "dashed", thickness: 0.5pt)); T((18.1, 17.138), [envelope line], size: 2.6pt, fill: accent, angle: -60deg)
-  line(q((east-face, 11.038)), q((east-face, 10.238)), q((16.4, 10.238)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.5pt))
+  R((11.5, 11.238, east-face - 0.25, 21.238), fill: rgb("#f3efe4")); T((12.6, 16.238), [KITCHEN\ (hob + hood on\ this wall)], size: 3.4pt)
+  R((east-face - 0.25, 11.238, east-face, 21.238), fill: luma(120))
+  R((east-face, 11.238, 20.5, 21.238), fill: rgb("#eef3e6"))
+  line(..env.filter(p => p.at(1) >= 9.0 and p.at(1) <= 21.5).map(q), stroke: (paint: accent, dash: "dashed", thickness: 0.5pt)); T((18.1, 17.638), [envelope line], size: 2.6pt, fill: accent, angle: -60deg)
+  line(q((east-face, 11.538)), q((east-face, 10.738)), q((16.4, 10.738)), stroke: (paint: luma(120), dash: "dashed", thickness: 0.5pt))
   // the openings in the east wall
-  line(q(d-service.at(0)), q(d-service.at(1)), stroke: 3pt + red); T((east-face + 0.1, 12.688), [service door 0.90 (the family's door out, east)], size: 3pt, fill: red, anchor: "west")
-  line(q(w-kitchen.at(0)), q(w-kitchen.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 14.438), [kitchen window], size: 3pt, fill: blue, anchor: "east")
-  line(q(hood-out.at(0)), q(hood-out.at(1)), stroke: 2.6pt + luma(90)); T((east-face - 0.35, 15.738), [hood outlet], size: 3pt, fill: luma(90), anchor: "east")
-  line(q(w-dining.at(0)), q(w-dining.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 20.238), [dining window], size: 3pt, fill: blue, anchor: "east")
+  line(q(d-service.at(0)), q(d-service.at(1)), stroke: 3pt + red); T((east-face + 0.1, 13.188), [service door 0.90 (the family's door out, east)], size: 3pt, fill: red, anchor: "west")
+  line(q(w-kitchen.at(0)), q(w-kitchen.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 14.938), [kitchen window], size: 3pt, fill: blue, anchor: "east")
+  line(q(hood-out.at(0)), q(hood-out.at(1)), stroke: 2.6pt + luma(90)); T((east-face - 0.35, 16.238), [hood outlet], size: 3pt, fill: luma(90), anchor: "east")
+  line(q(w-dining.at(0)), q(w-dining.at(1)), stroke: 2.6pt + blue); T((east-face - 0.35, 20.738), [dining window], size: 3pt, fill: blue, anchor: "east")
   // the screen, the bins, the gas cabinet, the manhole, the workers' path
-  line(q(screen.at(0)), q(screen.at(1)), stroke: 2.4pt + ink); T((screen.at(0).at(0) - 0.15, 15.838), [screen 1.8 m], size: 3pt, angle: 90deg)
+  line(q(screen.at(0)), q(screen.at(1)), stroke: 2.4pt + ink); T((screen.at(0).at(0) - 0.15, 16.338), [screen 1.8 m], size: 3pt, angle: 90deg)
   R(counter-box, fill: stone, stroke: 0.4pt + ink); T((counter-box.at(2) + 0.1, (counter-box.at(1) + counter-box.at(3)) / 2), [outdoor counter + sink\ (by the service door;\ canopy optional)], size: 2.8pt, anchor: "west")
   R(grill-box, fill: stone, stroke: 0.4pt + ink); T(((grill-box.at(0) + grill-box.at(2)) / 2, grill-box.at(3) + 0.25), [grill + tannour], size: 2.8pt)
-  R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink); T((15.5, 10.738), [bins], size: 3pt)
-  R(gas-box, fill: rgb("#ffe08a"), stroke: 0.8pt + red); T((16.9, 13.338), [LPG cabinet 1.0 × 0.5\ ventilated, on the screen's\ outer face (north end);\ the pipe through the screen\ base to the hob], size: 2.8pt, fill: red, anchor: "west")
-  circle(q(manhole-e), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b")); T((15.7, 18.538), [foul chamber (kitchen, laundry,\ maid bath, the suite stack);\ the courtyard's rain: its own chamber], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
-  line(q((16.9, 10.738)), q((16.9, 13.038)), stroke: (paint: luma(90), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(90), scale: 0.5)); T((17.1, 11.538), [workers' path (deliveries, gas, bins):\ ends at the gas cabinet, never in the food area], size: 2.8pt, fill: luma(90), anchor: "west")
+  R((bins.at(0).at(0), bins.at(0).at(1), bins.at(1).at(0), bins.at(1).at(1)), fill: luma(200), stroke: 0.4pt + ink); T((15.5, 11.238), [bins], size: 3pt)
+  R(gas-box, fill: rgb("#ffe08a"), stroke: 0.8pt + red); T((16.9, 13.838), [LPG cabinet 1.0 × 0.5\ ventilated, on the screen's\ outer face (north end);\ the pipe through the screen\ base to the hob], size: 2.8pt, fill: red, anchor: "west")
+  circle(q(manhole-e), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b")); T((15.7, 19.038), [foul chamber (kitchen, laundry,\ maid bath, the suite stack);\ the courtyard's rain: its own chamber], size: 2.8pt, fill: rgb("#8a5a2b"), anchor: "west")
+  line(q((16.9, 11.238)), q((16.9, 13.538)), stroke: (paint: luma(90), thickness: 1pt, dash: "dash-dotted"), mark: (end: "stealth", fill: luma(90), scale: 0.5)); T((17.1, 12.038), [workers' path (deliveries, gas, bins):\ ends at the gas cabinet, never in the food area], size: 2.8pt, fill: luma(90), anchor: "west")
   // distances
   for (a, b, l) in ((gas.at(0), S((13.311, 8.75)), [#r2(seg-box-dist(..w-kitchen, gas-box))]), ((gas.at(0).at(0), gas.at(1).at(1)), (grill.at(0).at(0), grill.at(0).at(1)), [#r2(box-dist(gas-box, grill.at(0))) to the grill])) { line(q(a), q(b), stroke: 0.4pt + red, mark: (start: "|", end: "|", scale: 0.4)); T(((a.at(0) + b.at(0)) / 2 + 0.3, (a.at(1) + b.at(1)) / 2), l, size: 2.8pt, fill: red, anchor: "west") }
-  T((15.5, 9.838), [SERVICE YARD (3 Nov 2026; the house 1.24 m further south since 4 Nov 2026) · 1 m = 1.25 cm · north up · the hedge at y #r1(hedge.at(0).at(1)) closes the yard from the garden], size: 3.4pt, fill: accent)
+  T((15.5, 10.338), [SERVICE YARD (3 Nov 2026; the house 1.24 m further south since 4 Nov 2026) · 1 m = 1.25 cm · north up · the hedge at y #r1(hedge.at(0).at(1)) closes the yard from the garden], size: 3.4pt, fill: accent)
 })
 
 // ====================================================================================== PAGE 1 · the whole plot: access, parking, paths, the garden

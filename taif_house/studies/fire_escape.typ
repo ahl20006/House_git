@@ -119,7 +119,7 @@
 // the maintenance ladder in it (studies/roof.typ page 2) goes UP to the roof behind a locked panel: it is no escape device and the roof is no escape route
 #let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window
 #let grill = (15.0, 27.4, 17.3, 28.9)                                                // the outdoor grill + tannour platform (design_gf.typ site-boxes), south-east of the house
-#let palms = ((20.6 - 0.91, 28.09 - 5.063), (21.39 - 0.91, 31.87 - 5.063))           // T1, T2 (base.typ, site frame) in the CSV frame (design_gf.typ shift; 4 Nov 2026: the house 1.238 m further south)
+#let palms = ((20.6 - 0.91, 28.09 - 5.563), (21.39 - 0.91, 31.87 - 5.563))           // T1, T2 (base.typ, site frame) in the CSV frame (design_gf.typ shift; 4 Nov 2026: the house 1.238 m further south)
 #let box-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
 #let grill-gap = box-dist(grill, (13.436, 24.125))                                   // the grill to the nearest point of the house (the south-east corner; every opening is further)
 #let palm-gap = calc.min(..palms.map(p => box-dist(grill, p)))

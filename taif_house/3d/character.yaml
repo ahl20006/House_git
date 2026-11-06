@@ -221,7 +221,7 @@ coat_cupboard: {box: [0.125, 2.3, 1.3875, 3.75], height: 2.4}   # design_gf.typ 
 # ---------- V8.2 · the site elements of studies/site_plan.typ that the builder supports (STUDY, every position proposed, to confirm with the survey) ----------
 # SITE frame (origin peg M1; the house = CSV + shift): the builder subtracts the shift. kinds: path (a polyline strip), slab (a polygon), wall / hedge (a polyline with a height), box (x0 y0 x1 y1 with a height)
 site:
-  shift: [0.91, 5.063]   # 4 Nov 2026 (owner, on site): the house 1.238 m further south; the elements attached to the house moved with it, the driveway and the parking bay stayed
+  shift: [0.91, 5.563]   # 6 Nov 2026 (owner): a further 0.50 m south (B1 5.49 m from M1), not yet rendered; 4 Nov 2026 (owner, on site): the house 1.238 m further south; the elements attached to the house moved with it, the driveway and the parking bay stayed
   elements:
     - {label: driveway, kind: slab, pts: [[-3.95, 0.73], [0, 0], [0, 38.86], [-3.95, 39.59]], material: concrete, note: "the existing driveway 3.95 m west of the M line (stays)"}
     - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 4.938]], width: 1.0, material: stone, note: "the family entrance path from the driveway"}

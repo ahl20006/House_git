@@ -8,6 +8,7 @@
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": land, env, drv, lane, nwall, T1, T2, north, D, R, S as peg-S
 #import "../design_gf.typ": shift, outline-csv-gf
+#let shift = (0.91, 5.063)   // THE DAY-1 POSITION this study was made at (6 Nov 2026: the 0.50 m south of shift_south.typ was adopted, design_gf.typ now 5.563): the study stays as issued
 
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
@@ -20,7 +21,6 @@
 #let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 #assert(outline-csv-gf.len() == expected.len() and outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6),
   message: "the ground-floor outline changed: update shift_south.typ")
-#assert(calc.abs(shift.at(0) - 0.91) < 1e-9 and calc.abs(shift.at(1) - 5.063) < 1e-9, message: "the house moved (design_gf.typ shift): re-read this study")
 #let B0 = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125)).map(S)   // B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW (outer faces)
 #let spare = 0.5                 // the spare wanted from the deed setback lines (setout_v83.typ)
 #let target = 0.40               // the owner's target from the wall as built
@@ -357,7 +357,7 @@
 #grid(columns: (auto, 1fr), column-gutter: 9pt,
   plan(if rec != none { rec } else { opts.at(1) }),
   [
-    #title([Shift SOUTH 0.40 / 0.50 / 0.60 m · study], [STUDY ONLY · page 1 of 3 · the house unchanged, no rotation, no west shift · the owner decides])
+    #title([Shift SOUTH 0.40 / 0.50 / 0.60 m · study · 0.50 m ADOPTED (owner, 6 Nov 2026)], [made at the day-1 position · page 1 of 3 · the house unchanged, no rotation, no west shift · the owner decides])
     #text(7pt, fill: gray)[Start: the current position (day 1: B1 5.00 m from M1, the west face #f2(B0.at(0).at(0)) m east of the M line). Calibration: B2 #f2(field.b2-wall-in) m and the cut wall's tightest point #f2(field.notch-lo)–#f2(field.notch-hi) m to the wall's inner face (rows 23 and 18) → the wall as built #f2(delta) m inside the deed line (the lower reading; the 2.30 reading gives #f2(delta-hi)); B1 #f2(field.b1-yard) m to the yard wall. Every wall sampled at 5 cm. Target: ≥ #f2(target) m from the wall as built.]
     #v(2pt)
     #tbl(columns: (2.5fr, 1fr, 1fr, 1fr, 1fr), size: 6.4pt,
