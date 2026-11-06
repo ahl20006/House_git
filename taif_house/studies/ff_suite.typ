@@ -19,7 +19,7 @@
 
 // ---------- Neighbours (grey; the family part, fixed by studies/ff_family.typ) ----------
 #let neighbours = (
-  ("Bedroom 1", ((8.95, 1.0), (10.594, 1.0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))),
+  ("Bedroom 1", ((8.95, 1.0), (10.731, 1.0), (13.311, 5.749), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))),
   ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5)),
   ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)),
   ("Courtyard sky (void)", rect-pts(5.8, 6.5, 8.95, 13.0)),
@@ -224,7 +224,7 @@
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm on the outer walls (x 13.311, y 24, x 0), nothing on open edges, 200 mm elsewhere
-#let outer-edges = (((13.311, 6.0), (13.311, 24.0)), ((0, 24.0), (13.311, 24.0)), ((0, 19.25), (0, 24.0)))
+#let outer-edges = (((13.311, 5.749), (13.311, 24.0)), ((0, 24.0), (13.311, 24.0)), ((0, 19.25), (0, 24.0)))
 #let open-edges = ()
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }

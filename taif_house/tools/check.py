@@ -89,6 +89,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/placement_steps.typ", OUTPUT / "placement_steps.pdf", ["Placement in three steps", "Study checks passed"]),   # 5 Nov 2026: study only (the owner's three steps), nothing moved; the owner decides step by step
     ("studies/shift_south.typ", OUTPUT / "shift_south.pdf", ["Shift south study", "Study checks passed"]),   # 6 Nov 2026: study only (the house 0.40–0.60 m south), nothing moved; the owner decides
     ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
+    ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
     ("presentation.typ", PRESENTATION, []),
     ("docs/review/vv_review_v8_3.typ", OUTPUT / "VV_Review_V8.3.pdf", ["Interim verification and validation review"]),   # review only (3 Nov 2026)
 ]
@@ -168,7 +169,7 @@ def live(block):
 
 RECT = r'\(\s*"([^"]+)",\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*"(\w+)"\s*\)'
 POLY = r'\(\s*"([^"]+)",\s*(\((?:\s*\(\s*-?[\d.]+\s*,\s*-?[\d.]+\s*\)\s*,?)+\s*\)),\s*"(\w+)"\s*\)'
-studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 45.54)}   # (dx, dy, rooms total m²)
+studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 46.21)}   # (dx, dy, rooms total m²)
 for src, (dx, dy, total) in studies.items():
     text = (ROOT / src).read_text(encoding="utf-8")
     found = [(n, rect(float(x) + dx, float(y) + dy, float(w), float(d))) for n, x, y, w, d, _ in re.findall(RECT, live(grab(text, "rooms-data")))]

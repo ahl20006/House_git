@@ -9,7 +9,7 @@
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; with the west projection (x 4.25–5.8, y 6.5–19.25; V6.4: 1.55 m, courtyard enclosure option A) on an edge beam and three columns ----------
-#let zone = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (8.95, 6.5), (5.8, 6.5), (5.8, 19.25), (0, 19.25))
+#let zone = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 6.5), (10.15, 6.5), (8.95, 6.5), (5.8, 6.5), (5.8, 19.25), (0, 19.25))
 #let plan-scale = 0.6cm
 #let proj-x = 5.8   // the projection's outer edge (edge beam B3, with the steel window W1 on its upstand): 1.55 m beyond the courtyard wall line x 4.25 (V6.4, enclosure option A)
 // the edge beam (x 5.8) on three columns, each in an existing wall / glass line (ground floor): the women's majlis south wall, the courtyard / living glass, the living's south wall
@@ -20,7 +20,7 @@
   (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
-  (name: "Air tower", pts: ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)), parts: (((8.95, 0), (10.594, 0), (10.594, 1.0), (8.95, 1.0)),)),
+  (name: "Air tower", pts: ((8.95, 0), (10.188, 0), (10.731, 1.0), (8.95, 1.0)), parts: (((8.95, 0), (10.594, 0), (10.731, 1.0), (8.95, 1.0)),)),
 )
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
@@ -73,7 +73,7 @@
   R("Kids' room (study + gaming)", rect-pts(4.25, 0, 8.95, 3.0), "kids"),
   R("Family living", rect-pts(4.25, 3.0, 8.95, 6.5), "family"),
   R("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"),
-  R("Bedroom 1", ((8.95, 1.0), (10.594, 1.0), (13.311, 6.0), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
+  R("Bedroom 1", ((8.95, 1.0), (10.731, 1.0), (13.311, 5.749), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
     parts: (((8.95, 1.0), (13.311, 1.0), (13.311, 5.3), (8.95, 5.3)), rect-pts(10.15, 5.3, 13.311, 6.5))),
 )
 #let seating = rooms.find(r => r.name.starts-with("Family living"))
@@ -119,8 +119,8 @@
   (10.3, 5.85, 12.9, 6.4, [wardrobe wall 2.6 m]),
 )
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
-#let escape-windows = (("Bedroom 1", (10.92, 1.6), (11.79, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
-#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((10.92, 1.6), (11.79, 3.2)), ((12.3, 4.15), (12.9, 5.25)),
+#let escape-windows = (("Bedroom 1", (11.057, 1.6), (11.927, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
+#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((11.057, 1.6), (11.927, 3.2)), ((12.443, 4.15), (13.041, 5.25)),
   ((5.8, 6.783), (5.8, 8.383)), ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60
 #let drains = (
@@ -188,7 +188,7 @@
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm for the steel window W1 / W2 on the void edges (V6.4), nothing where the edge is open, 200 mm elsewhere
 #let open-edges = (((2.75, 2.2), (2.75, 3.75)), ((4.25, 19.25), (5.6, 19.25)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
-#let outer-edges = (((0, 0), (0, 24)), ((0, 0), (10.051, 0)), ((10.051, 0), (13.311, 6.0)), ((13.311, 6.0), (13.311, 24)), ((0, 24), (13.311, 24)))
+#let outer-edges = (((0, 0), (0, 24)), ((0, 0), (10.188, 0)), ((10.188, 0), (13.311, 5.749)), ((13.311, 5.749), (13.311, 24)), ((0, 24), (13.311, 24)))
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }
   else if outer-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.25 }

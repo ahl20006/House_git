@@ -15,11 +15,11 @@
 // INPUT – the building from the design files (nothing to edit here: move the house in design_gf.typ)
 // =====================================================================
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
-#let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
+#let expected = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
 #assert(outline-csv-gf.len() == expected.len() and outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6),
   message: "the ground-floor outline changed: update the outer-face corners in setout_v83.typ")
 // the OUTER wall faces of the 13.311 × 24.0 m centre-line pentagon (250 mm outer walls, the cut corner mitred): B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW
-#let building = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125)).map(S)
+#let building = ((-0.125, -0.125), (10.262, -0.125), (13.436, 5.716), (13.436, 24.125), (-0.125, 24.125)).map(S)
 #let courtyards = (((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(S),)   // the open courtyard, clear opening (4.50 × 6.30)
 #let spare = 0.5                 // the spare you want to keep from the setback lines until the official survey
 #let lane-stop = 2.0             // field rule: less than this from the tightest point to the lane wall = stop and report

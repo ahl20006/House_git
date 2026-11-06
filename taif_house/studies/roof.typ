@@ -81,27 +81,27 @@
 #let lift-raise-max = coping-top - roof            // a raised shaft head stays hidden behind the cornice up to this (0.45 above the slab top → +7.65)
 
 // ---------- Outline, blocks, holes, attic ----------
-#let outline = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
+#let outline = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
 #let y-step = 19.25                                // the north block / south wing line (the men's majlis north wall, beams B8 / R5)
-#let block-n = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, y-step), (0, y-step))
+#let block-n = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, y-step), (0, y-step))
 #let block-s = ((0, y-step), (13.311, y-step), (13.311, 24), (0, 24))
 #let sky-hole = (5.8, 6.5, 8.95, 13.0)            // the courtyard sky (V6.4, enclosure A)
 #let court-hole = (4.25, 19.25, 10.0, 24.0)        // the suite court v2 (1 Nov 2026): from the gym to the office, open to the sky to the south facade (its bbox)
 #let court-pts = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0))   // less the gym nib's small roof (x 4.25–5.8, y 19.25–20.55)
-#let tower = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0))
+#let tower = ((8.95, 0), (10.188, 0), (10.731, 1.0), (8.95, 1.0))
 #let tower-top = 9.8                               // the malqaf head, 2.5 m above the roof finish (studies/air_system.typ)
 #let cut-k = 3.26 / 6.0
 #let cut-cos = 6.0 / calc.sqrt(3.26 * 3.26 + 36.0)
 #let in-off = setback - 0.125                      // the attic line from the wall centre lines: 0.875
-#let cut-x(y, off) = 10.051 + cut-k * y - off / cut-cos
+#let cut-x(y, off) = 10.188 + cut-k * y - off / cut-cos   // 6 Nov 2026: the cut wall 0.12 m further out (10.051 → 10.188)
 #let attic-e = 13.311 - in-off
-#let attic-yc = (attic-e - 10.051 + in-off / cut-cos) / cut-k
+#let attic-yc = (attic-e - 10.188 + in-off / cut-cos) / cut-k
 #let attic = ((in-off, in-off), (cut-x(in-off, in-off), in-off), (attic-e, attic-yc), (attic-e, y-step), (in-off, y-step))   // 1 Nov 2026: a plain pentagon, set back 1.0 m on all four sides (no stair room notch any more)
 #let attic-len = (cut-x(in-off, in-off) - in-off) + calc.sqrt(calc.pow(attic-e - cut-x(in-off, in-off), 2) + calc.pow(attic-yc - in-off, 2)) + (y-step - attic-yc) + (attic-e - in-off) + (y-step - in-off)
 #let strip-area = area(block-n) - area(attic) - area(tower) * 0.875
 
 // ---------- Reserved zones ----------
-#let z-erv = ((8.95, 1.0), (10.594, 1.0), (cut-x(3.4, 0), 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the malqaf tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4, top +9.10 = the attic coping; doors on its west face onto the roof terrace; the exhaust louvre on its cut face
+#let z-erv = ((8.95, 1.0), (10.731, 1.0), (cut-x(3.4, 0), 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the malqaf tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4, top +9.10 = the attic coping; doors on its west face onto the roof terrace; the exhaust louvre on its cut face
 #let base-top = 9.10
 #let z-plant = ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0))   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)

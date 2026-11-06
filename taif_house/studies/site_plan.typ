@@ -30,7 +30,7 @@
 #let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south (studies/shift_south.typ adopted; every house-attached literal below carries it); 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3; everything attached to the house moves with it, the gate, the driveway, the tanks and the septic stay
 #let dy = 1.738                // the house's move south since V8.3 (the positions below that were fixed in the site frame in V8.2–V8.3 and belong to the house carry it)
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
-#let house = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)).map(S)
+#let house = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0)).map(S)
 #let court = ((5.8, 6.5), (8.95, 6.5), (8.95, 13.0), (5.8, 13.0)).map(S)
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)).map(S)
 #let d-family = (S((3.0, 0)), S((4.0, 0)))
@@ -72,7 +72,7 @@
 #let grill = (S((16.5, 12.6)), S((17.6, 13.8)))                      // the grill and tannour a little apart in the yard's south part: ≥ 3 m from every opening and the gas, downwind
 #let grill-box = (grill.at(0).at(0), grill.at(0).at(1), grill.at(1).at(0), grill.at(1).at(1))
 #let counter-box = (counter.at(0).at(0), counter.at(0).at(1), counter.at(1).at(0), counter.at(1).at(1))
-#let w-maid = (S((12.170, 3.9)), S((12.714, 4.9)))                   // the maid room's escape window on the cut wall
+#let w-maid = (S((12.307, 3.9)), S((12.85, 4.9)))                   // the maid room's escape window on the cut wall
 #let hrv-site = S((9.8, 0.5))                                          // the HRV intake (roof, the malqaf tower)
 #let okit-zone = (counter-box.at(0), counter-box.at(1), counter-box.at(2) + 1.0, counter-box.at(3))   // the counter + its 1.0 m working strip: the workers' path must not cross it
 #let manhole-e = S((14.3, 13.5))                                     // the east-yard FOUL chamber (kitchen, laundry, maid bath, the suite stack): at the yard's south end; rain NEVER enters it (3 Nov 2026)

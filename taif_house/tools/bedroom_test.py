@@ -21,7 +21,7 @@ from shapely.ops import unary_union
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 ROOT = Path(__file__).resolve().parent.parent
 BED, WARD, DESK, CLEAR = (0.9, 2.0), (0.6, 1.2), (0.6, 1.2), 0.75
-OUTER = Polygon([(0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)])
+OUTER = Polygon([(0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0)])
 TRIALS = int(sys.argv[1]) if len(sys.argv) > 1 else 4000
 random.seed(6)
 

@@ -43,8 +43,8 @@
 }
 
 // ---------- Building outline (wall centre lines, CSV coordinates) ----------
-// pentagon: north-east corner cut parallel to the lane from (10.051, 0) to (13.311, 6.0), then the east wall straight south; south wall at y 24.0
-#let outline-csv-gf = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
+// 6 Nov 2026 (owner, field 2.30 m to the wall at the tightest point): the cut wall moved outwards 0.12 m, parallel (B2 10.051 → 10.188, B3 y 6.0 → 5.749; ≈ 0.42 m from the wall as built). pentagon: north-east corner cut parallel to the lane from (10.188, 0) to (13.311, 5.749), then the east wall straight south; south wall at y 24.0
+#let outline-csv-gf = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
 #let outline-gf = outline-csv-gf.map(place)
 
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
@@ -118,8 +118,8 @@
   ((13.311, 7.2), (13.311, 8.1), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
   ((8.95, 7.3), (8.95, 8.9), []),             // sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): it looks at the fountain and the tree; the outdoor TV south of it
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
-  ((12.170, 3.9), (12.714, 4.9), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
-  ((11.138, 2.0), (11.464, 2.6), []),         // maid bath vent window in the cut wall
+  ((12.307, 3.9), (12.85, 4.9), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
+  ((11.275, 2.0), (11.601, 2.6), []),         // maid bath vent window in the cut wall
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
@@ -127,7 +127,7 @@
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
-#let tower-pts = ((8.95, 0), (10.051, 0), (10.594, 1.0), (8.95, 1.0)).map(place)
+#let tower-pts = ((8.95, 0), (10.188, 0), (10.731, 1.0), (8.95, 1.0)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
 // 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
 // window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV

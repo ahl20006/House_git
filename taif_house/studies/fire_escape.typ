@@ -48,7 +48,7 @@
   let hit = WIN.find(w => w.floor == floor and same(w.a, a) and same(w.b, b))
   if hit != none { hit } else { (floor: floor, a: a, b: b, sill: params.openings.window.sill, head: params.openings.window.head, note: "default window (params.yaml)") }
 }
-#let outline = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
+#let outline = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
 
 // ---------- rules (figures read in the IRC / NFPA texts the SBC is based on; the SBC 2024 wording itself: not verified) ----------
 #let R = (esc-area: 0.53, esc-area-grade: 0.465, esc-h: 0.61, esc-w: 0.508, sill-max: 1.118, door-w: 0.813, sash-max: 1.2, frame: 0.05,
@@ -74,7 +74,7 @@
 #let not-adopted = ([sprinklers (NFPA 13D)], [fire-rated doors with closers], [a central alarm panel], [beam / aspirating detectors in the void], [a second door from the men's majlis], [a safe room (security = CCTV, alarm and video intercom; R-33 updated)])
 
 // ---------- the sleeping rooms and their escape windows ----------
-#let esc-list = fam-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + suite-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + ((room: "Maid room", floor: "GF", a: (12.17, 3.9), b: (12.714, 4.9)),)
+#let esc-list = fam-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + suite-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + ((room: "Maid room", floor: "GF", a: (12.307, 3.9), b: (12.85, 4.9)),)
 #let outside = ("Bedroom 1": [the lane setback strip (2.5 m to the boundary) → the lane; a ladder stands in the strip, a vehicle on the lane], "Bedroom 2": [the west strip (0.785 m to the M line) + the driveway beyond it → the street; a ladder from the driveway (base ≈ 1.2 m for a 4.8 m rise), a vehicle on the driveway: confirm the driveway stays open (site plan)], "Bedroom 3": [as bedroom 2], "Kids' room (a bedroom later)": [the north setback (3.8–5.7 m) → the north street and the parking: ladder and vehicle], "Suite bedroom": [the east strip (3.6–9 m) → the service yard: a ladder in the strip, a vehicle from the north (site plan)], "Maid room": [the lane setback strip at ground level, 2.5 m wide, open at both ends (to the north front and the east yard): the sill 1.40 m above the outside ground, no trapped corner])
 #let escape(w) = {
   let L = dist(w.a, w.b); let h = w.head - w.sill

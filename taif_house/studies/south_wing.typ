@@ -139,7 +139,7 @@
 #let tower-east = rp(13.436, 24.0 - dogleg.d, 13.436 + dogleg.w, 24.0)
 #let tower-south = rp(13.311 - dogleg.d, 24.125, 13.311, 24.125 + dogleg.w)
 // site distances (site frame)
-#let house-site = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0)).map(site)
+#let house-site = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0)).map(site)
 #let env-gap(P) = calc.min(..P.map(p => bdist(p, env)))
 #let lane-gap(P) = calc.min(..P.map(p => ldist(p, lane)))
 #let south-line = (env.last(), env.first())   // the envelope's south edge (= the land's south boundary: no south setback)

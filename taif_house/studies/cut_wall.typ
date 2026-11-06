@@ -14,7 +14,7 @@
 
 #assert(calc.abs(shift.at(0) - 0.91) < 1e-9 and calc.abs(shift.at(1) - 5.563) < 1e-9, message: "the house moved (design_gf.typ shift): re-read cut_wall.typ")
 #let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
-#assert(outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6), message: "the ground-floor outline changed")
+// 6 Nov 2026: the cut wall was moved outwards 0.12 m (design_gf.typ); this study keeps the former outline it was made with
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let S0(p) = (p.at(0) + 0.91, p.at(1) + 5.063)                                            // the day-1 position (where row 18 was read)
 #let faces = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125))   // B1 … B5, outer faces
@@ -120,7 +120,7 @@
     #block(width: 7.8cm, text(6.5pt, fill: gray)[The cut wall enlarged, at the 6 Nov 2026 position. Grey dashed: as designed. Purple: option A for the three possible true readings; amber: B; red: C. Dotted: the rooms along the cut. Where the wall as built really stands is what the owner's precise re-measure at M1 16.25 / D 26.53 (the day-1 point) will fix; the move of A then follows from the table.])
   ],
   [
-    #text(14pt, weight: "bold", fill: accent)[Cut wall · shortening it to gain area · short study] #h(1fr) #text(7pt, fill: gray)[STUDY ONLY · 6 Nov 2026 · start: the house 0.50 m further south (B1 5.49 from M1) · the cut wall 6.93 m]
+    #text(14pt, weight: "bold", fill: accent)[Cut wall · shortening it to gain area · short study · APPLIED 6 Nov 2026: −0.12 m (A at the 2.30 reading)] #h(1fr) #text(7pt, fill: gray)[STUDY ONLY · 6 Nov 2026 · start: the house 0.50 m further south (B1 5.49 from M1) · the cut wall 6.93 m]
     #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
     #text(7pt, fill: gray)[The cut wall B2–B3 is moved outwards, parallel; B2 slides east along the north wall (#f2(1 / cut-n.at(0)) d), B3 north along the east wall (#f2(-1 / cut-n.at(1)) d); every wall sampled at 5 cm. The wall as built: #f2(delta(2.20))–#f2(delta(2.30)) m inside the deed line (readings 2.20–2.30 at the day-1 tightest point, where the model gives #f2(notch0.m) to the deed line). At the new position the cut wall keeps #f2(m-wall(B, 2.20))–#f2(m-wall(B, 2.30)) m from the wall as built and #f2(m-deed(B)) m from the deed line as designed.]
     #v(2pt)

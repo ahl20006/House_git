@@ -35,15 +35,15 @@
   ("Serving passage", rect-pts(0, 16.1, 2.75, 17.5), "circ"), ("Guest WC", rect-pts(1.25, 17.5, 2.75, 19.25), "wet"), ("Guest basins", rect-pts(1.25, 19.25, 2.75, 21.4), "wet"),
   ("Guest passage", rect-pts(0, 17.5, 1.25, 21.4), "circ"), ("Foyer", rect-pts(0, 21.4, 2.75, 24), "circ"), ("Lobby + riwaq", ((2.25, 0), (4.25, 0), (4.25, 19.25), (2.75, 19.25), (2.75, 2.2), (2.25, 2.2)), "circ"),
   ("Women's majlis", rect-pts(4.25, 0, 8.95, 6.5), "habitable"), ("Courtyard", rect-pts(4.25, 6.5, 8.95, 13.0), "open"), ("Living (double height)", rect-pts(4.25, 13.0, 8.95, 19.25), "habitable"),
-  ("Men's majlis", rect-pts(2.75, 19.25, 13.311, 24), "habitable"), ("Maid bath", ((8.95, 1), (10.594, 1), (11.572, 2.8), (8.95, 2.8)), "wet"),
-  ("Maid room (a bedroom)", ((10.65, 2.8), (11.572, 2.8), (13.311, 6), (13.311, 7.0), (10.65, 7.0)), "habitable"), ("Laundry", rect-pts(8.95, 2.8, 10.65, 7.0), "wet"),
+  ("Men's majlis", rect-pts(2.75, 19.25, 13.311, 24), "habitable"), ("Maid bath", ((8.95, 1), (10.731, 1), (11.709, 2.8), (8.95, 2.8)), "wet"),
+  ("Maid room (a bedroom)", ((10.65, 2.8), (11.709, 2.8), (13.311, 5.749), (13.311, 7.0), (10.65, 7.0)), "habitable"), ("Laundry", rect-pts(8.95, 2.8, 10.65, 7.0), "wet"),
   ("Kitchen", rect-pts(8.95, 7.0, 13.311, 13.0), "kitchen"), ("Dining", rect-pts(8.95, 13.0, 13.311, 19.25), "habitable"),
 )
 #let ff-wet = (
   ("Bedroom 2 bath", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4))), ("Family WC", rect-pts(0, 7.9, 2.75, 9.2)),
   ("Bedroom 3 bath", rect-pts(0, 14.4, 2.2, 16.1)), ("Suite bath", ((10.3, 6.5), (12.211, 6.5), (12.211, 8), (13.311, 8), (13.311, 10.45), (10.3, 10.45))), ("Suite WC closet", rect-pts(12.211, 6.5, 13.311, 8)),
 )
-#let ff-dry = (("Kids' room", rect-pts(4.25, 0, 8.95, 3.0)), ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)), ("Bedroom 1", ((8.95, 1), (10.594, 1), (13.311, 6), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))), ("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4)), ("Bedroom 3", ((2.2, 14.4), (4.25, 14.4), (4.25, 19.25), (0, 19.25), (0, 16.1), (2.2, 16.1))), ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))), ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)), ("Gym", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24), (0, 24))), ("Office", rect-pts(10, 19.25, 13.311, 24)))
+#let ff-dry = (("Kids' room", rect-pts(4.25, 0, 8.95, 3.0)), ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)), ("Bedroom 1", ((8.95, 1), (10.731, 1), (13.311, 5.749), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))), ("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4)), ("Bedroom 3", ((2.2, 14.4), (4.25, 14.4), (4.25, 19.25), (0, 19.25), (0, 16.1), (2.2, 16.1))), ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))), ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)), ("Gym", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24), (0, 24))), ("Office", rect-pts(10, 19.25, 13.311, 24)))
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10, 19.25), (10, 24), (4.25, 24))
 #let hood = (12.5, 10.2, 13.311, 11.2)        // the kitchen's hood zone on the east wall: no drains above
 #let panel-zone = (0, 7.9, 1.5, 9.2)           // the utility room's north-west part: the main panel (west wall) — and, since 2 Nov 2026, the battery space on the north wall (east part, see the utility room page)
@@ -177,7 +177,7 @@
     for (n, P) in ff-dry { poly(P, stroke: (paint: luma(90), thickness: 0.5pt, dash: "dashed")) }
     poly(scourt, stroke: (paint: blue, thickness: 0.5pt, dash: "dotted"))
   }
-  line(q((0, 0)), q((10.051, 0)), q((13.311, 6.0)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
+  line(q((0, 0)), q((10.188, 0)), q((13.311, 5.749)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
   // the collectors
   rect(q((shaft.at(0), shaft.at(1))), q((shaft.at(2), shaft.at(3))), fill: luma(120), stroke: none); T((0.75, 9.8), [W shaft], size: 2.6pt, fill: white)
   circle(q(east-stack), radius: 0.22, fill: rgb("#8a5a2b"), stroke: none); T((13.6, 7.05), [E stack], size: 2.6pt, fill: rgb("#8a5a2b"), anchor: "west")
@@ -198,7 +198,7 @@
   rect(q((battery.at(0), battery.at(1))), q((battery.at(2), battery.at(3))), fill: amber, stroke: none); T((2.7, 8.2), [batteries], size: 2.6pt, fill: amber, anchor: "west")
   for (n, P) in ff-dry { }
   for p in wet-rows { circle(q(p.p), radius: 0.16, fill: if p.fl == "GF" { blue } else { rgb("#8a5a2b") }, stroke: none) }
-  line(q((0, 0)), q((10.051, 0)), q((13.311, 6.0)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
+  line(q((0, 0)), q((10.188, 0)), q((13.311, 5.749)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
   T((6.6, 24.8), [OVERLAY · the first-floor wet rooms (green = over a wet / service room, red = over the kitchen) on the ground floor · dots: wet points (blue GF, brown FF) · 1 m = 0.56 cm], size: 3.2pt, fill: accent)
 })
 #let constraints-plan(length: 0.5cm) = cetz.canvas(length: length, {
@@ -220,7 +220,7 @@
   line(q(mh-east), q((15.2, 24.0)), stroke: (paint: rgb("#8a5a2b"), thickness: 0.8pt, dash: "dotted")); T((15.4, 24.0), [→ collector MH → septic], size: 2.6pt, fill: rgb("#8a5a2b"), anchor: "west")
   circle(q(hrv-intake), radius: 0.4, stroke: 0.8pt + amber); T((11.0, 0.5), [HRV intake (roof): vents ≥ 3 m], size: 2.6pt, fill: amber, anchor: "west")
   rect(q((0, 0)), q((2.25, 2.2)), fill: red.transparentize(50%), stroke: none); T((1.1, 1.1), [lift], size: 2.6pt)
-  line(q((0, 0)), q((10.051, 0)), q((13.311, 6.0)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
+  line(q((0, 0)), q((10.188, 0)), q((13.311, 5.749)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1.1pt + ink)
   T((6.6, 24.8), [CONSTRAINTS · red = no drains above (habitable rooms, the kitchen's hood zone, the panel, the batteries, the lift) · blue = drop beams · beige = ribbed bays (a sunken zone possible) · 1 m = 0.5 cm], size: 3.2pt, fill: accent)
 })
 #let scen-plan(S, name, length: 0.36cm) = cetz.canvas(length: length, {
@@ -235,7 +235,7 @@
   rect(q((shaft.at(0), shaft.at(1))), q((shaft.at(2), shaft.at(3))), fill: luma(120), stroke: none)
   circle(q(east-stack), radius: 0.22, fill: rgb("#8a5a2b"), stroke: none); circle(q(mh-east), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b")); circle(q(mh-west), radius: 0.3, fill: white, stroke: 0.8pt + rgb("#8a5a2b"))
   line(..west-run.map(q), stroke: (paint: rgb("#8a5a2b"), thickness: 0.8pt, dash: "dashed"))
-  line(q((0, 0)), q((10.051, 0)), q((13.311, 6.0)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1pt + ink)
+  line(q((0, 0)), q((10.188, 0)), q((13.311, 5.749)), q((13.311, 24)), q((0, 24)), close: true, stroke: 1pt + ink)
   T((6.6, 24.9), [SCENARIO #name · total #r1(s-total(S)) m · blue = GF buried branches · brown = FF branches to the stacks], size: 3pt, fill: accent)
 })
 #let utility-plan(length: 2.4cm) = cetz.canvas(length: length, {
