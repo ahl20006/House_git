@@ -7,7 +7,7 @@
 #show: setup
 
 // ---------- Place the whole building ----------
-#let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south, B1 5.49 m from M1 (studies/shift_south.typ, adopted); before: 5.063 = site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout_v83.typ)
+#let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south, B1 5.49 m from M1 (studies/shift_south.typ, adopted); before: 5.063 = site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout.typ)
 #let rot = 0deg               // square to the M line
 
 // ---------- Rows from the CSV (# at the start of a name switches the row off) ----------
@@ -50,7 +50,7 @@
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
 #let outer-wall = 0.125
 #assert(sample(outline-gf, step: 0.1).all(p => inside(p, env)), message: "ERROR: the building centre line leaves the envelope.")
-#let env-gap = calc.min(..sample(outline-gf, step: 0.1).map(p => calc.min(..edges(env).map(e => seg-dist(p, ..e))))) - outer-wall
+#let env-gap = calc.min(..sample(outline-gf, step: 0.1).map(p => calc.min(..edges(env).filter(e => not (calc.abs(e.at(0).at(0)) < 0.01 and calc.abs(e.at(1).at(0)) < 0.01)).map(e => seg-dist(p, ..e))))) - outer-wall   // V9.0: to the setback lines only (the M line has no setback; the west face's 0.785 m is m-gap)
 #assert(env-gap >= 0, message: "ERROR: the outer wall face crosses the envelope (setback line).")
 #let m-gap = calc.min(..outline-gf.map(p => p.at(0))) - outer-wall   // outer west face to the M line
 

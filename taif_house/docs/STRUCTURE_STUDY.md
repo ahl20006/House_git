@@ -1,4 +1,6 @@
-# Taif / Palm House · V8.3 · preliminary structural study
+# Taif / Palm House · V9.0 · preliminary structural study
+
+*V9.0 (`studies/structure.typ`):* the cut wall moved 0.12 m outwards, parallel (the field reading of 2.30 m): the cut-line columns **C30 (10.188, 0), C31 (11.709, 2.8), C32 (13.311, 5.749)**, spans 3.2 · 3.4 m; the RC wall W4 on the new line; the north wall's last span 1.24 m (was 1.10), the east wall's first span from y 5.749; the air tower's edge beams B15 / R9 1.78 m (were 1.64). Every size still assumed.
 
 *V8.3 (`studies/structure.typ` X21):* the first-floor 0.20 service wall on y 9.2 (light, on the solid west-band slab) for the family WC and bedroom 2's en-suite; the ground-floor powder room: the wall on y 14.4 removed, so the hidden beam **B14** becomes a drop beam or the bay spans 3.2 m (the engineer); a 0.25 service wall on y 16.1 with bedroom 3's stack; no ground-floor shower, no sunken zone.
 
@@ -30,9 +32,9 @@ Columns 0.25 × 0.50 in the inner wall lines, 0.25 × 0.60 in the 0.25 outer wal
 | x 0 and x 2.75 (west band, riwaq line) | y 0 · 2.2 · 7.9 · 10.4 · 14.4 · 19.25 · 24 | 2.2 · 5.7 · 2.5 · 4.0 · 4.85 · 4.75 |
 | x 4.25 and x 8.95 (courtyard lines) | y 0 · 3.0 · 6.5 · 13.0 · 19.25 · 24 | 3.0 · 3.5 · 6.5 · 6.25 · 4.75 |
 | x 5.6 (colonnade, to the first floor) | y 6.5 · 13.0 · 19.25 | 6.5 · 6.25 |
-| cut wall | (10.051, 0) · (11.572, 2.8) · (13.311, 6.0) | 3.2 · 3.6 |
+| cut wall (V9.0: 0.12 m further out) | (10.188, 0) · (11.709, 2.8) · (13.311, 5.749) | 3.2 · 3.4 |
 | x 13.311 (east wall) | y 6.0 · 10.45 · 13.0 · 19.25 · 24 | 4.45 · 2.55 · 6.25 · 4.75 |
-| y 0 and y 24 (north and south walls) | x 0 · 2.75 · 4.25 · 8.95 · 13.311 (cut corner 10.051) | 2.75 · 1.5 · 4.7 · 4.36 (1.1) |
+| y 0 and y 24 (north and south walls) | x 0 · 2.75 · 4.25 · 8.95 · 13.311 (cut corner 10.188) | 2.75 · 1.5 · 4.7 · 4.36 (1.1) |
 | y 6.5 · 13.0 · 19.25 (cross lines) | x 4.25 · 5.6 · 8.95 · 13.311 (+ 2.75 on y 19.25) | 1.35 · 3.35 · 4.36 |
 
 36 columns (C1–C36 in the drawing). The pair at (4.25, 3.0) and (8.95, 3.0) carries beam B1 under the first-floor kids' room / family living wall, so the women's majlis roof spans 3.0 + 3.5 m instead of 6.5 m.

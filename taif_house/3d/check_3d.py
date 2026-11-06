@@ -32,7 +32,7 @@ from pathlib import Path
 import numpy as np
 import trimesh
 import yaml
-from shapely.geometry import LineString, Point, Polygon
+from shapely.geometry import LineString, Point, Polygon, box
 from shapely import wkt
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")   # the messages use ≥ → · whatever the console code page
@@ -446,7 +446,7 @@ if grille_ok and 0.05 - 1e-6 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "
        f"{gy0 - max(sink['a'][1], sink['b'][1]):.2f} m south of the kitchen sink window, under the outdoor TV; no air opening and no water in the courtyard floor (the covers are sealed, in the laundry and kitchen)")
 else:
     bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
-if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.0:
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.2:   # V9.0: 1.04 m² since the cut wall moved 0.12 m out (the tower 1.51 m² on axes)
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:
     bad("tower shaft opening")
@@ -552,13 +552,20 @@ else:
     else:
         bad(f"character meshes beyond the outer face: x {chrv[:, 0].min():.3f}–{chrv[:, 0].max():.3f}, y {chrv[:, 1].min():.3f}–{chrv[:, 1].max():.3f}")
     # V8.2: the site elements (the site plan, study): on the ground round the house, inside the plot's extent, none higher than the hedge; the suite court's mashrabiya screen on the base up to the frame soffit
-    site_m = {n: m for n, m in chr_meshes.items() if n.startswith("chr_site_")}
+    exist_n = {e["name"] for e in summary["character"]["meshes"] if e.get("existing")}   # V9.0: the existing farm (the old house, the walls, the palms …) is checked apart
+    exist_m = {n: m for n, m in chr_meshes.items() if n in exist_n}
+    site_m = {n: m for n, m in chr_meshes.items() if n.startswith("chr_site_") and n not in exist_n}
     gnd = C["plinth"]["ground"]
     shx, shy = C["site"]["shift"]   # the plot's extent is checked in the SITE frame (4 Nov 2026: the house moved 1.238 m south, the driveway and the paths did not)
     if site_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 1.85 for m in site_m.values()) and all(-4.1 <= m.bounds[0][0] + shx and m.bounds[1][0] + shx <= 26.9 and -2.2 <= m.bounds[0][1] + shy and m.bounds[1][1] + shy <= 39.9 for m in site_m.values()):
         ok(f"{len(site_m)} site elements (V8.2 / 3 Nov 2026, studies/site_plan.typ: the driveway, three paths (the workers' along the boundary wall), the parking bay, the garden, its wall, the hedge, the yard screen, the gas cabinet, the bins) on the ground round the house, inside the plot, the hedge 1.8 m the highest")
     else:
         bad(f"site elements: {len(site_m)} meshes, bounds off the ground or outside the plot")
+    if exist_m and all(m.bounds[0][2] >= gnd - 0.02 and m.bounds[1][2] <= gnd + 11.0 for m in exist_m.values()) and all(-19.5 <= m.bounds[0][0] + shx and m.bounds[1][0] + shx <= 27.4 and -2.2 <= m.bounds[0][1] + shy and m.bounds[1][1] + shy <= 40.0 for m in exist_m.values()) \
+            and not any(outline_poly.buffer(T_OUT / 2).intersects(box(m.bounds[0][0], m.bounds[0][1], m.bounds[1][0], m.bounds[1][1])) for n, m in exist_m.items() if "palm" not in n and "farm_wall" not in n):
+        ok(f"{len(exist_m)} existing-farm meshes (V9.0: the old house and its annex, the covered parking, the tank, the septic, the north and lane walls with the gate, the two palms): on the ground, within the farm's north zone, none touching the new house; approximate, to be measured")
+    else:
+        bad(f"existing farm: {len(exist_m)} meshes, bounds off the ground, outside the north zone or touching the house")
     scr = chr_meshes.get("chr_base_timber_court_screen")
     sc_ = summary.get("suite_court", {})
     if scr is not None and abs(scr.bounds[0][2] - sc_["base_top"]) < 1e-3 and abs(scr.bounds[1][2] - sc_["frame_soffit"]) < 1e-3 and 0.3 <= ch["court_screen"]["open"] <= 0.5:

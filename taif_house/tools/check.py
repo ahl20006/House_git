@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V8.3 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V9.0 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V8.3"
+VERSION = "V9.0"
 problems = []
 
 
@@ -67,7 +67,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("design_gf.typ", OUTPUT / "design_gf.pdf", ["All checks passed"]),
     ("design_ff.typ", OUTPUT / "design_ff.pdf", ["All checks passed", "matches the two studies room for room"]),
     ("studies/site_test.typ", OUTPUT / "site_test.pdf", []),
-    ("studies/setout_v83.typ", OUTPUT / "setout_v83.pdf", ["Set-out sheet checks: status OK"]),   # 4 Nov 2026: the set-out sheet (the status from the tightest point on ANY wall); site_test.typ is superseded
+    ("studies/setout.typ", OUTPUT / "setout.pdf", ["Set-out sheet checks: status OK"]),   # 4 Nov 2026: the set-out sheet (the status from the tightest point on ANY wall); site_test.typ is superseded
     ("studies/whole_farm.typ", OUTPUT / "whole_farm.pdf", ["Whole-farm study checks passed"]),   # 5 Nov 2026: the whole farm on the site baseline v2 (data/site_v2.csv) with the old buildings from the deed sketch
     ("studies/guest_wing.typ", OUTPUT / "guest_wing.pdf", ["All rooms inside the block, no overlaps, no gaps"]),
     ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", ["All rooms inside the block, no overlaps"]),
@@ -91,10 +91,11 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
     ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
     ("presentation.typ", PRESENTATION, []),
-    ("docs/review/vv_review_v8_3.typ", OUTPUT / "VV_Review_V8.3.pdf", ["Interim verification and validation review"]),   # review only (3 Nov 2026)
+    ("docs/review/review_status.typ", OUTPUT / f"Design_Review_status_{VERSION}.pdf", ["Review status", "V9.0"]),   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]
 tmp = Path(tempfile.mkdtemp())
 jobs += [(str(p.relative_to(ROOT)).replace("\\", "/"), tmp / (p.stem + ".pdf"), []) for p in sorted((ROOT / "archive").glob("*.typ"))]   # archived drawings: compile only
+jobs += [("docs/review/vv_review_v8_3.typ", tmp / "VV_Review_V8.3.pdf", ["Interim verification and validation review"])]   # V9.0: the interim V&V review of V8.3 is archived (archive/VV_Review_V8.3.pdf); compiled here as a check only
 typst = shutil.which("typst")
 pdftotext = shutil.which("pdftotext")
 if not typst:
@@ -228,7 +229,7 @@ elif lost:
 else:
     ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
 # active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
-active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V8.md", "decisions.csv", "review_status.typ")]
+active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V9.md", "decisions.csv", "review_status.typ")]
 active.append(ROOT.parent / "README.md")
 old = []
 for p in active:

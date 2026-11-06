@@ -1,5 +1,5 @@
 // site_test.typ · Taif / Palm House · building-rectangle site test (compile THIS file for the test)
-// SUPERSEDED (4 Nov 2026): this is the V6.3 site test of building.csv (option Z4). The current set-out sheet is studies/setout_v83.typ (the house from design_gf.typ, the status from the tightest point on any wall); kept as the record of the option study.
+// SUPERSEDED (4 Nov 2026): this is the V6.3 site test of building.csv (option Z4). The current set-out sheet is studies/setout.typ (the house from design_gf.typ, the status from the tightest point on any wall); kept as the record of the option study.
 // Uses ../base.typ (site, envelope, palms, north) and building.csv (outside wall faces of each option). Does not touch the design files.
 #import "../base.typ": *
 #show: setup
@@ -77,7 +77,7 @@
   let (wn, ws) = widths(r)
   render(
     title: [Site test · #r.name · #if wn == ws [#num(wn)] else [#num(wn)→#num(ws)] × #num(float(r.d)) m · #num(float(r.angle))°#if cut(r) != none [ · NE cut #num(cut(r).at(0)) × #num(cut(r).at(1))]],
-    subtitle: [SUPERSEDED by studies/setout_v83.typ (4 Nov 2026) · building rectangle only · outside wall faces · env margin #num(env-margin) m · palm clearance #num(palm-clear) m],
+    subtitle: [SUPERSEDED by studies/setout.typ (4 Nov 2026) · building rectangle only · outside wall faces · env margin #num(env-margin) m · palm clearance #num(palm-clear) m],
     extras: ((r.name, t.P),),
     note: [
       #table(columns: (1fr, auto, auto), stroke: none, inset: 3pt,

@@ -563,12 +563,29 @@ def build(g):
                 pts_ = [c_(p) for p in el["pts"]]
                 poly_ = unary_union([seg_box(p, q, el["width"]) for p, q in zip(pts_, pts_[1:])])
                 meshes_ = parts(poly_, ground_, ground_ + el["height"])
+            elif kind == "block":   # V9.0: an existing building as a plain mass (the old house from the deed sketch)
+                meshes_ = parts(Polygon([c_(p) for p in el["pts"]]), ground_, ground_ + el["height"])
+            elif kind == "canopy":   # V9.0: posts at the corners and a thin roof (the existing covered parking)
+                x0_, y0_, x1_, y1_ = el["box"]
+                x0_, y0_, x1_, y1_ = x0_ - shx, y0_ - shy, x1_ - shx, y1_ - shy
+                meshes_ = parts(box(x0_, y0_, x1_, y1_), ground_ + el["height"] - 0.12, ground_ + el["height"])
+                for px_, py_ in ((x0_, y0_), (x1_ - 0.12, y0_), (x0_, y1_ - 0.12), (x1_ - 0.12, y1_ - 0.12)):
+                    meshes_ += parts(box(px_, py_, px_ + 0.12, py_ + 0.12), ground_, ground_ + el["height"] - 0.12)
+            elif kind == "palm":   # V9.0: a trunk and a crown (the two palms of the v2 survey; heights assumed)
+                px_, py_ = c_(el["at"])
+                meshes_ = parts(Point(px_, py_).buffer(el["radius"], resolution=8), ground_, ground_ + el["height"])
+                crown_ = trimesh.creation.icosphere(subdivisions=1, radius=el["crown"])
+                crown_.apply_scale([1.0, 1.0, 0.45])
+                crown_.apply_translation([px_, py_, ground_ + el["height"]])
+                crown_.visual.vertex_colors = pal["foliage"]
+                emit("site", "foliage", lab + "_crown", [crown_], kind="palm_crown", note=el.get("note", ""), existing=True)
             else:
                 x0_, y0_, x1_, y1_ = el["box"]
                 meshes_ = parts(box(x0_ - shx, y0_ - shy, x1_ - shx, y1_ - shy), ground_, ground_ + el["height"])
-            n_ = emit("site", mat, lab, meshes_, kind=kind, note=el.get("note", ""))
-            rec["site"].append({"name": n_, "label": lab, "kind": kind})
+            n_ = emit("site", mat, lab, meshes_, kind=kind, note=el.get("note", ""), existing=bool(el.get("existing")))
+            rec["site"].append({"name": n_, "label": lab, "kind": kind, "existing": bool(el.get("existing"))})
         rec["flags"].append("Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers")
+        rec["flags"].append("Existing farm (V9.0, data/site_v2.csv, studies/whole_farm.typ): the old house (a plain 3.8 m mass) and its annex from the deed sketch (± 1–3 m), the covered parking, the ground tank and the septic at their assumed positions, the north and lane walls on the deed line with the 4 m gate, the two palms (heights assumed): APPROXIMATE, to be measured on site")
 
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
     summary["flags"] += rec["flags"]

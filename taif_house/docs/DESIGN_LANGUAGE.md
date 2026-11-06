@@ -2,6 +2,8 @@
 
 **Theme: modern classic with a Taif spirit.** Calm, warm, simple; the Taif references are in the stone, the arches, the colonnade and a little mashrabiya, not in ornament. Recorded 30 Oct 2026 (owner); every study and detail from here on follows it. The 3D character study (`3d/character.yaml`) is to be brought in line with this list when it is next touched.
 
+*V9.0 (layout freeze, 6 Nov 2026):* the plan is frozen; the facades and the details are the next design stage and follow this list and the facade principle R-37 (the house stands inside a fully walled private farm: the facades are designed for light, views, climate and composition, not for privacy from outside). The 3D now shows the existing farm round the house (the old house, its covered parking, the walls and the gate, the palms) as plain approximate masses, not as design.
+
 | Element | The language |
 |---|---|
 | Interior walls | Warm white (cream) plaster |

@@ -24,7 +24,7 @@
 // 6 Nov 2026: the cut wall was moved outwards 0.12 m (design_gf.typ); this study keeps the former outline it was made with
 #let B0 = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125)).map(S)   // B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW
 #let B2 = B0.at(1)
-#let spare = 0.5                 // the spare to keep from the setback lines until the official survey (setout_v83.typ)
+#let spare = 0.5                 // the spare to keep from the setback lines until the official survey (setout.typ)
 #let setback-lane = 2.0          // the lane setback (base.typ: the envelope is 2.0 m inside the lane line, 3.0 m inside the north line)
 #let M1 = (0.0, 0.0)
 #let r-palm = 0.265
@@ -88,7 +88,7 @@
   }
   c
 }
-// the margin to the setback lines and the south line (the M line has no setback): as setout_v83.typ
+// the margin to the setback lines and the south line (the M line has no setback): as setout.typ
 #let limit-dist(p, poly) = {
   let n = poly.len()
   let m = 1e9

@@ -21,7 +21,7 @@
 #let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 // 6 Nov 2026: the cut wall was moved outwards 0.12 m (design_gf.typ); this study keeps the former outline it was made with
 #let B0 = ((-0.125, -0.125), (10.125, -0.125), (13.436, 5.968), (13.436, 24.125), (-0.125, 24.125)).map(S)   // B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW (outer faces)
-#let spare = 0.5                 // the spare wanted from the deed setback lines (setout_v83.typ)
+#let spare = 0.5                 // the spare wanted from the deed setback lines (setout.typ)
 #let target = 0.40               // the owner's target from the wall as built
 #let setback-lane = 2.0
 #let M1 = (0.0, 0.0)

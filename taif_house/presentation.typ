@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V8.3 · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V8.3_presentation.pdf
+// presentation.typ · Taif / Palm House V9.0 (layout freeze) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.0_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V8.3])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.0 · layout freeze])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -372,7 +372,7 @@
 }
 
 // ===================================================================================== SHEET 01 · site
-#sheet-head([The house on its site · the site and services plan], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls | V8.2: the site plan (`studies/site_plan.typ`, every position proposed, to confirm with the survey and the engineers)])
+#sheet-head([The house on its site · the site and services plan], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls | V9.0: set out on site (day 1) at its final position, B1 5.49 m from M1; the site plan `studies/site_plan.typ` and the whole farm `studies/whole_farm.typ` (the existing buildings approximate, to be measured)])
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: 0.52cm, {
     import cetz.draw: *
@@ -418,7 +418,7 @@
     #grid(columns: (1fr, 1fr, 1fr), column-gutter: 8pt, row-gutter: 8pt,
       kpi[#n2(footprint) m²][outside footprint (incl. courtyard)], kpi[#n2(gf-area) m²][ground floor rooms (axes)], kpi[#n2(ff-area) m²][first floor rooms (axes)],
       kpi[#court-clear m][courtyard, clear · sky #n3(sec.pj.sky) m axes above], kpi[#n2(suite-area) m²][master suite (indoors)], kpi[#n3(sec.pj.m-gap) m][west face to the M line (both floors)],
-      kpi[#n2(env-gap) m][nearest wall face to the envelope], kpi[#n2(palm-gap(T1)) / #n2(palm-gap(T2)) m][palms P1 / P2 to the outer walls], kpi[#n2(sec.ff-level) m][floor to floor (to confirm)],
+      kpi[#n2(env-gap) / 0.42 m][nearest wall face to the setback: deed line / wall as built (field 2.30 m)], kpi[#n2(palm-gap(T1)) / #n2(palm-gap(T2)) m][palms P1 / P2 to the outer walls], kpi[#n2(sec.ff-level) m][floor to floor (to confirm)],
     )
     #v(6pt)
     #en[
@@ -428,9 +428,9 @@
 
       *Roof access (V8.1):* a maintenance ladder in a recess of the gym's east wall in the suite court, behind a locked walnut panel; the internal stair stops at the first floor; office visitors are met in the men's majlis. One entry to the site: the farm's 4 m main gate.
 
-      *Walls on walls:* the first-floor outer walls stand on the ground-floor outer walls, #n3(sec.pj.m-gap) m from the M line; no projection beyond the ground floor.
+      *Site position (V9.0):* set out on site (day 1, the diagonals exact), then 0.50 m further south (B1 5.49 m from M1); the cut wall 0.12 m further out after the field reading of 2.30 m: 0.90 m from the deed setback, 0.42 m from the wall as built (the official survey confirms). *The farm (owner; approximate, to be measured):* the old house with its majlis west of the driveway, its covered parking and the ground tank south of it near peg R, the septic outside the north wall near C1 serving both houses.
 
-      *Site and services plan (V8.2, a study; every position proposed, to confirm with the survey and the engineers):* one entry, the farm's 4 m gate; the family's covered parking beyond the plot and one uncovered car in the north strip (kept); guests walk the honey-stone *guest path* along the driveway to their entrance; workers reach the *service yard* (bins, screen, LPG cabinet) along the north and lane-side strips; the *family garden on the south only*, behind a 1.2 m stone wall and a 1.8 m hedge. Foul drains to the existing *septic outside the wall near corner C1*; the water tank east of peg R with the reserved tank beside it; rainwater separate; PV provision with the inverter and batteries in the utility room, no generator; intercom and seven cameras. The plumbing study (rounds 1–2) is a proposal.
+      *Site plan (a study):* one 4 m gate; one family car in the north strip; the guest stone path along the driveway; the service yard reached along the farm's wall; the family garden on the south only; rain separate; PV without a generator.
     ]
     #ar[
       #ah[المنزل]
@@ -439,10 +439,8 @@
       جزء العائلة شمالا وغربا حول الفناء، والجناح الجنوبي (V8.0): النادي غربا وفناء الجناح الكبير المفتوح للسماء ومكتب المالك شرقا، ثم جناح النوم الرئيسي. الممر العلوي على بروز #n2(sec.pj.depth) م فوق الفناء والصالة، على جسر حافة و#sec.pj.columns أعمدة.
       #ah[الوصول إلى السطح (V8.1)]
       سلم صيانة في تجويف بجدار النادي داخل فناء الجناح خلف لوح خشبي مقفل؛ الدرج الداخلي يتوقف عند الدور الأول؛ زوار المكتب يُستقبلون في مجلس الرجال. مدخل واحد للموقع: البوابة الرئيسية للمزرعة بعرض 4 م.
-      #ah[جدار فوق جدار]
-      الجدران الخارجية للدور الأول فوق جدران الأرضي، على بعد #n3(sec.pj.m-gap) م من خط M، ولا بروز خارج الأرضي.
-      #ah[مخطط الموقع والخدمات (V8.2، دراسة)]
-      مدخل واحد (بوابة المزرعة 4 م)؛ موقف سيارة مكشوف في الشريط الشمالي؛ ممر حجري للضيوف بمحاذاة الممر الغربي؛ ساحة الخدمة شرقا؛ حديقة العائلة جنوبا فقط خلف جدار حجري وسياج؛ الصرف إلى خزان التحليل القائم خارج السور قرب C1؛ خزان الماء شرق الوتد R؛ الأمطار منفصلة؛ تجهيز شمسي بلا مولد. كل موقع مقترح حتى الرفع المساحي.
+      #ah[موضع البيت والمزرعة (V9.0)]
+      وُقّع البيت في الموقع ثم أُزيح 0.50 م جنوبا (B1 على 5.49 م من M1) وقُصّر جدار القطع 0.12 م: الهامش 0.90 م من خط الصك و0.42 م من الجدار القائم. البيت القديم غرب الممر، ومظلته والخزان جنوبه، وخزان الصرف قرب C1 للبيتين (تقريبي، يقاس). بوابة واحدة؛ ممر الضيوف؛ حديقة العائلة جنوبا.
     ]
   ],
 )
@@ -508,9 +506,9 @@
     #en[
       *West projection:* #n2(sec.pj.depth) m over the courtyard and the double-height void, on an edge beam on x #n2(sec.pj.col-x) and #sec.pj.columns columns; the first-floor west wall stands on the GF west wall. Gallery #n2(sec.pj.gallery) m (≈ #n3(sec.pj.gallery-clear) m clear), west rooms #n2(sec.pj.room) m (≈ #n3(sec.pj.room-clear) m clear), courtyard sky #n3(sec.pj.sky) m (≈ #n3(sec.pj.sky-clear) m clear).
 
-      *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m².
+      *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m², the young children's room next to the master suite (no en-suite: they are bathed in the suite's bathroom; owner, V9.0).
 
-      *West band:* family bath, bedroom 2, bedroom 3 with its own bath; every door from the gallery.
+      *West band:* the family WC (WC + basin) off the gallery, bedroom 2 with its en-suite, bedroom 3 with its own bath; every door from the gallery.
 
       *South wing v2 (V8.0):* the gym on the west band #ffa("Gym") m² (the treadmill with its manufacturer zone), the suite court #ffa("Suite court (open to the sky)") m² open to the sky from the gym to the office, the owner's office #ffa("Owner's office") m² on the east (no door to the bedroom; reached from the court only); master suite #n2(suite-area) m².
     ]
@@ -518,9 +516,9 @@
       #ah[البروز الغربي والممر العلوي]
       بروز #n2(sec.pj.depth) م فوق الفناء وفراغ الصالة على جسر حافة على x #n2(sec.pj.col-x) و#sec.pj.columns أعمدة، والجدار الغربي للدور الأول فوق الجدار الغربي للأرضي. الممر #n2(sec.pj.gallery) م (نحو #n3(sec.pj.gallery-clear) م صافي)، والغرف #n2(sec.pj.room) م (نحو #n3(sec.pj.room-clear) م صافي)، والسماء فوق الفناء #n3(sec.pj.sky) م.
       #ah[الشريط الشمالي]
-      غرفة الأطفال #ffa("Kids' room (study + gaming)") م² وجلسة العائلة #ffa("Family living") م² على حافة الفناء، وغرفة النوم 1 #ffa("Bedroom 1") م².
+      غرفة الأطفال #ffa("Kids' room (study + gaming)") م² وجلسة العائلة #ffa("Family living") م² على حافة الفناء، وغرفة النوم 1 #ffa("Bedroom 1") م² للأطفال الصغار بجوار الجناح (بلا حمام خاص: يستحمون في حمام الجناح).
       #ah[الشريط الغربي]
-      حمام العائلة بجوار الشفت، وغرفة النوم 2، وغرفة النوم 3 مع حمامها فوق دورة العائلة؛ كل الأبواب من الممر ولا باب على بسطة الدرج.
+      دورة مياه العائلة (مرحاض ومغسلة) من الممر، وغرفة النوم 2 مع حمامها، وغرفة النوم 3 مع حمامها؛ كل الأبواب من الممر ولا باب على بسطة الدرج.
       #ah[الجنوب والشرق]
       النادي غربا #ffa("Gym") م²، وفناء الجناح #ffa("Suite court (open to the sky)") م² المفتوح للسماء من النادي إلى المكتب، ومكتب المالك شرقا #ffa("Owner's office") م² بلا باب إلى غرفة النوم (يُدخل إليه من فناء الجناح فقط)، وجناح النوم الرئيسي #n2(suite-area) م² بمدخل من وصلة العائلة.
     ]
@@ -708,7 +706,9 @@
 #pagebreak()
 #sheet-head([Decisions log], [One line per key decision with its reason | from data/decisions.csv | the version is the one in which the decision was made])
 #let decisions = csv("data/decisions.csv", row-type: dictionary)
-#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.55pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+#{ set par(leading: 0.28em) }
+#show table: set par(leading: 0.28em)   // V9.0: tighter lines so the 12 sheets hold every decision
+#table(columns: (auto, auto, 1.3fr, 1fr, 1.15fr), stroke: none, inset: 0.45pt, fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
   ..([Ver.], [Topic], [Decision], [Reason], align(right, text(lang: "ar", dir: rtl)[القرار والسبب])).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
   ..decisions.map(d => (text(4.0pt)[#d.version], text(4.0pt, weight: "bold")[#d.topic], text(4.0pt)[#fill-in(d.decision)], text(4.0pt)[#fill-in(d.reason)], align(right, text(4.4pt, lang: "ar", dir: rtl)[#fill-in(d.ar)]))).flatten())   // 3 Nov 2026: 4.0 / 4.4 pt so the 12 sheets hold the 57 rows
 
@@ -778,6 +778,6 @@
   ],
 )
 
-// ---------- the two room schedules as data (typst eval --in presentation.typ "query(<schedules>).first().value"; used for docs/PROJECT_V8.md) ----------
+// ---------- the two room schedules as data (typst eval --in presentation.typ "query(<schedules>).first().value"; used for docs/PROJECT_V9.md) ----------
 #let sched-data(rooms, spec) = rooms.filter(r => r.id != "").map(r => { let (x0, y0, x1, y1) = bbox(r.P); (id: r.id, name: r.name, size: if is-rect(r.P) { n2(x1 - x0) + " × " + n2(y1 - y0) } else { "polygon" }, axes: n2(area(r.P)), clear: if r.kind in ("open", "court") { "–" } else { n2(area(clear-poly(r, spec))) }) })
 #metadata((gf: sched-data(gf-rooms, gf-walls), ff: sched-data(ff-rooms, ff-walls), vals: vals, footprint: n2(footprint), gf-area: n2(gf-area), ff-area: n2(ff-area), suite: n2(suite-area), court-clear: court-clear, palms: (n2(palm-gap(T1)), n2(palm-gap(T2))))) <schedules>

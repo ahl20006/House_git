@@ -1,6 +1,8 @@
-# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V8.3, 3 Nov 2026)
+# Taif / Palm House · owner's requirements (V6, 30 Oct 2026 · updated for V9.0, the layout freeze, 6 Nov 2026)
 
 The owner's brief written as numbered, testable requirements. Each has a criterion the design can be checked against; where the owner gave no number, the criterion is a reasonable measurable proxy and is marked *(proxy)*. The design review `docs/review/design_review.typ` → `output/Design_Review_V6.pdf` checks every requirement against the project files (`data/*.csv`, the design files and the studies) and records **met / partly / not met** with evidence.
+
+*V9.0 (6 Nov 2026):* the layout is frozen (`PROJECT_V9.md` §5); bedroom 1 is the room for very young children next to the master suite, with no en-suite (they are bathed in the suite's bathroom), which answers R-01 / R-09 for the children's bathing; the site requirements are met at the final position set out on site (B1 5.49 m from M1; the cut wall 0.42 m from a setback counted from the boundary wall as built, 0.90 m from the deed line), to be confirmed by the official survey.
 
 Sources for the criteria: the owner's brief (this file); municipal villa rules as published by the Ministry of Municipal and Rural Affairs and Housing (MOMAH) and reported in July 2024 (building ratio up to 75 %, two parking spaces for villas over 400 m², driver's / maid's room ≥ 6.5 m² and ≥ 2.1 m wide); the Saudi Building Code (SBC 201 general, SBC 1101 residential, SBC 501 mechanical, SBC 601/602 energy, SBC 701 plumbing, SBC 801 fire); international practice (ISO 21542 accessibility, ASHRAE 62.2 residential ventilation, ASHRAE 52.2 / ISO 16890 filters, BS EN 17037 daylight, IRC residential stair and egress figures on which SBC 1101 is based). Where a code figure could not be read from the code text it is marked *not verified* in the review.
 

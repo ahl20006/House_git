@@ -1,4 +1,6 @@
-# Taif / Palm House · V8.3 · air system v3.1 (one tower, two separate air paths; owner decisions applied)
+# Taif / Palm House · V9.0 · air system v3.1 (one tower, two separate air paths; owner decisions applied)
+
+*V9.0 (6 Nov 2026):* the cut wall moved 0.12 m outwards (the field reading of 2.30 m): the tower in the cut tip grows to ≈ 1.51 m² on axes (the shaft opening ≈ 1.04 m², was ≈ 0.90), the HRV base under it on the same cut line grows with it; nothing else of the system changes; still every size assumed.
 
 **Every size and performance figure below is assumed, to be designed by the MEP engineer.** v3.1 adds the owner's decisions on the open items (1 Nov 2026): the assist fan, bird mesh only, the HRV in a base under the tower, the condensers south of the tower, the make-up inlet's position. The drawings are `output/air_system.pdf` (from `studies/air_system.typ`): the tower plan at the head, the breeze path in plan and long section, the breeze estimate, the ventilation airflow, the intake / exhaust separations, the ceiling heights, the controls and the maintenance table.
 

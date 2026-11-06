@@ -1,4 +1,4 @@
-// bedroom1_bath.typ · Taif / Palm House V8.2 · the bedroom 1 bathroom study (design review F-05, 2 Nov 2026) · OWNER'S DECISION 2 Nov 2026: OPTION A ADOPTED
+// bedroom1_bath.typ · Taif / Palm House · the bedroom 1 bathroom study (design review F-05, 2 Nov 2026) · OWNER'S DECISION 2 Nov 2026: OPTION A ADOPTED · V9.0 (owner): B and B4 NOT ADOPTED: bedroom 1 is the young children's room, bathed in the master suite's bathroom
 // 3 Nov 2026 (owner's brief): OPTION B4, an en-suite shower room in a "hotel layout", studied on page 3: NOT APPLIED (its acceptance criteria 2 and 3 fail in every variant: the room is a wedge).
 // (no private bathroom; the wet areas stay in the two clusters; bedroom 1 keeps its size; low-level motion-sensor night lights along the route: design_ff.typ). This file is the record.
 // Bedroom 1 (north-east, over the maid wing) has no bathroom; its walk to the family bath crosses the family living and the gallery.
@@ -117,7 +117,7 @@
 })
 
 // ====================================================================================== PAGE 1
-#text(14pt, weight: "bold", fill: accent)[Bedroom 1's bathroom · design review F-05 · accept the route (A) or a private bathroom (B)? · Taif / Palm House V8.1 · STUDY ONLY]
+#text(14pt, weight: "bold", fill: accent)[Bedroom 1's bathroom · design review F-05 · accept the route (A) or a private bathroom (B)? · Taif / Palm House · A ADOPTED · B NOT ADOPTED: young children's room (owner, V9.0)]
 #v(1pt)
 #text(8pt, fill: gray)[*OPTION A ADOPTED by the owner (2 Nov 2026): no private bathroom; the wet areas stay grouped in the two clusters; night lights along the route.* 2 Nov 2026, after the stair flip (option B, F-b) · bedroom 1 is the north-east room over the maid wing, #r2(area(bed1)) m² on axes, 13.9 m² clear, one room without a bath · nothing in the design files changes until the owner decides · all sizes assumed]
 #v(3pt)
@@ -234,7 +234,7 @@
   T((9.1, 3.9), [over the laundry], size: 2.6pt, fill: rgb("#8a5a2b"), angle: 90deg); T((12.0, 5.9), [over the maid room (a bedroom)], size: 2.6pt, fill: rgb("#8a5a2b"))
 })
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[B4 (3 Nov 2026) · an en-suite shower room in a "hotel layout" for bedroom 1 · studied, NOT applied: the acceptance criteria 2 and 3 fail in every variant]
+#text(12pt, weight: "bold", fill: accent)[B4 (3 Nov 2026) · an en-suite shower room in a "hotel layout" for bedroom 1 · studied, NOT applied: the acceptance criteria 2 and 3 fail in every variant · NOT ADOPTED: young children's room (V9.0)]
 #v(2pt)
 #grid(columns: (auto, auto, auto), gutter: 6pt, plan4(b4.at(0)), plan4(b4.at(1)), plan4(b4.at(2)))
 #v(3pt)

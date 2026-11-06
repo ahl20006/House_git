@@ -1,7 +1,7 @@
 {
- "version": "V8.3",
+ "version": "V9.0",
  "params": {
-  "version": "V8.3",
+  "version": "V9.0",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -119,7 +119,7 @@
     },
     {
      "floor": "GF",
-     "at": "12.17 3.9 12.714 4.9",
+     "at": "12.307 3.9 12.85 4.9",
      "sill": 1.1,
      "head": 2.1,
      "note": "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 \u00d7 1.00, sill +1.10, obscured glass below +1.60, no screen",
@@ -127,7 +127,7 @@
     },
     {
      "floor": "GF",
-     "at": "11.138 2.0 11.464 2.6",
+     "at": "11.275 2.0 11.601 2.6",
      "sill": 1.6,
      "head": 2.1,
      "note": "maid bath vent window",
@@ -496,11 +496,11 @@
       1.0
      ],
      [
-      10.594,
+      10.731,
       1.0
      ],
      [
-      11.898,
+      12.035,
       3.4
      ],
      [
@@ -622,8 +622,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V8.3.glb",
-   "viewer_data": "3d/output/taif_house_V8.3.js",
+   "glb": "3d/output/taif_house_V9.0.glb",
+   "viewer_data": "3d/output/taif_house_V9.0.js",
    "summary": "3d/output/model_summary.json"
   }
  },
@@ -633,12 +633,12 @@
    0.0
   ],
   [
-   10.051,
+   10.188,
    0.0
   ],
   [
    13.311,
-   6.0
+   5.749
   ],
   [
    13.311,
@@ -1038,13 +1038,13 @@
     2.8
    ],
    "b": [
-    11.572,
+    11.709,
     2.8
    ],
    "t": 0.2,
    "z0": -0.08,
    "z1": 3.32,
-   "length": 2.622
+   "length": 2.759
   },
   {
    "floor": "GF",
@@ -1072,13 +1072,13 @@
     1.0
    ],
    "b": [
-    10.594,
+    10.731,
     1.0
    ],
    "t": 0.2,
    "z0": -0.08,
    "z1": 3.32,
-   "length": 1.644
+   "length": 1.781
   },
   {
    "floor": "GF",
@@ -1087,7 +1087,7 @@
    "t": 0.25,
    "z0": -0.08,
    "z1": 3.32,
-   "length": 72.1904
+   "length": 72.2925
   },
   {
    "floor": "FF",
@@ -1625,13 +1625,13 @@
     1.0
    ],
    "b": [
-    10.594,
+    10.731,
     1.0
    ],
    "t": 0.2,
    "z0": 3.52,
    "z1": 7.0,
-   "length": 1.644
+   "length": 1.781
   },
   {
    "floor": "FF",
@@ -1657,7 +1657,7 @@
    "t": 0.25,
    "z0": 3.52,
    "z1": 7.0,
-   "length": 72.1904
+   "length": 72.2925
   },
   {
    "floor": "FF",
@@ -1681,7 +1681,7 @@
   {
    "name": "gf_slab",
    "level": "gf",
-   "area": 290.4179,
+   "area": 291.2336,
    "z0": -0.28,
    "z1": -0.08,
    "t": 0.2,
@@ -1726,7 +1726,7 @@
   {
    "name": "ff_slab",
    "level": "ff",
-   "area": 163.7047,
+   "area": 164.4108,
    "z0": 3.32,
    "z1": 3.52,
    "t": 0.2,
@@ -1744,7 +1744,7 @@
   {
    "name": "roof_slab_bay05",
    "level": "roof",
-   "area": 74.0772,
+   "area": 74.7348,
    "z0": 6.9,
    "z1": 7.2,
    "t": 0.3,
@@ -1771,7 +1771,7 @@
   {
    "name": "roof_slab",
    "level": "roof",
-   "area": 132.7015,
+   "area": 132.75,
    "z0": 7.0,
    "z1": 7.2,
    "t": 0.2,
@@ -1783,12 +1783,12 @@
    "courtyard_sky": 20.475,
    "double_height_living": 19.6875,
    "stair_opening": 8.2062,
-   "tower_shaft": 0.927
+   "tower_shaft": 1.0366
   },
   "roof": {
    "courtyard_sky": 20.475,
    "suite_court": 25.2975,
-   "tower_shaft": 0.927,
+   "tower_shaft": 1.0366,
    "stair_opening": 0.0
   }
  },
@@ -2206,12 +2206,12 @@
    "kind": "window",
    "name": "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 \u00d7 1.00, sill +1.10, obscured glass below +1.60, no screen",
    "a": [
-    12.17,
-    3.9
+    12.306673,
+    3.900177
    ],
    "b": [
-    12.713485,
-    4.90028
+    12.849847,
+    4.900083
    ],
    "width": 1.138,
    "sill": 1.1,
@@ -2223,12 +2223,12 @@
    "kind": "window",
    "name": "maid bath vent window",
    "a": [
-    11.137743,
-    2.00014
+    11.274575,
+    2.000231
    ],
    "b": [
-    11.463743,
-    2.60014
+    11.600525,
+    2.600258
    ],
    "width": 0.683,
    "sill": 1.6,
@@ -2869,12 +2869,12 @@
    "kind": "window",
    "name": "default window",
    "a": [
-    10.920257,
-    1.59986
+    11.057123,
+    1.599933
    ],
    "b": [
-    11.789743,
-    3.20014
+    11.926475,
+    3.200285
    ],
    "width": 1.821,
    "sill": 4.5,
@@ -2886,14 +2886,14 @@
    "kind": "window",
    "name": "default window",
    "a": [
-    12.304504,
-    4.147553
+    12.442524,
+    4.150259
    ],
    "b": [
-    12.902702,
-    5.248532
+    13.040174,
+    5.250448
    ],
-   "width": 1.253,
+   "width": 1.252,
    "sill": 4.5,
    "head": 5.7,
    "wall": "ff_outer"
@@ -3510,7 +3510,8 @@
   "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)",
   "Suite court south side (V8.2, owner 2 Nov 2026): a mashrabiya screen (timber or black steel lattice) on the 1.10 base from +4.70 to the frame soffit +6.60, 5.55 m wide, 39 % open: the palms seen out, no view in",
-  "Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers"
+  "Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers",
+  "Existing farm (V9.0, data/site_v2.csv, studies/whole_farm.typ): the old house (a plain 3.8 m mass) and its annex from the deed sketch (\u00b1 1\u20133 m), the covered parking, the ground tank and the septic at their assumed positions, the north and lane walls on the deed line with the 4 m gate, the two palms (heights assumed): APPROXIMATE, to be measured on site"
  ],
  "rooms": {
   "GF": [
@@ -3591,11 +3592,11 @@
     1.0
    ],
    [
-    10.594,
+    10.731,
     1.0
    ],
    [
-    11.898,
+    12.035,
     3.4
    ],
    [
@@ -3605,7 +3606,7 @@
   ],
   "top": 9.1,
   "clear": 1.65,
-  "inside_area": 4.544,
+  "inside_area": 4.842,
   "doors": [
    1.3,
    2.8
@@ -3762,8 +3763,8 @@
      "to the office roof"
     ]
    ],
-   "line_wkt": "POLYGON ((0.875 19.25, 12.436 19.25, 12.436 6.2223575028077205, 9.530602423474472 0.875, 0.875 0.875, 0.875 19.25))",
-   "length": 57.705
+   "line_wkt": "POLYGON ((0.875 19.25, 12.436 19.25, 12.436 5.971318512349943, 9.66755284152568 0.875, 0.875 0.875, 0.875 19.25))",
+   "length": 57.807
   },
   "ladder": {
    "pilaster": [
@@ -3859,11 +3860,11 @@
      1.0
     ],
     [
-     10.594,
+     10.731,
      1.0
     ],
     [
-     11.898,
+     12.035,
      3.4
     ],
     [
@@ -3873,7 +3874,7 @@
    ],
    "top": 9.1,
    "clear": 1.65,
-   "inside_area": 4.544,
+   "inside_area": 4.842,
    "doors": [
     1.3,
     2.8
@@ -3889,11 +3890,11 @@
     0
    ],
    [
-    10.051,
+    10.188,
     0
    ],
    [
-    10.594,
+    10.731,
     1.0
    ],
    [
@@ -3963,7 +3964,7 @@
    12.3
   ],
   "duct_footprint_wkt": "POLYGON ((10.649999999999999 1, 9.75 1, 9.75 10.05, 9.2 10.05, 9.2 10.95, 10.2 10.95, 10.37220754456429 10.91574578963008, 10.518198051533945 10.818198051533946, 10.615745789630079 10.67220754456429, 10.649999999999999 10.5, 10.649999999999999 1))",
-  "tower_shaft_area": 0.927,
+  "tower_shaft_area": 1.0366,
   "head_openings": [
    [
     [
@@ -3987,11 +3988,11 @@
    ],
    [
     [
-     10.141665877187043,
+     10.278665877187043,
      0.16697214951573244
     ],
     [
-     10.522421675904965,
+     10.659421675904966,
      0.8681798819612639
     ]
    ]
@@ -4434,7 +4435,7 @@
      8.89,
      -0.06,
      8.33,
-     10.5751,
+     10.7121,
      0.9,
      9.27
     ],
@@ -5081,14 +5082,15 @@
     "material": "concrete",
     "bounds": [
      -4.86,
-     -3.825,
+     -5.563,
      -0.31,
      -0.91,
-     35.765,
+     34.027,
      -0.288
     ],
     "kind": "slab",
-    "note": "the existing driveway 3.95 m west of the M line (stays)"
+    "note": "the existing driveway 3.95 m west of the M line (stays)",
+    "existing": false
    },
    {
     "name": "chr_site_stone_path_family",
@@ -5096,14 +5098,15 @@
     "material": "stone",
     "bounds": [
      -1.91,
-     -1.725,
+     -3.463,
      -0.305,
      4.0,
-     0.0,
+     -0.125,
      -0.27
     ],
     "kind": "path",
-    "note": "the family entrance path from the driveway"
+    "note": "the family entrance path from the driveway",
+    "existing": false
    },
    {
     "name": "chr_site_stone_path_guest",
@@ -5111,14 +5114,15 @@
     "material": "stone",
     "bounds": [
      -2.51,
-     21.575,
+     21.6,
      -0.305,
      -0.01,
-     35.775,
+     34.037,
      -0.27
     ],
     "kind": "path",
-    "note": "the guest path in honey stone along the driveway's east edge to the guest entrance"
+    "note": "the guest path in honey stone along the driveway's east edge to the guest entrance",
+    "existing": false
    },
    {
     "name": "chr_site_stone_light_path_workers",
@@ -5126,14 +5130,15 @@
     "material": "stone_light",
     "bounds": [
      -1.9909,
-     -5.275,
+     -7.013,
      -0.305,
      16.44,
-     7.975,
+     6.237,
      -0.27
     ],
     "kind": "path",
-    "note": "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade"
+    "note": "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade",
+    "existing": false
    },
    {
     "name": "chr_site_stone_light_parking_bay",
@@ -5141,14 +5146,15 @@
     "material": "stone_light",
     "bounds": [
      4.29,
-     -2.925,
+     -4.663,
      -0.3,
      9.29,
-     -0.425,
+     -2.163,
      -0.28
     ],
     "kind": "box",
-    "note": "the uncovered family car in the north strip (kept, owner 2 Nov 2026)"
+    "note": "the uncovered family car in the north strip (kept, owner 2 Nov 2026)",
+    "existing": false
    },
    {
     "name": "chr_site_foliage_garden",
@@ -5159,11 +5165,12 @@
      15.775,
      -0.31,
      25.83,
-     34.875,
+     33.137,
      -0.288
     ],
     "kind": "slab",
-    "note": "the family garden on the south only, round the palms"
+    "note": "the family garden on the south only, round the palms",
+    "existing": false
    },
    {
     "name": "chr_site_stone_garden_wall",
@@ -5174,11 +5181,12 @@
      24.125,
      -0.3,
      -0.16,
-     34.875,
+     33.137,
      0.9
     ],
     "kind": "wall",
-    "note": "the 1.2 m honey-stone wall between the garden and the guest path"
+    "note": "the 1.2 m honey-stone wall between the garden and the guest path",
+    "existing": false
    },
    {
     "name": "chr_site_foliage_hedge",
@@ -5193,7 +5201,8 @@
      1.5
     ],
     "kind": "hedge",
-    "note": "the 1.8 m hedge between the service yard and the garden"
+    "note": "the 1.8 m hedge between the service yard and the garden",
+    "existing": false
    },
    {
     "name": "chr_site_plaster_yard_screen",
@@ -5208,7 +5217,8 @@
      1.5
     ],
     "kind": "box",
-    "note": "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2\u201315.3, y 7.6\u201313.0) so the outdoor counter has a working strip"
+    "note": "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2\u201315.3, y 7.6\u201313.0) so the outdoor counter has a working strip",
+    "existing": false
    },
    {
     "name": "chr_site_steel_gas_cabinet",
@@ -5223,7 +5233,8 @@
      0.7
     ],
     "kind": "box",
-    "note": "the ventilated LPG cabinet on the screen's outer face at its north end, \u2265 3 m from the grill"
+    "note": "the ventilated LPG cabinet on the screen's outer face at its north end, \u2265 3 m from the grill",
+    "existing": false
    },
    {
     "name": "chr_site_steel_bins",
@@ -5238,7 +5249,216 @@
      0.8
     ],
     "kind": "box",
-    "note": "the bins north of the service door, outside the food area"
+    "note": "the bins north of the service door, outside the food area",
+    "existing": false
+   },
+   {
+    "name": "chr_site_plaster_old_house",
+    "group": "site",
+    "material": "plaster",
+    "bounds": [
+     -19.11,
+     0.007,
+     -0.3,
+     -6.88,
+     22.947,
+     3.5
+    ],
+    "kind": "block",
+    "note": "the old house (one-storey RC, the old majlis inside it) from the deed sketch, \u00b1 1\u20133 m: to be measured (SITE_SETOUT.md \u00a7 8, W1\u2013W4)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_old_annex",
+    "group": "site",
+    "material": "plaster",
+    "bounds": [
+     -11.8596,
+     10.937,
+     -0.3,
+     -4.6403,
+     23.197,
+     1.9
+    ],
+    "kind": "wall",
+    "note": "the old house's annex (the yard wall / dakka) from the deed sketch: to be measured (A1\u2013A4)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_steel_old_carport",
+    "group": "site",
+    "material": "steel",
+    "bounds": [
+     -10.91,
+     23.637,
+     -0.3,
+     -5.41,
+     29.137,
+     2.3
+    ],
+    "kind": "canopy",
+    "note": "the existing covered parking for two cars south of the old house, open to the driveway (assumed 5.5 \u00d7 5.5; P1\u2013P4 to be measured)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_concrete_old_tank",
+    "group": "site",
+    "material": "concrete",
+    "bounds": [
+     -8.41,
+     30.137,
+     -0.3,
+     -5.41,
+     32.637,
+     0.0
+    ],
+    "kind": "box",
+    "note": "the existing ground tank (its lid above the ground), near peg R (assumed 3 \u00d7 2.5; K0\u2013K2 to be measured); the reserved tank beside it (west) not drawn",
+    "existing": true
+   },
+   {
+    "name": "chr_site_concrete_old_septic",
+    "group": "site",
+    "material": "concrete",
+    "bounds": [
+     -11.41,
+     -7.463,
+     -0.3,
+     -7.41,
+     -5.063,
+     -0.15
+    ],
+    "kind": "box",
+    "note": "the existing septic outside the north wall near C1 (approximate; it serves the old house and takes the new house's drains)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_farm_wall_north",
+    "group": "site",
+    "material": "plaster",
+    "bounds": [
+     -17.6327,
+     -4.9559,
+     -0.3,
+     -4.8373,
+     -2.3601,
+     2.1
+    ],
+    "kind": "wall",
+    "note": "the farm's north boundary wall from corner C1 to the gate's west post (height assumed)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_farm_wall_north_east",
+    "group": "site",
+    "material": "plaster",
+    "bounds": [
+     -0.9326,
+     -7.2759,
+     -0.3,
+     26.2806,
+     29.62,
+     2.1
+    ],
+    "kind": "wall",
+    "note": "the farm's north wall from the gate's east post M1 and the lane wall (on the deed line here; the wall as built stands 0.62 m inside it at the cut wall)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_stone_gate_post_west",
+    "group": "site",
+    "material": "stone",
+    "bounds": [
+     -5.06,
+     -5.033,
+     -0.3,
+     -4.66,
+     -4.633,
+     2.3
+    ],
+    "kind": "box",
+    "note": "the 4 m main gate's west post (the gate drawn open)",
+    "existing": true
+   },
+   {
+    "name": "chr_site_stone_gate_post_east",
+    "group": "site",
+    "material": "stone",
+    "bounds": [
+     -1.11,
+     -5.763,
+     -0.3,
+     -0.71,
+     -5.363,
+     2.3
+    ],
+    "kind": "box",
+    "note": "the gate's east post = peg M1, the origin of the set-out",
+    "existing": true
+   },
+   {
+    "name": "chr_site_foliage_palm_1_crown",
+    "group": "site",
+    "material": "foliage",
+    "bounds": [
+     17.09,
+     19.927,
+     7.53,
+     22.29,
+     25.127,
+     9.87
+    ],
+    "kind": "palm_crown",
+    "note": "palm P1 (base.typ, v2 survey), height assumed",
+    "existing": true
+   },
+   {
+    "name": "chr_site_trunk_palm_1",
+    "group": "site",
+    "material": "trunk",
+    "bounds": [
+     19.425,
+     22.262,
+     -0.3,
+     19.955,
+     22.792,
+     8.7
+    ],
+    "kind": "palm",
+    "note": "palm P1 (base.typ, v2 survey), height assumed",
+    "existing": true
+   },
+   {
+    "name": "chr_site_foliage_palm_2_crown",
+    "group": "site",
+    "material": "foliage",
+    "bounds": [
+     18.08,
+     23.907,
+     6.62,
+     22.88,
+     28.707,
+     8.78
+    ],
+    "kind": "palm_crown",
+    "note": "palm P2 (base.typ, v2 survey), height assumed",
+    "existing": true
+   },
+   {
+    "name": "chr_site_trunk_palm_2",
+    "group": "site",
+    "material": "trunk",
+    "bounds": [
+     20.215,
+     26.042,
+     -0.3,
+     20.745,
+     26.572,
+     7.7
+    ],
+    "kind": "palm",
+    "note": "palm P2 (base.typ, v2 survey), height assumed",
+    "existing": true
    }
   ],
   "recessed_windows": [
@@ -5266,16 +5486,16 @@
     "floor": "GF",
     "name": "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 \u00d7 1.00, sill +1.10, obscured glass below +1.60, no screen",
     "a": [
-     12.17,
-     3.9
+     12.306673,
+     3.900177
     ],
     "b": [
-     12.713485,
-     4.90028
+     12.849847,
+     4.900083
     ],
     "normal": [
      0.8787,
-     -0.4774
+     -0.4773
     ],
     "offset": -0.075,
     "reveal": 0.2
@@ -5285,16 +5505,16 @@
     "floor": "GF",
     "name": "maid bath vent window",
     "a": [
-     11.137743,
-     2.00014
+     11.274575,
+     2.000231
     ],
     "b": [
-     11.463743,
-     2.60014
+     11.600525,
+     2.600258
     ],
     "normal": [
      0.8787,
-     -0.4774
+     -0.4773
     ],
     "offset": -0.075,
     "reveal": 0.2
@@ -5513,16 +5733,16 @@
     "floor": "FF",
     "name": "default window",
     "a": [
-     10.920257,
-     1.59986
+     11.057123,
+     1.599933
     ],
     "b": [
-     11.789743,
-     3.20014
+     11.926475,
+     3.200285
     ],
     "normal": [
      0.8787,
-     -0.4774
+     -0.4773
     ],
     "offset": -0.075,
     "reveal": 0.2
@@ -5532,16 +5752,16 @@
     "floor": "FF",
     "name": "default window",
     "a": [
-     12.304504,
-     4.147553
+     12.442524,
+     4.150259
     ],
     "b": [
-     12.902702,
-     5.248532
+     13.040174,
+     5.250448
     ],
     "normal": [
      0.8787,
-     -0.4774
+     -0.4773
     ],
     "offset": -0.075,
     "reveal": 0.2
@@ -5802,7 +6022,8 @@
    "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
    "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)",
    "Suite court south side (V8.2, owner 2 Nov 2026): a mashrabiya screen (timber or black steel lattice) on the 1.10 base from +4.70 to the frame soffit +6.60, 5.55 m wide, 39 % open: the palms seen out, no view in",
-   "Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers"
+   "Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers",
+   "Existing farm (V9.0, data/site_v2.csv, studies/whole_farm.typ): the old house (a plain 3.8 m mass) and its annex from the deed sketch (\u00b1 1\u20133 m), the covered parking, the ground tank and the septic at their assumed positions, the north and lane walls on the deed line with the 4 m gate, the two palms (heights assumed): APPROXIMATE, to be measured on site"
   ],
   "lites": 83,
   "arched_windows": [
@@ -6129,57 +6350,134 @@
    {
     "name": "chr_site_concrete_driveway",
     "label": "driveway",
-    "kind": "slab"
+    "kind": "slab",
+    "existing": false
    },
    {
     "name": "chr_site_stone_path_family",
     "label": "path_family",
-    "kind": "path"
+    "kind": "path",
+    "existing": false
    },
    {
     "name": "chr_site_stone_path_guest",
     "label": "path_guest",
-    "kind": "path"
+    "kind": "path",
+    "existing": false
    },
    {
     "name": "chr_site_stone_light_path_workers",
     "label": "path_workers",
-    "kind": "path"
+    "kind": "path",
+    "existing": false
    },
    {
     "name": "chr_site_stone_light_parking_bay",
     "label": "parking_bay",
-    "kind": "box"
+    "kind": "box",
+    "existing": false
    },
    {
     "name": "chr_site_foliage_garden",
     "label": "garden",
-    "kind": "slab"
+    "kind": "slab",
+    "existing": false
    },
    {
     "name": "chr_site_stone_garden_wall",
     "label": "garden_wall",
-    "kind": "wall"
+    "kind": "wall",
+    "existing": false
    },
    {
     "name": "chr_site_foliage_hedge",
     "label": "hedge",
-    "kind": "hedge"
+    "kind": "hedge",
+    "existing": false
    },
    {
     "name": "chr_site_plaster_yard_screen",
     "label": "yard_screen",
-    "kind": "box"
+    "kind": "box",
+    "existing": false
    },
    {
     "name": "chr_site_steel_gas_cabinet",
     "label": "gas_cabinet",
-    "kind": "box"
+    "kind": "box",
+    "existing": false
    },
    {
     "name": "chr_site_steel_bins",
     "label": "bins",
-    "kind": "box"
+    "kind": "box",
+    "existing": false
+   },
+   {
+    "name": "chr_site_plaster_old_house",
+    "label": "old_house",
+    "kind": "block",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_old_annex",
+    "label": "old_annex",
+    "kind": "wall",
+    "existing": true
+   },
+   {
+    "name": "chr_site_steel_old_carport",
+    "label": "old_carport",
+    "kind": "canopy",
+    "existing": true
+   },
+   {
+    "name": "chr_site_concrete_old_tank",
+    "label": "old_tank",
+    "kind": "box",
+    "existing": true
+   },
+   {
+    "name": "chr_site_concrete_old_septic",
+    "label": "old_septic",
+    "kind": "box",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_farm_wall_north",
+    "label": "farm_wall_north",
+    "kind": "wall",
+    "existing": true
+   },
+   {
+    "name": "chr_site_plaster_farm_wall_north_east",
+    "label": "farm_wall_north_east",
+    "kind": "wall",
+    "existing": true
+   },
+   {
+    "name": "chr_site_stone_gate_post_west",
+    "label": "gate_post_west",
+    "kind": "box",
+    "existing": true
+   },
+   {
+    "name": "chr_site_stone_gate_post_east",
+    "label": "gate_post_east",
+    "kind": "box",
+    "existing": true
+   },
+   {
+    "name": "chr_site_trunk_palm_1",
+    "label": "palm_1",
+    "kind": "palm",
+    "existing": true
+   },
+   {
+    "name": "chr_site_trunk_palm_2",
+    "label": "palm_2",
+    "kind": "palm",
+    "existing": true
    }
   ],
   "enabled": true,

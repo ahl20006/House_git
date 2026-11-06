@@ -1,6 +1,6 @@
 // bedroom1_ensuite.typ · Taif / Palm House · SHORT STUDY: bedroom 1 with a simple en-suite shower room (shower, WC, basin wall-hung on a service wall,
 // over the laundry / maid wing below, within the east cluster) · 6 Nov 2026, after the cut wall moved outwards 0.12 m (B2 10.188, B3 y 5.749).
-// NOT APPLIED: the owner decides. The best layout found is drawn; the numbers say plainly whether it works.
+// NOT ADOPTED (owner, V9.0): bedroom 1 is the young children's room next to the master suite; they are bathed in the suite's bathroom; no en-suite. The best layout found is drawn; the numbers say plainly whether it works.
 // CSV frame (design_gf.typ / rooms_ff.csv): x east, y south, wall centre lines; the walls 0.20 (0.10 each side) except the outer walls (0.125 inside).
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": dist
@@ -106,7 +106,7 @@
     #block(width: 8.6cm, text(6.5pt, fill: gray)[First floor, CSV frame. Blue: the shower room and its fixtures; stone: the furniture; red: the doors; blue bars: the windows on the cut wall; dotted: the ground-floor rooms below; green dashed: the bedroom's clean rectangle (east of the entry zone, south of the cut's narrow part). The cut wall at its 6 Nov 2026 position (0.12 m further out).])
   ],
   [
-    #text(14pt, weight: "bold", fill: accent)[Bedroom 1 with a simple en-suite shower room · short study] #h(1fr) #text(7pt, fill: gray)[NOT APPLIED · 6 Nov 2026 · the owner decides]
+    #text(14pt, weight: "bold", fill: accent)[Bedroom 1 with a simple en-suite shower room · short study] #h(1fr) #text(7pt, fill: red, weight: "bold")[NOT ADOPTED: young children's room (owner, V9.0)]
     #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
     #text(7.2pt)[*The brief:* a shower, a WC and a basin, wall-hung on one service wall, over the laundry / maid wing below, in the east cluster; the bedroom keeps its bed 1.4 × 2.0, a wardrobe ≥ 1.8 m, a desk, its door and its escape window. *The best layout found (of the positions tried in `studies/bedroom1_bath.typ`, now with the cut wall 0.12 m further out):* the shower room in the room's north-west corner (1.6 × 2.4 over the maid bath and the laundry), its service wall on the bedroom side; the room's existing door (y 5.3) then opens into an entry zone of 1.6 × 1.9 m between the shower room and the bed; the bedroom proper lies east of it, under the cut wall.]
     #v(2pt)

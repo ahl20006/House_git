@@ -1,6 +1,6 @@
 # archive/ · superseded files
 
-Kept for reference only; nothing in the current design or tools reads them (`tools/check.py` only compiles the archived drawing). Git keeps every earlier state as well (tags `v3.1` … `v8.1`).
+Kept for reference only; nothing in the current design or tools reads them (`tools/check.py` only compiles the archived drawing). Git keeps every earlier state as well (tags `v3.1` … `v9.0`).
 
 | File | What it was | Superseded by |
 |---|---|---|
@@ -27,3 +27,7 @@ Kept for reference only; nothing in the current design or tools reads them (`too
 | `Taif_House_V7.1_presentation.pdf`, `taif_ground_floor_V7.1.dxf`, `taif_first_floor_V7.1.dxf`, `taif_roof_V7.1.dxf` | the V7.1 set (the arched windows and the arcade; before the fire safety, the courtyard layout, the air system v3.1, the stair tower and the south wing v2) | the V8.1 files in `output/` |
 | `Design_Review_status_V7.pdf` | the review status after V7.1 | `output/Design_Review_status_V8.1.pdf` |
 | `Taif_House_V6.1_presentation.pdf`, `taif_ground_floor_V6.1.dxf`, `taif_first_floor_V6.1.dxf` | the V6.1 set (rectangular gym) | the V6.2 files in `output/` |
+| `Taif_House_V8.3_presentation.pdf`, `taif_ground_floor_V8.3.dxf`, `taif_first_floor_V8.3.dxf`, `taif_roof_V8.3.dxf` | the V8.3 set (the checkpoint: bedroom 2's en-suite, the powder room, the level courtyard, the outdoor kitchen, the plumbing decisions; before the site set-out and the layout freeze) | the V9.0 files in `output/` |
+| `Design_Review_status_V8.3.pdf`, `VV_Review_V8.3.pdf` | the review status after V8.3 and the interim verification and validation review of V8.3 (its source `docs/review/vv_review_v8_3.typ` stays and is compiled by `tools/check.py` as a check) | `output/Design_Review_status_V9.0.pdf` |
+| `3d/taif_house_V8.3.glb`, `3d/taif_house_V8.3.js` | the V8.3 3D model and its viewer data | `3d/output/taif_house_V9.0.glb`, `.js` |
+| `docs/PROJECT_V8.md` | the master document V8.0 – V8.3 | `docs/PROJECT_V9.md` |

@@ -1,4 +1,4 @@
-// setout_v83.typ · Taif / Palm House · BUILDING TEST + SET-OUT SHEET · V8.3 with the owner's site decisions of 4 Nov 2026 (B1 5.00 m from M1) and 6 Nov 2026 (a further 0.50 m south: B1 5.49 m)
+// setout.typ · Taif / Palm House · BUILDING TEST + SET-OUT SHEET · V9.0 (layout freeze) with the owner's site decisions of 4 Nov 2026 (B1 5.00 m from M1) and 6 Nov 2026 (a further 0.50 m south: B1 5.49 m)
 // Supersedes studies/site_test.typ (V6.3, building.csv). The building = design_gf.typ's outline + shift (outer wall faces); the site = base.typ.
 // The STATUS comes from the tightest point on ANY wall (every edge sampled at 5 cm), not only from the corners: the lane notch bites the cut wall between B2 and B3.
 // Design frame: origin = peg M1 (the gate's east post) · y = metres along the M line, southwards · x = metres square to the M line, east (towards the lane).
@@ -17,7 +17,7 @@
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let expected = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
 #assert(outline-csv-gf.len() == expected.len() and outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6),
-  message: "the ground-floor outline changed: update the outer-face corners in setout_v83.typ")
+  message: "the ground-floor outline changed: update the outer-face corners in setout.typ")
 // the OUTER wall faces of the 13.311 × 24.0 m centre-line pentagon (250 mm outer walls, the cut corner mitred): B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW
 #let building = ((-0.125, -0.125), (10.262, -0.125), (13.436, 5.716), (13.436, 24.125), (-0.125, 24.125)).map(S)
 #let courtyards = (((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(S),)   // the open courtyard, clear opening (4.50 × 6.30)
@@ -182,7 +182,7 @@
   plan,
   [
     #text(14pt, weight: "bold", fill: accent)[Taif / Palm House] \
-    #text(10pt, weight: "bold")[Building test on the land · V8.3 · the house moved south (owner, 4 Nov 2026) and a further 0.50 m south (owner, 6 Nov 2026)] \
+    #text(10pt, weight: "bold")[Building test on the land · V9.0 (layout freeze) · the house moved south (owner, 4 Nov 2026) and a further 0.50 m south (owner, 6 Nov 2026)] \
     #text(7pt, fill: gray)[Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to it · the house = the room CSVs + (#f2(shift.at(0)), #f2(shift.at(1))) · B1 #f2(b1-m1) m from M1]
     #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
 
