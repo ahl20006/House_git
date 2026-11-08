@@ -167,7 +167,7 @@
 // ====================================================================================== PAGE 1 · the concept and the tower
 #text(14pt, weight: "bold", fill: green)[Air system study v3 · one tower, two separate air paths · Taif / Palm House V7.1]
 #v(1pt)
-#text(8pt, fill: gray)[Owner goals 1 Nov 2026 (design review E-01) and the owner's decisions on the open items (v3.1: assist fan, bird mesh, the HRV base under the tower, the condensers south, the make-up inlet) · a gentle natural breeze for the courtyard seating in pleasant weather, and the fresh-air intake of the house's ventilation unit all year · no water in the air system, no pads, no earth pipes, no human entry · #A[every size and performance figure is ASSUMED, to be designed by the MEP engineer]; compiling this study is not engineering approval]
+#text(8pt, fill: gray)[Owner goals 1 Nov 2026 (design review E-01) and the owner's decisions on the open items (v3.1: assist fan, bird mesh, the HRV base under the tower (V9.3: a plant room behind the attic), the condensers south, the make-up inlet; V9.3 the new malqaf tower) · a gentle natural breeze for the courtyard seating in pleasant weather, and the fresh-air intake of the house's ventilation unit all year · no water in the air system, no pads, no earth pipes, no human entry · #A[every size and performance figure is ASSUMED, to be designed by the MEP engineer]; compiling this study is not engineering approval]
 #v(3pt)
 #let tower-plan(length: 2.0cm) = cetz.canvas(length: length, {
   import cetz.draw: *

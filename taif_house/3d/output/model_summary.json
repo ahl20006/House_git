@@ -1,7 +1,7 @@
 {
- "version": "V9.2",
+ "version": "V9.3",
  "params": {
-  "version": "V9.2",
+  "version": "V9.3",
   "levels": {
    "gf_floor": 0.0,
    "ff_floor": 3.6,
@@ -489,38 +489,20 @@
      ]
     ]
    },
-   "hrv_base": {
-    "pts": [
-     [
-      8.95,
-      1.0
-     ],
-     [
-      10.731,
-      1.0
-     ],
-     [
-      12.035,
-      3.4
-     ],
-     [
-      8.95,
-      3.4
-     ]
-    ],
-    "wall": 0.2,
-    "top": 9.1,
-    "slab": 0.15,
+   "plant_room": {
+    "wall": 0.1,
+    "slab": 0.12,
     "doors": [
-     1.3,
-     2.8
+     8.9,
+     10.1
     ],
-    "door_head": 8.8,
+    "door_head": 8.3,
     "exhaust": [
-     2.7,
-     3.05,
-     7.6,
-     8.3
+     11.8,
+     4.3,
+     4.7,
+     7.55,
+     7.85
     ]
    },
    "guard": {
@@ -622,8 +604,8 @@
    "air_system": "studies/air_system.typ"
   },
   "output": {
-   "glb": "3d/output/taif_house_V9.2.glb",
-   "viewer_data": "3d/output/taif_house_V9.2.js",
+   "glb": "3d/output/taif_house_V9.3.glb",
+   "viewer_data": "3d/output/taif_house_V9.3.js",
    "summary": "3d/output/model_summary.json"
   }
  },
@@ -813,23 +795,6 @@
    "kind": "wall",
    "name": "gf_wall_008",
    "a": [
-    10.375,
-    0.0
-   ],
-   "b": [
-    10.375,
-    1.0
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 1.0
-  },
-  {
-   "floor": "GF",
-   "kind": "wall",
-   "name": "gf_wall_009",
-   "a": [
     10.65,
     2.8
    ],
@@ -845,7 +810,75 @@
   {
    "floor": "GF",
    "kind": "wall",
+   "name": "gf_wall_009",
+   "a": [
+    9.55098,
+    1.3e-05
+   ],
+   "b": [
+    10.093981,
+    1.000014
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 1.1379
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
    "name": "gf_wall_010",
+   "a": [
+    9.550974,
+    1.5e-05
+   ],
+   "b": [
+    10.600975,
+    1.933014
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 2.1998
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_011",
+   "a": [
+    10.093972,
+    1.000013
+   ],
+   "b": [
+    10.600972,
+    1.933012
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 1.0619
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_012",
+   "a": [
+    10.600988,
+    1.932992
+   ],
+   "b": [
+    11.302988,
+    1.550992
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 0.7992
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_013",
    "a": [
     0.0,
     21.4
@@ -862,7 +895,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_011",
+   "name": "gf_wall_014",
    "a": [
     1.15,
     21.4
@@ -879,7 +912,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_012",
+   "name": "gf_wall_015",
    "a": [
     1.25,
     19.25
@@ -896,7 +929,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_013",
+   "name": "gf_wall_016",
    "a": [
     0.0,
     17.5
@@ -913,7 +946,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_014",
+   "name": "gf_wall_017",
    "a": [
     0.0,
     16.1
@@ -930,7 +963,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_015",
+   "name": "gf_wall_018",
    "a": [
     4.25,
     13.0
@@ -947,58 +980,58 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_016",
-   "a": [
-    0.0,
-    12.9
-   ],
-   "b": [
-    2.75,
-    12.9
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 2.75
-  },
-  {
-   "floor": "GF",
-   "kind": "wall",
-   "name": "gf_wall_017",
-   "a": [
-    0.0,
-    10.4
-   ],
-   "b": [
-    2.75,
-    10.4
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 2.75
-  },
-  {
-   "floor": "GF",
-   "kind": "wall",
-   "name": "gf_wall_018",
-   "a": [
-    0.0,
-    7.9
-   ],
-   "b": [
-    2.75,
-    7.9
-   ],
-   "t": 0.2,
-   "z0": -0.08,
-   "z1": 3.32,
-   "length": 2.75
-  },
-  {
-   "floor": "GF",
-   "kind": "wall",
    "name": "gf_wall_019",
+   "a": [
+    0.0,
+    12.9
+   ],
+   "b": [
+    2.75,
+    12.9
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 2.75
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_020",
+   "a": [
+    0.0,
+    10.4
+   ],
+   "b": [
+    2.75,
+    10.4
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 2.75
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_021",
+   "a": [
+    0.0,
+    7.9
+   ],
+   "b": [
+    2.75,
+    7.9
+   ],
+   "t": 0.2,
+   "z0": -0.08,
+   "z1": 3.32,
+   "length": 2.75
+  },
+  {
+   "floor": "GF",
+   "kind": "wall",
+   "name": "gf_wall_022",
    "a": [
     8.95,
     7.0
@@ -1015,7 +1048,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_020",
+   "name": "gf_wall_023",
    "a": [
     10.55,
     7.0
@@ -1032,7 +1065,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_021",
+   "name": "gf_wall_024",
    "a": [
     4.25,
     6.5
@@ -1049,7 +1082,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_022",
+   "name": "gf_wall_025",
    "a": [
     8.95,
     2.8
@@ -1066,7 +1099,7 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_023",
+   "name": "gf_wall_026",
    "a": [
     0.0,
     2.2
@@ -1083,19 +1116,19 @@
   {
    "floor": "GF",
    "kind": "wall",
-   "name": "gf_wall_024",
+   "name": "gf_wall_027",
    "a": [
     8.95,
     1.0
    ],
    "b": [
-    10.375,
+    10.094,
     1.0
    ],
    "t": 0.2,
    "z0": -0.08,
    "z1": 3.32,
-   "length": 1.425
+   "length": 1.144
   },
   {
    "floor": "GF",
@@ -1349,23 +1382,6 @@
    "kind": "wall",
    "name": "ff_wall_014",
    "a": [
-    10.375,
-    0.0
-   ],
-   "b": [
-    10.375,
-    1.0
-   ],
-   "t": 0.2,
-   "z0": 3.52,
-   "z1": 7.0,
-   "length": 1.0
-  },
-  {
-   "floor": "FF",
-   "kind": "wall",
-   "name": "ff_wall_015",
-   "a": [
     12.211,
     6.5
    ],
@@ -1381,7 +1397,75 @@
   {
    "floor": "FF",
    "kind": "wall",
+   "name": "ff_wall_015",
+   "a": [
+    9.55098,
+    1.3e-05
+   ],
+   "b": [
+    10.093981,
+    1.000014
+   ],
+   "t": 0.2,
+   "z0": 3.52,
+   "z1": 7.0,
+   "length": 1.1379
+  },
+  {
+   "floor": "FF",
+   "kind": "wall",
    "name": "ff_wall_016",
+   "a": [
+    9.550974,
+    1.5e-05
+   ],
+   "b": [
+    10.600975,
+    1.933014
+   ],
+   "t": 0.2,
+   "z0": 3.52,
+   "z1": 7.0,
+   "length": 2.1998
+  },
+  {
+   "floor": "FF",
+   "kind": "wall",
+   "name": "ff_wall_017",
+   "a": [
+    10.093972,
+    1.000013
+   ],
+   "b": [
+    10.600972,
+    1.933012
+   ],
+   "t": 0.2,
+   "z0": 3.52,
+   "z1": 7.0,
+   "length": 1.0619
+  },
+  {
+   "floor": "FF",
+   "kind": "wall",
+   "name": "ff_wall_018",
+   "a": [
+    10.600988,
+    1.932992
+   ],
+   "b": [
+    11.302988,
+    1.550992
+   ],
+   "t": 0.2,
+   "z0": 3.52,
+   "z1": 7.0,
+   "length": 0.7992
+  },
+  {
+   "floor": "FF",
+   "kind": "wall",
+   "name": "ff_wall_019",
    "a": [
     4.25,
     20.55
@@ -1398,7 +1482,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_017",
+   "name": "ff_wall_020",
    "a": [
     0.0,
     19.25
@@ -1415,7 +1499,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_018",
+   "name": "ff_wall_021",
    "a": [
     0.0,
     16.1
@@ -1432,7 +1516,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_019",
+   "name": "ff_wall_022",
    "a": [
     0.0,
     14.4
@@ -1449,7 +1533,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_020",
+   "name": "ff_wall_023",
    "a": [
     10.3,
     13.9
@@ -1466,7 +1550,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_021",
+   "name": "ff_wall_024",
    "a": [
     8.95,
     11.9
@@ -1483,7 +1567,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_022",
+   "name": "ff_wall_025",
    "a": [
     0.0,
     11.0
@@ -1500,7 +1584,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_023",
+   "name": "ff_wall_026",
    "a": [
     10.3,
     10.45
@@ -1517,7 +1601,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_024",
+   "name": "ff_wall_027",
    "a": [
     0.0,
     10.4
@@ -1534,7 +1618,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_025",
+   "name": "ff_wall_028",
    "a": [
     0.0,
     9.2
@@ -1551,7 +1635,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_026",
+   "name": "ff_wall_029",
    "a": [
     12.211,
     8.0
@@ -1568,7 +1652,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_027",
+   "name": "ff_wall_030",
    "a": [
     0.0,
     7.9
@@ -1585,7 +1669,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_028",
+   "name": "ff_wall_031",
    "a": [
     5.8,
     6.5
@@ -1602,7 +1686,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_029",
+   "name": "ff_wall_032",
    "a": [
     8.95,
     5.3
@@ -1619,7 +1703,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_030",
+   "name": "ff_wall_033",
    "a": [
     4.25,
     3.0
@@ -1636,7 +1720,7 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_031",
+   "name": "ff_wall_034",
    "a": [
     0.0,
     2.2
@@ -1653,24 +1737,24 @@
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_032",
+   "name": "ff_wall_035",
    "a": [
     8.95,
     1.0
    ],
    "b": [
-    10.375,
+    10.094,
     1.0
    ],
    "t": 0.2,
    "z0": 3.52,
    "z1": 7.0,
-   "length": 1.425
+   "length": 1.144
   },
   {
    "floor": "FF",
    "kind": "wall",
-   "name": "ff_wall_033",
+   "name": "ff_wall_036",
    "a": [
     2.25,
     0.7
@@ -1760,7 +1844,7 @@
   {
    "name": "ff_slab",
    "level": "ff",
-   "area": 165.9958,
+   "area": 165.9157,
    "z0": 3.32,
    "z1": 3.52,
    "t": 0.2,
@@ -1778,7 +1862,7 @@
   {
    "name": "roof_slab_bay05",
    "level": "roof",
-   "area": 76.2227,
+   "area": 76.1425,
    "z0": 6.9,
    "z1": 7.2,
    "t": 0.3,
@@ -1817,12 +1901,12 @@
    "courtyard_sky": 20.475,
    "double_height_living": 19.6875,
    "stair_opening": 8.2062,
-   "tower_shaft": 0.98
+   "tower_shaft": 1.0601
   },
   "roof": {
    "courtyard_sky": 20.475,
    "suite_court": 25.2975,
-   "tower_shaft": 0.98,
+   "tower_shaft": 1.0601,
    "stair_opening": 0.0
   }
  },
@@ -2029,7 +2113,7 @@
    "width": 1.0,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_009"
+   "wall": "gf_wall_008"
   },
   {
    "floor": "GF",
@@ -2046,7 +2130,7 @@
    "width": 0.9,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_012"
+   "wall": "gf_wall_015"
   },
   {
    "floor": "GF",
@@ -2063,7 +2147,7 @@
    "width": 1.05,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_013"
+   "wall": "gf_wall_016"
   },
   {
    "floor": "GF",
@@ -2080,7 +2164,7 @@
    "width": 1.1,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_015"
+   "wall": "gf_wall_018"
   },
   {
    "floor": "GF",
@@ -2097,7 +2181,7 @@
    "width": 1.1,
    "sill": 0.0,
    "head": 3.32,
-   "wall": "gf_wall_015"
+   "wall": "gf_wall_018"
   },
   {
    "floor": "GF",
@@ -2114,7 +2198,7 @@
    "width": 2.7,
    "sill": 0.0,
    "head": 3.32,
-   "wall": "gf_wall_015"
+   "wall": "gf_wall_018"
   },
   {
    "floor": "GF",
@@ -2131,7 +2215,7 @@
    "width": 0.5,
    "sill": 0.0,
    "head": 2.9,
-   "wall": "gf_wall_021"
+   "wall": "gf_wall_024"
   },
   {
    "floor": "GF",
@@ -2148,7 +2232,7 @@
    "width": 2.1,
    "sill": 0.0,
    "head": 2.9,
-   "wall": "gf_wall_021"
+   "wall": "gf_wall_024"
   },
   {
    "floor": "GF",
@@ -2165,7 +2249,24 @@
    "width": 0.7,
    "sill": -0.08,
    "head": 2.1,
-   "wall": "gf_wall_022"
+   "wall": "gf_wall_025"
+  },
+  {
+   "floor": "GF",
+   "kind": "door",
+   "name": "V9.3: the maid bath's store",
+   "a": [
+    9.15,
+    1.0
+   ],
+   "b": [
+    9.75,
+    1.0
+   ],
+   "width": 0.6,
+   "sill": -0.08,
+   "head": 2.1,
+   "wall": "gf_wall_027"
   },
   {
    "floor": "GF",
@@ -2658,7 +2759,7 @@
    "width": 1.1,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_017"
+   "wall": "ff_wall_020"
   },
   {
    "floor": "FF",
@@ -2675,7 +2776,7 @@
    "width": 0.9,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_017"
+   "wall": "ff_wall_020"
   },
   {
    "floor": "FF",
@@ -2692,7 +2793,7 @@
    "width": 1.0,
    "sill": 5.0,
    "head": 6.0,
-   "wall": "ff_wall_017"
+   "wall": "ff_wall_020"
   },
   {
    "floor": "FF",
@@ -2709,7 +2810,7 @@
    "width": 1.0,
    "sill": 5.0,
    "head": 6.0,
-   "wall": "ff_wall_017"
+   "wall": "ff_wall_020"
   },
   {
    "floor": "FF",
@@ -2726,7 +2827,7 @@
    "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_021"
+   "wall": "ff_wall_024"
   },
   {
    "floor": "FF",
@@ -2743,7 +2844,7 @@
    "width": 0.9,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_022"
+   "wall": "ff_wall_025"
   },
   {
    "floor": "FF",
@@ -2760,7 +2861,7 @@
    "width": 1.1,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_028"
+   "wall": "ff_wall_031"
   },
   {
    "floor": "FF",
@@ -2777,7 +2878,7 @@
    "width": 1.3,
    "sill": 3.6,
    "head": 6.6,
-   "wall": "ff_wall_028"
+   "wall": "ff_wall_031"
   },
   {
    "floor": "FF",
@@ -2794,7 +2895,7 @@
    "width": 1.3,
    "sill": 3.6,
    "head": 6.6,
-   "wall": "ff_wall_028"
+   "wall": "ff_wall_031"
   },
   {
    "floor": "FF",
@@ -2811,7 +2912,7 @@
    "width": 1.0,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_029"
+   "wall": "ff_wall_032"
   },
   {
    "floor": "FF",
@@ -2828,7 +2929,7 @@
    "width": 1.6,
    "sill": 3.52,
    "head": 5.7,
-   "wall": "ff_wall_033"
+   "wall": "ff_wall_036"
   },
   {
    "floor": "FF",
@@ -2903,14 +3004,14 @@
    "kind": "window",
    "name": "default window",
    "a": [
-    11.330308,
-    1.599832
+    11.411927,
+    1.75004
    ],
    "b": [
     12.199845,
     3.200084
    ],
-   "width": 1.821,
+   "width": 1.65,
    "sill": 4.5,
    "head": 5.7,
    "wall": "ff_outer"
@@ -3536,10 +3637,10 @@
   "Orange elements (columns C21\u2013C23 to the roof, C33, beams B3, B5, R11, trimmers B16\u2013B18): sizes assumed in studies/structure.typ, not approved by the engineer",
   "FF wall (10.0, 19.25)\u2013(10.0, 24.0) stands on a rib of the men's majlis roof (south wing v2, non-load-bearing): NOT verified (X5)",
   "Roof access (V8.1, studies/roof.typ page 2): no stair tower; a manufactured vertical ladder in a 0.90 \u00d7 0.30 recess of a stone pilaster on the gym's east wall in the suite court (the 0.20 wall not cut), 13 rungs at 0.28, the top rung at the roof finish +7.30, the stiles to +8.40, behind a closed walnut panel; a self-closing gate in the court's west guard; a continuous 1.10 m guardrail set back 1.0 m on the south wing; all ASSUMED (the specialist confirms the fall protection)",
-  "Roofline (V7.0 / V8.1, studies/roof.typ): the main stone cornice 0.45 \u00d7 0.30 at +6.90, the north block's coping +7.65, the attic screen 1.4 m high (coping +8.68) set back 1.0 m (a plain pentagon since V8.0), the south wing's parapet +8.00; no stair room (the roof from the external stair tower); the malqaf on its HRV base (top +9.10); all ASSUMED",
+  "Roofline (V7.0 / V8.1, studies/roof.typ): the main stone cornice 0.45 \u00d7 0.30 at +6.90, the north block's coping +7.65, the attic screen 1.4 m high (coping +8.68) set back 1.0 m (a plain pentagon since V8.0), the south wing's parapet +8.00; no stair room (the roof from the external stair tower); the malqaf tower to +12.18 on the attic's corner, the HRV plant room behind the attic (top +8.60, hidden); all ASSUMED",
   "X3: suite bath east window y 9.5\u201310.05 against column C33 (0.25\u00d70.60 along the wall, y 10.15\u201310.75): clearance +0.10 m (clear); the column's size and orientation are for the engineer",
   "Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it",
-  "Air system v3.1 (studies/air_system.typ): the tower head open on three faces (north, west, east (V9.2; was the cut); its south face blind behind the HRV base), the HRV base on the roof, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled",
+  "Air system v3.1 / V9.3 (studies/air_system.typ): the slim shaft along the cut wall, the malqaf tower (head (c): 4 slender arched openings per face, 3.5 m above the attic, the Hijazi cornice) on the attic's corner, the HRV plant room behind the attic, the low plenum behind the coping, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled",
   "Courtyard layout (3 Nov 2026, owner, studies/courtyard_layout.typ): the whole floor LEVEL with gentle falls to linear drains (no step, no benches); movable modern furniture for 4\u20136 (a sofa, two armchairs, a low table) facing the outdoor TV (+0.60 \u2026 +1.46) in its stone surround on the kitchen wall with the malqaf grille below it (+0.10 \u2026 +0.45); the enclosure (a planter with the tree, rim +0.45, and a raised water trough, rim +0.95) on the kitchen wall in front of the sink window as the view from the sink; the north side in front of the women's majlis glass freed",
   "TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +2.60) and the arched TV niche 4.40 \u00d7 0.70 m (crown +3.10); eye-to-screen 3.47 m from a sofa with its back at x 8.45; no arches between the colonnade columns",
   "Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, stone sleeves \u00d80.4 on the assumed \u00d80.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two \u00d80.25 stone columns, three semicircular arches under the projection, decorative) and semicircular heads on the enclosure windows W1\u2013W3; the living bay keeps no arches (owner, V6.3)",
@@ -3569,6 +3670,7 @@
    "Guest basins (trough \u00b7 3 taps)",
    "Guest passage",
    "Foyer + entry",
+   "Maid store",
    "Air tower"
   ],
   "FF": [
@@ -3591,6 +3693,7 @@
    "Suite WC (closet)",
    "Suite dressing",
    "Suite bedroom",
+   "Bedroom 1 cupboard",
    "Stair (arrives at its north end \u00b7 flipped)",
    "Lift shaft",
    "West shaft",
@@ -3619,33 +3722,23 @@
   "area": 25.297,
   "note": "south side: the 1.1 m base and the frame built; the infill (solid / mashrabiya (recommended) / open) is the owner's choice"
  },
- "hrv_base": {
-  "pts": [
-   [
-    8.95,
-    1.0
-   ],
-   [
-    10.731,
-    1.0
-   ],
-   [
-    12.035,
-    3.4
-   ],
-   [
-    8.95,
-    3.4
-   ]
+ "plant_room": {
+  "box": [
+   8.7,
+   2.9,
+   10.3,
+   4.3
   ],
-  "top": 9.1,
-  "clear": 1.65,
-  "inside_area": 4.846,
+  "top": 8.6,
+  "clear": 1.18,
+  "inside_area": 1.68,
   "doors": [
-   1.3,
-   2.8
+   8.9,
+   10.1
   ],
-  "door_head": 8.8
+  "door_head": 8.3,
+  "plenum_top": 7.65,
+  "plenum_area": 1.78
  },
  "ladder": {
   "pilaster": [
@@ -3887,58 +3980,48 @@
     ]
    ]
   },
-  "hrv_base": {
-   "pts": [
-    [
-     8.95,
-     1.0
-    ],
-    [
-     10.731,
-     1.0
-    ],
-    [
-     12.035,
-     3.4
-    ],
-    [
-     8.95,
-     3.4
-    ]
+  "plant_room": {
+   "box": [
+    8.7,
+    2.9,
+    10.3,
+    4.3
    ],
-   "top": 9.1,
-   "clear": 1.65,
-   "inside_area": 4.846,
+   "top": 8.6,
+   "clear": 1.18,
+   "inside_area": 1.68,
    "doors": [
-    1.3,
-    2.8
+    8.9,
+    10.1
    ],
-   "door_head": 8.8
+   "door_head": 8.3,
+   "plenum_top": 7.65,
+   "plenum_area": 1.78
   }
  },
  "x3_clearance": 0.1,
  "air": {
   "tower": [
    [
-    8.95,
+    9.551,
     0
    ],
    [
-    10.375,
+    10.461,
     0
    ],
    [
-    10.375,
-    1.0
+    11.303,
+    1.551
    ],
    [
-    8.95,
-    1.0
+    10.601,
+    1.933
    ]
   ],
   "head": [
    7.3,
-   9.8
+   12.18
   ],
   "base": [
    -0.08,
@@ -3946,8 +4029,12 @@
   ],
   "route": [
    [
+    10.674,
+    1.25
+   ],
+   [
     10.2,
-    1.0
+    2.35
    ],
    [
     10.2,
@@ -3997,40 +4084,9 @@
    8.85,
    12.3
   ],
-  "duct_footprint_wkt": "POLYGON ((10.649999999999999 1, 9.75 1, 9.75 10.05, 9.2 10.05, 9.2 10.95, 10.2 10.95, 10.37220754456429 10.91574578963008, 10.518198051533945 10.818198051533946, 10.615745789630079 10.67220754456429, 10.649999999999999 10.5, 10.649999999999999 1))",
-  "tower_shaft_area": 0.98,
-  "head_openings": [
-   [
-    [
-     9.1,
-     0.0
-    ],
-    [
-     9.9,
-     0.0
-    ]
-   ],
-   [
-    [
-     8.95,
-     0.1
-    ],
-    [
-     8.95,
-     0.9
-    ]
-   ],
-   [
-    [
-     10.375,
-     0.19
-    ],
-    [
-     10.375,
-     0.85
-    ]
-   ]
-  ]
+  "duct_footprint_wkt": "POLYGON ((9.78425421036992 2.1777924554357098, 9.75 2.35, 9.75 10.05, 9.2 10.05, 9.2 10.95, 10.2 10.95, 10.37220754456429 10.91574578963008, 10.518198051533945 10.818198051533946, 10.615745789630079 10.67220754456429, 10.649999999999999 10.5, 10.649999999999999 2.442828745996491, 11.087264673112653 1.4280795045958163, 10.260735326887346 1.0719204954041837, 9.786735326887346 2.1719204954041835, 9.787855269880106 2.172403089021064, 9.78425421036992 2.1777924554357098))",
+  "tower_shaft_area": 1.0601,
+  "head_openings": []
  },
  "sun": {
   "latitude": 21.4,
@@ -4460,20 +4516,6 @@
      8.4
     ],
     "height": 1.1
-   },
-   {
-    "name": "chr_base_timber_malqaf_louvres",
-    "group": "base",
-    "material": "timber",
-    "bounds": [
-     8.89,
-     -0.06,
-     8.33,
-     10.435,
-     0.9,
-     9.27
-    ],
-    "slats": 12
    },
    {
     "name": "chr_sunken_timber_court_sofa_0",
@@ -5497,7 +5539,7 @@
   ],
   "recessed_windows": [
    {
-    "index": 23,
+    "index": 24,
     "floor": "GF",
     "name": "kitchen east window, over the cooking counter",
     "a": [
@@ -5516,7 +5558,7 @@
     "reveal": 0.2
    },
    {
-    "index": 24,
+    "index": 25,
     "floor": "GF",
     "name": "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 \u00d7 1.00, sill +1.10, obscured glass below +1.60, no screen",
     "a": [
@@ -5535,7 +5577,7 @@
     "reveal": 0.2
    },
    {
-    "index": 25,
+    "index": 26,
     "floor": "GF",
     "name": "maid bath vent window",
     "a": [
@@ -5554,7 +5596,7 @@
     "reveal": 0.2
    },
    {
-    "index": 26,
+    "index": 27,
     "floor": "GF",
     "name": "the stair's half-landing window on the west wall (flip, 2 Nov 2026): small, obscured, a deep shaded reveal",
     "a": [
@@ -5573,7 +5615,7 @@
     "reveal": 0.2
    },
    {
-    "index": 27,
+    "index": 28,
     "floor": "GF",
     "name": "the family entrance's glazed side light (obscured glass), west of the door",
     "a": [
@@ -5592,7 +5634,7 @@
     "reveal": 0.2
    },
    {
-    "index": 28,
+    "index": 29,
     "floor": "GF",
     "name": "women's majlis north window",
     "a": [
@@ -5611,7 +5653,7 @@
     "reveal": 0.2
    },
    {
-    "index": 29,
+    "index": 30,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -5630,7 +5672,7 @@
     "reveal": 0.2
    },
    {
-    "index": 30,
+    "index": 31,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -5649,7 +5691,7 @@
     "reveal": 0.2
    },
    {
-    "index": 31,
+    "index": 32,
     "floor": "GF",
     "name": "men's majlis high south window",
     "a": [
@@ -5668,7 +5710,7 @@
     "reveal": 0.2
    },
    {
-    "index": 32,
+    "index": 33,
     "floor": "GF",
     "name": "default window",
     "a": [
@@ -5687,7 +5729,7 @@
     "reveal": 0.2
    },
    {
-    "index": 59,
+    "index": 60,
     "floor": "FF",
     "name": "kids' room north window",
     "a": [
@@ -5706,7 +5748,7 @@
     "reveal": 0.2
    },
    {
-    "index": 60,
+    "index": 61,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5725,7 +5767,7 @@
     "reveal": 0.2
    },
    {
-    "index": 61,
+    "index": 62,
     "floor": "FF",
     "name": "bedroom 3 bath window",
     "a": [
@@ -5744,7 +5786,7 @@
     "reveal": 0.2
    },
    {
-    "index": 62,
+    "index": 63,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5763,12 +5805,12 @@
     "reveal": 0.2
    },
    {
-    "index": 63,
+    "index": 64,
     "floor": "FF",
     "name": "default window",
     "a": [
-     11.330308,
-     1.599832
+     11.411927,
+     1.75004
     ],
     "b": [
      12.199845,
@@ -5782,7 +5824,7 @@
     "reveal": 0.2
    },
    {
-    "index": 64,
+    "index": 65,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5801,7 +5843,7 @@
     "reveal": 0.2
    },
    {
-    "index": 65,
+    "index": 66,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5820,7 +5862,7 @@
     "reveal": 0.2
    },
    {
-    "index": 66,
+    "index": 67,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5839,7 +5881,7 @@
     "reveal": 0.2
    },
    {
-    "index": 67,
+    "index": 68,
     "floor": "FF",
     "name": "gym south window (v2: the gym on the west band; the TV on the wall in front of the treadmill, x 0.45-1.65)",
     "a": [
@@ -5858,7 +5900,7 @@
     "reveal": 0.2
    },
    {
-    "index": 68,
+    "index": 69,
     "floor": "FF",
     "name": "owner's office south window (V8.1: and a 0.90 east window at y 22.8\u201323.7, default heights)",
     "a": [
@@ -5877,7 +5919,7 @@
     "reveal": 0.2
    },
    {
-    "index": 69,
+    "index": 70,
     "floor": "FF",
     "name": "default window",
     "a": [
@@ -5896,7 +5938,7 @@
     "reveal": 0.2
    },
    {
-    "index": 70,
+    "index": 71,
     "floor": "FF",
     "name": "suite bath east window, 0.55 m, y 9.50\u201310.05 (X3, V6.3: its frame clears C33 by 0.05 m)",
     "a": [
@@ -5915,7 +5957,7 @@
     "reveal": 0.2
    },
    {
-    "index": 71,
+    "index": 72,
     "floor": "FF",
     "name": "suite bedroom east window, its escape window (y 15.0\u201318.6)",
     "a": [
@@ -6516,7 +6558,6 @@
   ],
   "enabled": true,
   "hide": [
-   "gf_glass_023",
    "gf_glass_024",
    "gf_glass_025",
    "gf_glass_026",
@@ -6526,7 +6567,7 @@
    "gf_glass_030",
    "gf_glass_031",
    "gf_glass_032",
-   "ff_glass_059",
+   "gf_glass_033",
    "ff_glass_060",
    "ff_glass_061",
    "ff_glass_062",
@@ -6538,7 +6579,8 @@
    "ff_glass_068",
    "ff_glass_069",
    "ff_glass_070",
-   "ff_glass_071"
+   "ff_glass_071",
+   "ff_glass_072"
   ],
   "palette": {
    "plaster": [
@@ -6712,6 +6754,14 @@
    [
     "roof_air_head|roof_air_cap",
     "stone"
+   ],
+   [
+    "roof_air_void",
+    "steel"
+   ],
+   [
+    "roof_air_plant|roof_air_plenum",
+    "plaster"
    ],
    [
     "roof_air_louvre",

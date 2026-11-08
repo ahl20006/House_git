@@ -1,4 +1,6 @@
-# 3D model · Taif / Palm House V9.2 · phases 1–3 + character study + the V7.0 – V9.0 design (enclosure, roofline, arcade, the level courtyard layout, air system v3.1, south wing v2, roof ladder, the flipped stair, the court's mashrabiya, the site elements)
+# 3D model · Taif / Palm House V9.3 · phases 1–3 + character study + the V7.0 – V9.0 design (enclosure, roofline, arcade, the level courtyard layout, air system v3.1, south wing v2, roof ladder, the flipped stair, the court's mashrabiya, the site elements)
+
+**V9.3** (the new malqaf tower): the slim shaft along the cut wall (its slab openings ≈ 1.06 m²), the rooms round it from the CSVs (the maid store, bedroom 1's cupboard); above the roof the 1.25 m honey-stone tower on the attic's corner (`roof_air_head*`, `roof_air_cap`; the slender arched openings as dark voids `roof_air_void_slots`), crown +12.18; the HRV plant room behind the attic (`roof_air_plant_*`), the plenum, the exhaust grille; the old head and base removed; a north-east aerial bookmark (`aerial_ne`); the viewer no longer clips above +10.0 m. Renders: `char_gate.png`, `char_aerial_ne.png`.
 
 **V9.2** (small fixes, no new renders): the air tower a rectangle (1.425 × 1.0 on axes, the shaft opening ≈ 0.98 m², the head open on its north, west and east faces), the maid bath and bedroom 1 with the wedge beside it (from the CSVs), the HRV base at its V9.0 footprint, the attic 2 cm lower (coping +8.68).
 
@@ -64,7 +66,7 @@ The 3D model is **generated from the project files, never edited by hand**. One 
 
 **What is not a decision here:** every colour and element; the stone sleeve is cladding, not a column size; the arches are decorative; the fountain is a shape (its water and drain are for the MEP engineer, A8 / A6); the sunken seating is a variant whose drain, overflow and waterproofing are for the MEP and structural engineers; the pergola's bearing on the roof edge beams is for the engineer if it stays. The malqaf outlet's position is an owner decision (`data/decisions.csv`), its sizes stay assumed.
 
-**Renders** (`render_views.py`, headless Edge, the sun on). **V9.1:** `char_aerial_sw.png`. *V9.0:* `char_aerial_sw.png`, `char_gate.png`, `char_living.png`, `char_court_screen.png`. *V8.3:* `char_living.png`, `char_lobby.png`. *V8.2:* `char_lobby.png`, `char_court_screen.png`, `char_aerial_sw.png`. *V8.1:* `char_north.png`, `char_aerial_se.png`, `char_suite_court_sw.png`. *V8.0:* `char_courtyard.png`, `char_suite_court.png`, `char_tv.png`. The older renders below are kept from V7.0 / V7.1 and are not refreshed. *V7.0:* `output/char_north.png` (the north facade from the street: the main cornice, the set-back attic behind it), `char_aerial_sw.png`, `char_eye2.png`, `char_w3.png`.
+**Renders** (`render_views.py`, headless Edge, the sun on). **V9.3:** `char_gate.png`, `char_aerial_ne.png`. *V9.1:* `char_aerial_sw.png`. *V9.0:* `char_aerial_sw.png`, `char_gate.png`, `char_living.png`, `char_court_screen.png`. *V8.3:* `char_living.png`, `char_lobby.png`. *V8.2:* `char_lobby.png`, `char_court_screen.png`, `char_aerial_sw.png`. *V8.1:* `char_north.png`, `char_aerial_se.png`, `char_suite_court_sw.png`. *V8.0:* `char_courtyard.png`, `char_suite_court.png`, `char_tv.png`. The older renders below are kept from V7.0 / V7.1 and are not refreshed. *V7.0:* `output/char_north.png` (the north facade from the street: the main cornice, the set-back attic behind it), `char_aerial_sw.png`, `char_eye2.png`, `char_w3.png`.
 
 ## Levels: structural and finished
 | | Finished (plans, sections) | Structural slab top | Slab | Underside |
@@ -83,7 +85,7 @@ The **finished** levels are the levels of the plans and sections (±0.00, +3.60)
 | File | What it is |
 |---|---|
 | `params.yaml` | every dimension the model uses (levels, finishes, slab and wall thicknesses, opening heights, railing heights, stair waist, the marked structural elements, the sun and the bookmarks) and the source paths; nothing is hard-coded in the script |
-| `build_3d.py` | builds the model → `output/taif_house_V9.2.glb`, `output/taif_house_V9.2.js` (the GLB as base64 + rooms, flags, sun, bookmarks and the character palette for the viewer), `output/model_summary.json` |
+| `build_3d.py` | builds the model → `output/taif_house_V9.3.glb`, `output/taif_house_V9.3.js` (the GLB as base64 + rooms, flags, sun, bookmarks and the character palette for the viewer), `output/model_summary.json` |
 | `character.yaml`, `character_3d.py` | the character study (style, provisional): the palette, every element's sizes, the mashrabiya list, the feature walls, the arches variant, the extra views; the module that builds the `chr_*` meshes from them |
 | `open_edges.csv` | the room edges that have no wall, with the source of each |
 | `check_3d.py` | the checks (below); also run by `tools/check.py` |
@@ -166,6 +168,7 @@ It ends with `3D CHECKS PASSED` and the list of **flags**, or the problems. `ALL
 | V9.0 | the final site position, the cut wall 0.12 m further out, the existing farm round the house (the old house, its annex, the covered parking, the tank, the septic, the walls and the gate posts, the two palms; kinds `block`, `canopy`, `palm`), the gate view; four renders | done (tag `v9.0`) | |
 | V9.1 | the final site position (B1 6.00 m from M1), the cut wall a further 0.24 m out, the parking bay on the turning line; one render | done (tag `v9.1`) |
 | V9.2 | small fixes: the rectangular air tower, the wedge to the rooms, the HRV base at V9.0, the attic +8.68; no new renders | done (tag `v9.2`) |
+| V9.3 | the new malqaf tower (the slim shaft, the tower on the attic's corner, the plant room); renders: the gate, the north-east aerial | done (tag `v9.3`) |
 | 4 | the whole structure from the structural study (all columns and beams, ribbed slabs, the 0.22 roof over the void), marked assumed until the engineer approves | to do |
 | 5 | lift, air tower head, parapets and the roof railing, the remaining railings (as design elements: the character study shows provisional ones) | to do |
 | 6 | IFC / OBJ export | to do |

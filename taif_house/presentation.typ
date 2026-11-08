@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V9.2 (final site position, small fixes) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.2_presentation.pdf
+// presentation.typ · Taif / Palm House V9.3 (the new malqaf tower) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.3_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.2 · layout freeze · final site position])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.3 · layout freeze · the new malqaf tower])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -127,7 +127,7 @@
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
   "Serving passage (2 doors)": "Serving", "Family powder room (WC · 2 basins)": "Powder room", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
-  "Suite WC (closet)": "WC", "Maid store": "store", "Bedroom 1 cupboard": "cupb.",
+  "Suite WC (closet)": "WC", "Maid store": "store", "Bedroom 1 cupboard": "cupb.", "Air tower": "shaft",
 )
 #let mk(prefix, rows, extra) = rows.enumerate().map(((i, r)) => (id: prefix + (if i < 9 { "0" } else { "" }) + str(i + 1), name: r.name, kind: kind-of(r.name, r.colour), P: poly-of(r))) + extra
 #let tower = fam.fixed.find(f => f.name == "Air tower").pts
@@ -639,7 +639,7 @@
 
       Guest side: guest WC behind a screen wall, one trough with three taps, the guest passage and the foyer with a #dw((0, 21.5)) m double door and a #dw((2.75, 22.15)) m opening into the men's majlis (a bent entry, partial).
 
-      *East service block:* kitchen #wd(gf-rooms, "Kitchen") m on the courtyard lines (two parallel runs, no island, door to the dining only); the sink under its courtyard window (y 7.3–8.9, V8.0) with the dishwasher south of it, the outdoor TV on the other face of the wall further south; laundry #wd(gf-rooms, "Laundry") m on the solid wall of the women's majlis; maid room #gfa("Maid room") m² (an escape casement, sill +1.10) and maid bath #gfa("Maid bath") m² (the WC in the cut-wall corner, for the air channel's throat) in the sloped corner, reached only through the kitchen and the laundry; the air tower in the tip of the cut corner: one tower, two separate paths (the courtyard breeze in a shallow channel in the slab; the HRV's intake, the unit in its base on the roof).
+      *East service block:* kitchen #wd(gf-rooms, "Kitchen") m on the courtyard lines (two parallel runs, no island, door to the dining only); the sink under its courtyard window (y 7.3–8.9, V8.0) with the dishwasher south of it, the outdoor TV on the other face of the wall further south; laundry #wd(gf-rooms, "Laundry") m on the solid wall of the women's majlis; maid room #gfa("Maid room") m² (an escape casement, sill +1.10) and maid bath #gfa("Maid bath") m² (V9.3: one straight wall parallel to the cut, the WC and the shower on its west wall off the breeze channel's line, a store #gfa("Maid store") m² north of it) reached only through the kitchen and the laundry; the slim air shaft along the cut wall (V9.3: 0.90 m² clear; the access panel from the maid bath) rising to the malqaf tower on the attic's corner: two separate paths (the courtyard breeze in a full-width channel in the slab; the HRV's intake, the unit in a plant room hidden behind the attic).
     ]
     #ar[
       #ah[كتلة المغاسل الغربية]
@@ -649,7 +649,7 @@
       #ah[جهة الضيوف]
       دورة الضيوف خلف جدار ساتر، ومغسلة حوضية بثلاثة صنابير، وممر الضيوف، والبهو بباب مزدوج #dw((0, 21.5)) م وفتحة #dw((2.75, 22.15)) م إلى المجلس (مدخل منكسر جزئي).
       #ah[الكتلة الشرقية]
-      المطبخ #wd(gf-rooms, "Kitchen") م على خطوط الفناء بخطي خزائن وبلا جزيرة وبابه إلى الطعام فقط، والحوض تحت نافذته على الفناء (y 7.3–8.9) وغسالة الصحون جنوبه؛ والغسيل #wd(gf-rooms, "Laundry") م على جدار مجلس النساء المصمت، وغرفة الخادمة #gfa("Maid room") م² بنافذة هروب وحمامها #gfa("Maid bath") م² في الركن المائل؛ وبرج الهواء في رأس الركن المقطوع: برج واحد بمسارين منفصلين (نسيم الفناء ومدخل هواء وحدة التهوية في قاعدته على السطح).
+      المطبخ #wd(gf-rooms, "Kitchen") م على خطوط الفناء بخطي خزائن وبلا جزيرة وبابه إلى الطعام فقط، والحوض تحت نافذته على الفناء (y 7.3–8.9) وغسالة الصحون جنوبه؛ والغسيل #wd(gf-rooms, "Laundry") م على جدار مجلس النساء المصمت، وغرفة الخادمة #gfa("Maid room") م² بنافذة هروب وحمامها #gfa("Maid bath") م² في الركن المائل؛ ومجرى الهواء الرفيع على جدار القطع يصعد إلى برج الملقف على ركن العلّية: مساران منفصلان (نسيم الفناء في مجرى بعرضه الكامل، ومدخل هواء وحدة التهوية في غرفة معدات مخفية خلف العلّية).
     ]
   ],
 )
@@ -739,23 +739,23 @@
 
 // ===================================================================================== SHEET 11 · roof plan (V7.0)
 #pagebreak()
-#sheet-head([Roof plan / the roof ladder, the set-back attic, the set-back guardrail and the reserved zones], [studies/roof.typ (V8.1: the roof by a maintenance ladder in the suite court; the internal stair stops at the first floor; the malqaf on its HRV base) | flat roof, no tiles | the attic 1.38 m above the finish, set back 1.0 m | the south parapet 0.70 m with a 1.10 m guardrail set back 1.0 m | zones reserved, not designed | all sizes assumed])
+#sheet-head([Roof plan / the roof ladder, the set-back attic, the set-back guardrail and the reserved zones], [studies/roof.typ (V8.1: the roof by a maintenance ladder in the suite court; the internal stair stops at the first floor; V9.3: the malqaf tower on the attic's corner, the HRV in a hidden plant room) | flat roof, no tiles | the attic 1.38 m above the finish, set back 1.0 m | the south parapet 0.70 m with a 1.10 m guardrail set back 1.0 m | zones reserved, not designed | all sizes assumed])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   rf.plan(length: 0.86cm),
   [
     #en[
       *Access (V8.1):* by a *maintenance ladder in the suite court*: a manufactured vertical ladder in a 0.90 × 0.30 recess of a honey-stone pilaster on the gym's east wall, behind a locked walnut-finish panel (not climbable when closed); #n2(rf.lad-climb) m from the court floor to the gym roof, the stiles 1.10 m above the roof as the transfer handholds (+#rf.f2(rf.lad.stile-top)), a self-closing gate in the court's west guard, a landing pad inside the guarded zone; a fall-arrest rail, to be confirmed by the specialist. The internal stair stops at the first floor; the roof slab over the well is closed; no door from the roof into the house. The lift stops at the first floor: headroom to the roof slab underside #n2(rf.lift-avail) m (a lift with ≤ 3.40 m, or ≤ 3.70 m with a 0.30 m raised head hidden behind the cornice; open item 15).
 
-      *Roofline (V8.1, lower and balanced):* a honey-stone *main cornice* #n2(rf.cornice.h) × #n2(rf.cornice.proj) m at +#rf.f2(rf.cornice.z0) … +#rf.f2(rf.cornice.z0 + rf.cornice.h) all round; on the north block a coped upstand to +#rf.f2(rf.coping-top) and the *attic screen* #n2(rf.attic-vis) m above the roof finish (coping +#rf.f2(rf.attic-top)) set back #n2(rf.setback) m on all four sides; the *south wing* a low parapet #n2(rf.parapet-vis) m above the finish (+#rf.f2(rf.south-top)) and a *continuous 1.10 m black steel guardrail set back #n2(rf.rail-setback) m* (not seen from the street; the strip outside it a no-go zone): the roofline steps #n2(rf.step) m. Above the attic only the *malqaf* (+#rf.f2(rf.tower-top)) on its HRV base (+#rf.f2(rf.base-top)) at the north-east. The attic hides 1.2 m condensers on pads and the tank from every distance (§ 3 of the study). The attic never cuts the courtyard's sky or sun.
+      *Roofline (V8.1, lower and balanced):* a honey-stone *main cornice* #n2(rf.cornice.h) × #n2(rf.cornice.proj) m at +#rf.f2(rf.cornice.z0) … +#rf.f2(rf.cornice.z0 + rf.cornice.h) all round; on the north block a coped upstand to +#rf.f2(rf.coping-top) and the *attic screen* #n2(rf.attic-vis) m above the roof finish (coping +#rf.f2(rf.attic-top)) set back #n2(rf.setback) m on all four sides; the *south wing* a low parapet #n2(rf.parapet-vis) m above the finish (+#rf.f2(rf.south-top)) and a *continuous 1.10 m black steel guardrail set back #n2(rf.rail-setback) m* (not seen from the street; the strip outside it a no-go zone): the roofline steps #n2(rf.step) m. Above the attic only the *malqaf tower* (V9.3, +#rf.f2(rf.tower-top)) on the attic's north-east corner; the HRV plant room (+#rf.f2(rf.base-top)) stays below the attic coping, hidden. The attic hides 1.2 m condensers on pads and the tank from every distance (§ 3 of the study). The attic never cuts the courtyard's sky or sun.
 
-      *Zones (reserved):* the HRV in the malqaf's base; the AC units behind the cut / east attic wall; water tank(s) between the roof beams R10 and R3; PV on the gym roof and the office roof inside the guardrail and, later, on the north block's east roof; the 1.0 m strip in front of the attic (a no-go zone) with its own outlets; #rf.outlets.len() roof outlets to internal downpipes, falls 1.5 %; 0.9 m walkways from the ladder's landing pad through the attic opening at x 2.1–2.9 to every zone, with a branch to the office roof; the guarding continuous from the ladder to every piece of equipment (checked).
+      *Zones (reserved):* the HRV in a plant room hidden behind the attic (V9.3); the AC units behind the cut / east attic wall; water tank(s) between the roof beams R10 and R3; PV on the gym roof and the office roof inside the guardrail and, later, on the north block's east roof; the 1.0 m strip in front of the attic (a no-go zone) with its own outlets; #rf.outlets.len() roof outlets to internal downpipes, falls 1.5 %; 0.9 m walkways from the ladder's landing pad through the attic opening at x 2.1–2.9 to every zone, with a branch to the office roof; the guarding continuous from the ladder to every piece of equipment (checked).
     ]
     #table(columns: (1.4fr, auto, 2.4fr), inset: 3pt, stroke: 0.4pt + luma(170), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
       ..([Zone], [m²], [Note]).map(c => text(8.5pt, weight: "bold", fill: accent, c)),
       ..rf.zones.map(((n, a, note)) => (text(8pt, n), text(8pt)[#rf.r1(a)], text(8pt, note))).flatten())
     #ar[
       #ah[السطح]
-      الوصول إلى السطح بسلم صيانة ثابت في فناء الجناح خلف لوح مقفل (V8.1)، والدرج الداخلي يتوقف عند الدور الأول وبلاطة السطح فوق البئر مغلقة؛ المصعد يقف في الدور الأول. كورنيش رئيسي من الحجر العسلي حول البيت، وعلى الكتلة الشمالية حاجز سطح بارتفاع #n2(rf.attic-h) م مرتدّ #n2(rf.setback) م خلف الكورنيش يخفي المعدات؛ الملقف على قاعدة وحدة التهوية؛ الجناح الجنوبي بدروة منخفضة 0.70 م ودرابزين مرتد 1.10 م فيتدرّج خط السطح #n2(rf.step) م. مناطق محجوزة: وحدات التكييف خلف العلية، الخزان، الألواح الشمسية، الممرات والمصارف والحواجز.
+      الوصول إلى السطح بسلم صيانة ثابت في فناء الجناح خلف لوح مقفل (V8.1)، والدرج الداخلي يتوقف عند الدور الأول وبلاطة السطح فوق البئر مغلقة؛ المصعد يقف في الدور الأول. كورنيش رئيسي من الحجر العسلي حول البيت، وعلى الكتلة الشمالية حاجز سطح بارتفاع #n2(rf.attic-h) م مرتدّ #n2(rf.setback) م خلف الكورنيش يخفي المعدات؛ برج الملقف على ركن العلّية ووحدة التهوية في غرفة مخفية؛ الجناح الجنوبي بدروة منخفضة 0.70 م ودرابزين مرتد 1.10 م فيتدرّج خط السطح #n2(rf.step) م. مناطق محجوزة: وحدات التكييف خلف العلية، الخزان، الألواح الشمسية، الممرات والمصارف والحواجز.
     ]
   ],
 )
@@ -769,13 +769,13 @@
   rf.sight(length: 0.5cm),
   [
     #en[
-      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice (its coping #calc.round(-rf.attic-peek * 1000) mm below the line; V9.2: the attic 2 cm lower). Nothing stands above the attic but the malqaf on its base (by design). The attic (V9.2: #n2(rf.attic-vis) m above the finish; V8.1 1.40) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
+      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice (its coping #calc.round(-rf.attic-peek * 1000) mm below the line; V9.2: the attic 2 cm lower). Nothing stands above the attic but the malqaf tower (by design, V9.3). The attic (V9.2: #n2(rf.attic-vis) m above the finish; V8.1 1.40) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
 
-      *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; the south wing's low parapet +#rf.f2(rf.south-top) with the guardrail set back behind it; the malqaf head +#rf.f2(rf.tower-top) on its HRV base in the cut tip; on the east the office's window and the outdoor kitchen's counter at the south end (V8.1). No element above the attic on the west.
+      *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; the south wing's low parapet +#rf.f2(rf.south-top) with the guardrail set back behind it; the malqaf tower +#rf.f2(rf.tower-top) on the attic's north-east corner (V9.3: head (c), the Hijazi cornice); on the east the office's window and the outdoor kitchen's counter at the south end (V8.1). No element above the attic on the west.
     ]
     #ar[
       #ah[الواجهات وخطوط النظر]
-      من حدّ الأرض الشمالي تختفي العِلّية خلف الكورنيش (خُفّضت 2 سم)، ولا شيء فوقها إلا الملقف على قاعدته؛ العلية بارتفاع 1.38 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
+      من حدّ الأرض الشمالي تختفي العِلّية خلف الكورنيش (خُفّضت 2 سم)، ولا شيء فوقها إلا برج الملقف؛ العلية بارتفاع 1.38 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
     ]
   ],
 )
