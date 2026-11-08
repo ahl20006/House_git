@@ -200,8 +200,8 @@ if all(abs(v) < 1e-4 for v in (lo[0] - (ob[0] - T_OUT / 2), lo[1] - (ob[1] - T_O
 else:
     bad(f"plan extent {lo[:2].round(3).tolist()}–{hi[:2].round(3).tolist()} does not match the outline {ob}")
 RD = P["roof_design"]
-if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and (abs(hi[2] - RD["attic"]["top"]) < 1e-4 or abs(hi[2] - RD["hrv_base"]["top"]) < 1e-4):
-    ok(f"levels: ground slab underside {lo[2]:+.2f}, the highest base mesh within the outline {hi[2]:+.2f} (the attic coping +{RD['attic']['top']:.2f} or the HRV base +{RD['hrv_base']['top']:.2f}; no stair room) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
+if abs(lo[2] - (STRUCT_TOP["GF"] - T_SLAB)) < 1e-4 and abs(hi[2] - RD["attic"]["top"]) < 1e-4:   # the air system (the malqaf tower) excluded here: checked in 11
+    ok(f"levels: ground slab underside {lo[2]:+.2f}, the highest base mesh within the outline {hi[2]:+.2f} (the attic coping +{RD['attic']['top']:.2f}; the malqaf tower checked in 11; no stair room) · finished GF {FINISHED['GF']:+.2f} / FF {FINISHED['FF']:+.2f}, structural slab tops {STRUCT_TOP['GF']:+.2f} / {STRUCT_TOP['FF']:+.2f} / roof {L['roof']:+.2f} (finish {P['finish']})")
 else:
     bad(f"levels {lo[2]:+.3f}…{hi[2]:+.3f} do not match params")
 for n, want in (("gf_finish_floor", FINISHED["GF"]), ("ff_finish_floor", FINISHED["FF"]), ("gf_slab", STRUCT_TOP["GF"]), ("ff_slab", STRUCT_TOP["FF"]), ("roof_slab", L["roof"])):
@@ -431,9 +431,9 @@ def padbox(cid):
 near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C25", "C26", "C31", "C27", "C24", "C30")}
 bt, bb = air["duct"][1], air["duct"][2]
 slab_lo = STRUCT_TOP["GF"] - T_SLAB
-if abs(bt - STRUCT_TOP["GF"]) < 1e-6 and abs(bb - slab_lo) < 1e-6 and min(air["invert"]) >= bb - 0.05 and abs(air["head"][1] - (L["roof"] + P["roof_finish"]) - 2.5) < 1e-6:
+if abs(bt - STRUCT_TOP["GF"]) < 1e-6 and abs(bb - slab_lo) < 1e-6 and min(air["invert"]) >= bb - 0.05 and abs(air["head"][1] - (RD["attic"]["top"] + 3.5)) < 1e-6:   # V9.3: the malqaf 3.5 m above the attic coping
     ok(f"v3: the breeze channel lies within the ground-slab depth ({bt:+.2f} … {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]}, invert {min(air['invert']):+.2f}): above the assumed pads and the ground beams (nearest pad boxes in plan: "
-       + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + f"), nothing notched (A3, assumed); head to +{air['head'][1]:.2f} = 2.5 m above the roof finish")
+       + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + f"), nothing notched (A3, assumed); the malqaf's crown +{air['head'][1]:.2f} = 3.5 m above the attic coping")
 else:
     bad(f"air levels (v3): channel {bt}…{bb} should be the slab depth {STRUCT_TOP['GF']}…{slab_lo:.2f}, invert {air['invert']}, head {air['head']}")
 gy0, gz0, gy1, gz1 = air["grille"]
@@ -641,13 +641,14 @@ if setback_ok and abs(aw.bounds[1][2] - at["wall_top"]) < 1e-3 and abs(ac.bounds
     ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on all four sides (a plain pentagon, V8.0), its south wall on y {at['y_south']}; {len(at['doors'])} doors (one of them to the office roof); ≈ {rd['attic']['length']:.1f} m long")
 else:
     bad(f"attic: setback {setback_ok}, wall {aw.bounds[:, 2].tolist()}, coping {ac.bounds[1][2]}")
-hb = summary["hrv_base"]
-HBP = RD["hrv_base"]
-hb_ok = all(n in meshes for n in ("roof_air_base_shell", "roof_air_base_slab", "roof_air_base_door", "roof_air_base_louvre")) and abs(meshes["roof_air_base_slab"].bounds[1][2] - HBP["top"]) < 1e-3 and hb["clear"] >= 1.6 - 1e-6
-if hb_ok:
-    ok(f"the HRV base under the malqaf (air v3.1): its top +{HBP['top']:.2f} ({HBP['top'] - at['top']:+.2f} to the attic coping), {hb['clear']:.2f} m clear inside ({hb['inside_area']:.2f} m²), doors y {HBP['doors'][0]}–{HBP['doors'][1]} on its west face, the exhaust louvre on its cut face; the malqaf head (+{AIR['head'][1]:.2f}) the only element above the attic within the outline; the head open on {len(summary['air']['head_openings'])} faces")
+pr = summary["plant_room"]
+pr_ok = all(n in meshes for n in ("roof_air_plant_shell", "roof_air_plant_slab", "roof_air_plant_door", "roof_air_exhaust", "roof_air_plenum", "roof_air_head", "roof_air_cap", "roof_air_void_slots")) \
+    and abs(meshes["roof_air_plant_slab"].bounds[1][2] - pr["top"]) < 1e-3 and pr["top"] < at["top"] and meshes["roof_air_plenum"].bounds[1][2] <= RD["coping_north"]["top"] + 1e-6 \
+    and abs(meshes["roof_air_cap"].bounds[1][2] - AIR["head"][1]) < 1e-3 and not any(n.startswith("roof_air_base") for n in meshes)
+if pr_ok:
+    ok(f"V9.3: the malqaf tower to +{AIR['head'][1]:.2f} on the attic's corner (head (c), the slots as dark voids), the HRV plant room behind the attic (top +{pr['top']:.2f} < the attic coping +{at['top']:.2f}: hidden; {pr['clear']:.2f} m clear, {pr['inside_area']:.2f} m², doors on its south face), the exhaust grille low in the attic's cut wall, the plenum behind the coping (top +{pr['plenum_top']:.2f}); no HRV base left")
 else:
-    bad(f"HRV base: {hb}")
+    bad(f"the malqaf tower / the plant room: {pr}")
 sc_ = summary["suite_court"]
 if "ff_low_court_south" in meshes and "ff_beam_R8_court" in meshes and abs(meshes["ff_low_court_south"].bounds[1][2] - sc_["base_top"]) < 1e-3 and abs(meshes["ff_beam_R8_court"].bounds[0][2] - sc_["frame_soffit"]) < 1e-3:
     ok(f"the suite court v2 ({sc_['area']:.2f} m², open to the sky): its south side x {sc_['south_x'][0]}–{sc_['south_x'][1]} a 1.10 m base (+{sc_['base_top']:.2f}) under the facade frame (R8 soffit +{sc_['frame_soffit']:.2f}, the cornice and the parapet carried across); the infill is the owner's choice (mashrabiya recommended, not built)")

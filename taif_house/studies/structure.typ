@@ -50,7 +50,7 @@
   ("C27", 8.95, 13.0, "east line", "0.25×0.50", "roof", "courtyard / kitchen / living / dining corner"),
   ("C28", 8.95, 19.25, "east line · majlis north wall", "0.25×0.50", "roof", "living / dining / majlis corner"),
   ("C29", 8.95, 24, "east line · south wall", "0.25×0.50", "roof", "in the south wall"),
-  ("C30", 10.461, 0, "north wall · cut wall", "0.25×0.60", "roof", "cut corner (air tower)"),
+  ("C30", 10.461, 0, "north wall · cut wall", "0.25×0.60", "roof", "cut corner (the slim shaft's solid corner pier)"),
   ("C31", 11.982, 2.8, "cut wall", "0.25×0.60", "roof", "maid bath / maid room wall meets the cut"),
   ("C32", 13.311, 5.245, "cut wall · east wall", "0.25×0.60", "roof", "end of the cut"),
   ("C33", 13.311, 10.45, "east wall", "0.25×0.60", "roof", "FF suite bath / dressing wall; conflicts with the FF bath window, see X3"),
@@ -82,7 +82,7 @@
   ("B12", (0, 7.9), (2.75, 7.9), "2.75", "hidden 0.20", "hidden", "stair / utility wall · FF landing"),
   ("B13", (0, 10.4), (2.75, 10.4), "2.75", "hidden 0.20", "hidden", "utility / hospitality kitchen wall"),
   ("B14", (0, 14.4), (2.75, 14.4), "2.75", "hidden 0.20", "hidden", "basins / family WC wall · FF bedroom 2 / bath 3 wall"),
-  ("B15", (8.95, 1.0), (10.375, 1.0), "1.43", "0.20×0.35 edge", "edge", "air tower opening (the tower rises through both slabs)"),
+  ("B15", (9.551, 0), (10.601, 1.933), "2.20", "0.20×0.35 edge", "edge", "air tower opening (the tower rises through both slabs)"),
   ("B16", (1.4875, 5.25), (2.75, 5.25), "1.36", "0.20×0.40 total, soffit +3.20", "trimmer", "stair flip (2 Nov 2026, B16′): the opening edge over the lower (east) flight beside tread 6 (headroom 2.22 m to the beam soffit); from the riwaq line beam B10 to B17′ (beam on beam: normal at a stair well)"),
   ("B17", (1.4875, 3.65), (1.4875, 5.25), "1.60", "0.20×0.40 total, soffit +3.20", "trimmer", "B17′: on the lower flight's side of the split (x 1.39–1.59), never over the upper (west) flight; ends on B16′ and B18′"),
   ("B18", (0, 3.65), (1.4875, 3.65), "1.49", "0.20×0.40 total, soffit +3.20", "trimmer", "B18′: the arrival edge (top riser line y 3.75) under the arrival strip, from the west wall to B17′"),
@@ -103,7 +103,7 @@
   ("R21", (5.8, 19.25), (5.8, 20.55), "1.3 cantilever", "0.20×0.40", "edge", "v2: the gym nib's roof edge, a cantilever from C23 / R5 (or a light steel post at the corner): engineer"),
   ("R7", (0, 0), (13.311, 0), "2.75 + 1.5 + 4.7 + 1.1", "hidden in the 0.25 wall", "hidden", "north wall"),
   ("R8", (0, 24), (13.311, 24), "2.75 + 1.5 + 4.7 + 4.36", "hidden in the 0.25 wall; 0.25×0.60 over the court (C20 – C29 – C36)", "hidden", "south wall; v2: across the court's south side it is the facade frame carrying the cornice and the parapet over the open court (the infill below is the owner's choice)"),
-  ("R9", (8.95, 1.0), (10.375, 1.0), "1.43", "0.20×0.35 edge", "edge", "air tower head opening"),
+  ("R9", (9.551, 0), (10.601, 1.933), "2.20", "0.20×0.35 edge", "edge", "air tower head opening"),
   ("R10", (2.75, 0), (2.75, 24), "as B10", "hidden 0.20–0.30", "hidden", "riwaq line"),
 )
 // slab bays: (level, rect x0 y0 x1 y1, type, thickness, direction "EW" | "NS" | "cant W", note)
@@ -484,7 +484,7 @@
     #v(3pt)
     #H[7 · Lift shaft, air tower, roof openings]
     - *Lift (future, two stops):* RC walls W1 on x 0, y 0 (outer) and y 2.2, 0.20 m; the east wall x 2.25 blockwork with the future door reveal. The FF slab and the roof over the shaft (2.25 × 2.2) are *framed as openings now and closed with removable precast / lightweight panels* on hidden beams (B11 and the x 2.25 line), so the shaft opens later without cutting. Pit 1.2 m, isolated from the air tunnel.
-    - *Air tower* (V9.2: a rectangle 8.95–10.375 × 0–1.0, 0.90 m² clear): rises through both slabs; the openings framed by B15 / R9 (y 1.0, 1.43 m), the wall x 8.95 (W3) and *a new 200 mm wall on x 10.375* (y 0–1.0, against C30 at B2, to the engineer: RC or block tied to the slabs); the wedge between it and the cut wall (W4) is room space with the slabs closed over it (the maid bath's shelf niche, bedroom 1's cupboard); the head 2.5 m above the roof in the same RC walls (studies/air_system.typ). *Below the slab the shaft walls continue to −1.95 as a dry base pit*, from which the small air duct (a sealed box 0.9 × 0.9, top −1.00, underside −1.90) leaves westward through the W3 line and runs south under the women's majlis on x 7.27 to the outlet chamber under the courtyard floor (x 6.75–7.95, y 6.6–7.6, floor −2.10, between the C21 and C26 pads); the outlet is a grille in the wall base at +0.2 … +0.8 through a plenum in the wall. The pit is the foundation of C24 / C30 and of the W3 / W4 ends; the women's majlis south wall bridges the duct mouth on a ground beam (air study items A1–A3). No water anywhere in the system.
+    - *Air tower* (V9.3, owner; `studies/malqaf_tower.typ`): *a slim shaft hugging the cut wall* (0.575 × 1.565 m clear = 0.90 m², between the cut wall W4 and one new 200 mm wall parallel to it, a square end wall; the tip a solid corner pier at C30) rises through both slabs; the openings framed by B15 / R9 along the new wall (2.20 m) and the end wall; *below the slab only the shallow sump* (no pit) and the breeze channel inside the slab depth (0.90 × 0.20, full width, no throat). *The malqaf tower above the roof (note for the engineer):* a 1.25 m square stone-faced tower on the attic's corner (x 8.95–10.20, y 0.875–2.125), 4.9 m above the roof finish (top +12.18), 0.15 m walls: self-weight ≈ 71 kN; the wind (assumed q 1.1 kN/m², Cf 1.3) ≈ 8.7 kN and ≈ 21 kN·m at the roof (to confirm with SBC 301); it stands on the roof slab over the wall W3 (x 8.95) with an RC ring beam at the roof, starter bars from the slab, and the low plenum box behind the coping tying it to the shaft's walls; the y 1.0 partitions below (the store, the cupboard) are not structural. *The HRV plant room* (1.6 × 1.4 m, light walls, ≈ 15 kN with the 110 kg unit) on the roof slab behind the attic.
     - *Roof openings:* courtyard sky framed by R1, R2, R11 (west, on the colonnade, X8) and R4, the gallery strip roof between R3 and R11; suite court by R5, R6 and the FF walls x 5.6 / x 11.586 below the roof. West shaft (1.5 × 1.2) framed in B13 / R10.
   ],
 )

@@ -127,7 +127,7 @@
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
   "Serving passage (2 doors)": "Serving", "Family powder room (WC · 2 basins)": "Powder room", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
-  "Suite WC (closet)": "WC",
+  "Suite WC (closet)": "WC", "Maid store": "store", "Bedroom 1 cupboard": "cupb.",
 )
 #let mk(prefix, rows, extra) = rows.enumerate().map(((i, r)) => (id: prefix + (if i < 9 { "0" } else { "" }) + str(i + 1), name: r.name, kind: kind-of(r.name, r.colour), P: poly-of(r))) + extra
 #let tower = fam.fixed.find(f => f.name == "Air tower").pts
@@ -141,12 +141,12 @@
 #let gf-walls = (
   open: (((sec.x-east, 13.0), (sec.x-east, sec.y-living)),),          // living ↔ dining: one room, ceiling change only
   rail: (),
-  light: (((10.65, 2.8), (10.65, 7.0)),),                             // 100 mm dry block, laundry / maid room
+  light: (((10.65, 2.8), (10.65, 7.0)), ((8.95, 1.0), (10.094, 1.0))),   // 100 mm dry block, laundry / maid room; V9.3 the maid bath / store
 )
 #let ff-walls = (
   open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0)), ((sec.x-court, sec.y-court), (sec.pj-edge, sec.y-court))),   // V7.1: the family living open to the gallery's north end
   rail: (),   // V7.0: the gallery edge and the family living edge are walls with the steel windows W1 / W2 (enclosure A)ard edge
-  light: (((2.25, 0.7), (4.25, 0.7)),),                               // linen cupboard front
+  light: (((2.25, 0.7), (4.25, 0.7)), ((8.95, 1.0), (10.094, 1.0))),   // linen cupboard front; V9.3 bedroom 1's cupboard
 )
 #let wall-t(a, b, spec) = {
   let hit(list) = list.any(s => on-seg(a, ..s) and on-seg(b, ..s))
@@ -184,6 +184,7 @@
   G((9.7, 7.0), (10.55, 7.0), (0, -1), "open"),          // kitchen ↔ laundry
   G((10.65, 2.9), (10.65, 3.9), (1, 0), "hinged"),       // laundry ↔ maid room, 1.00 m opening (V6.3)
   G((10.715, 2.8), (11.415, 2.8), (0, -1), "sliding"),   // maid room ↔ maid bath
+  G((9.15, 1.0), (9.75, 1.0), (0, -1), "hinged"),     // V9.3: the maid bath's store
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
 #let gf-windows = (
@@ -360,7 +361,7 @@
   "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
-#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (9.6, 1.9), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2))
+#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (10.25, 2.35), "Maid store": (9.3, 0.55), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2))
 #let plan-len = 0.8cm
 #let okit = yaml("3d/params.yaml").outdoor_kitchen   // V8.1: the outdoor kitchen (the counter at the east wall, the grill and tannour apart), drawn on the site and the ground floor
 #let draw-okit(shift: (0, 0), label: true) = {
@@ -529,7 +530,7 @@
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
 #sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
-#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Bedroom 2 bath (en-suite)", "Family WC (gallery)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
+#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Bedroom 1 cupboard", "Bedroom 2 bath (en-suite)", "Family WC (gallery)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *

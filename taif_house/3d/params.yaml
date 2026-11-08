@@ -129,14 +129,12 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     height: 1.10
     setback: 1.0                                      # from the outer facade face (0.875 from the wall centre lines); the strip outside it is a no-go zone
     lines: [[[0.875, 19.25], [0.875, 23.125], [4.25, 23.125]], [[12.436, 19.25], [12.436, 23.125], [10.0, 23.125]]]   # from the attic's end walls to the court guards
-  hrv_base:                                           # V8.0 (air system v3.1): the HRV base under the malqaf tower, one mass with it
-    pts: [[8.95, 1.0], [10.731, 1.0], [12.035, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line; V9.2 its V9.0 footprint (the cut face 0.24 m inside the cut facade)
-    wall: 0.20
-    top: 9.10                                         # V8.1 0.40 above the lowered attic coping (+8.70; V9.2 +8.68): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
-    slab: 0.15
-    doors: [1.3, 2.8]                                 # y: a pair of doors in its west face (the unit behind them, filters and core pulled from the roof)
-    door_head: 8.80
-    exhaust: [2.7, 3.05, 7.6, 8.3]                    # y0 y1 z0 z1: the exhaust louvre on its cut face
+  plant_room:                                         # V9.3 (owner, studies/malqaf_tower.typ): the HRV unit off the tower in a low plant room behind the attic (its footprint and top: studies/air_system.typ air-plant)
+    wall: 0.10
+    slab: 0.12
+    doors: [8.9, 10.1]                                # x: a pair of doors in its south face (the unit's front at them)
+    door_head: 8.30
+    exhaust: [11.8, 4.3, 4.7, 7.55, 7.85]             # x, y0, y1, z0, z1: the exhaust grille low in the attic's cut wall
   guard: {height: 1.10, post_spacing: 1.5, bar: 0.04}   # black steel bar guards round the courtyard sky hole and the suite court's open edges
 
 outdoor_kitchen:        # 3 Nov 2026 (owner; design_gf.typ site outlines, studies/site_plan.typ): the counter and sink against the east wall NEXT TO the kitchen service door (its north end), the grill and tannour a little apart in the yard

@@ -106,7 +106,7 @@
   // the GLB (Y up, X east, Z south = y of the plans)
   const bin = Uint8Array.from(atob(data.glb), c => c.charCodeAt(0)).buffer;
   const groups = { ff: [], roof: [], gf: [], col: [], room_gf: [], room_ff: [], plancut_gf: [], plancut_ff: [], base: [], chr: {} };
-  const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 10);
+  const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 100);   // V9.3: no clip above +10.0 (the malqaf rises to +12.18)
   let centre = new THREE.Vector3(6.6, 3.6, 12), extent = data.extent ? data.extent[0] : [0, 0, 13.3, 24];
   const glassMat = new THREE.MeshLambertMaterial({ color: 0x78b9e1, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });
   const chrGlassMat = new THREE.MeshLambertMaterial({ color: 0xdce8ee, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [cutPlane] });   // clearer glass in the character views
@@ -184,7 +184,7 @@
       else if (o.userData.lantern) o.material = night ? lanternMat : o.userData.baseMat;
     }));
     const h = parseFloat($('cut').value);
-    cutPlane.constant = h;
+    cutPlane.constant = h >= 10 ? 100 : h;   // V9.3: "off" no longer clips at +10.0
     $('cutv').textContent = h >= 10 ? 'off' : '+' + h.toFixed(1) + ' m';
     const k = $('sun').value, s = data.sun && data.sun[k];
     sun.castShadow = !!s && !night;

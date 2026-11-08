@@ -126,8 +126,8 @@
 #let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.9, 5.0), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
-// ---------- Air tower: V9.2 a RECTANGLE at the tip of the north-east cut corner, 1.425 × 1.0 on axes (0.90 m² clear), drawn blue with the air list; the wedge between it and the cut wall belongs to the maid bath ----------
-#let tower-pts = ((8.95, 0), (10.375, 0), (10.375, 1.0), (8.95, 1.0)).map(place)
+// ---------- Air tower: V9.3 (owner, studies/malqaf_tower.typ) the SLIM SHAFT along the north-east cut wall, on the wall centre lines (0.575 × 1.565 m clear = 0.90 m²): the cut wall, one new 200 mm wall parallel to it, a square end wall, the tip a solid corner pier; drawn blue with the air list; the malqaf tower stands above the roof on the attic's corner ----------
+#let tower-pts = ((9.551, 0), (10.461, 0), (11.303, 1.551), (10.601, 1.933)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
 // 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
 // window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV
@@ -184,7 +184,7 @@
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Air before sun]
 
-  Taif's prevailing wind comes from the north-west. A rectangular air tower at the tip of the north-east cut corner (V9.2: 1.425 × 1.0 m on axes, 0.90 m² clear; the wedge beside it is the maid bath's shelf niche: enough for one person to step in and clean, with the main cleaning from a roof hatch), so it takes no usable room space, catches it above the roof, where it is strong and clean, and brings it down to a tunnel below the floor. The tunnel passes through the cool ground and releases the air through a low, closable opening in the courtyard wall. Warm air rises and leaves through the open sky. The narrow courtyard is enclosed on all four sides and shaded by its walls, so it receives air without receiving sun. Every opening can be closed: open at night and early morning, closed in hot afternoons, dust and cold.
+  Taif's prevailing wind comes from the north-west. A slim air shaft along the north-east cut wall (V9.3: 0.575 × 1.565 m clear = 0.90 m², the store off the maid bath north of it) rising to the malqaf tower set back on the attic's corner, so it takes no usable room space, catches it above the roof, where it is strong and clean, and brings it down to a tunnel below the floor. The tunnel passes through the cool ground and releases the air through a low, closable opening in the courtyard wall. Warm air rises and leaves through the open sky. The narrow courtyard is enclosed on all four sides and shaded by its walls, so it receives air without receiving sun. Every opening can be closed: open at night and early morning, closed in hot afternoons, dust and cold.
 
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[On firm ground, as far north as possible]

@@ -3,7 +3,7 @@ Courtyard,6.6,9.75,4.7,6.5,0,M,court,
 Women's majlis,6.6,3.25,4.7,6.5,0,M,family,
 Living (double height),6.6,16.125,4.7,6.25,0,M,family,
 Men's majlis,8.0305,21.625,10.561,4.75,0,M,guest,
-Maid bath,10.466,1.4,3.032,2.8,0,M,service,8.95 1; 10.375 1; 10.375 0; 10.461 0; 11.982 2.8; 8.95 2.8
+Maid bath,10.466,1.9,3.032,1.8,0,M,service,8.95 1; 10.094 1; 10.601 1.933; 11.303 1.551; 11.982 2.8; 8.95 2.8
 Maid room,11.9805,4.9,2.661,4.2,0,M,service,10.65 2.8; 11.982 2.8; 13.311 5.245; 13.311 7.0; 10.65 7.0
 Laundry,9.8,4.9,1.7,4.2,0,M,service,
 Kitchen,11.1305,10.0,4.361,6.0,0,M,service,
@@ -19,3 +19,4 @@ Guest WC,2,18.375,1.5,1.75,0,M,guest,
 Guest basins (trough · 3 taps),2,20.325,1.5,2.15,0,M,guest,
 Guest passage,0.625,19.45,1.25,3.9,0,M,guest,
 Foyer + entry,1.375,22.7,2.75,2.6,0,M,guest,
+Maid store,9.522,0.5,1.144,1.0,0,M,service,8.95 0; 9.551 0; 10.094 1; 8.95 1

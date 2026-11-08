@@ -1,4 +1,4 @@
-// malqaf_tower.typ · Taif / Palm House · STUDY ONLY (8 Nov 2026): a new, elegant malqaf tower (owner: the present tower looks like a box on a box at
+// malqaf_tower.typ · Taif / Palm House · STUDY (8 Nov 2026) · ADOPTED V9.3: L1, head (c), 3.5 m, the flat Hijazi cornice · a new, elegant malqaf tower (owner: the present tower looks like a box on a box at
 // the corner, and its shaft makes awkward corners inside). The design files are NOT changed; the owner chooses after this study.
 // 1 · inside: a slim shaft hugging the cut wall, the rooms' walls straight · 2 · above the roof: the HRV unit in a plant room behind the attic, a slim
 // square stone tower set back on the attic's corner; six variants (two heights, three heads, a flat Hijazi top or a small dome) · 3 · the comparison.
@@ -6,7 +6,21 @@
 // The renders: 3d/malqaf_variants.py (the gate camera of char_gate.png) reads `tw`, `variants`, `plenum` and `plant` from THIS file.
 // CSV frame (x east, y south, the wall centre lines) · levels from the finished ground floor · every size ASSUMED (concept only).
 #import "@preview/cetz:0.4.2"
-#import "air_system.typ": air-tower, tower-clear, breeze-area, service-area, zeta-throat, zeta, rho, dCp, air-throat, head-opening-area, louvre-free, screen-free, air-head-opening, condensers
+// RECORD (V9.3): the study was made against the V9.2 air system; since V9.3 studies/air_system.typ carries the ADOPTED tower, so the V9.2 values the study compares with are kept here
+#let air-tower = ((8.95, 0), (10.375, 0), (10.375, 1.0), (8.95, 1.0))
+#let tower-clear = ((9.075, 0.125), (10.275, 0.125), (10.275, 0.875), (9.075, 0.875))
+#let breeze-area = 0.54375
+#let service-area = 0.28125
+#let zeta-throat = (("head louvres + bird mesh", 0.0100), ("back-draught flaps and the shaft", 0.0338), ("damper, open", 0.0169), ("the throat under the maid bath", 1.5), ("channel friction, 10.5 m", 0.1964), ("the bend and the plenum", 0.2469), ("the grille", 0.8163))
+#let zeta = zeta-throat.map(z => z.at(1)).sum()
+#let rho = 1.15
+#let dCp = 0.8
+#let air-throat = (0.5, 0.20)
+#let head-opening-area = 3.84
+#let louvre-free = 0.5
+#let screen-free = 0.9
+#let air-head-opening = (8.2, 9.4)
+#let condensers = (9.6, 5.6, 12.4, 9.0)
 #import "roof.typ": attic, attic-top, coping-top, cornice, D-north, eye, setback, hidden, roof-fin
 
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -265,6 +279,8 @@
 
 // ======================================================================= PAGE 1 · inside the house
 #text(14pt, weight: "bold", fill: green)[Malqaf tower study · a slim shaft along the cut wall, a tall stone tower set back on the roof · Taif / Palm House]
+#v(1pt)
+#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt)[#text(8.5pt, weight: "bold", fill: green)[ADOPTED (V9.3, owner, 8 Nov 2026): L1 (the north-east cut corner), head (c), 3.5 m above the attic coping, the flat Hijazi cornice] #text(7pt)[· the slim shaft along the cut wall with the store and the cupboard, the HRV in the plant room behind the attic (moved 0.5 m south, y 2.9–4.3, so the roof hatch in the tower's south face is reached), the breeze channel at its full width; applied in the design files. This study stays the record of the comparison.]]
 #v(1pt)
 #text(7.6pt, fill: gray)[STUDY ONLY (8 Nov 2026): the design files are not changed; the owner chooses after this study. Owner's intent: a real, elegant malqaf, the symbol of the house, taller and slimmer, in honey stone, cream plaster and black steel with simple cornices; no awkward corners inside. All sizes assumed: the MEP and structural engineers confirm.]
 #v(3pt)

@@ -35,7 +35,7 @@
   ("Serving passage", rect-pts(0, 16.1, 2.75, 17.5), "circ"), ("Guest WC", rect-pts(1.25, 17.5, 2.75, 19.25), "wet"), ("Guest basins", rect-pts(1.25, 19.25, 2.75, 21.4), "wet"),
   ("Guest passage", rect-pts(0, 17.5, 1.25, 21.4), "circ"), ("Foyer", rect-pts(0, 21.4, 2.75, 24), "circ"), ("Lobby + riwaq", ((2.25, 0), (4.25, 0), (4.25, 19.25), (2.75, 19.25), (2.75, 2.2), (2.25, 2.2)), "circ"),
   ("Women's majlis", rect-pts(4.25, 0, 8.95, 6.5), "habitable"), ("Courtyard", rect-pts(4.25, 6.5, 8.95, 13.0), "open"), ("Living (double height)", rect-pts(4.25, 13.0, 8.95, 19.25), "habitable"),
-  ("Men's majlis", rect-pts(2.75, 19.25, 13.311, 24), "habitable"), ("Maid bath", ((8.95, 1), (10.375, 1), (10.375, 0), (10.461, 0), (11.982, 2.8), (8.95, 2.8)), "wet"),
+  ("Men's majlis", rect-pts(2.75, 19.25, 13.311, 24), "habitable"), ("Maid bath", ((8.95, 1.0), (10.094, 1.0), (10.601, 1.933), (11.303, 1.551), (11.982, 2.8), (8.95, 2.8)), "wet"),
   ("Maid room (a bedroom)", ((10.65, 2.8), (11.982, 2.8), (13.311, 5.245), (13.311, 7.0), (10.65, 7.0)), "habitable"), ("Laundry", rect-pts(8.95, 2.8, 10.65, 7.0), "wet"),
   ("Kitchen", rect-pts(8.95, 7.0, 13.311, 13.0), "kitchen"), ("Dining", rect-pts(8.95, 13.0, 13.311, 19.25), "habitable"),
 )
@@ -43,7 +43,7 @@
   ("Bedroom 2 bath", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4))), ("Family WC", rect-pts(0, 7.9, 2.75, 9.2)),
   ("Bedroom 3 bath", rect-pts(0, 14.4, 2.2, 16.1)), ("Suite bath", ((10.3, 6.5), (12.211, 6.5), (12.211, 8), (13.311, 8), (13.311, 10.45), (10.3, 10.45))), ("Suite WC closet", rect-pts(12.211, 6.5, 13.311, 8)),
 )
-#let ff-dry = (("Kids' room", rect-pts(4.25, 0, 8.95, 3.0)), ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)), ("Bedroom 1", ((8.95, 1), (10.375, 1), (10.375, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))), ("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4)), ("Bedroom 3", ((2.2, 14.4), (4.25, 14.4), (4.25, 19.25), (0, 19.25), (0, 16.1), (2.2, 16.1))), ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))), ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)), ("Gym", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24), (0, 24))), ("Office", rect-pts(10, 19.25, 13.311, 24)))
+#let ff-dry = (("Kids' room", rect-pts(4.25, 0, 8.95, 3.0)), ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)), ("Bedroom 1", ((8.95, 1), (10.094, 1), (10.601, 1.933), (11.303, 1.551), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))), ("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4)), ("Bedroom 3", ((2.2, 14.4), (4.25, 14.4), (4.25, 19.25), (0, 19.25), (0, 16.1), (2.2, 16.1))), ("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25))), ("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9)), ("Gym", ((0, 19.25), (5.8, 19.25), (5.8, 20.55), (4.25, 20.55), (4.25, 24), (0, 24))), ("Office", rect-pts(10, 19.25, 13.311, 24)))
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10, 19.25), (10, 24), (4.25, 24))
 #let hood = (12.5, 10.2, 13.311, 11.2)        // the kitchen's hood zone on the east wall: no drains above
 #let panel-zone = (0, 7.9, 1.5, 9.2)           // the utility room's north-west part: the main panel (west wall) — and, since 2 Nov 2026, the battery space on the north wall (east part, see the utility room page)
@@ -56,7 +56,7 @@
 #let mh-west = (-1.9, 24.7)                    // the west run's manhole on the driveway (site plan)
 #let west-run = ((0.5, 10.5), (0.5, 21.6), (-1.9, 24.7))   // the buried ground-floor run under the west wash block, south to the west manhole
 #let channel = (((10.2, 1.0), (10.2, 10.5)), ((10.2, 10.5), (9.05, 10.5)))   // the malqaf breeze channel in the ground slab (air v3.1): 0.9 × 0.20 inside the slab depth
-#let hrv-intake = (9.8, 0.5)                   // the malqaf tower (its intake louvre on the roof, north-east): vents ≥ 3 m away
+#let hrv-intake = (8.95, 1.5)                  // V9.3: the malqaf tower's intake louvre (its west face below the band, +9.83): vents ≥ 3 m away
 #let beams-drop = (("B1", (4.25, 3.0), (8.95, 3.0)), ("B4", (4.25, 6.5), (4.25, 19.25)), ("B5", (8.95, 13.0), (8.95, 19.25)), ("B6", (8.95, 6.5), (13.311, 6.5)), ("B8", (2.75, 19.25), (13.311, 19.25)), ("B22", (0, 19.25), (2.75, 19.25)), ("B3", (5.8, 6.5), (5.8, 19.25)))
 #let slabs = (("west band: solid 0.20", rect-pts(0, 0, 2.75, 24)), ("riwaq: solid 0.20", rect-pts(2.75, 0, 4.25, 19.25)), ("women's majlis roof: solid 0.20", rect-pts(4.25, 0, 8.95, 6.5)), ("maid wing: solid 0.20 (no sunken zone without thickening)", rect-pts(8.95, 0, 13.311, 6.5)), ("kitchen roof: ribbed 0.30 (the suite bath sunken 0.15 inside it, X10)", rect-pts(8.95, 6.5, 13.311, 13.0)), ("dining roof: ribbed 0.30", rect-pts(8.95, 13.0, 13.311, 19.25)), ("men's majlis roof: ribbed 0.30 (the suite court depressed)", rect-pts(2.75, 19.25, 13.311, 24)))
 
@@ -74,9 +74,9 @@
   // ground floor, east cluster
   (fl: "GF", room: "Kitchen", fix: "sink + dishwasher", p: (9.35, 8.6), to: "E-MH", route: ((9.35, 8.6), (9.35, 9.9), (13.311, 9.9), (14.3, 13.5)), use: "daily"),
   (fl: "GF", room: "Laundry", fix: "washer · dryer · utility sink · floor drain", p: (9.35, 4.0), to: "E-MH", route: ((9.35, 4.0), (9.35, 6.6), (13.311, 6.6), (14.3, 13.5)), use: "daily / rare (floor drain)"),
-  (fl: "GF", room: "Maid bath", fix: "WC · basin · shower", p: (10.6, 2.2), to: "E-MH", route: ((10.6, 2.2), (12.0, 2.2), (12.5, 3.0), (14.0, 6.0), (14.3, 13.5)), use: "daily"),
+  (fl: "GF", room: "Maid bath", fix: "WC · basin · shower", p: (9.4, 2.4), to: "E-MH", route: ((9.4, 2.4), (11.6, 2.6), (12.5, 3.0), (14.0, 6.0), (14.3, 13.5)), use: "daily"),   // V9.3: the WC and the shower on the west wall, off the breeze channel's line; the branch passes BELOW the channel's base slab
   (fl: "GF", room: "Courtyard", fix: "2 linear drains (level floor) · overflow · trough + planter", p: (8.6, 12.6), to: "RAIN", route: ((8.6, 12.6), (13.311, 12.6), (14.8, 12.6)), use: "rain / washing"),
-  (fl: "GF", room: "Air tower", fix: "breeze channel sump · HRV condensate", p: (9.8, 0.8), to: "E-MH", route: ((9.8, 0.8), (10.6, 1.0), (12.0, 2.2), (14.0, 6.0), (14.3, 13.5)), use: "rare"),
+  (fl: "GF", room: "Air tower", fix: "breeze channel sump · HRV condensate", p: (10.674, 1.25), to: "E-MH", route: ((10.674, 1.25), (11.4, 1.6), (12.0, 2.2), (14.0, 6.0), (14.3, 13.5)), use: "rare"),
   // first floor, west cluster
   (fl: "FF", room: "Bedroom 2 bath", fix: "shower channel (trap in the service wall)", p: (3.6, 9.3), to: "W-SHAFT", route: ((3.6, 9.3), (3.6, 9.2), (1.5, 9.2)), use: "daily"),
   (fl: "FF", room: "Bedroom 2 bath", fix: "wall-hung WC (service wall)", p: (2.3, 9.3), to: "W-SHAFT", route: ((2.3, 9.3), (2.3, 9.2), (1.5, 9.2)), use: "daily"),
@@ -325,6 +325,7 @@
     - *The suite bath and its WC closet (over the kitchen):* the only first-floor wet room over a problem room, and the house's longest first-floor branch (the vanity on the west wall, #r1(L(wet-rows.find(p => p.fix == "double vanity (west wall)"))) m). *Alternatives:* (a) *keep it* with its sunken tanked slab 0.15 (exists, X10), every branch inside the sunken zone, the vanity branch along the north wall; nothing in the kitchen's ceiling; (b) *move the vanity to the east side* beside the stack (#r1(L(vanity-B)) m) and the tub to the north wall (#r1(L(tub-B)) m): the branches shorten, the room keeps its function (a double vanity still faces the east light from the window); (c) *swap the bath and the dressing* (the bath over the kitchen's south part / the dining): still over the kitchen and farther from the stack: worse; (d) *move the bath over the laundry / maid wing* (y ≤ 7.0): the suite lobby and bedroom 1 are there: not possible without re-planning the suite. *Chosen for B and C: (b).*
     - *The suite court's gutter outlets* (rain, in the men's majlis's south wall): (a) keep, with acoustic lagging; (b) run the two outlets to the court's ends and down inside the *gym's and the office's* walls to the garden: no pipe in a majlis wall. *Chosen for B: (b).*
     - *The courtyard's drain, overflow and basin* (#r1(L(wet-rows.find(p => p.room == "Courtyard"))) m east under the kitchen floor to its own rain chamber, never the foul one): buried, fine; anti-odour drain and the basin's own trap; a cleanout at the kitchen's west wall. Keep.
+    - *V9.3 constraint for the bathrooms interior study:* the breeze channel keeps its *full 0.90 m width* under the maid bath (no throat, studies/air_system.typ): *the maid bath's WC and shower drains (and their traps and floor channel) stay off the channel's line*, x ≈ 9.75–10.65 (the WC and the shower on the west wall, the basin east of the line); a drain that must cross passes below the channel's base slab.
     - *The maid bath* (#r1(L(wet-rows.find(p => p.room == "Maid bath"))) m round the cut corner): (a) keep; (b) *align its fixtures on the cut wall* with one short branch out through the cut wall to the strip, and the breeze channel's sump and the HRV condensate into the same branch. *Chosen for C.*
     - *The ground-floor shower* (G-07; *withdrawn by the owner on 3 Nov 2026: no shower and no hidden provision on the ground floor; the family WC and basins become one powder room*; the text below is the round-1 record): *P1* (the family WC + basins as one wet room on the west run, 0.5–1.5 m branches, a level floor drain in the ground slab: easy) scores as well as any fixture here; *P2* (the hospitality kitchen, 1 m from the shaft) is the plumbing optimum but re-plans three rooms; *P1-lite* (the family WC room only) is P1 without the basins. *Chosen for B and C: P1*, for its function as much as its plumbing.
     - *The laundry:* fine (buried east); C adds the east heater and manifold cabinet beside the washer and moves the utility sink next to it (one trap group).
@@ -447,7 +448,7 @@
 #let tub-branch = runlen(tub.b.route)
 #let vent-top = 7.20 + 1.0                                               // the stack's vent terminal 1.0 m above the roof slab (assumed)
 #let win-head = ffl + 2.1
-#let hrv-intake = (9.8, 0.5)
+#let hrv-intake = (8.95, 1.5)   // V9.3: the malqaf tower's intake (west face)
 #let duct = (12.95, 7.0, 13.3, 7.35)                                     // A3 option (b): the internal duct in the kitchen's north-east corner
 #let service-door = ((13.311, 7.2), (13.311, 8.1))                       // the kitchen's service door on the east wall
 #let duct-hits-door = duct.at(3) > service-door.at(0).at(1)              // the duct's south edge passes the door's north jamb
