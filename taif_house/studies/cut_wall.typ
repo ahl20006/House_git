@@ -6,13 +6,12 @@
 // Design frame: origin M1 (the gate's east post) · y along the M line southwards · x east. Concept only – not for permit.
 #import "@preview/cetz:0.4.2"
 #import "../base.typ": env, lane, dist
-#import "../design_gf.typ": shift, outline-csv-gf
+#let shift = (0.91, 5.563)   // RECORD (8 Nov 2026): the position this study was made at (V9.0); since V9.1 the house is a further 0.5104 m south (B1 6.00 m from M1) and the cut wall a further 0.24 m out (design_gf.typ)
 
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 #set par(leading: 0.4em)
 
-#assert(calc.abs(shift.at(0) - 0.91) < 1e-9 and calc.abs(shift.at(1) - 5.563) < 1e-9, message: "the house moved (design_gf.typ shift): re-read cut_wall.typ")
 #let expected = ((0, 0), (10.051, 0), (13.311, 6.0), (13.311, 24.0), (0, 24.0))
 // 6 Nov 2026: the cut wall was moved outwards 0.12 m (design_gf.typ); this study keeps the former outline it was made with
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))

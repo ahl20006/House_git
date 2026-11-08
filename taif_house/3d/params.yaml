@@ -51,8 +51,8 @@ openings:               # heights above the FINISHED floor of the storey (assume
     - {floor: GF, at: "4.25 10.7 4.25 12.7", sill: 0.0, head: 2.9, note: "riwaq glass to the courtyard, south"}
     - {floor: GF, at: "8.95 7.3 8.95 8.9", sill: 1.1, head: 2.1, note: "kitchen sink window onto the courtyard, over the sink, moved north (owner, 1 Nov 2026): the outdoor TV and its surround on the wall's courtyard face south of it"}
     - {floor: GF, at: "13.311 8.7 13.311 10.1", sill: 1.1, head: 2.1, note: "kitchen east window, over the cooking counter"}
-    - {floor: GF, at: "12.307 3.9 12.85 4.9", sill: 1.1, head: 2.1, note: "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured glass below +1.60, no screen"}
-    - {floor: GF, at: "11.275 2.0 11.601 2.6", sill: 1.6, head: 2.1, note: "maid bath vent window"}
+    - {floor: GF, at: "12.308 3.4 12.852 4.4", sill: 1.1, head: 2.1, note: "maid room escape window in the cut wall (fire safety, owner 1 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured glass below +1.60, no screen"}
+    - {floor: GF, at: "11.548 2.0 11.874 2.6", sill: 1.6, head: 2.1, note: "maid bath vent window"}
     - {floor: GF, at: "3.6 24 6.2 24", sill: 1.8, head: 2.9, note: "men's majlis high south window"}
     - {floor: GF, at: "7.2 24 9.8 24", sill: 1.8, head: 2.9, note: "men's majlis high south window"}
     - {floor: GF, at: "10.8 24 12.6 24", sill: 1.8, head: 2.9, note: "men's majlis high south window"}
@@ -130,7 +130,7 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     setback: 1.0                                      # from the outer facade face (0.875 from the wall centre lines); the strip outside it is a no-go zone
     lines: [[[0.875, 19.25], [0.875, 23.125], [4.25, 23.125]], [[12.436, 19.25], [12.436, 23.125], [10.0, 23.125]]]   # from the attic's end walls to the court guards
   hrv_base:                                           # V8.0 (air system v3.1): the HRV base under the malqaf tower, one mass with it
-    pts: [[8.95, 1.0], [10.731, 1.0], [12.035, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line and the cut facade line
+    pts: [[8.95, 1.0], [11.004, 1.0], [12.308, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line and the cut facade line
     wall: 0.20
     top: 9.10                                         # V8.1 0.40 above the lowered attic coping (+8.70): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
     slab: 0.15

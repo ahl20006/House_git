@@ -48,7 +48,7 @@
   let hit = WIN.find(w => w.floor == floor and same(w.a, a) and same(w.b, b))
   if hit != none { hit } else { (floor: floor, a: a, b: b, sill: params.openings.window.sill, head: params.openings.window.head, note: "default window (params.yaml)") }
 }
-#let outline = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
+#let outline = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0))
 
 // ---------- rules (figures read in the IRC / NFPA texts the SBC is based on; the SBC 2024 wording itself: not verified) ----------
 #let R = (esc-area: 0.53, esc-area-grade: 0.465, esc-h: 0.61, esc-w: 0.508, sill-max: 1.118, door-w: 0.813, sash-max: 1.2, frame: 0.05,
@@ -74,7 +74,7 @@
 #let not-adopted = ([sprinklers (NFPA 13D)], [fire-rated doors with closers], [a central alarm panel], [beam / aspirating detectors in the void], [a second door from the men's majlis], [a safe room (security = CCTV, alarm and video intercom; R-33 updated)])
 
 // ---------- the sleeping rooms and their escape windows ----------
-#let esc-list = fam-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + suite-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + ((room: "Maid room", floor: "GF", a: (12.307, 3.9), b: (12.85, 4.9)),)
+#let esc-list = fam-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + suite-esc.map(((n, a, b)) => (room: n, floor: "FF", a: a, b: b)) + ((room: "Maid room", floor: "GF", a: (12.308, 3.4), b: (12.852, 4.4)),)
 #let outside = ("Bedroom 1": [the lane setback strip (2.5 m to the boundary) → the lane; a ladder stands in the strip, a vehicle on the lane], "Bedroom 2": [the west strip (0.785 m to the M line) + the driveway beyond it → the street; a ladder from the driveway (base ≈ 1.2 m for a 4.8 m rise), a vehicle on the driveway: confirm the driveway stays open (site plan)], "Bedroom 3": [as bedroom 2], "Kids' room (a bedroom later)": [the north setback (3.8–5.7 m) → the north street and the parking: ladder and vehicle], "Suite bedroom": [the east strip (3.6–9 m) → the service yard: a ladder in the strip, a vehicle from the north (site plan)], "Maid room": [the lane setback strip at ground level, 2.5 m wide, open at both ends (to the north front and the east yard): the sill 1.40 m above the outside ground, no trapped corner])
 #let escape(w) = {
   let L = dist(w.a, w.b); let h = w.head - w.sill
@@ -119,7 +119,7 @@
 // the maintenance ladder in it (studies/roof.typ page 2) goes UP to the roof behind a locked panel: it is no escape device and the roof is no escape route
 #let office-win = ((10.5, 24.0), (12.8, 24.0))                                       // the office's south window
 #let grill = (15.0, 27.4, 17.3, 28.9)                                                // the outdoor grill + tannour platform (design_gf.typ site-boxes), south-east of the house
-#let palms = ((20.6 - 0.91, 28.09 - 5.563), (21.39 - 0.91, 31.87 - 5.563))           // T1, T2 (base.typ, site frame) in the CSV frame (design_gf.typ shift; 4 Nov 2026: the house 1.238 m further south)
+#let palms = ((20.6 - 0.91, 28.09 - 6.0734), (21.39 - 0.91, 31.87 - 6.0734))           // T1, T2 (base.typ, site frame) in the CSV frame (design_gf.typ shift; 4 Nov 2026: the house 1.238 m further south)
 #let box-dist(b, p) = { let dx = calc.max(b.at(0) - p.at(0), 0, p.at(0) - b.at(2)); let dy = calc.max(b.at(1) - p.at(1), 0, p.at(1) - b.at(3)); calc.sqrt(dx * dx + dy * dy) }
 #let grill-gap = box-dist(grill, (13.436, 24.125))                                   // the grill to the nearest point of the house (the south-east corner; every opening is further)
 #let palm-gap = calc.min(..palms.map(p => box-dist(grill, p)))

@@ -170,7 +170,7 @@ def live(block):
 
 RECT = r'\(\s*"([^"]+)",\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*"(\w+)"\s*\)'
 POLY = r'\(\s*"([^"]+)",\s*(\((?:\s*\(\s*-?[\d.]+\s*,\s*-?[\d.]+\s*\)\s*,?)+\s*\)),\s*"(\w+)"\s*\)'
-studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 46.21)}   # (dx, dy, rooms total m²)
+studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 47.44)}   # (dx, dy, rooms total m²)
 for src, (dx, dy, total) in studies.items():
     text = (ROOT / src).read_text(encoding="utf-8")
     found = [(n, rect(float(x) + dx, float(y) + dy, float(w), float(d))) for n, x, y, w, d, _ in re.findall(RECT, live(grab(text, "rooms-data")))]

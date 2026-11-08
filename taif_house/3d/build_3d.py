@@ -799,7 +799,7 @@ head_ring = tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buf
 h0, h1 = A["head"]
 os_, oh = A["head-opening"]
 head_solid = head_ring
-_ta, _tb = (10.188, 0.0), (10.731, 1.0)                             # the tower's cut (north-east) face
+_ta, _tb = (10.461, 0.0), (11.004, 1.0)                             # the tower's cut (north-east) face
 _tl = math.dist(_ta, _tb)
 _tu = ((_tb[0] - _ta[0]) / _tl, (_tb[1] - _ta[1]) / _tl)
 HEAD_OPENINGS = [((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9)), ((_ta[0] + _tu[0] * 0.19, _ta[1] + _tu[1] * 0.19), (_ta[0] + _tu[0] * (_tl - 0.15), _ta[1] + _tu[1] * (_tl - 0.15)))]

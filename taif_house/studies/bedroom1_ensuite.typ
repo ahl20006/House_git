@@ -12,7 +12,7 @@
 // ---------- the room as now drawn (data/rooms_ff.csv, 6 Nov 2026) ----------
 #let rooms-ff = csv("/data/rooms_ff.csv", row-type: dictionary)
 #let pts-of(name) = { let r = rooms-ff.find(r => r.name == name); assert(r != none, message: "rooms_ff.csv: missing " + name); r.pts.split(";").map(p => { let v = p.trim().split(" ").map(float); (v.at(0), v.at(1)) }) }
-#let bed1 = pts-of("Bedroom 1")
+#let bed1 = ((8.95, 1.0), (10.731, 1.0), (13.311, 5.749), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))   // RECORD (8 Nov 2026): bedroom 1 as it was when this study was made (V9.0); since V9.1 the cut wall is a further 0.24 m out (data/rooms_ff.csv)
 #assert(bed1.len() == 7 and calc.abs(bed1.at(1).at(0) - 10.731) < 1e-6 and calc.abs(bed1.at(2).at(1) - 5.749) < 1e-6, message: "bedroom 1 changed: re-read bedroom1_ensuite.typ")
 #let cut-a = bed1.at(1); #let cut-b = bed1.at(2)                       // the cut wall between (10.731, 1) and (13.311, 5.749)
 #let cut-x(y) = cut-a.at(0) + (y - cut-a.at(1)) * (cut-b.at(0) - cut-a.at(0)) / (cut-b.at(1) - cut-a.at(1))

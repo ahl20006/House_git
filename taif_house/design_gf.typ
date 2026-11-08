@@ -7,7 +7,7 @@
 #show: setup
 
 // ---------- Place the whole building ----------
-#let shift = (0.91, 5.563)   // 6 Nov 2026 (owner): a further 0.50 m south, B1 5.49 m from M1 (studies/shift_south.typ, adopted); before: 5.063 = site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout.typ)
+#let shift = (0.91, 6.0734)   // 8 Nov 2026 (owner, his car tested on site: a full forward turn into the north strip needs it): B1 exactly 6.00 m from M1 (0.785 east of the M line, 5.948 south: a further 0.5104 m south); V9.0 6 Nov 2026: 5.563 (B1 5.49);   // 6 Nov 2026 (owner): a further 0.50 m south, B1 5.49 m from M1 (studies/shift_south.typ, adopted); before: 5.063 = site-test option Z4: outer west face 0.785 m from the M line; 4 Nov 2026 (owner, on site): 1.238 m further south than V8.3 (3.825) so that the north-west outer corner B1 is exactly 5.00 m from peg M1 (the gate's east post); to be confirmed by the official survey (studies/setout.typ)
 #let rot = 0deg               // square to the M line
 
 // ---------- Rows from the CSV (# at the start of a name switches the row off) ----------
@@ -43,8 +43,8 @@
 }
 
 // ---------- Building outline (wall centre lines, CSV coordinates) ----------
-// 6 Nov 2026 (owner, field 2.30 m to the wall at the tightest point): the cut wall moved outwards 0.12 m, parallel (B2 10.051 → 10.188, B3 y 6.0 → 5.749; ≈ 0.42 m from the wall as built). pentagon: north-east corner cut parallel to the lane from (10.188, 0) to (13.311, 5.749), then the east wall straight south; south wall at y 24.0
-#let outline-csv-gf = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0))
+// 8 Nov 2026 (owner): after the house moved 0.5104 m further south the cut wall moved outwards a further 0.24 m, parallel (B2 10.188 → 10.461, B3 y 5.749 → 5.245; 0.42 m from the wall as built again, the same 2 cm cushion at the 2.30 field reading). 6 Nov 2026 (owner, field 2.30 m to the wall at the tightest point): the cut wall moved outwards 0.12 m, parallel (B2 10.051 → 10.188, B3 y 6.0 → 5.749; ≈ 0.42 m from the wall as built). pentagon: north-east corner cut parallel to the lane from (10.461, 0) to (13.311, 5.245), then the east wall straight south; south wall at y 24.0
+#let outline-csv-gf = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0))
 #let outline-gf = outline-csv-gf.map(place)
 
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
@@ -118,8 +118,8 @@
   ((13.311, 7.2), (13.311, 8.1), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
   ((8.95, 7.3), (8.95, 8.9), []),             // sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): it looks at the fountain and the tree; the outdoor TV south of it
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
-  ((12.307, 3.9), (12.85, 4.9), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
-  ((11.275, 2.0), (11.601, 2.6), []),         // maid bath vent window in the cut wall
+  ((12.308, 3.4), (12.852, 4.4), []),         // maid room escape window in the cut wall: one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
+  ((11.548, 2.0), (11.874, 2.6), []),         // maid bath vent window in the cut wall
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
@@ -127,7 +127,7 @@
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- Air tower: tip of the north-east cut corner, 1.0 m deep (CSV), drawn blue with the air list ----------
-#let tower-pts = ((8.95, 0), (10.188, 0), (10.731, 1.0), (8.95, 1.0)).map(place)
+#let tower-pts = ((8.95, 0), (10.461, 0), (11.004, 1.0), (8.95, 1.0)).map(place)
 #let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
 // 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
 // window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV

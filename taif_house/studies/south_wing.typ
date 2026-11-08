@@ -22,7 +22,7 @@
 #let H(t) = text(9.2pt, weight: "bold", fill: green, t)
 #let area(P) = calc.abs(range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); a.at(0) * b.at(1) - b.at(0) * a.at(1) }).sum()) / 2
 #let rp(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
-#let shift = (0.91, 5.563)   // 4 Nov 2026 (owner, on site): the house 1.238 m further south; 6 Nov 2026: a further 0.50 m south (B1 5.49 m from M1)
+#let shift = (0.91, 6.0734)   // 4 Nov 2026 (owner, on site): the house 1.238 m further south; 6 Nov 2026: a further 0.50 m south (B1 5.49 m from M1); 8 Nov 2026: B1 6.00 m from M1 (a further 0.5104 m)
 #let site(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
 #let bdist(p, P) = calc.min(..edges(P).map(e => seg-dist(p, ..e)))
 #let ldist(p, L) = calc.min(..range(L.len() - 1).map(i => seg-dist(p, L.at(i), L.at(i + 1))))
@@ -139,7 +139,7 @@
 #let tower-east = rp(13.436, 24.0 - dogleg.d, 13.436 + dogleg.w, 24.0)
 #let tower-south = rp(13.311 - dogleg.d, 24.125, 13.311, 24.125 + dogleg.w)
 // site distances (site frame)
-#let house-site = ((0, 0), (10.188, 0), (13.311, 5.749), (13.311, 24.0), (0, 24.0)).map(site)
+#let house-site = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0)).map(site)
 #let env-gap(P) = calc.min(..P.map(p => bdist(p, env)))
 #let lane-gap(P) = calc.min(..P.map(p => ldist(p, lane)))
 #let south-line = (env.last(), env.first())   // the envelope's south edge (= the land's south boundary: no south setback)

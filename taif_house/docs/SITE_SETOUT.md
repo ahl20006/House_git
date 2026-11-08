@@ -1,6 +1,6 @@
 # Site set-out · field instructions and results · تعليمات التوقيع في الموقع ونتائجه
 
-Taif / Palm House · **V9.0, the layout freeze** · with the owner's site decisions of 4 Nov 2026 (the house 1.238 m further south: corner B1 5.00 m from M1) and **6 Nov 2026 (a further 0.50 m south, from `studies/shift_south.typ`: B1 5.49 m from M1; the shift (0.91, 5.563))**. Sheet: `studies/setout.typ` → `output/setout.pdf` (page 1 the test on the land, page 2 the tape table). Every value below is taken from that sheet; if a value here ever differs from the sheet, **the sheet is right**. Concept only: the official survey fixes the wall faces.
+Taif / Palm House · **V9.1 (re-issued 8 Nov 2026)** · with the owner's site decisions of 4 Nov 2026 (the house 1.238 m further south: corner B1 5.00 m from M1), 6 Nov 2026 (a further 0.50 m south: B1 5.49 m) and **8 Nov 2026 (the owner's car test on site: a full forward turn into the north strip without any manoeuvre needs it: B1 exactly 6.00 m from M1, a further 0.51 m south; the shift (0.91, 6.0734); the cut wall shortened again, a further 0.24 m outwards, so it keeps 0.42 m from the wall as built)**. Sheet: `studies/setout.typ` → `output/setout.pdf` (page 1 the test on the land, page 2 the tape table). Every value below is taken from that sheet; if a value here ever differs from the sheet, **the sheet is right**. Concept only: the official survey fixes the wall faces.
 
 Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to the M line. Corners are the **outer wall faces**. Tapes in metres, read to the centimetre.
 
@@ -28,43 +28,43 @@ Tape distances between the reference points (model): M1 → D 28.43 · M1 → R 
 2. **Re-establish M4** on the M line: from M1 **28.80 m**, from D **5.56 m** (the two tapes meet on the M line, south of the gate).
 3. **M4 → the trunk faces:** palm 1 ≈ **20.35 m**, palm 2 ≈ **21.34 m** (± 0.3 m). Within the tolerance → the frame sits on the ground. (The brief's 20.36 / 21.35 came from the field CSV's palm positions; the sheet uses `base.typ`: 1 cm apart, within the tolerance.)
 
-## 4 · Target table · جدول الأهداف (outer wall faces, 6 Nov 2026: 0.50 m south of the day-1 blocks, the cut wall 0.12 m further out: B2 and B3 new)
+## 4 · Target table · جدول الأهداف (outer wall faces, 8 Nov 2026: B1 6.00 m from M1; the cut wall a further 0.24 m out: B2 and B3 new)
 
-Verified against the sheet: every value equal.
+Verified against the sheet (`output/setout.pdf`, re-issued 8 Nov 2026): every value equal.
 
 | Corner | Where | x east | y along M | Tape 1 from M1 | Tape 2 from D |
 |---|---|---|---|---|---|
-| **B1** | north-west corner | 0.79 | 5.44 | **5.49** | **23.31** |
-| **B2** | north end of the cut wall (north-east) | 11.17 | 5.44 | **12.43** | **27.96** |
-| **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.28 | **18.25** | **25.87** |
-| **B4** | south-east corner | 14.35 | 29.69 | **32.97** | **19.92** |
-| **B5** | south-west corner | 0.79 | 29.69 | **29.70** | **6.53** |
+| **B1** | north-west corner | 0.79 | 5.95 | **6.00** | **22.82** |
+| **B2** | north end of the cut wall (north-east) | 11.45 | 5.95 | **12.90** | **27.72** |
+| **B3** | east end of the cut wall (the east wall starts) | 14.35 | 11.29 | **18.25** | **25.87** |
+| **B4** | south-east corner | 14.35 | 30.20 | **33.43** | **19.97** |
+| **B5** | south-west corner | 0.79 | 30.20 | **30.21** | **6.69** |
 
 Check tapes from R and S (v2 fitted pegs; use them to confirm every corner set from M1 and D):
 
 | Corner | from R | from S |
 |---|---|---|
-| B1 | 29.68 | 32.91 |
-| B2 | 32.09 | 29.49 |
-| B3 | 28.40 | 23.28 |
-| B4 | 16.44 | 5.16 |
-| B5 | 5.71 | 16.21 |
+| B1 | 29.17 | 32.46 |
+| B2 | 31.73 | 28.94 |
+| B3 | 28.39 | 23.27 |
+| B4 | 16.28 | 4.69 |
+| B5 | 5.24 | 16.07 |
 
-R → palm 1 / palm 2 trunk face 22.62 / 22.54; S → palm 1 / palm 2 trunk face 7.47 / 5.49.
+R → palm 1 / palm 2 trunk face 22.61 / 22.54; S → palm 1 / palm 2 trunk face 7.45 / 5.48.
 
 | Side | m | | Diagonal | m |
 |---|---|---|---|---|
-| B1–B2 | **10.39** | | B1–B4 | **27.78** |
-| B2–B3 | **6.65** | | B2–B5 | **26.38** |
-| B3–B4 | **18.41** | | B1–B3 | **14.77** |
+| B1–B2 | **10.66** | | B1–B4 | **27.78** |
+| B2–B3 | **6.08** | | B2–B5 | **26.49** |
+| B3–B4 | **18.91** | | B1–B3 | **14.57** |
 | B4–B5 | **13.56** | | | |
-| B5–B1 | **24.25** | | **Perimeter** | **73.25** |
+| B5–B1 | **24.25** | | **Perimeter** | **73.46** |
 
 String check (method B on the sheet): string M1 → M4, y along the string from M1, 3-4-5 square, x east. The west wall face B1–B5 lies 0.785 m east of the string. A side or a diagonal more than 0.10 m off → re-measure the two corners before anything else.
 
 ## 5 · The tightest point check · فحص أضيق نقطة
 
-The nearest wall to a setback line is the **cut wall B2–B3** at the lane notch: the tightest point lies at x 13.27, y 9.30 (**M1 → 16.21 m, D → 26.41 m**), **0.90 m** inside the setback line (model; 1.02 before the cut wall moved 0.12 m out on 6 Nov 2026, 0.79 at the day-1 position). From a setback counted from the wall as built: 0.42 m at the 2.30 reading (row 25), 0.32 at 2.20.
+The nearest wall to a setback line is the **cut wall B2–B3** at the lane notch: the tightest point lies at x 13.25, y 9.27 (**M1 → 16.18 m, D → 26.42 m**), **0.91 m** inside the deed setback line (model; V9.0 0.90, 1.15 after the 0.51 m move alone, before the cut wall went out again). From a setback counted from the wall as built: **0.42 m at the 2.30 reading** (row 25), 0.32 at 2.20 (the same as V9.0: the cut wall moved out by what the move south gained, edge-sampled at 5 cm). B2's own margins: 1.20 m from the deed setback line, 0.58 m from the wall as built.
 
 - From that point, measure **square to the lane wall** (the farm's boundary wall on the lane). Expected from the sheet: **≈ 3.09 m** to the deed line, ≈ 2.47 m to the wall as built (row 25: 2.30 at the day-1 point).
 - **Less than 2.00 m = stop and report** (the house would be in the setback: do not set out further).
@@ -115,7 +115,9 @@ Measure from R and from S to the two nearest corners (B5 and B4 for R) and to bo
 
 **Second set-out · 6 Nov 2026 · a further 0.50 m south (owner's decision after `studies/shift_south.typ`):** every block moves **0.50 m straight south along the string M1 → M4**, x unchanged: from each day-1 block measure 0.50 m parallel to the string (square off with 3-4-5 if the block is away from it), drive the new peg, then check the sides and the diagonals (unchanged) and the tapes of § 4 from M1 and D and the R / S tapes. Targets from M1 / D: B1 **5.49 / 23.31** · B2 **12.43 / 27.96** · B3 **18.25 / 25.87** · B4 **32.97 / 19.92** · B5 **29.70 / 6.53** (B2 and B3 carry the cut wall's 0.12 m move of 6 Nov 2026: B2 0.14 m further east along the north wall, B3 0.25 m further north along the east wall; the cut wall 6.65 m). The day-1 results above stay as the record of the first set-out; the differences in rows 2–4 refer to the day-1 targets.
 
-**Status (V9.0):** all five corners set and checked on day 1; the final position adopted (0.50 m south, the cut wall −0.12 m): **the second set-out is to be made on site** (B1, B4, B5 move 0.50 m straight south; B2 and B3 also carry the cut wall's move: B2 0.14 m further east along the north wall, B3 0.25 m further north along the east wall). **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the R and S check distances (rows 19–22; row 18, the tightest point, measured 2.20–2.30 on day 1), the old house (§ 8), photos.
+**Third set-out · 8 Nov 2026 · B1 6.00 m from M1 (the owner's car test) and the cut wall a further 0.24 m out:** every block moves **0.51 m straight south along the string M1 → M4** from its V9.0 position (B1 5.49 → 6.00 m from M1), x unchanged; then **B2 is re-set 0.27 m further east** along the north wall face (from its moved position) and **B3 0.51 m further north** along the east wall face, which brings B3 back to within 1 cm of its V9.0 place. Check the sides and the diagonals of § 4 (B1–B2 10.66, B2–B3 6.08, B3–B4 18.91, B1–B4 27.78, B2–B5 26.49, B1–B3 14.57) and the tapes from M1, D, R and S. *If the V9.0 second set-out was never made* and the day-1 blocks are still on site (B1 5.00 m from M1): B1, B4 and B5 move 1.01 m straight south; B2 1.01 m south and 0.41 m east; B3 0.26 m south along the east wall face. In both cases confirm every new corner with the § 4 tapes from M1 / D and R / S before setting the next one. Targets from M1 / D: B1 **6.00 / 22.82** · B2 **12.90 / 27.72** · B3 **18.25 / 25.87** · B4 **33.43 / 19.97** · B5 **30.21 / 6.69**.
+
+**Status (V9.1):** the third position is the one to set out (B1 6.00 m from M1, the cut wall 6.08 m). **Status (V9.0, the record):** all five corners set and checked on day 1; the final position adopted (0.50 m south, the cut wall −0.12 m): **the second set-out is to be made on site** (B1, B4, B5 move 0.50 m straight south; B2 and B3 also carry the cut wall's move: B2 0.14 m further east along the north wall, B3 0.25 m further north along the east wall). **Still to do:** M4 → both palms (≈ 20.35 / 21.34 m by the sheet, the brief's 20.36 / 21.35; re-establish M4 from M1 28.80 m and D 5.56 m), the R and S check distances (rows 19–22; row 18, the tightest point, measured 2.20–2.30 on day 1), the old house (§ 8), photos.
 
 **Decision (owner, day 1, recorded 5 Nov 2026): no reduction of the cut wall until the official survey.** The owner's idea of a small rotation of the house about B2 (B2 fixed, the south end moving east, 0.10 … 0.40 m at B5) is studied in `studies/rotation_b2.typ` → `output/rotation_b2.pdf` with these field values; the recommendation there (0.30 m, after the notch check of row 18) changes nothing here until the owner decides: this sheet's values stand.
 
@@ -157,3 +159,7 @@ Also tape the sides as a check: the house W1–W2 22.1, W2–W3 10.2, W3–W4 22
 Also tape: the parking's sides P1–P2 and P3–P4 (model 5.5), P2–P3 and P4–P1 (5.5), the gap from the old house's south wall to the parking, the gap from the parking to the tank (model 1.0), the tank's length and width, the tank's east side to the driveway's west edge (model 0.55). Where the water truck stands today and where the old house's drain enters the septic (and the septic's lids) also go on the sketch.
 
 **Still without data (to be measured when convenient):** the septic (its position near C1, its lids, its inlet level, its capacity for both houses, the old house's connection), the reserved tank's place beside the existing one, where guests park (the brief's farm parking south of the build land is withdrawn), the south gate, the workers' house position, the service gate position.
+
+## 9 · Levels · المناسيب (8 Nov 2026)
+
+The ground falls slightly to the south across the build land (the owner, on site). The owner accepts raising the house on a plinth if needed. **The finished floor level, the plinth's height, the steps or a ramp at the family entrance and at the guest entrance, the courtyard's and the garden's levels and the sewer falls are to be set from the official survey's levels** (the street at the gate, the pegs M1–M4, corner C1, the septic's inlet, the land along the house's footprint and the garden). Until then the drawings keep the assumed levels of `studies/site_plan.typ` § 7 (the floor ±0.00, the ground −0.30 round the house) and the computed sewer inverts (the septic's inlet at −1.24, a pump station if the surveyed inlet is higher). A step at an entrance is to be avoided where a short ramp (≤ 1:20) fits (R-08: step-free routes).

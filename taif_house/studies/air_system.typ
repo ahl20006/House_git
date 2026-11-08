@@ -28,7 +28,7 @@
 #let area(P) = calc.abs(range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); a.at(0) * b.at(1) - b.at(0) * a.at(1) }).sum()) / 2
 
 // ---------- the system, as data (CSV frame; levels from the finished ground floor; ALL ASSUMED) · the `air-*` names are read by 3d/build_3d.py ----------
-#let air-tower = ((8.95, 0), (10.188, 0), (10.731, 1.0), (8.95, 1.0))   // the tower on wall centre lines (design_gf.typ tower-pts), the tip of the cut corner
+#let air-tower = ((8.95, 0), (10.461, 0), (11.004, 1.0), (8.95, 1.0))   // the tower on wall centre lines (design_gf.typ tower-pts), the tip of the cut corner
 #let air-head = (7.3, 9.8)              // the head: from the roof finish to the top of the shaft walls, 2.5 m above the roof (the one element above the attic, studies/roof.typ)
 #let air-head-opening = (8.2, 9.4)      // the louvred openings in the head (sill, head), on all FOUR faces (v3: Yazd type)
 #let air-base = (-0.08, -0.40)          // the breeze shaft's base: from the ground slab top to its shallow sump floor (a drain with a dry trap; NO pit, no entry)
@@ -57,7 +57,7 @@
 #let louvre-free = 0.5
 #let screen-free = 0.9                  // a wide 20 mm bird mesh only (owner, 1 Nov 2026): ≈ 90 % open; no insect mesh on the breeze path (more breeze, less cleaning)
 // the plant room (studies/roof.typ zone Z2a) and the roof points for the intake / exhaust distances
-#let base = ((8.95, 1.0), (10.731, 1.0), (12.035, 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4
+#let base = ((8.95, 1.0), (11.004, 1.0), (12.308, 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4
 #let base-top = 9.10                    // its roof top = the attic coping: nothing stands above the attic except the tower itself
 #let base-slab = 0.15
 #let base-clear-h = base-top - base-slab - 7.30   // 1.65 m from the roof finish to its slab underside: a low service compartment, not a room

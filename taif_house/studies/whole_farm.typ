@@ -41,7 +41,7 @@
 #assert(old-house.len() == 4 and annex.len() == 4, message: "deed_sketch.csv: the old house and the annex need 4 corners each")
 // the new house (outer wall faces) at the current position
 #let P(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
-#let house = ((-0.125, -0.125), (10.262, -0.125), (13.436, 5.716), (13.436, 24.125), (-0.125, 24.125)).map(P)
+#let house = ((-0.125, -0.125), (10.535, -0.125), (13.436, 5.214), (13.436, 24.125), (-0.125, 24.125)).map(P)
 #let court = ((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(P)
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)).map(P)
 #let west-wall = (house.at(0), house.at(4))

@@ -446,7 +446,7 @@ if grille_ok and 0.05 - 1e-6 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "
        f"{gy0 - max(sink['a'][1], sink['b'][1]):.2f} m south of the kitchen sink window, under the outdoor TV; no air opening and no water in the courtyard floor (the covers are sealed, in the laundry and kitchen)")
 else:
     bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
-if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.2:   # V9.0: 1.04 m² since the cut wall moved 0.12 m out (the tower 1.51 m² on axes)
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.5:   # V9.1: ≈ 1.3 m² since the cut wall moved a further 0.24 m out (the tower 1.78 m² on axes; V9.0 1.04 / 1.51)
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:
     bad("tower shaft opening")
@@ -638,7 +638,7 @@ aw, ac = meshes["roof_attic_wall"], meshes["roof_attic_coping"]
 attic_line = wkt.loads(rd["attic"]["line_wkt"])
 setback_ok = abs(attic_line.bounds[0] - (outline_poly.bounds[0] - T_OUT / 2 + at["setback"])) < 1e-6 and abs(attic_line.bounds[1] - (outline_poly.bounds[1] - T_OUT / 2 + at["setback"])) < 1e-6 and abs(attic_line.bounds[3] - at["y_south"]) < 1e-6
 if setback_ok and abs(aw.bounds[1][2] - at["wall_top"]) < 1e-3 and abs(ac.bounds[1][2] - at["top"]) < 1e-3 and abs(aw.bounds[0][2] - L["roof"]) < 1e-3:
-    ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on all four sides (a plain pentagon, V8.0), its south wall on y {at['y_south']}; {len(at['doors'])} doors (one to the office roof and the stair tower); ≈ {rd['attic']['length']:.1f} m long")
+    ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on all four sides (a plain pentagon, V8.0), its south wall on y {at['y_south']}; {len(at['doors'])} doors (one of them to the office roof); ≈ {rd['attic']['length']:.1f} m long")
 else:
     bad(f"attic: setback {setback_ok}, wall {aw.bounds[:, 2].tolist()}, coping {ac.bounds[1][2]}")
 hb = summary["hrv_base"]
