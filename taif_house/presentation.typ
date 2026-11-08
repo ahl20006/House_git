@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V9.1 (final site position) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.1_presentation.pdf
+// presentation.typ · Taif / Palm House V9.2 (final site position, small fixes) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.2_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.1 · layout freeze · final site position])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.2 · layout freeze · final site position])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -768,7 +768,7 @@
   rf.sight(length: 0.5cm),
   [
     #en[
-      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice (its coping #calc.round(-rf.attic-peek * 1000) mm below the line; V9.2: the attic 2 cm lower). Nothing stands above the attic but the malqaf on its base (by design). The attic (V8.1: #n2(rf.attic-vis) m above the finish) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
+      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice (its coping #calc.round(-rf.attic-peek * 1000) mm below the line; V9.2: the attic 2 cm lower). Nothing stands above the attic but the malqaf on its base (by design). The attic (V9.2: #n2(rf.attic-vis) m above the finish; V8.1 1.40) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
 
       *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; the south wing's low parapet +#rf.f2(rf.south-top) with the guardrail set back behind it; the malqaf head +#rf.f2(rf.tower-top) on its HRV base in the cut tip; on the east the office's window and the outdoor kitchen's counter at the south end (V8.1). No element above the attic on the west.
     ]

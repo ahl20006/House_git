@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V9.1 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V9.2 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V9.1"
+VERSION = "V9.2"
 problems = []
 
 
@@ -91,7 +91,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
     ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
     ("presentation.typ", PRESENTATION, []),
-    ("docs/review/review_status.typ", OUTPUT / f"Design_Review_status_{VERSION}.pdf", ["Review status", "V9.1"]),   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
+    ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V9.1.pdf", ["Review status", "V9.1"]),   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]
 tmp = Path(tempfile.mkdtemp())
 jobs += [(str(p.relative_to(ROOT)).replace("\\", "/"), tmp / (p.stem + ".pdf"), []) for p in sorted((ROOT / "archive").glob("*.typ"))]   # archived drawings: compile only

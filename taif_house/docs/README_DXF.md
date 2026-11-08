@@ -1,14 +1,14 @@
-# DXFs · Taif / Palm House V9.1 · ground floor, first floor and roof
+# DXFs · Taif / Palm House V9.2 · ground floor, first floor and roof
 
-*V9.1:* the house at its final site position (the shift 0.91 / 6.0734, B1 6.00 m from M1) with the cut wall a further 0.24 m out (6.08 m on the outer faces); the three DXFs are regenerated from the same files. *V9.0 (layout freeze):* B1 5.49 m, the cut wall 0.12 m out.
+*V9.2:* the air tower a rectangle (0.90 m² clear), the maid bath and bedroom 1 with the wedge beside it, the attic coping +8.68. *V9.1:* the house at its final site position (the shift 0.91 / 6.0734, B1 6.00 m from M1) with the cut wall a further 0.24 m out (6.08 m on the outer faces); the three DXFs are regenerated from the same files. *V9.0 (layout freeze):* B1 5.49 m, the cut wall 0.12 m out.
 
 Two DXFs for anyone working in CAD (AutoCAD, BricsCAD, DraftSight, LibreCAD, QCAD …), one per floor. Both are in the same coordinate frame, so they overlay exactly.
 
 | File | Shows | Same plan as |
 |---|---|---|
-| `output/taif_ground_floor_V9.1.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
-| `output/taif_roof_V9.1.dxf` | the site, the roof outline, the north block / south wing line, the holes (courtyard sky, suite court, malqaf shaft), the attic line, the maintenance ladder's pilaster in the suite court and the set-back guardrails (V9.0), the lift shaft, the reserved zones, the outlets, the walkways, the guards and the attic doors (`tools/make_dxf_roof.py` from `studies/roof.typ`) |
-| `output/taif_first_floor_V9.1.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
+| `output/taif_ground_floor_V9.2.dxf` | the site, the ground-floor outline, every room, doors, windows and openings, special walls, the fixtures of both blocks, the first-floor edges above | `output/design_gf.pdf` |
+| `output/taif_roof_V9.2.dxf` | the site, the roof outline, the north block / south wing line, the holes (courtyard sky, suite court, malqaf shaft), the attic line, the maintenance ladder's pilaster in the suite court and the set-back guardrails (V9.0), the lift shaft, the reserved zones, the outlets, the walkways, the guards and the attic doors (`tools/make_dxf_roof.py` from `studies/roof.typ`) |
+| `output/taif_first_floor_V9.2.dxf` | the site, the first-floor outline (and the ground-floor outline dashed), every room with its number, the voids, the fixed elements, doors, windows, furniture | `output/design_ff.pdf` |
 
 ## Units and coordinates
 - **Units:** metres (`$INSUNITS = 6`). Draw scale 1:1.
