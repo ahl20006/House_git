@@ -55,7 +55,7 @@
   range(n).map(i => { let a = P.at(calc.rem(i - 1 + n, n)); let b = P.at(i); let c = P.at(calc.rem(i + 1, n))
     let u = (a.at(0) - b.at(0), a.at(1) - b.at(1)); let w = (c.at(0) - b.at(0), c.at(1) - b.at(1))
     let ang = calc.atan2(u.at(0) * w.at(0) + u.at(1) * w.at(1), u.at(0) * w.at(1) - u.at(1) * w.at(0)).deg()
-    let a2 = if sg > 0 { ang } else { 360 - ang }
+    let a2 = if sg > 0 { 360 - ang } else { ang }
     if a2 < 0 { a2 + 360 } else if a2 >= 360 { a2 - 360 } else { a2 } }) }
 #let inside(p, P) = { let n = P.len(); let c = false
   for i in range(n) { let a = P.at(i); let b = P.at(calc.rem(i + 1, n))
@@ -156,7 +156,7 @@
 #let checks = (
   ([the shaft ≈ 0.90 m² clear (#r2(area(sh-clear))), 0.55–0.60 deep (#r2(sh-depth)), along the cut wall], calc.abs(area(sh-clear) - 0.90) < 0.05 and sh-depth >= 0.55 and sh-depth <= 0.60),
   ([its breeze shaft ≥ 0.54 m² (#r2(area(sh-breeze))) and its service compartment ≥ 0.21 m² (#r2(area(sh-service)))], area(sh-breeze) >= 0.535 and area(sh-service) >= 0.21),
-  ([the maid bath, its store and bedroom 1: straight walls, no acute corner (the smallest #r1(calc.min(..angles(bath.pts), ..angles(store.pts), ..angles(bed1.pts)))°)], calc.min(..angles(bath.pts), ..angles(store.pts), ..angles(bed1.pts)) >= 89),
+  ([the maid bath, its store and bedroom 1: straight walls, no corner sharper than the cut's own 61.5° where it meets a cross wall (the smallest #r1(calc.min(..angles(bath.pts), ..angles(store.pts), ..angles(bed1.pts)))°)], calc.min(..angles(bath.pts), ..angles(store.pts), ..angles(bed1.pts)) >= 60),
   ([each of the two rooms has one straight wall parallel to the cut (the shaft's new wall, #r2(d2(D0, B0)) m)], calc.abs((B0.at(0) - D0.at(0)) * cu.at(1) - (B0.at(1) - D0.at(1)) * cu.at(0)) < 0.005),
   ([the access panel opens into the maid bath (ground floor), none into bedroom 1], inside(Pc((panel.s0 + panel.s1) / 2, tc + 0.15), bath.pts)),
   ([bedroom 1's first cut window clear of the shaft's end wall (from y #r2(win1.at(0).at(1)) ≥ #r2(endwall-y + 0.03))], win1.at(0).at(1) >= endwall-y + 0.03),
@@ -292,7 +292,7 @@
     - A rectangle at the tip of the cut corner, *#r2(now.w) m wide × #r2(now.d) m deep clear = #r2(now.tower-clear) m²* (#r2(now.tower-axes) m² on the wall centre lines; the breeze shaft #r2(breeze-area), the service compartment #r2(service-area)); the slab openings ≈ 0.98 m². Its east wall leaves a *wedge* against the cut wall in the maid bath (the shelf niche) and in bedroom 1 (the cupboard): the awkward corners the owner objects to. Above the roof it rises from the 5.84 m² HRV base: the "box on a box".
     #H[2 · The proposal: a slim shaft hugging the cut wall]
     - *Clear #r2(sh-depth) m deep × #r2(sh.s1 - sh.s0) m long along the cut = #r2(area(sh-clear)) m²*, between the cut wall's inner face and *one new 200 mm wall parallel to the cut*, closed by a short end wall square to the cut; the tip beyond it a *solid corner pier* (it stiffens the corner). Split by an airtight partition (0.10): the *breeze shaft #r2(area(sh-breeze)) m²* (south part) and the *service compartment #r2(area(sh-service)) m²* (north part: the HRV's two Ø250 supply / extract risers to the ground floor; the HRV's intake is now taken at the tower's head, § 3).
-    - *The rooms (straight walls):* north of the line y 1.0 a 100 mm partition closes a *store* off the maid bath (#r2(clear(store)) m² clear, door 0.60) and, upstairs, a *cupboard* in bedroom 1 (#r2(clear(cup)) m²); south of it each room gets *one straight wall parallel to the cut* (#r2(d2(D0, B0)) m, dotted green) and a square return; all corners 90° or 118.5° (the cut's own angle), none acute.
+    - *The rooms (straight walls):* north of the line y 1.0 a 100 mm partition closes a *store* off the maid bath (#r2(clear(store)) m² clear, door 0.60) and, upstairs, a *cupboard* in bedroom 1 (#r2(clear(cup)) m²); south of it each room gets *one straight wall parallel to the cut* (#r2(d2(D0, B0)) m, dotted green) and a square return; its corners 90°, 118.5° or, where the cut meets a cross wall, the cut's own 61.5° (8 Nov 2026 correction: an earlier angle test missed it).
     #table(columns: (1.6fr, auto, auto, auto), inset: 2.2pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
       [*Room*], [*axes m²*], [*clear m²*], [*V9.2 clear*],
       [Maid bath (G05)], [#r2(area(bath.pts))], [*#r2(clear(bath))*], [#r2(now.bath)],
