@@ -90,6 +90,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/shift_south.typ", OUTPUT / "shift_south.pdf", ["Shift south study", "Study checks passed"]),   # 6 Nov 2026: study only (the house 0.40–0.60 m south), nothing moved; the owner decides
     ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
     ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
+    ("studies/malqaf_tower.typ", OUTPUT / "malqaf_tower.pdf", ["Malqaf tower study", "Study checks passed"]),   # 8 Nov 2026: study only (the slim shaft, the plant room, six tower variants; renders by 3d/malqaf_variants.py), the design files unchanged
     ("presentation.typ", PRESENTATION, []),
     ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V9.1.pdf", ["Review status", "V9.1"]),   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]
