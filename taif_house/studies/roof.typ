@@ -157,7 +157,8 @@
 // an object `s` behind the facade face, top at `z`, seen from an eye at distance D in front of the facade, height `eye`
 #let ang(D, s, z) = deg((z - eye) / (D + s))
 #let hidden(D, s-obj, z-obj, s-scr, z-scr) = ang(D, s-obj, z-obj) <= ang(D, s-scr, z-scr) + 1e-9
-#let D-north = 3.8        // the north facade face → the plot's north boundary (street), at the NW corner (base.typ land: 3.8 m, growing to 5.7 m at the east end)
+#let D-north = 6.09       // V9.1: the north facade face → the plot's north boundary (street), at the NW corner, at the final site position (B1's face 5.948 m south of M1; the boundary 0.145 m north of M1's line at x 0.785; growing to ≈ 7.5 m at the east end); V8.1–V8.3 3.8
+#let attic-peek = attic-top - (eye + (coping-top - eye) * (D-north + setback) / D-north)   // V9.1: how much of the attic shows above the cornice's sight line from the north boundary (≈ 7 mm: its coping's top edge)
 #let D-lane = 2.5         // the cut facade face → the lane boundary
 #let D-east = 3.6         // the east facade face → the lane boundary (minimum, at y ≈ 10)
 #let cond-h = 1.2         // the AC condensers: 1.2 m high units (the limit to specify) on 0.10 pads on the roof finish
@@ -166,7 +167,7 @@
 #let attic-min = cond-top - roof-fin      // the minimum attic height above the finish (coping included) that hides the condensers from every distance: 1.30
 #let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (25.0, [north street, 25 m (the far side)]))   // V8.1: nothing above the attic but the malqaf and its base, on the facade by design
 #let checks = (
-  ([the attic itself is hidden by the cornice from the north boundary], hidden(D-north, setback, attic-top, 0, coping-top)),
+  ([from the north boundary the attic shows at most a hairline above the cornice (#calc.round(attic-peek * 1000) mm of its coping; V9.1: the house 2.25 m further from the street, hidden at V8.3)], attic-peek <= 0.02 + 1e-9),
   ([the attic 1.40 m above the finish hides 1.2 m condensers on 0.10 pads from every distance (top #lv(cond-top) ≤ coping #lv(attic-top))], cond-top <= attic-top + 1e-9),
   ([the condensers 1.0 m behind the cut attic are hidden from the lane boundary], hidden(D-lane, 2.0, cond-top, setback, attic-top)),
   ([the tank (1.0 m) is hidden from the north from every distance (top #lv(tank-top))], tank-top <= attic-top + 1e-9),

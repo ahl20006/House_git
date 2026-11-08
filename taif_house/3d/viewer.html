@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Taif / Palm House · 3D viewer</title>
-<!-- viewer.html · Taif / Palm House · opens output/taif_house_V9.0.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
+<!-- viewer.html · Taif / Palm House · opens output/taif_house_V9.1.js (the GLB as base64 + rooms, flags, sun, bookmarks and the character
      study's palette, written by build_3d.py) with three.js r147 from lib/. Works offline, straight from the repo (file://).
      Orbit: left drag · zoom: wheel · pan: right drag.
      URL options (screenshots): ?view=nw|se|top|top_gf|top_ff|top_air|eye1|eye2|eye3|living|street|north|aerial_sw|night &roof=0 &ff=0 &cut=5.0
@@ -65,7 +65,7 @@
 <script src="lib/three.min.js"></script>
 <script src="lib/OrbitControls.js"></script>
 <script src="lib/GLTFLoader.js"></script>
-<script src="output/taif_house_V9.0.js"></script>
+<script src="output/taif_house_V9.1.js"></script>
 <script>
 (function () {
   const q = new URLSearchParams(location.search);
@@ -81,7 +81,7 @@
   const rgb = c => new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
   if (CH) {
     $('pergola').checked = !!CH.defaults.pergola; $('sunken').checked = !!CH.defaults.sunken;
-    $('chrnote').textContent = 'V9.0 (layout freeze): the house at its final site position (0.50 m further south, B1 5.49 m from M1), the cut wall 0.12 m further out, the existing farm round it (the old house, its covered parking, the tank, the septic, the walls, the gate, the two palms: approximate, to be measured); V8.3: the level courtyard with movable seating, the water + tree enclosure in front of the kitchen window, the outdoor kitchen by the service door. A STYLE STUDY, PROVISIONAL.';
+    $('chrnote').textContent = 'V9.1: the final site position, B1 6.00 m from M1 (the owner\'s car test: a full forward turn into the north strip), the cut wall a further 0.24 m out (0.42 m from the wall as built), the parking bay on the turning line, the soakaways moved; V9.0 (layout freeze): the house set out on site, the cut wall 0.12 m further out, the existing farm round it (the old house, its covered parking, the tank, the septic, the walls, the gate, the two palms: approximate, to be measured); V8.3: the level courtyard with movable seating, the water + tree enclosure in front of the kitchen window, the outdoor kitchen by the service door. A STYLE STUDY, PROVISIONAL.';
     $('chrlegend').innerHTML = Object.keys(CH.palette).filter(k => k !== 'lantern').map(k => '<span style="background:rgb(' + CH.palette[k].slice(0, 3).join(',') + ')"></span>' + k.replace('_', ' ') + ' &nbsp;').join('');
   } else { $('chrbox').style.display = 'none'; document.querySelectorAll('.chr').forEach(b => b.style.display = 'none'); }
 

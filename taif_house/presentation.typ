@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V9.0 (layout freeze) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.0_presentation.pdf
+// presentation.typ · Taif / Palm House V9.1 (final site position) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.1_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.0 · layout freeze])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.1 · layout freeze · final site position])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -372,7 +372,7 @@
 }
 
 // ===================================================================================== SHEET 01 · site
-#sheet-head([The house on its site · the site and services plan], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls | V9.0: set out on site (day 1) at its final position, B1 5.49 m from M1; the site plan `studies/site_plan.typ` and the whole farm `studies/whole_farm.typ` (the existing buildings approximate, to be measured)])
+#sheet-head([The house on its site · the site and services plan], [Site option Z4 | shift (#n2(shift.at(0)), #n3(shift.at(1))) m, rotation 0° | the first floor stands on the same outline | 250 mm outer / 200 mm inner walls | V9.1: the final site position, B1 6.00 m from M1 (the owner's car test); the site plan `studies/site_plan.typ` and the whole farm `studies/whole_farm.typ` (the existing buildings approximate, to be measured)])
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: 0.52cm, {
     import cetz.draw: *
@@ -393,11 +393,11 @@
     for P in sp.sewer { line(..P.map(q), stroke: (paint: rgb("#8a5a2b"), thickness: 0.9pt, dash: "dashed")) }
     for c in (sp.manhole-e, sp.ch-ne, sp.ch-n, sp.ch-w, sp.ch-gate) { circle(q(c), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#8a5a2b")) }
     circle(q(sp.rain-ch), radius: 0.3, fill: white, stroke: 0.7pt + rgb("#1f7a99"))
-    content(q((7.7, 2.15)), text(5.5pt, fill: rgb("#2f5f8a"))[family car (kept)])
+    content(q((7.7, 3.0)), text(5.5pt, fill: rgb("#2f5f8a"))[family car (kept)])
     content(q((9.0, 34.0)), text(7pt, fill: rgb("#2f7a3f"))[FAMILY GARDEN])
     content(q((-2.0, 30.0)), angle: 90deg, text(6pt, fill: rgb("#8a5a2b"))[guest path])
-    content(q((18.5, 17.9)), text(5.5pt, fill: rgb("#2f7a3f"))[hedge 1.8 m])
-    content(q((17.0, 13.3)), anchor: "west", text(5.5pt, fill: rgb("#b5452f"))[LPG])
+    content(q((18.5, 18.4)), text(5.5pt, fill: rgb("#2f7a3f"))[hedge 1.8 m])
+    content(q((17.0, 13.8)), anchor: "west", text(5.5pt, fill: rgb("#b5452f"))[LPG])
     content(q((-2.6, 2.4)), anchor: "east", text(5.5pt, fill: rgb("#8a5a2b"))[→ septic (outside the wall near C1)])
     draw-floor(gf-rooms, gf-walls, (), (), (), shift: shift, labels: false, mini: true)
     for (T, n) in ((T1, [P1]), (T2, [P2])) {
@@ -410,7 +410,7 @@
     content(q((3.5, -2.2)), text(8pt, weight: "bold")[NORTH STREET / GATE])
     content(q((7.6, 15.7)), text(8pt, weight: "bold", fill: white)[HOUSE])
     draw-okit(shift: shift, label: false)
-    content(q((17.6 + shift.at(0), 26.0 + shift.at(1))), anchor: "west", text(7pt, fill: dark)[outdoor kitchen])
+    content(q((17.6 + shift.at(0), 24.9 + shift.at(1))), anchor: "west", text(7pt, fill: dark)[outdoor kitchen])
     north-arrow((22.0, 2.0))
     scale-bar((0, 41.0), m: 10)
   }),
@@ -428,9 +428,9 @@
 
       *Roof access (V8.1):* a maintenance ladder in a recess of the gym's east wall in the suite court, behind a locked walnut panel; the internal stair stops at the first floor; office visitors are met in the men's majlis. One entry to the site: the farm's 4 m main gate.
 
-      *Site position (V9.0):* set out on site (day 1, the diagonals exact), then 0.50 m further south (B1 5.49 m from M1); the cut wall 0.12 m further out after the field reading of 2.30 m: 0.90 m from the deed setback, 0.42 m from the wall as built (the official survey confirms). *The farm (owner; approximate, to be measured):* the old house with its majlis west of the driveway, its covered parking and the ground tank south of it near peg R, the septic outside the north wall near C1 serving both houses.
+      *Site position (V9.1, final):* set out on site (day 1, the diagonals exact); then, after the owner's car test (a full forward turn from the gate into the north strip), B1 exactly 6.00 m from M1; the cut wall shortened again (6.08 m): 0.91 m from the deed setback, 0.42 m from the wall as built (field 2.30 m; the official survey confirms). The levels (the floor, the plinth, the entrance steps or ramps, the garden, the sewer falls) are set from the survey. *The farm (owner; approximate, to be measured):* the old house with its majlis west of the driveway, its covered parking and the ground tank south of it near peg R, the septic outside the north wall near C1 serving both houses.
 
-      *Site plan (a study):* one 4 m gate; one family car in the north strip; the guest stone path along the driveway; the service yard reached along the farm's wall; the family garden on the south only; rain separate; PV without a generator.
+      *Site plan (a study):* one 4 m gate; one family car in the north strip (one forward turn from the gate, drawn on the site plan); the guest stone path along the driveway; the service yard reached along the farm's wall; the family garden on the south only; rain separate; PV without a generator.
     ]
     #ar[
       #ah[المنزل]
@@ -439,8 +439,8 @@
       جزء العائلة شمالا وغربا حول الفناء، والجناح الجنوبي (V8.0): النادي غربا وفناء الجناح الكبير المفتوح للسماء ومكتب المالك شرقا، ثم جناح النوم الرئيسي. الممر العلوي على بروز #n2(sec.pj.depth) م فوق الفناء والصالة، على جسر حافة و#sec.pj.columns أعمدة.
       #ah[الوصول إلى السطح (V8.1)]
       سلم صيانة في تجويف بجدار النادي داخل فناء الجناح خلف لوح خشبي مقفل؛ الدرج الداخلي يتوقف عند الدور الأول؛ زوار المكتب يُستقبلون في مجلس الرجال. مدخل واحد للموقع: البوابة الرئيسية للمزرعة بعرض 4 م.
-      #ah[موضع البيت والمزرعة (V9.0)]
-      وُقّع البيت في الموقع ثم أُزيح 0.50 م جنوبا (B1 على 5.49 م من M1) وقُصّر جدار القطع 0.12 م: الهامش 0.90 م من خط الصك و0.42 م من الجدار القائم. البيت القديم غرب الممر، ومظلته والخزان جنوبه، وخزان الصرف قرب C1 للبيتين (تقريبي، يقاس). بوابة واحدة؛ ممر الضيوف؛ حديقة العائلة جنوبا.
+      #ah[موضع البيت والمزرعة (V9.1)]
+      وُقّع البيت في الموقع ثم أُزيح جنوبا حتى صار الركن B1 على 6.00 م من M1 (تجربة سيارة المالك: دوران كامل إلى الشريط الشمالي دون مناورة) وقُصّر جدار القطع مرة أخرى: الهامش 0.91 م من خط الصك و0.42 م من الجدار القائم. المناسيب تُحدَّد من الرفع المساحي الرسمي. البيت القديم غرب الممر، ومظلته والخزان جنوبه، وخزان الصرف قرب C1 للبيتين (تقريبي، يقاس). بوابة واحدة؛ ممر الضيوف؛ حديقة العائلة جنوبا.
     ]
   ],
 )
@@ -767,13 +767,13 @@
   rf.sight(length: 0.5cm),
   [
     #en[
-      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice. Nothing stands above the attic but the malqaf on its base (by design). The attic (V8.1: #n2(rf.attic-vis) m above the finish) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
+      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the two lines almost coincide, only the attic coping's top edge shows (≈ #calc.round(rf.attic-peek * 1000) mm; V9.1, the house 2.25 m further from the street). Nothing stands above the attic but the malqaf on its base (by design). The attic (V8.1: #n2(rf.attic-vis) m above the finish) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
 
       *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; the south wing's low parapet +#rf.f2(rf.south-top) with the guardrail set back behind it; the malqaf head +#rf.f2(rf.tower-top) on its HRV base in the cut tip; on the east the office's window and the outdoor kitchen's counter at the south end (V8.1). No element above the attic on the west.
     ]
     #ar[
       #ah[الواجهات وخطوط النظر]
-      من حدّ الأرض الشمالي تختفي العِلّية خلف الكورنيش، ولا شيء فوقها إلا الملقف على قاعدته؛ العلية بارتفاع 1.40 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
+      من حدّ الأرض الشمالي لا يظهر من العِلّية إلا الحافة العليا لغطائها (نحو 7 مم)، ولا شيء فوقها إلا الملقف على قاعدته؛ العلية بارتفاع 1.40 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
     ]
   ],
 )
