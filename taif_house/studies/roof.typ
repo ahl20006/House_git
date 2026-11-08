@@ -2,7 +2,7 @@
 // north block, the south wing with a low parapet and a set-back guardrail (a stepped roofline), the reserved roof zones, the roof access.
 // Owner decisions (31 Oct 2026, V6.4): roof for maintenance and equipment only; the lift does not go up; flat roof, no tiles; classical
 // roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes. V8.0: the MAIN STAIR STOPS AT THE FIRST FLOOR (no stair room, the roof slab over
-// the well closed). V8.1 (owner): the roof is reached by a MAINTENANCE LADDER in the suite court (page 2); the attic 1.40 m above the roof finish, the south
+// the well closed). V8.1 (owner): the roof is reached by a MAINTENANCE LADDER in the suite court (page 2); the attic 1.40 m (V9.2: 1.38) above the roof finish, the south
 // wing parapet 0.70 m with a 1.10 m guardrail set back 1.0 m (page 3). The history is in docs/PROJECT_V9.md § 7.
 // Stand-alone: the geometry is copied from data/rooms_gf.csv, studies/structure.typ (st, the roof beams), 3d/params.yaml (levels), base.typ (site).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
@@ -37,9 +37,9 @@
 #let cornice = (z0: 6.90, h: 0.45, proj: 0.30)   // the MAIN cornice: honey stone, on the facade edge all round, +6.90 … +7.35, projecting 0.30
 #let coping-top = 7.65                            // a 0.30 upstand on the cornice with a stone coping: the facade top of the north block (0.45 above the roof slab)
 #let setback = 1.0                                // the attic set back from the outer facade face
-#let attic-vis = 1.40                             // owner (V8.1): the attic 1.40 m above the roof finish, coping included (was 1.80): the minimum that hides the condensers and the tank (§ 3)
+#let attic-vis = 1.38                             // V9.2: 2 cm lower (coping +8.68) so it is hidden from the north boundary at the final site position; owner (V8.1): the attic 1.40 m above the roof finish, coping included (was 1.80): the minimum that hides the condensers and the tank (§ 3)
 #let attic-h = attic-vis + (roof-fin - roof) - 0.1   // the attic screen wall above the roof slab: 1.30 (+ 0.10 coping)
-#let attic-top = roof + attic-h + 0.1             // +8.70 with its stone coping (was +9.10)
+#let attic-top = roof + attic-h + 0.1             // +8.68 with its stone coping (V9.2; V8.1 +8.70, was +9.10)
 #let parapet-vis = 0.70                           // owner (V8.1): the south wing's visible parapet 0.70 above the roof finish, coping included (was 1.10)
 #let south-top = roof-fin + parapet-vis           // +8.00
 #let rail-h = 1.10                                // the fall protection on the south wing: a continuous black steel guardrail 1.10 m SET BACK from the outer edge (not seen from the street)
@@ -88,7 +88,7 @@
 #let sky-hole = (5.8, 6.5, 8.95, 13.0)            // the courtyard sky (V6.4, enclosure A)
 #let court-hole = (4.25, 19.25, 10.0, 24.0)        // the suite court v2 (1 Nov 2026): from the gym to the office, open to the sky to the south facade (its bbox)
 #let court-pts = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0))   // less the gym nib's small roof (x 4.25–5.8, y 19.25–20.55)
-#let tower = ((8.95, 0), (10.461, 0), (11.004, 1.0), (8.95, 1.0))
+#let tower = ((8.95, 0), (10.375, 0), (10.375, 1.0), (8.95, 1.0))   // V9.2: a rectangle (studies/air_system.typ), 0.90 m² clear
 #let tower-top = 9.8                               // the malqaf head, 2.5 m above the roof finish (studies/air_system.typ)
 #let cut-k = 3.26 / 6.0
 #let cut-cos = 6.0 / calc.sqrt(3.26 * 3.26 + 36.0)
@@ -101,7 +101,7 @@
 #let strip-area = area(block-n) - area(attic) - area(tower) * 0.875
 
 // ---------- Reserved zones ----------
-#let z-erv = ((8.95, 1.0), (11.004, 1.0), (cut-x(3.4, 0), 3.4), (8.95, 3.4))   // v3.1 (owner): the HRV BASE under the malqaf tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4, top +9.10 = the attic coping; doors on its west face onto the roof terrace; the exhaust louvre on its cut face
+#let z-erv = ((8.95, 1.0), (10.731, 1.0), (12.035, 3.4), (8.95, 3.4))   // V9.2: kept to its V9.0 footprint (its cut face 0.24 m inside the cut facade) · v3.1 (owner): the HRV BASE under the malqaf tower, one mass with it: on the tower's west line and the cut facade line, y 1.0–3.4, top +9.10 = the attic coping; doors on its west face onto the roof terrace; the exhaust louvre on its cut face
 #let base-top = 9.10
 #let z-plant = if attic-yc < 5.6 { ((9.6, 5.6), (attic-e, 5.6), (attic-e, 9.0), (9.6, 9.0)) } else { ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0)) }   // 8 Nov 2026: with the cut a further 0.24 m out the attic's cut line meets its east side at y ≈ 5.47, north of the zone: a plain rectangle   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
@@ -158,7 +158,7 @@
 #let ang(D, s, z) = deg((z - eye) / (D + s))
 #let hidden(D, s-obj, z-obj, s-scr, z-scr) = ang(D, s-obj, z-obj) <= ang(D, s-scr, z-scr) + 1e-9
 #let D-north = 6.09       // V9.1: the north facade face → the plot's north boundary (street), at the NW corner, at the final site position (B1's face 5.948 m south of M1; the boundary 0.145 m north of M1's line at x 0.785; growing to ≈ 7.5 m at the east end); V8.1–V8.3 3.8
-#let attic-peek = attic-top - (eye + (coping-top - eye) * (D-north + setback) / D-north)   // V9.1: how much of the attic shows above the cornice's sight line from the north boundary (≈ 7 mm: its coping's top edge)
+#let attic-peek = attic-top - (eye + (coping-top - eye) * (D-north + setback) / D-north)   // how much of the attic shows above the cornice's sight line from the north boundary (V9.1 +7 mm; V9.2 the attic 2 cm lower: −13 mm, hidden)
 #let D-lane = 2.5         // the cut facade face → the lane boundary
 #let D-east = 3.6         // the east facade face → the lane boundary (minimum, at y ≈ 10)
 #let cond-h = 1.2         // the AC condensers: 1.2 m high units (the limit to specify) on 0.10 pads on the roof finish
@@ -167,8 +167,8 @@
 #let attic-min = cond-top - roof-fin      // the minimum attic height above the finish (coping included) that hides the condensers from every distance: 1.30
 #let observers = ((D-north, [north boundary (street), NW corner]), (10.0, [north street, 10 m from the facade]), (25.0, [north street, 25 m (the far side)]))   // V8.1: nothing above the attic but the malqaf and its base, on the facade by design
 #let checks = (
-  ([from the north boundary the attic shows at most a hairline above the cornice (#calc.round(attic-peek * 1000) mm of its coping; V9.1: the house 2.25 m further from the street, hidden at V8.3)], attic-peek <= 0.02 + 1e-9),
-  ([the attic 1.40 m above the finish hides 1.2 m condensers on 0.10 pads from every distance (top #lv(cond-top) ≤ coping #lv(attic-top))], cond-top <= attic-top + 1e-9),
+  ([the attic itself is hidden by the cornice from the north boundary (its coping #calc.round(-attic-peek * 1000) mm below the sight line; V9.2: the attic 2 cm lower)], hidden(D-north, setback, attic-top, 0, coping-top)),
+  ([the attic #r2(attic-vis) m above the finish hides 1.2 m condensers on 0.10 pads from every distance (top #lv(cond-top) ≤ coping #lv(attic-top))], cond-top <= attic-top + 1e-9),
   ([the condensers 1.0 m behind the cut attic are hidden from the lane boundary], hidden(D-lane, 2.0, cond-top, setback, attic-top)),
   ([the tank (1.0 m) is hidden from the north from every distance (top #lv(tank-top))], tank-top <= attic-top + 1e-9),
   ([the roofline step attic → south parapet is ≈ 0.70 m (#r2(step))], calc.abs(step - 0.7) < 0.05 + 1e-9),
@@ -451,10 +451,10 @@
   // the coping of the north block (all of it: the south wing is behind)
   rect((x0, cornice.z0 + cornice.h), (x1, coping-top), fill: stone-l, stroke: 0.4pt + ink)
   // the attic behind (north wall x 0.875–9.53, then the cut-offset line to x 12.436 at y 6.22 — all seen above the coping)
-  rect((in-off, coping-top), (attic-e, attic-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((6.5, roof + 0.85), [attic screen · set back 1.0 · #lv(attic-top) (1.40 above the finish)], size: 4pt)
+  rect((in-off, coping-top), (attic-e, attic-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((6.5, roof + 0.85), [attic screen · set back 1.0 · #lv(attic-top) (#r2(attic-vis) above the finish)], size: 4pt)
   // the malqaf head on its HRV base
   rect((8.95, coping-top), (10.6, base-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((8.8, base-top - 0.2), [HRV base #lv(base-top)], size: 3pt, anchor: "east")
-  rect((8.95, base-top), (10.6, tower-top), fill: rgb("#8ccbe0"), stroke: 0.6pt + ink); rect((9.2, base-top + 0.15), (10.35, 9.4), fill: white, stroke: 0.4pt + ink); T((9.78, 9.25), [louvres], size: 3.2pt)
+  rect((8.95, base-top), (10.5, tower-top), fill: rgb("#8ccbe0"), stroke: 0.6pt + ink); rect((9.2, base-top + 0.15), (10.35, 9.4), fill: white, stroke: 0.4pt + ink); T((9.78, 9.25), [louvres], size: 3.2pt)
   T((9.78, tower-top + 0.35), [malqaf head #lv(tower-top)], size: 3.6pt)
   // openings (indicative): women's majlis window, family entrance, kids' room window, maid bath vent
   rect((5.4, 0.9), (7.8, 2.4), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink); rect((5.3, ff + 0.9), (8.7, ff + 2.4), fill: rgb("#9fcbe0"), stroke: 0.4pt + ink)
@@ -569,7 +569,7 @@
     - *PV:* the no-go strips and the ladder's walkway cut the south wing PV to #r1(area(z-pv1) + area(z-pv1b)) m² (was 24.6); Z5 on the north block (#r1(area(z-pv2)) m²) is unchanged: R-31 to revisit with the site plan.
     - *Lift* (§ 5): no overrun if the supplier's headroom is ≤ #r2(lift-avail) m (≤ #r2(lift-avail + lift-raise-max) m with a 0.30 m raised head behind the cornice): a requirement for open item 15.
     - *Courtyard light* (§ 4): none lost. *First-floor layout:* the office has one door (from the court) and an east window; the suite bedroom's escape window runs y 15.0–18.6 (`studies/ff_suite.typ`).
-    - *3D, DXF and the presentation (V8.1):* the ladder, the 1.40 attic, the 0.70 parapet and the set-back guardrail are built and drawn.
+    - *3D, DXF and the presentation (V8.1):* the ladder, the attic (1.40; V9.2 1.38), the 0.70 parapet and the set-back guardrail are built and drawn.
     #v(2pt)
     #H[9 · What this study changes in the files]
     - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (V8.0), X16 superseded; X20 the ladder recess / pilaster, X17 the lowered attic, the 0.70 parapet and the guardrail loads; `studies/fire_escape.typ`: the first floor's exits are the main stair and the escape windows, the court a fresh-air area, not an exit; `3d/params.yaml`: the attic / parapet / ladder / guardrail data (V8.1).

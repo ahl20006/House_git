@@ -302,7 +302,7 @@
   for (a, b) in acoustic { line(S(a), S(b), stroke: 2.6pt + rgb("#b5452f")) }
   for c in columns { rect(S((c.at(0) - sec.col-half, c.at(1) - sec.col-half)), S((c.at(0) + sec.col-half, c.at(1) + sec.col-half)), fill: dark, stroke: none) }
   if labels {
-    for r in rooms.filter(r => infocus(r) and (r.kind != "core" or r.name.starts-with("Stair"))) {
+    for r in rooms.filter(r => infocus(r) and (r.kind != "core" or r.name.starts-with("Stair") or r.name.starts-with("Utility"))) {
       let cp = clear-poly(r, spec)
       let c = label-at.at(r.name, default: pcentroid(cp))
       let small = area(r.P) < 4
@@ -452,6 +452,7 @@
   cetz.canvas(length: plan-len, {
     import cetz.draw: *
     draw-floor(gf-rooms, gf-walls, gf-doors, gf-windows, gf-furniture, lowwalls: gf-lowwalls, dashed: beam, columns: sec.columns, label-at: gf-label-at)
+    content(q((2.3, 7.15)), text(5.5pt, fill: soft)[store])   // V9.2: the low store door under the stair's half landing
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
     let cc = bbox(clear-poly(court-r, gf-walls))
@@ -737,7 +738,7 @@
 
 // ===================================================================================== SHEET 11 · roof plan (V7.0)
 #pagebreak()
-#sheet-head([Roof plan / the roof ladder, the set-back attic, the set-back guardrail and the reserved zones], [studies/roof.typ (V8.1: the roof by a maintenance ladder in the suite court; the internal stair stops at the first floor; the malqaf on its HRV base) | flat roof, no tiles | the attic 1.40 m above the finish, set back 1.0 m | the south parapet 0.70 m with a 1.10 m guardrail set back 1.0 m | zones reserved, not designed | all sizes assumed])
+#sheet-head([Roof plan / the roof ladder, the set-back attic, the set-back guardrail and the reserved zones], [studies/roof.typ (V8.1: the roof by a maintenance ladder in the suite court; the internal stair stops at the first floor; the malqaf on its HRV base) | flat roof, no tiles | the attic 1.38 m above the finish, set back 1.0 m | the south parapet 0.70 m with a 1.10 m guardrail set back 1.0 m | zones reserved, not designed | all sizes assumed])
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   rf.plan(length: 0.86cm),
   [
@@ -767,13 +768,13 @@
   rf.sight(length: 0.5cm),
   [
     #en[
-      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the two lines almost coincide, only the attic coping's top edge shows (≈ #calc.round(rf.attic-peek * 1000) mm; V9.1, the house 2.25 m further from the street). Nothing stands above the attic but the malqaf on its base (by design). The attic (V8.1: #n2(rf.attic-vis) m above the finish) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
+      *Sight lines* (eye 1.6 m above the ground, +#rf.f2(rf.eye) against the house): from the north boundary (D = #n2(rf.D-north) m) the cornice coping (+#rf.f2(rf.coping-top)) is seen at #rf.r1(rf.ang(rf.D-north, 0, rf.coping-top))° and the attic coping at #rf.r1(rf.ang(rf.D-north, rf.setback, rf.attic-top))°: the attic hidden behind the cornice (its coping #calc.round(-rf.attic-peek * 1000) mm below the line; V9.2: the attic 2 cm lower). Nothing stands above the attic but the malqaf on its base (by design). The attic (V8.1: #n2(rf.attic-vis) m above the finish) hides 1.2 m condensers on 0.10 pads (+#rf.f2(rf.cond-top)) and the tank from the street and the lane at every distance: the minimum height is #n2(rf.attic-min) m; the units are specified ≤ 1.2 m high.
 
       *Elevations:* the main cornice (#n2(rf.cornice.h) m, projecting #n2(rf.cornice.proj)) at +#rf.f2(rf.cornice.z0); the thin stone band at +#rf.f2(rf.band.z0); the plinth to +0.60 and the quoins in honey stone; the north block's coping +#rf.f2(rf.coping-top) with the attic (+#rf.f2(rf.attic-top)) 1.0 m behind it; the south wing's low parapet +#rf.f2(rf.south-top) with the guardrail set back behind it; the malqaf head +#rf.f2(rf.tower-top) on its HRV base in the cut tip; on the east the office's window and the outdoor kitchen's counter at the south end (V8.1). No element above the attic on the west.
     ]
     #ar[
       #ah[الواجهات وخطوط النظر]
-      من حدّ الأرض الشمالي لا يظهر من العِلّية إلا الحافة العليا لغطائها (نحو 7 مم)، ولا شيء فوقها إلا الملقف على قاعدته؛ العلية بارتفاع 1.40 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
+      من حدّ الأرض الشمالي تختفي العِلّية خلف الكورنيش (خُفّضت 2 سم)، ولا شيء فوقها إلا الملقف على قاعدته؛ العلية بارتفاع 1.38 م تخفي المعدات، والدروة الجنوبية 0.70 م مع درابزين مرتد لا يُرى من الشارع. الواجهات: لياسة كريمية، حجر عسلي في القاعدة والزوايا والشريط بين الدورين والكورنيش الرئيسي، نوافذ فولاذية سوداء مقسّمة.
     ]
   ],
 )

@@ -799,11 +799,11 @@ head_ring = tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buf
 h0, h1 = A["head"]
 os_, oh = A["head-opening"]
 head_solid = head_ring
-_ta, _tb = (10.461, 0.0), (11.004, 1.0)                             # the tower's cut (north-east) face
+_ta, _tb = (10.375, 0.0), (10.375, 1.0)                             # V9.2: the tower's east face (a rectangle; was its cut face)
 _tl = math.dist(_ta, _tb)
 _tu = ((_tb[0] - _ta[0]) / _tl, (_tb[1] - _ta[1]) / _tl)
 HEAD_OPENINGS = [((9.1, 0.0), (9.9, 0.0)), ((8.95, 0.1), (8.95, 0.9)), ((_ta[0] + _tu[0] * 0.19, _ta[1] + _tu[1] * 0.19), (_ta[0] + _tu[0] * (_tl - 0.15), _ta[1] + _tu[1] * (_tl - 0.15)))]
-for a, b in HEAD_OPENINGS:       # V8.0: louvred openings on the north, west and cut faces (the four-sided head of air v3; its south face is blind behind the HRV base)
+for a, b in HEAD_OPENINGS:       # V8.0: louvred openings on the north, west and east (V9.2; was the cut) faces (the four-sided head of air v3; its south face is blind behind the HRV base)
     head_solid = head_solid.difference(seg_box(a, b, T_OUT + 0.02))
     add(extrude(seg_box(a, b, 0.02), os_, oh, COLOURS["glass"], f"roof_air_louvre_{int(a[0] * 10)}_{int(a[1] * 10)}"))
     add(extrude(seg_box(a, b, T_OUT).intersection(head_ring), h0, os_, COLOURS["outer"], f"roof_air_head_sill_{int(a[0] * 10)}_{int(a[1] * 10)}"))
@@ -843,7 +843,7 @@ summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "rou
                   "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4),
                   "head_openings": [[list(p), list(q)] for p, q in HEAD_OPENINGS]}
 summary["flags"].append("Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it")
-summary["flags"].append("Air system v3.1 (studies/air_system.typ): the tower head open on three faces (north, west, cut; its south face blind behind the HRV base), the HRV base on the roof, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
+summary["flags"].append("Air system v3.1 (studies/air_system.typ): the tower head open on three faces (north, west, east (V9.2; was the cut); its south face blind behind the HRV base), the HRV base on the roof, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
                         "the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled")
 
 # ---------- the sun (Taif) in the model frame ----------

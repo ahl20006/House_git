@@ -18,7 +18,7 @@
 #let rail-half = 0.025       // ½ of a ≈ 50 mm railing on the void edge (the reverted split projection)
 #let frame-half = 0.03       // ½ of the steel window frame W1 on the gallery edge (V7.0, enclosure A)
 #let coping-top = 7.65       // V7.0 roofline (studies/roof.typ): the north block's facade top (the main cornice +6.90 … +7.35 and its coped upstand)
-#let attic-top = 8.7         // the attic screen's coping, set back 1.0 m from the facade face (0.875 from the wall centre lines); V8.1: 1.40 above the roof finish
+#let attic-top = 8.68        // the attic screen's coping, set back 1.0 m from the facade face (0.875 from the wall centre lines); V9.2: 1.38 above the roof finish (V8.1 1.40)
 #let attic-in = 0.875
 #let south-parapet = 8.0     // the south wing's parapet top: V8.1: 0.70 above the roof finish (the 1.10 m guardrail set back 1.0 m is behind it, studies/roof.typ)
 #let guard = 1.1             // the bar guards round the roof holes

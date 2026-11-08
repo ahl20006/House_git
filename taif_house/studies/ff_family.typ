@@ -20,7 +20,7 @@
   (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
-  (name: "Air tower", pts: ((8.95, 0), (10.461, 0), (11.004, 1.0), (8.95, 1.0)), parts: (((8.95, 0), (11.004, 0), (11.004, 1.0), (8.95, 1.0)),)),
+  (name: "Air tower", pts: ((8.95, 0), (10.375, 0), (10.375, 1.0), (8.95, 1.0))),   // V9.2: a rectangle, 0.90 m² clear (studies/air_system.typ); the wedge east of it is bedroom 1's cupboard
 )
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
@@ -73,8 +73,8 @@
   R("Kids' room (study + gaming)", rect-pts(4.25, 0, 8.95, 3.0), "kids"),
   R("Family living", rect-pts(4.25, 3.0, 8.95, 6.5), "family"),
   R("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"),
-  R("Bedroom 1", ((8.95, 1.0), (11.004, 1.0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
-    parts: (((8.95, 1.0), (13.311, 1.0), (13.311, 5.3), (8.95, 5.3)), rect-pts(10.15, 5.3, 13.311, 6.5))),
+  R("Bedroom 1", ((8.95, 1.0), (10.375, 1.0), (10.375, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
+    parts: (((8.95, 1.0), (13.311, 1.0), (13.311, 5.3), (8.95, 5.3)), rect-pts(10.15, 5.3, 13.311, 6.5), rect-pts(10.375, 0, 11.004, 1.0))),   // V9.2: the wedge beside the tower
 )
 #let seating = rooms.find(r => r.name.starts-with("Family living"))
 #let room(n) = { let e = rooms.find(r => r.name == n); if e != none { e } else { rooms.find(r => r.name.starts-with(n)) } }
@@ -117,6 +117,7 @@
   // bedroom 1: one room, no bath; wardrobe wall on the straight south wall
   (9.05, 1.1, 10.45, 3.1, [bed 1.4 × 2.0]), (10.5, 2.7, 10.9, 3.1, []), (10.9, 3.9, 12.0, 4.5, [desk]), (11.2, 3.35, 11.65, 3.8, []),
   (10.3, 5.85, 12.9, 6.4, [wardrobe wall 2.6 m]),
+  (10.49, 0.72, 10.69, 1.3, [cupboard]),   // V9.2: a shelf cupboard in the wedge beside the air tower
 )
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
 #let escape-windows = (("Bedroom 1", (11.33, 1.6), (12.2, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))

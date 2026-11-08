@@ -9,8 +9,8 @@
 #let block = ((0, 0), (1.511, 0), (4.361, 5.245), (4.361, 13.0), (0, 13.0))   // wall centre lines; one slope to y 6.0, then straight
 #let scale = 1.15cm
 
-// ---------- Air tower: polygon in the tip of the cut corner, 1.0 m deep ----------
-#let tower = ((0, 0), (1.511, 0), (2.054, 1.0), (0, 1.0))
+// ---------- Air tower: V9.2 a rectangle at the tip of the cut corner, 1.425 × 1.0 on axes (0.90 m² clear) ----------
+#let tower = ((0, 0), (1.425, 0), (1.425, 1.0), (0, 1.0))
 
 // ---------- Rooms: (name, x, y, w, d, colour) · x, y = centre ----------
 // put // in front of a line to switch a room off
@@ -22,7 +22,7 @@
 // ---------- Rooms along the cut wall: polygons (name, corner points, colour) so they run up to the sloped wall ----------
 // cut wall (8 Nov 2026: a further 0.24 m out; 6 Nov 2026: 0.12 m): x = 1.511 + y × 3.26 / 6.0 (y 0–5.245) · at y 1.0 → 2.054, at y 2.8 → 3.032, at y 5.245 → 4.361
 #let poly-rooms = (
-  ("Maid bath", ((0, 1.0), (2.054, 1.0), (3.032, 2.8), (0, 2.8)), "wc"),                       // 1.8 m deep: from the tower to y 2.8
+  ("Maid bath", ((0, 1.0), (1.425, 1.0), (1.425, 0), (1.511, 0), (3.032, 2.8), (0, 2.8)), "wc"),   // 1.8 m deep: from the tower to y 2.8; V9.2 with the wedge beside the tower (its shelf niche)
   ("Maid room", ((1.7, 2.8), (3.032, 2.8), (4.361, 5.245), (4.361, 7.0), (1.7, 7.0)), "maid"),   // the slope ends at y 5.245, then 1.0 m of straight east wall (V6.4: to y 7.0)
 )
 
@@ -44,6 +44,7 @@
   (0.1, 1.1, 0.9, 1.9, [shower]),
   (1.55, 1.85, 2.05, 2.45, [WC]),   // moved to the cut-wall corner (air study v3): the breeze channel's throat passes between the shower and the WC
   (0.1, 2.1, 0.6, 2.7, [basin]),
+  (1.54, 0.64, 1.70, 1.08, [shelf niche]),   // V9.2: in the wedge between the tower and the cut wall
 )
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
@@ -106,11 +107,12 @@
 
 // ---------- Checks (polygon-aware: rectangles, sloped rooms and the air tower) ----------
 #let issues = ()
-#let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => (n, P)) + (("Air tower", tower),)
+#let convex-parts = ("Maid bath": (((0, 1.0), (2.054, 1.0), (3.032, 2.8), (0, 2.8)), ((1.425, 0), (1.511, 0), (2.054, 1.0), (1.425, 1.0))))   // V9.2: the maid bath with the wedge is not convex: tested as two convex parts
+#let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join() + (("Air tower", tower),)
 #for (n, P) in shapes { if not P.all(p => inside(p, block)) { issues.push(n + " leaves the block") } }
 #for i in range(shapes.len()) {
   for j in range(i + 1, shapes.len()) {
-    if overlap(shapes.at(i).at(1), shapes.at(j).at(1)) { issues.push(shapes.at(i).at(0) + " overlaps " + shapes.at(j).at(0)) }
+    if shapes.at(i).at(0) != shapes.at(j).at(0) and overlap(shapes.at(i).at(1), shapes.at(j).at(1)) { issues.push(shapes.at(i).at(0) + " overlaps " + shapes.at(j).at(0)) }
   }
 }
 #let used = rows.map(r => r.w * r.d).sum(default: 0) + poly-rooms.map(((n, P, c)) => area(P)).sum(default: 0)
@@ -185,11 +187,11 @@
     - Kitchen 4.361 × 6.0 m on axes (26.17 m², ≈ 24.0 m² clear, ≈ 4.136 m clear wide), y 7.0–13.0 (V6.4: its north wall is a non-load-bearing partition 0.5 m south of the structural line y 6.5, so the maid room reaches the municipal minimum). No island: two parallel counter runs, the sink run 5.4 m on the courtyard wall and the cooking run 3.0 m (y 8.2–11.2, the hob and hood at y 10.2–11.2 south of the east window) plus the fridge and tall storage on the east outside wall; ≈ 2.94 m between the counter fronts. The heavy (dirty) kitchen; the hospitality kitchen in the west block is the light one.
     - Laundry vertical on the west wall (women's majlis side), 1.70 × 4.2 m (x 0–1.70, y 2.8–7.0; ≈ 6.2 m² clear), from the kitchen up to the maid bath: open entrance from the kitchen in its south wall (no door); washer, dryer, utility sink, folding shelves and a drying rail in one line on the west wall (solid, no opening, the wet wall 200 mm); 0.95 m clear walkway beside the 0.6 m machines; maid room door at the north end of its east wall. The maid's only route. No outside wall: a mechanical extract fan to the roof.
     - Maid room east of the laundry behind a 100 mm partition (insulated gypsum board or 100 mm block, the owner may change it later), y 2.8–7.0; the slope ends at y 5.245, then 1.0 m of straight east wall (≈ 9.55 m² on centre lines, *≈ 8.41 m² clear (8 Nov 2026: the cut wall a further 0.24 m out; V9.0 7.69), 2.49 m clear wide at the bed* (y 6.0–7.0), 2.22 m at y 6.0: the municipal ≥ 6.5 m² and ≥ 2.1 m are met, V6.4). Doors from the laundry and to the maid bath both in the north part (the laundry door's swing y 2.9–3.9 stays clear of the wardrobe at y 4.1–5.3); single bed 0.9 × 2.0 along the south wall and a wardrobe on the west wall; window in the cut wall: an escape casement 1.14 × 1.00 with the sill at +1.10 (fire safety, owner 1 Nov 2026; net clear 1.04 × 0.90 = 0.94 m²), obscured glass below +1.60 for the privacy from the lane, no screen.
-    - Maid bath 1.8 m deep (y 1.0–2.8, from the air tower to the maid room), running up to the cut wall (≈ 4.58 m² on axes, ≈ 3.68 m² clear; 8 Nov 2026: the cut wall a further 0.24 m out, 6 Nov 2026: 0.12 m): WC, basin, compact shower; vent window in the cut wall; door only from the maid room, 0.70 m clear (sliding or opening out; the wall there is only ≈ 0.73 m long).
+    - Maid bath 1.8 m deep (y 1.0–2.8, from the air tower to the maid room), running up to the cut wall (≈ 4.94 m² on axes, ≈ 3.85 m² clear with the wedge beside the tower, its shelf niche, V9.2; 8 Nov 2026: the cut wall a further 0.24 m out, 6 Nov 2026: 0.12 m): WC, basin, compact shower; vent window in the cut wall; door only from the maid room, 0.70 m clear (sliding or opening out; the wall there is only ≈ 0.73 m long).
     - Main cross walls: y 7.0 (kitchen / maid wing, V6.4: a straight non-load-bearing block partition on a thickened slab or ground beam; the structural line y 6.5 keeps its beam B6 inside the laundry / maid room ceiling, hidden by the gypsum ceiling, carrying the first-floor wall above) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: the maid bath block with waterproofing (wet room); 100 mm for the dry laundry / maid partition; 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
     - Breeze channel (studies/air_system.typ v3): a 0.9 × 0.20 channel inside the ground-slab depth on x 1.25 (CSV 10.2) under the maid bath (a 0.5 throat between the shower and the WC, moved to the cut-wall corner), the laundry walkway and the kitchen walkway to the plenum under the sink counter (CSV y 10–11) and the grille under the outdoor TV; removable sealed covers flush with the laundry and kitchen floors; the walls y 1.0, 2.8 and 7.0 cross it with a slot above their ground beams (A3, nothing notched).
-    - Air tower in the tip of the cut corner, 1.0 m deep (≈ 1.78 m² on centre lines, at least ≈ 1.34 m wide; 8 Nov 2026: the cut wall a further 0.24 m out): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
+    - Air tower at the tip of the cut corner, *a rectangle* (V9.2): 1.425 × 1.0 m on centre lines (≈ 1.43 m²), 1.20 × 0.75 m clear (0.90 m²: the breeze shaft 0.54, the partition, the HRV intake compartment 0.28); the wedge between it and the cut wall goes to the maid bath (a shelf niche) and, upstairs, to bedroom 1 (a cupboard): one person can step in to clean; main cleaning from a roof hatch. Takes no room space.
     - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; no east duct; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
     - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 7.2–8.1, V6.4), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 8.2); the stack outside the east wall sits between the door and the kitchen window (y 8.1–8.7, 0.6 m: MEP to confirm); the hood (y 10.2–11.2) is clear of the door and of column C32 (y 5.7–6.3). Gas (if used): cylinder cabinet outside the east wall in the service yard.
   ],

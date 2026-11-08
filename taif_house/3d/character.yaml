@@ -183,7 +183,7 @@ tv_wall:
 # ---------- 5. views ----------
 views:                                # eye-level and aerial bookmarks: CSV frame (x east, y south) + height above ±0.00 · V8.0: the five release views first
   north:      {title: "the north facade from the north street: the main cornice, the set-back attic, the malqaf on its HRV base", eye: [5.6, -13.5, 1.6], target: [6.6, 0.0, 4.6]}
-  aerial_se:  {title: "aerial from the south-east: the roofline (the attic 1.40 m, the south parapet 0.70 with the set-back guardrail), the malqaf tower; no stair tower (V8.1)", eye: [27.0, 37.0, 19.0], target: [8.0, 12.0, 4.0]}
+  aerial_se:  {title: "aerial from the south-east: the roofline (the attic 1.38 m, the south parapet 0.70 with the set-back guardrail), the malqaf tower; no stair tower (V8.1)", eye: [27.0, 37.0, 19.0], target: [8.0, 12.0, 4.0]}
   courtyard:  {title: "the main courtyard from the seating, looking west to the arcade and the arched gallery windows", eye: [8.6, 10.6, 1.35], target: [4.4, 10.2, 2.3]}
   suite_court_sw: {title: "the suite court from its east armchair, looking west-south-west: the gym wall with the ladder's walnut panel in its stone pilaster, the stiles above the roof, the south frame", eye: [8.85, 22.05, 4.75], target: [4.3, 22.9, 5.6]}
   suite_court: {title: "the suite court from its seating, looking north to the clerestory windows and the doors", eye: [7.1, 23.35, 4.8], target: [7.4, 19.0, 5.3]}

@@ -100,7 +100,7 @@ projection:
 
 roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): the roofline and the stair to the roof, all sizes assumed
                         # V8.0: the internal stair stops at the first floor; the HRV base under the malqaf. V8.1: the roof by the MAINTENANCE LADDER in the suite court (ladder),
-                        # the attic 1.40 m above the roof finish, the south parapet 0.70 with a set-back GUARDRAIL (guardrail_setback)
+                        # the attic 1.40 m (V9.2: 1.38) above the roof finish, the south parapet 0.70 with a set-back GUARDRAIL (guardrail_setback)
   cornice: {z0: 6.90, h: 0.45, proj: 0.30}          # the main honey-stone cornice on the facade edge all round
   band: {z0: 3.40, h: 0.12, proj: 0.08}             # the thin stone cornice between the floors
   coping_north: {wall_top: 7.57, top: 7.65, overhang: 0.03}   # the north block: a 0.30 upstand on the cornice with its coping (the facade top)
@@ -108,8 +108,8 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
   attic:                                              # the roof screen on the north block, set back from the facade face; its south wall on the y 19.25 line
     setback: 1.0
     thickness: 0.20
-    wall_top: 8.60                                    # V8.1: 1.40 above the roof finish, coping included (was 9.00 / 9.10 = 1.80)
-    top: 8.70
+    wall_top: 8.58                                    # V9.2: 1.38 above the roof finish, coping included (2 cm lower: hidden from the north boundary); V8.1 1.40 (was 9.00 / 9.10 = 1.80)
+    top: 8.68
     overhang: 0.03
     y_south: 19.25
     doors: [["3.3 0.875 4.1 0.875", "to the north strip"], ["0.875 12.0 0.875 12.8", "to the west strip"], ["2.1 19.25 2.9 19.25", "to the gym roof"], ["11.0 19.25 11.8 19.25", "to the office roof"]]   # 0.80 openings, full height of the 1.3 m screen (gated and locked to the strip: V8.1 the strip is a no-go zone)
@@ -130,9 +130,9 @@ roof_design:            # V7.0 (studies/roof.typ, owner decisions 31 Oct 2026): 
     setback: 1.0                                      # from the outer facade face (0.875 from the wall centre lines); the strip outside it is a no-go zone
     lines: [[[0.875, 19.25], [0.875, 23.125], [4.25, 23.125]], [[12.436, 19.25], [12.436, 23.125], [10.0, 23.125]]]   # from the attic's end walls to the court guards
   hrv_base:                                           # V8.0 (air system v3.1): the HRV base under the malqaf tower, one mass with it
-    pts: [[8.95, 1.0], [11.004, 1.0], [12.308, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line and the cut facade line
+    pts: [[8.95, 1.0], [10.731, 1.0], [12.035, 3.4], [8.95, 3.4]]   # wall centre lines: the tower's west line; V9.2 its V9.0 footprint (the cut face 0.24 m inside the cut facade)
     wall: 0.20
-    top: 9.10                                         # V8.1 0.40 above the lowered attic coping (+8.70): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
+    top: 9.10                                         # V8.1 0.40 above the lowered attic coping (+8.70; V9.2 +8.68): part of the malqaf mass, seen by design; option: lower to 8.70 (1.25 clear inside)
     slab: 0.15
     doors: [1.3, 2.8]                                 # y: a pair of doors in its west face (the unit behind them, filters and core pulled from the roof)
     door_head: 8.80

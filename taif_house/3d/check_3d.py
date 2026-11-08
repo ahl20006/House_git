@@ -446,7 +446,7 @@ if grille_ok and 0.05 - 1e-6 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "
        f"{gy0 - max(sink['a'][1], sink['b'][1]):.2f} m south of the kitchen sink window, under the outdoor TV; no air opening and no water in the courtyard floor (the covers are sealed, in the laundry and kitchen)")
 else:
     bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
-if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.5:   # V9.1: ≈ 1.3 m² since the cut wall moved a further 0.24 m out (the tower 1.78 m² on axes; V9.0 1.04 / 1.51)
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.5:   # V9.2: ≈ 0.98 m² (the tower a rectangle 1.425 × 1.0 on axes); V9.1: ≈ 1.3 m² since the cut wall moved a further 0.24 m out (the tower 1.78 m² on axes; V9.0 1.04 / 1.51)
     ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
 else:
     bad("tower shaft opening")
