@@ -2,6 +2,7 @@
 // the corner, and its shaft makes awkward corners inside). The design files are NOT changed; the owner chooses after this study.
 // 1 · inside: a slim shaft hugging the cut wall, the rooms' walls straight · 2 · above the roof: the HRV unit in a plant room behind the attic, a slim
 // square stone tower set back on the attic's corner; six variants (two heights, three heads, a flat Hijazi top or a small dome) · 3 · the comparison.
+// Pages 6–7 (8 Nov 2026): where the tower stands, four positions compared.
 // The renders: 3d/malqaf_variants.py (the gate camera of char_gate.png) reads `tw`, `variants`, `plenum` and `plant` from THIS file.
 // CSV frame (x east, y south, the wall centre lines) · levels from the finished ground floor · every size ASSUMED (concept only).
 #import "@preview/cetz:0.4.2"
@@ -404,3 +405,161 @@
 )
 #v(3pt)
 #text(6.2pt, fill: gray)[Sources: studies/air_system.typ (the present tower, its sections and the breeze loss chain), studies/roof.typ (the attic, the copings, the sight lines), data/rooms_gf.csv / rooms_ff.csv (V9.2), 3d/character.yaml (the gate camera). Concept only: every size assumed; nothing here is for construction.]
+
+// ======================================================================= PAGES 6–7 · WHERE THE TOWER STANDS (location study, 8 Nov 2026; study only)
+// Four candidate positions, each with the same slim shaft (≈ 0.90 m² clear, rectangular, straight walls) and the recommended tower (c) at 3.5 m:
+// L1 the north-east cut corner (pages 1–5) · L2 the courtyard's north-east corner (in the women's majlis's south-east corner, against its solid east wall W3)
+// L3 the west band, beside the west service shaft (in the utility room) · L4 over the kitchen, against its north wall (the east band).
+// The kitchen-side and riwaq-side spots at the courtyard were looked at and dropped: the kitchen's west wall carries the sink window, the water + tree
+// enclosure and the outdoor TV, and its first floor is the suite lobby (1.35 m wide); the riwaq is the family's circulation under the gallery.
+#let plen(P) = range(P.len() - 1).map(i => d2(P.at(i), P.at(i + 1))).sum()
+#let rect4(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
+#let rec-v = variants.at(3)                                   // the recommended tower (c) at 3.5 m
+#let L-top = total-top(rec-v)
+#let vents = ((0.75, 9.8, 8.0), (13.2, 8.4, 8.0), (1.5, 14.9, 8.0))   // the plumbing vents above the roof: the west shaft's stack, the east stack, the family WC's stack (studies/plumbing.typ)
+#let z2b = (condensers.at(0), condensers.at(1), condensers.at(2), condensers.at(3), 7.9)
+#let d-box(p, b) = { let q = (calc.max(b.at(0), calc.min(p.at(0), b.at(2))), calc.max(b.at(1), calc.min(p.at(1), b.at(3))), b.at(4)); d3(p, q) }
+#let locs = (
+  (id: "L1", name: [L1 · the north-east cut corner (today; pages 1–5)], short: [L1 · NE cut corner],
+   shaft: sh-clear, encl: sh-axes, tower: (tw.x0, tw.y0), plenum: true, throat: true,
+   route: ((10.674, 1.25), (10.45, 2.0), (10.2, 2.8), (10.2, 10.5), (9.2, 10.5), (8.95, 10.5)), grille: (8.95, 10.05, 8.95, 11.05),
+   rooms: [GF maid bath #r2(clear(bath) - now.bath) m² (+ a store #r2(clear(store))) · FF bedroom 1 #r2(clear(bed1) - now.bed1) m² (+ a cupboard #r2(clear(cup)))], walls: [straight: one wall parallel to the cut per room + a square return],
+   structure: [on the roof slab over W3 and a new RC wall y 1.0; a plenum box ties it to the shaft (offset 0.3–1.0 m)], roof: [the attic's NE corner; the plant room behind it; Z2b, the tank, the PV untouched], cost: 1.00),
+  (id: "L2", name: [L2 · the courtyard's north-east corner (the women's majlis's SE corner)], short: [L2 · courtyard NE corner],
+   shaft: rect4(8.275, 4.835, 8.85, 6.40), encl: rect4(8.075, 4.635, 8.95, 6.5), tower: (7.70, 5.25), plenum: false, throat: false,
+   route: ((8.56, 6.10), (6.90, 6.10), (6.90, 6.5)), grille: (6.40, 6.5, 7.40, 6.5),
+   rooms: [GF women's majlis −1.37 m² (a nib in its SE corner; its courtyard glass ends 0.1 m sooner) · FF family living −1.37 m² (a nib in its SE corner by the courtyard glass)], walls: [straight: a rectangular nib against W3 in each room],
+   structure: [*the best:* on the crossing of W3 (x 8.95) and the courtyard's north wall line (y 6.5), straight over its shaft, no plenum, no transfer], roof: [the sky hole's NE corner, inside the attic; the guard meets the tower; Z2b 1.9 m east (an intake ≥ 2 m away)], cost: 0.85),
+  (id: "L3", name: [L3 · the west band, beside the west service shaft (the utility room)], short: [L3 · west band],
+   shaft: rect4(1.60, 9.30, 2.65, 10.30), encl: rect4(1.5, 9.2, 2.75, 10.4), tower: (0.875, 9.175), plenum: true, throat: false,
+   route: ((2.10, 9.80), (4.25, 9.80)), grille: (4.25, 9.3, 4.25, 10.3),
+   rooms: [GF utility room −1.2 m² (5.81 → ≈ 4.6) · FF *bedroom 2's en-suite −1.2 m²* (5.85 → ≈ 4.4 on axes): its fixtures stand on that very service wall], walls: [straight (the bay between the west shaft, the riwaq wall and the utility's south wall)],
+   structure: [on the west outer wall and the shaft's walls: good], roof: [the west strip; *the west stack's vent beside the intake: re-route it ≥ 3 m away*], cost: 0.95),
+  (id: "L4", name: [L4 · over the kitchen, against its north wall (the east band)], short: [L4 · kitchen, east band],
+   shaft: rect4(10.75, 7.10, 12.315, 7.675), encl: rect4(10.65, 7.0, 12.415, 7.775), tower: (11.0, 7.0), plenum: false, throat: false,
+   route: ((11.50, 7.40), (10.2, 7.40), (10.2, 10.5), (9.2, 10.5), (8.95, 10.5)), grille: (8.95, 10.05, 8.95, 11.05),
+   rooms: [GF kitchen −1.4 m² *and the route from the laundry to the service door closed (0.3 m left)* · FF *a box standing in the middle of the master suite's bath*], walls: [straight in the kitchen; not in the suite bath],
+   structure: [the kitchen's north wall is a non-load-bearing partition: a new RC wall and footing], roof: [*inside Z2b (the condensers move) and 3 m from the east vent*; the future PV], cost: 1.15),
+)
+#let zeta-loc(l) = { let z = zeta-throat
+  z.at(0).at(1) + z.at(1).at(1) + z.at(2).at(1) + z.at(5).at(1) + z.at(6).at(1) + (if l.throat { z.at(3).at(1) } else { 0 }) + 0.02 * plen(l.route) / 0.33 * calc.pow(0.10 / 0.18, 2) + (if l.plenum { 1.2 * calc.pow(0.10 / 0.60, 2) } else { 0 }) }
+#let breeze-loc(l) = calc.sqrt(zeta / zeta-loc(l))
+#let L1-better = calc.sqrt(zeta / (zeta-loc(locs.at(0)) - zeta-throat.at(3).at(1)))   // L1 with the channel at its full 0.9 × 0.2 under the re-planned maid bath (no throat)
+#let tsq(l) = rect4(l.tower.at(0), l.tower.at(1), l.tower.at(0) + tw.w, l.tower.at(1) + tw.w)
+#let intake-l(l) = (l.tower.at(0), l.tower.at(1) + tw.w / 2, lev(rec-v).band0 - 0.25)
+#let vent-d(l) = calc.min(..vents.map(v => d3(intake-l(l), v)))
+#let z2b-d(l) = d-box(intake-l(l), z2b)
+// what is seen: the tower's nearest point to an eye, the obstacles crossed on the way (copings, attic, the courtyard's roof edges)
+#let near(e, l) = (calc.max(l.tower.at(0), calc.min(e.at(0), l.tower.at(0) + tw.w)), calc.max(l.tower.at(1), calc.min(e.at(1), l.tower.at(1) + tw.w)))
+#let obst-out = (("y", -0.125, -0.125, 10.6, coping-top), ("x", -0.125, -0.125, 19.25, coping-top), ("y", 0.875, 0.875, 9.94, attic-top), ("x", 0.875, 0.875, 19.25, attic-top), ("x", 13.436, 5.2, 24.1, coping-top))
+#let obst-court = (("y", 6.5, 5.8, 8.95, 7.30), ("x", 8.95, 6.5, 13.0, 7.30), ("x", 5.8, 6.5, 13.0, 7.30))
+#let z-hide(e, l, obst) = { let t0 = near(e, l); let zs = (roof-fin,)
+  for (ax, c, lo, hi, z) in obst {
+    let (ei, ti, ej, tj) = if ax == "y" { (e.at(1), t0.at(1), e.at(0), t0.at(0)) } else { (e.at(0), t0.at(0), e.at(1), t0.at(1)) }
+    if calc.abs(ti - ei) > 1e-9 { let t = (c - ei) / (ti - ei)
+      if t > 1e-6 and t < 1 - 1e-6 { let w = ej + t * (tj - ej); if w >= lo and w <= hi { zs.push(e.at(2) + (z - e.at(2)) / t) } } } }
+  calc.max(..zs) }
+#let seen(e, l, obst) = calc.max(0, L-top - z-hide(e, l, obst))
+#let eye-street = (6.5, -14.0, 1.6)                           // the north street's far side, 14 m off the north facade
+#let eye-court = (7.4, 13.0, 1.6)                             // the courtyard's south edge (the living's glass), looking north
+#let loc-checks = (
+  ([every position's shaft ≥ 0.90 m² clear, a rectangle in straight walls], locs.all(l => area(l.shaft) >= 0.895)),
+  ([the breeze routes measured from the shaft's foot to the grille (L1 the longest, #r1(plen(locs.at(0).route)) m)], plen(locs.at(0).route) == calc.max(..locs.map(l => plen(l.route)))),
+  ([the recommended position keeps the HRV intake ≥ 3 m from every vent and ≥ 2 m from the condensers], vent-d(locs.at(0)) >= 3.0 and z2b-d(locs.at(0)) >= 2.0),
+  ([the recommended tower is seen from the gate and from the street], seen(gate-eye, locs.at(0), obst-out) > 2.0 and seen(eye-street, locs.at(0), obst-out) > 2.0),
+)
+#let loc-ok = loc-checks.all(c => c.at(1))
+// the key plans
+#let parse-pts(s) = s.split(";").map(t => t.trim()).filter(t => t != "").map(t => { let w = t.split(" ").filter(u => u != ""); (float(w.at(0)), float(w.at(1))) })
+#let rooms-of(path) = csv(path, row-type: dictionary).filter(r => r.name != "" and not r.name.starts-with("#")).map(r => if r.pts.trim() != "" { parse-pts(r.pts) } else {
+  let x = float(r.x); let y = float(r.y); let w = float(r.w); let d = float(r.d); rect4(x - w / 2, y - d / 2, x + w / 2, y + d / 2) })
+#let loc-col = (L1: rgb("#1f7a99"), L2: rgb("#2f7a3f"), L3: rgb("#8a5a2b"), L4: rgb("#b5452f"))
+#let key-plan(kind) = cetz.canvas(length: 0.43cm, {
+  import cetz.draw: *
+  let Q(p) = (p.at(0), -p.at(1))
+  line(..((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0)).map(Q), close: true, fill: rgb("#f3efe6"), stroke: 1.2pt + ink)
+  if kind == "GF" {
+    for P in rooms-of("../data/rooms_gf.csv") { line(..P.map(Q), close: true, stroke: 0.3pt + gray) }
+    rect(Q((4.25, 6.5)), Q((8.95, 13.0)), fill: rgb("#dfe9d3"), stroke: 0.4pt + gray); content(Q((6.6, 9.9)), text(4.4pt, fill: green)[COURTYARD])
+    rect(Q((5.925, 7.1)), Q((8.85, 12.3)), stroke: (paint: amber, thickness: 0.4pt, dash: "dashed")); content(Q((6.7, 11.9)), text(3.4pt, fill: amber)[seating])
+    for l in locs { let c = loc-col.at(l.id)
+      line(..l.encl.map(Q), close: true, fill: c.transparentize(55%), stroke: 0.6pt + c)
+      line(..l.route.map(Q), stroke: (paint: c, thickness: 1pt, dash: "dashed"))
+      line(Q((l.grille.at(0), l.grille.at(1))), Q((l.grille.at(2), l.grille.at(3))), stroke: 2.6pt + c)
+      content(Q((l.encl.at(0).at(0) - 0.15, l.encl.at(0).at(1) + 0.4)), anchor: "east", text(6pt, weight: "bold", fill: c)[#l.id]) }
+    content(Q((0.0, 24.9)), anchor: "west", text(4.6pt, fill: green)[GROUND FLOOR · shafts, breeze routes (dashed), grilles (bold)])
+  } else {
+    line(..((0.875, 0.875), (attic.at(1).at(0), 0.875), (attic.at(2).at(0), attic.at(2).at(1)), (attic.at(2).at(0), 19.25), (0.875, 19.25)).map(Q), close: true, stroke: 1.4pt + rgb("#c9bfa8"))
+    rect(Q((5.8, 6.5)), Q((8.95, 13.0)), fill: white, stroke: 0.5pt + gray); content(Q((7.4, 9.75)), text(4pt, fill: gray)[sky])
+    rect(Q((4.25, 19.25)), Q((10.0, 24.0)), fill: white, stroke: 0.4pt + gray); content(Q((7.1, 21.6)), text(4pt, fill: gray)[suite court])
+    rect(Q((condensers.at(0), condensers.at(1))), Q((condensers.at(2), condensers.at(3))), fill: rgb("#f6d9c9"), stroke: 0.4pt + red); content(Q((11.0, 8.6)), text(3.6pt, fill: red)[Z2b AC])
+    rect(Q((2.85, 1.0)), Q((4.15, 3.5)), fill: rgb("#dbe7ec"), stroke: 0.3pt + gray); content(Q((3.5, 2.25)), text(3.4pt)[tank])
+    rect(Q((9.0, 9.5)), Q((11.6, 17.4)), fill: rgb("#fff4c9"), stroke: 0.3pt + gray); content(Q((10.3, 13.4)), text(3.4pt)[PV])
+    for vt in vents { circle(Q(vt), radius: 3.0, stroke: (paint: luma(150), thickness: 0.4pt, dash: "dotted")); circle(Q(vt), radius: 0.12, fill: luma(90), stroke: none) }
+    content(Q((0.5, 13.3)), anchor: "west", text(3.4pt, fill: luma(110))[vents: 3 m rings])
+    for l in locs { let c = loc-col.at(l.id)
+      line(..tsq(l).map(Q), close: true, fill: stone, stroke: 0.8pt + c)
+      content(Q((l.tower.at(0) + tw.w / 2, l.tower.at(1) + tw.w / 2)), text(5.6pt, weight: "bold", fill: c)[#l.id]) }
+    content(Q((0.0, 24.9)), anchor: "west", text(4.6pt, fill: green)[ROOF · towers 1.25 × 1.25, attic, Z2b, vents])
+  }
+})
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Where the tower stands · four positions compared (the same slim shaft, the recommended tower (c) at 3.5 m, top #lv(L-top))]
+#v(2pt)
+#text(7pt, fill: gray)[STUDY ONLY, the design files unchanged. Looked at and dropped before the four: *the courtyard's kitchen side* (the kitchen's west wall carries the sink window, the water + tree enclosure and the outdoor TV; upstairs the suite lobby is only 1.35 m wide) and *the riwaq side* (the family's circulation under the gallery). Prevailing wind: north-west. Both key plans: 1 m = 0.43 cm.]
+#v(3pt)
+#grid(columns: (auto, auto, 1fr), gutter: 10pt,
+  key-plan("GF"), key-plan("ROOF"),
+  [
+    #for l in locs [
+      #text(8pt, weight: "bold", fill: loc-col.at(l.id))[#l.name] \
+      #text(6.6pt)[*Breeze:* #r1(plen(l.route)) m from the shaft's foot to the grille#if l.throat [ (through the 0.10 m² throat under the maid bath)], ≈ #r2(breeze-loc(l)) × today's flow. *Intake:* #r1(vent-d(l)) m to the nearest vent (≥ 3), #r1(z2b-d(l)) m to the condensers (≥ 2). *Rooms:* #l.rooms. *Walls:* #l.walls. *Structure:* #l.structure. *Roof:* #l.roof. *Seen:* from the gate #r2(seen(gate-eye, l, obst-out)) m, from the street #r2(seen(eye-street, l, obst-out)) m, from the courtyard #r2(seen(eye-court, l, obst-court)) m. *Cost:* ≈ #r2(l.cost).]
+      #std.v(3pt)
+    ]
+  ],
+)
+#v(1pt)
+#text(6.2pt, fill: gray)[Location checks #if loc-ok [*passed* (#loc-checks.len())] else [*FAILED*: #loc-checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · *Breeze:* the air study's loss chain (the head, the flaps, the damper, the bend and the plenum, the grille, the channel's friction by its length, the throat where there is one, the extra plenum where the tower is offset), the same head and wind for all: relative flows. *Seen:* the height of the tower (top #lv(L-top)) above the sight line from the gate (the char_gate camera), from the north street 14 m off the facade and from the courtyard's south edge, over the copings, the attic and the courtyard's roof edges. *Cost:* relative to L1 (the shaft, the channel, the plenum, the structure, the knock-on moves), the tower itself the same.]
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[The location comparison and the recommendation]
+#v(3pt)
+#let mark(ok) = if ok == 2 { text(fill: green)[●] } else if ok == 1 { text(fill: amber)[◐] } else { text(fill: red)[○] }
+#table(columns: (1.35fr, auto, auto, auto, auto, auto, auto, auto, auto, auto), inset: 2.6pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") },
+  [*Position*], [*Breeze route*], [*Breeze*], [*Intake*], [*Rooms / walls*], [*Structure*], [*Roof*], [*Gate · street*], [*Courtyard*], [*Cost*],
+  ..locs.map(l => (
+    text(weight: "bold", fill: loc-col.at(l.id))[#l.short],
+    [#r1(plen(l.route)) m], [#mark(if breeze-loc(l) >= 1.4 { 2 } else { 1 }) #r2(breeze-loc(l))#if l.throat [ (#r2(L1-better) without the throat)]],
+    [#mark(if vent-d(l) >= 3 and z2b-d(l) >= 2 { 2 } else { 0 }) #r1(vent-d(l)) / #r1(z2b-d(l)) m],
+    [#mark(if l.id == "L1" { 2 } else if l.id == "L2" { 1 } else { 0 }) #if l.id == "L1" [service rooms] else if l.id == "L2" [two family rooms] else if l.id == "L3" [an en-suite bath] else [suite bath, service route]],
+    [#mark(if l.id == "L2" or l.id == "L3" { 2 } else if l.id == "L1" { 1 } else { 0 })],
+    [#mark(if l.id == "L1" or l.id == "L2" { 2 } else if l.id == "L3" { 1 } else { 0 })],
+    [#mark(if seen(gate-eye, l, obst-out) > 2 { 2 } else if seen(eye-street, l, obst-out) > 2 { 1 } else { 0 }) #r1(seen(gate-eye, l, obst-out)) · #r1(seen(eye-street, l, obst-out)) m],
+    [#mark(if seen(eye-court, l, obst-court) > 2 { 2 } else if seen(eye-court, l, obst-court) > 0.5 { 1 } else { 0 }) #r1(seen(eye-court, l, obst-court)) m],
+    [#r2(l.cost)],
+  )).flatten()
+)
+#text(6.2pt, fill: gray)[● good · ◐ acceptable / with a price · ○ poor or blocking. Breeze: the relative courtyard flow (today = 1.00). Intake: the distance to the nearest plumbing vent / to the condensers. Gate · street, courtyard: the visible height of the tower (m).]
+#v(5pt)
+#grid(columns: (1.25fr, 1fr), gutter: 12pt,
+  [
+    #H[7 · Recommendation: keep the tower at the north-east cut corner (L1)]
+    - *L1 is the best all round:* it takes only service space (the maid bath and bedroom 1 each lose ≈ 0.8 m², each gains a store or a cupboard), keeps every family and guest room whole, gives the cleanest HRV intake (#r1(vent-d(locs.at(0))) m from the nearest vent, #r1(z2b-d(locs.at(0))) m from the condensers), leaves the roof's zones in place and is *the one seen as the symbol of the house from outside*: #r1(seen(gate-eye, locs.at(0), obst-out)) m of the tower above the coping from the gate, #r1(seen(eye-street, locs.at(0), obst-out)) m from the street, its crown from the courtyard (#r1(seen(eye-court, locs.at(0), obst-court)) m).
+    - *Its one weakness, the long breeze route (#r1(plen(locs.at(0).route)) m), is mostly the throat, not the length:* with the channel kept at its full 0.9 × 0.2 under the re-planned maid bath (the WC and the shower drains off its line, in the interior study), the flow rises from #r2(breeze-loc(locs.at(0))) to *#r2(L1-better)* × today's, close to the #r2(breeze-loc(locs.at(1))) of the courtyard corner.
+    - *L2, the courtyard corner, is the strong alternative* and the true Yazd position (the badgir over the hall, facing the courtyard): the shortest route (#r1(plen(locs.at(1).route)) m) straight onto the seating, the best structure (on W3 and the courtyard wall, no plenum), the cheapest, and #r1(seen(eye-court, locs.at(1), obst-court)) m of the tower rising over the courtyard's corner; *but* it takes ≈ 1.4 m² as a nib from the women's majlis and from the family living, and it is *not seen from the gate* (#r1(seen(gate-eye, locs.at(1), obst-out)) m), only from the street (#r1(seen(eye-street, locs.at(1), obst-out)) m). Choose it if the tower is to be the symbol of the courtyard rather than of the house's face.
+    - *Not recommended:* L3 (it costs bedroom 2's en-suite its service wall and sits on the west stack's vent) and L4 (it closes the kitchen's route to the service door, stands in the master suite's bath and lands in the condensers' zone).
+    - *So:* the tower of pages 1–5 at L1, with the channel at its full width; the plan, the elevations and the gate render of pages 1–4 stand, and no new renders are needed for the position.
+  ],
+  [
+    #H[ملخص الموقع]
+    #block(width: 100%)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.6pt)
+      #set par(leading: 0.62em)
+      قورنت أربعة مواقع للملقف: الركن الشمالي الشرقي عند جدار القطع (الحالي)، وركن الفناء الشمالي الشرقي داخل مجلس النساء، والشريط الغربي بجوار شفت الخدمات، وفوق المطبخ في الشريط الشرقي.
+      #v(2pt)
+      *التوصية:* إبقاء البرج في الركن الشمالي الشرقي: لا يأخذ إلا من غرف الخدمة، ومدخل هواء التهوية فيه الأنظف، ويُرى من البوابة والشارع رمزا للبيت. ضعفه الوحيد طول مجرى النسيم (≈ 10.6 م)، وأكثر خسارته من الاختناق تحت حمام الخادمة؛ فإذا بقي المجرى بعرضه الكامل ارتفع التدفق إلى ما يقارب موقع الفناء.
+      #v(2pt)
+      *البديل القوي:* ركن الفناء (موقع الملقف اليزدي الأصيل): أقصر مجرى، وأفضل إنشائيا وأرخص، ويظهر البرج فوق ركن الفناء؛ لكنه يأخذ نحو 1.4 م² من مجلس النساء ومن جلسة العائلة ولا يُرى من البوابة. لا يُنصح بالشريط الغربي ولا بالمطبخ.
+    ]
+  ],
+)
