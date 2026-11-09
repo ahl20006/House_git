@@ -92,7 +92,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
     ("studies/malqaf_tower.typ", OUTPUT / "malqaf_tower.pdf", ["Malqaf tower study", "Study checks passed"]),   # 8 Nov 2026: study only (the slim shaft, the plant room, six tower variants; renders by 3d/malqaf_variants.py), the design files unchanged
     ("studies/ne_corner.typ", OUTPUT / "ne_corner.pdf", ["The north-east corner, simplified", "Study checks passed"]),   # 8 Nov 2026: short study only (bedroom 1 a rectangle, the maid rooms A / B), the design files unchanged
-    ("studies/malqaf_L5.typ", OUTPUT / "malqaf_L5.pdf", ["Malqaf L5", "Phase 0 checks passed", "Phase 1 checks passed", "Phase 2 checks passed"]),   # 9 Nov 2026: L5 study in phases (study only); Phase 0 the geometry check and the climate basis (tools/climate_taif.py)
+    ("studies/malqaf_L5.typ", OUTPUT / "malqaf_L5.pdf", ["Malqaf L5", "Phase 0 checks passed", "Phase 1 checks passed", "Phase 2 checks passed", "Phase 3 checks passed"]),   # 9 Nov 2026: L5 study in phases (study only); Phase 0 the geometry check and the climate basis (tools/climate_taif.py)
     ("presentation.typ", PRESENTATION, []),
     ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V9.1.pdf", ["Review status", "V9.1"]),   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]

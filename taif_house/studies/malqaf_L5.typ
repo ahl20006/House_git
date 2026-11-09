@@ -6,7 +6,7 @@
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches). Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -483,3 +483,149 @@
 ]
 #v(2pt)
 #text(6.2pt, fill: gray)[Phase 2 checks #if ok2 [*passed* (#checks2.len())] else [*FAILED*: #checks2.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: studies/structure.typ (C17, C21, C22, B2, B3, B4, R1, R11, the projection slab), 3d/character.yaml (the arcade columns), SBC 301 / ASCE 7-16 § 13.3 (the appendage formula), the climate script for the winter mornings. Concept only.]
+
+
+// ======================================================================= PHASE 3 · FACADE: COLONNADE, GALLERY, WINDOWS, ARCHES (9 Nov 2026, after the Phase 2 answers)
+// The owner's answers: the head 1.6 × 1.6 with a 0.4 m funnel overhang north (D7); the head an RC frame with corner piers and ring beams, the ribs in rendered block;
+// no stone and no marble anywhere, floors included (porcelain); the farm's location still blank. Render and paint only: projections in the calm honey tone.
+#let M20(x) = calc.abs(calc.round(x / 0.2) - x / 0.2) < 1e-6        // on the 20 cm module (D11)
+#let bay-ax = (7.5833, 9.75, 11.9167)                              // the courtyard arcade's three bay axes (bays of 2.1667 between C21 / the core, the arcade columns and C22)
+#let arch-w = 1.84; #let arch-spring = 2.40; #let arch-crown = 3.32  // the GF arcade's arches (clear between the Ø0.33 sleeves; the crown at the projection's soffit)
+#let w1 = (w: 1.6, sill: 3.80, spring: 5.80, crown: 6.60)          // W1 (the sill proposed at +3.80 instead of +3.82: 2.80 m high = 14 modules)
+#let outlet3 = (w: 1.4, h: 1.0, sill: 0.10)                        // the courtyard outlet, on the module (was 1.4 × 0.9)
+#let door3 = (w: 1.0, h: 2.4)
+#let gwin = (w: 0.8, sill: 4.20, spring: 5.40)                     // the gallery's arched grille into the shaft (0.8 × 1.6)
+#let OPTS = (
+  (id: "F1", name: [F1 · five windows + the tower], head: (6.0, 7.6), ff1: "narrow", note: [the minimum: W1-1 replaced by a 0.6 m arched window beside the core (off the bay axis); the head as decided (north overhang)]),
+  (id: "F2", name: [F2 · the tower bay], head: (6.0, 7.6), ff1: "blind", note: [the whole first bay is the malqaf's: the outlet in the first arch, a blind arched recess above it on the same axis; the head as decided (north overhang)]),
+  (id: "F3", name: [F3 · the tower begins the colonnade], head: (6.4, 8.8), ff1: "blind", note: [as F2, and the head 1.6 × 2.4 m over the whole first bay (overhang 1.2 m south over the gallery roof, on R11 / R3): one vertical from the arch to the crown]),
+)
+#let head-ax(o) = (o.head.at(0) + o.head.at(1)) / 2
+#let archpoly(c, w, z0, zs) = ((c - w / 2, z0), (c + w / 2, z0), (c + w / 2, zs)) + range(1, 16).map(k => { let t = k * calc.pi / 16; (c + w / 2 * calc.cos(t), zs + w / 2 * calc.sin(t)) }) + ((c - w / 2, zs),)
+#let sand = rgb("#efe3c8"); #let honey = rgb("#d8b47a"); #let shade = rgb("#6b665c"); #let glass = rgb("#9fc6dc"); #let timber = rgb("#9c6b3c")
+// the courtyard's west face (on x 5.80), seen from the seating looking west: north on the right
+#let elev-west(o, len) = cetz.canvas(length: len, {
+  import cetz.draw: *
+  let X(y) = 14.2 - y
+  let poly(pts, f, s) = line(..pts.map(p => (X(p.at(0)), p.at(1))), close: true, fill: f, stroke: s)
+  rect((X(13.3), -0.3), (X(5.6), 0), fill: rgb("#d9cdb4"), stroke: none)
+  rect((X(13.1), 0), (X(6.4), 7.35), fill: sand, stroke: 0.4pt + ink)
+  for c in (bay-ax.at(1), bay-ax.at(2)) { poly(archpoly(c, arch-w, 0, arch-spring), shade, none) }
+  poly(archpoly(bay-ax.at(0), arch-w, 0, arch-spring), sand.darken(8%), 0.4pt + ink)
+  rect((X(bay-ax.at(0) + outlet3.w / 2), outlet3.sill), (X(bay-ax.at(0) - outlet3.w / 2), outlet3.sill + outlet3.h), fill: timber.lighten(30%), stroke: 0.4pt + timber)
+  for k in range(7) { let yy = bay-ax.at(0) - outlet3.w / 2 + 0.1 + k * 0.2; line((X(yy), outlet3.sill + 0.05), (X(yy), outlet3.sill + outlet3.h - 0.05), stroke: 0.4pt + timber) }
+  rect((X(13.1), 3.40), (X(6.4), 3.52), fill: honey, stroke: none)
+  for c in (bay-ax.at(1), bay-ax.at(2)) { poly(archpoly(c, w1.w, w1.sill, w1.spring), glass, 0.5pt + ink); line((X(c), w1.sill), (X(c), w1.crown), stroke: 0.5pt + ink) }
+  if o.ff1 == "narrow" { poly(archpoly(8.15, 0.6, w1.sill, 6.3), glass, 0.5pt + ink) } else { poly(archpoly(bay-ax.at(0), w1.w, w1.sill, w1.spring), sand.darken(10%), 0.4pt + ink) }
+  rect((X(13.2), 6.90), (X(6.3), 7.35), fill: honey, stroke: 0.3pt + ink)
+  let (h0, h1) = o.head
+  rect((X(h1), 7.35), (X(h0), 10.6), fill: sand, stroke: 0.4pt + ink)
+  rect((X(h1) - 0.06, 10.6), (X(h0) + 0.06, 10.75), fill: honey, stroke: 0.3pt + ink)
+  rect((X(h1), 10.75), (X(h0), 12.9), fill: sand, stroke: 0.4pt + ink)
+  let n = calc.floor((h1 - h0 - 0.3 + 0.09) / 0.23); let tot = n * 0.14 + (n - 1) * 0.09
+  for k in range(int(n)) { let c = h0 + (h1 - h0 - tot) / 2 + k * 0.23 + 0.07; poly(archpoly(c, 0.14, 11.0, 12.53), rgb("#2b2b2d"), none) }
+  rect((X(h1) - 0.05, 12.9), (X(h0) + 0.05, 13.02), fill: honey, stroke: 0.3pt + ink); rect((X(h1) - 0.1, 13.02), (X(h0) + 0.1, 13.2), fill: honey, stroke: 0.3pt + ink)
+  for c in bay-ax { line((X(c), -0.25), (X(c), 7.0), stroke: (paint: red, thickness: 0.3pt, dash: "dotted")) }
+  line((X(head-ax(o)), 7.4), (X(head-ax(o)), 13.4), stroke: (paint: red, thickness: 0.3pt, dash: "dotted"))
+  content((X(9.5), -0.65), text(4.4pt, weight: "bold", fill: green)[#o.id · west face from the seating (N →)])
+})
+#let checks3 = (
+  ([W1 1.6 × 2.80 (the sill at +3.80), the outlet 1.4 × 1.0, the door 1.0 × 2.4, the gallery grille 0.8 × 1.6, the core 1.6 × 1.2, the heads 1.6 × 1.6 / 1.6 × 2.4: all on the 20 cm module], M20(w1.w) and M20(w1.crown - w1.sill) and M20(outlet3.w) and M20(outlet3.h) and M20(door3.w) and M20(door3.h) and M20(gwin.w) and M20(1.6) and M20(1.2) and M20(2.4)),
+  ([the GF arches and the FF windows share their axes in bays 2–3 (W1-2, W1-3 centres = the arcade bay axes)], calc.abs((8.95 + 10.55) / 2 - bay-ax.at(1)) < 0.01 and calc.abs((11.117 + 12.717) / 2 - bay-ax.at(2)) < 0.01),
+  ([F3's head covers the whole shaft (y 6.4–7.6) and stands on the first bay's axis (± 0.05)], OPTS.at(2).head.at(0) <= 6.4 and OPTS.at(2).head.at(1) >= 7.6 and calc.abs(head-ax(OPTS.at(2)) - bay-ax.at(0)) <= 0.05),
+)
+#let ok3 = checks3.all(c => c.at(1))
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 3 · the courtyard's west face · the malqaf as the head of the colonnade · three options]
+#v(1pt)
+#text(7pt, fill: gray)[The owner's Phase 2 answers applied: the head 1.6 × 1.6 with a 0.4 m funnel overhang north; an RC frame with corner piers and ring beams, the ribs in rendered block; *no stone and no marble anywhere, floors included* (marble-look porcelain inside, anti-slip R11 porcelain outside, recorded). Render and paint: a light sand render, the projections (the band, the cornices, the arch surrounds) in the calm honey tone. Red dotted: the bay axes (GF arches = FF windows) and the head's axis. 1 m = 0.5 cm.]
+#v(3pt)
+#grid(columns: (auto, auto, auto, 1fr), gutter: 8pt,
+  ..OPTS.map(o => elev-west(o, 0.5cm)),
+  [
+    #H[3.1 · The three options]
+    #table(columns: (auto, 1fr), inset: 2.2pt, stroke: 0.4pt + luma(180),
+      ..OPTS.map(o => ([*#o.id*], [#o.note · the head's axis #str(calc.round(head-ax(o) - bay-ax.at(0), digits: 2)) m from the first bay's axis])).flatten())
+    - *Kept in all:* W1-2 and W1-3 (bays 2–3) and the three living-bay windows W1-4…6 on their axes; their sill / springing / crown logic (the sill proposed at *+3.80*, 2.80 m high, on the module); the GF arcade's bays 2–3 open; the band at +3.40 and the main cornice in the honey tone.
+    - *The first bay* (y 6.5–8.667) becomes the malqaf's: at the GF the outlet (1.4 × 1.0, timber louvres) fills the first arch, the rest of the arch a rendered infill of the core; at the FF the core covers the north 0.8 m of W1-1, so W1-1 goes: F1 puts a narrow 0.6 m window beside the core (off the bay axis: #text(fill: red)[⚠ D11]); F2 and F3 make *a blind arched recess* (1.6 × 2.80, 0.10 deep, render) on the bay axis: the arch, the recess and the tower read as one.
+    - *The head:* F1 / F2 keep the decided north overhang: the head stands *#str(calc.round(bay-ax.at(0) - head-ax(OPTS.at(1)), digits: 2)) m north of the first bay's axis*, half of it beyond the colonnade's end; F3 lengthens the head south over the gallery roof (1.6 × 2.4 m, its walls on R11 and R3) so it rises *exactly on the first bay's axis*: the tower begins the colonnade.
+    #H[Recommendation: F3]
+    The arch with the outlet, the blind arch and the head on one vertical axis make the malqaf *the head of the row* without touching bays 2–3 and the living bay; the head grows to 3.84 m² (a bigger funnel, D7). It changes one Phase 2 answer: the funnel overhang goes *south over the gallery roof (1.2 m)* instead of north (0.4 m). If the owner keeps the north overhang: F2.
+  ],
+)
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 3 · from the courtyard looking north · from the riwaq · the gallery's grille into the shaft · the filtered-air grilles · D11]
+#v(3pt)
+#grid(columns: (auto, auto, auto, 1fr), gutter: 8pt,
+  cetz.canvas(length: 0.5cm, {
+    import cetz.draw: *
+    let poly(pts, f, s) = line(..pts, close: true, fill: f, stroke: s)
+    rect((3.9, -0.3), (9.3, 0), fill: rgb("#d9cdb4"), stroke: none)
+    rect((4.25, 0), (8.95, 3.52), fill: sand, stroke: 0.4pt + ink)
+    rect((6.0, 0.1), (8.1, 2.6), fill: glass, stroke: 0.4pt + ink)
+    rect((5.1, 0.1), (5.6, 2.6), fill: none, stroke: (paint: red, thickness: 0.6pt, dash: "dashed")); content((5.35, 2.9), text(3.4pt, fill: red)[lost])
+    rect((4.30, 0), (5.90, 3.52), fill: sand.darken(6%), stroke: 0.5pt + ink)
+    poly(archpoly(5.1, door3.w, 0, door3.h - 0.5), timber, 0.4pt + ink); content((5.1, 1.0), text(3.4pt, fill: white)[carved\ door])
+    rect((4.25, 3.40), (8.95, 3.52), fill: honey, stroke: none)
+    rect((5.8, 3.52), (8.95, 7.35), fill: sand, stroke: 0.4pt + ink)
+    for (a, b) in ((6.0, 7.3), (7.55, 8.85)) { poly(archpoly((a + b) / 2, b - a, 3.6, 5.95), glass, 0.4pt + ink) }
+    rect((4.25, 3.52), (5.8, 7.35), fill: sand.darken(4%), stroke: 0.4pt + ink); content((5.0, 5.4), text(3.4pt)[gallery\ (end-on)])
+    rect((4.1, 6.90), (9.1, 7.35), fill: honey, stroke: 0.3pt + ink)
+    rect((4.30, 7.35), (5.90, 10.6), fill: sand, stroke: 0.4pt + ink); rect((4.24, 10.6), (5.96, 10.75), fill: honey, stroke: none); rect((4.30, 10.75), (5.90, 12.9), fill: sand, stroke: 0.4pt + ink)
+    for k in range(4) { poly(archpoly(4.685 + k * 0.23 + 0.07, 0.14, 11.0, 12.53), rgb("#2b2b2d"), none) }
+    rect((4.2, 12.9), (6.0, 13.2), fill: honey, stroke: 0.3pt + ink)
+    content((6.6, -0.65), text(4.4pt, weight: "bold", fill: green)[looking NORTH from the seating (W ←)])
+  }),
+  cetz.canvas(length: 0.5cm, {
+    import cetz.draw: *
+    let X(y) = y - 5.0
+    rect((X(6.3), -0.3), (X(13.2), 0), fill: rgb("#d9cdb4"), stroke: none)
+    rect((X(6.5), 0), (X(13.0), 3.10), fill: rgb("#f4efe4"), stroke: 0.4pt + ink)
+    rect((X(6.5), 0), (X(8.9), 3.10), fill: sand.darken(5%), stroke: 0.5pt + ink); content((X(7.7), 1.9), text(3.4pt)[the core's west face\ (was glass 6.8–8.9)])
+    rect((X(6.7), 0), (X(8.7), 0.45), fill: timber.lighten(40%), stroke: 0.3pt + timber); content((X(7.7), 0.22), text(3.2pt)[bench])
+    rect((X(7.2), 2.6), (X(8.0), 2.8), fill: white, stroke: 0.4pt + green); content((X(7.6), 2.95), text(3pt, fill: green)[filtered air])
+    rect((X(9.1), 0), (X(10.5), 2.6), fill: glass, stroke: 0.4pt + ink); content((X(9.8), 1.3), text(3.2pt)[glass door])
+    rect((X(10.7), 0.1), (X(12.7), 2.6), fill: glass, stroke: 0.4pt + ink)
+    rect((X(6.5), 3.10), (X(13.0), 3.52), fill: luma(200), stroke: none); content((X(9.8), 3.3), text(3.2pt)[B4 (soffit +3.10)])
+    content((X(9.6), -0.65), text(4.4pt, weight: "bold", fill: green)[the RIWAQ looking east (N ←)])
+  }),
+  cetz.canvas(length: 1.0cm, {
+    import cetz.draw: *
+    let Q(p) = (p.at(0), -p.at(1))
+    rect(Q((2.6, 5.9)), Q((6.1, 9.6)), fill: rgb("#f6f3ec"), stroke: none)
+    rect(Q((2.6, 5.9)), Q((6.1, 6.4)), fill: rgb("#f1e3c8"), stroke: none); content(Q((3.4, 6.15)), text(3.6pt)[family living])
+    rect(Q((2.6, 9.2)), Q((4.25, 9.6)), fill: rgb("#d3e6ee"), stroke: none); content(Q((3.4, 9.4)), text(3.4pt)[bath 2])
+    rect(Q((4.30, 6.4)), Q((5.90, 7.6)), fill: rgb("#3a3f3b"), stroke: none); rect(Q((4.50, 6.6)), Q((5.70, 7.4)), fill: sky-l5, stroke: none)
+    line(Q((4.70, 7.5)), Q((5.50, 7.5)), stroke: 3pt + timber); content(Q((5.1, 7.85)), text(3.6pt, fill: timber)[arched grille 0.8 × 1.6\ + insulated damper])
+    line(Q((4.6, 6.5)), Q((5.4, 6.5)), stroke: 2pt + green); content(Q((5.0, 6.2)), text(3.2pt, fill: green)[filtered → living])
+    circle(Q((5.75, 7.75)), radius: 0.07, fill: green, stroke: none); content(Q((5.95, 8.05)), text(3.2pt, fill: green)[filtered → gallery (high)])
+    line(Q((5.8, 7.6)), Q((5.8, 9.6)), stroke: 1.4pt + ink); content(Q((6.0, 9.0)), angle: 90deg, text(3.4pt)[W1-2 →])
+    line(Q((4.30, 7.6)), Q((4.35, 9.10)), stroke: (paint: red, thickness: 0.5pt, dash: "dashed")); content(Q((4.0, 8.4)), text(3.4pt, fill: red)[1.50])
+    content(Q((2.7, 9.95)), anchor: "west", text(4.4pt, weight: "bold", fill: green)[FF plan of the core · 1 m = 1 cm])
+  }),
+  [
+    #H[3.2 · The gallery's window into the shaft (path a, clear days)]
+    - On the shaft's *south face* at the FF (facing the gallery's turn): an *arched carved-timber grille 0.8 × 1.6* (sill +4.20, springing +5.40, a semicircular head; the W1 language in small) with an *insulated, low-leakage motorised damper* behind it in the wall: nothing swings into the 1.5 m passage or into the 0.8 m shaft. Open only in the *Clear day* mode (Phase 4); closed it reads as a carved panel.
+    #H[3.3 · The filtered-air grilles (path b)]
+    - From the fan in the foot chamber up the sealed riser: a high linear grille (0.8 × 0.2) through the core's *north wall into the family living* (+6.4, acoustically lined), one on its *south face into the gallery* (+6.4, above the timber grille); at the GF high grilles into the *riwaq* (the core's west face, +2.7) and the *women's majlis* (its north wall, +2.7). D10 kept: no bedroom touches the core.
+    #H[3.4 · What else changes]
+    - #WARN[the women's majlis loses its small courtyard glass panel at x 5.1–5.6 (0.5 m, inside the core's north wall); its main courtyard glass x 6.0–8.1 stays.]
+    - The riwaq's first panel (y 6.8–8.9) becomes the core's rendered west face: a built-in timber *bench* along it (the riwaq's resting place) and the high filtered-air grille.
+    - The carved door (1.0 × 2.4, a semicircular head) faces the covered strip, seen from the seating beside the first arch.
+    #H[3.5 · D11 compatibility (not designed here)]
+    - *On the module:* every new size above (checks below); W1's sill at +3.80 (not +3.82) makes it 2.80 m high.
+    - #WARN[*D11 bands around each W1* (1.6 + 2 × 0.30 = 2.20 m) are wider than the arcade's bay (2.1667 m): the bands of neighbouring windows would overlap. The facade study should read D11 on this face as *shared pilaster bands on the column axes* (0.30, 1.87 m clear between them, W1 1.6 inside): the GF columns and the FF pilasters on the same axes.]
+    - #WARN[the arcade's bays (6.50 / 3 = 2.1667 m) are *not* on the 20 cm module (the structure's grid): keep them, or adjust at the facade study.]
+  ],
+)
+#v(2pt)
+#text(6.4pt)[*Open questions for the owner (Phase 3):* (1) *F3* (the head 1.6 × 2.4 over the first bay, its overhang south over the gallery roof, on the colonnade's axis) or *F2* (keep the decided 1.6 × 1.6 with the north overhang)? (2) The gallery's "window" into the shaft as a carved arched grille with an insulated damper behind it (not an opening casement): OK? (3) W1's sill at +3.80 (on the module): OK? (4) The bench along the riwaq's new solid wall: OK? (5) The farm's location and what lies to the west are still blank.]
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملخص المرحلة 3:* يصبح الباكية الأولى من الرواق المقوّس باكية الملقف: في الأرضي فتحة الهواء بشيش خشبي داخل القوس الأول، وفي العلوي قوس أعمى غائر بنفس محور القوس (بدل النافذة الأولى التي تغطيها النواة)، وتبقى النوافذ الأخرى على محاورها فوق أقواس الأرضي. *التوصية F3:* يمتد رأس البرج جنوبا فوق سقف الممر (1.6 × 2.4 م) ليقوم تماما على محور الباكية الأولى، فيبدأ البرج صف الأعمدة بخط رأسي واحد من القوس إلى التاج؛ وإن بقي البروز شمالا كما تقرر فالخيار F2. نافذة الممر إلى المجرى شبكة خشبية منحوتة مقوّسة خلفها خانق معزول، ومخارج الهواء المرشح عالية إلى الممر وجلسة العائلة والرواق والمجلس. يفقد المجلس لوح زجاج صغيرا (0.5 م)، وفي الرواق كنبة خشبية على الجدار الجديد. ملاحظة لدراسة الواجهات: أشرطة D11 حول كل نافذة أعرض من الباكية، فالأفضل أن تكون أكتافا مشتركة على محاور الأعمدة.
+]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 3 checks #if ok3 [*passed* (#checks3.len())] else [*FAILED*: #checks3.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: 3d/params.yaml (W1, W2), 3d/character.yaml (the arcade), presentation.typ (the courtyard glass), studies/roof.typ (the cornice, the band). Render and paint only (owner, 9 Nov 2026).]
