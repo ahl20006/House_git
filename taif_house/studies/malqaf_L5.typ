@@ -5,7 +5,7 @@
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0 (this issue): the geometry check and the climate basis. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -172,3 +172,174 @@
 ]
 #v(2pt)
 #text(6.2pt, fill: gray)[Phase 0 checks #if all-ok [*passed* (#checks.len())] else [*FAILED*: #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · *Sources:* Meteostat bulk hourly data, station 41036 Taif (bulk.meteostat.net), 2011–2025, 128 500 records; NOAA NCEI Integrated Surface Database (ISD) global-hourly, station 41036099999, 2015–2024, synoptic reports (noaa-global-hourly-pds); Windfinder, Taif Regional Airport statistics (prevailing W, 259°, 2011–2026); weatherandclimate.eu, Climate of Taif (monthly normals, which agree with the station means above); "Spatial and temporal variations in the incidence of dust storms in Saudi Arabia revealed from in situ observations" (Geosciences 2019; Cranfield and Exeter repositories: the west 5–15 dust-storm events a year, the spring peak). Reproduce: `python tools/climate_taif.py`.]
+
+
+// ======================================================================= PHASE 1 · L5 GEOMETRY AND VARIANTS (9 Nov 2026, after the owner's Phase 0 answers)
+// The owner's answers: the seating hours 16–23 and 20–32 °C accepted; the PM2.5 thresholds 35 / 50 and the winter closing at 18 °C accepted, always with a
+// manual override; the north-east corner returns to its V9.1 rooms (the corner study not needed); an on-site weather station for a few weeks; the old house
+// (one storey, ≈ 4–5 m) west of the new house: check its wind shadow (Phase 1 first estimate here, Phase 5 confirms).
+// Every core below is given by its OUTER faces (RC walls 0.20, ASSUMED); its north wall is the y 6.5 wall rebuilt in RC (faces 6.4–6.6): nothing taken from
+// the women's majlis or the family living. Its west face on x 4.30 (5 cm east of the riwaq's glazing line) keeps the FF gallery's west passage 1.52 m clear.
+#let p1-wall = 0.20
+#let sky-l5 = rgb("#d4e9f1")
+#let attic-top-l5 = 8.68
+#let lv-l5(v) = "+" + str(calc.round(v, digits: 2))
+#let rect-c(o) = ((o.at(0), o.at(1)), (o.at(2), o.at(1)), (o.at(2), o.at(3)), (o.at(0), o.at(3)))
+#let inner(o) = (o.at(0) + p1-wall, o.at(1) + p1-wall, o.at(2) - p1-wall, o.at(3) - p1-wall)
+#let ar(o) = (o.at(2) - o.at(0)) * (o.at(3) - o.at(1))
+#let riser = 0.12                       // the filtered path's riser (a Ø315 duct in its sealed corner compartment, ≈ 0.35 × 0.35 with its lining), ASSUMED
+#let bath2-face = (4.35, 9.10)          // the FF bedroom 2 bath's north-east corner (its wall faces): the gallery's turn from the west arm into the strip
+#let bal-face = 2.78                    // the stair well's balustrade face on x 2.75 (FF)
+#let mesh = 0.9; #let louvre = 0.6       // the bird / insect mesh and the outlet louvres' free ratios, ASSUMED
+#let VARS = (
+  (id: "V-a", name: [V-a · corner core (west half of the strip)], shaft: (4.30, 6.4, 5.10, 7.6), foot: (4.30, 6.4, 5.10, 7.6), outlet: 0.70, door: 0.50, w1: false,
+   fit: [no: 0.40 m clear wide, no cooler, no door ≥ 0.9], glass: 0.8),
+  (id: "V-b", name: [V-b · full-strip core], shaft: (4.30, 6.4, 5.90, 7.6), foot: (4.30, 6.4, 5.90, 7.6), outlet: 0.80, door: 1.00, w1: true,
+   fit: [tight: the cooler OR the filter cabinet, no standing room, the door must slide], glass: 0.8),
+  (id: "V-c", name: [V-c · full-strip core, the foot chamber in the first arcade bay], shaft: (4.30, 6.4, 5.90, 7.6), foot: (4.30, 6.4, 5.90, 8.767), outlet: 1.40, door: 1.00, w1: true,
+   fit: [yes: the cooler at the outlet, the filter cabinet + EC fan, the dust trap, a standing space at the door], glass: 2.1),
+)
+// the breeze loss chain (as studies/air_system.typ, referred to its 0.10 m² section): the head (≥ the shaft; ≈ 1.0 m² free on the windward face ASSUMED, Phase 5),
+// the flaps and the shaft, the damper, the dust trap and the turn into the foot chamber, the outlet grille (0.9 m high, 60 % free); no channel (the outlet IS the core's face)
+#let zeta-l1 = 2.8204 / calc.pow(1.37, 2)      // L1 (V9.3) with the channel at full width (studies/air_system.typ: V9.2 2.82, the V9.3 gain 1.37)
+#let zeta-v(v) = { let b = (inner(v.shaft).at(2) - inner(v.shaft).at(0)) * (inner(v.shaft).at(3) - inner(v.shaft).at(1)) - riser; let og = v.outlet * 0.9 * louvre
+  3.0 * calc.pow(0.10 / (1.0 * mesh), 2) + 1.5 * calc.pow(0.10 / b, 2) + 1.5 * calc.pow(0.10 / b, 2) + 2.5 * calc.pow(0.10 / og, 2) }
+#let b-area(v) = (inner(v.shaft).at(2) - inner(v.shaft).at(0)) * (inner(v.shaft).at(3) - inner(v.shaft).at(1)) - riser
+#let index(v) = calc.sqrt(zeta-l1 / zeta-v(v))
+#let q-at(z, v-wind: 5.8) = 0.10 * calc.sqrt(2 * 0.5 * 1.15 * v-wind * v-wind * 0.8 / (1.15 * z))   // m³/s at the 10 m mast's summer-evening mean (≈ 21 km/h), ΔCp 0.8 ASSUMED
+#let turn(v) = calc.sqrt(calc.pow(bath2-face.at(0) - v.shaft.at(0), 2) + calc.pow(bath2-face.at(1) - v.shaft.at(3), 2))
+// the wind shadows (ASHRAE Fundamentals 2021 ch. 24, the roof and wake recirculation scales): R = Bs^0.67 · BL^0.33, Hc = 0.22 R, Xc = 0.5 R, Lc = 0.9 R; the wake behind a building ≈ R long
+#let R-of(h, w) = calc.pow(calc.min(h, w), 0.67) * calc.pow(calc.max(h, w), 0.33)
+#let old = (h: 4.5, w: 22.0, dist: 13.0)          // the old house: one storey ≈ 4–5 m (owner), ≈ 22 m long N–S facing the west wind, its east face 13.0 m upwind of L5 (deed sketch, true W; 12.6 m WSW; no obstacle WNW–NW)
+#let R-old = R-of(old.h, old.w)
+#let new = (h: 8.98, w: 24.25, x5: 5.1, edge: 7.65)   // the new house to the attic coping (+8.68 = 8.98 above the ground), 24.25 m long facing the west wind; L5's centre 5.1 m from its west face
+#let R-new = R-of(new.h, new.w)
+#let Hc = 0.22 * R-new; #let Xc = 0.5 * R-new; #let Lc = 0.9 * R-new
+#let bubble-top = attic-top-l5 + Hc
+#let checks1 = (
+  ([the FF gallery's west passage ≥ 1.5 m clear beside every core (#r1(VARS.at(0).shaft.at(0) - bal-face) m)], VARS.all(v => v.shaft.at(0) - bal-face >= 1.5 - 1e-6)),
+  ([the gallery's turn from its west arm into the strip ≥ 1.5 m clear past every core (#str(calc.round(turn(VARS.at(1)), digits: 2)) m)], VARS.all(v => turn(v) >= 1.5 - 1e-6)),
+  ([no core enters the women's majlis or the family living (north outer face ≥ y 6.4, the y 6.5 wall's own face)], VARS.all(v => v.shaft.at(1) >= 6.4 - 1e-9 and v.foot.at(1) >= 6.4 - 1e-9)),
+  ([V-c's foot chamber takes the cooler envelope 0.8 × 0.7 (#ASSUMED) beside a 0.45 × 0.60 filter cabinet with 0.6 m to stand at the door], (inner(VARS.at(2).foot).at(2) - inner(VARS.at(2).foot).at(0)) >= 0.8 + 0.4 - 1e-6 and (inner(VARS.at(2).foot).at(3) - inner(VARS.at(2).foot).at(1)) >= 0.7 + 0.6 + 0.6 - 1e-6),
+  ([the old house's wake (≈ #r1(R-old) m) ends before L5 (#r1(old.dist) m downwind)], R-old < old.dist),
+)
+#let ok1 = checks1.all(c => c.at(1))
+
+// the key plans of the north-west corner (GF, FF, roof) for one variant
+#let corner(v, floor) = cetz.canvas(length: 0.415cm, {
+  import cetz.draw: *
+  let Q(p) = (p.at(0), -p.at(1))
+  let box4(o, f, s) = line(..rect-c(o).map(Q), close: true, fill: f, stroke: s)
+  let lbl(p, t, c) = content(Q(p), text(4pt, fill: c, t))
+  box4((2.0, 5.2, 9.2, 13.4), rgb("#f3efe6"), none)
+  if floor == "GF" {
+    box4((4.25, 6.5, 8.95, 13.0), rgb("#dfe9d3"), none); lbl((7.2, 12.85), [courtyard], green)
+    box4((5.925, 7.1, 8.85, 12.3), none, (paint: amber, thickness: 0.4pt, dash: "dashed")); lbl((7.4, 11.9), [seating], amber)
+    box4((4.25, 6.5, 5.8, 13.0), rgb("#e8eadf"), none); lbl((5.0, 12.4), [covered strip], gray)
+    box4((2.0, 5.2, 9.2, 6.4), rgb("#e9e2d2"), none); lbl((6.6, 5.8), [women's majlis], gray)
+    box4((2.75, 6.5, 4.25, 13.0), rgb("#f1ebdd"), none); lbl((3.5, 11.6), [riwaq], gray)
+    line(Q((4.25, 6.8)), Q((4.25, 8.9)), stroke: 1.6pt + blue); line(Q((4.25, 10.7)), Q((4.25, 12.7)), stroke: 1.6pt + blue); line(Q((4.25, 9.1)), Q((4.25, 10.5)), stroke: 1.0pt + blue)
+    for c in ((5.8, 6.5), (5.8, 8.667), (5.8, 10.833), (5.8, 13.0)) { circle(Q(c), radius: 0.15, fill: ink, stroke: none) }
+    box4(v.foot, rgb("#3a3f3b"), none); box4(inner(v.foot), sky-l5, none)
+    if v.id == "V-c" { line(Q((5.9, 7.1)), Q((5.9, 8.5)), stroke: 3pt + green); line(Q((4.6, 8.767)), Q((5.6, 8.767)), stroke: 3pt + rgb("#9c6b3c")) }
+    else { line(Q((v.foot.at(2), v.foot.at(1) + 0.3)), Q((v.foot.at(2), v.foot.at(1) + 0.3 + v.outlet * 0.8)), stroke: 3pt + green); line(Q((v.foot.at(0) + 0.15, v.foot.at(3))), Q((v.foot.at(0) + 0.15 + v.door, v.foot.at(3))), stroke: 3pt + rgb("#9c6b3c")) }
+  } else if floor == "FF" {
+    box4((2.0, 5.2, 9.2, 6.4), rgb("#f1e3c8"), none); lbl((6.6, 5.8), [family living], gray)
+    box4((2.0, 7.9, 2.75, 9.2), rgb("#d3e6ee"), none); box4((2.0, 9.2, 4.25, 11.0), rgb("#d3e6ee"), none); lbl((3.0, 10.1), [bath 2], gray)
+    box4((2.0, 5.2, 2.75, 7.9), rgb("#e4e0d6"), none); lbl((2.35, 7.0), [stair], gray)
+    box4((2.75, 6.5, 4.25, 9.2), rgb("#f6f3ec"), none); box4((4.25, 6.5, 5.8, 13.4), rgb("#f6f3ec"), none); lbl((3.5, 8.6), [gallery], gray)
+    box4((2.0, 11.0, 4.25, 13.4), rgb("#f1e3c8"), none); lbl((3.1, 12.3), [bedroom 2], gray)
+    box4((5.8, 6.5, 9.2, 13.4), white, none); lbl((7.4, 9.9), [courtyard sky], gray)
+    for (a, b) in ((6.783, 8.383), (8.95, 10.55), (11.117, 12.717)) { line(Q((5.8, a)), Q((5.8, b)), stroke: 1.6pt + blue) }
+    box4(v.shaft, rgb("#3a3f3b"), none); box4(inner(v.shaft), sky-l5, none)
+    line(Q((v.shaft.at(0), v.shaft.at(3))), Q(bath2-face), stroke: (paint: red, thickness: 0.6pt, dash: "dashed")); lbl((3.9, 8.3), [#str(calc.round(turn(v), digits: 2))], red)
+    line(Q((bal-face, 7.0)), Q((v.shaft.at(0), 7.0)), stroke: (paint: red, thickness: 0.6pt)); lbl((3.55, 6.85), [1.52], red)
+  } else {
+    box4((2.0, 5.2, 9.2, 13.4), rgb("#ece6d8"), none)
+    box4((5.8, 6.5, 8.95, 13.0), white, (paint: gray, thickness: 0.5pt)); lbl((7.4, 9.9), [sky (guard)], gray)
+    box4((2.85, 5.2, 4.15, 5.6), rgb("#dbe7ec"), none); lbl((3.5, 5.45), [Z3 tank ↑], gray)
+    line(Q((3.5, 5.2)), Q((3.5, 13.4)), stroke: (paint: gray, thickness: 0.5pt, dash: "dash-dotted")); lbl((3.2, 12.0), [walkway], gray)
+    box4((v.shaft.at(0), 5.6, v.shaft.at(2), v.shaft.at(3)), rgb("#d2b27a"), 0.6pt + ink); lbl(((v.shaft.at(0) + v.shaft.at(2)) / 2, 6.6), [head ≥\ shaft], ink)
+  }
+  content(Q((2.1, 13.95)), anchor: "west", text(4.6pt, weight: "bold", fill: green)[#v.id · #floor])
+})
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 1 · L5 geometry and variants · the north-west corner of the courtyard, inside the covered strip]
+#v(1pt)
+#text(7pt, fill: gray)[The owner's answers to Phase 0 (9 Nov 2026) applied. Every core by its *outer faces* (RC walls 0.20, #ASSUMED); its north wall is the y 6.5 wall rebuilt in RC (nothing taken from the women's majlis or the family living); its west face on x 4.30 keeps the gallery's west passage *1.52 m clear*. GF: the outlet (green) and the door (brown). FF: the passage widths (red). Roof: the head may grow north over the family living's roof (D7: ≥ the shaft, a funnel). 1 m = 0.415 cm.]
+#v(2pt)
+#grid(columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto), column-gutter: 1pt, row-gutter: 2pt,
+  ..VARS.map(v => ("GF", "FF", "ROOF").map(f => corner(v, f))).flatten())
+#v(3pt)
+#table(columns: (1.5fr, auto, auto, auto, auto, auto, 1.5fr, 1.4fr, auto), inset: 2.2pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") },
+  [*Variant*], [*Shaft clear*], [*Breeze area*], [*Foot chamber*], [*Outlet (free)*], [*Door*], [*Fits (cooler / filters / dust trap)*], [*What is lost*], [*Breeze (L1 V9.3 = 1)*],
+  ..VARS.map(v => (
+    [*#v.name*],
+    [#r1(inner(v.shaft).at(2) - inner(v.shaft).at(0)) × #r1(inner(v.shaft).at(3) - inner(v.shaft).at(1)) = #str(calc.round(ar(inner(v.shaft)), digits: 2)) m²],
+    [#str(calc.round(b-area(v), digits: 2)) m²],
+    [#r1(inner(v.foot).at(2) - inner(v.foot).at(0)) × #str(calc.round(inner(v.foot).at(3) - inner(v.foot).at(1), digits: 2)) = #str(calc.round(ar(inner(v.foot)), digits: 2)) m²],
+    [#r1(v.outlet) × 0.9 (#str(calc.round(v.outlet * 0.9 * louvre, digits: 2)) m²)],
+    [#str(calc.round(v.door, digits: 2)) m],
+    [#v.fit],
+    [strip #str(calc.round((calc.min(v.foot.at(2), 5.8) - 4.25) * (v.foot.at(3) - 6.5), digits: 1)) m² · gallery #str(calc.round((calc.min(v.shaft.at(2), 5.8) - 4.25) * (v.shaft.at(3) - 6.5), digits: 1)) m² · riwaq glass #r1(v.glass) m solid#if v.w1 [ · W1-1 covered (Phase 3)] else [ · W1-1 untouched (a 0.7 m dead pocket beside the core)]],
+    [*#str(calc.round(index(v), digits: 1))* (≈ #str(calc.round(q-at(zeta-v(v)), digits: 2)) m³/s)],
+  )).flatten()
+)
+#text(6.2pt, fill: gray)[Breeze: the air study's loss chain referred to its 0.10 m² section, with the same head pressure for all (ΔCp 0.8, the summer-evening mean wind 21 km/h): L1 (V9.3, the channel at full width) #str(calc.round(q-at(zeta-l1), digits: 2)) m³/s. The L5 head's pressure is *not yet* the same (§ 1.3). Riser = the filtered path's Ø315 duct compartment (#riser m²) inside the core. All #ASSUMED.]
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 1 · the foot chamber (V-c), the outlet, the door · the passage limit · the wind shadows]
+#v(3pt)
+#grid(columns: (auto, 1fr), gutter: 12pt,
+  cetz.canvas(length: 2.3cm, {
+    import cetz.draw: *
+    let Q(p) = (p.at(0), -p.at(1))
+    let o = VARS.at(2).foot; let i = inner(o)
+    line(..rect-c(o).map(Q), close: true, fill: rgb("#3a3f3b"), stroke: none); line(..rect-c(i).map(Q), close: true, fill: rgb("#f4f1ea"), stroke: none)
+    line(..rect-c((4.5, 6.6, 5.7, 7.4)).map(Q), close: true, fill: sky-l5.transparentize(30%), stroke: (paint: blue, thickness: 0.4pt, dash: "dashed")); content(Q((5.35, 6.72)), text(3.6pt, fill: blue)[shaft above])
+    line(..rect-c((4.55, 6.65, 5.35, 7.35)).map(Q), close: true, fill: none, stroke: 0.5pt + gray); content(Q((4.95, 7.15)), text(3.8pt)[dust trap (floor basin,\ grating, drain)])
+    line(..rect-c((4.5, 6.6, 4.85, 6.95)).map(Q), close: true, fill: rgb("#dfe8d0"), stroke: 0.4pt + green); content(Q((4.675, 6.78)), text(3.2pt)[riser (b)])
+    line(..rect-c((4.9, 7.55, 5.7, 8.25)).map(Q), close: true, fill: rgb("#e8f1f6"), stroke: 0.6pt + blue); content(Q((5.3, 7.9)), text(4pt)[mobile cooler\ 0.8 × 0.7 × ≤ 1.6])
+    line(..rect-c((4.5, 7.55, 4.95, 8.15)).map(Q), close: true, fill: rgb("#dfe8d0"), stroke: 0.6pt + green); content(Q((4.725, 7.85)), text(3.4pt)[filters\ + EC fan])
+    line(Q((5.9, 7.1)), Q((5.9, 8.5)), stroke: 4pt + green); content(Q((6.25, 7.8)), angle: 90deg, text(4.2pt, fill: green)[outlet 1.4 × 0.9 (louvres)])
+    line(Q((4.6, 8.767)), Q((5.6, 8.767)), stroke: 4pt + rgb("#9c6b3c")); content(Q((5.1, 9.0)), text(4.2pt, fill: rgb("#9c6b3c"))[carved door 1.0 m → the covered strip])
+    circle(Q((4.6, 8.45)), radius: 0.05, fill: blue, stroke: none); content(Q((4.7, 8.48)), anchor: "west", text(3.2pt)[water · drain · IP44])
+    circle(Q((5.8, 6.5)), radius: 0.15, fill: luma(90), stroke: none); content(Q((6.0, 6.35)), anchor: "west", text(3.4pt)[C21 inside the wall])
+    circle(Q((5.8, 8.667)), radius: 0.12, fill: luma(90), stroke: none)
+    content(Q((4.3, 9.35)), anchor: "west", text(4.4pt, weight: "bold", fill: green)[V-c · the GF foot chamber · 1 m = 2.3 cm])
+  }),
+  [
+    #H[1.1 · The passage limit sets the shaft (a finding)]
+    - At the first floor the gallery's north arm (x 2.75–4.25, beside the stair) turns into the strip (x 4.25–5.80) *between the core's south face and bedroom 2's bath* (its north-east corner at (4.35, 9.10)). For ≥ 1.5 m there the core's south face must stay at *y ≤ 7.6*: the shaft is at most *1.2 × 0.8 m clear (0.96 m²)*, the same order as L1. It is enough aerodynamically (its loss is ≈ 2 % of the chain: the head and the outlet govern), but it is *not* the "large" shaft of D7. *Options:* accept a 1.2 m turn (the shaft 1.2 × 1.1 = 1.32 m²), or move bath 2's north-east corner (a room change).
+    - *The foot chamber is free of that limit:* under the gallery floor it may run south; V-c ends it at the *first arcade column (y 8.667)*, so the outlet fills *the first arch* of the courtyard arcade, facing the seating along the colonnade line (no channel, the route ≈ 1 m).
+    #H[1.2 · The foot chamber (V-c), the outlet, the door]
+    - *Clear 1.20 × 1.97 m (2.36 m²), ≈ 3.1 m high (to the FF slab) and open above into the shaft.* The dust trap: a 0.8 × 0.7 floor basin under the shaft (a lift-out stainless grating, a 0.25 m deep sump, a drain to the courtyard drainage); the filtered path's riser in the north-west corner, its filter cabinet + EC fan (0.45 × 0.60) at the west wall; the cooler's place at the outlet; a water point with a float valve, a floor drain, a dedicated circuit and IP44 sockets.
+    - *The cooler (D9):* the common portable desert coolers sold in the Kingdom run from ≈ 45 L tanks (≈ 0.4 × 0.35 × 1.0 m) to 90–150 L (≈ 0.6–0.8 × 0.5–0.7 × 1.3–1.6 m); the chamber is laid out for the larger envelope *0.8 × 0.7 × 1.6 m* (#ASSUMED: the owner's shortlist to confirm), rolled in through the door, its outlet against the grille.
+    - *The outlet:* *1.4 × 0.9 m* in the first arch, sill +0.10, adjustable timber or pierced-stone louvres (≈ 60 % free, 0.76 m²) aiming the air along the seating; a motorised insulated damper behind it (Phase 4).
+    - *The door:* *1.0 m clear, full height (≈ 2.4 m)*, a carved timber door on the chamber's south face, opening onto the covered strip (the strip south of the core, 1.55 × 4.2 m, stays the riwaq's courtyard edge).
+  ],
+)
+#v(3pt)
+#grid(columns: (1fr, 1fr), gutter: 12pt,
+  [
+    #H[1.3 · The wind shadows (first estimate; Phase 5 confirms)]
+    - *The old house* (one storey, ≈ 4–5 m, the owner): for a due-west wind its east face is *#r1(old.dist) m upwind* of L5 (12.6 m for WSW; *nothing upwind for WNW–NW*). Its recirculating wake is ≈ R = #r1(R-old) m long and ≈ 1.5–2 H (≈ 7–9 m) high near it: *L5 is beyond it*, and a head above ≈ +10 is above its decaying wake. ✓
+    - #WARN[*the new house's own roof matters more:* L5 stands #r1(new.x5) m behind the west facade, where the flow separating over the parapet and the attic is at its highest: R = #r1(R-new) m, the recirculation bubble ≈ #r1(Hc) m high at #r1(Xc) m from the west edge (L1 sits near its tail, ≈ #r1(Lc) m). With the L1 head's openings (+10.35 … +11.73) the L5 west face would breathe partly *inside* the bubble (top ≈ #lv-l5(bubble-top)). *Phase 5 to set the L5 openings from ≈ +11.0 up to ≈ +12.6, the crown ≈ +13.2 (≈ 4.5 m above the attic)*, or accept a weaker west face in a pure west wind (the north face still catches NW).]
+  ],
+  [
+    #H[1.4 · The on-site weather station (the owner's question)]
+    - *Where:* on the build land at the L5 spot or as close as possible (≈ 6 m east of the M line, ≈ 14 m south of the gate), in the open, *not* on the old house's roof (its own disturbance).
+    - *Height:* the anemometer *≥ 6 m above the ground, ideally 10 m* (the airport's standard, and the tower head's ≈ +12 m), on a guyed telescopic mast; a second, cheap sensor at ≈ 4 m would show the old house's shadow.
+    - *What:* an ultrasonic anemometer (no moving parts) or a cup + vane, temperature / humidity, a PM2.5 sensor if possible; *1-minute averages*, logged; *≥ 4–6 weeks*, the evenings with a west wind included. We compare it with the airport for the same days.
+  ],
+)
+#v(2pt)
+#text(6.4pt)[*Open questions for the owner (Phase 1):* (1) V-c (recommended) with the shaft limited to 0.96 m² by the gallery's 1.5 m turn, or accept a 1.2 m turn for a 1.32 m² shaft? (2) The riwaq's first glass panel (y 6.8–8.9, 2.1 m) becomes solid in V-c (the glass door and the 2.0 m south panel stay): OK? (3) The carved door on the chamber's south face into the covered strip: OK? (4) The Phase 0 answer had blanks: the farm's distance and direction from the airport, the trees or hills to the west; and whether to add the winter late mornings (Dec–Jan 10:00–13:00 average ≈ 20–23 °C) to the seating hours.]
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملخص المرحلة 1:* قُورنت ثلاثة بدائل للملقف في الركن الشمالي الغربي للفناء. الممر العلوي يفرض حدا: ليبقى عرض الالتفاف 1.5 م عند حمام غرفة النوم 2 لا يتجاوز المجرى في الدور الأول 1.2 × 0.8 م صافيا (0.96 م²)، وهذا يكفي هوائيا لأن الخسارة الكبرى في الرأس والفتحة. *التوصية: البديل (ج)*: غرفة القاعدة في الدور الأرضي تمتد إلى أول عمود في الرواق المقوّس (1.2 × 1.97 م صافيا) وفيها مصيدة الغبار وخزانة المرشحات والمروحة ومكان المبرد الصحراوي المتنقل، وفتحة الهواء 1.4 × 0.9 م داخل أول قوس مقابل الجلسة مباشرة، وباب خشبي منحوت بعرض 1 م. النسيم المقدّر نحو 3.5 أضعاف الموقع الحالي. البيت القديم على بعد 13 م غربا فلا يحجب الرأس، لكن سقف البيت الجديد نفسه يحدث دوامة فوقه فيجب رفع فتحات الرأس إلى نحو +11 حتى +12.6 م (المرحلة 5). محطة الطقس: على أرض البناء في موضع البرج، بارتفاع 6 م على الأقل والأفضل 10 م، لمدة 4–6 أسابيع.
+]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 1 checks #if ok1 [*passed* (#checks1.len())] else [*FAILED*: #checks1.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: data/rooms_gf.csv / rooms_ff.csv (V9.3), studies/structure.typ (C17, C21, B3, B4, R11), 3d/character.yaml (the arcade columns at y 8.667 / 10.833), data/deed_sketch.csv (the old house), ASHRAE Handbook — Fundamentals 2021, ch. 24 (Airflow around buildings: R, Hc, Xc, Lc); cooler sizes from Saudi and Gulf retail listings (Carrefour KSA 90 L, Aftron / Alhayyat / ALM 150 L).]
