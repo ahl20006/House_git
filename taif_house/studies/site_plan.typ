@@ -111,7 +111,7 @@
 #let grill-box = (grill.at(0).at(0), grill.at(0).at(1), grill.at(1).at(0), grill.at(1).at(1))
 #let counter-box = (counter.at(0).at(0), counter.at(0).at(1), counter.at(1).at(0), counter.at(1).at(1))
 #let w-maid = (S((12.308, 3.4)), S((12.852, 4.4)))                   // the maid room's escape window on the cut wall
-#let hrv-site = S((8.95, 1.5))                                          // the HRV intake (roof, the malqaf tower)
+#let hrv-site = S((4.6, 8.5))                                          // V10.0: the filtered supply's inlet under the malqaf head (L5)
 #let okit-zone = (counter-box.at(0), counter-box.at(1), counter-box.at(2) + 1.0, counter-box.at(3))   // the counter + its 1.0 m working strip: the workers' path must not cross it
 #let manhole-e = S((14.3, 13.5))                                     // the east-yard FOUL chamber (kitchen, laundry, maid bath, the suite stack): at the yard's south end; rain NEVER enters it (3 Nov 2026)
 #let rain-ch = (15.7, 18.1484)                                           // the east RAIN chamber (the courtyard's drain and overflow, the east downpipes) → the east soakaway; separate from the foul system

@@ -123,7 +123,7 @@
   let T(p, body, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
   let R(b, fill: none, stroke: none) = rect(q((b.at(0), b.at(1))), q((b.at(2), b.at(3))), fill: fill, stroke: stroke)
   R((4.25, 0, 8.95, 6.5), fill: rgb("#f6e3c0")); T((6.6, 3.3), [women's majlis], size: 3.2pt)
-  line(q((8.95, 1)), q((10.094, 1)), q((10.601, 1.933)), q((11.303, 1.551)), q((11.982, 2.8)), q((8.95, 2.8)), close: true, fill: rgb("#dbe7ec"), stroke: 0.5pt + ink); T((9.8, 1.9), [maid bath], size: 3pt)
+  line(q((8.95, 1)), q((11.004, 1)), q((11.982, 2.8)), q((8.95, 2.8)), close: true, fill: rgb("#dbe7ec"), stroke: 0.5pt + ink); T((9.8, 1.9), [maid bath], size: 3pt)
   line(q((10.65, 2.8)), q((11.982, 2.8)), q((13.311, 5.245)), q((13.311, 7.0)), q((10.65, 7.0)), close: true, fill: rgb("#dbe7ec"), stroke: 0.5pt + ink); T((12.0, 5.0), [maid room], size: 3.2pt)
   R((8.95, 7.0, 13.311, 9.0), fill: rgb("#dbe7ec")); T((11.1, 8.0), [kitchen (the way in: kitchen → laundry)], size: 3.2pt)
   R(laundry, fill: rgb("#dbe7ec"), stroke: 0.5pt + ink)

@@ -6,7 +6,7 @@ The first floor has its own tool: tools/make_dxf_ff.py.
 
 Everything is read from the same sources as the Typst drawing, nothing is typed in twice:
   base.typ            site: land, envelope, driveway, lane, north wall, palms, M pegs, north
-  design_gf.typ       building shift / rotation, outline, air tower, inner boxes, level marks, entries,
+  design_gf.typ       building shift / rotation, outline, the malqaf core, inner boxes, level marks, entries,
                       and the door / window / opening lines of both blocks (west-lines, east-lines)
   data/rooms_gf.csv   every room (rectangle from x, y, w, d, angle, or corner points from "pts")
   studies/east_wing.typ   fixtures (counters, machines, bed …) and the solid wall of the east block
@@ -62,7 +62,7 @@ site = {k: numbers(base, k) for k in ("land", "env", "drv", "lane", "nwall", "so
 shift = numbers(design, "shift")
 rot = math.radians(float(re.search(r"#let\s+rot\s*=\s*(-?[\d.]+)deg", design).group(1)))
 outline_csv = numbers(design, "outline-csv-gf")
-tower_csv = numbers(design, "tower-pts")
+tower_csv = numbers(design, "tower-csv")   # V10.0: the malqaf's foot chamber (L5)
 
 PAIR = r"\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)"
 inner_boxes = [(float(a), float(b), float(c), float(d), clean(l)) for a, b, c, d, l in
@@ -170,7 +170,7 @@ LAYERS = {   # name: (ACI colour, linetype, description)
     "ROOMS-CIRC": (9, "CONTINUOUS", "circulation"),
     "ROOMS-CORE": (252, "CONTINUOUS", "lift, stair, utility"),
     "ROOM-LABELS": (7, "CONTINUOUS", "room name and area"),
-    "AIR-TOWER": (4, "CONTINUOUS", "air tower in the cut corner"),
+    "AIR-TOWER": (4, "CONTINUOUS", "the malqaf core at the courtyard's north-west corner (V10.0, L5)"),
     "DOORS": (1, "CONTINUOUS", "doors"),
     "OPENINGS": (6, "CONTINUOUS", "open entrances and openings, no door"),
     "WINDOWS": (4, "CONTINUOUS", "windows"),
@@ -234,7 +234,7 @@ for r in rows:
     room_areas[r["name"]] = area(P)
 
 pline([place(p) for p in tower_csv], "AIR-TOWER")
-label(place((9.5, 0.5)), "Air tower", "AIR-TOWER", h=0.12)
+label(place((5.1, 7.6)), "Malqaf", "AIR-TOWER", h=0.12)
 
 for x0, y0, x1, y1, l in inner_boxes:
     pline([place(p) for p in ((x0, y0), (x1, y0), (x1, y1), (x0, y1))], "MARKS")

@@ -74,7 +74,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", ["All rooms inside the zone"]),
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", ["All rooms inside the zone"]),
     ("studies/structure.typ", OUTPUT / "structure.pdf", ["Preliminary structural study"]),
-    ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study v3", "checks passed"]),
+    ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study v4", "checks passed"]),
     ("studies/south_wing.typ", OUTPUT / "south_wing.pdf", ["South wing study", "checks passed"]),
     ("studies/courtyard_enclosure.typ", OUTPUT / "courtyard_enclosure.pdf", ["Courtyard enclosure study", "Study checks passed"]),
     ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),
@@ -173,7 +173,7 @@ def live(block):
 
 RECT = r'\(\s*"([^"]+)",\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*"(\w+)"\s*\)'
 POLY = r'\(\s*"([^"]+)",\s*(\((?:\s*\(\s*-?[\d.]+\s*,\s*-?[\d.]+\s*\)\s*,?)+\s*\)),\s*"(\w+)"\s*\)'
-studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 47.63)}   # (dx, dy, rooms total m²) · V9.3: the maid bath round the slim shaft + the maid store
+studies = {"studies/guest_wing.typ": (0.0, 10.4, 37.4), "studies/east_wing.typ": (8.95, 0.0, 49.22)}   # (dx, dy, rooms total m²) · V10.0: the V9.1 maid wing + the store in the cut tip (the malqaf at L5)
 for src, (dx, dy, total) in studies.items():
     text = (ROOT / src).read_text(encoding="utf-8")
     found = [(n, rect(float(x) + dx, float(y) + dy, float(w), float(d))) for n, x, y, w, d, _ in re.findall(RECT, live(grab(text, "rooms-data")))]

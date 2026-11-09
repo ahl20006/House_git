@@ -1,5 +1,5 @@
 // design_gf.typ · Taif / Palm House · GROUND FLOOR V6.3 · the file you compile for the ground floor
-// Compact courtyard house: courtyard at the centre, west service band, east service block, air tower with an underground tunnel.
+// Compact courtyard house: courtyard at the centre, west service band, east service block, the malqaf at the courtyard's north-west corner (V10.0, L5).
 // Three columns on x 5.8 carry the edge beam of the first floor's 1.55 m west projection over the courtyard and the living (a colonnade); V6.4: enclosure option A.
 // Reads data/rooms_gf.csv (rooms) and base.typ (site). Room studies: studies/guest_wing.typ (west wash block), studies/east_wing.typ (east service block).
 // Full description: docs/PROJECT_V6.md · DXF: tools/make_dxf.py reads this file
@@ -59,7 +59,7 @@
 #let cd = float(crow.d)
 #let cx0 = float(crow.x) - cw / 2
 #let cy0 = float(crow.y) - cd / 2
-#let court = ((cx0, cy0), (cx0 + cw, cy0), (cx0 + cw, cy0 + cd), (cx0, cy0 + cd)).map(rotp)
+#let court = (if crow.at("pts", default: "").trim() != "" { pts-of(crow) } else { ((cx0, cy0), (cx0 + cw, cy0), (cx0 + cw, cy0 + cd), (cx0, cy0 + cd)) }).map(rotp)   // V10.0: the L-shape round the malqaf core
 
 // ---------- Entry arrows (CSV coordinates): (point on the wall, outward direction, label) ----------
 #let entries = (
@@ -94,7 +94,9 @@
 // west band and west wash block (studies/guest_wing.typ: local y + 10.4 = CSV y)
 #let west-lines = (
   ((2.25, 0.9), (2.25, 1.9), []),            // lift door (sliding landing door; the lift is installed at construction, V6.3)
-  ((2.75, 6.7), (2.75, 7.6), [store]),       // V9.2 labelled · the store under the half landing: a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
+  ((2.75, 6.7), (2.75, 7.6), [store]),       // V9.2 labelled · the store under the half landing
+  ((4.6, 8.667), (5.6, 8.667), [malqaf door]),   // V10.0 (L5): the carved door of the malqaf's foot chamber onto the covered strip
+  ((5.8, 7.1), (5.8, 8.5), [outlet]),          // V10.0: the breeze outlet 1.4 × 1.0 in the first arcade arch (timber louvres): a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
   ((0.0, 6.7), (0.0, 7.6), []),              // the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
   ((2.4, 0.0), (2.9, 0.0), []),              // the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
   ((2.75, 10.6), (2.75, 12.7), []),           // hospitality kitchen, open to the riwaq
@@ -126,9 +128,10 @@
 #let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.9, 5.0), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
-// ---------- Air tower: V9.3 (owner, studies/malqaf_tower.typ) the SLIM SHAFT along the north-east cut wall, on the wall centre lines (0.575 × 1.565 m clear = 0.90 m²): the cut wall, one new 200 mm wall parallel to it, a square end wall, the tip a solid corner pier; drawn blue with the air list; the malqaf tower stands above the roof on the attic's corner ----------
-#let tower-pts = ((9.551, 0), (10.461, 0), (11.303, 1.551), (10.601, 1.933)).map(place)
-#let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Air tower]),)
+// ---------- The malqaf (V10.0, owner: L5, studies/malqaf_L5.typ): the foot chamber at the courtyard's NORTH-WEST corner, inside the covered strip under the first-floor projection, against the women's majlis's wall, on the wall centre lines (outer faces x 4.30–5.90, y 6.4–8.767; RC 0.20); the shaft above it (y 6.5–7.5) and the head on the roof; drawn blue with the air list ----------
+#let tower-csv = ((4.4, 6.5), (5.8, 6.5), (5.8, 8.667), (4.4, 8.667))   // read by 3d/build_3d.py and tools/make_dxf.py
+#let tower-pts = tower-csv.map(place)
+#let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Malqaf]),)
 // 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
 // window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV
 // intake, downwind of the house in the north-west wind); the yard re-planned: the screen 1.8 m east of the counter's working strip, the gas cabinet on its outer face at the
@@ -184,7 +187,7 @@
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Air before sun]
 
-  Taif's prevailing wind comes from the north-west. A slim air shaft along the north-east cut wall (V9.3: 0.575 × 1.565 m clear = 0.90 m², the store off the maid bath north of it) rising to the malqaf tower set back on the attic's corner, so it takes no usable room space, catches it above the roof, where it is strong and clean, and brings it down to a tunnel below the floor. The tunnel passes through the cool ground and releases the air through a low, closable opening in the courtyard wall. Warm air rises and leaves through the open sky. The narrow courtyard is enclosed on all four sides and shaded by its walls, so it receives air without receiving sun. Every opening can be closed: open at night and early morning, closed in hot afternoons, dust and cold.
+  Taif's prevailing wind comes from the north-west. The malqaf (V10.0, L5) stands at the courtyard's north-west corner: an RC core inside the covered strip with its foot chamber (the dust trap, the filters and the fan, the space for a cooler; a carved door onto the strip), the breeze outlet in the first arcade arch facing the seating, the shaft in the gallery's end and the head 1.6 × 2.4 on the roof; the north-east tip is the maid's store, so it takes no usable room space, catches it above the roof, where it is strong and clean, and brings it down to a tunnel below the floor. The tunnel passes through the cool ground and releases the air through a low, closable opening in the courtyard wall. Warm air rises and leaves through the open sky. The narrow courtyard is enclosed on all four sides and shaded by its walls, so it receives air without receiving sun. Every opening can be closed: open at night and early morning, closed in hot afternoons, dust and cold.
 
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[On firm ground, as far north as possible]

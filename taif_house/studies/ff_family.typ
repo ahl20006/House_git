@@ -20,7 +20,7 @@
   (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
-  (name: "Air tower", pts: ((9.551, 0), (10.461, 0), (11.303, 1.551), (10.601, 1.933)), parts: ()),   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
+  (name: "Air tower", pts: ((4.4, 6.5), (5.8, 6.5), (5.8, 7.5), (4.4, 7.5))),   // V10.0 (L5): the malqaf shaft at the gallery's north end (1.2 × 0.8 clear), the head above the roof; the gallery's turn past bedroom 2's bath 1.5 m   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
 )
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
@@ -60,8 +60,8 @@
 // ---------- Rooms ----------
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
-  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (5.8, 6.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
-    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 5.8, 19.25))),
+  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (4.4, 6.5), (4.4, 7.5), (5.8, 7.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
+    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 4.4, 7.5), rect-pts(4.25, 7.5, 5.8, 19.25))),   // V10.0: the jog round the malqaf shaft
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
   R("Family WC (gallery)", rect-pts(0, 7.9, 2.75, 9.2), "wet"),   // 3 Nov 2026 (owner): the F-b bath split: the family WC (WC + basin) on the strip by the shaft, its door from the gallery; the WC behind a screen wall
   R("Bedroom 2 bath (en-suite)", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4)), "wet",   // bedroom 2's en-suite: shower, WC, basin; its door from inside bedroom 2; the former wardrobe niche is its vanity niche
@@ -73,9 +73,8 @@
   R("Kids' room (study + gaming)", rect-pts(4.25, 0, 8.95, 3.0), "kids"),
   R("Family living", rect-pts(4.25, 3.0, 8.95, 6.5), "family"),
   R("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"),
-  R("Bedroom 1", ((8.95, 1.0), (10.094, 1.0), (10.601, 1.933), (11.303, 1.551), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
-    parts: (((8.95, 1.0), (13.311, 1.0), (13.311, 5.3), (8.95, 5.3)), rect-pts(10.15, 5.3, 13.311, 6.5))),   // V9.3: one straight wall parallel to the cut (the shaft) and its square return
-  R("Bedroom 1 cupboard", ((8.95, 0), (9.551, 0), (10.094, 1.0), (8.95, 1.0)), "store"),   // V9.3: north of the y 1.0 partition, a cupboard opening from bedroom 1
+  R("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "family",
+    parts: (((8.95, 0), (13.311, 0), (13.311, 5.3), (8.95, 5.3)), rect-pts(10.15, 5.3, 13.311, 6.5))),   // V10.0: the malqaf at L5 frees the cut tip: bedroom 1 takes it (its north wall the facade); no slanted inner wall   // V9.3: one straight wall parallel to the cut (the shaft) and its square return
 )
 #let seating = rooms.find(r => r.name.starts-with("Family living"))
 #let room(n) = { let e = rooms.find(r => r.name == n); if e != none { e } else { rooms.find(r => r.name.starts-with(n)) } }
@@ -93,7 +92,6 @@
   D((4.25, 15.2), (4.25, 16.2), [bed 3], "Bedroom 3", (-1, 0)),
   D((2.2, 15.0), (2.2, 16.0), [bath (sliding)], "Bedroom 3 bath (en-suite)", (-1, 0), from: "Bedroom 3", open: true),
   D((9.05, 5.3), (10.05, 5.3), [bed 1], "Bedroom 1", (0, -1)),
-  D((9.15, 1.0), (9.75, 1.0), [cupboard], "Bedroom 1 cupboard", (0, -1), from: "Bedroom 1", open: true),   // V9.3: sliding doors
 )
 
 // ---------- Furniture and fixtures (x0, y0, x1, y1, label) ----------
@@ -117,13 +115,13 @@
   (2.3, 14.5, 3.35, 15.1, [wardrobe]), (0.125, 17.0, 2.125, 18.4, [bed 1.4 × 2.0]), (0.125, 16.55, 0.525, 16.95, []), (0.125, 18.45, 0.525, 18.85, []),
   (3.55, 16.3, 4.15, 17.9, [wardrobe]), (2.3, 18.55, 3.5, 19.15, [desk]), (2.65, 18.0, 3.15, 18.45, []),
   // bedroom 1: one room, no bath; wardrobe wall on the straight south wall
-  (9.05, 2.3, 11.05, 3.7, [bed 1.4 × 2.0]), (9.05, 1.85, 9.45, 2.25, []), (9.05, 3.75, 9.45, 4.15, []), (10.9, 3.9, 12.0, 4.5, [desk]), (11.2, 4.55, 11.65, 5.0, []),   // V9.3: the bed's head on the west wall, clear of the shaft
+  (9.05, 0.35, 10.45, 2.35, [bed 1.4 × 2.0]), (10.5, 1.95, 10.9, 2.35, []), (10.9, 3.9, 12.0, 4.5, [desk]), (11.2, 3.35, 11.65, 3.8, []),   // V10.0: the bed's head on the north wall   // V9.3: the bed's head on the west wall, clear of the shaft
   (10.3, 5.85, 12.9, 6.4, [wardrobe wall 2.6 m]),
 )
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
-#let escape-windows = (("Bedroom 1", (11.412, 1.75), (12.2, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
-#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((11.412, 1.75), (12.2, 3.2)), ((12.442, 3.645), (13.039, 4.745)),
-  ((5.8, 6.783), (5.8, 8.383)), ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60
+#let escape-windows = (("Bedroom 1", (11.33, 1.6), (12.2, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
+#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((11.33, 1.6), (12.2, 3.2)), ((12.442, 3.645), (13.039, 4.745)), ((9.2, 0), (10.2, 0)),   // V10.0: bedroom 1's north window in the freed tip
+  ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60; V10.0: W1-1 (y 6.783–8.383) replaced by a BLIND arched recess beside the malqaf shaft (studies/malqaf_L5.typ Phase 3, F3)
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60
 #let drains = (
   (((0.85, 9.05), (0.85, 9.2), (1.0, 9.5)), [family WC: the wall-hung pan on the service wall y 9.2 straight into the west shaft]),

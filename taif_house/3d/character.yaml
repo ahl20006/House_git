@@ -18,9 +18,9 @@ note: "style study, provisional: materials and character elements from 3d/charac
 # ---------- 1. materials (flat colours, RGB 0–255; glass with alpha) · revision 2: light and warm ----------
 palette:                              # V7.0: docs/DESIGN_LANGUAGE.md
   plaster:     [240, 233, 216]        # warm white (cream) plaster: walls, the attic, the parapets
-  stone:       [196, 160, 110]        # honey stone: the main cornice, the band, the copings, the plinth, the quoins, the columns, the bench
-  stone_light: [222, 208, 180]        # matte honey-light stone: the courtyard and colonnade floors, the sunken seating, the stair
-  marble:      [236, 233, 226]        # marble floors inside (V7.1)
+  honey: [214, 182, 128]       # V10.0 (owner, 9 Nov 2026: NO stone): the honey-tone RENDER of the projections formed in the structure (was honey stone): the main cornice, the band, the copings, the plinth, the quoins, the columns, the bench
+  sand: [226, 214, 190]     # V10.0: outdoor anti-slip porcelain (R11) in a sand / honey tone (was honey-light stone): the courtyard and colonnade floors, the sunken seating, the stair
+  porcelain:   [236, 233, 226]        # V10.0: marble-look porcelain floors inside (was marble, V7.1)
   timber:      [96, 66, 44]           # medium-to-dark walnut (doors, soffit, cabinet, mashrabiya, louvres)
   steel:       [34, 36, 40]           # matte black steel: window frames, divided lites, the roof guards, the stair balustrades
   brass:       [176, 138, 76]         # a few brass touches in the lighting (lantern rods)
@@ -37,30 +37,29 @@ palette:                              # V7.0: docs/DESIGN_LANGUAGE.md
 # their phase-3 colours, e.g. the orange / red structural flags stay visible with the character off)
 assign:
   - ["ff_ladder_panel", timber]       # V8.1: the ladder's closed walnut panel in the suite court
-  - ["ff_ladder_pilaster|ext_kitchen_counter|ext_kitchen_grill", stone]   # V8.1: the ladder's honey-stone pilaster; the outdoor kitchen
+  - ["ff_ladder_pilaster|ext_kitchen_counter|ext_kitchen_grill", honey]   # V8.1: the ladder's honey-stone pilaster; the outdoor kitchen
   - ["ext_kitchen_tannour", plaster]
   - ["ff_ladder_stile|ff_ladder_rung|roof_ladder_gate|roof_guardrail_setback", steel]   # V8.1: the ladder, its gate, the set-back guardrail (black steel)
   - ["roof_air_base_door", timber]     # V8.0: the HRV base under the malqaf
   - ["roof_air_base_louvre", steel]
-  - ["roof_air_base", stone]
   - ["_outer", plaster]               # outer walls with their sill and lintel pieces
   - ["_wall_", plaster]
   - ["_low_", plaster]
   - ["_slab$", plaster]               # the slab edges between the storeys are plastered over with the walls
-  - ["_slab_court$|finish_court$", stone_light]   # the courtyard floor of the base model (shown when the sunken seating is off)
-  - ["finish_floor", marble]         # V7.1: marble inside (the courtyard floor stays honey-light stone, below)
+  - ["_slab_court$|finish_court$", sand]   # the courtyard floor of the base model (shown when the sunken seating is off)
+  - ["finish_floor", porcelain]         # V7.1: marble inside (the courtyard floor stays honey-light stone, below)
   - ["_door_", timber]                # the doors walnut (the store's low door under the half landing too)
   - ["_rail_", steel]                 # the stair balustrades and the well railings: black steel bars
-  - ["roof_cornice|ff_band|roof_coping|roof_attic_coping", stone]   # V7.0: the main cornice, the band between the floors, the copings (honey stone)
+  - ["roof_cornice|ff_band|roof_coping|roof_attic_coping", honey]   # V7.0: the main cornice, the band between the floors, the copings (honey stone)
   - ["roof_attic|roof_parapet|ff_void_wall", plaster]   # V7.0: the attic, the parapets, the W3 wall piece (V8.0: no stair room)
-  - ["_stair_", stone_light]
+  - ["_stair_", sand]
   - ["_beam_", plaster]               # B3 (behind the fascia and the parapet), R6, R11, trimmers
-  - ["roof_air_head|roof_air_cap", stone]   # the malqaf tower in honey stone (V9.3)
-  - ["roof_air_void", steel]          # V9.3: the head's slender openings read dark
-  - ["roof_air_plant|roof_air_plenum", plaster]   # V9.3: the plant room and the plenum (hidden behind the attic and the coping)
+  - ["roof_air_head_band|roof_air_head_crown|roof_air_cap", honey]   # V10.0: the malqaf head's band and crown in the honey-tone render
+  - ["roof_air_head", plaster]        # the head's shaft and ribs: light sand render
+  - ["roof_air_void", steel]          # the head's slender openings read dark
+  - ["gf_air_grille|gf_air_door_leaf", timber]   # V10.0: the outlet's timber louvres and the carved door
   - ["roof_air_louvre", timber]       # its louvres timber
-  - ["gf_air_grille", timber]         # the outlet grille in the kitchen's west wall, mashrabiya-type
-  - ["all_col_", stone]               # inside the stone sleeves / the wall
+  - ["all_col_", honey]               # inside the stone sleeves / the wall
 
 # ---------- 2. light ----------
 sun: winter-12                        # the sun of the character views (params.yaml sun positions, Taif, true north from base.typ): 21 December noon, 45° from the south: the only sun that reaches down the 3.35 m wide, 7.3 m deep courtyard (it lights the north wall above +0.8 and the gallery); the viewer's sun menu changes it
@@ -78,13 +77,14 @@ quoins: {width: 0.5, thickness: 0.03, top: 6.9}   # V7.0: honey-stone quoins at 
 
 # ---------- V7.1 (owner): the courtyard arcade and the arched enclosure windows ----------
 arcade:                               # in the COURTYARD bay only (y 6.5–13.0, between C21 and C22): two slender intermediate columns and three semicircular arches under the projection
-  columns: {diameter: 0.25, at_y: [8.6667, 10.8333], base: {diameter: 0.33, height: 0.12}, capital: {diameter: 0.33, height: 0.10}}   # honey stone, on x 5.80, three equal bays of 2.1667
+  columns: {diameter: 0.25, at_y: [8.6667, 10.8333], base: {diameter: 0.33, height: 0.12}, capital: {diameter: 0.33, height: 0.10}}   # rendered (V10.0: no stone), on x 5.80, three equal bays of 2.1667; V10.0: the first (y 8.667) is absorbed in the malqaf core's east wall
   arch: {thickness: 0.25}             # arch plates under the soffit between the column sleeves, the crown at the soffit bottom; decorative unless the engineer uses the columns (studies/structure.typ X18)
   structural: false                   # the two columns carry nothing in the structural study; the living bay (y 13–19.25) keeps no arches (owner, V6.3)
 arched_windows:                       # the courtyard enclosure windows get semicircular heads: the base model cuts each opening to its crown (params.yaml), the spandrel plate above the springing and the arched frame are drawn here
   frame: 0.05
+  blind:                              # V10.0 (L5): W1-1 became a BLIND arch: the malqaf shaft stands behind this wall; the surround and a recessed panel on the courtyard face, the same sill, springing and crown as its five sisters (studies/malqaf_L5.typ Phase 3, F3)
+    - {floor: FF, at: "5.8 6.783 5.8 8.383", sill: 3.82, crown: 6.60, surround: 0.10, label: "W1-1 blind arch"}
   windows:
-    - {floor: FF, at: "5.8 6.783 5.8 8.383", label: "W1-1"}
     - {floor: FF, at: "5.8 8.95 5.8 10.55", label: "W1-2"}
     - {floor: FF, at: "5.8 11.117 5.8 12.717", label: "W1-3"}
     - {floor: FF, at: "5.8 13.242 5.8 14.842", label: "W1-4"}
@@ -123,7 +123,7 @@ feature_walls:                        # Taif stone cladding (0.03) on selected f
   thickness: 0.03
   walls:
     - {name: "guest entrance wall: the west facade south of the living line, both floors to the parapet coping", line: "0 19.25 0 24", side: [-1, 0], z: [-0.3, 8.25]}
-    - {name: "courtyard east wall (kitchen below, suite lobby above), both floors: the grille, the fountain and the sunken seating's bench are on it", line: "8.95 6.5 8.95 13.0", side: [-1, 0], z: [-0.65, 7.0]}
+    - {name: "courtyard east wall (kitchen below, suite lobby above), both floors: the outdoor TV and the enclosure are on it (V10.0: the malqaf outlet is in the west arcade)", line: "8.95 6.5 8.95 13.0", side: [-1, 0], z: [-0.65, 7.0]}
     - {name: "courtyard north wall: the piers beside the women's majlis glass and the band over it (the glass stays complete)", line: "4.25 6.5 8.95 6.5", side: [0, 1], z: [-0.08, 3.52]}
 
 # fountain: REMOVED (owner, 1 Nov 2026, studies/courtyard_layout.typ): no wall fountain on the kitchen wall (the outdoor TV and the malqaf grille are there); the water basin, the planter and the tree are in the north enclosure (courtyard_layout.enclosure); character_3d.py builds no fountain until the courtyard_layout builder update
@@ -140,7 +140,7 @@ courtyard_layout:                     # 3 Nov 2026 (owner, studies/courtyard_lay
     - [7.3, 11.05, 8.05, 11.8, armchair]
     - [7.15, 10.4, 7.95, 10.9, table]
   tv: {wall: "8.95 6.5 8.95 13.0", y: [9.82, 11.28], z: [0.60, 1.46], model: "65in outdoor-rated (partial sun, IP55/56); size, bracket, ventilation and clearances per the chosen model"}   # on the kitchen wall south of the enclosure, centred on the seating (y 10.55); its bottom +0.60 over the grille (+0.10 … +0.45)
-  tv_frame: {inner_width: 1.70, jamb_z: [0.50, 1.50], radius: 0.85, band: 0.10, proj: 0.06, material: stone}   # a semicircular honey-stone surround, visual only, no cavity; crown +2.45
+  tv_frame: {inner_width: 1.70, jamb_z: [0.50, 1.50], radius: 0.85, band: 0.10, proj: 0.06, material: honey}   # a semicircular honey-stone surround, visual only, no cavity; crown +2.45
   sink_window: {y: [7.3, 8.9], sill: 1.1, head: 2.1}   # the kitchen sink window (design_gf.typ, params.yaml): the enclosure stands in front of it as the view from the sink
   enclosure:                          # one honey-stone box against the kitchen wall face (x 8.85) from the north cleaning strip: two separate basins
     box: [7.55, 7.1, 8.85, 9.5]
@@ -164,7 +164,7 @@ courtyard_layout:                     # 3 Nov 2026 (owner, studies/courtyard_lay
 
 # roof (V7.0 / V8.1): the parapets, the cornice, the attic, the HRV base, the ladder and the set-back guardrail are in 3d/params.yaml `roof_design` (base model); the guards round the roof holes here
 
-malqaf_louvres: {slats: 4, depth: 0.12, thickness: 0.04}   # timber slats in the head's three open faces (V8.0)
+# malqaf_louvres: removed (V10.0, L5): the head's slender arched slots are its openings (build_3d.py)
 
 props:                                # scale only, simple shapes (the courtyard's movable furniture: courtyard_layout; the suite court's furniture: suite_court_v2)
   lanterns:                           # hanging between the columns under the soffit edge; point lights in the night view
@@ -192,9 +192,10 @@ views:                                # eye-level and aerial bookmarks: CSV fram
   tv:         {title: "inside the double-height living, looking west to the TV wall", eye: [8.3, 16.9, 1.6], target: [4.35, 16.95, 1.9]}
   living:     {title: "inside the double-height living, looking north to the courtyard and its seating", eye: [7.5, 18.3, 1.6], target: [7.5, 9.6, 0.0]}
   street:     {title: "guest entrance facade from the street (west, the driveway side)", eye: [-15.0, 27.0, 1.6], target: [0.0, 16.0, 3.5]}
-  aerial_ne:  {title: "aerial view from the north-east (V9.3): the malqaf tower on the attic's corner, the cut wall, the lane side", eye: [24.0, -9.0, 19.0], target: [9.6, 4.0, 8.5]}
-  aerial_sw:  {title: "aerial view from the south-west (V9.1): the house at its final position (B1 6.00 m from M1), the shorter cut wall, the driveway, the old house and its covered parking (approximate), the garden and the two palms", eye: [-30.0, 50.0, 30.0], target: [2.0, 12.0, 0.0]}
-  gate:       {title: "the north facade from just inside the farm's main gate (V9.3): the family entrance, the north strip, the cornice, the attic and the new malqaf tower", eye: [-3.9, -4.9, 1.7], target: [9.0, -0.6, 3.9]}
+  court:      {title: "the courtyard from the seating (V10.0): the malqaf's outlet arch, the blind arch above it and the head on one axis", eye: [7.0, 12.4, 1.6], target: [5.1, 7.6, 7.5]}
+  aerial_ne:  {title: "aerial view from the north-east (V10.0): the cut wall, the lane side, the malqaf head at the courtyard's north-west corner", eye: [24.0, -9.0, 19.0], target: [9.6, 4.0, 8.5]}
+  aerial_sw:  {title: "aerial view from the south-west (V10.0: the malqaf head at the courtyard's north-west corner; render and paint): the house at its final position (B1 6.00 m from M1), the shorter cut wall, the driveway, the old house and its covered parking (approximate), the garden and the two palms", eye: [-30.0, 50.0, 30.0], target: [2.0, 12.0, 0.0]}
+  gate:       {title: "the north facade from just inside the farm's main gate (V10.0): the family entrance, the north strip, the cornice, the attic; the malqaf (L5) stands behind the facade, out of this view", eye: [-3.9, -4.9, 1.7], target: [9.0, -0.6, 3.9]}
   lobby:      {title: "the family entrance: from the door, the lobby and the start of the flipped stair (the lower flight rising south off the lobby behind its black-bar balustrade, the coat cupboard in the west half of the start strip)", eye: [3.95, 1.1, 1.6], target: [2.2, 5.6, 1.1]}
   court_screen: {title: "the suite court looking south through the mashrabiya screen on the 1.10 base, under the facade frame (V8.2)", eye: [7.1, 20.2, 4.75], target: [7.1, 24.0, 5.4]}
   w3:         {title: "inside the double-height living, looking north to the courtyard and the large arched window W3", eye: [7.3, 18.6, 1.6], target: [7.3, 13.0, 4.0]}
@@ -228,12 +229,12 @@ site:
   shift: [0.91, 6.0734]   # V9.1: 8 Nov 2026 (owner's car test) B1 6.00 m from M1, a further 0.5104 m south; V9.0 (layout freeze): 6 Nov 2026 (owner) a further 0.50 m south, B1 5.49 m from M1; 4 Nov 2026 (owner, on site): the house 1.238 m further south; the elements attached to the house moved with it, the driveway and the parking bay stayed
   elements:
     - {label: driveway, kind: slab, pts: [[-3.95, 0.73], [0, 0], [0, 38.86], [-3.95, 39.59]], material: concrete, note: "the existing driveway 3.95 m west of the M line (stays)"}
-    - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 5.9484]], width: 1.0, material: stone, note: "the family entrance path from the driveway"}
-    - {label: path_guest, kind: path, pts: [[-1.0, 39.6], [-1.0, 28.2734], [0.9, 28.2734]], width: 1.2, material: stone, note: "the guest path in honey stone along the driveway's east edge to the guest entrance"}
-    - {label: path_workers, kind: path, pts: [[-1.0, 0.7], [8.3, -1.0], [11.8, 0.8], [14.6, 7.3], [16.9, 10.6], [16.9, 12.31]], width: 0.9, material: stone_light, note: "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade"}
-    - {label: parking_bay, kind: box, box: [5.2, 1.77, 10.2, 4.27], height: 0.02, material: stone_light, note: "the uncovered family car in the north strip (kept, owner 2 Nov 2026)"}
+    - {label: path_family, kind: path, pts: [[-1.0, 2.6], [4.41, 2.6], [4.41, 5.9484]], width: 1.0, material: honey, note: "the family entrance path from the driveway"}
+    - {label: path_guest, kind: path, pts: [[-1.0, 39.6], [-1.0, 28.2734], [0.9, 28.2734]], width: 1.2, material: honey, note: "the guest path in honey stone along the driveway's east edge to the guest entrance"}
+    - {label: path_workers, kind: path, pts: [[-1.0, 0.7], [8.3, -1.0], [11.8, 0.8], [14.6, 7.3], [16.9, 10.6], [16.9, 12.31]], width: 0.9, material: sand, note: "3 Nov 2026 (proposal): the workers' path along the farm's north boundary wall and the lane-side strip to the yard, not along the house's north facade"}
+    - {label: parking_bay, kind: box, box: [5.2, 1.77, 10.2, 4.27], height: 0.02, material: sand, note: "the uncovered family car in the north strip (kept, owner 2 Nov 2026)"}
     - {label: garden, kind: slab, pts: [[0.9, 30.1984], [14.35, 30.1984], [14.35, 21.8484], [22.5, 21.8484], [26.74, 33.94], [0.9, 38.7]], material: foliage, note: "the family garden on the south only, round the palms"}
-    - {label: garden_wall, kind: wall, pts: [[0.6, 30.1984], [0.6, 38.7]], width: 0.3, height: 1.2, material: stone, note: "the 1.2 m honey-stone wall between the garden and the guest path"}
+    - {label: garden_wall, kind: wall, pts: [[0.6, 30.1984], [0.6, 38.7]], width: 0.3, height: 1.2, material: honey, note: "the 1.2 m honey-stone wall between the garden and the guest path"}
     - {label: hedge, kind: hedge, pts: [[14.35, 20.7484], [22.2, 20.7484]], width: 0.6, height: 1.8, material: foliage, note: "the 1.8 m hedge between the service yard and the garden"}
     - {label: yard_screen, kind: box, box: [16.11, 13.6734, 16.21, 19.0734], height: 1.8, material: plaster, note: "3 Nov 2026: the 1.8 m service yard screen moved east (CSV x 15.2–15.3, y 7.6–13.0) so the outdoor counter has a working strip"}
     - {label: gas_cabinet, kind: box, box: [16.26, 13.8734, 16.76, 14.8734], height: 1.0, material: steel, note: "the ventilated LPG cabinet on the screen's outer face at its north end, ≥ 3 m from the grill"}
@@ -246,7 +247,7 @@ site:
     - {label: old_septic, kind: box, box: [-10.5, -1.9, -6.5, 0.5], height: 0.15, material: concrete, existing: true, note: "the existing septic outside the north wall near C1 (approximate; it serves the old house and takes the new house's drains)"}
     - {label: farm_wall_north, kind: wall, pts: [[-16.7, 3.08], [-3.95, 0.73]], width: 0.25, height: 2.4, material: plaster, existing: true, note: "the farm's north boundary wall from corner C1 to the gate's west post (height assumed)"}
     - {label: farm_wall_north_east, kind: wall, pts: [[0.0, 0.0], [8.64, -1.59], [11.96, 0.17], [15.39, 6.51], [15.68, 7.37], [16.75, 7.83], [20.19, 13.91], [23.02, 20.37], [27.07, 35.15]], width: 0.25, height: 2.4, material: plaster, existing: true, note: "the farm's north wall from the gate's east post M1 and the lane wall (on the deed line here; the wall as built stands 0.62 m inside it at the cut wall)"}
-    - {label: gate_post_west, kind: box, box: [-4.15, 0.53, -3.75, 0.93], height: 2.6, material: stone, existing: true, note: "the 4 m main gate's west post (the gate drawn open)"}
-    - {label: gate_post_east, kind: box, box: [-0.2, -0.2, 0.2, 0.2], height: 2.6, material: stone, existing: true, note: "the gate's east post = peg M1, the origin of the set-out"}
+    - {label: gate_post_west, kind: box, box: [-4.15, 0.53, -3.75, 0.93], height: 2.6, material: honey, existing: true, note: "the 4 m main gate's west post (the gate drawn open)"}
+    - {label: gate_post_east, kind: box, box: [-0.2, -0.2, 0.2, 0.2], height: 2.6, material: honey, existing: true, note: "the gate's east post = peg M1, the origin of the set-out"}
     - {label: palm_1, kind: palm, at: [20.6, 28.09], radius: 0.265, height: 9.0, crown: 2.6, material: trunk, existing: true, note: "palm P1 (base.typ, v2 survey), height assumed"}
     - {label: palm_2, kind: palm, at: [21.39, 31.87], radius: 0.265, height: 8.0, crown: 2.4, material: trunk, existing: true, note: "palm P2 (base.typ, v2 survey), height assumed"}

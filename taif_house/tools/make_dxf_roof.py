@@ -105,7 +105,7 @@ for T in (site["T1"], site["T2"]):
 lv = data["levels"]
 pline(data["outline"], "ROOF-OUTLINE")
 pline(data["block_s"], "ROOF-STEP")
-for name, P in (("courtyard sky (open) · guard 1.10", data["sky"]), ("suite court (open)", data["court"]), (f"malqaf tower +{lv['malqaf']:.2f} (1.25 square, V9.3)", data["tower"])):
+for name, P in (("courtyard sky (open) · guard 1.10", data["sky"]), ("suite court (open)", data["court"]), (f"malqaf head +{lv['malqaf']:.2f} (1.6 x 2.4, L5, V10.0)", data["tower"])):
     pline(P, "ROOF-HOLES")
     label(centroid(P), name, h=0.14)
 e = pline(data["attic"], "ROOF-ATTIC")

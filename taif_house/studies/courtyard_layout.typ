@@ -1,12 +1,12 @@
 // courtyard_layout.typ · Taif / Palm House V8.2 (work) · COURTYARD LAYOUT STUDY · REVISED 3 Nov 2026 (owner): the whole floor LEVEL (no step anywhere), the built-in benches
 // replaced by modern MOVABLE furniture for 4–6 with a low table, the fountain + tree enclosure moved from the north side to the NORTH END OF THE EAST (KITCHEN) WALL in front
 // of the kitchen sink window (the view from the sink: two separate basins, the tree in the sunny north part, the raised water rim and the tree visible from the window, sill +1.10),
-// the TV and its stone surround on the east wall south of the enclosure with the malqaf grille below it, the north side in front of the women's majlis glass freed, the paths kept,
+// the TV and its rendered surround on the east wall south of the enclosure (V10.0: the malqaf outlet moved to the west arcade, L5), the north side in front of the women's majlis glass freed, the paths kept,
 // linear drains to the SEPARATE rain system. Open to the sky, no pergola. CLEAR dimensions between finished faces. Every size assumed.
-// Reads: data/rooms_gf.csv (the courtyard), 3d/character.yaml (`courtyard_layout`: the data the 3D builds), studies/air_system.typ (the grille).
+// Reads: data/rooms_gf.csv (the courtyard), 3d/character.yaml (`courtyard_layout`: the data the 3D builds), studies/air_system.typ (the malqaf outlet, V10.0 in the west arcade).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
-#import "air_system.typ": air-grille, air-grille-x
+#import "air_system.typ": air-outlet   // V10.0 (L5): the malqaf outlet is in the first arcade arch on the WEST side, no longer under the TV
 #set page(paper: "a4", flipped: true, margin: 9mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 7.3pt)
 #let ink = rgb("#3d4a45")
@@ -57,7 +57,7 @@
 #let wrim = C.enclosure.water.rim
 #let tree = C.enclosure.tree
 #let crown-c = ((pb.at(0) + pb.at(2)) / 2, (pb.at(1) + pb.at(3)) / 2)
-#let (gy0, gz0, gy1, gz1) = air-grille
+#let (gx, gy0, gy1, gz0, gz1) = air-outlet
 #let D = C.drainage
 #let eye = (9.55, 1.60)                 // a person at the kitchen sink: 0.6 m behind the wall face, eye +1.60
 #let sight(d) = sink.sill - (eye.at(1) - sink.sill) / (eye.at(0) - cx1) * d     // the sight line over the sill, d metres beyond the wall face
@@ -75,7 +75,7 @@
   ([the water rim #lv(wrim) below the sill #lv(sink.sill) and above the sight line from the sink at its far edge (#lv(sight(trough-far)) at #r2(trough-far) m): the rim and the water seen from the sink; the tree crown in the window's view (crown centre #lv(tree.crown_centre) above the head #lv(sink.head))], wrim < sink.sill and wrim > sight(trough-far) and tree.crown_centre + tree.crown_radius > sink.head),
   ([the planting basin ≥ 1.0 × 1.0 inside, 0.65–0.75 deep], pb.at(2) - pb.at(0) >= 1.0 - 1e-6 and pb.at(3) - pb.at(1) >= 1.0 - 1e-6 and 0.65 <= C.enclosure.planter.depth and C.enclosure.planter.depth <= 0.75),
   ([the TV south of the enclosure (#r2(tv.y.at(0) - ey1) m), its frame ≥ 0.5 m from the sink window (#r2(fr-y0 - sink.y.at(1))), its crown under the soffit (+3.3)], tv.y.at(0) >= ey1 and fr-y0 - sink.y.at(1) >= 0.5 - 1e-6 and fr-crown < 3.3),
-  ([the grille below the TV, inside its width, its bottom #lv(gz0) ≥ 0.10 above the level floor, clear of the furniture (#r2(gap-wall) m in front)], gz1 <= tv.z.at(0) - 0.1 + 1e-6 and gy0 >= tv.y.at(0) and gy1 <= tv.y.at(1) and gz0 >= 0.10 - 1e-6 and gap-wall >= 0.6 - 1e-6),
+  ([the malqaf outlet (V10.0, L5) in the first arcade arch on the west side (x #r2(gx), y #r2(gy0)–#r2(gy1)), its bottom #lv(gz0) ≥ 0.10 above the level floor, the louvres aimed across the seating; the kitchen wall keeps #r2(gap-wall) m of free floor], gz0 >= 0.10 - 1e-6 and gy0 >= 6.5 and gy1 <= 8.667 and calc.abs(gx - 5.8) < 1e-6 and gap-wall >= 0.6 - 1e-6),
   ([drainage: the floor #lv(D.court_at_glass) at the glass (≤ 15 mm, R-08) falling to #lv(D.court_at_wall) at the kitchen wall foot; two linear drains; the overflow rim #lv(D.overflow_rim) between the drain level and the glass level; everything to the separate rain system], D.court_at_glass >= -0.015 and D.court_at_wall < D.court_at_glass and D.linear_drains.len() >= 2 and D.overflow_rim > D.court_at_wall and D.overflow_rim < D.court_at_glass),
 )
 #let all-ok = checks.all(c => c.at(1))
@@ -105,10 +105,10 @@
   R(C.seating_zone, fill: rgb("#e9dfc8"), stroke: (paint: amber, thickness: 0.6pt, dash: "dashed")); T((sx0 + 0.1, sy1 - 0.12), [seating zone · level · #r2(zone-area) m² free (the enclosure deducted)], size: 3.6pt, fill: amber, anchor: "west")
   for f in furn { R(fb(f), fill: if f.at(4) == "table" { rgb("#fbf4e6") } else { rgb("#b48a5a") }, stroke: 0.4pt + ink); T(((f.at(0) + f.at(2)) / 2, (f.at(1) + f.at(3)) / 2), [#f.at(4)], size: 3.6pt, fill: if f.at(4) == "table" { ink } else { white }, angle: if f.at(4) == "sofa" { 90deg } else { 0deg }) }
   T((6.4, 9.3), [movable: faces the TV], size: 3.4pt, fill: luma(90))
-  // the TV and the grille on the kitchen wall
+  // the TV on the kitchen wall; the malqaf outlet (V10.0) in the first arcade arch on the west side
   R((cx1 - 0.08, tv.y.at(0), cx1, tv.y.at(1)), fill: ink); T((cx1 - 0.3, tv-c), [TV #r2(tv.y.at(1) - tv.y.at(0)) wide · #lv(tv.z.at(0)) … #lv(tv.z.at(1))], size: 3.8pt, fill: ink, angle: 90deg)
   R((cx1 - 0.14, fr-y0, cx1 - 0.08, tv-c + fr.inner_width / 2 + fr.band), fill: stone)
-  R((cx1 - 0.05, gy0, cx1, gy1), fill: rgb("#c8a77e")); T((cx1 + 0.12, (gy0 + gy1) / 2), [malqaf grille\ #lv(gz0) … #lv(gz1)], size: 3.8pt, fill: amber, anchor: "west")
+  R((gx - 0.05, gy0, gx + 0.05, gy1), fill: rgb("#c8a77e")); T((gx + 0.15, (gy0 + gy1) / 2), [malqaf outlet (L5)\ #lv(gz0) … #lv(gz1)], size: 3.8pt, fill: amber, anchor: "west")
   // the enclosure on the kitchen wall
   R(C.enclosure.box, fill: stone, stroke: 0.5pt + ink)
   R(pb, fill: rgb("#8d7a58"), stroke: 0.4pt + ink); circle(q(crown-c), radius: tree.crown_radius, fill: green.transparentize(55%), stroke: (paint: green.darken(20%), dash: "dashed", thickness: 0.5pt))
@@ -151,7 +151,7 @@
 
 // ====================================================================== PAGE 2 · the kitchen wall from the seating, the drainage, the dimensions
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[4 · The kitchen wall from the seating (the enclosure, the TV, the grille) · 5 · Drainage on a level floor · 6 · Dimensions]
+#text(12pt, weight: "bold", fill: accent)[4 · The kitchen wall from the seating (the enclosure, the TV; V10.0: the malqaf outlet moved west) · 5 · Drainage on a level floor · 6 · Dimensions]
 #v(2pt)
 #let tv-elev(length: 1.1cm) = cetz.canvas(length: length, {
   import cetz.draw: *
@@ -165,14 +165,14 @@
   circle((crown-c.at(1), tree.crown_centre), radius: tree.crown_radius, fill: green.transparentize(50%), stroke: 0.4pt + green.darken(20%)); line((crown-c.at(1), C.enclosure.rim), (crown-c.at(1), tree.crown_centre - tree.crown_radius), stroke: 2pt + rgb("#7a5a3a"))
   // the sink window behind the enclosure (on the wall)
   rect((sink.y.at(0), sink.sill), (sink.y.at(1), sink.head), fill: rgb("#9fcbe0").transparentize(30%), stroke: 0.8pt + blue); T(((sink.y.at(0) + sink.y.at(1)) / 2, sink.head + 0.15), [sink window y #r2(sink.y.at(0))–#r2(sink.y.at(1)) · +#f2(sink.sill) … +#f2(sink.head) · the tree and the trough in its view], size: 3.8pt, fill: blue)
-  // the TV, its frame, the grille
+  // the TV and its frame (V10.0: no grille on this wall)
   let fx0 = tv-c - fr.inner_width / 2; let fx1 = tv-c + fr.inner_width / 2
   rect((fx0 - fr.band, fr.jamb_z.at(0)), (fx0, fr.jamb_z.at(1)), fill: stone, stroke: 0.3pt + ink); rect((fx1, fr.jamb_z.at(0)), (fx1 + fr.band, fr.jamb_z.at(1)), fill: stone, stroke: 0.3pt + ink)
   rect((fx0 - fr.band, fr.jamb_z.at(0) - fr.band), (fx1 + fr.band, fr.jamb_z.at(0)), fill: stone, stroke: 0.3pt + ink)
   let ro = fr.radius + fr.band
   line(..range(0, 25).map(k => { let a = k / 24 * 180deg; (tv-c + ro * calc.cos(a), fr.jamb_z.at(1) + ro * calc.sin(a)) }), ..range(0, 25).map(k => { let a = 180deg - k / 24 * 180deg; (tv-c + fr.radius * calc.cos(a), fr.jamb_z.at(1) + fr.radius * calc.sin(a)) }), close: true, fill: stone, stroke: 0.3pt + ink)
   rect((tv.y.at(0), tv.z.at(0)), (tv.y.at(1), tv.z.at(1)), fill: ink, stroke: none); T((tv-c, (tv.z.at(0) + tv.z.at(1)) / 2), [outdoor TV #r2(tv.y.at(1) - tv.y.at(0)) × #r2(tv.z.at(1) - tv.z.at(0))], size: 4pt, fill: white)
-  rect((gy0, gz0), (gy1, gz1), fill: rgb("#c8a77e"), stroke: 0.4pt + ink); T((tv-c, (gz0 + gz1) / 2), [malqaf grille · louvres down · bottom #lv(gz0)], size: 3.4pt)
+  T((tv-c, 0.28), [V10.0: the malqaf outlet is in the west arcade (L5), not on this wall], size: 3.2pt, fill: amber)
   // the sofa in section (beyond), the seated eye
   rect((furn.at(0).at(1), 0), (furn.at(0).at(3), 0.42), fill: rgb("#b48a5a").transparentize(40%), stroke: (paint: ink, thickness: 0.3pt, dash: "dashed")); T(((furn.at(0).at(1) + furn.at(0).at(3)) / 2, 0.6), [sofa (beyond) · seat +0.42 · eye ≈ +1.15], size: 3.4pt, fill: luma(90))
   line((cy0, 1.15), (cy1, 1.15), stroke: (paint: gray, thickness: 0.4pt, dash: "dotted"))
@@ -184,10 +184,10 @@
 #v(4pt)
 #grid(columns: (1.1fr, 1fr), gutter: 12pt,
   [
-    #H[4 · The TV, its frame and the grille]
+    #H[4 · The TV, its frame; the malqaf outlet (V10.0) elsewhere]
     - *The TV:* an *outdoor-rated* set (65″ class, ≈ #r2(tv.y.at(1) - tv.y.at(0)) × #r2(tv.z.at(1) - tv.z.at(0)) m; the final size, bracket, ventilation and clearances *per the chosen model*), *moved south along the kitchen wall* to y #r2(tv.y.at(0))–#r2(tv.y.at(1)) (centre y #r2(tv-c), #r2(tv.y.at(0) - ey1) m south of the enclosure), bottom #lv(tv.z.at(0)), top #lv(tv.z.at(1)): the centre at +#f2((tv.z.at(0) + tv.z.at(1)) / 2) for a seated eye ≈ +1.15 on a sofa at 2.0–2.5 m.
-    - *The frame:* honey stone, a visual surround only (jambs and a semicircular head, band #r2(fr.band), proud #r2(fr.proj), inner width #r2(fr.inner_width), springing #lv(fr.jamb_z.at(1)), crown #lv(fr-crown)); #r2(fr-y0 - sink.y.at(1)) m of solid wall between the sink window and the frame.
-    - *The grille* (`studies/air_system.typ`): below the TV, y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1): its *bottom #r2(gz0) m above the level floor* (not in a pit any more), #r2(tv.z.at(0) - gz1) m under the TV, #r2(gap-wall) m of free floor in front of it (the chairs stand west of x #r2(calc.max(..furn.map(f => f.at(2))))), the louvre sending the breeze along the floor to the seating; removable for cleaning.
+    - *The frame:* rendered (V10.0: no stone), a visual surround only (jambs and a semicircular head, band #r2(fr.band), proud #r2(fr.proj), inner width #r2(fr.inner_width), springing #lv(fr.jamb_z.at(1)), crown #lv(fr-crown)); #r2(fr-y0 - sink.y.at(1)) m of solid wall between the sink window and the frame.
+    - *The malqaf outlet* (`studies/air_system.typ` v4, V10.0, L5): *no longer on this wall*: it sits in the first arcade arch on the west side (x #r2(gx), y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1), 1.4 × 1.0, adjustable timber louvres), ≈ 1 m from the seating zone's west edge, the breeze aimed across the seating towards the TV wall; #r2(gap-wall) m of free floor stays at the kitchen wall (the chairs stand west of x #r2(calc.max(..furn.map(f => f.at(2))))).
     #v(2pt)
     #H[5 · Drainage on a level floor]
     - *Falls:* the inside floors ±0.00; the courtyard finish at the three glass lines and the riwaq door at *#lv(D.court_at_glass)* (a #r2(-D.court_at_glass * 1000) mm threshold, R-08), falling *#str(calc.round(D.fall * 100, digits: 1)) % away from the glass* across the floor to the kitchen wall foot at *#lv(D.court_at_wall)*: no step, a 45 mm difference over the width that nobody feels.
@@ -203,13 +203,13 @@
       [Colonnade walkway], [#r3(walk-free) / #r3(walk-min)], [to the soffit edge / at C21–C22; kept free],
       [Seating zone (level)], [#r3(sx1 - sx0) × #r2(sy1 - sy0)], [#r2(zone-area) m² free of the enclosure; was #r2(old-pit) m² in the pit: *+#r2(gained) m²*],
       [Furniture], [#seats seats], [a 3-seat sofa, two armchairs, a low table #r2(furn.at(3).at(2) - furn.at(3).at(0)) × #r2(furn.at(3).at(3) - furn.at(3).at(1)); all movable],
-      [Cleaning strips], [#r2(gap-south) S · #r2(gap-majlis) N · #r2(gap-wall) E], [at the living glass / the women's majlis glass / the kitchen wall in front of the grille],
+      [Cleaning strips], [#r2(gap-south) S · #r2(gap-majlis) N · #r2(gap-wall) E], [at the living glass / the women's majlis glass / the kitchen wall],
       [Enclosure], [#r2(ex1 - ex0) × #r2(ey1 - ey0)], [on the kitchen wall, y #r2(ey0)–#r2(ey1), in front of the sink window; walls #r2(C.enclosure.wall)],
       [Planting basin (north)], [#r2(pb.at(2) - pb.at(0)) × #r2(pb.at(3) - pb.at(1)) × #r2(C.enclosure.planter.depth)], [rim #lv(C.enclosure.rim); tree crown Ø#r2(2 * tree.crown_radius) at #r2(tree.crown_centre) m],
       [Water trough (south, raised)], [#r2(wb.at(2) - wb.at(0)) × #r2(wb.at(3) - wb.at(1)) × #r2(C.enclosure.water.depth)], [rim #lv(wrim), water #lv(C.enclosure.water.level), lip #lv(C.enclosure.water.spout_z); seen from the sink (sill +#f2(sink.sill))],
       [TV], [#r2(tv.y.at(1) - tv.y.at(0)) × #r2(tv.z.at(1) - tv.z.at(0))], [y #r2(tv.y.at(0))–#r2(tv.y.at(1)), #lv(tv.z.at(0)) … #lv(tv.z.at(1)); per the chosen model],
       [TV frame], [#r2(fr.inner_width) inside, band #r2(fr.band)], [springing #lv(fr.jamb_z.at(1)), crown #lv(fr-crown), proud #r2(fr.proj); #r2(fr-y0 - sink.y.at(1)) from the window],
-      [Grille], [#r2(gy1 - gy0) × #r2(gz1 - gz0)], [y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1); bottom #r2(gz0) above the floor; #r2(tv.z.at(0) - gz1) below the TV],
+      [Malqaf outlet (V10.0, L5)], [#r2(gy1 - gy0) × #r2(gz1 - gz0)], [x #r2(gx), y #r2(gy0)–#r2(gy1), #lv(gz0) … #lv(gz1); in the first arcade arch on the west side; bottom #r2(gz0) above the floor],
       [Levels], [#lv(D.court_at_glass) / #lv(D.court_at_wall)], [the glass lines / the kitchen wall foot; overflow rim #lv(D.overflow_rim); pipe invert #lv(D.pipe_z)],
     )
     #v(2pt)

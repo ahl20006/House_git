@@ -92,6 +92,8 @@
 // ======================================================================= PAGE 1 · the check and the wind
 #text(14pt, weight: "bold", fill: green)[Malqaf L5 · the courtyard's north-west corner · a decision-grade study in phases]
 #v(1pt)
+#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt)[#text(8.5pt, weight: "bold", fill: green)[ADOPTED (V10.0, owner, 9 Nov 2026): L5, V-c + F3 (the fall-back F2 if the engineer refuses the beam additions)] #text(7pt)[· applied in the design files (`studies/air_system.typ` v4, the room data, the plans, the roof, the structure, the 3D, the presentation); this study stays the record of the decision.]]
+#v(1pt)
 #text(7.6pt, fill: gray)[STUDY ONLY: no design file is changed until the owner adopts L5 · the owner's decisions D1–D11 (9 Nov 2026) are the brief · *PHASE 0: the geometry check and the climate basis* (the next phases follow the owner's reply) · every figure #ASSUMED unless measured; final sizes by the structural and MEP engineers.]
 #v(3pt)
 #grid(columns: (1.05fr, 1fr), gutter: 10pt,

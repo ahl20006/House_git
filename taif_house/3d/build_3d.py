@@ -183,7 +183,7 @@ def read_air(path):
             out[m.group(1)] = ast.literal_eval(m.group(2))
         except (ValueError, SyntaxError):
             pass   # expressions (air-length) are not data
-    for k in ("tower", "head", "head-opening", "base", "route", "duct", "clear", "invert", "chamber", "cover", "grille", "grille-x", "sunken"):
+    for k in ("core", "shaft", "head", "head-z", "slots", "outlet", "door", "trap", "fan", "cooler", "inlet", "damper-top", "sunken", "base"):   # V10.0 (L5)
         if k not in out:
             raise SystemExit(f"ERROR: air-{k} not found in {path}")
     return out
@@ -201,7 +201,7 @@ S = P["sources"]
 gf_text = (ROOT / S["outline"]).read_text(encoding="utf-8")
 fam_text = (ROOT / S["projection_edge"]).read_text(encoding="utf-8")
 OUTLINE = [tuple(float(v) for v in p) for p in ast.literal_eval(grab(gf_text, "outline-csv-gf"))]
-TOWER = [tuple(float(v) for v in p) for p in ast.literal_eval(re.search(r"#let tower-pts\s*=\s*(\(\(.*?\)\))\.map", gf_text).group(1))]
+TOWER = [tuple(float(v) for v in p) for p in ast.literal_eval(re.search(r"#let tower-csv\s*=\s*(\(\(.*?\)\))", gf_text).group(1))]   # V10.0: the malqaf's foot chamber (L5)
 PROJ_X = float(re.search(r"#let proj-x\s*=\s*([\d.]+)", fam_text).group(1))
 GF = read_rooms(S["rooms_gf"]) + [{"name": "Air tower", "colour": "tower", "pts": TOWER}]
 FF_CSV = read_rooms(S["rooms_ff"])
@@ -223,7 +223,7 @@ LATITUDE = read_let_number(S["sections"], "latitude")
 NORTH = tuple(float(v) for v in re.search(r"^#let north\s*=\s*\(\s*" + NUM + r"\s*,\s*" + NUM + r"\s*\)", (ROOT / S["north"]).read_text(encoding="utf-8"), re.M).groups())
 FIXTURES_EAST = read_fixtures(S["fixtures_east"], 8.95, 0.0)
 AIR = read_air(S["air_system"])
-TOWER_HOLE = Polygon(AIR["tower"]).buffer(-0.1, join_style=2)   # the shaft: the slab opening inside the tower walls (B15 / R9 frame it)
+TOWER_HOLE = Polygon(AIR["shaft"]).buffer(-0.1, join_style=2)   # V10.0: the malqaf shaft's opening through the FF and roof slabs (inside its 0.20 walls)
 
 # ---------- levels ----------
 L = P["levels"]
@@ -652,28 +652,10 @@ zF = FINISHED["FF"] - FINISHED["GF"]
 zr, rfin, leaf, glass_t = STRUCT_TOP["roof"], STRUCT_TOP["roof"] + P["roof_finish"], P["openings"]["leaf"], P["openings"]["glass"]
 
 
-# V9.3 · the HRV plant room behind the attic (studies/air_system.typ air-plant; the wide base under the old tower removed) and the low plenum behind the coping
-PR = RD["plant_room"]
-px0, py0, px1, py1 = AIR["plant"]
-pr_out, pr_in = box(px0, py0, px1, py1), box(px0 + PR["wall"], py0 + PR["wall"], px1 - PR["wall"], py1 - PR["wall"])
-pr_door = box(PR["doors"][0], py1 - 0.2, PR["doors"][1], py1 + 0.2)
-pr_walls = pr_out.difference(pr_in)
-add(extrude(pr_walls.difference(pr_door), rfin, AIR["plant-top"] - PR["slab"], COLOURS["outer"], "roof_air_plant_shell"))
-add(extrude(pr_walls.intersection(pr_door), PR["door_head"], AIR["plant-top"] - PR["slab"], COLOURS["outer"], "roof_air_plant_doorhead"))
-add(extrude(seg_box((PR["doors"][0], py1), (PR["doors"][1], py1), leaf), rfin, PR["door_head"], COLOURS["door"], "roof_air_plant_door"))
-add(extrude(pr_out, AIR["plant-top"] - PR["slab"], AIR["plant-top"], COLOURS["slab"], "roof_air_plant_slab"))
-ex_x, ey0, ey1, ez0, ez1 = PR["exhaust"]
-add(extrude(box(ex_x - 0.13, ey0, ex_x + 0.13, ey1), ez0, ez1, COLOURS["rail"], "roof_air_exhaust"))
-plen = Polygon(AIR["plenum"]).intersection(outline_poly.buffer(-T_OUT / 2, join_style=2))
-add(extrude(plen, rfin, AIR["plenum-top"], COLOURS["outer"], "roof_air_plenum"))
-TWX, TWY, TWS, TWW = AIR["tw"]
-TW_SQ = box(TWX, TWY, TWX + TWS, TWY + TWS)                 # the malqaf tower above the roof (built with the air system below)
-summary["plant_room"] = {"box": list(AIR["plant"]), "top": AIR["plant-top"], "clear": round(AIR["plant-top"] - PR["slab"] - rfin, 3), "inside_area": round(pr_in.area, 3), "doors": PR["doors"], "door_head": PR["door_head"],
-                         "plenum_top": AIR["plenum-top"], "plenum_area": round(plen.area, 3)}
+# V10.0 (L5): no HRV plant room and no plenum on the roof; the malqaf head is built with the air system below
 
 # ---------- V7.0 · the roofline (studies/roof.typ): the main cornice, the band between the floors, the north-block coping, the south-wing parapet, the set-back attic ----------
-tower_poly0 = Polygon(AIR["tower"])
-tower_out2 = TW_SQ.buffer(0.01, join_style=2)   # V9.3: the malqaf tower on the attic's corner (the plant room and the plenum stay clear of the rings)
+tower_out2 = Polygon()   # V10.0: the malqaf head (L5) stands inside the attic, clear of the cornice, copings and attic rings
 cn, bd = RD["cornice"], RD["band"]
 add(extrude(outer_face.buffer(cn["proj"], join_style=2).difference(outer_face).difference(tower_out2), cn["z0"], cn["z0"] + cn["h"], COLOURS["outer"], "roof_cornice"))
 add(extrude(outer_face.buffer(bd["proj"], join_style=2).difference(outer_face).difference(tower_out2), bd["z0"], bd["z0"] + bd["h"], COLOURS["outer"], "ff_band"))
@@ -699,7 +681,7 @@ for i, dbox in enumerate(attic_doors):
 attic_cop = attic_in.buffer(AT["overhang"], join_style=2).difference(attic_in.buffer(-AT["thickness"] - AT["overhang"], join_style=2)).difference(tower_out2)
 add(extrude(attic_cop, AT["wall_top"], AT["top"], COLOURS["outer"], "roof_attic_coping"))
 
-# ---------- V8.1 · the maintenance ladder (roof_design.ladder): a stone pilaster on the gym's east wall in the suite court with a 0.90 × 0.30 recess, the closed walnut
+# ---------- V8.1 · the maintenance ladder (roof_design.ladder): a rendered pilaster on the gym's east wall in the suite court with a 0.90 × 0.30 recess, the closed walnut
 # panel, the manufactured ladder (stiles 1.10 above the roof: the transfer handholds), the self-closing gate in the court's west guard; the set-back guardrail ----------
 LD = RD["ladder"]
 zff = FINISHED["FF"]
@@ -736,7 +718,7 @@ add(rail_m)
 summary["ladder"] = {"pilaster": LD["pilaster"], "recess": LD["recess"], "rung_x": lx, "stiles_y": LD["stiles_y"], "stile_top": LD["stile_top"], "rungs": [round(z_, 3) for z_ in rung_z],
                      "foot": zff, "roof_finish": round(rfin, 3), "gate": LD["gate"], "panel": LD["panel"], "toe_clearance": round(lx - LD["recess"][0], 3), "climb": round(rfin - zff, 3)}
 summary["guardrail_setback"] = {"height": GS["height"], "setback": GS["setback"], "lines": GS["lines"]}
-summary["flags"].append("Roof access (V8.1, studies/roof.typ page 2): no stair tower; a manufactured vertical ladder in a %.2f × %.2f recess of a stone pilaster on the gym's east wall in the suite court (the 0.20 wall not cut), "
+summary["flags"].append("Roof access (V8.1, studies/roof.typ page 2): no stair tower; a manufactured vertical ladder in a %.2f × %.2f recess of a rendered pilaster on the gym's east wall in the suite court (the 0.20 wall not cut), "
                         "%d rungs at %.2f, the top rung at the roof finish +%.2f, the stiles to +%.2f, behind a closed walnut panel; a self-closing gate in the court's west guard; a continuous %.2f m guardrail set back %.1f m on the south wing; all ASSUMED (the specialist confirms the fall protection)"
                         % (LD["recess"][3] - LD["recess"][1], LD["recess"][2] - LD["recess"][0], len(rung_z), LD["rungs"]["pitch"], rfin, LD["stile_top"], GS["height"], GS["setback"]))
 # ---------- V8.1 · the outdoor kitchen (params.yaml outdoor_kitchen): the counter and sink against the east wall at the south-east, the grill and tannour apart in the garden ----------
@@ -748,9 +730,9 @@ add(extrude(box(gx0_ + 0.2, gy0_ + 0.3, gx0_ + 1.0, gy1_ - 0.3), OK_["platform_t
 add(extrude(Point(gx1_ - 0.6, (gy0_ + gy1_) / 2).buffer(0.38, resolution=16), OK_["platform_top"], OK_["platform_top"] + 0.85, COLOURS["wall"], "ext_kitchen_tannour"))
 summary["outdoor_kitchen"] = OK_
 summary["roof_design"] = {"cornice": cn, "band": bd, "coping_north": cop_n, "parapet_south": par_s, "attic": {**AT, "line_wkt": attic_in.wkt, "length": round(attic_in.exterior.length, 3)},
-                          "ladder": summary["ladder"], "guardrail_setback": summary["guardrail_setback"], "plant_room": summary["plant_room"]}
-summary["flags"].append("Roofline (V7.0 / V8.1, studies/roof.typ): the main stone cornice %.2f × %.2f at +%.2f, the north block's coping +%.2f, the attic screen %.1f m high (coping +%.2f) set back %.1f m (a plain pentagon since V8.0), the south wing's parapet +%.2f; no stair room (the roof from the external stair tower); the malqaf tower to +%.2f on the attic's corner, the HRV plant room behind the attic (top +%.2f, hidden); all ASSUMED"
-                        % (cn["h"], cn["proj"], cn["z0"], cop_n["top"], AT["wall_top"] - zr, AT["top"], AT["setback"], par_s["top"], AIR["head"][1], AIR["plant-top"]))
+                          "ladder": summary["ladder"], "guardrail_setback": summary["guardrail_setback"]}
+summary["flags"].append("Roofline (V7.0 / V8.1, studies/roof.typ): the main cornice %.2f × %.2f at +%.2f, the north block's coping +%.2f, the attic screen %.1f m high (coping +%.2f) set back %.1f m (a plain pentagon), the south wing's parapet +%.2f; the malqaf head (L5) to +%.2f at the courtyard's north-west corner; render and paint, no stone (V10.0); all ASSUMED"
+                        % (cn["h"], cn["proj"], cn["z0"], cop_n["top"], AT["wall_top"] - zr, AT["top"], AT["setback"], par_s["top"], AIR["head-z"][6]))
 
 # ---------- the structure of the zone (assumed / unconfirmed): columns C21–C23 (to the roof, X8) and C33, beams B3, B5, R11 ----------
 for cid in P["structure"]["assumed"]:
@@ -791,79 +773,61 @@ summary["flags"].append(f"X3: suite bath east window y {min(x3['a'][1], x3['b'][
                         f"clearance {clear:+.2f} m ({'CLASH' if clear < 0 else 'clear'}); the column's size and orientation are for the engineer")
 summary["x3_clearance"] = round(clear, 3)
 
-# ---------- the air system (studies/air_system.typ v3): tower head, the shallow sump, the breeze channel in the ground slab, the plenum, the grille · all assumed ----------
+# ---------- the air system v4 (studies/air_system.typ, V10.0: the malqaf at L5) · all assumed ----------
 A = AIR
-tower_poly = Polygon(A["tower"])
 roof_fin = STRUCT_TOP["roof"] + P["roof_finish"]
-h0, h1 = A["head"]
-# V9.3 · the malqaf tower (studies/malqaf_tower.typ, adopted: head (c), 3.5 m above the attic coping, the flat Hijazi cornice): a 1.25 m square in honey stone
-# on the attic's corner; a plain shaft, a cornice band, the head with 4 slender openings per face (each with a small semicircular top, drawn as dark voids
-# proud of the face), a two-step crowning cornice; the bird mesh, the flaps and the damper inside are not modelled
-z_band, z_head, z_crown, z_top = A["tw-z"]
-n_sl, w_sl, rib_sl, m_sl = A["tw-slots"]
-add(extrude(TW_SQ.difference(TW_SQ.buffer(-TWW, join_style=2)), rfin, z_band, COLOURS["outer"], "roof_air_head_shaft"))
-add(extrude(TW_SQ.buffer(0.06, join_style=2), z_band, z_head, COLOURS["outer"], "roof_air_head_band"))
-add(extrude(TW_SQ.difference(TW_SQ.buffer(-TWW, join_style=2)), z_head, z_crown, COLOURS["outer"], "roof_air_head"))
-add(extrude(TW_SQ.buffer(0.05, join_style=2), z_crown, z_crown + 0.12, COLOURS["outer"], "roof_air_head_crown1"))
-add(extrude(TW_SQ.buffer(0.10, join_style=2), z_crown + 0.12, z_top, COLOURS["outer"], "roof_air_cap"))
+hx0, hy0, hx1, hy1 = A["head"]
+HEAD = box(hx0, hy0, hx1, hy1)
+z_rfin, z_band0, z_band1, z_open0, z_open1, z_crown, z_top = A["head-z"]
+n_short, n_long, w_sl, rib_sl, pier = A["slots"]
+HEAD_T = 0.20
+# the head: an RC frame with rendered block ribs, drawn as a 0.20 ring with the slots as dark voids proud of the faces; render and paint (no stone)
+add(extrude(HEAD.difference(HEAD.buffer(-HEAD_T, join_style=2)), roof_fin, z_band0, COLOURS["outer"], "roof_air_head_shaft"))
+add(extrude(HEAD.buffer(0.06, join_style=2).difference(HEAD.buffer(-HEAD_T + 0.06, join_style=2)), z_band0, z_band1, COLOURS["outer"], "roof_air_head_band"))
+add(extrude(HEAD.difference(HEAD.buffer(-HEAD_T, join_style=2)), z_band1, z_crown, COLOURS["outer"], "roof_air_head"))
+add(extrude(HEAD.buffer(0.05, join_style=2), z_crown, z_crown + 0.12, COLOURS["outer"], "roof_air_head_crown1"))
+add(extrude(HEAD.buffer(0.10, join_style=2), z_crown + 0.12, z_top, COLOURS["outer"], "roof_air_cap"))
 def _slot_shape(cx, w, h):
     r = w / 2
     pts = [(cx - r, 0), (cx + r, 0), (cx + r, h - r)] + [(cx + r * math.cos(t), h - r + r * math.sin(t)) for t in np.linspace(0, math.pi, 13)[1:-1]] + [(cx - r, h - r)]
     return Polygon(pts)
-_ho = (z_crown - z_head) - 2 * m_sl
-_total = n_sl * w_sl + (n_sl - 1) * rib_sl
+_ho = z_open1 - z_open0
 _voids = []
-for face in "NESW":
+for face, n_sl, length in (("N", n_short, hx1 - hx0), ("S", n_short, hx1 - hx0), ("W", n_long, hy1 - hy0), ("E", n_long, hy1 - hy0)):
     for k in range(int(n_sl)):
-        sh_ = _slot_shape((TWS - _total) / 2 + k * (w_sl + rib_sl) + w_sl / 2, w_sl, _ho)
-        m = trimesh.creation.extrude_polygon(sh_, 0.02)
-        v = m.vertices.copy(); u, vv, o = v[:, 0], v[:, 1] + z_head + m_sl, v[:, 2] - 0.008
-        if face == "N":   X, Y = TWX + u, TWY - o
-        elif face == "S": X, Y = TWX + TWS - u, TWY + TWS + o
-        elif face == "W": X, Y = TWX - o, TWY + TWS - u
-        else:             X, Y = TWX + TWS + o, TWY + u
-        m.vertices = np.column_stack([X, Y, vv])
-        _voids.append(m)
+        cu = pier + w_sl / 2 + k * (w_sl + rib_sl)
+        m = trimesh.creation.extrude_polygon(_slot_shape(cu, w_sl, _ho), 0.02)
+        v = m.vertices.copy(); u, vv, o = v[:, 0], v[:, 1] + z_open0, v[:, 2] - 0.008
+        if face == "N":   X, Y = hx0 + u, hy0 - o
+        elif face == "S": X, Y = hx0 + u, hy1 + o
+        elif face == "W": X, Y = hx0 - o, hy0 + u
+        else:             X, Y = hx1 + o, hy0 + u
+        m.vertices = np.column_stack([X, Y, vv]); _voids.append(m)
 _vm = trimesh.util.concatenate(_voids)
 _vm.visual.vertex_colors = np.tile(np.array([32, 32, 34, 255], dtype=np.uint8), (len(_vm.vertices), 1))
 _vm.metadata["name"] = "roof_air_void_slots"
 add(_vm)
-HEAD_OPENINGS = []          # V9.3: no louvre slats (the slots are the openings, the bird mesh behind them)
-# v3: the shaft's shallow sump at the tower's foot (no pit), the breeze channel inside the ground-slab depth with its own base slab (the covers are its roof), the plenum box under the sink counter
-zb0, zb1 = A["base"][1], STRUCT_TOP["GF"] - T_SLAB      # pit floor ... ground slab underside
-add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2).difference(tower_poly.buffer(-0.1, join_style=2)), zb0, zb1, COLOURS["assumed"], "gf_air_base_walls"))
-add(extrude(tower_poly.buffer(T_OUT / 2, join_style=2), zb0 - 0.2, zb0, COLOURS["assumed"], "gf_air_base_floor"))
-bw, bt, bb = A["duct"]
-tw = (bw - A["clear"][0]) / 2                           # duct wall (v2); 0 in v3 = a channel in the slab, open to its covers
-legs = list(zip(A["route"][:-1], A["route"][1:]))
-bends = A["route"][1:-1]                                # the corners between the legs (none on a straight route)
-foot = unary_union([seg_box(a, b, bw) for a, b in legs] + [Point(p).buffer(bw / 2, resolution=4) for p in bends])
-inner = unary_union([seg_box(a, b, A["clear"][0]) for a, b in legs] + [Point(p).buffer(A["clear"][0] / 2, resolution=4) for p in bends])
-tower_out = tower_poly.buffer(T_OUT / 2, join_style=2)
-if tw > 0.01:                                           # v2: a buried duct with its own walls and roof
-    add(extrude(foot.difference(inner).difference(tower_out), bb + tw, bt - tw, COLOURS["assumed"], "gf_air_duct_walls"))
-    add(extrude(foot.difference(tower_out), bb, bb + tw, COLOURS["assumed"], "gf_air_duct_floor"))
-    add(extrude(foot.difference(tower_out), bt - tw, bt, COLOURS["assumed"], "gf_air_duct_roof"))
-else:                                                   # v3: the channel's base slab 0.10 below the ground slab's underside; the ground slab around it is the slab mesh, the covers its roof
-    add(extrude(foot.difference(tower_out), bb - 0.10, bb, COLOURS["assumed"], "gf_air_duct_floor"))
-cx0, cy0, cx1, cy1 = A["chamber"]
-zc = min(A["invert"]) - 0.10                           # the plenum / chamber floor: 0.10 below the channel's invert
-ch_out, ch_in = box(cx0, cy0, cx1, cy1), box(cx0 + 0.15, cy0 + 0.15, cx1 - 0.15, cy1 - 0.15)
-add(extrude(ch_out.difference(ch_in), zc, zb1, COLOURS["assumed"], "gf_air_chamber_walls"))
-add(extrude(ch_out, zc - 0.15, zc, COLOURS["assumed"], "gf_air_chamber_floor"))
-vx0, vy0, vx1, vy1 = A["cover"]
-add(extrude(box(vx0, vy0, vx1, vy1), FINISHED["GF"] - 0.02, FINISHED["GF"] + 0.005, COLOURS["rail"], "gf_air_cover"))
-gy0, gz0, gy1, gz1 = A["grille"]
-gx = A["grille-x"]                                       # the courtyard's east wall (the kitchen's west wall): the grille on its courtyard face, the plenum in its base
-add(extrude(seg_box((gx - T_IN / 2, gy0), (gx - T_IN / 2, gy1), 0.03), FINISHED["GF"] + gz0, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_grille"))
-add(extrude(seg_box((gx, gy0), (gx, gy1), T_IN - 0.04), zb1, FINISHED["GF"] + gz1, COLOURS["assumed"], "gf_air_plenum"))   # inside the wall, from the chamber's level to the grille head
+HEAD_OPENINGS = []          # no louvre slats: the slots are the openings, the bird mesh behind them (not modelled)
+# the foot chamber: the dust trap (a basin in the slab depth + 0.30), the filter cabinet + fan + silencer, the cooler's space (option), the outlet grille, the open door leaf
+tx0, ty0, tx1, ty1, tdepth = A["trap"]
+zb0 = A["base"][1]
+add(extrude(box(tx0, ty0, tx1, ty1).buffer(0.08, join_style=2).difference(box(tx0, ty0, tx1, ty1)), zb0, STRUCT_TOP["GF"], COLOURS["assumed"], "gf_air_trap_walls"))
+add(extrude(box(tx0, ty0, tx1, ty1).buffer(0.08, join_style=2), zb0 - 0.1, zb0, COLOURS["assumed"], "gf_air_trap_floor"))
+add(extrude(box(tx0, ty0, tx1, ty1), STRUCT_TOP["GF"] - 0.02, FINISHED["GF"] + 0.005, COLOURS["rail"], "gf_air_trap_grating"))
+fx0, fy0, fx1, fy1, fz0, fz1 = A["fan"]
+add(extrude(box(fx0, fy0, fx1, fy1), FINISHED["GF"] + fz0, FINISHED["GF"] + fz1, COLOURS["assumed"], "gf_air_fan_cabinet"))
+cx0_, cy0_, cx1_, cy1_, cz0_, cz1_ = A["cooler"]
+add(extrude(box(cx0_, cy0_, cx1_, cy1_), FINISHED["GF"], FINISHED["GF"] + 0.02, COLOURS["assumed"], "gf_air_cooler_space"))   # the space only (an option): a floor mark
+ox, oy0, oy1, oz0, oz1 = A["outlet"]
+add(extrude(seg_box((ox + T_IN / 2, oy0), (ox + T_IN / 2, oy1), 0.03), FINISHED["GF"] + oz0, FINISHED["GF"] + oz1, COLOURS["door"], "gf_air_grille"))   # the timber louvres on the courtyard face of the core's east wall
+dy, dx0, dx1, dh = A["door"]
+add(extrude(box(dx0, dy + T_IN / 2, dx0 + 0.05, dy + T_IN / 2 + (dx1 - dx0)), FINISHED["GF"], FINISHED["GF"] + dh, COLOURS["door"], "gf_air_door_leaf"))   # the carved door drawn open, onto the covered strip
 add(extrude(ring, -0.6, -0.5, COLOURS["outer"], "gf_air_outline"))   # the building's outline below the ground slab, for the underground plan view
-summary["air"] = {"tower": A["tower"], "head": [h0, h1], "base": A["base"], "route": A["route"], "duct": A["duct"], "clear": A["clear"], "invert": A["invert"], "chamber": A["chamber"],
-                  "cover": A["cover"], "grille": A["grille"], "grille_x": gx, "sunken": A["sunken"], "duct_footprint_wkt": foot.wkt, "tower_shaft_area": round(TOWER_HOLE.area, 4),
-                  "head_openings": [[list(p), list(q)] for p, q in HEAD_OPENINGS]}
+summary["air"] = {"core": A["core"], "shaft": A["shaft"], "head": A["head"], "head_z": list(A["head-z"]), "slots": list(A["slots"]), "outlet": list(A["outlet"]), "door": list(A["door"]), "trap": list(A["trap"]),
+                  "fan": list(A["fan"]), "cooler": list(A["cooler"]), "inlet": list(A["inlet"]), "damper_top": A["damper-top"], "sunken": A["sunken"], "tower_shaft_area": round(TOWER_HOLE.area, 4), "head_openings": []}
 summary["flags"].append("Slabs (V6.3): the first-floor and roof bays carry the thickness of studies/structure.typ (0.30 ribbed over the kitchen, dining, men's majlis, suite and office, 0.22 flat over the double-height void, 0.20 elsewhere), ASSUMED; the walls run to the 0.20 underside, the thicker bays hang below it")
-summary["flags"].append("Air system v3.1 / V9.3 (studies/air_system.typ): the slim shaft along the cut wall, the malqaf tower (head (c): 4 slender arched openings per face, 3.5 m above the attic, the Hijazi cornice) on the attic's corner, the HRV plant room behind the attic, the low plenum behind the coping, the shallow sump, the breeze channel in the ground-slab depth (south under the maid bath, the laundry and the kitchen walkway, west under the sink counter), "
-                        "the plenum and the grille in the kitchen's west wall under the outdoor TV, with ASSUMED sizes and levels; the tower partition, the risers and the ventilation unit inside the base are not modelled")
+summary["flags"].append("Air system v4 (V10.0, studies/air_system.typ, the malqaf at L5): the RC core at the courtyard's north-west corner (the foot chamber with the dust trap, the filter cabinet + fan + silencer, the cooler's space, the carved door onto the covered strip, the louvred outlet in the first arcade arch), the shaft at the gallery's end, "
+                        "the head 1.6 × 2.4 to +%.2f (an RC frame, rendered block ribs, 3 / 5 slender arched slots per face; render and paint); no HRV, no plant room, no channel in the slab; the dampers D1 / D2, the filtered inlet under the overhang and the risers are not modelled; ASSUMED sizes and levels" % z_top)
 
 # ---------- the sun (Taif) in the model frame ----------
 nx, ny = NORTH                                   # true north on the drawing: canvas x east, y up (= plan north)

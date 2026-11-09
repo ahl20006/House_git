@@ -29,7 +29,7 @@
 #let plen(P) = range(P.len() - 1).map(i => dist(P.at(i), P.at(i + 1))).sum()
 
 // ---------- levels (3d/params.yaml, studies/roof.typ) ----------
-#let L = (ground: -0.30, gf: 0.0, ff: 3.60, roof: 7.20, roof-fin: 7.30, band: 3.40, cornice: (6.90, 7.35), coping-n: 7.65, parapet-s: 8.40, attic: 9.10, stair-room: 9.70, malqaf: 9.80, base: 9.10)
+#let L = (ground: -0.30, gf: 0.0, ff: 3.60, roof: 7.20, roof-fin: 7.30, band: 3.40, cornice: (6.90, 7.35), coping-n: 7.65, parapet-s: 8.40, attic: 9.10, stair-room: 9.70, malqaf: 13.20, base: 9.10)   // V10.0: the malqaf head (L5) +13.20
 #let cl = (sill: 5.0, head: 6.0, windows: ((6.0, 7.0), (7.6, 8.6)))   // the double-height living's clerestory windows on y 19.25 (studies/sections.typ)
 
 // ---------- the current first floor (../data/rooms_ff.csv) and the current south wing ----------
@@ -375,7 +375,7 @@
   // the south facade (x 0–13.311): plinth, band, cornice, parapet; behind it the attic (y 19.25, set back) and the stair room (NW) and the malqaf (NE)
   rect((X(0.875), Z(L.roof)), (X(12.436), Z(L.attic)), fill: luma(225), stroke: 0.4pt + luma(140)); T((6.6, Z(8.75)), [attic screen behind (y 19.25) +9.10], size: 3.2pt, fill: luma(110))
   rect((X(0), Z(L.roof)), (X(2.75), Z(L.stair-room)), fill: luma(215), stroke: 0.4pt + luma(140)); T((1.4, Z(9.4)), [stair room +9.70], size: 3pt, fill: luma(110))
-  rect((X(8.95), Z(L.roof)), (X(10.6), Z(L.malqaf)), fill: luma(200), stroke: 0.4pt + luma(120)); T((9.75, Z(9.5)), [malqaf +9.80], size: 3pt, fill: luma(110))
+  rect((X(4.3), Z(L.roof)), (X(5.9), Z(L.malqaf)), fill: luma(200), stroke: 0.4pt + luma(120)); T((5.1, Z(9.5)), [malqaf head +13.20 (L5)], size: 3pt, fill: luma(110))
   rect((X(-0.125), Z(L.ground)), (X(13.436), Z(L.parapet-s)), fill: rgb("#f6f0e1"), stroke: 0.7pt + ink)
   rect((X(-0.125), Z(L.ground)), (X(13.436), Z(0.6)), fill: stone, stroke: none)
   rect((X(-0.2), Z(L.band)), (X(13.5), Z(L.band + 0.12)), fill: stone, stroke: none)
@@ -402,10 +402,9 @@
   let T(p, t, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
   let X(y) = 24.0 - y            // seen from the east: north on the right
   let Z(z) = z - L.ground
-  // behind: the attic (set back), the stair room (NW, far), the malqaf and its base at the NE (right)
+  // behind: the attic (set back), the stair room (NW, far), the malqaf head (V10.0, L5: y 6.4–8.8, at the courtyard's north-west corner, far)
   rect((X(19.25), Z(L.roof)), (X(0.875), Z(L.attic)), fill: luma(225), stroke: 0.4pt + luma(140)); T((X(10.0), Z(8.75)), [attic screen behind (x 12.436) +9.10], size: 3.2pt, fill: luma(110))
-  rect((X(3.4), Z(L.roof)), (X(0.0), Z(L.base)), fill: luma(205), stroke: 0.4pt + luma(120)); T((X(1.7), Z(8.6)), [HRV base +9.10], size: 3pt, fill: luma(110))
-  rect((X(1.0), Z(L.roof)), (X(0.0), Z(L.malqaf)), fill: luma(190), stroke: 0.4pt + luma(120)); T((X(0.5), Z(9.5)), [malqaf], size: 3pt, fill: luma(110))
+  rect((X(8.8), Z(L.roof)), (X(6.4), Z(L.malqaf)), fill: luma(190), stroke: 0.4pt + luma(120)); T((X(7.6), Z(9.5)), [malqaf head (L5)], size: 3pt, fill: luma(110))
   // the east facade: the straight part y 6–24 (coping +7.65 on the north block to y 19.25, the parapet +8.40 on the south wing) and the cut y 0–6 (seen obliquely, drawn narrower)
   rect((X(19.25), Z(L.ground)), (X(6.0), Z(L.coping-n)), fill: rgb("#f6f0e1"), stroke: 0.7pt + ink)
   rect((X(24.0), Z(L.ground)), (X(19.25), Z(L.parapet-s)), fill: rgb("#f6f0e1"), stroke: 0.7pt + ink)

@@ -19,7 +19,7 @@ It reads the project files through the readers of build_3d.py, the summary (3d/o
   9. the air system (route, chamber, pads, levels, the wall grille);
  10. the character study (3d/character.yaml, STYLE STUDY): every chr_* mesh named and grouped, the base model untouched (the few replaced
      meshes exist), the outer-window glazing recessed by the reveal, every mashrabiya on a window of the plans and flush with the face,
-     the stone sleeves round the colonnade, no pergola, the roof guards, the courtyard layout (the step, the benches, the TV and its
+     the rendered sleeves round the colonnade, no pergola, the roof guards, the courtyard layout (the step, the benches, the TV and its
      surround over the grille, the enclosure), the arcade, nothing beyond the outer face + the plinth / coping;
  11. the roofline: the cornice, the copings, the attic (a plain pentagon since V8.0), the HRV base under the malqaf, the enclosure windows.
 Ends with "3D CHECKS PASSED" (plus the flagged items) or a list of problems (exit code 1).
@@ -360,7 +360,7 @@ if ld and all(n in meshes for n in lad_names) and not any(n.startswith("ext_towe
     gs = summary["guardrail_setback"]
     gr_ok = abs(meshes["roof_guardrail_setback"].bounds[1][2] - (rf_ + gs["height"])) < 1e-3 and all(abs(min(p_[0] for p_ in l_) - (outline_poly.bounds[0] - T_OUT / 2 + gs["setback"])) < 1e-6 or abs(max(p_[0] for p_ in l_) - (outline_poly.bounds[2] + T_OUT / 2 - gs["setback"])) < 1e-6 for l_ in gs["lines"]) and all(abs(max(p_[1] for p_ in l_) - (outline_poly.bounds[3] + T_OUT / 2 - gs["setback"])) < 1e-6 for l_ in gs["lines"])
     if st_ok and rung_ok and pil_ok and toe_ok and gate_ok and gr_ok:
-        ok(f"roof access (V8.1): no stair tower; the ladder in a {ld['recess'][3] - ld['recess'][1]:.2f} × {ld['recess'][2] - ld['recess'][0]:.2f} recess of a stone pilaster on the gym's east wall (the wall not cut), climb {ld['climb']:.2f} m, "
+        ok(f"roof access (V8.1): no stair tower; the ladder in a {ld['recess'][3] - ld['recess'][1]:.2f} × {ld['recess'][2] - ld['recess'][0]:.2f} recess of a rendered pilaster on the gym's east wall (the wall not cut), climb {ld['climb']:.2f} m, "
            f"{len(ld['rungs'])} rungs, the top rung at the roof finish +{rf_:.2f}, toe clearance {ld['toe_clearance']:.2f}, the stiles to +{ld['stile_top']:.2f}, the closed walnut panel, the self-closing gate 1.10 in the court's west guard; "
            f"the guardrail {gs['height']:.2f} m set back {gs['setback']:.1f} m from the south wing's west, south and east faces")
     else:
@@ -409,47 +409,34 @@ if abs(w_noon - want_w) < 0.4 and abs(s_noon - (180 - want_s)) < 0.4 and sym:
 else:
     bad(f"sun: winter noon {w_noon} (want {want_w:.1f}), summer noon {s_noon}, symmetric {sym}")
 
-# ---------- 9: the air system ----------
-print("9. Air system (studies/air_system.typ, all assumed)")
+# ---------- 9: the air system (V10.0: the malqaf at L5) ----------
+print("9. Air system (studies/air_system.typ v4, the malqaf at L5, all assumed)")
 air = summary["air"]
-foot = wkt.loads(air["duct_footprint_wkt"])
-under = sorted({r["name"] for r in GF if Polygon(r["pts"]).buffer(-T_IN / 2, join_style=2).intersection(foot).area > 0.01})   # the rooms between their wall faces
-if set(under) <= {"Maid bath", "Laundry", "Kitchen", "Air tower"}:   # route E (owner, 3d-char2): south under the maid wing to the chamber under the kitchen floor; no bedroom
-    ok(f"dry duct route E ({len(air['route']) - 1} leg(s), x {air['route'][0][0]}) runs only under: {under}: no bedroom (it passes under the laundry's east partition line x 10.65 by 0.05, a light partition); the maid bath and laundry drains cross above it (A6)")
+core = Polygon(air["core"]); shaft = Polygon(air["shaft"])
+court_poly = Polygon(next(r for r in GF if r["name"] == "Courtyard")["pts"])
+riwaq_poly = Polygon(next(r for r in GF if r["name"].startswith("Family lobby"))["pts"])
+maj_poly = Polygon(next(r for r in GF if r["name"] == "Women's majlis")["pts"])
+if core.touches(court_poly) and core.touches(riwaq_poly) and core.touches(maj_poly) and court_poly.intersection(core).area < 1e-6 and shaft.within(core.buffer(1e-6)) and abs(core.bounds[2] - PROJ_X) < 1e-6 and abs(core.bounds[1] - 6.5) < 1e-6:
+    ok(f"the malqaf core at the courtyard's north-west corner: x {core.bounds[0]}–{core.bounds[2]}, y {core.bounds[1]}–{core.bounds[3]} ({core.area:.2f} m² on axes), against the women's majlis wall, the riwaq and the courtyard; the shaft {shaft.area:.2f} m² inside it; no bedroom touches it (D10)")
 else:
-    bad(f"the duct runs under {under}")
-kitchen_poly = Polygon(next(r for r in GF if r["name"] == "Kitchen")["pts"])
-cham = Polygon([(air["chamber"][0], air["chamber"][1]), (air["chamber"][2], air["chamber"][1]), (air["chamber"][2], air["chamber"][3]), (air["chamber"][0], air["chamber"][3])])
-if kitchen_poly.buffer(0.01).contains(cham) and abs(cham.bounds[0] - (air["grille_x"] + T_IN / 2)) < 1e-6:
-    ok(f"outlet chamber x {air['chamber'][0]}–{air['chamber'][2]} y {air['chamber'][1]}–{air['chamber'][3]} under the kitchen floor against the kitchen's west wall (x {air['grille_x']}); the sealed cover in the kitchen floor")
+    bad(f"the malqaf core's position: {core.bounds}")
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.9 < TOWER_HOLE.area < 1.0:
+    ok(f"the shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m² (1.2 × 0.8 clear)")
 else:
-    bad("outlet chamber not under the kitchen floor against its west wall")
-pad = 1.5
-def padbox(cid):
-    c = COLS[cid]
-    return Polygon([(c["x"] - pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] - pad / 2), (c["x"] + pad / 2, c["y"] + pad / 2), (c["x"] - pad / 2, c["y"] + pad / 2)])
-near = {cid: round(min(padbox(cid).distance(foot), padbox(cid).distance(cham)), 3) for cid in ("C25", "C26", "C31", "C27", "C24", "C30")}
-bt, bb = air["duct"][1], air["duct"][2]
-slab_lo = STRUCT_TOP["GF"] - T_SLAB
-if abs(bt - STRUCT_TOP["GF"]) < 1e-6 and abs(bb - slab_lo) < 1e-6 and min(air["invert"]) >= bb - 0.05 and abs(air["head"][1] - (RD["attic"]["top"] + 3.5)) < 1e-6:   # V9.3: the malqaf 3.5 m above the attic coping
-    ok(f"v3: the breeze channel lies within the ground-slab depth ({bt:+.2f} … {bb:+.2f}, clear {air['clear'][0]} × {air['clear'][1]}, invert {min(air['invert']):+.2f}): above the assumed pads and the ground beams (nearest pad boxes in plan: "
-       + ", ".join(f"{k} {v:.2f}" for k, v in near.items() if k not in ("C24", "C30")) + f"), nothing notched (A3, assumed); the malqaf's crown +{air['head'][1]:.2f} = 3.5 m above the attic coping")
-else:
-    bad(f"air levels (v3): channel {bt}…{bb} should be the slab depth {STRUCT_TOP['GF']}…{slab_lo:.2f}, invert {air['invert']}, head {air['head']}")
-gy0, gz0, gy1, gz1 = air["grille"]
+    bad(f"shaft opening {TOWER_HOLE.area}")
 gm = meshes.get("gf_air_grille")
-sink = next((o for o in ops if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
-grille_ok = gm is not None and abs(gm.bounds[0][0] - (air["grille_x"] - T_IN / 2 - 0.015)) < 1e-3 and gm.bounds[0][1] > air["chamber"][1] - 0.5 and gm.bounds[1][1] < air["chamber"][3] + 0.5
-clear_of_sink = sink is None or gy0 >= max(sink["a"][1], sink["b"][1]) + 0.3     # v3: the grille under the outdoor TV, south of the sink window (moved north, 1 Nov 2026)
-if grille_ok and 0.05 - 1e-6 <= gz0 <= 0.5 and gz1 > gz0 and clear_of_sink and "gf_air_plenum" in meshes and not any(n.startswith("gf_air_kerb") or "_air_water" in n for n in meshes):
-    ok(f"outlet: a grille on the courtyard face of the kitchen's west wall (x {air['grille_x']}, y {gy0}–{gy1}, +{gz0:.2f} … +{gz1:.2f}) over the chamber, with the plenum in the wall base, "
-       f"{gy0 - max(sink['a'][1], sink['b'][1]):.2f} m south of the kitchen sink window, under the outdoor TV; no air opening and no water in the courtyard floor (the covers are sealed, in the laundry and kitchen)")
+ox, oy0, oy1, oz0, oz1 = air["outlet"]
+grille_ok = gm is not None and abs(gm.bounds[0][0] - (ox + T_IN / 2 - 0.015)) < 1e-3 and abs(gm.bounds[0][1] - oy0) < 1e-3 and abs(gm.bounds[1][1] - oy1) < 1e-3 and abs(gm.bounds[0][2] - (FINISHED["GF"] + oz0)) < 1e-3
+door_ok = any(o["floor"] == "GF" and abs(o["a"][1] - air["door"][0]) < 1e-6 and abs(o["b"][1] - air["door"][0]) < 1e-6 and min(o["a"][0], o["b"][0]) >= core.bounds[0] and max(o["a"][0], o["b"][0]) <= core.bounds[2] for o in ops)
+if grille_ok and door_ok and all(n in meshes for n in ("gf_air_trap_walls", "gf_air_trap_grating", "gf_air_fan_cabinet", "gf_air_door_leaf")) and not any(n.startswith("gf_air_duct") or n.startswith("gf_air_chamber") or n == "gf_air_plenum" or n.startswith("gf_air_cover") for n in meshes):
+    ok(f"the foot chamber: the louvred outlet on the core's east face into the first arcade arch (x {ox}, y {oy0}–{oy1}, +{oz0:.2f} … +{oz1:.2f}), the carved door {air['door'][2] - air['door'][1]:.2f} m onto the covered strip, the dust trap, the fan cabinet; no channel, no covers, no plenum under the floors (V10.0)")
 else:
-    bad(f"outlet: grille on the wrong wall / levels / not clear of the sink window / a floor opening or water left from v1 (grille ok {grille_ok}, sink clear {clear_of_sink})")
-if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.8 < TOWER_HOLE.area < 1.5:   # V9.2: ≈ 0.98 m² (the tower a rectangle 1.425 × 1.0 on axes); V9.1: ≈ 1.3 m² since the cut wall moved a further 0.24 m out (the tower 1.78 m² on axes; V9.0 1.04 / 1.51)
-    ok(f"tower shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m²")
+    bad(f"the foot chamber (grille {grille_ok}, door {door_ok})")
+hz = air["head_z"]
+if abs(meshes["roof_air_cap"].bounds[1][2] - hz[6]) < 1e-3 and abs(hz[6] - (RD["attic"]["top"] + 4.52)) < 1e-6 and hz[3] >= 11.42 - 0.25 and "roof_air_void_slots" in meshes and not any(n.startswith("roof_air_base") or n.startswith("roof_air_plant") or n == "roof_air_plenum" for n in meshes):
+    ok(f"the malqaf head 1.6 × 2.4 on the shaft and the gallery roof: openings +{hz[3]:.2f} … +{hz[4]:.2f} (above the roof's wake), the crown +{hz[6]:.2f} = 4.52 m above the attic coping; no HRV plant room, no plenum (V10.0)")
 else:
-    bad("tower shaft opening")
+    bad(f"the malqaf head: {hz}")
 
 # ---------- 10: the character study (3d/character.yaml) · STYLE STUDY, PROVISIONAL ----------
 print("10. Character study (3d/character.yaml, style study, provisional)")
@@ -516,17 +503,17 @@ else:
     else:
         ok(f"{len(ch['mashrabiya'])} mashrabiya screens, each on a window of the plans, inside its opening and flush with the wall face (depth {C['mashrabiya']['depth']}): "
            + "; ".join(f"{m['floor']} {m['window'] if m['window'] != 'default window' else m['at']}" for m in ch["mashrabiya"]))
-    # the colonnade's stone sleeves
+    # the colonnade's rendered sleeves (V10.0: no stone)
     bad_sl = []
     for s in ch["sleeves"]:
-        m = chr_meshes.get(f"chr_base_stone_column_{s['column']}")
+        m = chr_meshes.get(f"chr_base_honey_column_{s['column']}")
         if m is None or abs(m.bounds[0][2] - FINISHED["GF"]) > 1e-3 or abs(m.bounds[1][2] - (L["roof"] - T_SLAB)) > 1e-3 \
                 or abs((m.bounds[1][0] - m.bounds[0][0]) - C["colonnade"]["base"]["diameter"]) > 0.02:
             bad_sl.append(s["column"])
     if bad_sl or len(ch["sleeves"]) != len(P["structure"]["column_to_roof"]):
         bad(f"colonnade sleeves: {bad_sl}")
     else:
-        ok(f"stone sleeves Ø{C['colonnade']['diameter']} with base and capital bands on {', '.join(s['column'] for s in ch['sleeves'])} ({ch['sleeves'][0]['structural']} assumed inside), finished ground floor → roof underside")
+        ok(f"rendered sleeves (V10.0: no stone) Ø{C['colonnade']['diameter']} with base and capital bands on {', '.join(s['column'] for s in ch['sleeves'])} ({ch['sleeves'][0]['structural']} assumed inside), finished ground floor → roof underside")
     # the pergola
     pg = ch["pergola"]
     pm = chr_meshes.get("chr_pergola_timber_beams")
@@ -581,12 +568,12 @@ else:
     level_ok = cy_.get("level") and not cy_["replaces"] and all(n in meshes for n in ("gf_slab_court", "gf_finish_court")) and not any("pit_floor" in n or "bench" in n or "step_nosing" in n for n in chr_meshes)
     sz = cy_["seating_zone"]; szp = Polygon([(sz[0], sz[1]), (sz[2], sz[1]), (sz[2], sz[3]), (sz[0], sz[3])])
     eb = cy_["enclosure"]["box"]; ebp = Polygon([(eb[0], eb[1]), (eb[2], eb[1]), (eb[2], eb[3]), (eb[0], eb[3])])
-    furn = [m for n, m in chr_meshes.items() if n.startswith("chr_sunken_timber_court_") or n.startswith("chr_sunken_stone_court_table")]
+    furn = [m for n, m in chr_meshes.items() if n.startswith("chr_sunken_timber_court_") or n.startswith("chr_sunken_honey_court_table")]
     furn_ok = len(furn) >= 3 and all(szp.buffer(0.01).contains(_b2(m)) and ebp.intersection(_b2(m)).area < 1e-6 for m in furn) and all(m.bounds[0][2] >= FINISHED["GF"] - 1e-6 for m in furn)
     sw = cy_["sink_window"]
     enc_ok = abs(eb[2] - court_floor.bounds[2]) < 1e-3 and eb[1] <= sw["y"][0] + 1e-6 and eb[3] >= sw["y"][1] - 1e-6 and cy_["enclosure"]["water_rim"] < sw["sill"] and cy_["enclosure"]["water_rim"] > cy_["enclosure"]["rim"] \
-        and all(f"chr_base_{n}" in chr_meshes for n in ("stone_enclosure_walls", "water_basin_water", "foliage_tree_crown", "trunk_planter_soil")) and abs(chr_meshes["chr_base_stone_enclosure_walls"].bounds[1][2] - cy_["enclosure"]["water_rim"]) < 1e-3
-    tv_ok = cy_["tv"]["z"][0] >= cy_["grille"]["z"][1] + 0.1 - 1e-6 and cy_["tv"]["y"][0] <= cy_["grille"]["y"][0] and cy_["grille"]["y"][1] <= cy_["tv"]["y"][1] and cy_["tv_crown"] < STRUCT_TOP["FF"] - T_SLAB and "chr_base_stone_tv_surround" in chr_meshes and "chr_base_bronze_outdoor_tv" in chr_meshes and cy_["tv"]["y"][0] >= eb[3] - 1e-6 and cy_["grille"]["z"][0] >= 0.10 - 1e-6
+        and all(f"chr_base_{n}" in chr_meshes for n in ("honey_enclosure_walls", "water_basin_water", "foliage_tree_crown", "trunk_planter_soil")) and abs(chr_meshes["chr_base_honey_enclosure_walls"].bounds[1][2] - cy_["enclosure"]["water_rim"]) < 1e-3
+    tv_ok = cy_["tv_crown"] < STRUCT_TOP["FF"] - T_SLAB and "chr_base_honey_tv_surround" in chr_meshes and abs(cy_["grille"]["y"][0] - summary["air"]["outlet"][1]) < 1e-6   # V10.0: the malqaf outlet is in the west arcade, no longer under the TV and "chr_base_bronze_outdoor_tv" in chr_meshes and cy_["tv"]["y"][0] >= eb[3] - 1e-6 and cy_["grille"]["z"][0] >= 0.10 - 1e-6
     gaps_ok = cy_["level_edges"]["north"] >= 0.5 - 1e-6 and cy_["level_edges"]["south"] >= 0.6 - 1e-6 and cy_["level_edges"]["west"] >= 1.5 - 1e-6
     drains_ok = len(cy_["linear_drains"]) >= 2 and court_floor.buffer(0.01).contains(Point(cy_["overflow"])) and "chr_sunken_bronze_overflow" in chr_meshes
     if level_ok and furn_ok and enc_ok and tv_ok and gaps_ok and drains_ok:
@@ -600,7 +587,7 @@ else:
     fo = ch.get("fountain")
     if fo is None:
         ok("wall fountain: none on the kitchen wall (superseded 1 Nov 2026: the water basin and the tree are in the north enclosure, character.yaml courtyard_layout; the builder update is pending)")
-    elif fo["clear_of_grille"] >= 0.3 and (fo["below_sink_sill"] is None or fo["below_sink_sill"] >= 0) and "chr_base_stone_fountain_panel" in chr_meshes:
+    elif fo["clear_of_grille"] >= 0.3 and (fo["below_sink_sill"] is None or fo["below_sink_sill"] >= 0) and "chr_base_honey_fountain_panel" in chr_meshes:
         ok(f"wall fountain (shape only) on the courtyard's east wall y {fo['along'][0]}–{fo['along'][1]}: {fo['clear_of_grille']:.2f} m south of the malqaf grille, under the kitchen sink window with its top {fo['below_sink_sill']:.2f} m below the sill; the women's majlis glass untouched")
     else:
         bad(f"fountain: {fo}")
@@ -641,14 +628,6 @@ if setback_ok and abs(aw.bounds[1][2] - at["wall_top"]) < 1e-3 and abs(ac.bounds
     ok(f"attic screen wall {at['thickness']} m thick, {at['wall_top'] - L['roof']:.2f} m above the roof slab (coping +{at['top']:.2f}), set back {at['setback']} m from the facade face on all four sides (a plain pentagon, V8.0), its south wall on y {at['y_south']}; {len(at['doors'])} doors (one of them to the office roof); ≈ {rd['attic']['length']:.1f} m long")
 else:
     bad(f"attic: setback {setback_ok}, wall {aw.bounds[:, 2].tolist()}, coping {ac.bounds[1][2]}")
-pr = summary["plant_room"]
-pr_ok = all(n in meshes for n in ("roof_air_plant_shell", "roof_air_plant_slab", "roof_air_plant_door", "roof_air_exhaust", "roof_air_plenum", "roof_air_head", "roof_air_cap", "roof_air_void_slots")) \
-    and abs(meshes["roof_air_plant_slab"].bounds[1][2] - pr["top"]) < 1e-3 and pr["top"] < at["top"] and meshes["roof_air_plenum"].bounds[1][2] <= RD["coping_north"]["top"] + 1e-6 \
-    and abs(meshes["roof_air_cap"].bounds[1][2] - AIR["head"][1]) < 1e-3 and not any(n.startswith("roof_air_base") for n in meshes)
-if pr_ok:
-    ok(f"V9.3: the malqaf tower to +{AIR['head'][1]:.2f} on the attic's corner (head (c), the slots as dark voids), the HRV plant room behind the attic (top +{pr['top']:.2f} < the attic coping +{at['top']:.2f}: hidden; {pr['clear']:.2f} m clear, {pr['inside_area']:.2f} m², doors on its south face), the exhaust grille low in the attic's cut wall, the plenum behind the coping (top +{pr['plenum_top']:.2f}); no HRV base left")
-else:
-    bad(f"the malqaf tower / the plant room: {pr}")
 sc_ = summary["suite_court"]
 if "ff_low_court_south" in meshes and "ff_beam_R8_court" in meshes and abs(meshes["ff_low_court_south"].bounds[1][2] - sc_["base_top"]) < 1e-3 and abs(meshes["ff_beam_R8_court"].bounds[0][2] - sc_["frame_soffit"]) < 1e-3:
     ok(f"the suite court v2 ({sc_['area']:.2f} m², open to the sky): its south side x {sc_['south_x'][0]}–{sc_['south_x'][1]} a 1.10 m base (+{sc_['base_top']:.2f}) under the facade frame (R8 soffit +{sc_['frame_soffit']:.2f}, the cornice and the parapet carried across); the infill is the owner's choice (mashrabiya recommended, not built)")
@@ -660,25 +639,26 @@ w3 = [o for o in ops if o["name"].startswith("W3")]
 b3z = beams["B3"]["z1"]
 soffit = L["roof"] - 0.45          # the roof edge beams' soffit +6.75
 arched = ch.get("arched_windows", [])
+blind = ch.get("blind_arches", [])   # V10.0: W1-1 a blind arch (the malqaf shaft behind it)
 crowns_ok = all(a["crown"] <= soffit - 0.1 + 1e-6 and abs(a["crown"] - a["springing"] - a["width"] / 2) < 1e-6 for a in arched)
-if len(w1) == 6 and all(abs(o["sill"] - b3z) < 1e-6 and o["head"] <= soffit - 0.1 + 1e-6 for o in w1) and len(w2) == 2 and all(o["head"] <= soffit - 0.1 + 1e-6 for o in w2) and len(w3) == 1 and abs(w3[0]["sill"] - STOREY["GF"][1]) < 1e-6 and w3[0]["head"] <= soffit - 0.1 + 1e-6 and len(arched) == 9 and crowns_ok:
-    ok(f"courtyard enclosure (option A, V7.1: semicircular heads): W1 six arched windows {w1[0]['width']:.2f} m on the gallery edge x {PROJ_X} from the B3 upstand +{b3z:.2f}, springing +{arched[0]['springing']:.2f}, crown +{arched[0]['crown']:.2f} ({soffit - arched[0]['crown']:.2f} m of wall below the +{soffit:.2f} soffit); "
-       f"W2 two arched windows {w2[0]['width']:.2f} m east of C21, springing +{arched[6]['springing']:.2f}; W3 one arched window {w3[0]['width']:.2f} m over the living's courtyard glass, +{w3[0]['sill']:.2f} to the crown +{w3[0]['head']:.2f} (springing +{arched[8]['springing']:.2f}); no railing on those edges; the sky stays open ({COURT_SKY.area:.2f} m²)")
+if len(w1) == 5 and len(blind) == 1 and abs(blind[0]["sill"] - b3z) < 1e-6 and abs(blind[0]["crown"] - arched[0]["crown"]) < 1e-6 and all(abs(o["sill"] - b3z) < 1e-6 and o["head"] <= soffit - 0.1 + 1e-6 for o in w1) and len(w2) == 2 and all(o["head"] <= soffit - 0.1 + 1e-6 for o in w2) and len(w3) == 1 and abs(w3[0]["sill"] - STOREY["GF"][1]) < 1e-6 and w3[0]["head"] <= soffit - 0.1 + 1e-6 and len(arched) == 8 and crowns_ok:
+    ok(f"courtyard enclosure (option A, V7.1: semicircular heads): W1 five arched windows {w1[0]['width']:.2f} m and one BLIND arch (W1-1, V10.0: the malqaf shaft behind it) on the gallery edge x {PROJ_X} from the B3 upstand +{b3z:.2f}, springing +{arched[0]['springing']:.2f}, crown +{arched[0]['crown']:.2f} ({soffit - arched[0]['crown']:.2f} m of wall below the +{soffit:.2f} soffit); "
+       f"W2 two arched windows {w2[0]['width']:.2f} m east of C21, springing +{arched[5]['springing']:.2f}; W3 one arched window {w3[0]['width']:.2f} m over the living's courtyard glass, +{w3[0]['sill']:.2f} to the crown +{w3[0]['head']:.2f} (springing +{arched[7]['springing']:.2f}); no railing on those edges; the sky stays open ({COURT_SKY.area:.2f} m²)")
 else:
-    bad(f"enclosure windows: W1 {len(w1)}, W2 {len(w2)}, W3 {len(w3)}, arched {len(arched)} crowns ok {crowns_ok}")
+    bad(f"enclosure windows: W1 {len(w1)} + blind {len(blind)}, W2 {len(w2)}, W3 {len(w3)}, arched {len(arched)} crowns ok {crowns_ok}")
 # V7.1: the courtyard arcade: two intermediate columns on the colonnade line in the courtyard bay, three equal bays, arches below the soffit, not in the seating step, clear of the riwaq door
 arc = ch.get("arcade", {})
 cs_ = ch.get("courtyard", {}).get("seating_zone")   # 3 Nov 2026: the level seating zone (no step)
 pit = Polygon([(cs_[0], cs_[1]), (cs_[2], cs_[1]), (cs_[2], cs_[3]), (cs_[0], cs_[3])]) if cs_ else None
 riwaq_door = next((o for o in ops if o["floor"] == "GF" and abs(o["a"][0] - 4.25) < 1e-6 and 8.0 < o["a"][1] < 12.0 and o["kind"] != "window"), None)
 if arc and len(arc["columns"]) == 2 and all(abs(c[0] - PROJ_X) < 1e-6 and 6.5 < c[1] < 13.0 for c in arc["columns"]) and len(arc["bays"]) == 3 and all(b["springing"] >= 2.1 for b in arc["bays"]) \
-        and abs(arc["columns"][1][1] - arc["columns"][0][1] - arc["bay_axes"]) < 1e-3 and all(f"chr_base_stone_arcade_column_{k}" in chr_meshes for k in (0, 1)) and "chr_base_plaster_arcade_arches" in chr_meshes:
+        and abs(arc["columns"][1][1] - arc["columns"][0][1] - arc["bay_axes"]) < 1e-3 and all(f"chr_base_honey_arcade_column_{k}" in chr_meshes for k in (0, 1)) and "chr_base_plaster_arcade_arches" in chr_meshes:
     gap_pit = min(pit.distance(Point(c[0], c[1])) - arc["diameter"] / 2 for c in arc["columns"]) if pit is not None else None
     gap_riwaq = min(Point(c[0], c[1]).distance(LineString([riwaq_door["a"], riwaq_door["b"]])) - arc["diameter"] / 2 - 0.1 for c in arc["columns"]) if riwaq_door else None
     w1_c = [o for o in w1 if 6.5 < (o["a"][1] + o["b"][1]) / 2 < 13.0]
     aligned = all(any(abs((o["a"][1] + o["b"][1]) / 2 - (b["y"][0] + b["y"][1]) / 2) < 0.1 for b in arc["bays"]) for o in w1_c)
     spans_txt = " / ".join("%.2f" % b["span"] for b in arc["bays"])
-    ok(f"courtyard arcade (V7.1, {'structural' if arc['structural'] else 'decorative'}): two Ø{arc['diameter']} stone columns on x {PROJ_X} at y {arc['columns'][0][1]:.3f} / {arc['columns'][1][1]:.3f} (bays {arc['bay_axes']:.3f} m on axes), three semicircular arches under the soffit: spans {spans_txt} m, springing +{min(b['springing'] for b in arc['bays']):.2f} … +{max(b['springing'] for b in arc['bays']):.2f}, crown +{arc['bays'][0]['crown']:.2f}; "
+    ok(f"courtyard arcade (V7.1, {'structural' if arc['structural'] else 'decorative'}): two Ø{arc['diameter']} rendered columns on x {PROJ_X} at y {arc['columns'][0][1]:.3f} / {arc['columns'][1][1]:.3f} (bays {arc['bay_axes']:.3f} m on axes), three semicircular arches under the soffit: spans {spans_txt} m, springing +{min(b['springing'] for b in arc['bays']):.2f} … +{max(b['springing'] for b in arc['bays']):.2f}, crown +{arc['bays'][0]['crown']:.2f}; "
        f"the columns stand clear of the level seating zone (gap {gap_pit:.2f} m), {gap_riwaq:.2f} m clear of the riwaq door's swing line; the three W1 windows above {'aligned' if aligned else 'NOT aligned'} with the bays") if (gap_pit is None or gap_pit >= -1e-6) and aligned else bad(f"arcade: pit gap {gap_pit}, aligned {aligned}")
 else:
     bad(f"arcade: {arc}")

@@ -1,8 +1,8 @@
 """character_3d.py · Taif / Palm House · 3D phase "character": simple architectural character for the model (STYLE STUDY, PROVISIONAL).
 Called by build_3d.py after the model is built; reads 3d/character.yaml and the model's own data (openings, columns, beams, voids)
 and adds the character meshes, named chr_<group>_<material>_<label> so the viewer can colour and toggle them:
-  group base      stone plinth, feature-wall cladding, recessed outer-window glazing with bronze frames, mashrabiya screens, the
-                  colonnade's stone sleeves (base and capital bands), the timber soffit and fascia under the projection, the roof
+  group base      the rendered plinth (V10.0: no stone anywhere; render and paint, porcelain floors), feature-wall render, recessed outer-window glazing with bronze frames, mashrabiya screens, the
+                  colonnade's rendered sleeves (base and capital bands), the timber soffit and fascia under the projection, the roof
                   parapet with its coping and the roof railings, the malqaf head's timber louvres, the courtyard fountain pier
   (V7.0: the gallery railing variants are gone: the gallery edge is the wall with the steel window W1; the roof parapets, the cornice,
   the attic is a base-model mesh of build_3d.py, re-coloured here; the windows get black steel frames and divided lites)
@@ -11,12 +11,12 @@ and adds the character meshes, named chr_<group>_<material>_<label> so the viewe
   living's TV wall: the entrance arch head, the arched TV niche with its pier, cabinet, TV and shelves)
   group sunken    3 Nov 2026: the courtyard layout (studies/courtyard_layout.typ): the movable furniture, the linear drains and the overflow on the LEVEL floor (was: the seating one step down, three benches, the low
                   table, the drain and the overflow; it replaces the base model's courtyard floor meshes gf_slab_court / gf_finish_court while it is on
-                  (the TV with its stone surround and the water / tree enclosure are in the group base; the suite court furniture in props)
+                  (the TV with its rendered surround and the water / tree enclosure are in the group base; the suite court furniture in props)
   group light     the hanging lanterns (point lights in the night view)
 Existing meshes are not changed here: the viewer re-colours them by name (character.yaml `assign`) when the character is on and
 hides the few they replace (the outer windows' centre-line glass). Nothing is edited by hand: change character.yaml
 and run build_3d.py again. Nothing here is a design decision; the structure keeps its assumed sizes underneath (the Ø0.30 columns
-inside the Ø0.40 stone sleeves).
+inside the Ø0.40 rendered sleeves).
 """
 import math
 from pathlib import Path
@@ -139,13 +139,13 @@ def build(g):
     def disc(c, r, res=16):
         return Point(c).buffer(r, resolution=res)
 
-    # ---------- plinth: a stone base course around the outside, the doors cut through it ----------
+    # ---------- plinth: a rendered base course (honey tone; V10.0 no stone) around the outside, the doors cut through it ----------
     pl = C["plinth"]
     plinth = outer_face.buffer(pl["thickness"], join_style=2).difference(outer_face)
     for o in summary["openings"]:
         if o["kind"] == "door" and o["wall"].endswith("_outer"):
             plinth = plinth.difference(seg_box(o["a"], o["b"], T_OUT + 2 * pl["thickness"] + 0.02))
-    emit("base", "stone", "plinth", parts(plinth, pl["ground"], gf + pl["height"]), height=pl["height"])
+    emit("base", "honey", "plinth", parts(plinth, pl["ground"], gf + pl["height"]), height=pl["height"])
 
     # ---------- windows: bronze frames on every window; outer-wall glazing set back into a deep reveal ----------
     fr, reveal = C["frame"], C["reveal"]
@@ -204,6 +204,24 @@ def build(g):
         arch_frames += panel(a, b, n, -f / 2, f, ring)
         rec["arched_windows"].append({"label": w["label"], "at": w["at"], "width": round(L, 3), "sill": o["sill"], "springing": round(spring, 3), "crown": crown, "wall_above": round(STRUCT_TOP["roof"] - 0.45 - crown, 3)})
     emit("base", "plaster", "arch_spandrels", spandrels, windows=len(aw["windows"]))
+    # V10.0 (L5): the blind arches: no opening in the wall; the arched surround proud of the courtyard face and a recessed-looking panel inside it (render and paint)
+    rec["blind_arches"] = []
+    b_sur, b_pan = [], []
+    for w in aw.get("blind", []):
+        x0, y0, x1, y1 = [float(v) for v in w["at"].split()]
+        a, b = (x0, y0), (x1, y1)
+        (ux, uy), L = unit(a, b)
+        n = (uy, -ux)
+        t = wall_t(a, b)
+        sill, crown, sw = w["sill"], w["crown"], w.get("surround", 0.10)
+        spring = crown - L / 2
+        shape = box(0, sill, L, spring).union(disc((L / 2, spring), L / 2, 32)).intersection(box(0, sill, L, crown))
+        inner = box(sw, sill + sw, L - sw, spring).union(disc((L / 2, spring), L / 2 - sw, 32)).intersection(box(sw, sill + sw, L - sw, crown))
+        b_sur += panel(a, b, n, t / 2, 0.04, shape.difference(inner))
+        b_pan += panel(a, b, n, t / 2 - 0.03, 0.03, inner)
+        rec["blind_arches"].append({"label": w["label"], "at": w["at"], "width": round(L, 3), "sill": sill, "springing": round(spring, 3), "crown": crown})
+    emit("base", "honey", "blind_arch_surround", b_sur, arches=len(aw.get("blind", [])))
+    emit("base", "plaster", "blind_arch_panel", b_pan, arches=len(aw.get("blind", [])))
     emit("base", "steel", "arch_frames", arch_frames, windows=len(aw["windows"]))
 
     # ---------- mashrabiya screens: a timber lattice in the reveal, flush with the face ----------
@@ -232,7 +250,7 @@ def build(g):
         name = emit("base", "timber", f"mashrabiya_{k:02d}", panel(a, b, n, t / 2 - ms["depth"], ms["depth"], lattice), window=o["name"], floor=o["floor"], why=w["why"])
         rec["mashrabiya"].append({"name": name, "floor": o["floor"], "window": o["name"], "at": w["at"], "why": w["why"], "width": round(L, 3), "height": round(h, 3), "face_offset": round(t / 2, 4)})
 
-    # ---------- feature walls: Taif stone cladding on selected faces, the openings cut out ----------
+    # ---------- feature walls: the honey-tone render on selected faces (V10.0: no stone), the openings cut out ----------
     fw = C["feature_walls"]
     for k, w in enumerate(fw["walls"]):
         x1, y1, x2, y2 = (float(v) for v in w["line"].split())
@@ -245,10 +263,10 @@ def build(g):
         for s0, s1, sill, head, o in openings_on(a, b):
             cut.append(box(s0, sill, s1, head))
         prof = prof.difference(unary_union(cut)) if cut else prof
-        name = emit("base", "stone", f"feature_wall_{k:02d}", panel(a, b, n, t / 2, fw["thickness"], prof), wall=w["name"], openings=len(cut))
+        name = emit("base", "honey", f"feature_wall_{k:02d}", panel(a, b, n, t / 2, fw["thickness"], prof), wall=w["name"], openings=len(cut))
         rec["feature_walls"].append({"name": name, "wall": w["name"], "line": w["line"], "z": w["z"], "openings_cut": len(cut), "area": round(prof.area, 2)})
 
-    # ---------- the colonnade: stone sleeves Ø0.40 round C21–C23 with plain base and capital bands ----------
+    # ---------- the colonnade: rendered sleeves Ø0.40 round C21–C23 with plain base and capital bands ----------
     cl = C["colonnade"]
     cols = column_points()
     sleeves = []
@@ -258,11 +276,11 @@ def build(g):
         meshes += parts(disc((x, y), cl["base"]["diameter"] / 2), gf, gf + cl["base"]["height"])
         for top in (soffit_bottom, roof_under):
             meshes += parts(disc((x, y), cl["capital"]["diameter"] / 2), top - cl["capital"]["height"], top)
-        sleeves.append(emit("base", "stone", f"column_{cid}", meshes, column=cid, diameter=cl["diameter"]))
+        sleeves.append(emit("base", "honey", f"column_{cid}", meshes, column=cid, diameter=cl["diameter"]))
         rec["sleeves"].append({"column": cid, "x": x, "y": y, "diameter": cl["diameter"], "structural": COLS[cid]["size"], "z0": gf, "z1": roof_under})
     col_holes = unary_union([disc(c, cl["diameter"] / 2 + 0.005) for c in cols.values()])
 
-    # ---------- V7.1: the courtyard arcade: two intermediate stone columns on the colonnade line and three semicircular arches under the soffit (courtyard bay only) ----------
+    # ---------- V7.1: the courtyard arcade: two intermediate rendered columns on the colonnade line and three semicircular arches under the soffit (courtyard bay only) ----------
     ac = C["arcade"]
     y_c21, y_c22 = cols["C21"][1], cols["C22"][1]
     ac_cols = []
@@ -271,7 +289,7 @@ def build(g):
         meshes = parts(disc((PROJ_X, y), r_), gf, soffit_bottom)
         meshes += parts(disc((PROJ_X, y), ac["columns"]["base"]["diameter"] / 2), gf, gf + ac["columns"]["base"]["height"])
         meshes += parts(disc((PROJ_X, y), ac["columns"]["capital"]["diameter"] / 2), soffit_bottom - ac["columns"]["capital"]["height"], soffit_bottom)
-        emit("base", "stone", f"arcade_column_{k}", meshes, at=[PROJ_X, y], diameter=ac["columns"]["diameter"])
+        emit("base", "honey", f"arcade_column_{k}", meshes, at=[PROJ_X, y], diameter=ac["columns"]["diameter"])
         ac_cols.append(y)
     faces = [y_c21 + cl["diameter"] / 2] + [v for y in ac_cols for v in (y - ac["columns"]["diameter"] / 2, y + ac["columns"]["diameter"] / 2)] + [y_c22 - cl["diameter"] / 2]
     bays = [(faces[2 * k], faces[2 * k + 1]) for k in range(len(ac_cols) + 1)]
@@ -295,7 +313,7 @@ def build(g):
     emit("base", "timber", "soffit", parts(box(riwaq_x, y0, edge_x, y1).difference(col_holes), soffit_bottom, ff_under), z=[soffit_bottom, ff_under])
     emit("base", "timber", "fascia", parts(box(edge_x, y0, edge_x + so["fascia"], y1).difference(col_holes), soffit_bottom, b3_top), z=[soffit_bottom, b3_top])
 
-    # ---------- V7.0: stone quoins at the outer corners (docs/DESIGN_LANGUAGE.md: honey stone at the base and the corners) ----------
+    # ---------- V7.0: the quoins at the outer corners, formed in the structure and rendered in the honey tone (V10.0: no stone) ----------
     qn = C["quoins"]
     quoins = []
     for a, b in zip(OUTLINE, OUTLINE[1:] + OUTLINE[:1]):
@@ -304,7 +322,7 @@ def build(g):
         for p, sgn in ((a, 1), (b, -1)):
             q0, q1 = shift(p, n, T_OUT / 2), shift(shift(p, n, T_OUT / 2), (ux, uy), sgn * qn["width"])
             quoins += parts(seg_box(q0, q1, qn["thickness"] * 2).intersection(outer_face.buffer(qn["thickness"], join_style=2).difference(outer_face)), gf + C["plinth"]["height"], qn["top"])
-    emit("base", "stone", "quoins", quoins, corners=len(OUTLINE))
+    emit("base", "honey", "quoins", quoins, corners=len(OUTLINE))
 
     # ---------- pergola: timber beams over part of the courtyard sky, on the roof finish ----------
     pg = C.get("pergola")                 # removed by the owner (1 Nov 2026, studies/courtyard_layout.typ): the block is absent from character.yaml
@@ -349,15 +367,8 @@ def build(g):
     emit("base", "steel", "roof_railings", rails, height=rl["height"])
     rec["roof_guards"] = {"height": rl["height"], "holes": ["courtyard sky", "suite court v2 (the gym roof / nib edge and the office roof edge; the north edge is the attic wall, the south the parapet on R8)"]}
 
-    # ---------- the malqaf head: timber louvre slats in its two openings (the head itself is re-coloured stone in the viewer) ----------
-    lv = C["malqaf_louvres"]
-    os_, oh = AIR["head-opening"]
-    slats = []
-    for a, b in [(tuple(p), tuple(q)) for p, q in summary["air"]["head_openings"]]:          # V8.0: the head's three open faces (north, west, cut; build_3d.py)
-        for k in range(lv["slats"]):
-            z = os_ + (oh - os_) * (k + 0.5) / lv["slats"]
-            slats += parts(seg_box(a, b, lv["depth"]), z - lv["thickness"] / 2, z + lv["thickness"] / 2)
-    emit("base", "timber", "malqaf_louvres", slats, slats=lv["slats"] * len(summary["air"]["head_openings"]))
+    # V10.0 (L5): the malqaf head has no louvre slats: its slender arched slots are the openings (build_3d.py), the bird mesh behind them is not modelled
+    rec["malqaf_louvres"] = None
 
     # ---------- the wall fountain: a simple shape on the courtyard's east wall under the kitchen sink window (the malqaf grille is north of it) ----------
     ft = C.get("fountain")               # SUPERSEDED (1 Nov 2026): the courtyard water basin is in the north enclosure (character.yaml courtyard_layout); the block is absent, the builder update is pending
@@ -367,22 +378,22 @@ def build(g):
         wa, wb, n = (x1, y1), (x2, y2), tuple(float(v) for v in ft["side"])
         (ux, uy), _ = unit(wa, wb)
         axis = 1 if abs(uy) > abs(ux) else 0                       # the plan coordinate that runs along the wall
-        face = wall_t(wa, wb) / 2 + fw["thickness"]                # on the stone cladding of that face
+        face = wall_t(wa, wb) / 2 + fw["thickness"]                # on the rendered face
 
         def wall_box(v0, v1, d0, d1):
             """A plan rectangle on the wall: v0–v1 along it (plan coordinates), d0–d1 out from its centre line along n."""
             s0, s1 = v0 - wa[axis], v1 - wa[axis]
             return Polygon([(wa[0] + ux * s + n[0] * d, wa[1] + uy * s + n[1] * d) for s, d in ((s0, d0), (s1, d0), (s1, d1), (s0, d1))])
 
-        emit("base", "stone", "fountain_panel", parts(wall_box(ft["along"][0], ft["along"][1], face, face + ft["thickness"]), gf + ft["z"][0], gf + ft["z"][1]), along=ft["along"], z=ft["z"])
+        emit("base", "honey", "fountain_panel", parts(wall_box(ft["along"][0], ft["along"][1], face, face + ft["thickness"]), gf + ft["z"][0], gf + ft["z"][1]), along=ft["along"], z=ft["z"])
         bs, d0 = ft["basin"], face + ft["thickness"]
         outer = wall_box(bs["along"][0], bs["along"][1], d0, d0 + bs["depth"])
         inner = wall_box(bs["along"][0] + 0.06, bs["along"][1] - 0.06, d0, d0 + bs["depth"] - 0.06)
-        emit("base", "stone", "fountain_basin", parts(outer, gf + bs["z"][0], gf + bs["z"][0] + 0.05) + parts(outer.difference(inner), gf + bs["z"][0] + 0.05, gf + bs["z"][1]))
+        emit("base", "honey", "fountain_basin", parts(outer, gf + bs["z"][0], gf + bs["z"][0] + 0.05) + parts(outer.difference(inner), gf + bs["z"][0] + 0.05, gf + bs["z"][1]))
         sp = ft["spout"]
         emit("base", "bronze", "fountain_spout", parts(wall_box(sp["along"][0], sp["along"][1], d0, d0 + sp["depth"]), gf + sp["z"][0], gf + sp["z"][1]))
         sink = next((o for o in summary["openings"] if o["floor"] == "GF" and "kitchen sink" in o["name"]), None)
-        gy0, gz0, gy1, gz1 = AIR["grille"]
+        _, gy0, gy1, gz0, gz1 = AIR["outlet"]   # V10.0: the malqaf's outlet in the first arcade arch (x 5.8)
         rec["fountain"] = {"wall": ft["wall"], "along": ft["along"], "z": ft["z"], "basin_z": bs["z"], "grille_y": [gy0, gy1],
                            "clear_of_grille": round(ft["along"][0] - gy1, 3), "below_sink_sill": round(sink["sill"] - FINISHED["GF"] - ft["z"][1], 3) if sink else None,
                            "note": "decorative shape under the sink window; its water and drain are air items A8 / A6"}
@@ -391,7 +402,7 @@ def build(g):
 
     # ---------- 3 Nov 2026 · the courtyard layout REVISED (studies/courtyard_layout.typ, owner): the whole floor LEVEL (the base model's courtyard floor stays, no step, no benches),
     # movable furniture (group "sunken" = the layout toggle in the viewer), the enclosure (water + tree) on the kitchen wall in front of the sink window, the outdoor TV south of it
-    # with its stone surround, the malqaf grille below it (base model), the linear drains and the overflow ----------
+    # with its rendered surround (V10.0: the malqaf outlet in the west arcade), the linear drains and the overflow ----------
     cly = C["courtyard_layout"]
     court_floor = g["COURT_FLOOR"]
     zf = gf + cly["floor"]
@@ -399,14 +410,14 @@ def build(g):
         bx_ = box(x0, y0, x1, y1)
         if kind in ("sofa", "armchair"):
             emit("sunken", "timber", f"court_{kind}_{k}", parts(bx_, zf, zf + 0.32) + parts(box(x0, y0, x0 + 0.12, y1), zf + 0.32, zf + 0.75))   # the back on the west side: it faces the TV on the east wall
-            emit("sunken", "stone_light", f"court_{kind}_cushion_{k}", parts(bx_.buffer(-0.04), zf + 0.32, zf + 0.42))
+            emit("sunken", "sand", f"court_{kind}_cushion_{k}", parts(bx_.buffer(-0.04), zf + 0.32, zf + 0.42))
         else:
-            emit("sunken", "stone", f"court_table_{k}", parts(bx_, zf + 0.35, zf + 0.40) + parts(bx_.buffer(-0.12), zf, zf + 0.35))
+            emit("sunken", "honey", f"court_table_{k}", parts(bx_, zf + 0.35, zf + 0.40) + parts(bx_.buffer(-0.12), zf, zf + 0.35))
     dr = cly["drainage"]
     for k, (x0, y0, x1, y1) in enumerate(dr["linear_drains"]):
         emit("sunken", "bronze", f"linear_drain_{k}", parts(box(x0, y0, x1, y1), zf - 0.012, zf + 0.003), box=[x0, y0, x1, y1])
     emit("sunken", "bronze", "overflow", parts(box(dr["overflow_at"][0] - 0.08, dr["overflow_at"][1] - 0.08, dr["overflow_at"][0] + 0.08, dr["overflow_at"][1] + 0.08), zf - 0.01, zf + 0.005), at=dr["overflow_at"])
-    # the outdoor TV and its stone surround on the courtyard face of the kitchen wall (on the stone cladding), the malqaf grille below it (base model)
+    # the outdoor TV and its rendered surround on the courtyard face of the kitchen wall (base model)
     tvd, fr_ = cly["tv"], cly["tv_frame"]
     x1_, y1_, x2_, y2_ = (float(v) for v in tvd["wall"].split())
     wa, wb, nw = (x1_, y1_), (x2_, y2_), (-1.0, 0.0)
@@ -417,16 +428,16 @@ def build(g):
     prof = box(c_ - hw - fr_["band"], jz0, c_ - hw, jz1).union(box(c_ + hw, jz0, c_ + hw + fr_["band"], jz1))
     prof = prof.union(disc((c_, jz1), fr_["radius"] + fr_["band"], 32).difference(disc((c_, jz1), fr_["radius"], 32)).intersection(box(c_ - 3, jz1, c_ + 3, jz1 + 3)))
     tv_crown = jz1 + fr_["radius"] + fr_["band"]
-    emit("base", "stone", "tv_surround", panel(wa, wb, nw, face, fr_["proj"], prof), crown=round(tv_crown, 3))
+    emit("base", "honey", "tv_surround", panel(wa, wb, nw, face, fr_["proj"], prof), crown=round(tv_crown, 3))
     # the enclosure on the kitchen wall in front of the sink window: the planter (rim +0.45) in the north part with the tree, the RAISED water trough (rim +0.95) in the south part, the pump chamber between
     en = cly["enclosure"]
     ebox = box(*en["box"]).intersection(court_floor)
     w_in, p_in, pump = box(*en["water"]["inside"]), box(*en["planter"]["inside"]), box(*en["pump_cover"])
     rim, wrim = gf + en["rim"], gf + en["water"]["rim"]
     water_part = box(en["box"][0], en["water"]["inside"][1] - en["wall"], en["box"][2], en["box"][3]).intersection(ebox)
-    emit("base", "stone", "enclosure_walls", parts(ebox.difference(water_part).difference(p_in), gf, rim) + parts(water_part.difference(w_in), gf, wrim), rim=en["rim"], water_rim=en["water"]["rim"])
+    emit("base", "honey", "enclosure_walls", parts(ebox.difference(water_part).difference(p_in), gf, rim) + parts(water_part.difference(w_in), gf, wrim), rim=en["rim"], water_rim=en["water"]["rim"])
     wl = gf + en["water"]["level"]
-    emit("base", "stone", "basin_floor", parts(w_in, gf, wl - en["water"]["depth"]))
+    emit("base", "honey", "basin_floor", parts(w_in, gf, wl - en["water"]["depth"]))
     emit("base", "water", "basin_water", parts(w_in, wl - en["water"]["depth"], wl), level=en["water"]["level"])
     emit("base", "bronze", "pump_cover", parts(pump, rim - 0.03, rim))
     emit("base", "bronze", "basin_lip", parts(box(w_in.bounds[2] - 0.06, w_in.bounds[1] + 0.1, w_in.bounds[2], w_in.bounds[3] - 0.1), gf + en["water"]["spout_z"] - 0.02, gf + en["water"]["spout_z"]))   # the laminar lip on the wall side
@@ -438,7 +449,7 @@ def build(g):
     crown = trimesh.creation.icosphere(subdivisions=2, radius=tr_["crown_radius"])
     crown.apply_translation([tc[0], tc[1], gf + tr_["crown_centre"]])
     emit("base", "foliage", "tree_crown", [crown], at=list(tc))
-    gy0, gz0, gy1, gz1 = AIR["grille"]
+    _, gy0, gy1, gz0, gz1 = AIR["outlet"]   # V10.0: the malqaf's outlet in the first arcade arch (x 5.8)
     court_in = court_floor.bounds
     sz = cly["seating_zone"]
     rec["courtyard"] = {"default": True, "replaces": [], "level": True, "floor": cly["floor"], "seating_zone": sz, "furniture": len(cly["furniture"]),
@@ -448,7 +459,7 @@ def build(g):
                         "overflow": dr["overflow_at"], "linear_drains": dr["linear_drains"],
                         "level_edges": {"north": round(en["box"][1] - court_in[1], 3), "south": round(court_in[3] - sz[3], 3), "west": round(sz[0] - court_in[0], 3)}}
     rec["flags"].append("Courtyard layout (3 Nov 2026, owner, studies/courtyard_layout.typ): the whole floor LEVEL with gentle falls to linear drains (no step, no benches); movable modern furniture for 4–6 "
-                        "(a sofa, two armchairs, a low table) facing the outdoor TV (+%.2f … +%.2f) in its stone surround on the kitchen wall with the malqaf grille below it (+%.2f … +%.2f); the enclosure "
+                        "(a sofa, two armchairs, a low table) facing the outdoor TV (+%.2f … +%.2f) in its rendered surround on the kitchen wall; V10.0: the malqaf's breeze outlet (+%.2f … +%.2f) in the first arcade arch opposite, on the seating's west side; the enclosure "
                         "(a planter with the tree, rim +%.2f, and a raised water trough, rim +%.2f) on the kitchen wall in front of the sink window as the view from the sink; the north side in front of the women's majlis glass freed"
                         % (tvd["z"][0], tvd["z"][1], gz0, gz1, en["rim"], en["water"]["rim"]))
 
@@ -459,11 +470,11 @@ def build(g):
         bx_ = box(x0, y0, x1, y1)
         if kind in ("sofa", "armchair"):
             emit("props", "timber", f"court_{kind}_{k}", parts(bx_, ffz, ffz + 0.32) + parts(box(x0, y1 - 0.12, x1, y1) if kind == "sofa" else box(x0, y0, x1, y0 + 0.12), ffz + 0.32, ffz + 0.75))
-            emit("props", "stone_light", f"court_{kind}_cushion_{k}", parts(bx_.buffer(-0.04), ffz + 0.32, ffz + 0.42))
+            emit("props", "sand", f"court_{kind}_cushion_{k}", parts(bx_.buffer(-0.04), ffz + 0.32, ffz + 0.42))
         elif kind == "table":
-            emit("props", "stone", f"court_table_{k}", parts(bx_, ffz + 0.40, ffz + 0.45) + parts(bx_.buffer(-0.15), ffz, ffz + 0.40))
+            emit("props", "honey", f"court_table_{k}", parts(bx_, ffz + 0.40, ffz + 0.45) + parts(bx_.buffer(-0.15), ffz, ffz + 0.40))
         else:
-            emit("props", "stone", f"court_pot_{k}", parts(bx_, ffz, ffz + (0.6 if kind == "tree" else 0.45)))
+            emit("props", "honey", f"court_pot_{k}", parts(bx_, ffz, ffz + (0.6 if kind == "tree" else 0.45)))
             leaf_ = trimesh.creation.icosphere(subdivisions=1, radius=0.55 if kind == "tree" else 0.32)
             leaf_.apply_translation([(x0 + x1) / 2, (y0 + y1) / 2, ffz + (1.9 if kind == "tree" else 0.85)])
             emit("props", "foliage", f"court_plant_{k}", [leaf_])
@@ -511,9 +522,9 @@ def build(g):
     rec["tv_wall"] = {"entrance_head": tw["entrance"]["head"], "entrance_width": ew, "niche_width": round(n_w, 3), "niche_depth": ni["depth"], "niche_head": ni["head"], "niche_springing": round(n_spring - gf, 3),
                       "sofa_back_x": tw["sofa_back_x"], "eye_to_screen": round(eye_x - (wx + 0.08), 3), "path_north": round(15.0 - (13.0 + T_IN / 2), 3), "tv_centre_y": tv_c}
     rec["flags"].append("TV wall (V6.3, owner): the living's west wall solid and full height with the 1.40 m entrance arch (head +%.2f) and the arched TV niche %.2f × %.2f m (crown +%.2f); eye-to-screen %.2f m from a sofa with its back at x %.2f; no arches between the colonnade columns" % (tw["entrance"]["head"], n_w, ni["depth"], ni["head"], eye_x - (wx + 0.08), tw["sofa_back_x"]))
-    rec["flags"].append("Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL: stone, timber, bronze and plaster as flat colours; plinth, deep reveals, mashrabiya, "
-                        "stone sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, honey stone, black steel "
-                        "divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two Ø%g stone columns, three semicircular arches under the projection, decorative) "
+    rec["flags"].append("Character study (3d/character.yaml): STYLE STUDY, PROVISIONAL (V10.0: NO stone: the honey-tone render, sand and plaster, porcelain floors, timber, bronze as flat colours); plinth, deep reveals, mashrabiya, "
+                        "rendered sleeves Ø%g on the assumed Ø0.30 colonnade, timber soffit, props; V8.0: the courtyard layout (the seating one step down, the TV wall, the water and tree enclosure, no pergola), the suite court furniture; V7.0: the design language (cream plaster, the honey-tone render, black steel "
+                        "divided-lite windows, walnut), the quoins, the roof guards; V7.1: the courtyard arcade (two Ø%g rendered columns, three semicircular arches under the projection, decorative) "
                         "and semicircular heads on the enclosure windows W1–W3; the living bay keeps no arches (owner, V6.3)" % (cl["diameter"], C["arcade"]["columns"]["diameter"]))
     # ---------- V8.2 · the suite court's south side: the mashrabiya screen (owner, 2 Nov 2026: option b adopted) on the 1.10 base up to the frame soffit ----------
     ssd = sc["south_side"]
@@ -584,7 +595,7 @@ def build(g):
                 meshes_ = parts(box(x0_ - shx, y0_ - shy, x1_ - shx, y1_ - shy), ground_, ground_ + el["height"])
             n_ = emit("site", mat, lab, meshes_, kind=kind, note=el.get("note", ""), existing=bool(el.get("existing")))
             rec["site"].append({"name": n_, "label": lab, "kind": kind, "existing": bool(el.get("existing"))})
-        rec["flags"].append("Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m stone wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers")
+        rec["flags"].append("Site elements (V8.2, studies/site_plan.typ, STUDY): the driveway, the family, guest and workers' paths, the north parking bay (kept), the south family garden with its 1.2 m rendered wall and the 1.8 m hedge, the yard screen and the gas cabinet; every position proposed, to confirm with the survey and the engineers")
         rec["flags"].append("Existing farm (V9.0, data/site_v2.csv, studies/whole_farm.typ): the old house (a plain 3.8 m mass) and its annex from the deed sketch (± 1–3 m), the covered parking, the ground tank and the septic at their assumed positions, the north and lane walls on the deed line with the 4 m gate, the two palms (heights assumed): APPROXIMATE, to be measured on site")
 
     summary["character"] = {**rec, "enabled": True, "hide": hide, "palette": pal, "assign": C["assign"]}
@@ -597,6 +608,6 @@ def build(g):
               "defaults": {"pergola": False, "sunken": True},
               "lights": [[x, z, y] for x, y, z in lights],
               "night": {"background": C["night"]["background"], "lights": [[x, z, y, i] for x, y, z, i in C["night"]["point_lights"]]},
-              "tv_wall": rec["tv_wall"], "arcade": rec["arcade"], "arched_windows": rec["arched_windows"], "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
+              "tv_wall": rec["tv_wall"], "arcade": rec["arcade"], "arched_windows": rec["arched_windows"], "blind_arches": rec.get("blind_arches", []), "mashrabiya": [f"{m['floor']} {m['window']}: {m['why']}" for m in rec["mashrabiya"]],
               "bookmarks": bm}
     return viewer
