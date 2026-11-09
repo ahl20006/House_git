@@ -6,7 +6,7 @@
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches) · PHASE 4: the air system and the controls. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches) · PHASE 4: the air system and the controls (simplified by the owner) · PHASE 5: the tower head. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -318,7 +318,7 @@
     - At the first floor the gallery's north arm (x 2.75–4.25, beside the stair) turns into the strip (x 4.25–5.80) *between the core's south face and bedroom 2's bath* (its north-east corner at (4.35, 9.10)). For ≥ 1.5 m there the core's south face must stay at *y ≤ 7.6*: the shaft is at most *1.2 × 0.8 m clear (0.96 m²)*, the same order as L1. It is enough aerodynamically (its loss is ≈ 2 % of the chain: the head and the outlet govern), but it is *not* the "large" shaft of D7. *Options:* accept a 1.2 m turn (the shaft 1.2 × 1.1 = 1.32 m²), or move bath 2's north-east corner (a room change).
     - *The foot chamber is free of that limit:* under the gallery floor it may run south; V-c ends it at the *first arcade column (y 8.667)*, so the outlet fills *the first arch* of the courtyard arcade, facing the seating along the colonnade line (no channel, the route ≈ 1 m).
     #H[1.2 · The foot chamber (V-c), the outlet, the door]
-    - *Clear 1.20 × 1.97 m (2.36 m²), ≈ 3.1 m high (to the FF slab) and open above into the shaft.* The dust trap: a 0.8 × 0.7 floor basin under the shaft (a lift-out stainless grating, a 0.25 m deep sump, a drain to the courtyard drainage); the filtered path's riser in the north-west corner, its filter cabinet + EC fan (0.45 × 0.60) at the west wall; the cooler's place at the outlet; a water point with a float valve, a floor drain, a dedicated circuit and IP44 sockets.
+    - *Clear 1.20 × 1.97 m (2.36 m²), ≈ 3.1 m high (to the FF slab) and open above into the shaft.* The dust trap: a 0.8 × 0.7 floor basin under the shaft (a lift-out stainless grating, a 0.25 m deep sump, a drain to the courtyard drainage); the filtered path's riser in the north-west corner, its filter cabinet + EC fan (0.45 × 0.60) at the west wall; the cooler's place at the outlet; a water point (capped until a cooler is bought: the malqaf is a *dry system*, owner 9 Nov 2026), a floor drain, a dedicated circuit and IP44 sockets.
     - *The cooler (D9):* the common portable desert coolers sold in the Kingdom run from ≈ 45 L tanks (≈ 0.4 × 0.35 × 1.0 m) to 90–150 L (≈ 0.6–0.8 × 0.5–0.7 × 1.3–1.6 m); the chamber is laid out for the larger envelope *0.8 × 0.7 × 1.6 m* (#ASSUMED: the owner's shortlist to confirm), rolled in through the door, its outlet against the grille.
     - *The outlet:* *1.4 × 0.9 m* in the first arch, sill +0.10, adjustable timber louvres or a pierced precast-concrete grille, rendered and painted (≈ 60 % free, 0.76 m²) aiming the air along the seating; a motorised insulated damper behind it (Phase 4).
     - *The door:* *1.0 m clear, full height (≈ 2.4 m)*, a carved timber door on the chamber's south face, opening onto the covered strip (the strip south of the core, 1.55 × 4.2 m, stays the riwaq's courtyard edge).
@@ -607,7 +607,7 @@
   }),
   [
     #H[3.2 · The gallery's window into the shaft (path a, clear days)]
-    - On the shaft's *south face* at the FF (facing the gallery's turn): an *arched carved-timber grille 0.8 × 1.6* (sill +4.20, springing +5.40, a semicircular head; the W1 language in small) with an *insulated, low-leakage motorised damper* behind it in the wall: nothing swings into the 1.5 m passage or into the 0.8 m shaft. Open only in the *Clear day* mode (Phase 4); closed it reads as a carved panel.
+    - On the shaft's *south face* at the FF (facing the gallery's turn): an *arched carved-timber grille 0.8 × 1.6* (sill +4.20, springing +5.40, a semicircular head; the W1 language in small) with an *insulated, low-leakage motorised damper* behind it in the wall: nothing swings into the 1.5 m passage or into the 0.8 m shaft. *Owner (9 Nov 2026): a provision only*: the opening formed and the grille fitted with a sealed removable panel behind it, no damper now; it reads as a carved panel.
     #H[3.3 · The filtered-air grilles (path b)]
     - From the fan in the foot chamber up the sealed riser: a high linear grille (0.8 × 0.2) through the core's *north wall into the family living* (+6.4, acoustically lined), one on its *south face into the gallery* (+6.4, above the timber grille); at the GF high grilles into the *riwaq* (the core's west face, +2.7) and the *women's majlis* (its north wall, +2.7). D10 kept: no bedroom touches the core.
     #H[3.4 · What else changes]
@@ -631,6 +631,80 @@
 #text(6.2pt, fill: gray)[Phase 3 checks #if ok3 [*passed* (#checks3.len())] else [*FAILED*: #checks3.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: 3d/params.yaml (W1, W2), 3d/character.yaml (the arcade), presentation.typ (the courtyard glass), studies/roof.typ (the cornice, the band). Render and paint only (owner, 9 Nov 2026).]
 
 
+
+// ======================================================================= PHASE 3 · ADDENDUM (the owner, 9 Nov 2026): the riwaq and the covered strip at eye level, the chamber door open
+// A one-point perspective: the eye 1.6 m above the floor, looking NORTH (y decreasing); east to the right. f = the focal scale (cm per unit of x/d).
+#let persp(eye, f) = p => { let d = eye.at(1) - p.at(1); (f * (p.at(0) - eye.at(0)) / d, f * (p.at(2) - eye.at(2)) / d) }
+#let quad(P, pts, f, s) = { import cetz.draw: *; line(..pts.map(P), close: true, fill: f, stroke: s) }
+#let eye-view(eye, f, body, title) = cetz.canvas(length: 1.75cm, {
+  import cetz.draw: *
+  let P = persp(eye, f)
+  rect((-3.0, -1.6), (3.0, 2.2), fill: rgb("#fbfaf6"), stroke: 0.4pt + luma(170))
+  body(P)
+  content((0, -1.9), text(5pt, weight: "bold", fill: green, title))
+})
+#let wallc = rgb("#efe3c8"); #let wall-d = rgb("#e1d3b4"); #let floor-c = rgb("#d9cdb4"); #let glass-c = rgb("#9fc6dc").transparentize(45%); #let dark-c = rgb("#4a463f"); #let timber-c = rgb("#9c6b3c"); #let ceil-c = rgb("#f4f1ea")
+// VIEW A · from the covered strip (x 5.0, y 11.6) looking north at the chamber's south face, the door open
+#let view-a = eye-view((5.0, 11.6, 1.6), 1.6, P => {
+  quad(P, ((4.25, 10.1, 0), (5.8, 10.1, 0), (5.8, 8.767, 0), (4.25, 8.767, 0)), floor-c, none)                       // the strip's floor (porcelain)
+  quad(P, ((4.25, 10.1, 3.52), (5.8, 10.1, 3.52), (5.8, 8.767, 3.52), (4.25, 8.767, 3.52)), ceil-c, none)           // the projection's soffit
+  quad(P, ((4.3, 8.767, 0), (5.9, 8.767, 0), (5.9, 8.767, 3.52), (4.3, 8.767, 3.52)), wallc, 0.4pt + ink)           // the chamber's south face (render)
+  quad(P, ((4.6, 8.767, 0), (5.6, 8.767, 0), (5.6, 8.767, 2.4), (4.6, 8.767, 2.4)), dark-c, none)                   // the door opening (into the chamber)
+  quad(P, ((4.65, 8.567, 0.0), (5.45, 8.567, 0.0), (5.45, 8.567, 0.9), (4.65, 8.567, 0.9)), rgb("#dfe8d0"), 0.3pt + green)   // inside: the filter cabinet
+  quad(P, ((4.6, 8.767, 0), (4.6, 9.767, 0), (4.6, 9.767, 2.4), (4.6, 8.767, 2.4)), timber-c, 0.4pt + ink)          // the carved door, open 90°
+  quad(P, ((4.25, 10.1, 0), (4.25, 9.1, 0), (4.25, 9.1, 2.6), (4.25, 10.1, 2.6)), glass-c, 0.4pt + ink)             // the courtyard glass door (riwaq side)
+  quad(P, ((4.25, 10.1, 2.6), (4.25, 8.767, 2.6), (4.25, 8.767, 3.52), (4.25, 10.1, 3.52)), wall-d, none)           // over the glass: B4's soffit band
+  quad(P, ((5.675, 8.667, 0), (5.925, 8.667, 0), (5.925, 8.667, 3.3), (5.675, 8.667, 3.3)), wall-d, 0.4pt + ink)    // the first arcade column (rendered)
+  import cetz.draw: *
+  content(P((5.1, 8.767, 2.75)), text(3.6pt)[the chamber's south face · render])
+  content(P((5.1, 8.767, 1.3)), text(3.4pt, fill: white)[dust trap · filters\ + fan · cooler space])
+  content(P((4.25, 9.8, 1.3)), text(3.2pt)[glass door\ to the riwaq])
+  content(P((5.8, 8.667, 3.45)), text(3pt)[arcade column])
+}, [A · in the covered strip, 2.8 m from the chamber, looking north (the door open)])
+// VIEW B · from the riwaq (x 3.5, y 12.3) looking north: the glass, the glass door, the core's new solid face with the bench, the majlis wall
+#let view-b = eye-view((3.5, 12.3, 1.6), 1.6, P => {
+  quad(P, ((2.75, 10.8, 0), (4.25, 10.8, 0), (4.25, 0, 0), (2.75, 0, 0)), floor-c, none)
+  quad(P, ((2.75, 10.8, 3.52), (4.25, 10.8, 3.52), (4.25, 0, 3.52), (2.75, 0, 3.52)), ceil-c, none)
+  quad(P, ((2.75, 0, 0), (4.25, 0, 0), (4.25, 0, 3.52), (2.75, 0, 3.52)), wall-d, 0.3pt + ink)                      // the north wall
+  quad(P, ((3.0, 0, 0), (4.0, 0, 0), (4.0, 0, 2.2), (3.0, 0, 2.2)), timber-c, none)                                 // the family entrance door
+  quad(P, ((2.75, 10.8, 0), (2.75, 0, 0), (2.75, 0, 3.52), (2.75, 10.8, 3.52)), wallc, 0.3pt + ink)                 // the west side (the stair, the store, the utility)
+  quad(P, ((2.75, 7.6, 0), (2.75, 6.7, 0), (2.75, 6.7, 1.55), (2.75, 7.6, 1.55)), timber-c, none)                   // the store's low door
+  quad(P, ((4.25, 6.4, 0), (4.25, 0, 0), (4.25, 0, 3.52), (4.25, 6.4, 3.52)), wallc, 0.3pt + ink)                   // the women's majlis wall
+  quad(P, ((4.3, 8.767, 0), (5.9, 8.767, 0), (5.9, 8.767, 3.52), (4.3, 8.767, 3.52)), wall-d, none)                 // the chamber's south face, seen through the glass
+  quad(P, ((4.6, 8.767, 0), (5.6, 8.767, 0), (5.6, 8.767, 2.4), (4.6, 8.767, 2.4)), dark-c, none)
+  quad(P, ((4.25, 8.767, 0), (4.25, 6.4, 0), (4.25, 6.4, 3.1), (4.25, 8.767, 3.1)), wallc, 0.4pt + ink)             // the core's new solid west face (render)
+  quad(P, ((4.25, 8.6, 0), (4.25, 6.6, 0), (4.25, 6.6, 0.45), (4.25, 8.6, 0.45)), timber-c, 0.3pt + ink)            // the bench
+  quad(P, ((4.25, 8.0, 2.6), (4.25, 7.2, 2.6), (4.25, 7.2, 2.8), (4.25, 8.0, 2.8)), white, 0.3pt + green)           // the filtered-air grille
+  quad(P, ((4.25, 10.5, 0), (4.25, 9.1, 0), (4.25, 9.1, 2.6), (4.25, 10.5, 2.6)), glass-c, 0.4pt + ink)             // the glass door
+  quad(P, ((4.25, 10.8, 2.6), (4.25, 6.4, 2.6), (4.25, 6.4, 3.52), (4.25, 10.8, 3.52)), wall-d, none)               // B4's soffit band over the glass and the core
+  quad(P, ((4.25, 10.8, 0.1), (4.25, 10.7, 0.1), (4.25, 10.7, 2.6), (4.25, 10.8, 2.6)), glass-c, 0.4pt + ink)       // the edge of the south glass panel beside the viewer
+  import cetz.draw: *
+  content(P((4.25, 7.5, 1.6)), anchor: "west", text(3.4pt)[ the core's solid face\ (was glass)\ + the bench])
+  content(P((4.25, 9.8, 1.9)), anchor: "west", text(3.2pt)[ glass door])
+  content(P((4.25, 3.2, 1.8)), anchor: "west", text(3.2pt)[ women's majlis wall])
+  content(P((3.5, 0, 3.0)), text(3pt)[family entrance])
+}, [B · in the riwaq, 3.5 m before the glass door, looking north])
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 3 · addendum (owner, 9 Nov 2026) · the riwaq and the strip at eye level, the chamber door open]
+#v(3pt)
+#grid(columns: (auto, auto, 1fr), gutter: 10pt,
+  view-a, view-b,
+  [
+    #H[What the eye sees]
+    - *A · from the covered strip:* the strip's north end is now *the chamber's rendered south face* with the carved door (1.0 × 2.4, a semicircular head) opening onto the strip; the glass door to the riwaq on the left, the first arcade column on the right and, beyond it, the courtyard. The door open shows the dust trap's grating, the filter cabinet and the free space for a cooler. Nothing is seen of the outlet from here (it faces the courtyard, on the chamber's east face).
+    - *B · from the riwaq:* the riwaq's courtyard side reads, from near to far, the glass panel, the glass door, then *2.4 m of solid rendered wall* (the core's west face, the bench along it at +0.45, the small high grille of filtered air), then the women's majlis wall. The riwaq keeps its light from the glass door and the south panel; the solid piece ends the glass where the majlis wall begins, so it reads as *one wall from the majlis to the glass door*, not as a lost window.
+    #H[Before fixing the riwaq's solid wall]
+    - The strip's first panel (y 6.8–8.9) was glass only because the enclosure study glazed the whole riwaq edge; with the chamber behind it, glass would show a plant room. *Recommendation: the solid face with the bench*, as drawn; the alternative, a high clerestory strip of obscured glass (+2.2 … +2.6) above the bench, would light the chamber a little and keep a line of glass: the owner's call, both work.
+    #text(6.4pt, fill: gray)[Both views: one-point perspectives, the eye 1.6 m above the floor; the finishes render and paint (the walls light sand), porcelain floors (owner, 9 Nov 2026); the furniture omitted. The 3D renders of Phase 5 show the same corner from the courtyard.]
+  ],
+)
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملحق المرحلة 3:* منظوران بمستوى العين: (أ) من الممر المسقوف نحو الشمال: نهاية الممر صارت واجهة غرفة القاعدة المليّسة وفيها الباب الخشبي المنحوت مفتوحا يكشف مصيدة الغبار وخزانة المرشحات ومكان المبرد؛ باب الفناء الزجاجي يسارا وعمود الرواق يمينا. (ب) من الرواق نحو الشمال: لوح الزجاج ثم الباب الزجاجي ثم 2.4 م من جدار مصمت مليّس (وجه النواة الغربي) عليه الكنبة الخشبية ومخرج الهواء المرشح عاليا، ثم جدار مجلس النساء؛ فيُقرأ جدارا واحدا من المجلس إلى الباب الزجاجي لا نافذة ضائعة. التوصية: الجدار المصمت مع الكنبة، والبديل شريط زجاج معتم عالٍ فوقها.
+]
+
 // ======================================================================= PHASE 4 · AIR SYSTEM AND CONTROLS (9 Nov 2026, after the Phase 3 answers)
 // The owner's answers: F3 (the head 1.6 × 2.4 over the first bay, the overhang SOUTH over the gallery roof; this replaces the Phase 2 north overhang);
 // the carved arched grille with its insulated damper; W1's sill +3.80; the bench; the women's majlis's 0.5 m panel lost, accepted; D11 as shared pilasters
@@ -641,7 +715,7 @@
 #let head4 = (x: 4.30, y0: 6.4, y1: 8.8, z0: 11.0, z1: 12.6, free: 1.8)   // the F3 head: openings +11.0 … +12.6 on the four faces; ≈ 1.8 m² free on the long (W / E) faces, ≈ 1.1 on the short (N / S), ASSUMED (Phase 5 details)
 #let inlet-b = (x: 4.6, y: 8.5, z: 7.6)                  // the filtered path's inlet: a downward-facing hood UNDER the head's south overhang (F3), +7.6, a bird mesh, never closes
 #let out4 = (w: 1.4, h: 1.0, free: 0.6)
-#let exh = (("bathrooms' extract (the west stack's vent)", (0.75, 9.8, 8.0), [⚠ UPWIND in a W wind: the terminal taken ≥ 1.5 m above the roof (+8.8), 3.6 m from the head's west face: below the head's openings (+11.0) by 2.2 m; or re-routed in the attic to the south-east]),
+#let exh = (("bathrooms' extract (the west stack's vent)", (0.75, 9.8, 8.0), [⚠ UPWIND in a W wind: *re-routed in the attic to the south-east strip (owner, 9 Nov 2026)*]),
             ("kitchen hood outlet (east wall)", (13.311, 10.7, 2.2), [downwind, 7.5 m, 8.8 m below the openings]),
             ("east stack's vent", (13.2, 8.4, 8.0), [downwind, 7.3 m]),
             ("AC condensers Z2b (hot air)", (9.6, 5.6, 7.9), [east, 3.7 m in plan from the head's east face, 3.1 m below the openings; their hot plume rises leeward in a W wind]),
@@ -672,7 +746,7 @@
 #pagebreak()
 #text(12pt, weight: "bold", fill: green)[Phase 4 · the air system · two paths after the head · dampers · positive pressure · exhausts]
 #v(1pt)
-#text(7pt, fill: gray)[The owner's Phase 3 answers applied: *F3* (the head 1.6 × 2.4 over the first bay, the overhang south over the gallery roof), the carved grille with its insulated damper, W1's sill +3.80, the bench, the majlis's 0.5 m panel lost, D11 as shared pilasters later; the farm's location from the on-site station. Every figure #ASSUMED: the MEP engineer designs and sizes it.]
+#text(7pt, fill: gray)[The owner's Phase 3 answers applied: *F3* (the head 1.6 × 2.4 over the first bay, the overhang south over the gallery roof), the carved grille (a sealed provision), W1's sill +3.80, the bench, the majlis's 0.5 m panel lost, D11 as shared pilasters later. *Owner, 9 Nov 2026: keep it simple: a family home, not a smart building* (§ 4.6). Every figure #ASSUMED: the MEP engineer designs and sizes it.]
 #v(3pt)
 #grid(columns: (auto, 1fr), gutter: 12pt,
   cetz.canvas(length: 0.56cm, {
@@ -689,7 +763,7 @@
     box4(6.6, 3.9, 6.95, 7.2, rgb("#dfe8d0"), 0.3pt + green); content((Y(6.78), 5.5), angle: 90deg, text(3.2pt)[(b) riser Ø315])
     box4(6.6, -0.6, 8.567, 3.44, rgb("#f4f1ea"), none)
     box4(6.6, -0.6, 7.4, -0.3, sky-l5, 0.3pt + blue); content((Y(7.0), -0.45), text(3pt)[dust trap])
-    box4(7.6, 0.1, 8.5, 1.7, rgb("#e8f1f6"), 0.4pt + blue); content((Y(8.05), 0.9), text(3.2pt)[cooler\ (summer)])
+    box4(7.6, 0.1, 8.5, 1.7, rgb("#e8f1f6"), 0.4pt + blue); content((Y(8.05), 0.9), text(3.2pt)[cooler\ (option)])
     box4(6.6, 0.0, 7.1, 1.6, rgb("#dfe8d0"), 0.4pt + green); content((Y(6.85), 0.8), text(3pt)[filters\ + fan])
     line((Y(6.6), 7.75), (Y(7.4), 7.75), stroke: 2.4pt + red); content((Y(7.0), 8.1), text(3.2pt, fill: red)[D1 top damper (+7.75)])
     line((Y(8.567), 0.1), (Y(8.567), 1.1), stroke: 2.4pt + green); content((Y(9.1), 0.6), text(3.2pt, fill: green)[outlet 1.4 × 1.0\ + D2 damper])
@@ -702,13 +776,13 @@
   [
     #H[4.1 · The two paths after the head]
     - *The head* (Phase 5): four faces of slender openings +#str(head4.z0) … +#str(head4.z1) behind a 20 mm *bird / leaf mesh*; inside, the + divider and the four *back-draught flaps* (the windward quarter feeds, the leeward quarters shut).
-    - *(a) The breeze path:* the head → *D1*, the top damper at the shaft's head (+7.75, 1.2 × 0.8) → the shaft (0.84 m²) → the *dust trap* (a 0.8 × 0.7 × 0.3 basin under the shaft, a lift-out grating, a drain) → the foot chamber → the *courtyard outlet* 1.4 × 1.0 with its louvres and *D2* behind them → the seating. *Optional:* the gallery's carved grille with *D3* (Clear day). *No filter:* mesh only, by design (D3 of the owner).
-    - *(b) The filtered path:* its *inlet never closes:* a downward-facing hood (0.6 × 0.6, a bird mesh) *under the head's south overhang* (+7.6; rain- and dust-shadowed, 3.4 m below the breeze openings), a Ø315 duct down the chamber's south-east corner → the *filter cabinet* (#filt4.pre → #filt4.fine) → the *EC fan* (#fan4.q m³/h at #fan4.dp Pa, ≈ #fan4.w W, ≈ #fan4.dba dB(A) in the chamber) → a sealed Ø250 riser in the shaft's west side → high grilles into the *family living* and the *gallery* (+6.4), and at the GF the *riwaq* and the *women's majlis* (+2.7); the other GF rooms through the riwaq (door undercuts / transfer grilles, as the house's air moves anyway). *The kitchen hood keeps its own interlocked make-up inlet* (≈ #str(calc.round(q-hood)) m³/h, `studies/air_system.typ`).
-    #H[4.2 · The dampers (all motorised, insulated blades, low-leakage class 2 / 3, spring-return: they CLOSE on power loss)]
-    - *D1 top damper:* the main breeze valve; closes in Dust, Cold, at night if wanted; half in High wind. *D2 outlet damper:* the second seal of the courtyard outlet (the chamber then holds the cooler and the filters at room conditions). *D3 gallery damper:* the only breeze opening *into the house*: open only on a Clear day; insulated, gasketed, with an end-switch. *D4 chamber vent* (a small Ø160 damper to the outlet) lets the cooler's moist air out when the chamber is shut. The hood's make-up damper stays as designed.
+    - *(a) The breeze path:* the head → *D1*, the top damper at the shaft's head (+7.75, 1.2 × 0.8) → the shaft (0.84 m²) → the *dust trap* (a 0.8 × 0.7 × 0.3 basin under the shaft, a lift-out grating, a drain) → the foot chamber → the *courtyard outlet* 1.4 × 1.0 with its louvres and *D2* behind them → the seating. *Provision only (owner):* the gallery's carved grille, closed and sealed behind a removable panel, no damper now. *No filter:* mesh only, by design (D3 of the owner).
+    - *(b) The filtered path:* its *inlet never closes:* a downward-facing hood (0.6 × 0.6, a bird mesh) *under the head's south overhang* (+7.6; rain- and dust-shadowed, 3.4 m below the breeze openings), a Ø315 duct down the chamber's south-east corner → the *filter cabinet* (#filt4.pre → #filt4.fine) → the *EC fan* (#fan4.q m³/h at #fan4.dp Pa, ≈ #fan4.w W) → a *silencer* (a 0.9 m lined attenuator, ≈ −15 dB) → a sealed Ø250 riser in the shaft's west side → high grilles into the *family living* and the *gallery* (+6.4), and at the GF the *riwaq* and the *women's majlis* (+2.7); the other GF rooms through the riwaq (door undercuts / transfer grilles, as the house's air moves anyway). *The kitchen hood's interlocked make-up inlet is mandatory* (owner; ≈ #str(calc.round(q-hood)) m³/h, `studies/air_system.typ`).
+    #H[4.2 · The dampers (two, insulated, low-leakage, spring-return)]
+    - *D1* at the shaft's head and *D2* behind the outlet's louvres: both insulated, low-leakage, *spring-return (they close on power loss)*, driven together by the one wall switch *MALQAF open / closed* and closed by the dust relay. *No D3* (the gallery grille is a sealed provision). *D4:* a passive gravity louvre Ø160 from the chamber to the outlet (no motor). The hood's make-up damper: its own, interlocked with the hood (*mandatory*).
     #H[4.3 · Positive pressure and the hood]
-    - The fan supplies #str(calc.round(q-normal4)) m³/h (normal) / #str(calc.round(q-boost4)) (boost) into a *tight envelope (D5)*; the extracts (the bathrooms, ≈ 150–250 m³/h continuous, the dryer) are smaller: the house runs at ≈ *+5–10 Pa* (the dP sensor trims the fan). Every door is undercut 15 mm or has a transfer grille so the pressure is one.
-    - #WARN[the kitchen hood (600–1 000 m³/h) exceeds the supply fan: without its make-up inlet the house would go *negative* and pull dust through every crack and the malqaf's grille. The *interlocked make-up inlet* (filtered, motorised, opens with the hood) is a must; the fan may boost with it but does not replace it.]
+    - The fan supplies #str(calc.round(q-normal4)) m³/h (normal) / #str(calc.round(q-boost4)) (boost) into a *tight envelope (D5)*; the extracts (the bathrooms, ≈ 150–250 m³/h continuous, the dryer) are smaller: the house runs at ≈ *+5–10 Pa* (the fan's speeds set once at commissioning; no sensor). Every door is undercut 15 mm or has a transfer grille so the pressure is one.
+    - #WARN[the kitchen hood (600–1 000 m³/h) exceeds the supply fan: without its make-up inlet the house would go *negative* and pull dust through every crack and the malqaf's grille. The *interlocked make-up inlet* (filtered, motorised, opens with the hood) is *mandatory* (owner, 9 Nov 2026); the fan does not replace it.]
   ],
 )
 #v(3pt)
@@ -716,7 +790,7 @@
 #table(columns: (1.3fr, auto, 1.6fr), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
   [*Source*], [*Distance*], [*Position*],
   ..exh.map(e => ([#e.at(0)], [#str(calc.round(d3-4(e.at(1), head-pt), digits: 1)) m], [#e.at(2)])).flatten())
-#WARN[the bathrooms' vent in the west shaft is the one source *upwind* in the summer-evening west wind: its terminal must end ≥ 1.5 m above the roof (+8.8), 2.2 m below the head's openings and 3.6 m away, with a charcoal / membrane terminal; better: re-route it in the attic to the south-east strip (Phase 6 checklist).]
+#WARN[the bathrooms' vent in the west shaft is the one source *upwind* in the summer-evening west wind: its terminal must end ≥ 1.5 m above the roof (+8.8), 2.2 m below the head's openings and 3.6 m away, or, *decided by the owner (9 Nov 2026): re-routed in the attic to the south-east strip* (Phase 6 checklist).]
 
 #pagebreak()
 #text(12pt, weight: "bold", fill: green)[Phase 4 · insulation and moisture · sensors · the control modes · maintenance · performance]
@@ -726,11 +800,11 @@
     #H[4.5 · Insulation, acoustics, moisture]
     - *The core's walls facing the gallery and the family living:* 200 RC (Rw ≈ 55 dB) + 50 mm mineral wool and a 2 × 12.5 board lining *on the room side* (the breeze shaft stays smooth render inside); the fan's cabinet acoustically lined, on anti-vibration mounts; the filtered-air grilles with 0.6 m lined duct before them.
     - *Thermal:* D1 and D3 insulated blades; the shaft's walls facing rooms with 50 mm insulation inside the lining (the shaft is outdoor air in winter).
-    - *The foot chamber (wet):* tanked to +0.30 and a fall to a *trapped gully* (a trap primer), the dust trap in GRP, the cooler on a drip tray, a float-valve water point, IP44 sockets at +1.2 on their own RCD circuit, a lockable isolator; a hygrometer-controlled *D4 vent* so the chamber never stays damp.
+    - *The foot chamber (wet):* tanked to +0.30 and a fall to a *trapped gully* (a trap primer), the dust trap in GRP, the cooler's space with a drip tray (*an option only*, D9: the malqaf is a *dry system*), the water point *capped*, IP44 sockets at +1.2 on their own RCD circuit, a lockable isolator; the passive *D4 louvre* so the chamber never stays damp.
   ],
   [
-    #H[4.6 · Sensors (simple and robust)]
-    - *Outdoor PM2.5* (a laser sensor in a weather hood on the head's north face, shaded) · *outdoor T / RH* (the same hood) · *the house dP* (indoor minus outdoor, a tube to a calm point on the roof) · *the filter dP* (across both filters: service at #filt4.dp1 Pa, clean ≈ #filt4.dp0) · *indoor CO2* (the gallery) · *the chamber's RH* (D4) · *the cooler's water level* (its float) · *the roof anemometer* (the weather station's sensor kept). A small PLC / home controller with the modes and *a manual override switch per damper* (the owner's rule).
+    #H[4.6 · Controls (owner, 9 Nov 2026: a family home, not a smart building)]
+    - *Two wall switches* by the courtyard door: (1) *MALQAF open / closed* (D1 + D2 together, a lamp); (2) *HOUSE FAN normal / boost*. *One automatic safety:* an outdoor *dust sensor relay* (PM2.5 > 50 µg/m³ for 10 min → D1 and D2 close by themselves, the lamp shows "dust"; they reopen when the air is clean for 30 min if the switch is on). *Every damper spring-return:* closed on power loss. *No controller, no modes.* A mechanical *filter gauge* on the cabinet (change the fine filter at #filt4.dp1 Pa). Winter nights, dust seasons, holidays: the family turns switch 1 off.
     #H[4.8 · Maintenance (all from the carved door at ground level)]
     #table(columns: (1.2fr, 1fr, auto), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
       [*What*], [*How*], [*When*],
@@ -746,22 +820,128 @@
   ],
 )
 #v(3pt)
-#H[4.7 · The control modes (the thresholds of Phase 0, accepted by the owner; a manual override on every damper)]
-#table(columns: (auto, 1.6fr, auto, auto, auto, auto, auto, 2fr), inset: 2.2pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") },
-  [*Mode*], [*Switching (outdoor sensors)*], [*D1 top*], [*D2 outlet*], [*D3 gallery*], [*Cooler*], [*Fan (b)*], [*What happens*],
-  ..modes.flatten())
+#H[4.7 · What the two switches do]
+#table(columns: (auto, 1fr, 1fr), inset: 2.4pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+  [*Switch*], [*ON*], [*OFF*],
+  [*1 · MALQAF*], [D1 + D2 open: the courtyard breeze, whenever the family finds the evening pleasant (Phase 0: ≈ 1 800 such hours a year)], [D1 + D2 shut: winter, dust, away. *The dust relay forces OFF* while the air is dirty],
+  [*2 · HOUSE FAN*], [boost (#str(calc.round(q-boost4)) m³/h): guests, after a dust day, a full house], [normal (#str(calc.round(q-normal4)) m³/h): always on; the filtered path never stops; the hood's own make-up inlet opens with the hood],
+)
 #v(3pt)
 #H[4.9 · Rough performance (ASSUMED, for the MEP engineer)]
 - *The breeze (Normal):* at the summer-evening mean wind (21 km/h at 10 m) ≈ *#str(calc.round(breeze-q(21.0), digits: 2)) m³/s* through the outlet (≈ #str(calc.round(v-out(breeze-q(21.0)), digits: 1)) m/s at the louvres, ≈ 0.5–0.8 m/s at the seating 2 m away: a clearly felt breeze); at 10 km/h ≈ #str(calc.round(breeze-q(10.0), digits: 2)) m³/s (gentle); in a calm the stack alone ≈ 0.15 m³/s. L1 (V9.3) at 21 km/h ≈ 0.42 m³/s: *≈ #str(calc.round(breeze-q(21.0) / 0.42, digits: 1)) ×* (Phase 1 said 3.5 with the smaller head; F3's head is larger).
-- *Summer (the cooler):* a 90–150 L portable cooler moves ≈ 0.8–1.4 m³/s and cools the dry afternoon air from ≈ 35 to ≈ *20–22 °C* (Phase 0: RH 12–20 %); its water ≈ 15–25 L/h; the jet along the seating ≈ 1 m/s. The courtyard is open to the sky: it cools *the people in the jet*, not the courtyard.
-- *Winter:* the breeze closed; the fan at its minimum ≈ 150 m³/h costs ≈ *#str(calc.round(heat-loss(150, 10), digits: 2)) kW* at 10 K (≈ #str(calc.round(heat-loss(325, 10), digits: 2)) kW at the normal rate): small; no heat recovery (D2 of the owner), so the fan runs at the minimum on cold nights and the CO2 sensor raises it when the house is full.
-- *Dust:* the fan at boost with the fine filter (≥ 50 % of PM1, ≈ 80 % of PM2.5) holds the indoor PM2.5 at roughly a quarter of the outdoor level during a 150 µg/m³ event (the house tight, D5).
+- *If a cooler is added later (an option, D9):* a 90–150 L portable cooler moves ≈ 0.8–1.4 m³/s and cools the dry afternoon air from ≈ 35 to ≈ *20–22 °C* (Phase 0: RH 12–20 %); its water ≈ 15–25 L/h; the jet along the seating ≈ 1 m/s. The courtyard is open to the sky: it cools *the people in the jet*, not the courtyard.
+- *Winter:* the breeze closed; the fan at its minimum ≈ 150 m³/h costs ≈ *#str(calc.round(heat-loss(150, 10), digits: 2)) kW* at 10 K (≈ #str(calc.round(heat-loss(325, 10), digits: 2)) kW at the normal rate): small; no heat recovery (D2 of the owner), so the family leaves the fan at normal and sets boost when the house is full.
+- *Dust:* the relay has shut the breeze; the fan (boost if the family sets it) with the fine filter (≥ 50 % of PM1, ≈ 80 % of PM2.5) holds the indoor PM2.5 at roughly a quarter of the outdoor level during a 150 µg/m³ event (the house tight, D5).
 #v(2pt)
-#text(6.4pt)[*Open questions for the owner (Phase 4):* (1) The filtered path's inlet under the head's south overhang (never closes), the filters and the fan in the foot chamber: OK, or the fan in the west shaft's utility room instead (quieter for the courtyard, a longer duct)? (2) The gallery grille (D3) open only on Clear days: OK? (3) The bathrooms' vent: accept the raised terminal, or re-route it to the south-east? (4) A home controller the owner programs himself (the modes above), or a packaged BMS?]
+#text(6.4pt)[*Answered by the owner (9 Nov 2026):* the filters and the fan in the foot chamber with a silencer; the gallery grille a sealed provision; the cooler an option (the malqaf a dry system); the bathrooms' vent re-routed to the south-east; the hood's make-up inlet mandatory; wall switches only, one dust relay, spring-return dampers; F3 provisional on one section (Phase 5); the riwaq at eye level (Phase 3 addendum).]
 #v(2pt)
 #block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
   #set par(leading: 0.6em)
-  *ملخص المرحلة 4:* بعد رأس البرج مساران: (أ) مسار النسيم الكبير بلا مرشح (شبك طيور فقط): خانق علوي D1، ثم المجرى، ثم مصيدة الغبار في القاعدة، ثم فتحة الفناء 1.4 × 1.0 م بخانق D2 خلف الشيش، وشبكة الممر العلوي بخانق D3 لا تُفتح إلا في الأيام الصافية؛ (ب) المسار المرشح الصغير: مدخل لا يُغلق أبدا تحت بروز الرأس الجنوبي، ثم مرشح خشن قابل للغسل ومرشح ناعم ومروحة هادئة 750 م³/س في غرفة القاعدة، تدفع هواءً مرشحا إلى الممر وجلسة العائلة والرواق والمجلس فيبقى البيت تحت ضغط موجب. كل الخوانق معزولة وتُغلق عند انقطاع الكهرباء، ولكل منها مفتاح يدوي. تنبيه: شفاط المطبخ أكبر من المروحة فلا بد من مدخل الهواء التعويضي المرتبط به. تنبيه: تهوية الصرف في الشفت الغربي تقع في اتجاه الريح الغربية؛ تُرفع أو تُحوَّل إلى الجنوب الشرقي. الصيانة كلها من الباب المنحوت في الدور الأرضي، وفتحة السطح لشبك الرأس فقط مرة في السنة. النسيم المقدّر نحو 1.8 م³/ث في مساء صيفي عادي (نحو أربعة أضعاف الموقع الحالي بعد تكبير الرأس في F3)، والمبرد يخرج هواءً بنحو 20–22°م.
+  *ملخص المرحلة 4:* بعد رأس البرج مساران: (أ) مسار النسيم الكبير بلا مرشح (شبك طيور فقط): خانق علوي D1، ثم المجرى، ثم مصيدة الغبار في القاعدة، ثم فتحة الفناء 1.4 × 1.0 م بخانق D2 خلف الشيش؛ وشبكة الممر العلوي تجهيز فقط مغلق ومحكم. (ب) المسار المرشح الصغير: مدخل لا يُغلق أبدا تحت بروز الرأس الجنوبي، ثم مرشح خشن قابل للغسل ومرشح ناعم ومروحة هادئة 750 م³/س مع كاتم صوت في غرفة القاعدة، تدفع هواءً مرشحا إلى الممر وجلسة العائلة والرواق والمجلس فيبقى البيت تحت ضغط موجب. *التحكم بسيط كما قرر المالك:* مفتاحان على الجدار (الملقف مفتوح/مغلق، والمروحة عادي/قوي) وأمان آلي واحد: حساس غبار يغلق الخانقين بنفسه في الغبار، وكل الخوانق تُغلق عند انقطاع الكهرباء. لا وحدة تحكم ولا أنماط. المبرد الصحراوي خيار فقط (مكان ومقبس وتصريف، والماء مسدود)؛ تهوية الصرف الغربية تُحوَّل إلى الجنوب الشرقي؛ مدخل الهواء التعويضي لشفاط المطبخ إلزامي. الصيانة كلها من الباب المنحوت في الدور الأرضي. النسيم المقدّر نحو 1.8 م³/ث في مساء صيفي عادي.
 ]
 #v(2pt)
 #text(6.2pt, fill: gray)[Phase 4 checks #if ok4 [*passed* (#checks4.len())] else [*FAILED*: #checks4.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: studies/air_system.typ (the ventilation rates 325 / 704 m³/h, the hood's make-up, the loss chain), studies/plumbing.typ (the vents), studies/roof.typ (Z2b), ASHRAE 62.1 / 62.2-2022, ASHRAE 62.1 Table 5-1 (separations), ISO 16890 (the filter classes), EN 1751 (damper leakage classes). Concept only.]
+
+
+// ======================================================================= PHASE 5 · THE TOWER HEAD (9 Nov 2026; short, as the owner asked)
+// The head (F3): 1.6 x 2.4 outside on the shaft + the gallery roof, an RC frame (0.30 corner piers, ring beams at the band and the crown), rendered block ribs;
+// render and paint (light sand; the band, the crown and the arch surrounds in the calm honey tone); its openings above the roof's recirculation bubble (Phase 1 § 1.3).
+#let h5 = (x0: 4.30, y0: 6.4, x1: 5.90, y1: 8.8, z-roof: 7.3, z-band: 10.6, z-open0: 11.2, z-open1: 12.6, z-crown: 12.9, z-top: 13.2, pier: 0.30, slot: 0.20, rib: 0.20)
+#let n-short = 3; #let n-long = 5                                 // slots per face: the N / S faces (1.6: 0.30 pier + 3 × 0.20 slots + 2 × 0.20 ribs + 0.30), the W / E faces (2.4: 5 slots, 4 ribs)
+#let slot-free = h5.slot * (h5.z-open1 - h5.z-open0 - h5.slot / 2) + calc.pi * calc.pow(h5.slot / 2, 2) / 2
+#let free-w = n-long * slot-free; #let free-n = n-short * slot-free
+#let z-hide5(eye, oy, oz, fy) = eye.at(2) + (oz - eye.at(2)) * (fy - eye.at(1)) / (oy - eye.at(1))
+#let seen5(eye) = calc.max(0, h5.z-top - calc.max(z-hide5(eye, -0.125, 7.65, h5.y0), z-hide5(eye, 0.875, 8.68, h5.y0)))   // over the north coping and the attic's north line, to the head's north face
+#let views5 = (([the gate (the char_gate camera)], (-3.9, -4.9, 1.7)), ([the north boundary, 6.1 m off the facade], (5.1, -6.215, 1.6)), ([the north street, 14 m off the facade], (5.1, -14.125, 1.6)), ([the far side of the street, 25 m], (5.1, -25.125, 1.6)))
+#let court-seen = h5.z-top - 7.4                                 // from the seating: the head rises straight from the sky hole's west edge (R11, +7.2 + the slab finish)
+#let suns = (([winter noon], 45.2, 180), ([winter 15:30], 27, 228), ([summer noon], 88, 180), ([summer 15:00], 50, 272), ([summer 17:30], 20, 290))   // altitude, azimuth (from N, clockwise): Taif 21.3° N, ASSUMED from the solar geometry
+#let shadow(alt, az) = { let L = 13.2 / calc.tan(alt * 1deg); let a = (az + 180) * 1deg; (L: L, dir: (calc.sin(a), -calc.cos(a))) }   // the shadow's length and plan direction (north = −y)
+#let on-court(sh) = { let d = sh.dir; if d.at(0) <= 0.05 { none } else { let y = 7.6 + (8.95 - 5.1) * d.at(1) / d.at(0); if y >= 6.5 and y <= 13.0 and sh.L >= 3.85 / d.at(0) { y } else { none } } }
+#let checks5 = (
+  ([every head face on the 20 cm module: piers 0.30, slots 0.20, ribs 0.20 (1.6 = 0.3 + 3 × 0.2 + 2 × 0.2 + 0.3; 2.4 = 0.3 + 5 × 0.2 + 4 × 0.2 + 0.3)], calc.abs(2 * h5.pier + n-short * h5.slot + (n-short - 1) * h5.rib - 1.6) < 1e-6 and calc.abs(2 * h5.pier + n-long * h5.slot + (n-long - 1) * h5.rib - 2.4) < 1e-6),
+  ([the openings start at or above the roof bubble's estimated top (+#str(calc.round(bubble-top, digits: 2)), Phase 1) less 0.25 m], h5.z-open0 >= bubble-top - 0.25),
+  ([the head is seen from the courtyard seating (#str(calc.round(court-seen, digits: 1)) m) and from the street at 14 m, not from the gate], court-seen > 5 and seen5(views5.at(2).at(1)) > 1.0 and seen5(views5.at(0).at(1)) == 0),
+  ([the summer afternoon shadows fall across the courtyard's north part, the winter ones off it], on-court(shadow(50, 272)) != none and on-court(shadow(27, 228)) == none),
+)
+#let ok5 = checks5.all(c => c.at(1))
+#let head-elev(n, w, title) = cetz.canvas(length: 0.5cm, {
+  import cetz.draw: *
+  let poly(pts, f, s) = line(..pts, close: true, fill: f, stroke: s)
+  rect((0, 7.3), (w, h5.z-band), fill: sand, stroke: 0.4pt + ink)
+  rect((-0.06, h5.z-band), (w + 0.06, h5.z-band + 0.15), fill: honey, stroke: 0.3pt + ink)
+  rect((0, h5.z-band + 0.15), (w, h5.z-crown), fill: sand, stroke: 0.4pt + ink)
+  for k in range(n) { let c = h5.pier + h5.slot / 2 + k * (h5.slot + h5.rib); poly(archpoly(c, h5.slot, h5.z-open0, h5.z-open1 - h5.slot / 2), rgb("#2b2b2d"), none); poly(archpoly(c, h5.slot + 0.08, h5.z-open0 - 0.04, h5.z-open1 - h5.slot / 2), none, 0.4pt + honey.darken(20%)) }
+  rect((-0.05, h5.z-crown), (w + 0.05, h5.z-crown + 0.12), fill: honey, stroke: 0.3pt + ink); rect((-0.10, h5.z-crown + 0.12), (w + 0.10, h5.z-top), fill: honey, stroke: 0.3pt + ink)
+  line((-0.6, 8.68), (w + 0.6, 8.68), stroke: (paint: gray, thickness: 0.3pt, dash: "dashed")); content((w + 0.65, 8.68), anchor: "west", text(3.2pt, fill: gray)[attic +8.68])
+  line((-0.6, bubble-top), (w + 0.6, bubble-top), stroke: (paint: red, thickness: 0.3pt, dash: "dashed")); content((w + 0.65, bubble-top), anchor: "west", text(3.2pt, fill: red)[bubble ≈ +#str(calc.round(bubble-top, digits: 1))])
+  content((w / 2, 13.75), text(4.4pt, weight: "bold", fill: green, title)); content((w / 2, 6.85), text(3.4pt)[+7.30 roof finish])
+})
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 5 · the tower head · F3 on the roof beams · visibility · shadows · roof access]
+#v(1pt)
+#text(7pt, fill: gray)[Short, as the owner asked. The head 1.6 × 2.4 (F3): an RC frame with 0.30 corner piers and ring beams at the band (+#str(h5.z-band)) and the crown (+#str(h5.z-crown)), the slender ribs in rendered block; *render and paint*: light sand, the band, the crown and the slot surrounds in the calm honey tone, every projection formed in the structure with a drip. The openings +#str(h5.z-open0) … +#str(h5.z-open1) on all four faces (the W and N faces matter, Phase 0); the crown +#str(h5.z-top) (4.5 m above the attic coping, 5.9 above the roof finish).]
+#v(3pt)
+#grid(columns: (auto, auto, auto, 1fr), gutter: 8pt,
+  head-elev(n-short, 1.6, [N face (1.6)]), head-elev(n-long, 2.4, [W face (2.4)]),
+  cetz.canvas(length: 0.62cm, {
+    import cetz.draw: *
+    // E–W section at y ≈ 8.2 through the head's south part over the gallery roof: R3 widened, R11, the slab between
+    let X(x) = (x - 3.6) * 2.0
+    rect((X(3.6), 6.0), (X(6.6), 6.3), fill: luma(205), stroke: none)
+    rect((X(4.125), 6.2), (X(4.525), 7.2), fill: luma(120), stroke: 0.4pt + ink); content((X(4.325), 5.75), text(3.2pt)[R3 widened\ 0.25 → 0.40])
+    rect((X(5.675), 6.3), (X(5.925), 7.2), fill: luma(120), stroke: 0.4pt + ink); content((X(5.8), 5.75), text(3.2pt)[R11\ (as is)])
+    rect((X(3.6), 7.0), (X(6.6), 7.3), fill: luma(170), stroke: none); content((X(6.3), 7.5), text(3pt)[gallery roof +7.30])
+    rect((X(4.30), 7.3), (X(4.50), 13.2), fill: sand, stroke: 0.4pt + ink); rect((X(5.70), 7.3), (X(5.90), 13.2), fill: sand, stroke: 0.4pt + ink)
+    rect((X(4.24), 10.6), (X(5.96), 10.75), fill: honey, stroke: none); rect((X(4.2), 12.9), (X(6.0), 13.2), fill: honey, stroke: none)
+    content((X(5.1), 9.0), text(3.4pt)[the head's W and E walls\ on R3 and R11])
+    line((X(4.4), 7.3), (X(4.4), 6.9), stroke: 0.5pt + red); line((X(5.8), 7.3), (X(5.8), 6.9), stroke: 0.5pt + red)
+    content((X(5.1), 13.75), text(4.4pt, weight: "bold", fill: green)[E–W section · y ≈ 8.2 · 1 m = 1.24 cm])
+    content((X(5.1), 5.1), text(3pt)[the south wall (y 8.7) on a new 1.55 m beam R-L5\ (0.25 × 0.45) between R3 and R11])
+  }),
+  [
+    #H[5.1 · F3 on the existing roof beams (the owner's condition)]
+    - *East wall* (centre x 5.80): on *R11* as it is (0.25 × 0.45, C21 → C22). *West wall* (centre x 4.40): on *R3* (x 4.25, 0.25 wide) *widened to 0.40* (faces 4.125–4.525) over y 6.5–8.8, cast with the roof slab: the wall (4.30–4.50) then bears fully. *South wall* (y 8.6–8.8): on a *new short beam R-L5* (1.55 m, 0.25 × 0.45) between R3 and R11 under the slab. *North part* (y 6.4–7.6): the core's own walls from the foundation.
+    - *Verdict:* F3 stands on the existing beams with *two small additions* (0.15 m more on R3 over 2.3 m, one 1.55 m beam). If the engineer refuses them, *F2* (the head 1.6 × 1.6 on the core alone, the north overhang) is the fall-back; nothing else changes.
+    #H[5.2 · Openings and mesh]
+    - #n-short slots on the short faces, #n-long on the long: free ≈ #str(calc.round(free-n, digits: 2)) / #str(calc.round(free-w, digits: 2)) m² per face (the W face the main catcher); 20 mm bird mesh in galvanised frames behind the slots, the + divider and the four back-draught flaps inside; a 0.5 m hatch in the head's west face (+7.6 … +8.1) from the roof for the mesh, once a year.
+    #H[5.3 · Visibility (the method of `studies/malqaf_tower.typ`)]
+    #table(columns: (1fr, auto), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*From*], [*Seen above the roofline*],
+      ..views5.map(((n, e)) => ([#n], [#if seen5(e) > 0 [#str(calc.round(seen5(e), digits: 1)) m] else [*hidden*]])).flatten(),
+      [the courtyard seating], [*#str(calc.round(court-seen, digits: 1)) m*: the whole tower rises from the sky hole's west edge])
+    - #WARN[unlike L1, *L5 is not seen from the gate or the north boundary* (it stands 6.4 m behind the north facade): the symbol reads from *inside the house* (the courtyard, the gallery) and from the street beyond ≈ 10 m; from the gate the house shows its plain roofline.]
+  ],
+)
+#v(3pt)
+#grid(columns: (1fr, 1fr), gutter: 10pt,
+  [
+    #H[5.4 · Shadows on the courtyard (the head's top 13.2 m above the courtyard floor; sun positions #ASSUMED)]
+    #table(columns: (auto, auto, auto, 1fr), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*Sun*], [*alt / az*], [*shadow*], [*Where*],
+      ..suns.map(((n, alt, az)) => { let sh = shadow(alt, az); let y = on-court(sh); ([#n], [#str(alt)° / #str(az)°], [#str(calc.round(sh.L, digits: 1)) m], [#if y == none [off the courtyard (north / west: the family living's and the gallery's roofs)] else [*across the courtyard's north part* to y ≈ #str(calc.round(y, digits: 1)) at the east wall: welcome shade on the seating's north end]]) }).flatten())
+    - *Winter:* the tower shades nothing in the courtyard (its shadow goes north). *Summer afternoons and evenings:* a moving band of shade across the seating's north half, 1.6–2.4 m wide: welcome. Mornings: the shadow falls west, outside the courtyard.
+  ],
+  [
+    #H[5.5 · The roof]
+    - The head stands *inside the attic* (x ≥ 0.875 ✓); the courtyard sky hole's *guard* (1.10, black steel) now starts at the head's south-east corner (y 8.8) instead of C21: the head's wall is the guard for y 6.5–8.8. The north-block *walkway* (x 3.5) passes 0.8 m west of the head: the mesh hatch opens onto it. Distances: the tank *Z3* (x 2.85–4.15, y 1.0–3.5) ≈ 2.9 m north-west, the condensers *Z2b* (x ≥ 9.6) 3.7 m east, the west stack's vent re-routed away (Phase 4).
+    - *Removed with L5:* the L1 tower, its plant room and plenum at the north-east corner; the attic's north-east corner returns to its V9.1 pentagon.
+    #H[5.6 · 3D]
+    - Rendered on a *copy* of the adopted model (`3d/malqaf_L5_views.py`: the L1 tower, plant room and plenum taken out, the roofline rings rebuilt, the L5 core and head added in render colours; the adopted files untouched): the next page, from the courtyard seating and from the gate. The L1 shaft's interior walls at the north-east corner stay in the copy (not visible from these cameras).
+  ],
+)
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملخص المرحلة 5:* رأس البرج 1.6 × 2.4 م إطار خرساني بأعمدة في الأركان وجسور ربط عند الحزام والتاج، والأضلاع بين الفتحات بلك مليّس؛ لياسة ودهان: رملي فاتح، والحزام والتاج وإطارات الفتحات بلون عسلي هادئ، وكل بروز مصبوب مع الهيكل. الفتحات من +11.2 إلى +12.6 فوق دوامة السطح، والتاج +13.2. يقوم F3 على الجسور الحالية بإضافتين صغيرتين: توسيع R3 بمقدار 15 سم على 2.3 م، وجسر قصير 1.55 م تحت الجدار الجنوبي؛ وإلا فالبديل F2. البرج يُرى كاملا من جلسة الفناء (نحو 5.8 م) ومن الشارع على بعد 14 م فأكثر (نحو 1.9 م)، ولا يُرى من البوابة ولا من الحد الشمالي لأنه خلف الواجهة بنحو 6.4 م: رمز البيت من الداخل لا من البوابة. ظلاله صيفا بعد العصر تعبر شمال الفناء على الجلسة (مرغوب)، وشتاءً تقع شمالا خارج الفناء. الصور ثلاثية الأبعاد في الصفحة التالية على نسخة من النموذج.
+]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 5 checks #if ok5 [*passed* (#checks5.len())] else [*FAILED*: #checks5.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: studies/structure.typ (R3, R11), studies/roof.typ (the attic, the guard, the walkways, Z2b, Z3), 3d/character.yaml (the gate camera), studies/sections.typ (the noon sun), studies/malqaf_tower.typ (the visibility method). Concept only.]
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 5 · L5 in 3D (a copy of the model; render and paint; style study, provisional)]
+#v(4pt)
+#grid(columns: (1fr, 1fr), gutter: 10pt,
+  [#image("../3d/output/malqaf_L5_court.png", width: 100%) #text(7pt, weight: "bold", fill: green)[From the courtyard seating] #text(6.4pt, fill: gray)[ · the eye at (7.0, 12.4), 1.6 m, looking north: the first arch with the outlet, the blind arch above it, the head on the same axis]],
+  [#image("../3d/output/malqaf_L5_gate.png", width: 100%) #text(7pt, weight: "bold", fill: green)[From the gate (the char_gate camera)] #text(6.4pt, fill: gray)[ · the L5 head is hidden behind the north facade (§ 5.3); the adopted L1 tower is removed in this copy]],
+)
