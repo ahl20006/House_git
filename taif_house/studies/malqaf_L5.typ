@@ -6,7 +6,7 @@
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches). Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches) · PHASE 4: the air system and the controls. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -629,3 +629,139 @@
 ]
 #v(2pt)
 #text(6.2pt, fill: gray)[Phase 3 checks #if ok3 [*passed* (#checks3.len())] else [*FAILED*: #checks3.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: 3d/params.yaml (W1, W2), 3d/character.yaml (the arcade), presentation.typ (the courtyard glass), studies/roof.typ (the cornice, the band). Render and paint only (owner, 9 Nov 2026).]
+
+
+// ======================================================================= PHASE 4 · AIR SYSTEM AND CONTROLS (9 Nov 2026, after the Phase 3 answers)
+// The owner's answers: F3 (the head 1.6 × 2.4 over the first bay, the overhang SOUTH over the gallery roof; this replaces the Phase 2 north overhang);
+// the carved arched grille with its insulated damper; W1's sill +3.80; the bench; the women's majlis's 0.5 m panel lost, accepted; D11 as shared pilasters
+// (for the facade study); the farm's location: the on-site weather station answers it (no more questions). Every figure ASSUMED: the MEP engineer designs it.
+#let q-normal4 = 325.0; #let q-boost4 = 704.0; #let q-hood = 300.0     // m³/h: the house's normal / boost ventilation (studies/air_system.typ, ASHRAE 62.2 / 62.1), the hood's make-up (its own interlocked inlet)
+#let fan4 = (q: 750, dp: 250, w: 160, dba: 38, size: (0.6, 0.6, 0.45))   // an EC plug / centrifugal fan in its cabinet (ASSUMED): 750 m³/h at 250 Pa external, ≈ 160 W, ≈ 38 dB(A) at 1 m in the chamber
+#let filt4 = (pre: "ISO Coarse 60 % (G4), washable synthetic, 500 × 500 × 48", fine: "ISO ePM1 ≥ 50 % (F7 class), 500 × 500 × 292 bag or compact; ePM2.5 ≥ 65 % if the PM2.5 log asks for more", dp0: 60, dp1: 200)
+#let head4 = (x: 4.30, y0: 6.4, y1: 8.8, z0: 11.0, z1: 12.6, free: 1.8)   // the F3 head: openings +11.0 … +12.6 on the four faces; ≈ 1.8 m² free on the long (W / E) faces, ≈ 1.1 on the short (N / S), ASSUMED (Phase 5 details)
+#let inlet-b = (x: 4.6, y: 8.5, z: 7.6)                  // the filtered path's inlet: a downward-facing hood UNDER the head's south overhang (F3), +7.6, a bird mesh, never closes
+#let out4 = (w: 1.4, h: 1.0, free: 0.6)
+#let exh = (("bathrooms' extract (the west stack's vent)", (0.75, 9.8, 8.0), [⚠ UPWIND in a W wind: the terminal taken ≥ 1.5 m above the roof (+8.8), 3.6 m from the head's west face: below the head's openings (+11.0) by 2.2 m; or re-routed in the attic to the south-east]),
+            ("kitchen hood outlet (east wall)", (13.311, 10.7, 2.2), [downwind, 7.5 m, 8.8 m below the openings]),
+            ("east stack's vent", (13.2, 8.4, 8.0), [downwind, 7.3 m]),
+            ("AC condensers Z2b (hot air)", (9.6, 5.6, 7.9), [east, 3.7 m in plan from the head's east face, 3.1 m below the openings; their hot plume rises leeward in a W wind]),
+            ("the plumbing's drain vents (the east stack, the family WC's stack)", (1.5, 14.9, 8.0), [south-west, 6.4 m; terminals ≥ 1.5 m above the roof]),
+            ("the LPG cabinet, the generator point (the yard)", (13.7, 8.6, 0.0), [downwind, ≥ 8 m, 11 m below]))
+#let d3-4(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2) + calc.pow(a.at(2) - b.at(2), 2))
+#let head-pt = (head4.x + 0.8, head4.y0 + 1.2, head4.z0)
+#let modes = (
+  ([*Normal*], [20 ≤ T ≤ 32 °C · PM2.5 ≤ 35 µg/m³ · wind ≤ 45 km/h], [open], [open], [closed], [off], [normal #str(calc.round(q-normal4)) m³/h], [the courtyard breeze; the house ventilated by the fan at a slight positive pressure]),
+  ([*Clear day*], [18 ≤ T ≤ 30 · PM2.5 ≤ 15 · wind ≤ 30], [open], [open], [*open*], [off], [minimum], [the gallery and the family living get the natural breeze through the grille (path a into the house; the fan idles)]),
+  ([*Dust*], [PM2.5 > 50 for 10 min (back to Normal below 25 for 30 min)], [*closed*], [*closed*], [closed], [off], [*boost* #str(calc.round(q-boost4)) m³/h], [every breeze opening shut; the filtered fan at boost keeps the house at +10 Pa: dust stays out]),
+  ([*Cold*], [T < 18 °C (Nov–Mar: < 20 after sunset); frost: < 5 °C], [closed], [closed], [closed], [off], [minimum (≈ 150)], [the shaft and the chamber closed and insulated; the cooler drained in winter]),
+  ([*Summer*], [T > 32 °C (Jun–Sep afternoons)], [open], [open], [closed], [*on*], [normal], [the cooler draws the malqaf air, blows ≈ 20–22 °C air through the outlet onto the seating; the gallery grille shut (humid air out of the house)]),
+  ([*High wind*], [gusts > 45 km/h], [*half*], [open], [closed], [–], [normal], [less dust and noise; the flaps and the damper modulate]),
+  ([*Hood*], [the kitchen hood on (any mode)], [–], [–], [–], [–], [also the make-up], [the hood's own interlocked make-up inlet opens (≈ #str(calc.round(q-hood)) m³/h); the fan does not try to feed the hood]),
+)
+#let breeze-q(v10) = { let v = v10 / 3.6 * 1.04; let dp = 0.5 * 1.15 * v * v * 0.8; let z = 3.0 * calc.pow(0.10 / (head4.free * 0.9), 2) + 1.5 * calc.pow(0.10 / 0.84, 2) + 1.5 * calc.pow(0.10 / 0.84, 2) + 2.5 * calc.pow(0.10 / (out4.w * out4.h * out4.free), 2); 0.10 * calc.sqrt(2 * dp / (1.15 * z)) }
+#let v-out(q) = q / (out4.w * out4.h * out4.free)
+#let heat-loss(q, dT) = 0.34 * q * dT / 1000   // kW for q m³/h
+#let checks4 = (
+  ([every exhaust and plume source ≥ 3 m from the head's openings (the nearest #str(calc.round(calc.min(..exh.map(e => d3-4(e.at(1), head-pt))), digits: 1)) m)], exh.all(e => d3-4(e.at(1), head-pt) >= 3.0)),
+  ([the fan covers the boost (#str(calc.round(q-boost4)) m³/h) with the filters loaded (≤ #fan4.q)], fan4.q >= q-boost4),
+  ([the outlet's air speed at the summer-evening mean wind stays ≤ 2.5 m/s (#str(calc.round(v-out(breeze-q(21.0)), digits: 1)) m/s)], v-out(breeze-q(21.0)) <= 2.5),
+  ([the winter minimum ventilation's heat loss ≤ 1.5 kW at 10 K (#str(calc.round(heat-loss(150, 10), digits: 2)) kW)], heat-loss(150, 10) <= 1.5),
+)
+#let ok4 = checks4.all(c => c.at(1))
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 4 · the air system · two paths after the head · dampers · positive pressure · exhausts]
+#v(1pt)
+#text(7pt, fill: gray)[The owner's Phase 3 answers applied: *F3* (the head 1.6 × 2.4 over the first bay, the overhang south over the gallery roof), the carved grille with its insulated damper, W1's sill +3.80, the bench, the majlis's 0.5 m panel lost, D11 as shared pilasters later; the farm's location from the on-site station. Every figure #ASSUMED: the MEP engineer designs and sizes it.]
+#v(3pt)
+#grid(columns: (auto, 1fr), gutter: 12pt,
+  cetz.canvas(length: 0.56cm, {
+    import cetz.draw: *
+    let Y(y) = (y - 5.8) * 2.2; let Z(z) = z
+    let box4(y0, z0, y1, z1, f, s) = rect((Y(y0), Z(z0)), (Y(y1), Z(z1)), fill: f, stroke: s)
+    box4(5.8, -1.2, 9.6, -0.6, luma(150), none)
+    box4(6.4, -0.6, 6.6, 7.3, rgb("#3a3f3b"), none); box4(7.4, 3.52, 7.6, 7.3, rgb("#3a3f3b"), none); box4(8.567, -0.6, 8.767, 3.52, rgb("#3a3f3b"), none)
+    box4(5.8, 3.44, 9.6, 3.72, luma(175), none); box4(5.8, 7.2, 9.6, 7.4, luma(175), none)
+    box4(6.4, 7.3, 8.8, 13.2, sand, 0.5pt + ink); box4(6.2, 10.6, 9.0, 10.75, honey, none); box4(6.1, 12.9, 9.1, 13.2, honey, none)
+    box4(6.6, 11.0, 8.6, 12.6, rgb("#2b2b2d"), none); content((Y(7.6), 11.8), text(3.6pt, fill: white)[head: 4 faces\ bird mesh\ + divider + flaps])
+    box4(7.6, 7.3, 8.8, 7.6, luma(175), none); content((Y(8.2), 7.0), text(3.2pt)[the south overhang (F3)])
+    box4(6.6, 3.72, 7.4, 7.2, sky-l5, none); content((Y(7.0), 5.5), text(3.6pt)[(a) breeze\ shaft\ 0.84 m²])
+    box4(6.6, 3.9, 6.95, 7.2, rgb("#dfe8d0"), 0.3pt + green); content((Y(6.78), 5.5), angle: 90deg, text(3.2pt)[(b) riser Ø315])
+    box4(6.6, -0.6, 8.567, 3.44, rgb("#f4f1ea"), none)
+    box4(6.6, -0.6, 7.4, -0.3, sky-l5, 0.3pt + blue); content((Y(7.0), -0.45), text(3pt)[dust trap])
+    box4(7.6, 0.1, 8.5, 1.7, rgb("#e8f1f6"), 0.4pt + blue); content((Y(8.05), 0.9), text(3.2pt)[cooler\ (summer)])
+    box4(6.6, 0.0, 7.1, 1.6, rgb("#dfe8d0"), 0.4pt + green); content((Y(6.85), 0.8), text(3pt)[filters\ + fan])
+    line((Y(6.6), 7.75), (Y(7.4), 7.75), stroke: 2.4pt + red); content((Y(7.0), 8.1), text(3.2pt, fill: red)[D1 top damper (+7.75)])
+    line((Y(8.567), 0.1), (Y(8.567), 1.1), stroke: 2.4pt + green); content((Y(9.1), 0.6), text(3.2pt, fill: green)[outlet 1.4 × 1.0\ + D2 damper])
+    line((Y(7.5), 4.2), (Y(7.5), 5.8), stroke: 2.4pt + timber); content((Y(8.1), 5.0), text(3.2pt, fill: timber)[gallery grille\ + D3 damper])
+    circle((Y(8.4), 7.55), radius: 0.12, fill: green, stroke: none); content((Y(9.0), 7.75), text(3.2pt, fill: green)[(b) inlet: a hood under the\ overhang, +7.6, never closes])
+    line((Y(8.4), 7.45), (Y(8.4), 3.9), stroke: (paint: green, thickness: 0.8pt, dash: "dashed")); content((Y(8.75), 5.0), angle: 90deg, text(3pt, fill: green)[intake duct in the chamber's SE corner])
+    for (z, l) in ((6.4, [→ family living (N), gallery (S)]), (2.7, [→ riwaq (W), women's majlis (N)])) { line((Y(6.4), z), (Y(6.1), z), stroke: 1.2pt + green); content((Y(6.05), z), anchor: "east", text(3pt, fill: green, l)) }
+    content((Y(5.9), 13.8), anchor: "west", text(4.4pt, weight: "bold", fill: green)[SECTION N–S through the core (y 5.8–9.6, stretched ×2.2)])
+  }),
+  [
+    #H[4.1 · The two paths after the head]
+    - *The head* (Phase 5): four faces of slender openings +#str(head4.z0) … +#str(head4.z1) behind a 20 mm *bird / leaf mesh*; inside, the + divider and the four *back-draught flaps* (the windward quarter feeds, the leeward quarters shut).
+    - *(a) The breeze path:* the head → *D1*, the top damper at the shaft's head (+7.75, 1.2 × 0.8) → the shaft (0.84 m²) → the *dust trap* (a 0.8 × 0.7 × 0.3 basin under the shaft, a lift-out grating, a drain) → the foot chamber → the *courtyard outlet* 1.4 × 1.0 with its louvres and *D2* behind them → the seating. *Optional:* the gallery's carved grille with *D3* (Clear day). *No filter:* mesh only, by design (D3 of the owner).
+    - *(b) The filtered path:* its *inlet never closes:* a downward-facing hood (0.6 × 0.6, a bird mesh) *under the head's south overhang* (+7.6; rain- and dust-shadowed, 3.4 m below the breeze openings), a Ø315 duct down the chamber's south-east corner → the *filter cabinet* (#filt4.pre → #filt4.fine) → the *EC fan* (#fan4.q m³/h at #fan4.dp Pa, ≈ #fan4.w W, ≈ #fan4.dba dB(A) in the chamber) → a sealed Ø250 riser in the shaft's west side → high grilles into the *family living* and the *gallery* (+6.4), and at the GF the *riwaq* and the *women's majlis* (+2.7); the other GF rooms through the riwaq (door undercuts / transfer grilles, as the house's air moves anyway). *The kitchen hood keeps its own interlocked make-up inlet* (≈ #str(calc.round(q-hood)) m³/h, `studies/air_system.typ`).
+    #H[4.2 · The dampers (all motorised, insulated blades, low-leakage class 2 / 3, spring-return: they CLOSE on power loss)]
+    - *D1 top damper:* the main breeze valve; closes in Dust, Cold, at night if wanted; half in High wind. *D2 outlet damper:* the second seal of the courtyard outlet (the chamber then holds the cooler and the filters at room conditions). *D3 gallery damper:* the only breeze opening *into the house*: open only on a Clear day; insulated, gasketed, with an end-switch. *D4 chamber vent* (a small Ø160 damper to the outlet) lets the cooler's moist air out when the chamber is shut. The hood's make-up damper stays as designed.
+    #H[4.3 · Positive pressure and the hood]
+    - The fan supplies #str(calc.round(q-normal4)) m³/h (normal) / #str(calc.round(q-boost4)) (boost) into a *tight envelope (D5)*; the extracts (the bathrooms, ≈ 150–250 m³/h continuous, the dryer) are smaller: the house runs at ≈ *+5–10 Pa* (the dP sensor trims the fan). Every door is undercut 15 mm or has a transfer grille so the pressure is one.
+    - #WARN[the kitchen hood (600–1 000 m³/h) exceeds the supply fan: without its make-up inlet the house would go *negative* and pull dust through every crack and the malqaf's grille. The *interlocked make-up inlet* (filtered, motorised, opens with the hood) is a must; the fan may boost with it but does not replace it.]
+  ],
+)
+#v(3pt)
+#H[4.4 · Exhausts and plumes relative to the head (openings +#str(head4.z0) … +#str(head4.z1))]
+#table(columns: (1.3fr, auto, 1.6fr), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+  [*Source*], [*Distance*], [*Position*],
+  ..exh.map(e => ([#e.at(0)], [#str(calc.round(d3-4(e.at(1), head-pt), digits: 1)) m], [#e.at(2)])).flatten())
+#WARN[the bathrooms' vent in the west shaft is the one source *upwind* in the summer-evening west wind: its terminal must end ≥ 1.5 m above the roof (+8.8), 2.2 m below the head's openings and 3.6 m away, with a charcoal / membrane terminal; better: re-route it in the attic to the south-east strip (Phase 6 checklist).]
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 4 · insulation and moisture · sensors · the control modes · maintenance · performance]
+#v(3pt)
+#grid(columns: (1fr, 1fr), gutter: 10pt,
+  [
+    #H[4.5 · Insulation, acoustics, moisture]
+    - *The core's walls facing the gallery and the family living:* 200 RC (Rw ≈ 55 dB) + 50 mm mineral wool and a 2 × 12.5 board lining *on the room side* (the breeze shaft stays smooth render inside); the fan's cabinet acoustically lined, on anti-vibration mounts; the filtered-air grilles with 0.6 m lined duct before them.
+    - *Thermal:* D1 and D3 insulated blades; the shaft's walls facing rooms with 50 mm insulation inside the lining (the shaft is outdoor air in winter).
+    - *The foot chamber (wet):* tanked to +0.30 and a fall to a *trapped gully* (a trap primer), the dust trap in GRP, the cooler on a drip tray, a float-valve water point, IP44 sockets at +1.2 on their own RCD circuit, a lockable isolator; a hygrometer-controlled *D4 vent* so the chamber never stays damp.
+  ],
+  [
+    #H[4.6 · Sensors (simple and robust)]
+    - *Outdoor PM2.5* (a laser sensor in a weather hood on the head's north face, shaded) · *outdoor T / RH* (the same hood) · *the house dP* (indoor minus outdoor, a tube to a calm point on the roof) · *the filter dP* (across both filters: service at #filt4.dp1 Pa, clean ≈ #filt4.dp0) · *indoor CO2* (the gallery) · *the chamber's RH* (D4) · *the cooler's water level* (its float) · *the roof anemometer* (the weather station's sensor kept). A small PLC / home controller with the modes and *a manual override switch per damper* (the owner's rule).
+    #H[4.8 · Maintenance (all from the carved door at ground level)]
+    #table(columns: (1.2fr, 1fr, auto), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*What*], [*How*], [*When*],
+      [the dust trap], [lift the grating, sweep / vacuum the basin, hose to the drain], [monthly; weekly in Mar–Apr],
+      [the pre-filter], [slide out, wash, dry, back], [monthly (the dP light)],
+      [the fine filter], [replace], [≈ 6 months (dP #filt4.dp1 Pa)],
+      [the cooler], [tank and pads cleaned; drained and parked for winter], [weekly in summer; Oct],
+      [the dampers D1–D4], [stroke test, seals], [yearly (before spring)],
+      [the gully trap, the drain], [fill / flush], [monthly],
+      [the outlet louvres, the grilles], [brush], [3 months],
+      [the head's mesh and flaps], [*the roof hatch only*: brush the mesh, free the flaps], [yearly; after a dust storm],
+    )
+  ],
+)
+#v(3pt)
+#H[4.7 · The control modes (the thresholds of Phase 0, accepted by the owner; a manual override on every damper)]
+#table(columns: (auto, 1.6fr, auto, auto, auto, auto, auto, 2fr), inset: 2.2pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") },
+  [*Mode*], [*Switching (outdoor sensors)*], [*D1 top*], [*D2 outlet*], [*D3 gallery*], [*Cooler*], [*Fan (b)*], [*What happens*],
+  ..modes.flatten())
+#v(3pt)
+#H[4.9 · Rough performance (ASSUMED, for the MEP engineer)]
+- *The breeze (Normal):* at the summer-evening mean wind (21 km/h at 10 m) ≈ *#str(calc.round(breeze-q(21.0), digits: 2)) m³/s* through the outlet (≈ #str(calc.round(v-out(breeze-q(21.0)), digits: 1)) m/s at the louvres, ≈ 0.5–0.8 m/s at the seating 2 m away: a clearly felt breeze); at 10 km/h ≈ #str(calc.round(breeze-q(10.0), digits: 2)) m³/s (gentle); in a calm the stack alone ≈ 0.15 m³/s. L1 (V9.3) at 21 km/h ≈ 0.42 m³/s: *≈ #str(calc.round(breeze-q(21.0) / 0.42, digits: 1)) ×* (Phase 1 said 3.5 with the smaller head; F3's head is larger).
+- *Summer (the cooler):* a 90–150 L portable cooler moves ≈ 0.8–1.4 m³/s and cools the dry afternoon air from ≈ 35 to ≈ *20–22 °C* (Phase 0: RH 12–20 %); its water ≈ 15–25 L/h; the jet along the seating ≈ 1 m/s. The courtyard is open to the sky: it cools *the people in the jet*, not the courtyard.
+- *Winter:* the breeze closed; the fan at its minimum ≈ 150 m³/h costs ≈ *#str(calc.round(heat-loss(150, 10), digits: 2)) kW* at 10 K (≈ #str(calc.round(heat-loss(325, 10), digits: 2)) kW at the normal rate): small; no heat recovery (D2 of the owner), so the fan runs at the minimum on cold nights and the CO2 sensor raises it when the house is full.
+- *Dust:* the fan at boost with the fine filter (≥ 50 % of PM1, ≈ 80 % of PM2.5) holds the indoor PM2.5 at roughly a quarter of the outdoor level during a 150 µg/m³ event (the house tight, D5).
+#v(2pt)
+#text(6.4pt)[*Open questions for the owner (Phase 4):* (1) The filtered path's inlet under the head's south overhang (never closes), the filters and the fan in the foot chamber: OK, or the fan in the west shaft's utility room instead (quieter for the courtyard, a longer duct)? (2) The gallery grille (D3) open only on Clear days: OK? (3) The bathrooms' vent: accept the raised terminal, or re-route it to the south-east? (4) A home controller the owner programs himself (the modes above), or a packaged BMS?]
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملخص المرحلة 4:* بعد رأس البرج مساران: (أ) مسار النسيم الكبير بلا مرشح (شبك طيور فقط): خانق علوي D1، ثم المجرى، ثم مصيدة الغبار في القاعدة، ثم فتحة الفناء 1.4 × 1.0 م بخانق D2 خلف الشيش، وشبكة الممر العلوي بخانق D3 لا تُفتح إلا في الأيام الصافية؛ (ب) المسار المرشح الصغير: مدخل لا يُغلق أبدا تحت بروز الرأس الجنوبي، ثم مرشح خشن قابل للغسل ومرشح ناعم ومروحة هادئة 750 م³/س في غرفة القاعدة، تدفع هواءً مرشحا إلى الممر وجلسة العائلة والرواق والمجلس فيبقى البيت تحت ضغط موجب. كل الخوانق معزولة وتُغلق عند انقطاع الكهرباء، ولكل منها مفتاح يدوي. تنبيه: شفاط المطبخ أكبر من المروحة فلا بد من مدخل الهواء التعويضي المرتبط به. تنبيه: تهوية الصرف في الشفت الغربي تقع في اتجاه الريح الغربية؛ تُرفع أو تُحوَّل إلى الجنوب الشرقي. الصيانة كلها من الباب المنحوت في الدور الأرضي، وفتحة السطح لشبك الرأس فقط مرة في السنة. النسيم المقدّر نحو 1.8 م³/ث في مساء صيفي عادي (نحو أربعة أضعاف الموقع الحالي بعد تكبير الرأس في F3)، والمبرد يخرج هواءً بنحو 20–22°م.
+]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 4 checks #if ok4 [*passed* (#checks4.len())] else [*FAILED*: #checks4.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: studies/air_system.typ (the ventilation rates 325 / 704 m³/h, the hood's make-up, the loss chain), studies/plumbing.typ (the vents), studies/roof.typ (Z2b), ASHRAE 62.1 / 62.2-2022, ASHRAE 62.1 Table 5-1 (separations), ISO 16890 (the filter classes), EN 1751 (damper leakage classes). Concept only.]
