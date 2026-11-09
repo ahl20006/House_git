@@ -4,12 +4,14 @@
 
 *V9.0 (layout freeze, 6 Nov 2026):* the plan is frozen; the facades and the details are the next design stage and follow this list and the facade principle R-37 (the house stands inside a fully walled private farm: the facades are designed for light, views, climate and composition, not for privacy from outside). The 3D now shows the existing farm round the house (the old house, its covered parking, the walls and the gate, the palms) as plain approximate masses, not as design.
 
+**9 Nov 2026 (owner): NO stone on the exterior.** No stone and no stone cladding anywhere outside, the malqaf tower included: every exterior finish is *render (plaster) and paint*. The character comes from the window proportions, the arches, the depth of the recesses and the projections that make shadows, all *built into the structure* in block and concrete, not applied later. Colours: a light sand render; an optional calm honey tone on the projections; a smooth or lightly textured exterior paint. Builder's rules: plaster mesh over every block / concrete junction before rendering; drips and falls on every projection from the start. **This supersedes every "honey stone" on the exterior below** (the plinth and the corners, the colonnade's columns and the arcade, the cornices and copings, the malqaf, the ladder's pilaster): read them as the same forms in render, the projections in the honey tone. The floors (the courtyard, the colonnade, the guest path) and the interior are not part of this decision (to confirm). The facade study (windows, shaping, finishes) follows the plan freeze (open items 20, 21).
+
 | Element | The language |
 |---|---|
 | Interior walls | Warm white (cream) plaster |
 | Floors | Marble inside; matte honey-coloured stone in the courtyard (and under the colonnade) |
 | Cornices | Very simple, thin |
-| Exterior | Cream plaster with honey stone at the base (plinth) and the corners |
+| Exterior | **9 Nov 2026: render and paint only** (light sand; the projections in an optional calm honey tone); the base and the corners shaped in the structure, no stone. *Was:* cream plaster with honey stone at the base (plinth) and the corners |
 | Metal | Matte black; a few brass touches in the lighting |
 | Timber | Medium-to-dark walnut (doors, soffits, built-ins) |
 | Arches | Semicircular (Roman): the living's entrance arch and the TV arch; **V7.1:** the courtyard arcade with three arches under the projection (two slender stone columns between C21 and C22, courtyard bay only; the living bay keeps no arches) and arched heads on all the courtyard enclosure windows (six on the gallery edge over the arcade bays, two on the family living's edge, one large one over the living's courtyard glass): a two-tier classical arcade |

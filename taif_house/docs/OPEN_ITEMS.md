@@ -35,6 +35,10 @@ Grouped by who has to act. **V9.3 (8 Nov 2026):** the new malqaf tower adopted (
 18. **Septic, tanks and levels (survey):** the existing septic *outside the north wall near corner C1* serves the old house and takes the new house's drains (owner, V9.0): its inlet level, its capacity for both houses and its condition; the street level at the gate, the farm's levels: all approximate in `studies/site_plan.typ`. Then the drainage falls are re-checked (a pump at the gate's collector chamber if the inlet is higher than −1.24). **Levels (8 Nov 2026):** the ground falls slightly to the south; the owner accepts raising the house on a plinth if needed: the finished floor level, the plinth, the steps or a ramp at the family and guest entrances, the courtyard and garden levels and the sewer falls are to be set from the official survey's levels (`SITE_SETOUT.md` § 9).
 19. **Municipality:** the septic's reuse and its legal position outside the wall (the drain crossing under it), the rain soakaways and their overflows, the gas cabinet and the Civil Defense's villa requirements (access, water, alarms). Parking in the north setback strip is allowed (owner, 2 Nov 2026).
 
+## Facades (after the plan freeze; owner, 9 Nov 2026)
+20. **Facade study (three stages):** after the plan freeze and once the windows are set: (1) the windows (sizes, positions, the GF and FF windows on one vertical axis, the 20 cm module); (2) the shaping with the structure: the recesses, the projections, the arches and the cornices built in block and concrete; (3) the finishes: *render and paint only, no stone* (a light sand render, an optional calm honey tone on the projections). Builder's rules from the start: plaster mesh over every block / concrete junction, drips and falls on every projection.
+21. **D11 facade bands:** walls in 20 cm block; around the windows 30 cm block bands projecting 10 cm (inner face flush), full height from the base to the cornice like pilasters; the GF and FF windows on one vertical axis; all window and band sizes on a 20 cm module. Checks: 30 cm block in Taif (availability, price), the continuity of the wall insulation, the render and mesh at the band edges.
+
 ## The next items, in order (from the review status `output/Design_Review_status_V9.1.pdf`; V9.3: the bathrooms interior study first)
 1. **The official survey and the engineering office's answer on the setback** (deed line or wall as built) (1).
 2. **Measure the existing farm on site:** the old house, the covered parking, the tanks and the septic's inlet level (16, 18).
@@ -43,4 +47,4 @@ Grouped by who has to act. **V9.3 (8 Nov 2026):** the new malqaf tower adopted (
 5. **The full verification and validation review of the frozen layout (V9.1).**
 6. **The engineers:** structure X5 (2–6), the soil report (7), the MEP sizing (9–11), the lift supplier (14).
 7. **The bathrooms' interior study.**
-8. **The facades and the details**, acoustics included (8, 15, 17); the municipality (19).
+8. **The facades and the details**, acoustics included (8, 15, 17, 20, 21: after the plan freeze; render and paint, no stone); the municipality (19).

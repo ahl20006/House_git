@@ -1,11 +1,12 @@
 // malqaf_L5.typ · Taif / Palm House · L5 MALQAF: FULL DESIGN STUDY (decision-grade), in PHASES · STUDY ONLY (the design files are not changed)
 // L5: the malqaf at the courtyard's NORTH-WEST corner, inside the covered strip under the FF west projection, against the y 6.5 wall.
 // The brief's WARNINGs are printed as "⚠ CAUTION" (tools/check.py reserves the word WARNING for failed checks).
+// Finishes (owner, 9 Nov 2026): NO stone anywhere: the core and the head in render and paint, the projections formed in the structure (light sand; an optional honey tone).
 // Owner decisions 9 Nov 2026 (D1–D11, not reopened): a LARGE natural breeze for the courtyard (D1); no HRV, a filtered supply fan (D2); one tower,
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -286,6 +287,9 @@
     [*#str(calc.round(index(v), digits: 1))* (≈ #str(calc.round(q-at(zeta-v(v)), digits: 2)) m³/s)],
   )).flatten()
 )
+#v(4pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#f6efe2"), radius: 2pt)[#text(8pt, weight: "bold", fill: green)[Finishes (owner, 9 Nov 2026): render and paint, no stone.] #text(7pt)[The L5 core and its head are designed in *render and paint*: a light sand render; the projections (the cornice band below the head, the crowning Hijazi cornice, the arch surrounds of the head's openings and of the courtyard outlet) in the optional calm honey tone. Every projection, arch and cornice is *formed in the RC core and block* (not applied), with a drip and a fall on its top; plaster mesh over every block / concrete junction before rendering. No stone anywhere on the tower (this replaces the "honey stone" of `studies/malqaf_tower.typ` and of the V9.3 tower). Phase 5 designs the head on this basis.]]
+#v(3pt)
 #text(6.2pt, fill: gray)[Breeze: the air study's loss chain referred to its 0.10 m² section, with the same head pressure for all (ΔCp 0.8, the summer-evening mean wind 21 km/h): L1 (V9.3, the channel at full width) #str(calc.round(q-at(zeta-l1), digits: 2)) m³/s. The L5 head's pressure is *not yet* the same (§ 1.3). Riser = the filtered path's Ø315 duct compartment (#riser m²) inside the core. All #ASSUMED.]
 
 #pagebreak()
@@ -316,7 +320,7 @@
     #H[1.2 · The foot chamber (V-c), the outlet, the door]
     - *Clear 1.20 × 1.97 m (2.36 m²), ≈ 3.1 m high (to the FF slab) and open above into the shaft.* The dust trap: a 0.8 × 0.7 floor basin under the shaft (a lift-out stainless grating, a 0.25 m deep sump, a drain to the courtyard drainage); the filtered path's riser in the north-west corner, its filter cabinet + EC fan (0.45 × 0.60) at the west wall; the cooler's place at the outlet; a water point with a float valve, a floor drain, a dedicated circuit and IP44 sockets.
     - *The cooler (D9):* the common portable desert coolers sold in the Kingdom run from ≈ 45 L tanks (≈ 0.4 × 0.35 × 1.0 m) to 90–150 L (≈ 0.6–0.8 × 0.5–0.7 × 1.3–1.6 m); the chamber is laid out for the larger envelope *0.8 × 0.7 × 1.6 m* (#ASSUMED: the owner's shortlist to confirm), rolled in through the door, its outlet against the grille.
-    - *The outlet:* *1.4 × 0.9 m* in the first arch, sill +0.10, adjustable timber or pierced-stone louvres (≈ 60 % free, 0.76 m²) aiming the air along the seating; a motorised insulated damper behind it (Phase 4).
+    - *The outlet:* *1.4 × 0.9 m* in the first arch, sill +0.10, adjustable timber louvres or a pierced precast-concrete grille, rendered and painted (≈ 60 % free, 0.76 m²) aiming the air along the seating; a motorised insulated damper behind it (Phase 4).
     - *The door:* *1.0 m clear, full height (≈ 2.4 m)*, a carved timber door on the chamber's south face, opening onto the covered strip (the strip south of the core, 1.55 × 4.2 m, stays the riwaq's courtyard edge).
   ],
 )
@@ -343,3 +347,139 @@
 ]
 #v(2pt)
 #text(6.2pt, fill: gray)[Phase 1 checks #if ok1 [*passed* (#checks1.len())] else [*FAILED*: #checks1.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: data/rooms_gf.csv / rooms_ff.csv (V9.3), studies/structure.typ (C17, C21, B3, B4, R11), 3d/character.yaml (the arcade columns at y 8.667 / 10.833), data/deed_sketch.csv (the old house), ASHRAE Handbook — Fundamentals 2021, ch. 24 (Airflow around buildings: R, Hc, Xc, Lc); cooler sizes from Saudi and Gulf retail listings (Carrefour KSA 90 L, Aftron / Alhayyat / ALM 150 L).]
+
+
+// ======================================================================= PHASE 2 · STRUCTURE (9 Nov 2026, after the owner's Phase 1 answers)
+// The owner's answers: V-c with the 0.96 m² shaft, the gallery's turn kept at 1.5 m; the riwaq's first glass panel solid; the carved door on the chamber's
+// south face; the winter late mornings (Dec–Jan 10:00–13:00) added to the seating hours; no stone (render and paint). Every figure ASSUMED (no soil report,
+// no SBC 301 data yet): concept values for the structural engineer.
+#let g-c = 25.0                          // kN/m³ reinforced concrete
+#let tw2 = 0.20                          // the core's RC walls
+// the V-c core on its wall centre lines: the shaft x 4.40–5.80, y 6.5–7.5 (outer 4.30–5.90 × 6.4–7.6); the foot chamber to the arcade column line y 8.667
+#let cx0 = 4.40; #let cx1 = 5.80; #let cy0 = 6.5; #let cy1 = 7.5; #let cy2 = 8.667
+#let z-fdn = -0.6; #let z-ff = 3.52; #let z-roof = 7.2; #let z-crown = 13.2
+#let perim = 2 * ((cx1 - cx0) + (cy1 - cy0))
+#let w-shaft = perim * tw2 * g-c * (z-roof - z-fdn) - (cx1 - cx0 - tw2) * tw2 * g-c * (z-ff - z-fdn)   // the shaft's south wall starts at the FF slab (a 1.2 m lintel over the chamber)
+#let w-chamber = (2 * (cy2 - cy1) + (cx1 - cx0)) * tw2 * g-c * (z-ff - z-fdn) - (1.4 * 0.9 + 1.0 * 2.4) * tw2 * g-c
+#let head = (side-x: 1.6, side-y: 1.6, t: 0.20, open: 1.4)   // the head 1.6 × 1.6 outside (the core 1.6 × 1.2 + a 0.4 m funnel cantilever north over the family living's roof, D7), 4 faces × ≈ 1.4 m² gross openings
+#let w-head = 2 * ((head.side-x - head.t) + (head.side-y - head.t)) * head.t * g-c * (z-crown - 7.3) - 4 * head.open * head.t * g-c + 25.0   // + the band, the crowning cornice and the top slab ≈ 25 kN
+// the beams that the core now carries (line loads ASSUMED, service): B3 the edge beam (x 5.80), B4 (x 4.25), R11 the roof edge (x 5.80), B2 / R1 (y 6.5)
+#let beams = (
+  (id: "B3", line: [x 5.80, FF], q: 12.0, was: 6.50, now: 13.0 - cy2, on-core: cy2 - cy0, note: [bears on the chamber's east wall to the arcade column line]),
+  (id: "B4", line: [x 4.25, FF, drop], q: 25.0, was: 6.50, now: 13.0 - cy2, on-core: cy2 - cy0, note: [cast with the chamber's west wall (it overlaps the wall's outer 0.075 m: a local widening or a nib)]),
+  (id: "R11", line: [x 5.80, roof], q: 10.0, was: 6.50, now: 13.0 - cy1, on-core: cy1 - cy0, note: [bears on the shaft's east wall]),
+  (id: "B2 / R1", line: [y 6.5, FF / roof], q: 10.0, was: 1.55, now: 0.0, on-core: cx1 - cx0, note: [their first span (C17 → C21) is the core's north wall]),
+)
+#let reac(b) = b.q * b.on-core + (if b.now > 0 { b.q * b.now / 2 } else { 0 })
+#let w-floors = beams.map(reac).sum()
+#let w-total = w-shaft + w-chamber + w-head + w-floors
+#let q-soil = 150.0                      // kPa allowable, ASSUMED (no soil report)
+#let pad = (bx: 2.4, by: 3.0, t: 0.6)    // one pad under the core and the chamber (replaces the pads of C17, C21 and the arcade column)
+#let q-pad = (w-total + pad.bx * pad.by * pad.t * g-c) / (pad.bx * pad.by)
+// lateral, the head above the roof (a cantilever 5.9 m): wind (q 1.1 kPa, Cf 1.3, ASSUMED) and seismic as a rooftop appendage (SBC 301 / ASCE 7 § 13.3: Fp = 0.4 ap Sds Wp (1 + 2 z/h) / (Rp / Ip), ap 2.5, Rp 2.5, Ip 1.0, z = h)
+#let h-head = z-crown - 7.3
+#let F-wind = 1.1 * 1.3 * head.side-x * h-head
+#let M-wind = F-wind * h-head / 2
+#let Fp(sds) = calc.min(0.4 * 2.5 * sds * w-head * 3 / 2.5, 1.6 * sds * w-head)
+#let M-seis(sds) = Fp(sds) * h-head / 2
+#let S-head = (calc.pow(head.side-x, 4) - calc.pow(head.side-x - 2 * head.t, 4)) / 12 / (head.side-x / 2)   // the head's RC tube, its section modulus (m³), openings ignored
+#let checks2 = (
+  ([the pad's bearing #r1(q-pad) kPa ≤ the assumed #r1(q-soil) kPa], q-pad <= q-soil),
+  ([B3's and B4's first spans drop from 6.50 to #r1(13.0 - cy2) m (moments ≈ #str(calc.round(100 * (1 - calc.pow((13.0 - cy2) / 6.5, 2)))) % less)], 13.0 - cy2 < 6.5),
+  ([the head's stress at the roof under the seismic case (Sds 0.25) #str(calc.round(M-seis(0.25) / S-head / 1000, digits: 2)) MPa, far below the concrete's capacity (openings halve the section: still ≤ 1 MPa)], M-seis(0.25) / S-head / 1000 * 2 <= 1.0),
+)
+#let ok2 = checks2.all(c => c.at(1))
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 2 · structure · the L5 core as an independent RC core, the fourth support of the west projection]
+#v(1pt)
+#text(7pt, fill: gray)[The owner's Phase 1 answers applied: *V-c*, the shaft 1.2 × 0.8 m clear (the gallery's turn kept at 1.5 m); the riwaq's first glass panel solid; the carved door on the chamber's south face; *the winter late mornings added* (Dec–Jan 10:00–13:00: ≈ 61 % pleasant, ≈ 113 h a year more, ≈ #(year-hours + 113) h in all); *no stone* (render and paint). Every figure #ASSUMED (no soil report, no SBC 301 site data): concept values for the structural engineer.]
+#v(3pt)
+#grid(columns: (auto, auto, 1fr), gutter: 10pt,
+  cetz.canvas(length: 0.95cm, {
+    import cetz.draw: *
+    let Q(p) = (p.at(0), -p.at(1))
+    let wall(a, b, c) = line(Q(a), Q(b), stroke: 5pt + c)
+    rect(Q((3.6, 5.7)), Q((6.6, 13.4)), fill: rgb("#f6f3ec"), stroke: none)
+    rect(Q((4.3 - 0.4, 6.4 - 0.4)), Q((5.9 + 0.1, 8.767 + 0.23)), fill: none, stroke: (paint: amber, thickness: 0.6pt, dash: "dashed")); content(Q((3.82, 9.15)), anchor: "west", text(4pt, fill: amber)[pad #pad.bx × #pad.by × #pad.t])
+    for (a, b) in (((cx0, cy0), (cx1, cy0)), ((cx1, cy0), (cx1, cy2)), ((cx0, cy0), (cx0, cy2)), ((cx0, cy2), (cx1, cy2))) { wall(a, b, rgb("#3a3f3b")) }
+    line(Q((cx0, cy1)), Q((cx1, cy1)), stroke: (paint: rgb("#3a3f3b"), thickness: 2pt, dash: "dashed")); content(Q((5.1, 7.35)), text(3.6pt)[shaft's S wall from the FF slab (lintel)])
+    line(Q((4.25, 6.5)), Q((4.25, 13.0)), stroke: 1.2pt + blue); content(Q((4.05, 11.0)), angle: 90deg, text(4.2pt, fill: blue)[B4 #r1(13.0 - cy2) m (was 6.50)])
+    line(Q((5.8, 6.5)), Q((5.8, 13.0)), stroke: 1.2pt + red); content(Q((6.0, 11.0)), angle: 90deg, text(4.2pt, fill: red)[B3 #r1(13.0 - cy2) m · R11 #r1(13.0 - cy1) m])
+    line(Q((4.25, 6.5)), Q((6.6, 6.5)), stroke: 1pt + gray); content(Q((6.3, 6.3)), text(3.6pt, fill: gray)[B2 / R1 →])
+    for (p, n, done) in (((4.25, 6.5), [C17], true), ((5.8, 6.5), [C21], true), ((5.8, 8.667), [arcade col.], true), ((5.8, 10.833), [arcade col.], false), ((5.8, 13.0), [C22], false)) {
+      circle(Q(p), radius: 0.13, fill: if done { amber } else { ink }, stroke: none); content(Q((p.at(0) + 0.25, p.at(1) - 0.18)), anchor: "west", text(3.6pt, fill: if done { amber } else { ink })[#n#if done [ → core]]) }
+    line(Q((5.8, 7.1)), Q((5.8, 8.5)), stroke: 3pt + green); content(Q((6.25, 7.8)), text(3.4pt, fill: green)[outlet])
+    line(Q((4.5, 8.667)), Q((5.7, 8.667)), stroke: 3pt + rgb("#9c6b3c")); content(Q((5.1, 8.95)), text(3.6pt, fill: rgb("#9c6b3c"))[door 1.0])
+    content(Q((3.65, 13.25)), anchor: "west", text(4.6pt, weight: "bold", fill: green)[PLAN (structure) · 1 m = 0.95 cm])
+  }),
+  cetz.canvas(length: 0.42cm, {
+    import cetz.draw: *
+    let P(y, z) = (y, z)
+    rect(P(5.0, -1.2), P(9.6, 14.2), fill: rgb("#fbfaf6"), stroke: none)
+    rect(P(6.0, z-fdn - 0.6), P(9.0, z-fdn), fill: luma(150), stroke: none); content(P(7.5, -1.55), text(3.8pt)[pad −0.60 … −1.20])
+    rect(P(6.4, z-fdn), P(6.6, z-roof), fill: rgb("#3a3f3b"), stroke: none)
+    rect(P(7.4, z-ff), P(7.6, z-roof), fill: rgb("#3a3f3b"), stroke: none)
+    rect(P(8.567, z-fdn), P(8.767, z-ff), fill: rgb("#3a3f3b"), stroke: none)
+    rect(P(5.2, z-ff - 0.08), P(9.6, z-ff + 0.2), fill: luma(170), stroke: none); content(P(9.0, z-ff + 0.55), text(3.6pt)[FF +3.52])
+    rect(P(5.2, z-roof), P(9.6, z-roof + 0.2), fill: luma(170), stroke: none); content(P(9.0, z-roof + 0.55), text(3.6pt)[roof +7.20])
+    rect(P(6.6, z-fdn), P(8.567, z-fdn + 0.25), fill: sky-l5, stroke: none); content(P(7.6, 0.1), text(3.4pt)[dust trap])
+    rect(P(7.6, 0.1), P(8.567, 1.0), fill: rgb("#e8f1f6"), stroke: 0.3pt + blue); content(P(8.08, 0.55), text(3.2pt)[cooler])
+    rect(P(6.0, 7.4), P(7.6, z-crown), fill: rgb("#e9dcc3"), stroke: 0.5pt + ink)
+    rect(P(6.0, 10.6), P(7.6, 10.75), fill: rgb("#cfae78"), stroke: 0.4pt + ink)
+    for k in range(3) { rect(P(6.25 + k * 0.45, 11.0), P(6.45 + k * 0.45, 12.4), fill: rgb("#2b2b2d"), stroke: none) }
+    rect(P(5.9, z-crown - 0.3), P(7.7, z-crown), fill: rgb("#cfae78"), stroke: 0.4pt + ink)
+    content(P(8.6, 11.8), text(3.8pt)[openings\ +11.0 … +12.6])
+    content(P(8.6, 13.2), text(3.8pt)[crown +13.20])
+    line(P(5.2, 8.68), P(6.0, 8.68), stroke: 0.4pt + gray); content(P(5.25, 9.0), anchor: "west", text(3.4pt, fill: gray)[attic +8.68])
+    content(P(5.1, 14.0), anchor: "west", text(4.6pt, weight: "bold", fill: green)[SECTION N–S at x ≈ 5.1 · y 5.0–9.6])
+    content(P(6.5, -0.9), text(3.4pt)[y 6.5]); content(P(8.67, -0.9), text(3.4pt)[8.67])
+  }),
+  [
+    #H[2.1 · The core]
+    - *An independent RC core* (walls 0.20) from its own pad (−0.60) to the head: the shaft on the wall centre lines x #cx0–#cx1, y #cy0–#cy1 (outer 1.6 × 1.2), the foot chamber's walls to the arcade column line y #cy2 at the ground floor. Its north wall *is* the y 6.5 wall rebuilt in RC (the majlis's face unchanged); the riwaq's glazing on x 4.25 is not load-bearing and stays a glazing line south of the chamber.
+    - *Absorbed:* *C17* (4.25, 6.5) into the core's north-west corner, *C21* (5.8, 6.5) into its north-east corner, the decorative *arcade column at y 8.667* into the chamber's south-east corner (it becomes structural). *Kept:* C22, C23 and the second arcade column (y 10.833).
+    - *One pad* #pad.bx × #pad.by × #pad.t m under the core and the chamber (it replaces three pads), with a 0.35 m recess for the dust trap's sump.
+    #H[2.2 · The fourth support (the owner's question)]
+    + *B4* (x 4.25): its first span *6.50 → #r1(13.0 - cy2) m* (cast with the chamber's west wall).
+    + *B3* (the edge, x 5.80): *6.50 → #r1(13.0 - cy2) m* on the chamber's east wall; *R11* (the roof edge) 6.50 → #r1(13.0 - cy1) m on the shaft.
+    + *Reduced:* the first-span moments ≈ #str(calc.round(100 * (1 - calc.pow((13.0 - cy2) / 6.5, 2)))) % less, the deflections ≈ #str(calc.round(100 * (1 - calc.pow((13.0 - cy2) / 6.5, 4)))) % less: B3 and B4 could drop from 0.25 × 0.50 to ≈ 0.25 × 0.40 there (B3's upturn stays: it is W1's sill); C21 is no longer a separate column; the core also stiffens the west projection sideways (the slender C22 / C23 sway less).
+    + *C21 and C17* disappear as separate members; B2's and R1's first span (C17 → C21, 1.55 m) becomes the core's north wall.
+  ],
+)
+#v(3pt)
+#grid(columns: (1fr, 1fr), gutter: 12pt,
+  [
+    #table(columns: (auto, 1fr, auto, auto, auto), inset: 2.2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*Beam*], [*Line · how*], [*Span was → now (m)*], [*q kN/m*], [*On the core kN*],
+      ..beams.map(b => ([*#b.id*], [#b.line · #b.note], [#str(calc.round(b.was, digits: 2)) → #if b.now > 0 [#str(calc.round(b.now, digits: 2))] else [–]], [#r1(b.q)], [#r1(reac(b))])).flatten())
+    #table(columns: (1fr, auto), inset: 2.2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
+      [*Vertical loads (service, #ASSUMED)*], [*kN*],
+      [the shaft's walls (−0.60 → +7.20)], [#r1(w-shaft)],
+      [the foot chamber's walls (less the outlet and the door)], [#r1(w-chamber)],
+      [the head above the roof (#head.side-x × #head.side-y, to +13.20, the cornices, the top slab)], [#r1(w-head)],
+      [the beams and slabs above (the table on the left)], [#r1(w-floors)],
+      [*total on the pad*], [*#r1(w-total)*],
+      [the pad's bearing (with its weight) vs #r1(q-soil) kPa assumed], [#r1(q-pad) kPa],
+    )
+  ],
+  [
+    #H[2.3 · The tower above the roof: wind and earthquake]
+    - *The head* is a cantilever #r1(h-head) m above the roof finish, #head.side-x × #head.side-y m (the shaft 1.6 × 1.2 plus a 0.4 m funnel overhang north on the head's base slab, D7), its self-weight ≈ #r1(w-head) kN.
+    - *Wind* (q 1.1 kPa, Cf 1.3, #ASSUMED; SBC 301 for Taif to the engineer): #r1(F-wind) kN, *#r1(M-wind) kN·m* at the roof.
+    - *Earthquake* as a rooftop appendage (SBC 301 / ASCE 7 § 13.3, ap 2.5, Rp 2.5): with Sds 0.15 / 0.25 / 0.35 (#ASSUMED range for Taif) Fp = #r1(Fp(0.15)) / #r1(Fp(0.25)) / #r1(Fp(0.35)) kN, *#r1(M-seis(0.15)) / #r1(M-seis(0.25)) / #r1(M-seis(0.35)) kN·m* at the roof: *the earthquake governs*, not the wind. The RC tube takes it easily (≈ #str(calc.round(M-seis(0.25) / S-head / 1000, digits: 2)) MPa, the openings ignored): the head is *an RC frame* (four corner piers ≥ 0.30 × 0.30, a ring beam at the band, one at the crown) with the slender ribs between the openings as *non-structural* block or precast infill, rendered.
+    - *Connections:* the FF slab and the roof slab cast into the core (starter bars), so the core is tied at both levels; the shaft's openings in the slabs are framed by its own walls (no trimmers); the head's base slab cantilevers 0.4 m north over the family living's roof.
+    #H[2.4 · Openings in the core: lintels and limits]
+    - *Ground floor:* the outlet 1.4 × 0.9 in the east wall (sill +0.10; a lintel at +1.00, the wall above deep); the south wall is the door: a 1.0 m door in 1.2 m clear, i.e. the wall becomes a 1.4 m lintel at +2.40 over it on the east and west walls; the shaft's south wall starts at the FF slab on a 1.2 m lintel across the chamber.
+    - *First floor and above* (Phase 3 / 4): the gallery window into the shaft and the filtered-air grilles ≤ 50 % of a wall's length, ≥ 0.25 m from the corners, lintels ≥ 0.30 deep.
+  ],
+)
+#v(2pt)
+#text(6.4pt)[*Open questions for the owner (Phase 2):* (1) The head 1.6 × 1.6 with a 0.4 m funnel overhang north, or the head = the core (1.6 × 1.2) with only the cornices projecting? (2) Agree that the head is an RC frame with block / precast ribs between its openings (rendered)? (3) The Phase 0 / 1 blanks are still open: the farm's distance and direction from the airport, what lies to the west. *For the engineer:* the soil report (q allowable), SBC 301 wind and Sds for the site, B3 / B4 sections after the shorter spans, the pad and the slabs' ties to the core.]
+#v(2pt)
+#block(width: 100%, inset: 4pt, fill: rgb("#eef4ec"), radius: 2pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ملخص المرحلة 2:* الملقف نواة خرسانية مستقلة بجدران 20 سم على قاعدة واحدة (2.4 × 3.0 م) من الأساس إلى الرأس، وجدارها الشمالي هو جدار المجلس نفسه بعد صبه خرسانة. تبتلع النواة العمودين C17 وC21 وعمود الرواق الأول (فيصير إنشائيا)، فتصبح الدعامة الرابعة للبروز الغربي: يقصر بحر الجسرين B3 وB4 من 6.5 م إلى نحو 4.3 م (العزوم أقل بنحو 55٪ والترخيم بنحو 80٪)، ويمكن تخفيف مقطعيهما، وتزيد صلابة البروز جانبيا. الحمل الكلي نحو #str(calc.round(w-total)) كيلونيوتن، والضغط على التربة نحو #str(calc.round(q-pad)) كيلوباسكال (مفترض). الرأس فوق السطح يحكمه الزلزال لا الرياح، ويُبنى إطارا خرسانيا بأعمدة في أركانه والأضلاع بين الفتحات حشوة غير إنشائية مليّسة. كل الأرقام تقديرية للمهندس الإنشائي.
+]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 2 checks #if ok2 [*passed* (#checks2.len())] else [*FAILED*: #checks2.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · sources: studies/structure.typ (C17, C21, C22, B2, B3, B4, R1, R11, the projection slab), 3d/character.yaml (the arcade columns), SBC 301 / ASCE 7-16 § 13.3 (the appendage formula), the climate script for the winter mornings. Concept only.]
