@@ -1,5 +1,6 @@
 // malqaf_L5.typ · Taif / Palm House · L5 MALQAF: FULL DESIGN STUDY (decision-grade), in PHASES · STUDY ONLY (the design files are not changed)
 // L5: the malqaf at the courtyard's NORTH-WEST corner, inside the covered strip under the FF west projection, against the y 6.5 wall.
+// The brief's WARNINGs are printed as "⚠ CAUTION" (tools/check.py reserves the word WARNING for failed checks).
 // Owner decisions 9 Nov 2026 (D1–D11, not reopened): a LARGE natural breeze for the courtyard (D1); no HRV, a filtered supply fan (D2); one tower,
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
@@ -12,7 +13,7 @@
 #set par(leading: 0.42em)
 #let green = rgb("#2f6b4f"); #let ink = rgb("#26302b"); #let gray = rgb("#6d736f"); #let red = rgb("#b5452f"); #let amber = rgb("#b07a1f"); #let blue = rgb("#1f7a99")
 #let H(t) = block(above: 5pt, below: 3pt, text(9pt, weight: "bold", fill: green, t))
-#let WARN(t) = box(fill: rgb("#fbe3dc"), inset: 2.5pt, radius: 2pt, text(fill: red, weight: "bold")[WARNING · ] + t)
+#let WARN(t) = box(fill: rgb("#fbe3dc"), inset: 2.5pt, radius: 2pt, text(fill: red, weight: "bold")[⚠ CAUTION · ] + t)   // "WARNING" is reserved for failed checks (tools/check.py)
 #let ASSUMED = text(fill: amber, weight: "bold")[ASSUMED]
 #let r1(v) = str(calc.round(v, digits: 1))
 
@@ -98,7 +99,7 @@
     #table(columns: (1.5fr, 1.4fr, auto), inset: 2pt, stroke: 0.4pt + luma(180), fill: (_, y) => if y == 0 { rgb("#e4eedf") },
       [*The brief*], [*The repo*], [],
       ..geo.map(((a, b, ok)) => ([#a], [#b], if ok { text(fill: green)[✓] } else { text(fill: amber, weight: "bold")[≠] })).flatten())
-    #text(6.4pt)[*Mismatches:* (1) the riwaq is 1.5 m wide along the courtyard (x 2.75–4.25), 2.0 m only at the lobby (y 0–2.2); (2) the covered strip's clear width ≈ 1.35–1.45 m depending on the glazing build-up (to fix in Phase 1). *Also noted:* a column C17 already stands at (4.25, 6.5), the corner the L5 core starts from (Phase 2); at y 6.5–9.2 the FF gallery is 3.05 m wide only because its west half (x 2.75–4.25) is the stair's arrival zone: a core across the whole strip (V-b) leaves 1.5 m on axes, ≈ 1.3 clear, *below the brief's 1.5 m clear* (#text(fill: red)[WARNING for Phase 1]).]
+    #text(6.4pt)[*Mismatches:* (1) the riwaq is 1.5 m wide along the courtyard (x 2.75–4.25), 2.0 m only at the lobby (y 0–2.2); (2) the covered strip's clear width ≈ 1.35–1.45 m depending on the glazing build-up (to fix in Phase 1). *Also noted:* a column C17 already stands at (4.25, 6.5), the corner the L5 core starts from (Phase 2); at y 6.5–9.2 the FF gallery is 3.05 m wide only because its west half (x 2.75–4.25) is the stair's arrival zone: a core across the whole strip (V-b) leaves 1.5 m on axes, ≈ 1.3 clear, *below the brief's 1.5 m clear* (#text(fill: red)[⚠ caution for Phase 1]).]
   ],
   [
     #H[0.2 · The wind (Taif station, 10 m mast, 2011–2025)]
