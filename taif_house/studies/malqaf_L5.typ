@@ -6,7 +6,7 @@
 // two paths after the head (D3); no water tank on the tower (D4); a dust-tight house, the courtyard an open outdoor room (D5); the covered strip may be
 // taken (D6); the shaft as large as needed, the head ≥ the shaft (D7); the gallery's arched windows may be redesigned (D8); prepare an evaporative cooler
 // in the shaft's foot (D9); the tower touches no bedroom (D10); the D11 facade module (20 cm; GF / FF windows on one axis) as a constraint.
-// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches) · PHASE 4: the air system and the controls (simplified by the owner) · PHASE 5: the tower head. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
+// PHASE 0: the geometry check and the climate basis · PHASE 1: the L5 geometry and variants · PHASE 2: the structure · PHASE 3: the facade (colonnade, gallery, windows, arches) · PHASE 4: the air system and the controls (simplified by the owner) · PHASE 5: the tower head · PHASE 6: the decision sheet. Data: tools/climate_taif.py (Meteostat 41036 2011–2025, NOAA ISD 2015–2024).
 // CSV frame (x east, y south, wall centre lines); levels from the finished ground floor. Every figure ASSUMED until the engineers confirm.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", flipped: true, margin: 8mm, fill: rgb("#fbfaf6"))
@@ -945,3 +945,93 @@
   [#image("../3d/output/malqaf_L5_court.png", width: 100%) #text(7pt, weight: "bold", fill: green)[From the courtyard seating] #text(6.4pt, fill: gray)[ · the eye at (7.0, 12.4), 1.6 m, looking north: the first arch with the outlet, the blind arch above it, the head on the same axis]],
   [#image("../3d/output/malqaf_L5_gate.png", width: 100%) #text(7pt, weight: "bold", fill: green)[From the gate (the char_gate camera)] #text(6.4pt, fill: gray)[ · the L5 head is hidden behind the north facade (§ 5.3); the adopted L1 tower is removed in this copy]],
 )
+
+
+// ======================================================================= PHASE 6 · DECISION SHEET (9 Nov 2026; short, as the owner asked)
+// The owner's Phase 5 answers: the gate visibility does not change his view (the tower is the symbol from the courtyard; the breeze at the seating is the goal, D1);
+// the riwaq's solid wall with the bench (no glass strip); F3 with the two beam additions (R3 widened to 0.40 over 2.3 m; one 1.55 m beam), F2 the fall-back.
+#let G(t) = text(fill: green, weight: "bold", t); #let A(t) = text(fill: amber, weight: "bold", t); #let Rd(t) = text(fill: red, weight: "bold", t)
+#let cmp = (
+  ([Breeze at the seating (L1 = 1.00; the same wind, assumed)], [#G[≈ 4.3] (≈ 1.8 m³/s at 21 km/h: the outlet in the first arch, no channel)], [1.00 (≈ 0.42 m³/s: 10.6 m of channel, the outlet under the TV)], [≈ 1.1]),
+  ([Breeze route, shaft foot → the seating], [#G[≈ 1 m]], [≈ 10.6 m], [≈ 2 m]),
+  ([Filtered-air intake (cleanliness)], [#G[good]: a never-closing hood under the overhang, every exhaust ≥ 5.7 m, the west vent re-routed], [#G[best]: the NE corner, the vents 8.3 m, the condensers 4.6 m], [#A[fair]: 2.7 m to the condensers]),
+  ([Rooms taken], [#A[the covered strip 3.5 m² (a by-product, D6), the gallery 1.7 m², the riwaq's 2.1 m glass panel, the majlis's 0.5 m panel]], [#A[the maid bath −0.8 m², bedroom 1 −0.8 m² (+ a store and a cupboard)]], [#Rd[the women's majlis −1.4 m², the family living −1.4 m²]]),
+  ([Bedrooms touched (noise, fear)], [#G[none] (D10: GF the courtyard, FF the gallery)], [#Rd[bedroom 1] shares the shaft's wall; the maid bath below], [#G[none]]),
+  ([Structure], [an independent RC core from its own pad; the head an RC frame (earthquake governs)], [a slim shaft in the cut wall, the tower on W3 with a ring beam, a plenum box], [#G[best]: on W3 and the courtyard wall]),
+  ([Help to the west projection], [#G[yes]: the fourth support, B3 / B4 first spans 6.50 → 4.33 m, C17 and C21 absorbed], [none], [none]),
+  ([Maintenance access], [#G[all from the carved door at ground level]; the roof hatch once a year for the mesh], [a 0.4 m panel in the maid bath + the roof hatch; the channel's 8 floor covers], [a panel in the majlis]),
+  ([Cooler readiness (option, D9)], [#G[yes]: the space, a power point, a drain in the foot chamber], [#Rd[no]: a 0.9 × 0.2 channel in the slab, no room], [#A[cramped]]),
+  ([Winter closing], [D1 + D2 shut by the switch; the house unaffected], [the top damper; the channel's covers in the laundry and kitchen floors], [a damper]),
+  ([Facade / character], [#G[the tower begins the colonnade]: the outlet arch, the blind arch and the head on one axis; W1-1 lost], [a tower on the attic's north-east corner, apart from the courtyard], [a tower over the majlis corner]),
+  ([Seen from the gate · the street (14 m)], [#Rd[hidden] · 1.9 m], [#G[3.3 m] · 4.1 m], [hidden · 1.4 m]),
+  ([Seen from the courtyard seating], [#G[5.8 m, the whole tower]], [≈ 1 m of the crown], [4.9 m]),
+  ([Shadows on the courtyard], [#G[summer afternoons: a band of shade on the seating's north half]; winter: none], [none (far corner)], [summer afternoons on the north part]),
+  ([Cost index (assumed; the HRV dropped in all, D2)], [#A[≈ 1.2]: the core and pad, the head frame, the door, the beam additions; minus the slab channel, the covers, the plenum, the NE shaft and tower; B3 / B4 lighter], [1.00 (V9.3)], [≈ 0.9]),
+)
+#let checklist = (
+  ([*Data*], [`data/rooms_gf.csv`: the maid bath and the maid room back to their *V9.1* polygons, the *maid store removed*; the *courtyard* polygon less the core (x 4.25–5.80, y 6.5–8.767); `data/rooms_ff.csv`: bedroom 1 back to its *V9.1* polygon (no slanted inner wall), the *cupboard removed*; the *upper gallery* less the shaft (x 4.25–5.80, y 6.5–7.6); `data/decisions.csv`: the adoption row (L5 · V-c · F3 · D1–D11 · the simple controls)]),
+  ([*Plans*], [`design_gf.typ`: `tower-pts` → the L5 shaft; the women's majlis's 0.5 m courtyard glass panel removed; the riwaq's glass y 6.8–8.9 → the core's solid face with the *bench*; the chamber's carved door; the outlet in the first arch; the maid bath's fixtures free again (no channel); `design_ff.typ` (via `ff_family.typ`): the shaft in the gallery, *W1-1 replaced by the blind arch*, bedroom 1 V9.1 with its first cut window back at y 1.6–3.2]),
+  ([*Air*], [`studies/air_system.typ`: v3 → *L5*: the shaft, the head (+11.2 … +12.6, crown +13.2), the foot chamber, the dust trap, the outlet 1.4 × 1.0 + D2, D1, the filtered path (the inlet under the overhang, the filters, the 750 m³/h fan, the silencer, the grilles), the *two switches and the dust relay*, the cooler space (option); *removed:* the HRV, the plant room, the plenum, the breeze channel under the maid bath and its covers; *kept:* the hood's make-up inlet (mandatory); `docs/AIR_SYSTEM.md` rewritten]),
+  ([*Roof*], [`studies/roof.typ`: the head polygon and levels, the plant room zone removed, the attic's north-east corner back to V9.1, the sky hole's guard from the head's SE corner, the walkway and the mesh hatch, the sight lines; *the west stack's vent re-routed to the south-east* (with `studies/plumbing.typ`)]),
+  ([*Structure*], [`studies/structure.typ`: the RC core and its pad, C17 and C21 absorbed, the first arcade column structural, B3 / B4 spans 6.50 → 4.33 (sections to re-check), *R3 widened to 0.40 over y 6.5–8.8*, the *new beam R-L5* (1.55 m), the head frame (ring beams at the band and the crown), the slab ties; *removed:* B15 / R9 and the slim shaft's wall at the north-east corner (the slabs close)]),
+  ([*Other studies*], [`east_wing.typ` (the V9.1 maid wing, the tower polygon removed, the expected total in `tools/check.py`), `ff_family.typ`, `ff_suite.typ`, `plumbing.typ` (the maid bath, the chamber's gully, the hrv-intake point, the constraint text removed), `gf_shower.typ`, `site_plan.typ` (the intake point), `courtyard_enclosure.typ` / `courtyard_layout.typ` (the first bay's outlet, the blind arch, the riwaq's solid face), `sections.typ` (check the tower); `malqaf_tower.typ`, `ne_corner.typ`, `malqaf_L5.typ` marked *record / adopted*]),
+  ([*3D*], [`3d/params.yaml` (the plant room removed, W1-1 and the riwaq panel removed, the majlis panel), `3d/build_3d.py` (the L5 core, chamber and head; the L1 tower, plant room and plenum code removed; the roofline cuts), `3d/check_3d.py` (the shaft, the head, the attic corner), `3d/character.yaml` (*no stone: every exterior material plaster / render, the projections in the honey tone; the floors porcelain*; the arcade's first bay; the bookmarks and captions), the viewer's notes; the renders (the courtyard, the gate, an aerial)]),
+  ([*Presentation*], [`presentation.typ`: sheets 02, 03, 04, 06 (the plans), 05 (the courtyard enclosure: W1-1 → the blind arch), 08 (the schedules), 09 (the decisions), 10 (the open items), 11 (the roof), 12 (the elevations and sight lines); *every "honey stone" and "marble" → render / porcelain* (owner, 9 Nov 2026); the DXFs regenerated]),
+  ([*Docs*], [`PROJECT_V9.md` → V10.0 (§1, §2, §3, §4 the new decisions, §5 *the layout-freeze exception: the courtyard's covered strip and the gallery changed by the owner's L5 decision*, §7), `OPEN_ITEMS.md` (item 9 rewritten, the new engineer items below), `DESIGN_LANGUAGE.md` (the malqaf row), `NEXT_SESSION.md`, the READMEs, `PENDING_CHANGES.md` cleared]),
+)
+#let eng = (
+  ([Structural], [the soil report (the pad's bearing, assumed 150 kPa); the core's walls and pad, the ties to the FF and roof slabs; B3 / B4 re-sized for 4.33 m spans; R3 widened, the new R-L5; the head frame for wind and *earthquake (Sds for the site)*; the first arcade column as a structural member; the slab openings closed at the north-east corner]),
+  ([MEP], [the fan (750 m³/h, 250 Pa) and its silencer; the filters (ISO Coarse 60 % + ePM1 ≥ 50 %); D1 / D2 insulated spring-return dampers and the dust relay (PM2.5 50 / 25 µg/m³); the outlet louvres and the gallery / living / riwaq / majlis grilles; the hood's make-up inlet (mandatory); the west vent re-routed to the south-east; the chamber's gully, the capped water point, the IP44 circuit; the breeze estimate (≈ 1.8 m³/s) confirmed]),
+  ([Owner], [the on-site weather station (≥ 6 m, 4–6 weeks); a cooler shortlist (the 0.8 × 0.7 × 1.6 m envelope); the carved door and the outlet grille as joinery]),
+  ([Already recorded], [the facade study (open item 20) and *D11* (open item 21) for the facades phase after the plan freeze; no stone, render and paint; porcelain floors]),
+)
+#let checks6 = (
+  ([the comparison covers the brief's 14 criteria plus the gate visibility (#cmp.len() rows)], cmp.len() == 15),
+  ([the adoption checklist names the data, the plans, the air, the roof, the structure, the other studies, the 3D, the presentation and the docs (#checklist.len() groups)], checklist.len() == 9),
+)
+#let ok6 = checks6.all(c => c.at(1))
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 6 · the decision sheet · L5 (V-c + F3) against L1 (V9.3), L2 for reference]
+#v(1pt)
+#text(7pt, fill: gray)[The owner's Phase 5 answers: the gate visibility does not change his view (the tower is the symbol from the courtyard, where the family lives; the breeze at the seating is the goal, D1); the riwaq's solid wall with the bench; F3 with the two beam additions (R3 widened to 0.40 over 2.3 m, one 1.55 m beam), F2 the fall-back. Every figure #ASSUMED; the engineers confirm.]
+#v(3pt)
+#table(columns: (1.15fr, 1.6fr, 1.35fr, 1fr), inset: 2.4pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") },
+  [*Criterion*], [*L5 · the courtyard's north-west corner (V-c + F3)*], [*L1 · the north-east cut corner (V9.3, adopted)*], [*L2 · reference*],
+  ..cmp.flatten())
+#text(6.4pt, fill: gray)[Green = better, amber = a price, red = a drawback. L2 from `studies/malqaf_tower.typ` pages 6–7 (the courtyard's north-east corner in the women's majlis), re-based on L1 V9.3 = 1.00.]
+#v(4pt)
+#H[Recommendation]
+*L5.* It serves the owner's goal (D1) about four times better than L1 at the seating, touches no bedroom, is cleaned from a door at ground level, holds a cooler, strengthens the west projection and puts the symbol where the family lives. Its prices are the covered strip's north end and 1.7 m² of the gallery, one gallery window turned into a blind arch, two glass panels, a cost index of ≈ 1.2 and a tower that the gate does not see. L1 stays the cleanest intake and the one seen from the gate; it remains the adopted design until the owner adopts L5.
+#v(3pt)
+#H[Open items for the engineers (on adoption)]
+#table(columns: (auto, 1fr), inset: 2.2pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") }, [*Who*], [*What*], ..eng.flatten())
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 6 · the adoption checklist (the commit "L5 adopted", then the release V10.0)]
+#v(3pt)
+#table(columns: (auto, 1fr), inset: 2.6pt, stroke: 0.4pt + luma(175), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f3f1ea") }, [*Where*], [*What changes if L5 is adopted*], ..checklist.flatten())
+#v(3pt)
+#text(6.6pt)[*Order of work:* the data and the plans first (the room polygons, the courtyard and the gallery, the maid wing and bedroom 1 back to V9.1), then the air, roof and structure studies, then the 3D and the presentation, then the docs and the release; `tools/check.py` and `3d/check_3d.py` must pass at every step (their expected totals and tower checks change with the data). *Not changed by L5:* the site position, the cut wall, the set-out, the south wing, the suite, the kitchen, the stair, the lift.]
+#v(2pt)
+#text(6.2pt, fill: gray)[Phase 6 checks #if ok6 [*passed* (#checks6.len())] else [*FAILED*: #checks6.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · The study ends here; the owner decides and sends the adoption + release V10.0 prompt.]
+
+#pagebreak()
+#block(width: 100%, inset: 8pt)[#set text(lang: "ar", dir: rtl, font: ("Segoe UI", "Arial"), size: 10pt)
+  #set par(leading: 0.7em, justify: true)
+  #text(15pt, weight: "bold", fill: green)[الملقف: ملخص القرار للمالك وزوجته]
+  #v(6pt)
+  *ما هو الملقف ولماذا؟* برج يلتقط ريح الطائف المسائية (غربية وشمالية غربية صيفا) وينزلها إلى جلسة الفناء نسيما طبيعيا قويا، وهو أيضا مدخل الهواء المرشح للبيت. هو الفكرة التي تجعل العائلة تستمتع بجو الطائف في فنائها، ورمز البيت من الداخل.
+  #v(4pt)
+  *أين يقف؟* في الركن الشمالي الغربي للفناء، داخل الممر المسقوف تحت بروز الدور الأول، ملاصقا لجدار مجلس النساء دون أن يأخذ منه شيئا. في الدور الأرضي غرفة صغيرة (1.2 × 2 م) بباب خشبي منحوت على الممر المسقوف، فيها مصيدة الغبار والمرشحات والمروحة ومكان لمبرد صحراوي متنقل إن أردتم لاحقا. فتحة الهواء داخل أول قوس من الرواق المقوّس، مقابل الجلسة مباشرة. في الدور الأول مجرى 1.2 × 0.8 م في طرف الممر العلوي، والممر يبقى بعرض 1.5 م. فوق السطح برج 1.6 × 2.4 م بلياسة رملية فاتحة وحزام وتاج بلون عسلي، فتحاته رأسية نحيلة مقوّسة، يبدأ به صف أقواس الفناء بخط واحد من القوس إلى التاج.
+  #v(4pt)
+  *ماذا نكسب؟* نسيم في الجلسة نحو أربعة أضعاف الموقع الحالي في الركن الشمالي الشرقي؛ لا يلامس البرج أي غرفة نوم (لا ضوضاء ولا خوف للأطفال)؛ الصيانة كلها من باب في الدور الأرضي بلا سلالم؛ مكان جاهز لمبرد صحراوي؛ النواة الخرسانية تصير دعامة رابعة لبروز الدور الأول فيقوى الهيكل؛ ظل لطيف على شمال الجلسة في أمسيات الصيف؛ ويختفي البرج القديم وغرفة المعدات من سطح الركن الشمالي الشرقي، وتعود غرفة الأطفال وحمام الخادمة وغرفتها إلى أشكالها المستقيمة.
+  #v(4pt)
+  *ماذا ندفع؟* نهاية الممر المسقوف (نحو 3.5 م²) ونحو 1.7 م² من الممر العلوي؛ أول نافذة مقوّسة في الممر العلوي تصير قوسا أعمى غائرا؛ لوح زجاج الرواق الأول يصير جدارا مصمتا عليه كنبة خشبية، ويفقد المجلس لوحا صغيرا (نصف متر)؛ التكلفة نحو 1.2 من البديل الحالي (تقدير)؛ والبرج لا يُرى من البوابة، بل من الفناء ومن الشارع البعيد.
+  #v(4pt)
+  *كيف يُستعمل؟* مفتاحان على الجدار: الملقف مفتوح أو مغلق، والمروحة عادي أو قوي. حساس غبار واحد يغلق الملقف بنفسه في الغبار، وكل الخوانق تُغلق تلقائيا عند انقطاع الكهرباء. شتاءً تغلقون الملقف بالمفتاح، والبيت يبقى مهوّى بالمروحة المرشحة. لا مبرد الآن؛ الملقف نظام جاف، والمبرد خيار للصيف القادم.
+  #v(4pt)
+  *ماذا يحتاج بعد؟* المهندس الإنشائي (التربة، النواة وقاعدتها، تقصير الجسرين B3 وB4، توسيع الجسر R3 وجسر قصير جديد، إطار الرأس للزلازل)، ومهندس الميكانيكا (المروحة والمرشحات والكاتم، الخانقان وحساس الغبار، مدخل الهواء التعويضي لشفاط المطبخ، تحويل تهوية الصرف الغربية إلى الجنوب الشرقي)، ومحطة طقس صغيرة في الموقع لبضعة أسابيع لتأكيد اتجاه الريح.
+  #v(6pt)
+  #block(fill: rgb("#e4eedf"), inset: 6pt, radius: 3pt, width: 100%)[*التوصية: اعتماد الموقع L5 (البديل ج مع الرأس F3).* البديل الحالي L1 يبقى الأنظف لمدخل الهواء والوحيد الذي يُرى من البوابة، لكنه يعطي ربع النسيم ويلامس غرفة نوم وتُصان مصيدته من حمام الخادمة. القرار للمالك؛ وبعده يُرسَل أمر الاعتماد والإصدار V10.0.]
+]
