@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V9.3 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V10.0 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V9.3"
+VERSION = "V10.0"
 problems = []
 
 
@@ -94,7 +94,7 @@ jobs = [   # (source, output, lines the PDF must contain)
     ("studies/ne_corner.typ", OUTPUT / "ne_corner.pdf", ["The north-east corner, simplified", "Study checks passed"]),   # 8 Nov 2026: short study only (bedroom 1 a rectangle, the maid rooms A / B), the design files unchanged
     ("studies/malqaf_L5.typ", OUTPUT / "malqaf_L5.pdf", ["Malqaf L5", "Phase 0 checks passed", "Phase 1 checks passed", "Phase 2 checks passed", "Phase 3 checks passed", "Phase 4 checks passed", "Phase 5 checks passed", "Phase 6 checks passed"]),   # 9 Nov 2026: L5 study in phases (study only); Phase 0 the geometry check and the climate basis (tools/climate_taif.py)
     ("presentation.typ", PRESENTATION, []),
-    ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V9.1.pdf", ["Review status", "V9.1"]),   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
+    ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V10.0.pdf", ["Review status", "V10.0"]),   # V10.0: the malqaf (L5): E-01 resolved, E-02 updated, the stone rows re-read in render   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]
 tmp = Path(tempfile.mkdtemp())
 jobs += [(str(p.relative_to(ROOT)).replace("\\", "/"), tmp / (p.stem + ".pdf"), []) for p in sorted((ROOT / "archive").glob("*.typ"))]   # archived drawings: compile only
@@ -232,7 +232,7 @@ elif lost:
 else:
     ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
 # active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
-active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V9.md", "decisions.csv", "review_status.typ")]
+active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V10.md", "decisions.csv", "review_status.typ")]
 active.append(ROOT.parent / "README.md")
 old = []
 for p in active:

@@ -2,8 +2,9 @@
 
 Concept design of a two-storey courtyard house in Taif, drawn with [Typst](https://typst.app) from CSV room data.
 
-**Current version: V9.3, the new malqaf tower** (git tag `v9.3`, GitHub Release "V9.3", 8 Nov 2026).
-- **V9.3:** the new malqaf tower: at the north-east corner a slim shaft along the cut wall with straight room walls (a store off the maid bath, a cupboard in bedroom 1), a honey-stone tower on the attic's corner with a head of slender arched openings 3.5 m above the attic and a Hijazi cornice; the HRV in a hidden plant room behind the attic; the breeze channel at full width (`studies/malqaf_tower.typ`).
+**Current version: V10.0, the malqaf (L5)** (git tag `v10.0`, GitHub Release "V10.0", 9 Nov 2026).
+- **V10.0:** the malqaf moved to the courtyard's north-west corner (L5): breeze at the seating ≈ 4 × L1, a foot chamber with the dust trap, the filters, the fan and a cooler's space, the head F3 on the first bay's axis, the core as the fourth support of the west projection; the HRV replaced by a filtered supply fan; the north-east corner restored; no stone anywhere (render and paint; porcelain floors); simple controls (two switches and a dust relay). `taif_house/studies/malqaf_L5.typ` (adopted).
+- **V9.3** (superseded by V10.0): the L1 malqaf tower: at the north-east corner a slim shaft along the cut wall with straight room walls (a store off the maid bath, a cupboard in bedroom 1), a honey-stone tower on the attic's corner with a head of slender arched openings 3.5 m above the attic and a Hijazi cornice; the HRV in a hidden plant room behind the attic; the breeze channel at full width (`studies/malqaf_tower.typ`).
 - **V9.2:** small fixes: the utility room's label; the air tower back to a rectangle of 0.90 m² clear, the wedge beside it to the maid bath and bedroom 1; the HRV base at its V9.0 footprint; the attic 2 cm lower, hidden again from the north boundary.
 - **V9.1:** the final site position, **B1 6.00 m from M1** (the owner's car test: a full forward turn into the north strip in one move); the cut wall shortened again (6.08 m, 0.42 m from the boundary wall as built, 0.91 m from the deed setback line); the set-out sheet re-issued; the site items updated (the swept path drawn, the parking bay on the turning line, the soakaways moved); the levels to be set from the official survey. The layout stays frozen (V9.0).
 - **V9.0:** the layout frozen (room positions, sizes, stairs, wet rooms, the site position); the house set out on site by the owner (day 1, the diagonals exact) and its final position (1.24 + 0.50 m further south, B1 5.49 m from peg M1); the cut wall 0.12 m shorter after the field reading of 2.30 m (0.42 m from the boundary wall as built, 0.90 m from the deed setback line); the whole-farm base v2 (the deed is the boundary authority) with the old house and its majlis, the covered parking, the water tanks and the septic placed (approximate, to be measured); bedroom 1 the young children's room without an en-suite. The review status is `Design_Review_status_V9.1.pdf`; the field record `taif_house/docs/SITE_SETOUT.md`.
@@ -13,13 +14,13 @@ Concept design of a two-storey courtyard house in Taif, drawn with [Typst](https
 - **V8.0 (six owner decisions of 1 Nov 2026):** fire safety at home level; the courtyard layout (the seating one step down, the TV wall with a stone surround and the malqaf grille below it, a water and tree enclosure, no pergola) and the kitchen sink window moved north; the air system v3.1 (one tower, two separate paths: the courtyard breeze and the HRV's intake with the unit in the tower's base on the roof); the internal stair stops at the first floor; the south wing v2 (the gym on the west band, a 25 m² suite court, the office on the east).
 - **V7.1:** the arched courtyard enclosure windows and the three-arch courtyard arcade. **V7.0:** the courtyard enclosure (option A), the maid room to the municipal minimum, the flat roof with the main cornice and the set-back attic, the design language. **V6.3:** the quick fixes of the design review.
 - **Both floors are designed:** the 1.55 m west projection over the courtyard and the double-height void on an edge beam and three columns at x 5.80; walls on walls (0.785 m from the M line).
-- **Start here:** `taif_house/docs/NEXT_SESSION.md`. The whole house is described in `taif_house/docs/PROJECT_V9.md`; the open items in `taif_house/docs/OPEN_ITEMS.md`.
+- **Start here:** `taif_house/docs/NEXT_SESSION.md`. The whole house is described in `taif_house/docs/PROJECT_V10.md`; the open items in `taif_house/docs/OPEN_ITEMS.md`.
 
-**For engineers and anyone without git:** open the **[Releases](../../releases)** page and download **V9.3** (the presentation, the DXFs and the malqaf tower study; the review status and the set-out sheet are in the **V9.1** release):
-- the A3 presentation set `Taif_House_V9.3_presentation.pdf` (12 sheets: the site and services plan, both floors, the family part, the south wing and the master suite, the two ground-floor blocks, sections and light, area schedules, decisions log, open items, the roof plan, the elevations);
-- the review status `Design_Review_status_V9.1.pdf` and the set-out sheet `setout.pdf` (the tapes for the site);
+**For engineers and anyone without git:** open the **[Releases](../../releases)** page and download **V10.0** (the presentation, the review status, the malqaf L5 study, the set-out sheet and the DXFs):
+- the A3 presentation set `Taif_House_V10.0_presentation.pdf` (12 sheets: the site and services plan, both floors, the family part, the south wing and the master suite, the two ground-floor blocks, sections and light, area schedules, decisions log, open items, the roof plan, the elevations);
+- the review status `Design_Review_status_V10.0.pdf`, the malqaf study `malqaf_L5.pdf` (six phases: the climate, the variants, the structure, the facade, the air system, the head, the decision sheet) and the set-out sheet `setout.pdf` (the tapes for the site);
 - the whole farm `whole_farm.pdf`, the site and services plan `site_plan.pdf` and the plumbing study `plumbing.pdf` (studies, proposals);
-- the three DXFs (`taif_ground_floor_V9.3.dxf`, `taif_first_floor_V9.3.dxf`, `taif_roof_V9.3.dxf`).
+- the three DXFs (`taif_ground_floor_V10.0.dxf`, `taif_first_floor_V10.0.dxf`, `taif_roof_V10.0.dxf`).
 
 Each release is a frozen version; `main` always holds the latest work.
 
@@ -33,7 +34,7 @@ taif_house/
   data/                    rooms_gf.csv, rooms_ff.csv (one row per room; # at the start of a name switches a row off),
                            decisions.csv (decisions log), open_items.csv (open items)
   studies/                 ff_family.typ (first floor: family part), ff_suite.typ (the south wing and the master suite),
-                           fire_escape.typ, courtyard_layout.typ, air_system.typ, south_wing.typ, roof.typ, structure.typ, courtyard_enclosure.typ, stair_flip.typ,
+                           fire_escape.typ, courtyard_layout.typ, air_system.typ (v4, the malqaf at L5), malqaf_L5.typ (adopted), malqaf_tower.typ and ne_corner.typ (superseded studies), south_wing.typ, roof.typ, structure.typ, courtyard_enclosure.typ, stair_flip.typ,
                            bedroom1_bath.typ, gf_shower.typ, site_plan.typ, plumbing.typ (studies),
                            guest_wing.typ (west wash block), east_wing.typ (east service block),
                            sections.typ (levels, the west projection and its columns, light check, sections; imported, not compiled alone),
@@ -41,7 +42,7 @@ taif_house/
                            site_test.typ + building.csv (superseded by setout.typ)
   tools/                   check.py (check everything), make_dxf.py / make_dxf_ff.py / make_dxf_roof.py (the three DXFs),
                            schedule.py (ground-floor room schedule in Markdown)
-  docs/                    NEXT_SESSION.md (start here), PROJECT_V9.md (master document), SITE_SETOUT.md (the field record), DETAILS.md (construction notes), OPEN_ITEMS.md, README_DXF.md,
+  docs/                    NEXT_SESSION.md (start here), PROJECT_V10.md (master document), SITE_SETOUT.md (the field record), DETAILS.md (construction notes), OPEN_ITEMS.md, README_DXF.md,
                            REQUIREMENTS.md, DESIGN_LANGUAGE.md, AIR_SYSTEM.md, STRUCTURE_STUDY.md, PENDING_CHANGES.md, review/ (the design review and its status)
   output/                  all PDFs and the three DXFs (generated, committed)
   3d/                      the 3D model, generated from the project files (build_3d.py → GLB, viewer.html, check_3d.py, README_3D.md)
@@ -53,7 +54,7 @@ taif_house/
 - **Compile one file** (the `--root` lets the studies reach `../base.typ` and `../data`):
   ```
   typst compile --root taif_house taif_house/design_ff.typ taif_house/output/design_ff.pdf
-  typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.3_presentation.pdf
+  typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V10.0_presentation.pdf
   ```
 - **Check everything:** `python taif_house/tools/check.py` must end with **ALL CHECKS PASSED**. It:
   - compiles every drawing, the studies, the presentation and the archived first-floor drawing;
@@ -65,5 +66,5 @@ taif_house/
 - **DXFs only:** `python taif_house/tools/make_dxf.py`, `make_dxf_ff.py` and `make_dxf_roof.py` (see `taif_house/docs/README_DXF.md`).
 
 ## Versions
-- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (the L-shaped gym), `v6.3` (the quick fixes from the design review), `v7.0` (the courtyard enclosure, the maid room, roof access and the attic, the design language), `v7.1` (the arched enclosure windows and the courtyard arcade), `v8.0` (fire safety, the courtyard layout, the air system, the south wing v2), `v8.1` (a checkpoint: the roof ladder, the lowered roofline, the office from the suite court), `v8.2` (a checkpoint: the stair flip, the site plan, the plumbing studies), `v8.3` (a checkpoint: bedroom 2's en-suite, the powder room, the level courtyard, the outdoor kitchen, the plumbing decisions), `v9.0` (the layout freeze: the site set out and the final position, the cut wall −0.12 m, the whole farm, bedroom 1 for young children), `v9.1` (the final site position, B1 6.00 m from M1), `v9.2` (small fixes), `v9.3` (current: the new malqaf tower). The changelog is in `taif_house/docs/PROJECT_V9.md` §7. Work tags: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`, `air-p1`, `air-p2`, `3d-char1`, `3d-char2`, `review-1`; the branch `work` carries the work between releases (reset to `main` after each release).
+- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (the L-shaped gym), `v6.3` (the quick fixes from the design review), `v7.0` (the courtyard enclosure, the maid room, roof access and the attic, the design language), `v7.1` (the arched enclosure windows and the courtyard arcade), `v8.0` (fire safety, the courtyard layout, the air system, the south wing v2), `v8.1` (a checkpoint: the roof ladder, the lowered roofline, the office from the suite court), `v8.2` (a checkpoint: the stair flip, the site plan, the plumbing studies), `v8.3` (a checkpoint: bedroom 2's en-suite, the powder room, the level courtyard, the outdoor kitchen, the plumbing decisions), `v9.0` (the layout freeze: the site set out and the final position, the cut wall −0.12 m, the whole farm, bedroom 1 for young children), `v9.1` (the final site position, B1 6.00 m from M1), `v9.2` (small fixes), `v9.3` (the L1 malqaf tower), `v10.0` (current: the malqaf at L5). The changelog is in `taif_house/docs/PROJECT_V10.md` §7. Work tags: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`, `air-p1`, `air-p2`, `3d-char1`, `3d-char2`, `review-1`; the branch `work` carries the work between releases (reset to `main` after each release).
 - **Study branches, kept for reference:** `v5-split-projection` (the split projection: merged in V5.1, reverted in V6.1) and `v5-gym-L` (the L-shaped gym study, rejected in V5.1, adopted in V6.2, replaced by the south wing v2 in V8.0).

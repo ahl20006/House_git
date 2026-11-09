@@ -3,7 +3,7 @@
 // Owner decisions (31 Oct 2026, V6.4): roof for maintenance and equipment only; the lift does not go up; flat roof, no tiles; classical
 // roofline kept simple (docs/DESIGN_LANGUAGE.md); no slab level changes. V8.0: the MAIN STAIR STOPS AT THE FIRST FLOOR (no stair room, the roof slab over
 // the well closed). V8.1 (owner): the roof is reached by a MAINTENANCE LADDER in the suite court (page 2); the attic 1.40 m (V9.2: 1.38) above the roof finish, the south
-// wing parapet 0.70 m with a 1.10 m guardrail set back 1.0 m (page 3). The history is in docs/PROJECT_V9.md § 7.
+// wing parapet 0.70 m with a 1.10 m guardrail set back 1.0 m (page 3). The history is in docs/PROJECT_V10.md § 7.
 // Stand-alone: the geometry is copied from data/rooms_gf.csv, studies/structure.typ (st, the roof beams), 3d/params.yaml (levels), base.typ (site).
 // CSV frame: x east, y south, wall centre lines; levels above the finished ground floor ±0.00.
 #import "@preview/cetz:0.4.2"
@@ -574,7 +574,7 @@
     #v(2pt)
     #H[9 · What this study changes in the files]
     - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (V8.0), X16 superseded; X20 the ladder recess / pilaster, X17 the lowered attic, the 0.70 parapet and the guardrail loads; `studies/fire_escape.typ`: the first floor's exits are the main stair and the escape windows, the court a fresh-air area, not an exit; `3d/params.yaml`: the attic / parapet / ladder / guardrail data (V8.1).
-    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_ITEMS.md`, `PROJECT_V9.md` (V8.1).
+    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_ITEMS.md`, `PROJECT_V10.md` (V8.1).
     - `data/decisions.csv`: the roof by a maintenance ladder, the roofline lowered (V8.1).
     #v(2pt)
     #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]

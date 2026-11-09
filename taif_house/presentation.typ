@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V9.3 (the new malqaf tower) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V9.3_presentation.pdf
+// presentation.typ · Taif / Palm House V10.0 (the malqaf at L5) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V10.0_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V9.3 · layout freeze · the new malqaf tower])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V10.0 · layout freeze · the malqaf (L5)])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()

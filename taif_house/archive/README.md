@@ -1,6 +1,6 @@
 # archive/ · superseded files
 
-Kept for reference only; nothing in the current design or tools reads them (`tools/check.py` only compiles the archived drawing). Git keeps every earlier state as well (tags `v3.1` … `v9.3`).
+Kept for reference only; nothing in the current design or tools reads them (`tools/check.py` only compiles the archived drawing). Git keeps every earlier state as well (tags `v3.1` … `v10.0`).
 
 | File | What it was | Superseded by |
 |---|---|---|
@@ -34,3 +34,6 @@ Kept for reference only; nothing in the current design or tools reads them (`too
 | `Taif_House_V9.0_presentation.pdf`, `Design_Review_status_V9.0.pdf`, `taif_ground_floor_V9.0.dxf`, `taif_first_floor_V9.0.dxf`, `taif_roof_V9.0.dxf`, `3d/taif_house_V9.0.glb` / `.js` | the V9.0 set (the layout freeze: B1 5.49 m from M1, the cut wall 6.65 m) | the V9.1 files in `output/` (B1 6.00 m from M1, the cut wall 6.08 m) |
 | `Taif_House_V9.1_presentation.pdf`, `taif_ground_floor_V9.1.dxf`, `taif_first_floor_V9.1.dxf`, `taif_roof_V9.1.dxf`, `3d/taif_house_V9.1.glb` / `.js` | the V9.1 set (the final site position; the air tower the whole cut tip, 1.78 m²; the attic +8.70) | the V9.2 files in `output/` (the review status `Design_Review_status_V9.1.pdf` stays current) |
 | `Taif_House_V9.2_presentation.pdf`, `taif_ground_floor_V9.2.dxf`, `taif_first_floor_V9.2.dxf`, `taif_roof_V9.2.dxf`, `3d/taif_house_V9.2.glb` / `.js` | the V9.2 set (the rectangular air tower, its HRV base; the attic +8.68) | the V9.3 files in `output/` (the new malqaf tower) |
+| `Taif_House_V9.3_presentation.pdf`, `taif_ground_floor_V9.3.dxf`, `taif_first_floor_V9.3.dxf`, `taif_roof_V9.3.dxf`, `3d/taif_house_V9.3.glb` / `.js` | the V9.3 set (the L1 malqaf tower at the north-east corner, its HRV plant room) | the V10.0 files in `output/` (the malqaf at L5) |
+| `Design_Review_status_V9.1.pdf` | the review status after V9.1 | `output/Design_Review_status_V10.0.pdf` |
+| `docs/PROJECT_V9.md` | the master document V9.0 – V9.3 | `docs/PROJECT_V10.md` |
