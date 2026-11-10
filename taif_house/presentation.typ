@@ -363,7 +363,7 @@
   "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
-#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.85), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (6.7, 8.3))
+#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.85), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (6.95, 8.1))
 #let plan-len = 0.8cm
 #let okit = yaml("3d/params.yaml").outdoor_kitchen   // V8.1: the outdoor kitchen (the counter at the east wall, the grill and tannour apart), drawn on the site and the ground floor
 #let draw-okit(shift: (0, 0), label: true) = {
@@ -465,7 +465,7 @@
     for (a, b) in (((0.0, 14.55), (2.75, 14.55)),) { line(..cut(a, b, half: 0.05).map(q), close: true, fill: dark, stroke: none) }   // the WC compartment's partitions, the shower wall, the WC screen wall (100 mm)
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
-    rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((6.4, 12.05)), text(4.6pt, fill: orange)[seating · level\ 6 seats, no TV])
+    rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((7.4, 12.62)), text(4.4pt, fill: orange)[seating zone · level · 6 seats · no TV])
     rect(q((7.55, 7.1)), q((8.85, 9.5)), fill: rgb("#cfe3ee"), stroke: 0.5pt + dark); content(q((8.2, 8.3)), text(6pt)[water\ tree])
     // 10 Nov 2026 (owner): the movable seating (studies/courtyard_layout.typ): two 2-seat sofas, two armchairs, a low table, facing the outlet arch and the enclosure
     for (x0, y0, x1, y1, k) in ((7.4, 9.8, 8.25, 11.3, "sofa"), (6.85, 11.45, 8.25, 12.3, "sofa"), (6.0, 9.6, 6.75, 10.35, "armchair"), (6.0, 11.0, 6.75, 11.75, "armchair"), (6.6, 10.4, 7.3, 10.9, "table")) { rect(q((x0, y0)), q((x1, y1)), fill: if k == "table" { rgb("#fbf4e6") } else { rgb("#e9d6b8") }, stroke: 0.5pt + rgb("#9c6b3c")) }
