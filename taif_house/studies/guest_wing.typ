@@ -1,5 +1,5 @@
 // guest_wing.typ · Taif / Palm House · layout study of the WEST WASH BLOCK: hospitality kitchen + family basins + family WC + guest wing as one design (compile THIS file)
-// Ground floor V10.0 (the owner's review of 10 Nov 2026: the powder room's WC compartment, the guest WC's shower cubicle). Stand-alone: all data is in this file. Source of truth for the block;
+// Ground floor V10.0 (the owner's review of 10 Nov 2026: the powder room's WC compartment; the guest WC a simple wet room, the three basins in a line outside it). Stand-alone: all data is in this file. Source of truth for the block;
 // ../design_gf.typ + ../data/rooms_gf.csv carry the same rooms and doors (main CSV y = local y + 10.4). Keep both in step.
 #import "@preview/cetz:0.4.2"
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
@@ -28,7 +28,6 @@
   ((0.0, 5.45), (2.75, 5.45), [service wall 0.25 (the WC's frame, bath 3's stack)]),   // 3 Nov 2026: a service wall on the powder room's south side, accessible from the serving passage
   ((1.25, 9.35), (1.25, 9.95), [WC screen wall]),   // guest WC west wall carried 0.6 m into the basin room: hides the WC door from the passage
   ((1.3, 4.15), (1.3, 5.7), [WC compartment · 100 mm]), ((1.3, 4.15), (2.75, 4.15), []),   // 10 Nov 2026: the powder room's WC compartment x 1.3–2.75, y 4.15–5.7 (≈ 1.3 × 1.4 clear)
-  ((0.85, 8.1), (1.55, 8.1), [shower wall 100 mm · open entrance 0.6]),   // 10 Nov 2026: the guest WC's shower cubicle at its north end
 )
 
 // ---------- Fixtures (drawn thin, not counted): (x0, y0, x1, y1, label) ----------
@@ -38,9 +37,9 @@
   (0.1, 2.6, 0.65, 4.45, [vanity · 2 basins · mirror]),             // 10 Nov 2026 (owner): the two basins under a large mirror on the west wall, in the open zone in front of the entrance (the door at y 2.65–3.65)
   (1.75, 4.95, 2.35, 5.45, [wall-hung WC]),                          // in its compartment, on the south service wall (the frame and bath 3's stack inside it)
   (1.4, 4.3, 1.75, 4.65, [hand basin]),                              // the small basin inside the WC compartment
-  (0.85, 7.2, 2.15, 8.1, [shower 0.9 · wall-mounted · floor drain]),   // 10 Nov 2026 (owner): the guest WC's shower cubicle behind the 100 mm wall
+  (0.85, 7.2, 2.15, 8.1, [shower zone · wall-mounted · floor drain]),   // 10 Nov 2026 (owner): a wet room, no cubicle wall, no tray; the shower on the north wall
   (0.85, 8.35, 1.35, 9.05, [WC · hand spray]),                       // the guest WC pan, clear of the door's swing
-  (2.15, 9.5, 2.65, 10.95, [trough 1.45 · 3 taps]),                 // guest basins: the trough on the east wall, 1.45 m since the WC took 0.5 m (three taps at ≈ 0.45 m)
+  (2.15, 9.5, 2.65, 10.95, [3 basins in a line]),                   // guest basins: three basins (or one trough with three taps) in one straight line on the east wall, 1.45 m
   (2.25, 11.05, 2.65, 11.7, [shoes · hooks]),                       // foyer: shoe cabinet + bisht / shemagh hooks, wall facing the entrance
 )
 
@@ -57,7 +56,7 @@
   ("Hospitality kitchen",       1.375, 1.25,  2.75, 2.5,  "pantry"),   // light kitchen, the serving base; open to the riwaq, no door
   ("Family powder room (WC · 2 basins)", 1.375, 4.1, 2.75, 3.2, "basin"),   // 3 Nov 2026 (owner): the basins and the WC as one luxurious powder room; no shower on the ground floor
   ("Serving passage (2 doors)", 1.375, 6.4,   2.75, 1.4,  "pantry"),   // 1.20 m clear, no shelf, no fixed equipment
-  ("Guest WC",                  2.0,   8.225, 1.5,  2.25, "wc"),       // 10 Nov 2026 (owner): 0.5 m deeper for the shower cubicle (y 7.1–9.35 local)
+  ("Guest WC",                  2.0,   8.225, 1.5,  2.25, "wc"),       // 10 Nov 2026 (owner): 0.5 m deeper; a wet room: only the WC and a wall-mounted shower (y 7.1–9.35 local)
   ("Guest basins (trough · 3 taps)", 2.0, 10.175, 1.5, 1.65, "basin"),   // 10 Nov 2026: 0.5 m shallower, keeps the trough with three taps
   ("Guest passage",             0.625, 9.05,  1.25, 3.9,  "circ"),
   ("Foyer + entry",             1.375, 12.3,  2.75, 2.6,  "foyer"),
@@ -149,11 +148,11 @@
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Rules]
     - Hospitality kitchen 2.75 × 2.5 (≈ 5.8 m² clear): light (clean) kitchen for coffee, tea, dates, desserts and reheating; the serving base for the men's majlis. Open to the riwaq, no door, no hob. L-counter on the north and west walls with a small sink, under-counter fridge, microwave, kettle and coffee things; cups and trays stored there; small extract fan. The main east kitchen is the heavy (dirty) kitchen.
     - A full-height wall separates the hospitality kitchen from the powder room; the kitchen opens only to the riwaq, the powder room has its own door.
-    - *Family powder room 2.75 × 3.2 (≈ 7.6 m² clear; 10 Nov 2026, owner):* the *WC in its own compartment* (x 1.3–2.75, y 14.55–16.1 CSV, ≈ 1.3 × 1.4 clear; 100 mm partitions; its own 0.70 door opening north into the room; the wall-hung WC on the south 0.25 service wall with its frame and bedroom 3's stack, an access panel from the serving passage; a small hand basin inside); *outside, in the open zone in front of the entrance* (the door 1.00 from the riwaq, x 2.75, y 13.05–14.05 CSV), a vanity with *two basins under a large mirror* on the west wall (1.85 m), cove lighting; *no shower* on the ground floor (owner). The drains 0.5 m into the west buried run; the hidden beam B14 (y 14.4) becomes a drop beam or the slab spans 3.2 m (the engineer).
+    - *Family powder room 2.75 × 3.2 (≈ 7.6 m² clear; 10 Nov 2026, owner: simple and straight):* the *WC compartment* (x 1.3–2.75, y 14.55–16.1 CSV, ≈ 1.3 × 1.4 clear; 100 mm partitions; its own 0.70 door opening north into the room) holds *only the WC and one basin* (the wall-hung WC on the south 0.25 service wall with its frame and bedroom 3's stack, an access panel from the serving passage; the basin on the compartment's west partition); *outside, in the open zone in front of the entrance* (the door 1.00 from the riwaq, x 2.75, y 13.05–14.05 CSV), a vanity with *two basins under a large mirror* on the west wall (1.85 m), cove lighting; *no shower* on the ground floor (owner). The drains 0.5 m into the west buried run; the hidden beam B14 (y 14.4) becomes a drop beam or the slab spans 3.2 m (the engineer).
     - Serving passage 2.75 × 1.4 on axes, 1.20 m clear, no shelf and no fixed equipment; door 1 0.90 m to the riwaq, door 2 1.05 m to the guest passage. Opposite door 1 the living's west wall is solid and full height (the TV wall, V6.3); privacy rests on the two doors.20 m low partition, so privacy rests on the two doors.
-    - *Guest WC 1.5 × 2.25 (≈ 1.3 × 2.05 clear; 10 Nov 2026, owner):* 0.5 m deeper, taken from the basins room; at its north end a *simple shower cubicle* 0.9 deep behind a 100 mm block wall with an open entrance of 0.6 m (no door): a wall-mounted shower and mixer, a floor drain with falls to it, the cubicle and the floor tanked and tiled; the WC with its hand spray at the south-west, clear of the door's swing; the door 0.90 in the south wall (y 19.75 CSV), opening in, hidden from the passage by the 0.6 m screen wall.
-    - Guest basins 1.5 × 1.65 (10 Nov 2026: 0.5 m shallower): one trough ≈ 1.45 m with three taps at ≈ 0.45 m on the east wall, open to the guest passage (≈ 1.025 m clear).
+    - *Guest WC 1.5 × 2.25 (≈ 1.3 × 2.05 clear; 10 Nov 2026, owner: simple):* inside *only the WC and a wall-mounted shower with mixer* on the north wall over a floor drain with falls, *a wet room* tanked and tiled to the ceiling, *no basin, no cubicle wall, no tray*; the WC with its hand spray at the south-west, clear of the door's swing (the shower zone 1.3 × 0.9 at the north end); the door 0.90 in the south wall (y 19.75 CSV), opening in, hidden from the passage by the 0.6 m screen wall.
+    - Guest basins 1.5 × 1.65 (≈ 1.3 × 1.45 clear; 10 Nov 2026): directly in front of the WC, *three basins in one straight line* on the east wall (1.45 m: three bowls at 0.45 m, or one trough with three taps), a mirror above, open to the guest passage (≈ 1.025 m clear); the guests wash here and the WC's door stays hidden behind the screen wall.
     - Foyer 2.75 × 2.6: double door 1.40 m (two leaves, opening in) at the north end of the west wall; 1.80 m opening, no door, at the south end of the east wall (≈ 0.65 m of wall left at its north end for the shoe cabinet and hooks). The two openings overlap by ≈ 0.75 m along the foyer, so the bent entry is only partial: from the door a guest sees a strip of the majlis; a curtain or a short screen in front of the opening would close it.
-    - One strip of wet rooms on one drain run (hospitality kitchen sink, the powder room's basins and WC, the guest shower and WC, the trough), cleanout under the serving passage. First-floor bathrooms stack over the north part of the block, near the shaft.
+    - One strip of wet rooms on one drain run, the west buried run (hospitality kitchen sink, the powder room's three basins and WC, the guest WC's floor drain and WC, the three guest basins), cleanout under the serving passage. First-floor bathrooms stack over the north part of the block, near the shaft.
   ],
 )
