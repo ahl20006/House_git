@@ -363,7 +363,7 @@
   "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
-#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.85), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75))
+#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.85), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (6.7, 8.3))
 #let plan-len = 0.8cm
 #let okit = yaml("3d/params.yaml").outdoor_kitchen   // V8.1: the outdoor kitchen (the counter at the east wall, the grill and tannour apart), drawn on the site and the ground floor
 #let draw-okit(shift: (0, 0), label: true) = {
@@ -458,14 +458,17 @@
     // 10 Nov 2026 (the owner's review): the utility room's low part under the half landing, the shaft drawn black, the malqaf chamber and its courtyard outlet labelled
     content(q((1.4, 7.2)), text(5pt, fill: soft)[utility · low part\ batteries + inverter])
     rect(q((shaft-csv.at(0))), q((shaft-csv.at(2))), fill: luma(225), stroke: 1.2pt + black); for k in range(1, 6) { line(q((0 + k * 0.25, 9.2)), q((0, 9.2 + k * 0.25)), stroke: 0.3pt + luma(90)); line(q((1.5 - k * 0.25 + 0.25, 10.4)), q((1.5, 10.4 - k * 0.25 + 0.25)), stroke: 0.3pt + luma(90)) }; content(q((0.75, 9.8)), text(5.5pt, weight: "bold")[shaft])
+    // 10 Nov 2026 (owner): the core's east wall 0.30 on the column line (faces x 5.65–5.95, flush with the columns under the edge beam): drawn over the 0.20 wall and the window cut; the outlet opening inside it
+    rect(q((5.65, 6.35)), q((5.95, 8.767)), fill: dark, stroke: none); rect(q((5.68, 7.1)), q((5.92, 8.5)), fill: white, stroke: none)
     line(q((5.8, 7.1)), q((5.8, 8.5)), stroke: 2.2pt + rgb("#9c6b3c")); content(q((6.25, 7.8)), angle: 90deg, text(5pt, fill: rgb("#9c6b3c"))[outlet 1.4 × 1.0])
     content(q((1.05, 15.75)), text(4.6pt, fill: soft)[WC compartment]); content(q((2.0, 17.75)), text(4.6pt, fill: soft)[shower zone])
     for (a, b) in (((0.0, 14.55), (2.75, 14.55)),) { line(..cut(a, b, half: 0.05).map(q), close: true, fill: dark, stroke: none) }   // the WC compartment's partitions, the shower wall, the WC screen wall (100 mm)
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
-    rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((6.9, 12.0)), text(6.5pt, fill: orange)[seating · level])
+    rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((6.4, 12.05)), text(4.6pt, fill: orange)[seating · level\ 6 seats, no TV])
     rect(q((7.55, 7.1)), q((8.85, 9.5)), fill: rgb("#cfe3ee"), stroke: 0.5pt + dark); content(q((8.2, 8.3)), text(6pt)[water\ tree])
-    line(q((8.8, 9.77)), q((8.8, 11.23)), stroke: 2.4pt + dark); content(q((8.55, 10.5)), angle: 90deg, text(5.5pt)[TV])
+    // 10 Nov 2026 (owner): the movable seating (studies/courtyard_layout.typ): two 2-seat sofas, two armchairs, a low table, facing the outlet arch and the enclosure
+    for (x0, y0, x1, y1, k) in ((7.4, 9.8, 8.25, 11.3, "sofa"), (6.85, 11.45, 8.25, 12.3, "sofa"), (6.0, 9.6, 6.75, 10.35, "armchair"), (6.0, 11.0, 6.75, 11.75, "armchair"), (6.6, 10.4, 7.3, 10.9, "table")) { rect(q((x0, y0)), q((x1, y1)), fill: if k == "table" { rgb("#fbf4e6") } else { rgb("#e9d6b8") }, stroke: 0.5pt + rgb("#9c6b3c")) }
     north-arrow((17.4, 1.0))
     scale-bar((0, 25.6))
   }),
@@ -477,7 +480,7 @@
 
       *East block* (sheet 06; *the maid's wing re-planned, layout D, owner 10 Nov 2026, `studies/maid_wing.typ` adopted*): from the kitchen the *laundry* across the whole width (two washers and a stacked dryer, the folding / ironing table and the steam station, tall cupboards, the ceiling drying rack at the east-yard window, an extract fan with a humidity sensor, a floor drain), then the *maid bath* on the south part of the cut wall, 1.5 m deep, a simple wet room like the guest WC (a wall-mounted shower over a floor drain, no tray, no cubicle; the WC under its own window; a basin; the drains straight out; door only from her room), then the *maid room* north of it (the bed in the north corner with its head on the north wall, the wardrobe on the majlis wall, the shelf wedge in the north tip, a small desk under the escape casement on the cut's north part; one door from the laundry); no store. *The malqaf (V10.0, L5):* its chamber ("malqaf chamber" on the plan) at the courtyard's north-west corner inside the covered strip, with the *courtyard outlet* 1.4 × 1.0 in the first arcade arch facing the seating and a carved door onto the strip; the shaft and the head above it. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall, with a three-arch arcade in the courtyard bay (V7.1).
 
-      *Courtyard (revised V8.3):* the whole floor level (no step), modern movable sofas and armchairs for 4–6 with a low table facing the outdoor TV in its semicircular rendered surround on the kitchen wall; the water + tree enclosure on the kitchen wall in front of the sink window (y 7.3–8.9): the tree north, a raised water trough south, the view from the sink; gentle falls to linear drains on the rain system; the north side in front of the women's majlis glass free; no pergola. *Outside (V8.3):* the outdoor counter and sink next to the kitchen service door (canopy optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every opening, downwind); the yard screen, the gas cabinet at its north end, the bins north of the door.
+      *Courtyard (V8.3; owner 10 Nov 2026):* the floor level, *no TV*; movable seating for *6, every seat with a back* (two 2-seat sofas, two armchairs, a low table) *facing the malqaf's outlet arch and the water + tree enclosure* in the breeze, the walkway and the strips at the glass clear; the enclosure on the kitchen wall in front of the sink window (the tree north, a raised water trough south); the core's courtyard face one straight line on the column line (its east wall 0.30); linear drains on the rain system; no pergola. 27.19 m² on axes (≈ 24.9 m² clear), the seating zone ≈ 12.1 m² free. *Outside (V8.3):* the outdoor counter and sink next to the kitchen service door (canopy optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every opening, downwind); the yard screen, the gas cabinet at its north end, the bins north of the door.
     ]
     #ar[
       #ah[الوسط: مجلس النساء والفناء والصالة]
@@ -489,7 +492,7 @@
       #ah[الأعمدة والرواق]
       #sec.pj.columns أعمدة على x #n2(sec.pj.col-x) (في جدار مجلس النساء الجنوبي، وبين زجاج الفناء والصالة، وفي جدار الصالة الجنوبي) تحمل جسر حافة البروز في الدور الأول (الخط البرتقالي المتقطع)، فيصبح على حافة الفناء رواق بأعمدة وثلاثة أقواس.
       #ah[الفناء (معدل V8.3)]
-      أرضية مستوية بلا درجة، أثاث متحرك عصري لأربعة إلى ستة مع طاولة منخفضة أمام التلفاز الخارجي في إطاره الحجري على جدار المطبخ وتحته فتحة الملقف، والنافورة والشجرة على جدار المطبخ أمام نافذة المغسلة، ومصارف خطية إلى نظام الأمطار؛ والمطبخ الخارجي بجوار باب الخدمة والشواية على بعد ≥ 3 م من الفتحات. وض ماء وشجرة في الطرف الشمالي، بلا عريشة. نافذة حوض المطبخ عند y 7.3–8.9.
+أرضية مستوية بلا تلفاز (المالك، 10 نوفمبر 2026)؛ جلسة متحركة لستة كلها بظهر (كنبتان بمقعدين وكرسيان وطاولة) تواجه قوس مخرج الملقف وحوض الماء والشجرة في مهب النسيم، والممرات خالية؛ الحوض والشجرة على جدار المطبخ أمام نافذة المغسلة؛ وجه نواة الملقف خط مستقيم على خط الأعمدة؛ مصارف خطية إلى نظام الأمطار؛ بلا عريشة.
     ]
   ],
 )
