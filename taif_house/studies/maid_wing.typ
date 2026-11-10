@@ -99,21 +99,21 @@
 )
 // ---------- D (the owner, 10 Nov 2026): the bath against the SOUTH part of the cut wall next to the laundry (its drains straight out, its own window), the room north of it ----------
 #let Dl = (
-  name: "D · ADOPTED (owner, 10 Nov 2026): the bath on the cut wall's south part, the room north of it",
+  name: "D · ADOPTED (owner, 10 Nov 2026) and refined the same day: the bath a 1.5 m deep wet room, the bed in the north corner",
   rooms: (
-    ("Maid room", ((0, 0), (1.511, 0), (cut(2.8), 2.8), (1.7, 2.8), (1.7, 4.7), (0, 4.7)), "room"),
-    ("Maid bath", ((1.7, 2.8), (cut(2.8), 2.8), (cut(4.7), 4.7), (1.7, 4.7)), "bath"),
+    ("Maid room", ((0, 0), (1.511, 0), (cut(3.2), 3.2), (1.7, 3.2), (1.7, 4.7), (0, 4.7)), "room"),
+    ("Maid bath", ((1.7, 3.2), (cut(3.2), 3.2), (cut(4.7), 4.7), (1.7, 4.7)), "bath"),
     ("Laundry", ((0, 4.7), (cut(4.7), 4.7), (W, 5.245), (W, D), (0, D)), "laundry"),
   ),
   fixtures: (
-    (0.1, 0.1, 1.45, 0.7, [main wardrobe 1.35 × 0.6]), (0.1, 0.8, 1.0, 2.8, [bed 0.9 × 2.0]), (1.75, 2.25, 2.55, 2.75, [desk 0.8 × 0.5]),
-    (2.55, 3.0, 3.0, 3.6, [WC]), (1.8, 3.9, 2.2, 4.3, [basin]), (2.6, 3.75, 3.45, 4.6, [shower 0.85]),
+    (0.1, 0.1, 1.0, 2.1, [bed 0.9 × 2.0, head north]), (0.1, 2.3, 0.7, 3.65, [wardrobe 1.35 × 0.6]), (1.75, 2.3, 2.55, 2.8, [desk 0.8 × 0.5]),
+    (2.75, 3.3, 3.2, 3.9, [WC]), (1.8, 4.0, 2.2, 4.4, [basin]), (2.7, 3.9, 3.6, 4.6, [shower · wet room, no tray]),
   ) + laundry-fix(5.3, 4.8),
   wedge: ((1.7, 0.35), (cut(1.4), 1.4), (1.7, 1.4)), wedge-label: [shelves],   // the narrow north tip inside the room, as built-in shelves
   niche: (),
-  doors: (((1.8, 2.8), (2.5, 2.8), [bath 0.70, from the room only]), ((0.4, 4.7), (1.3, 4.7), [room 0.90, from the laundry]), ((0.75, 7.0), (1.65, 7.0), [laundry 0.90 from the kitchen])),
-  windows: (((cut(1.5), 1.5), (cut(2.5), 2.5), [escape casement 1.14 × 1.0 on the cut's north part, sill +1.10]), ((cut(3.0), 3.0), (cut(3.6), 3.6), [bath window on the cut (obscured, sill +1.5)]), ((W, 5.4), (W, 6.4), [laundry window 1.0 (insect screen)])),
-  esc-moved: true, labels: ("Maid bath": (2.05, 3.45), "Maid room": (0.85, 3.65), "Laundry": (1.9, 5.85)),
+  doors: (((1.8, 3.2), (2.5, 3.2), [bath 0.70, from the room only]), ((0.4, 4.7), (1.3, 4.7), [room 0.90, from the laundry]), ((0.75, 7.0), (1.65, 7.0), [laundry 0.90 from the kitchen])),
+  windows: (((cut(1.5), 1.5), (cut(2.5), 2.5), [escape casement 1.14 × 1.0 on the cut's north part, sill +1.10]), ((cut(3.35), 3.35), (cut(3.95), 3.95), [bath window on the cut above the WC (obscured, sill +1.5)]), ((W, 5.4), (W, 6.4), [laundry window 1.0 (insect screen)])),
+  esc-moved: true, labels: ("Maid bath": (2.15, 3.62), "Maid room": (1.0, 4.1), "Laundry": (1.9, 5.85)),
 )
 #let layouts = (A, B, C, Dl)
 
@@ -168,7 +168,7 @@
 // ====================================================================================== PAGE 1
 #text(14pt, weight: "bold", fill: green)[The maid's wing re-planned · laundry first · Taif / Palm House V10.0]
 #v(1pt)
-#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt, width: 100%)[#text(8.5pt, weight: "bold", fill: green)[LAYOUT D ADOPTED (owner, 10 Nov 2026)] #text(7pt)[· the bath against the south part of the cut wall next to the laundry (its drains straight out through the cut wall to the east branch, its own window), the room north of it with the shelf wedge in the north tip, the main wardrobe on the north wall, the bed and a small desk, the escape casement on the cut's north part; no store (G21 removed). Applied to `data/rooms_gf.csv`, `design_gf.typ`, `studies/east_wing.typ` and the presentation (sheets 02 and 08). Round 1 (A–C, C recommended) is kept below as the record; C's wedge, drawn outside the cut wall in round 1, is corrected.]]
+#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt, width: 100%)[#text(8.5pt, weight: "bold", fill: green)[LAYOUT D ADOPTED (owner, 10 Nov 2026)] #text(7pt)[· the bath against the south part of the cut wall next to the laundry (its drains straight out through the cut wall to the east branch, its own window), the room north of it with the shelf wedge in the north tip, the bed, the wardrobe and a small desk, the escape casement on the cut's north part; no store (G21 removed). *Refined the same day (owner):* the bath a simple 1.5 m deep wet room like the guest WC (a wall-mounted shower and mixer over a floor drain with falls, tanked and tiled, no tray, no cubicle), shrunk in one direction (y 3.2–4.7); the gained strip to the room: the bed in the north corner with its head on the north wall, the wardrobe on the majlis wall south of it. Applied to `data/rooms_gf.csv`, `design_gf.typ`, `studies/east_wing.typ` and the presentation (sheets 02 and 08). Round 1 (A–C, C recommended) is kept below as the record; C's wedge, drawn outside the cut wall in round 1, is corrected.]]
 #v(2pt)
 #text(7.4pt, fill: gray)[The owner's brief (10 Nov 2026): one roof span, no columns, light partitions placed freely; the order along the kitchen wall *kitchen → laundry → maid bath → maid room*; no store; her room one door (not from the kitchen), bed, wardrobe, small desk, the escape window kept; her bath private, door only from her room; the laundry the priority. Block #r2(W) × #r2(D) m, #r2(area(blk)) m² on axes (the cut wall from (1.511, 0) to (#r2(W), 5.245)); local x = CSV x − 8.95; the dashed blue line = the escape window's place before D.]
 #v(2pt)
@@ -179,9 +179,9 @@
   [Laundry (axes · ≈ clear)], ..layouts.map(L => { let P = room-of(L, "Laundry"); [#r2(area(P)) · *#r2(clear(P)) m²*] }),
   [Maid room (axes · ≈ clear, built-ins inside)], ..layouts.map(L => { let P = room-of(L, "Maid room"); [#r2(area(P)) · *#r2(clear(P)) m²* #if fits(L) [✓ ≥ #r2(min-clear)] else [#text(fill: red)[✗ < #r2(min-clear): does not fit]]] }),
   [Maid bath (axes · ≈ clear)], ..layouts.map(L => { let P = room-of(L, "Maid bath"); [#r2(area(P)) · *#r2(clear(P)) m²*] }),
-  [The room], [a 2.6 × 2.6 rectangle with the deep wedge wardrobe on its east side and a window niche], [the same, 0.4 m shorter: too small], [a 2.6 × 3.0 rectangle with a shelf wedge in the north tip, the wardrobe on the north wall, a desk alcove under the kept window], [a 1.7 m wide rectangle 4.7 m long against the majlis wall (the bed, the wardrobe on the north wall, the door end) plus the wide north part to the cut (the shelf wedge in the tip, the desk under the escape window): no slanted wall meets the floor except the window's],
+  [The room], [a 2.6 × 2.6 rectangle with the deep wedge wardrobe on its east side and a window niche], [the same, 0.4 m shorter: too small], [a 2.6 × 3.0 rectangle with a shelf wedge in the north tip, the wardrobe on the north wall, a desk alcove under the kept window], [the bed in the north corner (its head on the north wall), the wardrobe on the majlis wall south of it, the shelf wedge in the tip, the desk under the escape window, the door end beside the bath: no slanted wall meets the floor except the window's (refined 10 Nov 2026: the bath 1.5 m deep, the room 0.4 m longer east of x 1.7)],
   [Escape window], [moved 1.2 m north on the cut], [moved], [kept at y 3.4–4.4], [on the cut's north part (y 1.5–2.5), 1.14 × 1.0, sill +1.10, no screen],
-  [Bath], [in the tip, a window on the cut], [as A], [internal, an extract fan; the drains ≈ 3 m under the laundry], [on the cut wall's south part: its own window, the drains straight out through the cut wall (≈ 1 m) to the east branch],
+  [Bath], [in the tip, a window on the cut], [as A], [internal, an extract fan; the drains ≈ 3 m under the laundry], [on the cut wall's south part, 1.5 m deep: a simple wet room like the guest WC (a wall-mounted shower over a floor drain, no tray, no cubicle), the WC under its own window, a basin; the drains straight out through the cut wall (≈ 1 m)],
   [Doors], ..layouts.map(L => text(size: 6.2pt)[#list-of(L.doors)]),
   [Windows], ..layouts.map(L => text(size: 6.2pt)[#list-of(L.windows)]),
 )
@@ -200,10 +200,10 @@
     - *Cupboards* 1.0 m tall-and-deep (0.6) on the room's north partition east of the door; open shelves above the table.
     - *The ceiling drying rack* (a pulley rack 1.3 × 0.7) over the east end in front of the *window* 1.0 × 1.0 on the straight east wall (sill +1.1, an insect screen); above it the *extract fan* (≈ 150–200 m³/h, a humidity sensor and a timer, a backdraught shutter outside); *finishes:* porcelain floor to a drain, washable walls to the ceiling, a moisture-resistant ceiling, the machines on a drip tray.
     - *Doors:* the laundry's door 0.90 from the kitchen (today an open entrance: a door keeps the humidity and the noise out of the kitchen); the maid room's door 0.90 at the west end of the partition, from the laundry (her only door; not from the kitchen). *No sink* (the kitchen's sink is 2 m away; optional); *no yard door* (the straight east wall is 1.75 m and the window takes it; the kitchen's service door is a step away round the corner).
-    #H[2 · The maid bath (D; ≈ #r2(clear(room-of(Dl, "Maid bath"))) m² clear)]
-    - Against the south part of the cut wall, x 1.7 to the cut, y 2.8–4.7: the *shower 0.85* in the wide south-east corner (the obtuse corner against the cut), the *WC* against the cut wall under its *window* (y 3.0–3.6 on the cut, obscured, sill +1.5), the *basin* on the west partition; the door 0.70 on its north wall, *from her room only*, opening in. The drains leave straight through the cut wall (≈ 1 m) to the east branch and the yard manhole: short, one slope; the extract fan beside the window.
+    #H[2 · The maid bath (D refined; 1.5 m deep, ≈ #r2(clear(room-of(Dl, "Maid bath"))) m² clear)]
+    - Against the south part of the cut wall, x 1.7 to the cut, y 3.2–4.7 (≈ 1.4 m clear deep, 1.3–2.2 m wide): *a simple wet room like the guest WC:* a *wall-mounted shower and mixer* in the wide south-east corner (the obtuse corner against the cut) over a *floor drain with falls*, the whole floor and the walls *tanked and tiled*, *no shower tray, no cubicle wall* (a short 10 cm block wall of 0.6 m between the shower and the WC only if the owner wants the WC kept dry); the *WC* against the cut wall under its *window* (y 3.35–3.95 on the cut, obscured, sill +1.5); the *basin* on the west partition beside the door; the door 0.70 on its north wall, *from her room only*, opening in. The drains leave straight through the cut wall (≈ 1 m) to the east branch and the yard manhole: short, one slope; the extract fan beside the window.
     #H[3 · The maid room (D; #r2(area(room-of(Dl, "Maid room"))) m² on axes, ≈ #r2(room-clear(Dl)) m² clear ≥ #r2(min-clear))]
-    - North of the bath: the *bed* 0.9 × 2.0 along the majlis wall, the *main wardrobe* 1.35 × 0.6 on the north wall, the *shelf wedge* in the north tip inside the room (its front on x 1.7, 0–0.6 deep), the *small desk* under the *escape casement* on the cut's north part (y 1.5–2.5, 1.14 × 1.0, sill +1.10, obscured below +1.60, no screen: the same opening as before, moved along the same wall), the door 0.90 from the laundry at the room's south-west, the 1.7 × 1.9 m part beside the bath as the entry and dressing space. No slanted wall meets the floor except the window's.
+    - North of the bath, 0.4 m longer than before east of x 1.7 (the bath's strip y 2.8–3.2 gained): the *bed* 0.9 × 2.0 *in the north corner, its head on the north wall* (the majlis wall at its side), the *wardrobe* 1.35 × 0.6 on the majlis wall south of the bed (the best remaining wall: solid, no window, 1.0 m passage to the door), the *shelf wedge* in the north tip inside the room (its front on x 1.7, 0–0.6 deep, beside the bed's head), the *small desk* under the *escape casement* on the cut's north part (y 1.5–2.5, 1.14 × 1.0, sill +1.10, obscured below +1.60, no screen: the same opening), the door 0.90 from the laundry at the room's south-west, the 1.7 × 1.5 m part beside the bath as the entry. No slanted wall meets the floor except the window's.
   ],
   [
     #H[4 · Round 1 (A–C) and why D]
@@ -215,7 +215,7 @@
     #v(4pt)
     #block(fill: rgb("#f1efe8"), inset: 5pt, radius: 2pt, width: 100%)[
       #set text(lang: "ar", dir: rtl, size: 7.2pt)
-      *جناح الخادمة، التخطيط D (قرار المالك، 10 نوفمبر 2026):* الترتيب من المطبخ: الغسيل ثم حمام الخادمة ثم غرفتها. *الحمام* على الجزء الجنوبي من الجدار المائل بجوار الغسيل: صرفه يخرج مباشرة عبر الجدار المائل (قصير وسهل، ضمن مجموعة الصرف الشرقية)، وله نافذته على الجدار المائل؛ دش ومرحاض ومغسلة؛ بابه من غرفتها فقط. *الغرفة* شمال الحمام، أقرب ما تكون إلى المستطيل: السرير على جدار المجلس، الدولاب الرئيسي على الجدار الشمالي، الرفوف المدمجة في الزاوية الضيقة عند الطرف الشمالي داخل الغرفة، مكتب صغير تحت نافذة الهروب على الجزء الشمالي من الجدار المائل (بالمقاس نفسه)، وباب واحد من الغسيل لا من المطبخ؛ نحو #r2(room-clear(Dl)) م² صافيا (الحد الأدنى #r2(min-clear)). *الغسيل* كما في C: غسالتان ومجفف فوق إحداهما، طاولة طي وكي، محطة كي بالبخار، دواليب، رف تجفيف في السقف عند النافذة الشرقية، مروحة شفط بحساس رطوبة، مصرف أرضي؛ نحو #r2(clear(room-of(Dl, "Laundry"))) م² صافيا. لا مخزن. طُبّق على مخطط الدور الأرضي ولوحة الدور الأرضي وجدول المساحات في العرض؛ وتتبع المجسّم ومخططات الكاد ودراسة السباكة في الإصدار القادم.
+      *جناح الخادمة، التخطيط D (قرار المالك، 10 نوفمبر 2026):* الترتيب من المطبخ: الغسيل ثم حمام الخادمة ثم غرفتها. *الحمام* على الجزء الجنوبي من الجدار المائل بجوار الغسيل، بعمق 1.5 م، بسيط كدورة مياه الضيوف: دش ومخلاط معلقان على الجدار فوق مصرف أرضي بميول، معزول ومبلط، بلا حوض ولا كابينة (جدار قصير 10 سم فقط إن أراد المالك إبقاء المرحاض جافا)؛ صرفه يخرج مباشرة عبر الجدار المائل، وله نافذته فوق المرحاض؛ مرحاض ومغسلة؛ بابه من غرفتها فقط. *الغرفة* شمال الحمام وقد كسبت شريط الحمام: السرير في الزاوية الشمالية ورأسه على الجدار الشمالي، الدولاب على جدار المجلس جنوب السرير، الرفوف المدمجة في الزاوية الضيقة عند الطرف الشمالي داخل الغرفة، مكتب صغير تحت نافذة الهروب على الجزء الشمالي من الجدار المائل (بالمقاس نفسه)، وباب واحد من الغسيل لا من المطبخ؛ نحو #r2(room-clear(Dl)) م² صافيا (الحد الأدنى #r2(min-clear)). *الغسيل* كما في C: غسالتان ومجفف فوق إحداهما، طاولة طي وكي، محطة كي بالبخار، دواليب، رف تجفيف في السقف عند النافذة الشرقية، مروحة شفط بحساس رطوبة، مصرف أرضي؛ نحو #r2(clear(room-of(Dl, "Laundry"))) م² صافيا. لا مخزن. طُبّق على مخطط الدور الأرضي ولوحة الدور الأرضي وجدول المساحات في العرض؛ وتتبع المجسّم ومخططات الكاد ودراسة السباكة في الإصدار القادم.
     ]
     #v(3pt)
     #text(6.2pt, fill: gray)[Every size is on axes unless "clear"; the clear areas take 0.25 for the outer walls and the cut, 0.20 for the majlis and kitchen walls, 0.10 for the partitions; the fixtures are concept sizes. The drains, the extract and the electrical points are for the engineers.]
