@@ -1,5 +1,5 @@
 // courtyard_haven.typ · Taif / Palm House V10.0 · THE COURTYARD AS THE FAMILY'S HAVEN · a study in phases (the owner's brief of 10 Nov 2026) · STUDY ONLY:
-// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well). PHASE 2: the mistakes ranked; the olive in a fixed pot.
+// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well). PHASE 2: the mistakes ranked; the olive in a fixed pot. PHASE 3: three layouts within the open items and the ideas for the owner.
 // LOCKED: the site and the outline, the structure (except the courtyard's own openings), the stair and the lift, every settled room, the malqaf L5 (position, core, shaft, head).
 // OPEN: the seating, the water and the tree, the outlet (height, direction, louvres: A as built or B), the sink window, the courtyard doors and windows, the arch infill,
 // the lighting, the floor pattern, the planting, the drainage. Bigger ideas go to a separate "ideas for the owner" list (Phase 3).
@@ -369,5 +369,186 @@
     - Mistake 5 is settled; mistakes 7, 8 and 11 are opened for Phase 3's layouts.
     #v(2pt)
     #text(7.5pt)[*Phase 2 complete:* #mistakes.len() mistakes ranked; the pot re-checks 6, 8, 9 and 19 → pass. Phase 3 next: the layouts and the ideas for the owner.]
+  ],
+)
+
+// ====================================================================== PHASE 3 · THE OPTIONS (within the open items) and the IDEAS FOR THE OWNER
+// the owner's answers (10 Nov 2026) applied in every option: the living's glass stays fixed (the riwaq's sliding door is the courtyard's door); the women's majlis glass gets a
+// curtain inside the majlis; the water a calm, audible fall with a skimmer; the olive in its fixed pot at the seating group's south-west corner; the built-in planter removed.
+#let olive = (cx: 6.5, cy: 11.8, r: 0.5, crown: 1.0)     // the fixed pot Ø 1.0 (x 6.0–7.0, y 11.3–12.3), the head Ø 2.0 at +1.8…+3.9
+#let H1 = (
+  id: "H1", name: [H1 · fixes in place], sub: [the outlet A kept (its louvres set low, along the floor); the water re-made where it is; the olive; the seats turned to the water],
+  outlet: (y0: 7.1, y1: 8.5, z0: 0.10, z1: 1.10, aim: 40deg, note: [A as built: low; the louvres fixed 40° south-east and 10° down so the jet runs along the floor to the kitchen wall, not at the faces]),
+  water: (box: (7.55, 7.4, 8.85, 8.7), kind: [a basin 1.3 × 1.3 on the kitchen wall under the sink window: a wall spout at +1.00 falls 0.45 into water at +0.55, rim +0.70; a skimmer basket at the overflow; the pump in a dry chamber under the spout], rim: 0.70, level: 0.55, fall: 0.45),
+  furn: ((6.6, 10.4, 8.25, 11.25, "sofa · 3", "N"), (6.0, 9.5, 6.75, 10.25, "armchair", "E"), (7.5, 11.5, 8.25, 12.25, "armchair", "W"), (7.05, 11.45, 7.45, 12.0, "table", "")),
+  pots: ((7.9, 8.85, 8.7, 9.65, [laurel pot Ø 0.8]),),
+  light: [the two lanterns (soffit) + a submerged warm light in the basin + two low wall lights on the kitchen wall's plain part (a 2700 K strip behind the jasmine wire); one switch by the riwaq door, one dimmer],
+  floor: [plain sand porcelain, a darker 0.3 m border on the three glass lines and the colonnade line; the olive's circle and the furniture line in the darker tone],
+  plants: [the olive; a laurel pot by the basin (scent); a jasmine on a wire on the kitchen wall south of the basin],
+  outside: [`studies/air_system.typ` (the louvres' fixed angle only), the courtyard study and `3d/character.yaml` (the enclosure re-made, the furniture, the pot), the plumbing (the basin's pump chamber, the skimmer, the pot's drain and drip line), the lighting circuit and two sockets (MEP), the 3D, sheet 02],
+  sec-note: [E–W through the seating: the low jet runs under the seated eye to the wall; the basin's fall 0.45; the olive's head over the table],
+)
+#let H2 = (
+  id: "H2", name: [H2 · the breeze over the water (outlet B)], sub: [the outlet raised and turned at the water; the water a long trough along the kitchen wall in the jet's path; the seats in the spill facing the water],
+  outlet: (y0: 6.9, y1: 8.3, z0: 0.60, z1: 1.60, aim: 30deg, note: [B: raised, centred in the bay, the louvres fixed 30° south-east with splayed reveals: over the trough's rim and under the olive's head]),
+  water: (box: (7.9, 7.3, 8.85, 9.4), kind: [a trough 2.1 × 0.95 along the kitchen wall under and south of the sink window: a wall spout at +1.05 at its north end falls 0.40 into water at +0.65, rim +0.80 (the sill +1.10 above it); the skimmer at the south end where the flow ends; the pump in a dry chamber], rim: 0.80, level: 0.65, fall: 0.40),
+  furn: ((6.6, 10.4, 8.25, 11.25, "sofa · 3", "N"), (6.0, 9.5, 6.75, 10.25, "armchair", "E"), (7.5, 11.5, 8.25, 12.25, "armchair", "W"), (7.05, 11.45, 7.45, 12.0, "table", "")),
+  pots: ((6.05, 7.2, 6.85, 8.0, [laurel pot Ø 0.8 · beside the outlet, below its sill]),),
+  light: [as H1, plus a light under the trough's spout; the olive up-lit from the floor],
+  floor: [a porcelain "carpet": a 0.6 m border in the honey tone round the seating zone, the field sand; the olive's circle in the border tone],
+  plants: [the olive; a laurel pot in the north-west corner (its head below the raised outlet's sill +0.6: it does not block the jet); a jasmine on the kitchen wall's south part],
+  outside: [`studies/air_system.typ` (`air-outlet` → y 6.9–8.3, +0.60…+1.60, fixed louvres), `3d/params.yaml` (the outlet window), the courtyard study and `character.yaml` (the trough, the furniture, the pot), the plumbing, the lighting and sockets, the 3D, the DXF, sheet 02],
+  sec-note: [E–W through the outlet's axis: the jet +0.6…+1.6 over the trough's rim +0.80 and under the olive's head +1.8; the spill down the kitchen wall onto the sofa],
+)
+#let H3 = (
+  id: "H3", name: [H3 · the water in the middle, a winter seat on the north wall], sub: [the water a low basin in the courtyard's north-east quarter; a 2-seat sofa with its back to the women's majlis glass for the winter noon; the outlet A re-aimed at the basin],
+  outlet: (y0: 7.1, y1: 8.5, z0: 0.10, z1: 1.10, aim: 35deg, note: [A as built, the louvres fixed 35° south-east at the basin (the jet skims the water: cooled a little) and clear of the winter sofa]),
+  water: (box: (7.4, 8.2, 8.6, 9.4), kind: [a low square basin 1.2 × 1.2, 0.25 m off the kitchen wall, rim +0.45, water +0.30 (a mesh 5 cm under the surface for the children), a central calm bubbler 0.25 high: audible from every seat; the skimmer basket in a corner; the pump below the basin], rim: 0.45, level: 0.30, fall: 0.25),
+  furn: ((7.1, 6.7, 8.6, 7.55, "winter sofa · 2", "S"), (6.6, 10.4, 8.25, 11.25, "sofa · 3", "N"), (6.0, 9.5, 6.75, 10.25, "armchair", "E"), (7.3, 11.5, 7.9, 12.0, "table", "")),
+  pots: ((7.5, 12.0, 8.3, 12.8, [laurel pot Ø 0.8]),),
+  light: [as H1, with the bubbler lit from below and a low light at the winter sofa; the lanterns dimmed; nothing shining into the majlis or the living],
+  floor: [the field sand; a honey-tone square frames the basin (0.4 m) and a band marks the winter sofa's place at the north glass; the olive's circle],
+  plants: [the olive; a laurel pot in the south-east corner by the living glass (moved for cleaning); a jasmine on the kitchen wall's south part; the basin's margin a single potted papyrus or none],
+  outside: [`studies/air_system.typ` (the louvres' fixed angle), the courtyard study and `character.yaml` (the basin, the winter sofa, the furniture, the pot; the north cleaning strip given up for a movable sofa), the plumbing (the basin, the pump, the skimmer, the pot), the lighting and sockets, the 3D, sheet 02; the majlis curtain (the interiors)],
+  sec-note: [N–S through the basin: the winter sofa's back on the north glass (its body in the January noon sun above +0.46), the basin 0.8 m in front, the main sofa opposite; the olive's head at the right],
+)
+#let opts = (H1, H2, H3)
+#let seats-of(F) = F.map(f => if f.at(4).contains("sofa") { int(f.at(4).slice(-1)) } else if f.at(4) == "armchair" { 1 } else { 0 }).sum()
+
+#let oplan(o, length: 1.1cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, t, size: 3.3pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let R(b, fill: none, stroke: none) = rect(q((b.at(0), b.at(1))), q((b.at(2), b.at(3))), fill: fill, stroke: stroke)
+  R((cx0 - 0.3, cy0 - 0.3, cx1 + 0.3, cy1 + 0.3), fill: luma(205))
+  R((cx0, cy0, cx1, cy1), fill: rgb("#e4d6b8"))
+  R((cx0, cy0, edge, cy1), fill: rgb("#ece4cf")); line(q((edge, cy0)), q((edge, cy1)), stroke: (paint: ink, thickness: 0.5pt, dash: "dashed"))
+  // the floor pattern: a darker border on the glass lines and the colonnade line
+  for b in ((cx0, cy0, cx1, cy0 + 0.3), (cx0, cy1 - 0.3, cx1, cy1), (edge, cy0, edge + 0.3, cy1)) { R(b, fill: rgb("#d8c39a").transparentize(50%)) }
+  R(core, fill: luma(60)); T((5.1, 7.6), [malqaf\ core], size: 3.4pt, fill: white)
+  for y in (6.5, 13.0) { circle(q((col-x, y)), radius: 0.2, fill: luma(60), stroke: none) }
+  circle(q((col-x, 10.8333)), radius: 0.125, fill: luma(120), stroke: 0.3pt + ink)
+  // the outlet and its jet
+  let ot = o.outlet
+  line(q((core-face, ot.y0)), q((core-face, ot.y1)), stroke: 3.5pt + rgb("#9c6b3c")); T((core-face + 0.12, (ot.y0 + ot.y1) / 2), [outlet · #f2(ot.z0)…#f2(ot.z1)], size: 2.9pt, fill: rgb("#9c6b3c"), anchor: "west", angle: 90deg)
+  let c = (core-face, (ot.y0 + ot.y1) / 2); let s1 = 3.2; let e1 = (c.at(0) + s1 * calc.cos(ot.aim), c.at(1) + s1 * calc.sin(ot.aim)); let wl = 0.7 + s1 * calc.tan(10deg); let n = (-calc.sin(ot.aim), calc.cos(ot.aim))
+  line(q((c.at(0), c.at(1) - 0.7)), q((e1.at(0) - n.at(0) * wl, e1.at(1) - n.at(1) * wl)), q((e1.at(0) + n.at(0) * wl, e1.at(1) + n.at(1) * wl)), q((c.at(0), c.at(1) + 0.7)), close: true, fill: blue.transparentize(82%), stroke: none)
+  line(q(c), q(e1), stroke: (paint: blue, thickness: 0.7pt, dash: "dashed"), mark: (end: "stealth", fill: blue, scale: 0.45))
+  // the water
+  let w = o.water.box
+  R(w, fill: rgb("#c9a86a"), stroke: 0.4pt + ink); R((w.at(0) + 0.15, w.at(1) + 0.15, w.at(2) - 0.15, w.at(3) - 0.15), fill: water, stroke: 0.3pt + ink)
+  T(((w.at(0) + w.at(2)) / 2, (w.at(1) + w.at(3)) / 2), [water · rim #f2(o.water.rim)\ fall #r2(o.water.fall)], size: 2.9pt)
+  line(q((cx1, sink.y.at(0))), q((cx1, sink.y.at(1))), stroke: 3pt + blue); T((cx1 + 0.12, 8.1), [sink window], size: 2.8pt, fill: blue, anchor: "west", angle: 90deg)
+  // the olive, the pots
+  circle(q((olive.cx, olive.cy)), radius: olive.crown, fill: leaf.transparentize(60%), stroke: (paint: leaf.darken(20%), dash: "dashed", thickness: 0.5pt))
+  circle(q((olive.cx, olive.cy)), radius: olive.r, fill: rgb("#b48a5a"), stroke: 0.5pt + ink); T((olive.cx, olive.cy), [olive\ pot Ø1.0], size: 2.9pt, fill: white)
+  for (x0, y0, x1, y1, l) in o.pots { circle(q(((x0 + x1) / 2, (y0 + y1) / 2)), radius: (x1 - x0) / 2, fill: leaf.transparentize(40%), stroke: 0.4pt + ink); T(((x0 + x1) / 2, (y0 + y1) / 2), l, size: 2.6pt) }
+  // the seats
+  for f in o.furn {
+    R((f.at(0), f.at(1), f.at(2), f.at(3)), fill: if f.at(4) == "table" { rgb("#fbf4e6") } else { rgb("#b48a5a") }, stroke: 0.4pt + ink)
+    if f.at(4) != "table" { let fc = ((f.at(0) + f.at(2)) / 2, (f.at(1) + f.at(3)) / 2); let d = if f.at(5) == "N" { (0, -0.3) } else if f.at(5) == "S" { (0, 0.3) } else if f.at(5) == "W" { (-0.3, 0) } else { (0.3, 0) }
+      line(q(fc), q((fc.at(0) + d.at(0), fc.at(1) + d.at(1))), stroke: 0.6pt + white, mark: (end: "stealth", fill: white, scale: 0.4)); T(fc, [#f.at(4)], size: 2.8pt, fill: white) }
+  }
+  // the lights (lanterns, wall lights)
+  for p in ((5.6, 9.75), (5.6, 12.4)) { circle(q(p), radius: 0.1, fill: amber, stroke: none) }
+  // the doors and glass
+  line(q((cx0, 9.1)), q((cx0, 10.5)), stroke: 3pt + red); T((cx0 - 0.12, 9.8), [riwaq door], size: 2.8pt, fill: red, anchor: "east", angle: 90deg)
+  line(q((6.0, cy0)), q((8.1, cy0)), stroke: 2pt + blue); T((7.05, cy0 - 0.22), [majlis glass · curtain inside], size: 2.8pt, fill: blue)
+  line(q((4.45, cy1)), q((5.55, cy1)), stroke: 2pt + blue); line(q((6.05, cy1)), q((8.75, cy1)), stroke: 2pt + blue); T((6.6, cy1 + 0.22), [living glass · fixed], size: 2.8pt, fill: blue)
+  T(((cx0 + cx1) / 2, cy0 - 0.7), o.name, size: 4.4pt, fill: green)
+  T(((cx0 + cx1) / 2, cy1 + 0.65), [#seats-of(o.furn) seats with backs · 1 m = 1.1 cm], size: 3.2pt, fill: gray)
+})
+#let osec(o, length: 0.72cm) = cetz.canvas(length: length, {
+  import cetz.draw: *
+  let T(p, t, size: 3.3pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
+  let ot = o.outlet; let w = o.water
+  if o.id != "H3" {
+    // E–W: x along, z up; the core's face at 5.95 (left), the kitchen wall at 8.85 (right)
+    let X(x) = x - 5.5
+    rect((X(5.3), -0.4), (X(9.4), 4.6), fill: rgb("#f3ece0"), stroke: none); rect((X(5.3), -0.4), (X(9.4), 0), fill: luma(120)); line((X(5.3), 0), (X(9.4), 0), stroke: 0.6pt + ink)
+    rect((X(5.65), 0), (X(5.95), 3.6), fill: luma(60), stroke: none); rect((X(5.65), ot.z0), (X(5.95), ot.z1), fill: rgb("#9c6b3c"), stroke: none); T((X(5.8), 2.3), [core · east wall], size: 2.8pt, fill: white, angle: 90deg)
+    rect((X(8.85), 0), (X(9.05), 4.6), fill: luma(60), stroke: none); T((X(8.95), 3.2), [kitchen wall], size: 2.8pt, fill: white, angle: 90deg)
+    rect((X(8.85) - 0.02, sink.sill), (X(8.85), sink.head), fill: none, stroke: (paint: blue, thickness: 0.6pt, dash: "dashed")); T((X(8.6), sink.head + 0.15), [sink window +1.10…+2.10], size: 2.7pt, fill: blue, anchor: "east")
+    // the jet
+    let k = calc.tan(10deg); let L = 2.9
+    line((X(5.95), ot.z0), (X(5.95) + L, ot.z0 - L * k), (X(5.95) + L, ot.z1 + L * k), (X(5.95), ot.z1), close: true, fill: blue.transparentize(80%), stroke: none)
+    line((X(5.95), (ot.z0 + ot.z1) / 2), (X(5.95) + L, (ot.z0 + ot.z1) / 2 - (if o.id == "H1" { 0.5 } else { 0 })), stroke: (paint: blue, thickness: 0.7pt, dash: "dashed"), mark: (end: "stealth", fill: blue, scale: 0.45))
+    // the water on the wall
+    rect((X(w.box.at(0)), 0), (X(8.85), w.rim), fill: rgb("#c9a86a"), stroke: 0.4pt + ink); rect((X(w.box.at(0)) + 0.15, w.rim - 0.12), (X(8.85) - 0.1, w.level), fill: water, stroke: none)
+    rect((X(8.85) - 0.12, w.level + w.fall - 0.05), (X(8.85), w.level + w.fall + 0.05), fill: rgb("#9c6b3c"), stroke: none); line((X(8.85) - 0.15, w.level + w.fall), (X(8.85) - 0.2, w.level + 0.02), stroke: 1pt + blue)
+    T((X((w.box.at(0) + 8.85) / 2), w.rim + 0.15), [water · rim #f2(w.rim) · the spout falls #r2(w.fall)], size: 2.8pt)
+    // the olive and the seats
+    circle((X(olive.cx), 2.85), radius: 1.0, fill: leaf.transparentize(60%), stroke: (paint: leaf.darken(20%), dash: "dashed", thickness: 0.4pt)); line((X(olive.cx), 0.85), (X(olive.cx), 1.85), stroke: 2pt + rgb("#7a5a3a")); rect((X(olive.cx) - 0.5, 0), (X(olive.cx) + 0.5, 0.85), fill: rgb("#b48a5a"), stroke: 0.3pt + ink); T((X(olive.cx), 0.42), [pot], size: 2.8pt, fill: white)
+    for f in o.furn { if f.at(4).contains("sofa") { rect((X(f.at(0)), 0), (X(f.at(2)), 0.85), fill: rgb("#b48a5a").transparentize(30%), stroke: (paint: ink, thickness: 0.3pt, dash: "dashed")); T((X((f.at(0) + f.at(2)) / 2), 1.0), [#f.at(4) (beyond) · eye +1.15], size: 2.8pt) } }
+    line((X(5.3), 1.15), (X(9.4), 1.15), stroke: (paint: gray, thickness: 0.4pt, dash: "dotted"))
+    T((X(7.3), 4.3), [#o.id · E–W section (looking north) · 1 m = 0.72 cm], size: 3.2pt, fill: green)
+  } else {
+    // N–S: y along (north left), z up; the majlis glass at 6.6, the living glass at 12.9
+    let Y(y) = y - 6.2
+    rect((Y(6.0), -0.4), (Y(13.5), 4.6), fill: rgb("#f3ece0"), stroke: none); rect((Y(6.0), -0.4), (Y(13.5), 0), fill: luma(120)); line((Y(6.0), 0), (Y(13.5), 0), stroke: 0.6pt + ink)
+    rect((Y(6.4), 0), (Y(6.6), 4.6), fill: luma(60), stroke: none); rect((Y(6.5), 0), (Y(6.6), gf-glass-head), fill: blue, stroke: none); T((Y(6.3), 2.5), [women's majlis glass · curtain inside · sunlit above +0.46 at the January noon], size: 2.7pt, fill: white, angle: 90deg)
+    rect((Y(12.9), 0), (Y(13.1), 4.6), fill: luma(60), stroke: none); rect((Y(12.9), 0), (Y(13.0), 3.32), fill: blue, stroke: none); T((Y(13.3), 2.5), [living glass · fixed], size: 2.7pt, fill: white, angle: 90deg)
+    rect((Y(w.box.at(1)), 0), (Y(w.box.at(3)), w.rim), fill: rgb("#c9a86a"), stroke: 0.4pt + ink); rect((Y(w.box.at(1)) + 0.15, w.rim - 0.1), (Y(w.box.at(3)) - 0.15, w.level), fill: water, stroke: none); line((Y(8.8), w.level), (Y(8.8), w.level + w.fall), stroke: 1.2pt + blue); T((Y(8.8), w.rim + 0.5), [basin · rim #f2(w.rim) · water #f2(w.level) · a bubbler #r2(w.fall)], size: 2.8pt)
+    for f in o.furn { if f.at(4).contains("sofa") { rect((Y(f.at(1)), 0), (Y(f.at(3)), 0.85), fill: rgb("#b48a5a"), stroke: 0.3pt + ink); T((Y((f.at(1) + f.at(3)) / 2), 1.05), [#f.at(4)], size: 2.8pt) } }
+    // the winter noon sun on the winter sofa's sitter
+    let k = calc.tan(46.9deg)
+    line((Y(13.0), 7.3 - 2.7), (Y(13.0) - (7.3 - 2.7) / k * 0 - 7.0, 7.3 - 2.7 - 7.0 * k * 0), stroke: none)
+    line((Y(12.9) + 0.0, 4.6), (Y(6.6) + 0.2, 4.6 - (12.9 - 6.6 - 0.2) * k), stroke: (paint: amber, thickness: 0.9pt, dash: "dashed")); T((Y(9.0), 3.0), [January noon ray (46.9°) over the living's roof: lights the north wall above +0.46 and the winter sofa's sitters], size: 2.7pt, fill: amber, angle: -32deg)
+    circle((Y(olive.cy), 2.85), radius: 1.0, fill: leaf.transparentize(60%), stroke: (paint: leaf.darken(20%), dash: "dashed", thickness: 0.4pt)); T((Y(olive.cy), 2.85), [olive (beyond)], size: 2.7pt)
+    line((Y(6.0), 1.15), (Y(13.5), 1.15), stroke: (paint: gray, thickness: 0.4pt, dash: "dotted"))
+    T((Y(9.75), 4.3), [H3 · N–S section through the basin (looking west) · 1 m = 0.72 cm], size: 3.2pt, fill: green)
+  }
+})
+
+#pagebreak()
+#text(14pt, weight: "bold", fill: green)[Phase 3 · three layouts within the open items · the owner's answers built in]
+#v(1pt)
+#text(7.2pt, fill: gray)[In every option: the living's glass fixed and the riwaq's sliding door the only door; a curtain inside the women's majlis; the water a calm, audible fall with a skimmer; the olive in its fixed Ø 1.0 pot at the seating group's south-west corner (x 6.0–7.0, y 11.3–12.3), the built-in planter gone; every seat with a back; the walkway, 0.6 at the living glass, 0.5 at the majlis glass (H3: a movable sofa stands there), 0.6 at the kitchen wall. The jet's axis dashed, its spread shaded; the lanterns amber; the darker floor bands on the glass lines and the colonnade line.]
+#v(3pt)
+#grid(columns: (1fr, 1fr, 1fr), column-gutter: 5pt, ..opts.map(o => oplan(o)))
+#v(3pt)
+#grid(columns: (1fr, 1fr, 1fr), column-gutter: 8pt, ..opts.map(o => [
+  #text(8.5pt, weight: "bold", fill: green)[#o.name] #text(6.6pt, fill: gray)[#o.sub]
+  #set text(6.5pt)
+  - *Outlet:* #o.outlet.note
+  - *Water:* #o.water.kind
+  - *Seats (#seats-of(o.furn)):* #o.furn.filter(f => f.at(4) != "table").map(f => [#f.at(4) facing #f.at(5)]).join([, ]); the table #r2(o.furn.last().at(2) - o.furn.last().at(0)) × #r2(o.furn.last().at(3) - o.furn.last().at(1)) under the olive's head.
+  - *Light:* #o.light
+  - *Floor:* #o.floor
+  - *Planting:* #o.plants
+  - *Changes outside the courtyard:* #o.outside
+]))
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 3 · the sections · the ideas for the owner (winter sun and more sky: bold, touching locked items)]
+#v(3pt)
+#grid(columns: (1fr, 1fr, 1fr), column-gutter: 5pt, ..opts.map(o => [#osec(o) #v(1pt) #text(6.3pt, fill: gray, o.sec-note)]))
+#v(4pt)
+#let ideas = (
+  ([I1 · a sun reflector on the living's roof edge], [a polished aluminium "sun shelf" ≈ 3.0 × 0.8 m on the south roof edge (y 13, +7.4), tilted ≈ 23°: it throws the January noon sun (46.9°) down onto the courtyard's floor and the seats as a soft reflected patch (≈ 25–35 % of direct sun, #A[assumed]); summer: tilted flat or removed], [none of the locked items; the roof's guard and parapet detail; glare checked from the gallery; cleaned yearly], [cheap; the only idea that puts winter light on the seats without opening a roof; it does not widen the sky]),
+  ([I2 · open the living's double-height bay to the sky (a second court)], [the roof over the living's double-height half (x 4.25–8.95, y 13.0–16.1, 14.6 m²) removed: the courtyard becomes 4.7 × 9.6 m on axes with the south wall at y 16.1; the January noon shadow (0.936 × 7.3 = 6.8 m) then ends at y 9.3: *every seat south of y 9.3 is in the winter noon sun*, the sky slot 3.15 × 9.6], [LOCKED: the living loses its double height and its clerestories (R-24's "one living room, two heights" since V3), W3, the roof edge R2 and the slab bay over the void (structure), the TV wall's upper part, the suite court above? (no: the suite court is over the men's majlis); the living's glass becomes an outer wall; drainage of a second open floor], [the biggest gain for the winter and the sky, the biggest loss for the house; a different house]),
+  ([I3 · drop the south wall's top to +3.6 only over the courtyard's width (a roof terrace over the living's void)], [the living's double-height roof stays over the living, but its north edge is pulled back 2.0 m (y 13 → 15): the strip y 13–15 over the void becomes an open terrace of the suite court's level… no: the void has no first floor; the strip would be a roofless slot inside the living], [LOCKED: the living's void and roof; a slot open to the sky inside a room is not a room], [not workable: struck]),
+  ([I4 · lower the gallery projection (the west side) to the first floor], [the gallery's roof over the projection removed, the gallery open to the sky as a first-floor loggia: the west wall of the slot drops from +7.3 to +3.6 (the guard); the afternoon sun from the south-west (January 15:00, 33°) still falls on the kitchen wall, not the floor (the shadow of +3.6 reaches 5.5 m east); the sky slot's west side opens: sky view ≈ 12 % instead of 7 %], [LOCKED: the gallery (the family's corridor) loses its roof and its W1 windows: it becomes an open walkway in a Taif winter and dust; the roof slab over the projection (R1 / R3 / B3 upstand), the bedrooms' doors onto an open gallery], [more sky, no winter sun; the gallery's loss is severe: not recommended]),
+  ([I5 · the family living above the women's majlis pulled back], [the north wall (the family living's W2 wall, +7.3) could not help: the sun never comes from the north; only the slot's width matters, and it is fixed by the projection (west) and the kitchen wall (east)], [—], [no gain: struck]),
+  ([I6 · the winter haven elsewhere; the courtyard the summer haven], [accept the well: the courtyard is the breeze, water and shade room for March–October; the *suite court* (first floor, open to the sky, 25 m², the parapet frame on its south) or the *roof terrace inside the attic* is the family's winter sun room (the suite court faces south over the men's majlis roof; the January noon sun stands 47° above it: fully sunlit), with its own simple seating], [none of the locked items (the suite court's furniture and the attic terrace already exist in the plan); the family's habit, two places instead of one], [honest and free; with I1 for the courtyard's winter light]),
+)
+#grid(columns: (1.2fr, 1fr), column-gutter: 10pt,
+  [
+    #H[Ideas for the owner · winter sun and more sky (touching locked items: listed, not drawn)]
+    #table(columns: (0.9fr, 1.7fr, 1.5fr, 0.8fr), inset: 2.1pt, stroke: 0.4pt + luma(178), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Idea*], [*What*], [*Knock-on effects (the locked items)*], [*Verdict*],
+      ..ideas.map(((a, b, c, d)) => (text(6.4pt, weight: "bold", a), text(6.2pt, b), text(6.2pt, c), text(6.2pt, d))).flatten())
+    #v(2pt)
+    #text(6.4pt, fill: gray)[The geometry behind it: the January noon sun stands 46.9° high in the south; a wall H high throws a shadow 0.936 H long northwards. The seats are 1.65–2.5 m north of the living's wall (7.3 m): only a wall ≤ 2.3 m high there would let the noon sun on them — that is the living's roof. The slot's width (3.15 m) is set by the projection and the kitchen wall. So within the house as decided, the winter sun on the courtyard's floor is impossible; the reflector (I1) borrows it, the suite court (I6) has it.]
+  ],
+  [
+    #H[What the three options do with the three big mistakes]
+    - *The winter sun (1):* none of the layouts brings direct sun to the floor; *H3 alone* seats two people in it (the winter sofa with its back to the majlis glass: the body in the sun ≈ 11:30–13:30 from November to February, the curtain behind them). With I1 (the reflector) H1 and H2 get a reflected patch too.
+    - *The deep well (2):* all three lighten it the same way: the light sand render, the olive's head in the slot, the darker floor bands that pull the eye down, the lanterns at night, the water's sound; H3's basin in the middle makes the floor the room's centre instead of the walls.
+    - *The air in the faces (3):* H1 keeps the low outlet and sends the jet along the floor (the breeze at the legs, ≈ 0.5 m/s at the sofa, #A[assumed]); H2 raises and turns it over the water (≈ 0.6 m/s on the whole body, cooler); H3 skims the basin with the low jet (≈ 0.5 m/s, a little cooler) and keeps it off the winter sofa.
+    - *Seats:* H1 5 · H2 5 · H3 6 (the owner asked for 5–6, every one with a back).
+    - *The water's sound:* H1 a 0.45 fall, H2 0.40, H3 a bubbler: all audible from the seats (a fall ≥ 0.3 m into open water ≈ 45–50 dB(A) at 2 m, #A[assumed]).
+    - *Phase 4* scores all three against the 22 checks, the clear area, the seats, the relative cost and the files, and recommends.
+    #v(2pt)
+    #text(7.5pt)[*Phase 3 complete:* three layouts drawn (plans and sections), six ideas for the owner listed (two struck).]
   ],
 )
