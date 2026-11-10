@@ -6,7 +6,7 @@
 // windows outside the two studied blocks are indicative.
 #import "@preview/cetz:0.4.2"
 #import "base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, accent, edges, seg-dist
-#import "design_gf.typ": shift, env-gap, outline-csv-gf, outline-gf
+#import "design_gf.typ": shift, env-gap, outline-csv-gf, outline-gf, tower-csv, shaft-csv
 #import "studies/ff_family.typ" as fam
 #import "studies/ff_suite.typ" as suite
 #import "studies/east_wing.typ" as ew
@@ -127,11 +127,11 @@
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
   "Serving passage (2 doors)": "Serving", "Family powder room (WC · 2 basins)": "Powder room", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
-  "Suite WC (closet)": "WC", "Maid store": "store", "Air tower": "malqaf",
+  "Suite WC (closet)": "WC", "Maid store": "store", "Air tower": "malqaf", "Malqaf chamber": "malqaf chamber",
 )
 #let mk(prefix, rows, extra) = rows.enumerate().map(((i, r)) => (id: prefix + (if i < 9 { "0" } else { "" }) + str(i + 1), name: r.name, kind: kind-of(r.name, r.colour), P: poly-of(r))) + extra
 #let tower = fam.fixed.find(f => f.name == "Air tower").pts
-#let gf-rooms = mk("G", gf-csv, ((id: "", name: "Air tower", kind: "tower", P: tower),))
+#let gf-rooms = mk("G", gf-csv, ((id: "", name: "Malqaf chamber", kind: "tower", P: tower-csv),))   // 10 Nov 2026: the GF chamber from design_gf.typ (the FF shaft is `tower`)
 #let ff-rooms = mk("F", ff-csv, fam.fixed.map(f => (id: "", name: f.name, kind: if f.name == "Air tower" { "tower" } else { "core" }, P: f.pts)) + (
   (id: "", name: "Courtyard (open to the sky)", kind: "void", P: rect-pts(sec.pj-edge, sec.y-court, sec.x-east, 13.0)),
   (id: "", name: "Double-height living (void)", kind: "void", P: rect-pts(sec.pj-edge, 13.0, sec.x-east, sec.y-living)),
@@ -141,7 +141,7 @@
 #let gf-walls = (
   open: (((sec.x-east, 13.0), (sec.x-east, sec.y-living)),),          // living ↔ dining: one room, ceiling change only
   rail: (),
-  light: (((10.65, 2.8), (10.65, 7.0)), ((8.95, 1.0), (11.004, 1.0))),   // 100 mm dry block, laundry / maid room; the maid bath / store
+  light: (((10.65, 2.8), (10.65, 7.0)), ((8.95, 1.0), (11.004, 1.0)), ((1.5, 9.2), (1.5, 10.4)), ((0, 9.2), (1.5, 9.2)), ((0, 10.4), (1.5, 10.4))),   // 100 mm dry block, laundry / maid room; the maid bath / store; 10 Nov 2026: the shaft's own walls
 )
 #let ff-walls = (
   open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0)), ((sec.x-court, sec.y-court), (sec.pj-edge, sec.y-court))),   // V7.1: the family living open to the gallery's north end
@@ -166,15 +166,17 @@
   G((2.25, 0.9), (2.25, 1.9), (-1, 0), "sliding"),       // lift landing door (the lift is installed at construction, V6.3)
   G((4.25, 0.6), (4.25, 1.6), (1, 0), "hinged"),         // women's majlis (indicative)
   G((2.75, 2.3), (2.75, 6.55), (-1, 0), "open"),         // open stair (flipped 2 Nov 2026): the start strip and the lower flight's balustrade on the riwaq
-  G((2.75, 6.7), (2.75, 7.6), (-1, 0), "hinged"),        // the store under the half landing: a low door (head 1.55) onto the riwaq
-  G((2.75, 8.2), (2.75, 9.0), (-1, 0), "hinged"),        // utility room (indicative)
+  G((0.1, 7.9), (2.65, 7.9), (0, 1), "open"),            // 10 Nov 2026 (owner): the store under the half landing and the utility room are ONE room: the wall between them opened (the engineer), the store's door onto the riwaq removed
+  G((2.75, 8.2), (2.75, 9.0), (-1, 0), "hinged"),        // the utility room's ONE door from the riwaq
+  G((1.5, 9.4), (1.5, 10.2), (-1, 0), "hinged"),         // the shaft's maintenance door (0.9 m clear in front)
+  G((1.6, 14.55), (2.3, 14.55), (0, -1), "hinged"),      // 10 Nov 2026: the powder room's WC compartment door 0.70
   G((4.25, 9.1), (4.25, 10.5), (1, 0), "sliding"),       // courtyard glass door (indicative)
   G((2.75, 10.6), (2.75, 12.7), (-1, 0), "open"),        // hospitality kitchen
   G((2.75, 13.05), (2.75, 14.05), (-1, 0), "hinged"),    // the family powder room (3 Nov 2026: the basins + the WC as one room, a 1.00 m door from the riwaq)
   G((2.75, 16.25), (2.75, 17.15), (-1, 0), "hinged"),    // serving door 1
   G((0.1, 17.5), (1.15, 17.5), (0, -1), "hinged"),       // serving door 2
-  G((1.45, 19.25), (2.35, 19.25), (0, -1), "hinged"),    // guest WC, 0.90 m opening (V6.3)
-  G((1.25, 19.85), (1.25, 21.4), (1, 0), "open"),        // guest passage ↔ basins
+  G((1.45, 19.75), (2.35, 19.75), (0, -1), "hinged"),    // guest WC, 0.90 m opening (10 Nov 2026: the WC 0.5 m deeper, with a shower cubicle)
+  G((1.25, 20.35), (1.25, 21.4), (1, 0), "open"),        // guest passage ↔ basins
   G((0.1, 21.4), (1.15, 21.4), (0, 1), "open"),          // guest passage ↔ foyer
   G((0, 21.5), (0, 22.9), (1, 0), "double"),             // guest entrance, two leaves
   G((2.75, 22.15), (2.75, 23.95), (1, 0), "open"),       // foyer → men's majlis
@@ -338,7 +340,7 @@
 
 // ================= numbers =================
 #let footprint = area(offset-poly(outline-csv-gf, (-sec.outer-half,) * outline-csv-gf.len()))
-#let gf-real = gf-rooms.filter(r => r.kind != "court" and r.name != "Air tower")
+#let gf-real = gf-rooms.filter(r => r.kind != "court" and r.name != "Malqaf chamber")
 #let ff-real = ff-rooms.filter(r => r.id != "" and r.kind != "open")
 #let gf-area = gf-real.map(r => area(r.P)).sum()
 #let ff-area = ff-real.map(r => area(r.P)).sum()
@@ -362,7 +364,7 @@
   "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
-#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (9.9, 1.9), "Maid store": (9.7, 0.5), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2))
+#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (11.9, 5.6), "Maid bath": (9.9, 1.9), "Maid store": (9.7, 0.5), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0))
 #let plan-len = 0.8cm
 #let okit = yaml("3d/params.yaml").outdoor_kitchen   // V8.1: the outdoor kitchen (the counter at the east wall, the grill and tannour apart), drawn on the site and the ground floor
 #let draw-okit(shift: (0, 0), label: true) = {
@@ -454,11 +456,14 @@
   cetz.canvas(length: plan-len, {
     import cetz.draw: *
     draw-floor(gf-rooms, gf-walls, gf-doors, gf-windows, gf-furniture, lowwalls: gf-lowwalls, dashed: beam, columns: sec.columns, label-at: gf-label-at)
-    content(q((2.3, 7.15)), text(5.5pt, fill: soft)[store])   // V9.2: the low store door under the stair's half landing
+    // 10 Nov 2026 (the owner's review): the utility room's low part under the half landing, the shaft drawn black, the malqaf chamber and its courtyard outlet labelled
+    content(q((1.4, 7.2)), text(5pt, fill: soft)[utility · low part\ batteries + inverter])
+    rect(q((shaft-csv.at(0))), q((shaft-csv.at(2))), fill: luma(225), stroke: 1.2pt + black); for k in range(1, 6) { line(q((0 + k * 0.25, 9.2)), q((0, 9.2 + k * 0.25)), stroke: 0.3pt + luma(90)); line(q((1.5 - k * 0.25 + 0.25, 10.4)), q((1.5, 10.4 - k * 0.25 + 0.25)), stroke: 0.3pt + luma(90)) }; content(q((0.75, 9.8)), text(5.5pt, weight: "bold")[shaft])
+    line(q((5.8, 7.1)), q((5.8, 8.5)), stroke: 2.2pt + rgb("#9c6b3c")); content(q((6.25, 7.8)), angle: 90deg, text(5pt, fill: rgb("#9c6b3c"))[outlet 1.4 × 1.0])
+    content(q((2.05, 15.85)), text(4.6pt, fill: soft)[WC]); content(q((1.5, 18.05)), text(4.6pt, fill: soft)[shower])
+    for (a, b) in (((1.3, 14.55), (1.3, 16.1)), ((1.3, 14.55), (2.75, 14.55)), ((0.85, 18.5), (1.55, 18.5)), ((1.25, 19.75), (1.25, 20.35))) { line(..cut(a, b, half: 0.05).map(q), close: true, fill: dark, stroke: none) }   // the WC compartment's partitions, the shower wall, the WC screen wall (100 mm)
     dim((gx0 - sec.outer-half, 0), (gx1 + sec.outer-half, 0), (0, -1.0), [#n3(gx1 - gx0 + 2 * sec.outer-half) m outside])
     dim((0, gy0 - sec.outer-half), (0, gy1 + sec.outer-half), (-1.6, 0), [#n2(gy1 - gy0 + 2 * sec.outer-half) m outside])
-    let cc = bbox(clear-poly(court-r, gf-walls))
-    dim((cc.at(0), 7.2), (cc.at(2), 7.2), (0, 0), [#n2(cc.at(2) - cc.at(0)) m clear])
     rect(q((5.925, 7.1)), q((8.85, 12.3)), stroke: (paint: orange, thickness: 0.7pt, dash: "dashed")); content(q((6.9, 12.0)), text(6.5pt, fill: orange)[seating · level])
     rect(q((7.55, 7.1)), q((8.85, 9.5)), fill: rgb("#cfe3ee"), stroke: 0.5pt + dark); content(q((8.2, 8.3)), text(6pt)[water\ tree])
     line(q((8.8, 9.77)), q((8.8, 11.23)), stroke: 2.4pt + dark); content(q((8.55, 10.5)), angle: 90deg, text(5.5pt)[TV])
@@ -467,21 +472,21 @@
   }),
   [
     #en[
-      *Middle band:* the women's majlis #wd(gf-rooms, "Women's majlis") m, the courtyard #wd(gf-rooms, "Courtyard") m (#court-clear m clear, open to the sky) and the living room in two heights: double height on the courtyard, normal height with the dining to the east. The living is entered from the riwaq through a #dw((4.25, 13.1)) m arched opening; its west wall is solid and full height with the arched TV niche (V6.3).
+      *Middle band:* the women's majlis #wd(gf-rooms, "Women's majlis") m, the courtyard (an L-shape round the malqaf chamber, #n2(area(court-r.P)) m² on axes, its wide part #court-clear m clear, open to the sky) and the living room in two heights: double height on the courtyard, normal height with the dining to the east. The living is entered from the riwaq through a #dw((4.25, 13.1)) m arched opening; its west wall is solid and full height with the arched TV niche (V6.3).
 
-      *West band:* the lift (installed at construction, V6.3), the open stair (flipped, V8.2: the lower flight rises south off the lobby behind a black-bar balustrade; a full-height coat cupboard in the west half of its start strip, the store under the half landing at the south end), the utility room with the shaft, then the west wash block (sheet 06). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
+      *West band (the owner's review, 10 Nov 2026):* the lift (installed at construction, V6.3), the open stair (flipped, V8.2: the lower flight rises south off the lobby behind a black-bar balustrade; a full-height coat cupboard in the west half of its start strip); *one utility room with one door from the riwaq*: the west service *shaft* (x 0–1.5, y 9.2–10.4, unchanged; its maintenance door with 0.9 m clear in front), the main panel, the water heater and the manifold on the walls, and the *low part under the stair's half landing* (1.65 m headroom) for the future batteries and inverter, the wall between them opened (a note for the engineer), the store's door removed; then the west wash block (sheet 06): the *family powder room* with the *WC in its own compartment* (its own door, a small hand basin) and *two basins under a large mirror* in the open zone in front of the entrance, no shower; on the guest side the *guest WC* 0.5 m deeper (taken from the basins room, which keeps its trough with three taps) with a *simple shower cubicle* behind a 100 mm block wall (open entrance, wall-mounted shower, a floor drain, tanked and tiled). The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
 
-      *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the maid's store in the cut tip. *The malqaf (V10.0, L5):* its foot chamber at the courtyard's north-west corner, inside the covered strip, with the breeze outlet in the first arcade arch facing the seating and a carved door onto the strip. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall, with a three-arch arcade in the courtyard bay (V7.1).
+      *East block* (sheet 06): kitchen, laundry, maid room and maid bath, the maid's store in the cut tip. *The malqaf (V10.0, L5):* its chamber ("malqaf chamber" on the plan) at the courtyard's north-west corner inside the covered strip, with the *courtyard outlet* 1.4 × 1.0 in the first arcade arch facing the seating and a carved door onto the strip; the shaft and the head above it. *Men's majlis* #wd(gf-rooms, "Men's majlis") m, entered only from the guest foyer. No east duct. *Colonnade:* #sec.pj.columns columns on x #n2(sec.pj.col-x) under the first-floor edge beam, in the women's majlis south wall, the courtyard / living glass and the living's south wall, with a three-arch arcade in the courtyard bay (V7.1).
 
       *Courtyard (revised V8.3):* the whole floor level (no step), modern movable sofas and armchairs for 4–6 with a low table facing the outdoor TV in its semicircular rendered surround on the kitchen wall; the water + tree enclosure on the kitchen wall in front of the sink window (y 7.3–8.9): the tree north, a raised water trough south, the view from the sink; gentle falls to linear drains on the rain system; the north side in front of the women's majlis glass free; no pergola. *Outside (V8.3):* the outdoor counter and sink next to the kitchen service door (canopy optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every opening, downwind); the yard screen, the gas cabinet at its north end, the bins north of the door.
     ]
     #ar[
       #ah[الوسط: مجلس النساء والفناء والصالة]
-      الفناء #wd(gf-rooms, "Courtyard") م على المحاور و#court-clear م صافيا مفتوح للسماء. الصالة بسقفين: ارتفاع مزدوج على الفناء وارتفاع عادي مع الطعام شرقا، وتُدخل من الرواق عبر فتحة مقوسة #dw((4.25, 13.1)) م؛ جدارها الغربي مصمت كامل الارتفاع مع كوة التلفاز المقوسة (V6.3).
+      الفناء على شكل L حول غرفة الملقف (#n2(area(court-r.P)) م² على المحاور، وجزؤه الواسع #court-clear م صافيا) مفتوح للسماء. الصالة بسقفين: ارتفاع مزدوج على الفناء وارتفاع عادي مع الطعام شرقا، وتُدخل من الرواق عبر فتحة مقوسة #dw((4.25, 13.1)) م؛ جدارها الغربي مصمت كامل الارتفاع مع كوة التلفاز المقوسة (V6.3).
       #ah[الشريط الغربي والرواق]
-      المصعد والدرج المفتوح (معكوس الاتجاه في V8.2: الجزء السفلي يصعد جنوبا من الردهة خلف درابزين أسود، ودولاب المعاطف في النصف الغربي من شريط البداية) وغرفة الخدمات مع الشفت ثم كتلة المغاسل (اللوحة 06). الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
+      المصعد والدرج المفتوح (معكوس الاتجاه في V8.2: الجزء السفلي يصعد جنوبا من الردهة خلف درابزين أسود، ودولاب المعاطف في النصف الغربي من شريط البداية)، ثم (مراجعة المالك 10 نوفمبر 2026) غرفة خدمات واحدة بباب واحد من الرواق: الشفت الغربي بحجمه ومكانه (بابه وأمامه 0.9 م)، واللوحة والسخان والمجمّع على الجدران، والجزء المنخفض تحت بسطة الدرج للبطاريات والعاكس مستقبلا (يُفتح الجدار بينهما، ملاحظة للمهندس، ويُلغى باب المخزن). وفي كتلة المغاسل: دورة مياه العائلة بمرحاض في حجرة مستقلة بباب ومغسلة صغيرة، ومغسلتان كبيرتان بمرآة في الفراغ المفتوح أمام المدخل، بلا دش؛ ودورة مياه الضيوف أعمق بنصف متر (من غرفة المغاسل التي تحتفظ بحوضها وصنابيره الثلاثة) مع دش بسيط خلف جدار بلوك 10 سم بمدخل مفتوح، وصرف أرضي وعزل وبلاط. الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
       #ah[الكتلة الشرقية ومجلس الرجال]
-      المطبخ والغسيل وغرفة الخادمة وحمامها وبرج الهواء (اللوحة 06). مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا شفت شرقي.
+      المطبخ والغسيل وغرفة الخادمة وحمامها ومخزنها (اللوحة 06)؛ وغرفة الملقف (V10.0) في الركن الشمالي الغربي للفناء وفتحتها على الفناء في أول قوس. مجلس الرجال #wd(gf-rooms, "Men's majlis") م لا يدخل إلا من بهو الضيوف. لا شفت شرقي.
       #ah[الأعمدة والرواق]
       #sec.pj.columns أعمدة على x #n2(sec.pj.col-x) (في جدار مجلس النساء الجنوبي، وبين زجاج الفناء والصالة، وفي جدار الصالة الجنوبي) تحمل جسر حافة البروز في الدور الأول (الخط البرتقالي المتقطع)، فيصبح على حافة الفناء رواق بأعمدة وثلاثة أقواس.
       #ah[الفناء (معدل V8.3)]
@@ -695,7 +700,9 @@
     (text(8pt)[#r.id], text(8pt)[#r.name], text(8pt)[#if is-rect(r.P) [#n2(x1 - x0) × #n2(y1 - y0) m] else [polygon]], text(8pt)[#n2(area(r.P)) m²], text(8pt)[#if r.kind in ("open", "court") [–] else [#n2(area(clear-poly(r, spec))) m²]])
   }).flatten())
 #grid(columns: (1fr, 1fr), column-gutter: 18pt,
-  [#text(12pt, weight: "bold")[Ground floor] #sched(gf-rooms.filter(r => r.id != ""), gf-walls)],
+  [#text(12pt, weight: "bold")[Ground floor] #sched(gf-rooms.filter(r => r.id != ""), gf-walls)
+    #v(3pt)
+    #text(6.8pt, fill: soft)[The owner's review, 10 Nov 2026: G13 is one room with the low part under the stair's half landing (≈ 3.7 m² at 1.65 m headroom, counted in the stair's footprint G12) and one door; its polygon wraps round the west shaft (1.5 × 1.2 m, not counted). G15: the WC in its own compartment, two basins outside. G17 2.25 m deep with a shower cubicle; G18 1.65 m deep. The malqaf chamber (#n2(area(tower-csv)) m² on axes) is not a room.]],
   [#text(12pt, weight: "bold")[First floor] #sched(ff-rooms.filter(r => r.id != ""), ff-walls)
     #v(6pt)
     #grid(columns: (1fr, 1fr), column-gutter: 8pt, row-gutter: 8pt,

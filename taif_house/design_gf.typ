@@ -1,8 +1,8 @@
-// design_gf.typ · Taif / Palm House · GROUND FLOOR V6.3 · the file you compile for the ground floor
+// design_gf.typ · Taif / Palm House · GROUND FLOOR V10.0 (the owner's ground-floor review of 10 Nov 2026 applied on `work`) · the file you compile for the ground floor
 // Compact courtyard house: courtyard at the centre, west service band, east service block, the malqaf at the courtyard's north-west corner (V10.0, L5).
 // Three columns on x 5.8 carry the edge beam of the first floor's 1.55 m west projection over the courtyard and the living (a colonnade); V6.4: enclosure option A.
 // Reads data/rooms_gf.csv (rooms) and base.typ (site). Room studies: studies/guest_wing.typ (west wash block), studies/east_wing.typ (east service block).
-// Full description: docs/PROJECT_V6.md · DXF: tools/make_dxf.py reads this file
+// Full description: docs/PROJECT_V10.md · DXF: tools/make_dxf.py reads this file
 #import "base.typ": *
 #show: setup
 
@@ -69,8 +69,7 @@
 
 // ---------- Outlines drawn INSIDE a host room (not counted as area, no overlap check): (x0, y0, x1, y1, label), CSV ----------
 #let inner-boxes = (
-  (0.0, 9.2, 1.5, 10.4, [shaft]),                 // west service shaft, inside the utility room
-  (0.0, 6.55, 2.75, 7.9, [store under the half landing · 1.65 m]),   // stair flip (V8.1 work): the half landing is at the south end
+  (0.0, 6.55, 2.75, 7.9, [utility · low part under the half landing (1.65 m): batteries + inverter]),   // 10 Nov 2026 (owner): the store and the utility room are ONE room; the wall y 7.9 between them opened (the engineer: the half landing's support)
   (0.125, 2.3, 1.3875, 3.75, [coat cupboard · full height]),   // the west half of the start strip: the family's coat / shoe cupboard by the entrance (sliding doors onto the strip)
   (5.65, 6.35, 5.95, 6.65, [col 1]),             // three columns under the first floor's west projection edge beam (x 5.8, V6.4), each in a wall / glass line:
   (5.65, 12.85, 5.95, 13.15, [col 2]),           // the women's majlis south wall (y 6.5), the courtyard / living glass (y 13.0), the living's south wall (y 19.25)
@@ -94,19 +93,26 @@
 // west band and west wash block (studies/guest_wing.typ: local y + 10.4 = CSV y)
 #let west-lines = (
   ((2.25, 0.9), (2.25, 1.9), []),            // lift door (sliding landing door; the lift is installed at construction, V6.3)
-  ((2.75, 6.7), (2.75, 7.6), [store]),       // V9.2 labelled · the store under the half landing
+  ((0.1, 7.9), (2.65, 7.9), [wall opened: one utility room]),   // 10 Nov 2026 (owner): the store's door onto the riwaq removed; the store under the half landing joins the utility room (ONE door, from the riwaq at y 8.2–9.0)
+  ((2.75, 8.2), (2.75, 9.0), [utility door]),
+  ((0.0, 9.2), (0.0, 10.4), []), ((0.0, 10.4), (1.5, 10.4), []), ((1.5, 10.4), (1.5, 9.2), []), ((1.5, 9.2), (0.0, 9.2), []),   // the west service shaft (x 0–1.5, y 9.2–10.4, unchanged): its own sealed walls, the maintenance door on its east face
+  ((1.5, 9.4), (1.5, 10.2), [shaft door · 0.9 m clear in front]),
   ((4.6, 8.667), (5.6, 8.667), [malqaf door]),   // V10.0 (L5): the carved door of the malqaf's foot chamber onto the covered strip
   ((5.8, 7.1), (5.8, 8.5), [outlet]),          // V10.0: the breeze outlet 1.4 × 1.0 in the first arcade arch (timber louvres): a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
   ((0.0, 6.7), (0.0, 7.6), []),              // the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
   ((2.4, 0.0), (2.9, 0.0), []),              // the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
   ((2.75, 10.6), (2.75, 12.7), []),           // hospitality kitchen, open to the riwaq
-  ((2.75, 13.05), (2.75, 14.05), []),         // the family powder room's door 1.00 m from the riwaq (3 Nov 2026: the basins + the WC as one room, no shower on the ground floor)
+  ((2.75, 13.05), (2.75, 14.05), []),         // the family powder room's door 1.00 m from the riwaq; 10 Nov 2026 (owner): the WC in its own compartment with a hand basin, the two basins + mirror in the open zone in front of the entrance; no shower
+  ((1.3, 14.55), (1.3, 16.1), []), ((1.3, 14.55), (2.75, 14.55), []),   // the WC compartment's 100 mm partitions (x 1.3–2.75, y 14.55–16.1: ≈ 1.3 × 1.4 clear)
+  ((1.6, 14.55), (2.3, 14.55), [WC door 0.70]),
   ((0.0, 12.9), (2.75, 12.9), []),           // hospitality kitchen / powder room wall, full height
   ((2.75, 16.25), (2.75, 17.15), []),         // serving door 1 (0.90), to the riwaq, lockable from the riwaq side; opposite: the living's solid west wall (the TV wall, V6.3)
   ((0.1, 17.5), (1.15, 17.5), [serving doors 1 + 2]),   // serving door 2 (1.05, guest side), lockable from inside the passage
+  ((0.1, 16.1), (2.6, 16.1), []),            // the powder room's south service wall (the WC's frame, bath 3's stack)
   ((0.0, 17.5), (2.75, 17.5), []),           // family / guest line
-  ((1.45, 19.25), (2.35, 19.25), []),        // guest WC door 0.90 m opening (≈ 0.75 clear: the 1.3 m wide WC cannot take a 1.00 opening, V6.3), south wall (on the men's majlis line), opens in
-  ((1.25, 19.25), (1.25, 19.85), []),        // WC screen wall
+  ((1.45, 19.75), (2.35, 19.75), []),        // guest WC door 0.90 m opening, south wall (10 Nov 2026: the WC 0.5 m deeper, y 17.5–19.75, taken from the basins room), opens in
+  ((1.25, 19.75), (1.25, 20.35), []),        // WC screen wall
+  ((0.85, 18.5), (1.55, 18.5), [shower wall 10 cm]),   // 10 Nov 2026 (owner): a shower cubicle 0.9 deep at the WC's north end behind a 100 mm block wall, open entrance 0.6 m (no door); wall-mounted shower, floor drain, tanked and tiled
   ((0.0, 21.5), (0.0, 22.9), []),            // guest entrance, double door 1.40 m (two leaves), opens in, north end of the foyer's west wall
   ((2.75, 22.15), (2.75, 23.95), []),        // open passage into the men's majlis, 1.80 m, no door, south end of the foyer's east wall
   ((4.25, 13.1), (4.25, 14.5), []),          // living room: arched entrance from the riwaq, 1.40 m, no door (head ≈ 2.60); V6.3: the rest of the west wall (y 14.5–19.25) is solid and full height, the TV wall
@@ -131,10 +137,13 @@
 // ---------- The malqaf (V10.0, owner: L5, studies/malqaf_L5.typ): the foot chamber at the courtyard's NORTH-WEST corner, inside the covered strip under the first-floor projection, against the women's majlis's wall, on the wall centre lines (outer faces x 4.30–5.90, y 6.4–8.767; RC 0.20); the shaft above it (y 6.5–7.5) and the head on the roof; drawn blue with the air list ----------
 #let tower-csv = ((4.4, 6.5), (5.8, 6.5), (5.8, 8.667), (4.4, 8.667))   // read by 3d/build_3d.py and tools/make_dxf.py
 #let tower-pts = tower-csv.map(place)
-#let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [Malqaf]),)
+#let tower-marks = (((tower-pts.at(0), tower-pts.at(1)), [malqaf chamber]), ((place((5.8, 7.1)), place((5.8, 8.5))), [courtyard outlet 1.4 × 1.0]))
+// 10 Nov 2026 (owner): the west service shaft drawn as a void with a black outline (x 0–1.5, y 9.2–10.4; the utility room's polygon wraps round it)
+#let shaft-csv = ((0, 9.2), (1.5, 9.2), (1.5, 10.4), (0, 10.4))
+#let shaft-pts = shaft-csv.map(place)
 // 3 Nov 2026 (owner): the outdoor kitchen: the counter and sink against the house's east wall NEXT TO the kitchen service door (a few steps from it, under the kitchen
-// window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, 13 m from the HRV
-// intake, downwind of the house in the north-west wind); the yard re-planned: the screen 1.8 m east of the counter's working strip, the gas cabinet on its outer face at the
+// window; a canopy over it optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every door, window and the hood outlet, ≈ 12 m from the malqaf's
+// filtered inlet (V10.0), downwind of the house in the north-west wind); the yard re-planned: the screen 1.8 m east of the counter's working strip, the gas cabinet on its outer face at the
 // north end (≥ 3 m from the grill), the bins north of the service door away from the food. No gate on the lane. Outlines only (CSV)
 #let site-boxes = (
   (13.45, 8.3, 14.05, 10.1, [outdoor counter + sink, by the service door (canopy optional)]),   // 3 Nov 2026 (owner): next to the kitchen service door, a few steps from it
@@ -154,22 +163,23 @@
 })
 
 #render(
-  title: [Ground floor V6.3 · pentagon on site option Z4],
-  subtitle: [Taif / Palm House V6.3 · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/PROJECT_V6.md],
+  title: [Ground floor V10.0 · pentagon on site option Z4 · the owner's review of 10 Nov 2026],
+  subtitle: [Taif / Palm House V10.0 · base.typ + design_gf.typ + data/rooms_gf.csv · room studies in studies/ · full description docs/PROJECT_V10.md],
   court: court,
   rooms: rooms.map(rotrow),
+  extras: (("shaft", shaft-pts),),
   air: (("Air tower", tower-pts),),
   arrows: arrows,
   marks: inner-marks + level-marks + door-marks + tower-marks + safety-marks + site-marks,
   limit: outline-gf,
-  note: [*Ground floor V8.1* on site option Z4, with *three columns* on x 5.8 (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall) under the edge beam of the first floor's 1.55 m west projection (V6.4: enclosure option A, the gallery glazed on the edge beam; the kitchen's north wall at y 7.0 for the maid room), a colonnade along the courtyard edge: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 6.0, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band* 4.50 m clear: *women's majlis* 4.70 × 6.5 · *courtyard* 4.70 × 6.5 (4.50 × 6.30 clear) · *living (double height)* 4.70 × 6.25, entered from the riwaq through a 1.40 m arched opening; its west wall is solid and full height with the arched TV niche 4.40 × 0.70 m (V6.3). *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.5, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 3.7, ≈ 0.95 m clear beside the machines; *maid room* ≈ 6.0 m² clear and *maid bath* 1.8 m deep (≈ 3.0 m² clear), both up to the sloped wall; *air tower* 1.0 m deep (≈ 0.9 m² clear); maid access only kitchen → laundry → maid room → maid bath. *West band:* entry cupboard and *future lift* (2.25 × 2.2, shaft placeholder, a store until then), stair (open, no door), utility room with the service shaft, then the *west wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (light kitchen, open to the riwaq), a full-height wall, family basins, family WC (no shower), *serving passage* 2.75 × 1.4 (1.20 m clear, two doors never open together, both locked from the family side), then the guest side: guest WC 1.5 × 1.75, *guest basins* (one trough, 3 taps), guest passage, *foyer* with a 1.40 m double door at the north end of its west wall and a 1.80 m opening into the men's majlis at the south end of its east wall. *Family lobby + riwaq* 1.5 × 19.25 · *living (normal height) · dining* 4.361 × 6.25 · *men's majlis* 10.561 × 4.75. Blue outlines inside rooms are the shaft, the under-stair store and the three columns (not extra area); blue lines mark the ceiling-height change, the FF projection edge (beam) above on x 5.6, the low wall and the doors, openings and walls of both blocks.],
+  note: [*Ground floor V10.0* on site option Z4, with *three columns* on x 5.8 (in the women's majlis south wall, between the courtyard glass and the living, in the living's south wall) under the edge beam of the first floor's 1.55 m west projection (enclosure option A, the gallery glazed on the edge beam), a colonnade along the courtyard edge with a three-arch arcade: a pentagon 13.311 × 24.0 m on wall centre lines (13.561 × 24.25 outside), the north-east corner cut parallel to the lane down to y 5.245, then the east wall straight south. Outer west wall face #num(m-gap) m from the M line; nearest outer wall face to the envelope #num(env-gap) m (to be confirmed by the official survey). Both palms lie beyond the south facade. Wall allowances 250 mm outer, 200 mm inner, 100 mm dry block partitions. *Middle band:* *women's majlis* 4.70 × 6.5 · *courtyard* an L-shape round the malqaf chamber, open to the sky, the floor level with movable seating · *living (double height)* 4.70 × 6.25, entered from the riwaq through a 1.40 m arched opening; its west wall solid and full height with the arched TV niche 4.40 × 0.70 m. *The malqaf (V10.0, L5):* its chamber at the courtyard's north-west corner inside the covered strip (the dust trap, the filters and the fan, the space for a cooler; the carved door onto the strip), its *courtyard outlet* 1.4 × 1.0 in the first arcade arch facing the seating, the shaft and the head above. *East service block* (studies/east_wing.typ): *kitchen* 4.361 × 6.0, two parallel counter runs, no island, sink on the courtyard wall, hob and hood on the outside east wall, hood extract straight out through the east wall (no east duct); *laundry* 1.70 × 4.2; *maid room* ≈ 8.4 m² clear and *maid bath* 1.8 m deep up to the cut wall, the *maid's store* in the cut tip; maid access only kitchen → laundry → maid room → maid bath (the maid's wing re-planned in studies/maid_wing.typ, a study). *West band (the owner's review, 10 Nov 2026):* the lift (installed at construction), the open stair (flipped, V8.2; the coat cupboard in its start strip), *one utility room with one door from the riwaq*: the west service *shaft* (x 0–1.5, y 9.2–10.4, drawn black, its maintenance door with 0.9 m clear in front), the panel, the heater and the manifold on the walls, and the *low part under the stair's half landing* (1.65 m) for the future batteries and inverter: the wall between them opened (the engineer), the store's door onto the riwaq removed. *West wash block* (2.75 × 13.6, studies/guest_wing.typ): *hospitality kitchen* 2.75 × 2.5 (open to the riwaq), a full-height wall, the *family powder room* 2.75 × 3.2: the WC in its own compartment (≈ 1.3 × 1.4 clear) with its own door and a small hand basin, and in the open zone in front of the entrance a vanity with *two basins under a large mirror*; no shower. The *serving passage* with its two doors (never open together). *Guest side:* the *guest WC* 1.5 × 2.25 (0.5 m deeper, taken from the basins room) with a *simple shower cubicle* at its north end (a 100 mm block wall, open entrance, wall-mounted shower and mixer, a floor drain with falls, tanked and tiled) and the WC with its hand spray; the *guest basins* 1.5 × 1.65 keep the trough with three taps; the guest passage and the foyer with the double door and the 1.80 m opening into the *men's majlis* 10.561 × 4.75.]
 )
 
 // ---------- Design idea and philosophy (last page) ----------
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor V6.3 · pentagon with the north-east corner cut]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor V10.0 · pentagon with the north-east corner cut]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
@@ -211,8 +221,8 @@
   #v(6pt)
   #text(11pt, weight: "bold", fill: accent)[Services built for life]
 
-  The service shaft sits inside a utility room, so every service is in one place behind one door: the shaft, the main electrical panel, the water manifold with its isolation valves and the water heater. The shaft is a closed box of about 1.0 × 1.2 m clear with sealed walls and one full-height maintenance door, and the 0.9 m in front of that door is always kept clear. It stands directly beside the west wash block, so drainage runs stay short; first-floor bathrooms should stack over the north part of the block, near the shaft. The block's drain crosses under the serving passage floor, with a cleanout access point there. The space under the stair's landing becomes a store instead of dead space. The lift shaft is built now as a store and fitted with a two-stop lift later. The Saudi Building Code sets no fixed size for a closed pipe shaft; the sizes here follow general professional guidance and must be confirmed with the code, the municipality and the plumbing engineer.
+  The service shaft sits inside a utility room, so every service is in one place behind one door: the shaft, the main electrical panel, the water manifold with its isolation valves and the water heater, and (10 Nov 2026, owner) the low part under the stair's half landing as the same room, where the future batteries and inverter go. The shaft is a closed box of about 1.0 × 1.2 m clear with sealed walls and one full-height maintenance door, and the 0.9 m in front of that door is always kept clear. It stands directly beside the west wash block, so drainage runs stay short; first-floor bathrooms should stack over the north part of the block, near the shaft. The block's drain crosses under the serving passage floor, with a cleanout access point there. The space under the stair's half landing is the low part of the utility room (1.65 m headroom), not a separate store. The lift shaft is built now as a store and fitted with a two-stop lift later. The Saudi Building Code sets no fixed size for a closed pipe shaft; the sizes here follow general professional guidance and must be confirmed with the code, the municipality and the plumbing engineer.
 
   #v(10pt)
-  #text(7pt, fill: gray)[Concept for discussion. Airflow, tunnel depth, waterproofing, drainage, structure and services need the engineers' review; wind direction to be confirmed on site.]
+  #text(7pt, fill: gray)[Concept for discussion (V10.0). The malqaf's breeze and its filtered supply, the waterproofing, the drainage, the structure and the services need the engineers' review; the wind faces to be confirmed by the on-site weather station.]
 ])
