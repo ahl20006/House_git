@@ -62,7 +62,7 @@
 // owner, 2 Nov 2026 (bedroom 1: option A, studies/bedroom1_bath.typ): low-level motion-sensor night lights (NL) along the route bedroom 1 → family link → family living → gallery → family bath; a note for the electrical design
 #let night-lights = (((9.55, 5.95), [NL · link]), ((8.5, 4.6), [NL · living E]), ((5.4, 3.5), [NL · living W]), ((3.4, 5.6), [NL · gallery N]), ((3.4, 8.3), [NL · gallery]), ((3.1, 8.65), [NL · bath door]))
 #let night-marks = night-lights.map(((p, l)) => ((place(p), place((p.at(0), p.at(1) + 0.3))), l))
-// owner, 2 Nov 2026: the suite court's south side is a mashrabiya screen on the 1.10 m base up to the facade frame (studies/south_wing.typ § 12 b)
+// owner, 2 Nov 2026: the suite court's south side is a mashrabiya screen on the 1.10 m base up to the facade frame (studies/south_wing.typ § 12 b); 10 Nov 2026: the suite court is the family's WINTER sun room (the courtyard haven study): two armchairs and a small table in its middle band's north part (studies/ff_suite.typ furniture), a socket pair and a wall light, the screen's middle panels openable in winter
 #let screen-marks = (((place((4.25, 24.0)), place((10.0, 24.0))), [mashrabiya screen (owner)]),)
 #let r3(v) = str(calc.round(v, digits: 3))
 

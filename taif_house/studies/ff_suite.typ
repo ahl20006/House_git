@@ -109,6 +109,9 @@
 #let court-furniture = (
   (6.0, 22.95, 8.2, 23.8, [3-seat sofa 2.2 × 0.85]), (5.0, 21.7, 5.75, 22.45, [armchair]), (8.45, 21.7, 9.2, 22.45, [armchair]), (6.5, 21.95, 7.7, 22.65, [table 1.2 × 0.7]),
   (4.4, 23.2, 5.0, 23.8, [tree pot]), (9.25, 23.2, 9.85, 23.8, [plant]),
+  // 10 Nov 2026 (owner, the courtyard haven study): the suite court as the family's WINTER sun room: two armchairs with backs and a small table in the middle band's north part (out of the doors' strip y 19.35–20.55): ≈ 2 h of direct January sun on the north strip, ≈ 3 h through the mashrabiya
+  (7.1, 20.6, 7.85, 21.35, [winter armchair]), (8.65, 20.6, 9.4, 21.35, [winter armchair]), (8.0, 20.75, 8.5, 21.2, [table]),
+  (9.85, 20.7, 9.95, 21.1, [socket pair · wall light (office door)]),
   // V8.1: the maintenance ladder's stone pilaster on the gym's east wall (studies/roof.typ page 2) and its walnut panel in the open position (180°, on the south jamb)
   (4.35, 20.65, 4.70, 21.95, [ladder pilaster · recess + panel]), (4.70, 21.75, 4.74, 22.65, [panel open]),
 )
@@ -358,7 +361,7 @@
     content(q((2.1, 19.05)), text(4.0pt, fill: red)[double wall Rw ≈ 55 dB])
     // the sight lines from the court seating through the open bedroom door (blocked by the entry wardrobe)
     for E in ((7.1, 23.35), (5.4, 22.1), (8.8, 22.1)) { line(q(E), q((9.5, 19.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 0.4pt, dash: "dotted")) }
-    // the court's south side: the recommended mashrabiya screen, PROPOSED (not applied; studies/south_wing.typ)
+    // the court's south side: the mashrabiya screen (owner, 2 Nov 2026); 10 Nov 2026: its MIDDLE PANELS made to open in winter (hinged or sliding, closing tight in dust; non-structural) so the January noon sun reaches the court's middle band
     line(q((xg, 24.25)), q((xo, 24.25)), stroke: (paint: rgb("#8a5a2b"), thickness: 1.0pt, dash: "dashed")); content(q((7.1, 24.55)), text(4.2pt, fill: rgb("#8a5a2b"))[south side: mashrabiya screen PROPOSED (owner's choice open)])
     content(q((4.52, 22.3)), anchor: "north", text(3.6pt, fill: rgb("#8a5a2b"))[ladder ↑ roof])
     content(q((8.85, 16.0)), anchor: "east", box(width: 1.9cm, align(right, text(4.6pt, fill: red)[solid wall: no window onto the double-height living])))

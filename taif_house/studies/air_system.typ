@@ -27,7 +27,7 @@
 #let air-head = (4.3, 6.4, 5.9, 8.8)            // the head above the roof, OUTER faces: F3, 1.6 × 2.4, the overhang south over the gallery roof (its walls on R3 widened and R11, a new beam R-L5 under the south wall)
 #let air-head-z = (7.3, 10.6, 10.75, 11.2, 12.6, 12.9, 13.2)   // the roof finish · the band (bottom, top) · the openings (sill, top) · the crown's base · the top (+13.20 = 4.52 above the attic coping)
 #let air-slots = (3, 5, 0.2, 0.2, 0.3)          // slots per short / long face, their width, the ribs, the corner piers: 1.6 = 0.3 + 3 × 0.2 + 2 × 0.2 + 0.3; 2.4 = 0.3 + 5 × 0.2 + 4 × 0.2 + 0.3 (the 20 cm module)
-#let air-outlet = (5.8, 7.1, 8.5, 0.10, 1.10)   // the courtyard outlet on the core's east face (x, y0, y1, z0, z1): 1.4 × 1.0 in the first arcade arch, adjustable timber louvres, the damper D2 behind
+#let air-outlet = (5.8, 6.9, 8.3, 0.60, 1.60)   // H2 (owner, 10 Nov 2026; studies/malqaf_outlet_B.typ adopted): the courtyard outlet on the core's east face (x, y0, y1, z0, z1): 1.4 × 1.0 centred in the first arcade bay, RAISED, the reveals splayed and the timber louvres FIXED 30° to the south-east at the water trough; the damper D2 behind
 #let air-door = (8.667, 4.6, 5.6, 2.4)          // the carved timber door in the core's south face (y, x0, x1, height), onto the covered strip: the cooler and all cleaning pass here
 #let air-trap = (4.5, 6.6, 5.3, 7.3, 0.30)      // the dust trap under the shaft: a GRP floor basin (x0, y0, x1, y1, depth), a lift-out stainless grating, a trapped gully
 #let air-fan = (4.5, 7.55, 4.95, 8.15, 0.0, 1.6)   // the filter cabinet + the EC fan + the silencer, the chamber's west side (x0, y0, x1, y1, z0, z1)
@@ -47,7 +47,7 @@
 #let slot-free = air-slots.at(2) * (slot-h - air-slots.at(2) / 2) + calc.pi * calc.pow(air-slots.at(2) / 2, 2) / 2
 #let free-short = air-slots.at(0) * slot-free; #let free-long = air-slots.at(1) * slot-free
 #let screen-free = 0.9                          // a wide 20 mm bird mesh only (owner): ≈ 90 % open; no insect mesh on the breeze path
-#let louvre-free = 0.6                          // the outlet's adjustable timber louvres
+#let louvre-free = 0.6                          // the outlet's timber louvres (fixed 30° south-east, H2)
 #let outlet-free = (air-outlet.at(2) - air-outlet.at(1)) * (air-outlet.at(4) - air-outlet.at(3)) * louvre-free
 #let door-w = air-door.at(2) - air-door.at(1)
 // the breeze (ASSUMED; the MEP engineer models it): the loss chain referred to a 0.10 m² reference section (as v3, so the figures compare)
@@ -155,7 +155,7 @@
   [
     #H[1 · The concept]
     - *One tower at the courtyard's north-west corner* (L5: `studies/malqaf_L5.typ`, the owner's decision after a location study): an *independent RC core* from its own pad to the head, inside the covered strip under the first-floor projection, against the women's majlis's wall (nothing taken from the majlis or the family living); *no bedroom touches it* (D10). It catches Taif's warm-season evening wind (W ≈ 50 %, NW ≈ 30 %, ≈ 21 km/h; the climate basis in `studies/malqaf_L5.typ` Phase 0) above the roof's own wake.
-    - *Path (a), the courtyard breeze (D1, the goal):* the head's four faces → the + divider and the back-draught flaps → *D1* → the shaft (#r2(breeze-area) m²) → the *dust trap* at its foot → the chamber → the *outlet 1.4 × 1.0* with its timber louvres and *D2*, in the *first arch of the arcade*, ≈ 1 m from the seating: *no channel*. Unfiltered by design (a bird mesh only).
+    - *Path (a), the courtyard breeze (D1, the goal):* the head's four faces → the + divider and the back-draught flaps → *D1* → the shaft (#r2(breeze-area) m²) → the *dust trap* at its foot → the chamber → the *outlet 1.4 × 1.0* raised to +0.60…+1.60 with its louvres fixed 30° south-east and *D2*, in the *first arch of the arcade*: over the water trough, under the olive, then the seating (H2, 10 Nov 2026): *no channel*. Unfiltered by design (a bird mesh only).
     - *Path (b), the house's fresh air (no HRV, D2):* a *never-closing* downward inlet under the head's south overhang → a washable pre-filter + a fine filter → a quiet *EC fan* (#fan.q m³/h) → a silencer → a sealed riser → high grilles into the *family living*, the *gallery*, the *riwaq* and the *women's majlis*; the house runs at a slight *positive pressure*, dust stays out (D5). *The kitchen hood keeps its own interlocked make-up inlet (mandatory).*
     - *Simple controls (owner):* two wall switches, one dust-sensor relay, spring-return dampers (§ 5). *The cooler (D9):* an option: its space, a power point and a floor drain in the chamber; the water point capped; the malqaf is a *dry system*.
     #H[2 · The core: the shaft, the foot chamber, the door]
@@ -227,7 +227,7 @@
       [gentle, 10 km/h], [#r2(gentle.dp)], [#r2(gentle.q)], [#r1(v-out(gentle.q))],
       [*the summer-evening mean, 21 km/h*], [#r2(mean-eve.dp)], [*#r2(mean-eve.q)*], [#r1(v-out(mean-eve.q))],
       [a strong evening, 30 km/h], [#r2(strong.dp)], [#r2(strong.q)], [#r1(v-out(strong.q))])
-    - *Honest conclusion:* at the typical summer evening (21 km/h at the mast, Phase 0: ≈ 50 % W, 30 % NW) the outlet delivers ≈ #r2(mean-eve.q) m³/s, ≈ #r1(v-out(mean-eve.q)) m/s at the louvres and ≈ 0.5–0.8 m/s at the seating 2 m away: *a clearly felt breeze*, ≈ #r1(gain-v93) × the L1 system; a gentle 10 km/h wind still gives #r2(gentle.q) m³/s; a calm evening gives little (the stack #r2(still.q) m³/s). About 1 800 pleasant, dust-free seating hours a year (`studies/malqaf_L5.typ` Phase 0). The louvres aim the jet along the seating; the family closes the switch when it is too much.
+    - *Honest conclusion:* at the typical summer evening (21 km/h at the mast, Phase 0: ≈ 50 % W, 30 % NW) the outlet delivers ≈ #r2(mean-eve.q) m³/s, ≈ #r1(v-out(mean-eve.q)) m/s at the louvres and ≈ 0.5–0.8 m/s at the seating 2 m away: *a clearly felt breeze*, ≈ #r1(gain-v93) × the L1 system; a gentle 10 km/h wind still gives #r2(gentle.q) m³/s; a calm evening gives little (the stack #r2(still.q) m³/s). About 1 800 pleasant, dust-free seating hours a year (`studies/malqaf_L5.typ` Phase 0). The louvres are fixed 30° to the south-east (H2): the jet passes over the water trough's rim and under the olive's head, meets the kitchen wall and settles on the seating from the side, ≈ 0.6 m/s on the whole body; the family closes the switch when it is too much.
     - *If a cooler is added later (D9, option):* a 90–150 L portable evaporative cooler in the chamber moves ≈ 0.8–1.4 m³/s and cools the dry afternoon air from ≈ 35 to ≈ 20–22 °C (RH 12–20 %); its water ≈ 15–25 L/h; it cools *the people in the jet*, not the open courtyard. Provided now: the space, a power point, the floor drain; the water point capped.
   ],
   [
