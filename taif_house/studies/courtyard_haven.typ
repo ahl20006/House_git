@@ -1,5 +1,5 @@
 // courtyard_haven.typ · Taif / Palm House V10.0 · THE COURTYARD AS THE FAMILY'S HAVEN · a study in phases (the owner's brief of 10 Nov 2026) · STUDY ONLY:
-// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well).
+// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well). PHASE 2: the mistakes ranked; the tree in a pot.
 // LOCKED: the site and the outline, the structure (except the courtyard's own openings), the stair and the lift, every settled room, the malqaf L5 (position, core, shaft, head).
 // OPEN: the seating, the water and the tree, the outlet (height, direction, louvres: A as built or B), the sink window, the courtyard doors and windows, the arch infill,
 // the lighting, the floor pattern, the planting, the drainage. Bigger ideas go to a separate "ideas for the owner" list (Phase 3).
@@ -299,5 +299,74 @@
     - *Phase 2* ranks these; *Phase 3* draws 2–3 layouts within the open items (the outlet B, the seating turned to the water and the north wall, the enclosure re-made with the tree away from the water, a skimmer, the living's door, the lighting, the floor pattern, the planting) and lists the bolder ideas (the well) for the owner.
     #v(2pt)
     #text(7.5pt)[*Phase 1 checks computed* (the sun at #suns.len() moments; the seats' lit shares; the jet geometry; the paths).]
+  ],
+)
+
+// ====================================================================== PHASE 2 · THE MISTAKES, RANKED · the tree in a pot (the owner, 10 Nov 2026) and the re-checks
+#let mistakes = (
+  ([1], [*No winter sun on any seat, October to February* (checks 5, 16)], [The haven's best season in Taif is the cool half of the year (the pleasant seating hours peak Oct–Apr, `malqaf_L5.typ` 44–46); a courtyard without winter sun is a cold, grey room for five months.], [100 % of the seats shaded at 10:00, 12:00, 14:00 and 15:00 on 15 Jan; the only sun on the north wall's face above +0.46 at noon], [*not within the open items* (the walls are rooms): Phase 3 gives the mitigation (the north-wall seat) and the bold ideas for the owner]),
+  ([2], [*The deep well* (checks 20, 24)], [A sky slot 3.15 m wide between 7.3 m walls (1 : 2.3) and a sky view of ≈ 7 % from the seats: the courtyard reads as a shaft, not a garden; it also makes 1 inevitable and the echo (18) worse.], [proportion 1 : 2.3 (the good range 1 : 1–1 : 1.5); sky view factor 0.07 (0.2–0.4 in a good courtyard); the sky a 29° × 55° patch], [*not within the open items*: mitigations only (the colour, the lanterns, a taller tree, the living's door); the bold ideas in Phase 3]),
+  ([3], [*The breeze blows into the faces and misses the water and the tree* (checks 1, 2)], [The malqaf is the courtyard's reason: a 2 m/s jet at +0.1…+1.4 on the people facing it 2 m away is a draught, not a breeze; and the water and the tree, the two things that cool and scent the air, are beside the jet, not in it.], [sofa A's eye +1.15 inside the jet (top +1.44 at 1.95 m); 0 % of the jet over the water or under the crown], [*within the open items*: the outlet raised and turned (B), the seats in the spill, 0.6 m/s instead of 0.8–1.0 but on the whole body]),
+  ([4], [*The living has no door onto its own courtyard* (check 23)], [The family's main room looks at the haven through 3.8 m of fixed glass and reaches it round two corners; the courtyard is used less than it could be and the living never spills out.], [9.5 m via the riwaq door against 4.9 m through the glass; 1 door today, 2 with it], [*within the open items*: a sliding door 1.40 in the living's glass (frame only)]),
+  ([5], [*Leaves in the water; the tree's roots beside the water, the drain and the waterproofing* (checks 8, 9)], [A trough skimmed by hand every day in autumn is a chore the family will drop; a ficus in a 0.7 m³ built-in planter breaks it within years.], [the crown's edge 0.08 m from the trough; the planter 0.7 m³ against 2–3 m³ for a tree; no barrier, no skimmer], [*within the open items*, and *settled by the owner's pot* (below): the tree in a large free-standing pot away from the water; the enclosure re-made]),
+  ([6], [*The women's majlis looks straight into the family's seating* (check 13)], [Whenever women guests sit in the majlis, the family's courtyard is on view through 2.1 m of clear glass 0.6–6 m away, and the guests are on view from the courtyard: the haven stops being private on every reception day.], [glass x 6.0–8.1, floor to +2.9, fixed, no screen], [*within the open items*: a curtain or a timber lattice on the majlis side (the design language's mashrabiya), or obscured glass below +1.6]),
+  ([7], [*The water is silent* (checks 7, 18)], [The sound of water is half of what a courtyard's water gives; a laminar lip over a 0.2 m fall is inaudible from 3 m.], [≈ 35–40 dB(A) at 1 m, assumed; the seats 2.5–4 m away], [*within the open items*: a higher fall (0.4–0.5 m) into a deeper basin or a small spout; the pump sized for it]),
+  ([8], [*Two of the four seats look at a wall* (check 10)], [Sofa A faces the core's rendered face 1.5 m away; armchair 2 faces the kitchen's plain wall: the two things worth looking at (the tree and the water) are behind or beside them.], [2 of 4 seats; sofa A's view 1.5 m of wall], [*within the open items*: the seating turned to the water and the tree (B's arrangement or the north-wall seat)]),
+  ([9], [*The hard well: echo* (check 18)], [Four hard faces 7.3 m high over porcelain: voices ring; the water's sound (7) would help, and so do the sofas, the tree and a soft wall.], [≈ 20 m² of soft surfaces in a 24.9 m² room 7.3 m deep; RT ≈ 1.5–2 s (assumed)], [*within the open items*: planting on a wall, fabric, the water's sound; the colour]),
+  ([10], [*Lighting and power not designed* (checks 17, 21)], [Two lanterns and the room lights are not a night courtyard; the pump, the sockets, the lighting circuit and its switch exist nowhere.], [0 fittings designed, 0 circuits], [*within the open items*: a lighting plan (soft, low, no glare into the rooms), a socket pair, the pump's circuit; the MEP engineer]),
+  ([11], [*One tree, nothing else* (check 19)], [A single tree beside the water is a token; scent, softness and the sense of a garden need more than one plant, without mess.], [1 tree; 0 m² of other planting], [*within the open items*: pots and a climber on one wall (Phase 3)]),
+  ([12], [*The trough's rim 0.3 m from sofa A* (check 12)], [Too tight to clean the rim or to walk round the sofa.], [0.3 m], [*within the open items*: the seating moved (3, 8)]),
+)
+#pagebreak()
+#text(14pt, weight: "bold", fill: green)[Phase 2 · the mistakes, ranked · why each matters and how big it is · what the open items can fix]
+#v(1pt)
+#text(7.2pt, fill: gray)[Ranked as the owner asked: the winter sun and the deep well first, with the air in the face; then by how much each spoils the haven. "Within the open items" means Phase 3 can fix it without touching the locked structure and rooms; the first two cannot be fixed that way, only softened, and their bold answers go to the owner in Phase 3.]
+#v(3pt)
+#table(columns: (auto, 1.3fr, 1.7fr, 1.2fr, 1.3fr), inset: 2.2pt, stroke: 0.4pt + luma(178), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+  [*#sym.numero*], [*The mistake*], [*Why it matters*], [*Its size*], [*Fixable within the open items?*],
+  ..mistakes.map(((n, a, b, c, d)) => (text(weight: "bold", n), text(6.6pt, a), text(6.5pt, b), text(6.5pt, c), text(6.5pt, d))).flatten())
+
+// ---------- the tree in a pot (the owner, 10 Nov 2026) ----------
+#let pots = (
+  ([*Olive* · _Olea europaea_ (a fruitless or a table cultivar; a 2–3 m standard)], [the best fit: hardy to −8 °C (Taif's winters), drought-tolerant, evergreen with small silver leaves (little litter, light under it), slow and happy in a pot for decades, the classic Hijaz / Mediterranean courtyard tree; no scent; a clipped head 2–2.5 m across], [Ø 100 × 80 cm (≈ 0.55 m³ of soil)], [≈ 1.2 t wet (soil 0.9 + pot 0.15 + tree 0.1)], [*recommended*]),
+  ([*Bay laurel* · _Laurus nobilis_ (a clipped standard or cone)], [hardy to −5 °C, evergreen, dense, the leaves' scent when brushed, little litter; slower, wants a little shade from the July sun on its pot; the second tree or the alternative], [Ø 80 × 70 cm (≈ 0.3 m³)], [≈ 0.7 t], [second pot / alternative]),
+  ([*Lemon* · _Citrus limon_ (a dwarf or a Meyer on a dwarfing rootstock)], [the scent of the blossom and the fruit are the courtyard's pleasure, but it is frost-tender (Taif can touch 0 °C in January: a fleece on the coldest nights), drops leaves and fruit, wants feeding and steady water; keep it as a *third, smaller pot* in the sunniest spot (the north wall's foot at noon), not as the main tree], [Ø 60 × 55 cm (≈ 0.15 m³)], [≈ 0.35 t], [optional, winter cover]),
+)
+#let recheck = (
+  ([6 · the canopy shades in summer, lets winter sun in], [a potted olive 2.5–3 m high with a 2 m head can stand *over the seats' south-west side* (the sun comes from the north-east to the south-west over the slot near noon): at July noon it shades ≈ 3 m² of the seating under it (the walls shade everything after 13:30 anyway); in winter the floor gets no sun whatever the tree does (1), and the pot can be rolled aside.], [summer #PASS · winter n/a]),
+  ([8 · leaves in the water], [the pot stands ≥ 1.5 m from the water: the olive's small leaves fall on the floor and are swept; nothing hangs over the trough.], [#PASS]),
+  ([9 · roots vs the water, the drains, the waterproofing], [the roots are inside the pot; the pot stands on the finished floor (no recess, the membrane untouched); its drain holes over a tray or a saucer piped to the nearest slot drain (the kitchen-wall drain, y 9.6–12.8); *the weight:* ≈ 1.2 t on a Ø 1.0 m base (≈ 1.5 t/m², a line load the ground-bearing courtyard slab takes; the engineer notes the spot if the slab is lowered 0.05 for the build-up, `plumbing.typ`); moved seasonally on a pallet trolley or a castor base rated 1.5 t, not by hand.], [#PASS (engineer's note)]),
+  ([19 · scent and planting without mess], [the olive gives no scent and little mess; the laurel gives scent when brushed; the lemon gives the scent and some mess; a jasmine on a wire on one wall (the kitchen wall's plain part) gives the evening scent with little litter. Three pots and one climber: a garden, not a token.], [#PASS with the pots]),
+)
+#pagebreak()
+#text(12pt, weight: "bold", fill: green)[Phase 2 · the tree in a large free-standing pot (the owner's choice) · the species, the pot, the weight, the water · the four checks re-run]
+#v(3pt)
+#text(7.2pt, fill: gray)[The owner (10 Nov 2026): the tree in a big movable planter, not in the ground or a built-in planter: the roots contained, movable for sun or shade and away from the water. Taif: 1 700 m, winter nights 2–5 °C with rare frost, summer days 32–36 °C, dry air, hard water (#A[station data; the nursery confirms the hardiness on site]).]
+#v(3pt)
+#table(columns: (1.1fr, 2.4fr, auto, auto, auto), inset: 2.2pt, stroke: 0.4pt + luma(178), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+  [*Species*], [*Why / why not in a pot in Taif*], [*Pot*], [*Weight*], [*Verdict*],
+  ..pots.map(((a, b, c, d, e)) => (text(6.7pt, a), text(6.5pt, b), text(6.5pt, c), text(6.5pt, d), text(6.6pt, weight: "bold", e))).flatten())
+#v(4pt)
+#grid(columns: (1fr, 1fr), column-gutter: 10pt,
+  [
+    #H[The pot and its services (the olive)]
+    - *The pot:* Ø 100 cm, 80 cm deep, glazed terracotta or GRC in the sand / honey tone (render and paint language), on a *castor base* or pot feet 5 cm high so the base dries; 4–6 drain holes over a *saucer with an overflow spout* led by a Ø 32 pipe under the furniture line to the kitchen-wall slot drain (y 9.6–12.8); the soil: a free-draining olive mix (loam, sand, 30 % perlite) over 10 cm of gravel.
+    - *Water:* a drip ring on a timer from the enclosure's supply (the pump chamber's water point): ≈ 15–25 L twice a week in summer, every 10 days in winter (#A[assumed; the nursery sets it]); the saucer never standing.
+    - *Weight (a note for the engineer):* ≈ 1.2 t wet on a Ø 1.0 m base ≈ 1.5 t/m²; the courtyard slab is ground-bearing (the house's ground slab, lowered 0.05 for the outdoor build-up, `studies/plumbing.typ`): fine; if the engineer makes the courtyard a suspended slab over a drainage void, the pot's spot is a point load to note.
+    - *Moving:* seasonally with a pallet trolley or on the castor base (1.5 t rating), two people; the saucer pipe unplugged first. Not a daily thing: the summer place (over the seats' south-west side) and the winter place (against the north wall, out of the way, where the noon sun reaches the trunk) are marked on the floor pattern (Phase 3).
+    - *Size:* buy it at 2.0–2.5 m with a 1.5 m head; it reaches 3 m in a few years and stays there with a yearly clip; the head starts at +1.8 so the seated people sit under it, not in it.
+  ],
+  [
+    #H[The four checks re-run with the pot]
+    #table(columns: (1fr, 2.2fr, auto), inset: 2.2pt, stroke: 0.4pt + luma(178), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      [*Check*], [*With the pot*], [*Verdict*],
+      ..recheck.map(((a, b, c)) => (text(6.6pt, a), text(6.5pt, b), text(6.6pt, c))).flatten())
+    #v(3pt)
+    #H[What the pot changes in the design]
+    - The built-in planter in the enclosure goes: the enclosure becomes *the water only* (Phase 3 re-draws it: a trough or a basin with an audible fall, a skimmer, the pump), 0.8–1.0 m shorter along the kitchen wall; the sink's view becomes the water and, beside it, the olive's pot.
+    - The floor pattern marks the pot's two places and the furniture line; the pot's drain pipe and the drip line are small items for the plumbing study; a socket pair and the lighting (Phase 3) near the pot's summer place.
+    - Mistake 5 is settled; mistakes 7, 8 and 11 are opened for Phase 3's layouts.
+    #v(2pt)
+    #text(7.5pt)[*Phase 2 complete:* #mistakes.len() mistakes ranked; the pot re-checks 6, 8, 9 and 19 → pass. Phase 3 next: the layouts and the ideas for the owner.]
   ],
 )
