@@ -1,5 +1,5 @@
 // courtyard_haven.typ · Taif / Palm House V10.0 · THE COURTYARD AS THE FAMILY'S HAVEN · a study in phases (the owner's brief of 10 Nov 2026) · STUDY ONLY:
-// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well). PHASE 2: the mistakes ranked; the olive in a fixed pot. PHASE 3: three layouts within the open items and the ideas for the owner.
+// nothing in the design files changes until the owner chooses an option after Phase 4. PHASE 0: the facts, cited file by file, every assumption marked. PHASE 1: the 22 checks + the owner's two notes (the doors, the deep well). PHASE 2: the mistakes ranked; the olive in a fixed pot. PHASE 3: three layouts within the open items and the ideas for the owner. PHASE 4: H2 chosen and scored; the suite court the winter room; the Arabic summary.
 // LOCKED: the site and the outline, the structure (except the courtyard's own openings), the stair and the lift, every settled room, the malqaf L5 (position, core, shaft, head).
 // OPEN: the seating, the water and the tree, the outlet (height, direction, louvres: A as built or B), the sink window, the courtyard doors and windows, the arch infill,
 // the lighting, the floor pattern, the planting, the drainage. Bigger ideas go to a separate "ideas for the owner" list (Phase 3).
@@ -552,3 +552,85 @@
     #text(7.5pt)[*Phase 3 complete:* three layouts drawn (plans and sections), six ideas for the owner listed (two struck).]
   ],
 )
+
+// ====================================================================== PHASE 4 · THE COMPARISON SHEET (H2 chosen by the owner; H1 and H3 as reference) · the suite court as the winter sun room · the Arabic summary
+#let P4 = text(fill: green, weight: "bold")[✓]; #let F4 = text(fill: red, weight: "bold")[✗]; #let M4 = text(fill: amber, weight: "bold")[~]
+#let score = (
+  ([*Air*], [], [], []),
+  ([1 · the breeze over the water / under the tree before the seats], [#P4 59 % of the jet's depth over the trough, under the olive's head], [#F4 along the floor, beside the water], [#M4 skims the basin]),
+  ([2 · seats downstream, no jet in the face], [#P4 the sofa 2.0 m off the axis, in the spill ≈ 0.6 m/s], [#M4 the jet below the seated eye, at the legs], [#P4 clear of the winter sofa]),
+  ([3 · the head faces the summer evening wind], [#P4 (wind assumed)], [#P4], [#P4]),
+  ([4 · hot air can rise out], [#P4 20.5 m² of sky], [#P4], [#P4]),
+  ([*Sun and shade*], [], [], []),
+  ([5 · summer shade at 16:00 / 18:00 · winter sun at 10:00], [#P4 100 % shaded from 13:30 · #F4 no winter sun (the well)], [#P4 · #F4], [#P4 · #F4]),
+  ([6 · the olive shades in summer, lets winter sun in], [#P4 ≈ 3 m² of the seats at the summer noon; winter n/a], [#P4], [#P4]),
+  ([*Water*], [], [], []),
+  ([7 · moving, heard, safe], [#P4 a 0.40 fall into the trough (≈ 45–50 dB(A) at 2 m, assumed); rim +0.80, 0.35 deep], [#P4 fall 0.45, rim +0.70], [#M4 a bubbler; the low basin +0.45 needs the child mesh]),
+  ([8 · leaves in the water], [#P4 the olive 3 m away; a skimmer at the trough's end], [#P4], [#P4]),
+  ([9 · roots vs the water, drains, waterproofing], [#P4 the pot; the engineer's note on the 1.2 t], [#P4], [#P4]),
+  ([*Use*], [], [], []),
+  ([10 · every seat sees the tree or the water], [#P4 the sofa faces the water and the outlet beyond, the armchairs the trough and the olive], [#P4], [#P4]),
+  ([11 · conversation < 3.5 m, no back to the group], [#P4 farthest 2.4 m], [#P4], [#M4 the winter sofa 3.6 m from the armchair]),
+  ([12 · clearances], [#P4 walkway 0.08 east of the soffit edge · 0.65 living · 2.9 majlis · 0.6 kitchen wall], [#P4], [#M4 the majlis strip given to a movable sofa]),
+  ([13 · privacy from the guest route and the majlis], [#P4 the curtain inside the majlis (owner)], [#P4], [#M4 the winter sofa against the majlis glass]),
+  ([14 · the guest route never crosses the seating], [#P4], [#P4], [#P4]),
+  ([15 · the views in from the living, the majlis, the sink, the gallery], [#P4 the sink sees the trough's rim and the olive beyond; the living sees the sofa's back], [#P4], [#P4]),
+  ([*Comfort and calm*], [], [], []),
+  ([16 · winter afternoons: sun, shelter], [#F4 no sun (the suite court is the winter room, I6) · #P4 shelter], [#F4 · #P4], [#M4 two seats in the noon sun · #P4]),
+  ([17 · night: soft light, no glare], [#P4 the lanterns, the trough's light, the olive up-lit, the wall strip; one dimmer], [#P4], [#P4]),
+  ([18 · acoustics: water, fan, echo], [#P4 the fall heard · #P4 the fan inaudible · #M4 the hard well], [#P4 · #P4 · #M4], [#P4 · #P4 · #M4]),
+  ([19 · scent and planting without mess], [#P4 the olive, a laurel pot by the outlet, the jasmine], [#P4], [#P4]),
+  ([*Proportion and beauty*], [], [], []),
+  ([20 · the proportions, the rhythm, the doorways], [#F4 the well (inherent) · #P4 the rhythm · #P4 the olive first from the riwaq door], [#F4 · #P4 · #P4], [#F4 · #P4 · #P4]),
+  ([*Build and upkeep*], [], [], []),
+  ([21 · drains, power, the malqaf door, cleaning], [#P4 the drains as designed + the pot's saucer pipe; a lighting circuit and two sockets to add; the door clear; the trough skimmed, the floor hosed], [#P4], [#M4 the basin in the floor's middle]),
+  ([22 · the cooler option], [#P4 the chamber as designed; through the raised louvres at body height], [#P4 at the legs], [#P4]),
+  ([*Totals*], [], [], []),
+  ([checks passed · partial · failed], [*18 · 1 · 3* (the three fails are the well and the winter sun: inherent)], [16 · 3 · 3], [15 · 6 · 1]),
+  ([clear area · seating zone free], [24.9 m² · 12.1 m² (the trough 2.0 m² deducted → 10.1 free)], [24.9 · 10.4], [24.9 · 10.6]),
+  ([seats with backs], [*5* (3 + 1 + 1)], [5], [6]),
+  ([relative cost (courtyard works only)], [*1.1*: the outlet raised and turned (the core's wall opening re-formed, the reveals, the fixed louvres), the trough and its pump, the lighting, the pot], [1.0], [1.3 (the basin in the floor, the mesh, the second sofa)]),
+  ([files to change], [`air_system.typ` (`air-outlet`), `malqaf_outlet_B.typ` (adopted), the courtyard study, `design_gf.typ`, sheet 02, PENDING; next release: `params.yaml`, the 3D, the DXFs, `plumbing.typ`, `character.yaml`], [the louvres' angle + the yaml, plumbing, 3D], [as H1 + the basin, the north strip, the yaml]),
+)
+#pagebreak()
+#text(14pt, weight: "bold", fill: green)[Phase 4 · H2 chosen by the owner, scored against the 22 checks · H1 and H3 as reference · the suite court as the winter sun room]
+#v(1pt)
+#text(7.2pt, fill: gray)[The owner (10 Nov 2026): *H2* (the outlet B, the breeze over the water, 5 seats) is the courtyard layout; *no sun reflector* (I1 dropped); *the winter sun-seat is the suite court* (I6): the courtyard the March–October haven, the suite court the family's winter sun room. ✓ pass · ~ partial · ✗ fail.]
+#v(3pt)
+#grid(columns: (1.55fr, 1fr), column-gutter: 10pt,
+  table(columns: (1.1fr, 1.5fr, 0.75fr, 0.75fr), inset: 1.9pt, stroke: 0.4pt + luma(178), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+    [*Check*], [*H2 · chosen*], [*H1 (ref.)*], [*H3 (ref.)*],
+    ..score.map(((a, b, c, d)) => if repr(b) == "[]" { (table.cell(colspan: 4, fill: rgb("#dfe9d3"), text(6.4pt, weight: "bold", fill: green, a)),) } else { (text(6.1pt, a), text(6.0pt, b), text(6.0pt, c), text(6.0pt, d)) }).flatten()),
+  [
+    #H[The suite court as the family's winter sun room (I6) · what it needs]
+    - *Where:* the first-floor court between the gym and the office (x 4.25–10.0, y 19.25–24.0, 25.3 m² on axes, floor +3.60, open to the sky), reached from the suite bedroom, the gym and the office; its south side the facade frame on a 1.10 base with the mashrabiya screen (+4.7 … +6.7, ≈ 40 % open) under the frame's top (≈ +7.35); the gym (west) and the office (east) walls 3.7 m above its floor.
+    - *The January sun* (NOAA, Taif; the same geometry as Phase 1): at noon (46.9°) the frame's top shades 3.5 m from the south edge, so the *north strip y 19.25–20.5* (the doors' movement strip) is in *direct* sun ≈ 11:30–13:00, and the *middle band y 21.1–23.0* gets the sun *through the screen* (≈ 40 %) ≈ 11:00–14:00; the band at the south base (y 23–24, where the V8.0 sofa stands) is in the base's shadow; before 10:30 the office wall shades the court, after 14:30 the gym wall. *Say ≈ 2 h of direct sun on the north strip and ≈ 3 h of filtered sun on the middle band in January* (#A[the screen's openness and the frame's top height as drawn]).
+    - *Seating for the parents:* two armchairs with backs and a small table *in the middle band's north part* (y 20.6–21.4, east of the gym's door line, x 7.0–9.5: out of the doors' strip, in the filtered sun from 11:00 and the direct sun's edge at noon), cushions stored inside; the V8.0 sofa at the south base stays for the summer evenings (shaded). *Nothing structural.*
+    - *One small, non-structural improvement to consider:* the screen's middle panels made to *open in winter* (hinged or sliding lattice panels within the same frame): the middle band then gets the direct noon sun (46.9° clears the 1.10 base from y 22.8 northwards) and closes again for the summer and the palms' view; the design language's mashrabiya unchanged.
+    - *Also:* a tap and a drain exist (the box gutter); a socket pair and a wall light by the office door (MEP); the guards as designed.
+    #H[Verdict]
+    - *H2* fixes everything the open items can fix: the breeze over the water and under the olive on the whole body (no jet in the face), the audible fall, the leaves and the roots settled, five seats with backs facing the water, the clearances kept, the lighting and the floor designed. Its three fails are the well and the winter sun, which the house's form sets; the owner answers them with the suite court in winter.
+    - *Phase 4 complete; waiting for the owner's "apply".* Then LEAN: the ground-floor plan, the courtyard study, the air study's outlet values, `studies/malqaf_outlet_B.typ` committed as adopted, the presentation's sheet 02 and its note, `PENDING_CHANGES.md`; the 3D, the DXFs, `params.yaml` and `plumbing.typ` listed for the next release.
+  ],
+)
+
+#pagebreak()
+#text(14pt, weight: "bold", fill: green)[الفناء ملاذ العائلة · خلاصة الدراسة للمالك وزوجته]
+#v(4pt)
+#block(fill: rgb("#f1efe8"), inset: 8pt, radius: 3pt, width: 100%)[
+  #set text(lang: "ar", dir: rtl, size: 8.4pt)
+  #set par(leading: 0.6em)
+  *ما وجدناه (المرحلتان 0 و1):* الفناء اليوم على شكل L بمساحة 27.19 م² على المحاور ونحو 24.9 م² صافيا، مفتوح للسماء بفتحة 3.15 × 6.5 م بين جدران ارتفاعها 7.3 م: *بئر عميق* (النسبة 1 : 2.3، وما يُرى من السماء من المقعد نحو 7 % فقط)، ولذلك *لا تصل شمس الشتاء إلى أي مقعد من أكتوبر إلى فبراير*، بينما تُظلَّل الجلسة في الصيف من الساعة 1:30 ظهرا، وهذا جيد. مخرج الملقف المنخفض كان يرمي الهواء *في وجوه الجالسين* ولا يمر فوق الماء ولا تحت الشجرة. الشجرة كانت ملاصقة للماء (ورقها يسقط فيه) وحوضها المبني صغير وخطر على الصرف والعزل. مجلس النساء يطل على الجلسة بزجاج ثابت بلا ستارة. الماء صامت. الإضاءة والكهرباء لم تُصمَّما بعد. الصالة لا باب لها على الفناء.
+  #v(3pt)
+  *قرارات المالك:* زجاج الصالة يبقى ثابتا وباب الرواق المنزلق هو باب الفناء؛ ستارة داخل مجلس النساء؛ الماء يسقط سقوطا هادئا مسموعا مع مصفاة لورق الشجر؛ *شجرة زيتون في أصيص كبير ثابت* (قطر 1.0 م وعمق 0.8 م، وزنه نحو 1.2 طن: ملاحظة للمهندس) في الركن الجنوبي الغربي للجلسة عند حافة الرواق، بعيدا عن الماء بثلاثة أمتار، ورأسها يظلل الطاولة وأطراف الكنب في ظهيرة الصيف؛ لا عاكس للشمس؛ *فناء الجناح في الدور الأول هو غرفة شمس الشتاء للعائلة*، والفناء ملاذ الصيف من مارس إلى أكتوبر.
+  #v(3pt)
+  *التخطيط المختار H2 · النسيم فوق الماء:* يُرفع مخرج الملقف إلى +0.60…+1.60 ويُوجَّه بشيش ثابت وعضادات مائلة 30° نحو الماء، فيمر الهواء *فوق حوض الماء وتحت رأس الزيتونة* ثم يرتد عن جدار المطبخ على الجلسة بنحو 0.6 م/ث على الجسم كله، لا في الوجه، وأبرد قليلا. *الماء* حوض طويل 2.1 × 0.95 م على جدار المطبخ تحت نافذة المغسلة، فيه مسقط هادئ مسموع بارتفاع 0.40 م ومصفاة في طرفه ومضخة في حجرة جافة. *الجلسة:* كنبة بثلاثة مقاعد تواجه الماء والزيتونة ومخرج الملقف، وكرسيان بظهر، وطاولة منخفضة تحت رأس الزيتونة: خمسة مقاعد كلها بظهر؛ ممر الأعمدة وشرائط التنظيف عند الزجاج (0.6 م عند الصالة، 0.5 م عند المجلس، 0.6 م عند جدار المطبخ) خالية. *الإضاءة:* الفانوسان تحت السقف، ضوء دافئ تحت مسقط الماء، إضاءة من الأرض على الزيتونة، شريط ضوء خلف الياسمين على جدار المطبخ؛ مفتاح واحد عند باب الرواق ومخفّت. *الأرضية:* بورسلان رملي مع إطار بلون العسل حول الجلسة ودائرة الأصيص. *النبات:* الزيتونة، وأصيص غار قرب المخرج (رائحة)، وياسمين على سلك على جدار المطبخ.
+  #v(3pt)
+  *النتيجة على الفحوص الاثنين والعشرين:* H2 ينجح في 18، وجزئي في 1 (صدى البئر)، ويرسب في 3 هي البئر وشمس الشتاء، وهذه من شكل البيت نفسه (الجدران غرف)، وقد أجاب عنها المالك بفناء الجناح شتاءً. الكلفة النسبية 1.1 (رفع المخرج وتوجيهه، الحوض ومضخته، الإضاءة، الأصيص).
+  #v(3pt)
+  *فناء الجناح غرفة الشتاء:* في يناير تصل الشمس المباشرة إلى شريطه الشمالي نحو ساعتين حول الظهر، وتمر عبر المشربية الجنوبية (نحو 40 % منها) على وسطه نحو ثلاث ساعات؛ يُقترح كرسيان بظهر وطاولة صغيرة للوالدين في وسطه الشمالي، ولا شيء إنشائي؛ ويمكن جعل ألواح المشربية الوسطى تُفتح شتاءً لتدخل شمس الظهر كاملة.
+  #v(3pt)
+  *أفكار جريئة عُرضت ولم تُعتمد:* عاكس شمس على حافة سقف الصالة (أُسقط)، فتح جزء الصالة ذي الارتفاع المزدوج على السماء (بيت آخر)، إزالة سقف بروز الممر العلوي (خسارة الممر)؛ والخلاصة أن شمس الشتاء على أرض الفناء مستحيلة في البيت كما تقرر، وغرفة الشتاء في فناء الجناح.
+  #v(3pt)
+  *بعد موافقة المالك ("apply"):* يُطبَّق H2 على مخطط الدور الأرضي ودراسة الفناء وقيم مخرج الملقف في دراسة الهواء ولوحة الدور الأرضي في العرض؛ ويُدرج المجسّم ومخططات الكاد والسباكة للإصدار القادم.
+]
