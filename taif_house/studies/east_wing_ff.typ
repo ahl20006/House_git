@@ -1,5 +1,6 @@
 // east_wing_ff.typ · Taif / Palm House · STUDY (11 Nov 2026, owner): the WHOLE first-floor east wing re-designed as one · the master suite (lobby, bedroom, bath,
 // WC, dressing, the court access), bedroom 1 (the young children's room) with its own compact en-suite, and the family link between them.
+// 11 Nov 2026 (later): pages 5–6 add the owner's kids'-bath options K1 / K2 / K3 (bedroom 1 keeps its size; the relaxed hood rule).
 // FIXED: every column and beam (studies/structure.typ), the outer walls (north, east, the cut), the stair / lift / gallery / family living / bedrooms 2–3 / office,
 // the suite court with its mashrabiya and winter seat; every wet room over wet / service rooms below (the maid's wing, the laundry, the kitchen) and never over the
 // kitchen's hood zone or a habitable room; straight walls, no jogs. FREE: every partition and door. WINDOWS: provisional marks only (the owner sets them with the facades).
@@ -365,6 +366,141 @@
       + The east wall's two penetrations (the hood's duct, the stack's branches) and C32 / C33 positions against the final partitions.
       + The suite bedroom bay's 6.25 m ribbed span (B7 → B8) with the entry wardrobe and the bed: ordinary.
       + Nothing in this list moves a column or a beam; the grid of the wing is the grid of the ground floor.
+    ]
+  ],
+)
+
+// ======================= PAGES 5–6 · the owner's new direction (11 Nov 2026, later): bedroom 1 keeps its size; the kids' bath K1 whole in the suite · K2 half in the suite · K3 whole in bedroom 1 (A′) =======================
+// the relaxed hood rule: NO DRAIN over the kitchen's hood zone; dry fittings may stand over it (so the suite bath may run to the C33 line y 10.45 again, its tub's drain west of x 12.4)
+#let suite-K(bath-y0, bath-fix, bath-door, bath-pts: none, closet: false) = (   // the suite common to K1–K3: lobby x 8.95–10.3 to y 10.45; the bath on the east from bath-y0 to 10.45; the dressing the full width 10.45–13 (the hub); the bedroom the south bay
+  rooms: (
+    ("Suite lobby", rect-pts(8.95, 6.5, 10.3, 10.45), "circ"),
+    ("Suite bath", if bath-pts == none { rect-pts(10.3, bath-y0, 13.311, 10.45) } else { bath-pts }, "wet"),
+  ) + (if closet { (("Suite WC (closet)", rect-pts(12.211, 6.5, 13.311, 8.0), "wet"),) } else { () }) + (
+    ("Suite dressing", rect-pts(8.95, 10.45, 13.311, 13.0), "dry"),
+    ("Suite bedroom", rect-pts(8.95, 13.0, 13.311, 19.25), "bed"),
+  ),
+  furniture: bedroom-S(13.0) + ((10.2, 10.55, 13.186, 11.15, [wardrobes 3.0 (dry, over the hood)], "Suite dressing"), (10.2, 12.3, 13.186, 12.9, [wardrobes 3.0], "Suite dressing"), (9.05, 11.7, 9.65, 12.6, [chest · mirror], "Suite dressing")),
+  fixtures: bath-fix,
+  doors: (((9.0, 6.5), (10.1, 6.5), (0, 1), [suite door 1.10]), bath-door, ((9.05, 10.45), (10.05, 10.45), (0, 1), [dressing 1.00, from the lobby]), ((9.05, 13.0), (10.05, 13.0), (0, 1), [bedroom 1.00, from the dressing, under B7]), ((9.05, 19.25), (9.95, 19.25), (0, 0), [court, sliding])),
+)
+#let K-fix-1 = ((10.4, 8.1, 12.0, 8.7, [2 basins], "Suite bath"), (12.6, 8.1, 13.186, 8.75, [WC · screened], "Suite bath"), (12.286, 8.9, 13.186, 9.9, [shower 0.9 × 1.0], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75], "Suite bath"))
+#let K-fix-2 = ((10.4, 7.5, 12.0, 8.1, [2 basins], "Suite bath"), (12.6, 7.5, 13.186, 8.15, [WC · screened], "Suite bath"), (12.286, 8.5, 13.186, 9.5, [shower 0.9 × 1.0], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75], "Suite bath"))
+#let K-fix-3 = ((12.536, 6.95, 13.186, 7.4, [WC], "Suite WC (closet)"), (12.086, 8.1, 13.186, 9.5, [shower 1.1 × 1.4], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75], "Suite bath"), (10.4, 8.3, 11.0, 9.5, [2 basins], "Suite bath"))
+#let SK1 = suite-K(8.0, K-fix-1, ((10.3, 8.8), (10.3, 9.6), (1, 0), [bath 0.80, from the lobby]))
+#let SK2 = suite-K(7.4, K-fix-2, ((10.3, 8.3), (10.3, 9.1), (1, 0), [bath 0.80, from the lobby]))
+#let SK3 = suite-K(6.5, K-fix-3, ((10.3, 6.65), (10.3, 7.65), (1, 0), [bath 1.00, from the lobby, as today]), bath-pts: ((10.3, 6.5), (12.211, 6.5), (12.211, 8.0), (13.311, 8.0), (13.311, 10.45), (10.3, 10.45)), closet: true)
+#let K1 = (
+  name: [K1 · the whole kids' bath in the suite (its north strip y 6.5–8.0) · bedroom 1 as today], short: "K1",
+  rooms: (("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.3, 6.5), (10.3, 5.3), (8.95, 5.3)), "bed"), ("Family link", rect-pts(8.95, 5.3, 10.3, 6.5), "circ"), ("Bedroom 1 bath", rect-pts(10.3, 6.5, 13.311, 8.0), "wet")) + SK1.rooms,
+  furniture: ((9.05, 0.15, 10.25, 2.15, [bed 1.2 × 2.0], "Bedroom 1"), (9.05, 2.5, 9.65, 3.7, [desk 1.2 × 0.6], "Bedroom 1"), (11.4, 5.9, 13.186, 6.5, [wardrobe 1.8 × 0.6], "Bedroom 1"), (9.05, 3.9, 9.65, 4.2, [shelves], "Bedroom 1")) + SK1.furniture,
+  fixtures: ((10.4, 6.9, 10.85, 7.5, [basin], "Bedroom 1 bath"), (11.6, 7.3, 12.0, 7.9, [WC], "Bedroom 1 bath"), (12.286, 6.6, 13.186, 7.9, [shower 0.9 × 1.3], "Bedroom 1 bath")) + SK1.fixtures,
+  showers: (), cupboards: (),
+  doors: (((9.05, 5.3), (10.05, 5.3), (0, -1), [bedroom 1 door 1.00, opens in]), ((10.45, 6.5), (11.25, 6.5), (0, -1), [kids' bath 0.80, from the entry strip, opens into the bedroom, under B6])) + SK1.doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 7.3), (W, 7.8), [kids' bath · or a fan]), ((W, 9.0), (W, 9.5), [suite bath · or a fan]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.75, 3.0), "Family link": (9.62, 5.9), "Bedroom 1 bath": (11.6, 6.85), "Suite lobby": (9.62, 8.3), "Suite bath": (11.5, 9.2), "Suite dressing": (11.3, 11.75), "Suite bedroom": (11.2, 15.6)),
+  walls-off: ("y 5.3 (link / bedroom 1)", "x 10.3 (y 5.3–10.45)", "y 8.0 (kids' bath / suite bath, 1.5 off B6)"),
+)
+#let K2 = (
+  name: [K2 · half and half: the kids' bath across the y 6.5 line (y 5.3–7.4) · bedroom 1 four-sided to y 5.3 · two cupboards in the leftovers], short: "K2",
+  rooms: (("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 5.3), (8.95, 5.3)), "bed"), ("Family link", rect-pts(8.95, 5.3, 10.3, 6.5), "circ"), ("Bedroom 1 bath", rect-pts(11.3, 5.3, 13.311, 7.4), "wet"))
+    + SK2.rooms.map(r => if r.at(0) == "Suite bath" { ("Suite bath", rect-pts(10.3, 7.4, 13.311, 10.45), "wet") } else { r }),
+  furniture: ((9.05, 0.15, 10.25, 2.15, [bed 1.2 × 2.0], "Bedroom 1"), (9.05, 2.5, 9.65, 3.7, [desk 1.2 × 0.6], "Bedroom 1"), (9.05, 3.9, 9.65, 4.2, [shelves], "Bedroom 1")) + SK2.furniture,
+  fixtures: ((11.4, 6.5, 11.85, 7.1, [basin], "Bedroom 1 bath"), (12.586, 5.5, 13.186, 5.9, [WC], "Bedroom 1 bath"), (12.186, 6.4, 13.186, 7.3, [shower 1.0 × 0.9], "Bedroom 1 bath")) + SK2.fixtures,
+  showers: (), cupboards: ((10.3, 5.3, 11.3, 6.5, [kids' closet 1.0 × 1.2]), (10.3, 6.5, 11.3, 7.4, [suite linen])),
+  doors: (((9.05, 5.3), (10.05, 5.3), (0, -1), [bedroom 1 door 1.00, opens in]), ((11.5, 5.3), (12.3, 5.3), (0, 1), [kids' bath 0.80, from the bedroom, opens into the bath]), ((10.4, 5.3), (11.2, 5.3), (0, 0), [closet, bi-fold])) + SK2.doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 5.6), (W, 6.2), [kids' bath · or a fan]), ((W, 8.9), (W, 9.4), [suite bath · or a fan]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.75, 3.0), "Family link": (9.62, 5.9), "Bedroom 1 bath": (12.3, 6.15), "Suite lobby": (9.62, 8.3), "Suite bath": (11.5, 8.9), "Suite dressing": (11.3, 11.75), "Suite bedroom": (11.2, 15.6)),
+  walls-off: ("y 5.3 (bedroom 1 / link / bath, one line x 8.95–13.311)", "x 10.3 (y 5.3–10.45)", "x 11.3 (y 5.3–7.4)", "y 7.4 (kids' bath / suite bath, 0.9 off B6)"),
+)
+#let K3 = (
+  name: [K3 · reference (A′): the whole kids' bath in bedroom 1 (y 5.0–6.5) · the suite with its WC closet as today, to the C33 line], short: "K3",
+  rooms: (("Bedroom 1", ((8.95, 0), (10.461, 0), (cut-x(5.0), 5.0), (8.95, 5.0)), "bed"), ("Family link", rect-pts(8.95, 5.0, 10.3, 6.5), "circ"), ("Bedroom 1 bath", ((10.3, 5.0), (cut-x(5.0), 5.0), (13.311, 5.245), (13.311, 6.5), (10.3, 6.5)), "wet")) + SK3.rooms,
+  furniture: kids-N(5.0) + SK3.furniture,
+  fixtures: ((10.4, 5.95, 10.85, 6.35, [basin], "Bedroom 1 bath"), (11.5, 5.8, 11.9, 6.4, [WC], "Bedroom 1 bath")) + SK3.fixtures, showers: ((shower-cut(12.3, 5.1), [shower 0.9 × 1.3], "Bedroom 1 bath"),),
+  cupboards: (),
+  doors: (((9.05, 5.0), (10.05, 5.0), (0, -1), [bedroom 1 door 1.00, opens in]), ((10.4, 5.0), (11.2, 5.0), (0, 1), [kids' bath 0.80, from the bedroom]), ((12.211, 6.8), (12.211, 7.8), (0, 0), [WC sliding])) + SK3.doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 5.6), (W, 6.2), [kids' bath · or a fan]), ((W, 8.4), (W, 9.1), [suite bath]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.75, 2.9), "Family link": (9.62, 5.75), "Bedroom 1 bath": (11.6, 5.45), "Suite lobby": (9.62, 8.3), "Suite bath": (11.4, 8.9), "Suite WC (closet)": (12.76, 7.75), "Suite dressing": (11.3, 11.75), "Suite bedroom": (11.2, 15.6)),
+  walls-off: ("y 5.0 (0.3 off the GF wall)", "x 10.3 (y 5.0–10.45)", "y 8.0 / x 12.211 (closet)"),
+)
+#let K-layouts = (K1, K2, K3)
+#let all7 = (T, L1, L2, L3, K1, K2, K3)
+#let MW(L) = Cz(L, "Suite bath") + Cz(L, "Suite WC (closet)") + Cz(L, "Suite bath · dressing")   // the master's wet rooms, clear
+#let MD(L) = Cz(L, "Suite dressing")
+#let lbl(L) = if L.short == "today" { [Today] } else { [#L.short] }
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[The kids' bath: K1 in the suite · K2 half and half · K3 in bedroom 1 (A′)] #h(1fr) #text(6.4pt, fill: gray)[the owner's direction, 11 Nov 2026 · bedroom 1 keeps its size as far as possible · relaxed hood rule: no drain over the hood · m² on axes · ≈ clear]
+#v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+#grid(columns: (4.9cm, 4.9cm, 4.9cm, 1fr), column-gutter: 5pt,
+  ..K-layouts.map(L => [#block(height: 2.6em, text(6.4pt, weight: "bold", fill: accent)[#L.name]) #plan(L, length: 0.8cm)]),
+  [
+    #text(6.4pt)[
+      *The suite in K1–K3* (the same frame for the three, so that only the kids' bath differs): the lobby x 8.95–10.3 to y 10.45; the bath on the east wall up to *the column line C33 (y 10.45)*, allowed again by the relaxed rule (the tub's drain at x 10.4–12.1, west of the hood; the wardrobes over it are dry); the dressing the full width y 10.45–13 as the hub (L2's idea), the bedroom the whole south bay with the court door. *Checks:* #for L in K-layouts [*#L.short:* #if all-ok(L) [passed (#checks(L).len())] else [FAILED: #checks(L).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · ]
+      \ \ *K1 · whole in the suite.* Bedroom 1 exactly as today (*#r2(C(K1, "Bedroom 1")) m²*, the link's notch, the wardrobe in the entry strip). The kids' bath takes the suite's north strip x 10.3–13.311 × y 6.5–8.0 (*#r2(C(K1, "Bedroom 1 bath")) m²*, 1.3 wide: the shower over the stack, the basin on the west wall, the WC on the new wall y 8.0), its door in the y 6.5 wall under B6 from the entry strip. *The suite:* the bath shrinks to y 8.0–10.45 (*#r2(C(K1, "Suite bath")) m²* clear, 2.25 deep): two basins on the shared wall, the WC screened in the stack corner, the shower on the east wall, the tub along the south; *the WC closet is lost*; the bath door from the lobby. The dressing #r2(C(K1, "Suite dressing")), the bedroom #r2(C(K1, "Suite bedroom")). *Moves inside the suite:* the bath door south by 2.2 m, the vanity from the west wall to the north wall, the closet gone.
+      \ \ *K2 · half and half.* The kids' bath x 11.3–13.311 × y 5.3–7.4 (*#r2(C(K2, "Bedroom 1 bath")) m²*, 1.8 × 1.9 clear): 1.2 m of it is bedroom 1's former entry strip, 0.9 m the suite's. *Bedroom 1 becomes four-sided* with one straight south wall on y 5.3 (the link's wall continued to the east wall): *#r2(C(K2, "Bedroom 1")) m²*; the leftover x 10.3–11.3 × 5.3–6.5 is its built-in closet (bi-fold doors on the y 5.3 line). The bath's door in the y 5.3 wall from the bedroom; the WC on the east wall, the basin on the west, the shower at the south end over the stack. *The suite:* the leftover x 10.3–11.3 × 6.5–7.4 is its linen cupboard off the lobby; the bath y 7.4–10.45 (*#r2(C(K2, "Suite bath")) m²*, 2.85 deep: basins on the shared wall, the WC screened at the stack corner, the shower east, the tub south); the WC closet lost; the dressing and the bedroom as K1. *The y 6.5 wall* is interrupted for 2.0 m over B6 (a wall off a beam, not a beam off a wall: B6 carries the slab; the engineer notes it).
+      \ \ *K3 · reference (A′).* The whole kids' bath in bedroom 1's south band y 5.0–6.5 (*#r2(C(K3, "Bedroom 1 bath")) m²*, 1.3 wide, the shower in the cut's corner at C32): bedroom 1 *#r2(C(K3, "Bedroom 1")) m²*, the link 1.5 deep. *The suite untouched in its wet rooms:* the bath with its WC closet to the C33 line (*#r2(C(K3, "Suite bath") + C(K3, "Suite WC (closet)")) m²*), its door from the lobby as today, the tub moved west of the hood; the dressing and the bedroom as K1.
+      \ \ *No better variant found:* the wet band of the suite is y 6.5–10.45 (3.95 m) and the kids' bath needs 1.3–1.5 m of it or 1.5 m of bedroom 1; every other cut either jogs a wall (a shower niche through the y 6.5 wall), narrows the lobby below 1.0 m, or puts a drain over the hood or the living. K2 is the found compromise: half the depth from each side, every wall straight.
+    ]
+  ],
+)
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[Comparison of the seven · privacy and noise · recommendation · #ah[الخلاصة]]
+#v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+#grid(columns: (1.25fr, 1fr), column-gutter: 10pt,
+  [
+    #table(columns: (1.5fr, ..range(7).map(_ => 1fr)), stroke: 0.3pt + luma(190), inset: 2.2pt, align: (left, ..range(7).map(_ => right)), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") },
+      table.header([*Clear m² (axes in page 2)*], ..all7.map(L => [*#lbl(L)*])),
+      [*1 · Suite bedroom*], ..all7.map(L => [#r2(C(L, "Suite bedroom"))]),
+      [*2 · Suite bath + WC*], ..all7.map(L => [#r2(MW(L))]),
+      [… of which a WC closet], ..all7.map(L => if P-of(L, "Suite WC (closet)") == none { [—] } else { [#r2(C(L, "Suite WC (closet)"))] }),
+      [*3 · Suite dressing*], ..all7.map(L => if P-of(L, "Suite dressing") == none { [in the bath] } else { [#r2(MD(L))] }),
+      [Suite lobby], ..all7.map(L => [#r2(C(L, "Suite lobby"))]),
+      [4 · Suite court], ..all7.map(L => [as is]),
+      [*Bedroom 1*], ..all7.map(L => [#r2(C(L, "Bedroom 1"))]),
+      [*Kids' bath*], ..all7.map(L => if P-of(L, "Bedroom 1 bath") == none { [—] } else { [#r2(C(L, "Bedroom 1 bath"))] }),
+      [Family link], ..all7.map(L => [#r2(C(L, "Family link"))]),
+      [Rooms with an L (no small jog)], ..all7.map(L => [#L.rooms.filter(r => reflex(r.at(1))).len()]),
+      [Wall lines off the beam / column lines], ..all7.map(L => [#L.walls-off.len()]),
+      [Farthest drain from the stack], ..all7.map(L => if L.short == "today" { [≈ 3.7 m] } else { [#r1(stack-max(L)) m] }),
+      [Kids' bath over], [—], [laundry], [laundry], [kitchen N], [kitchen N], [laundry + kitchen], [laundry],
+      [Suite bath reaches the C33 line], [yes], [no (10.0)], [no (10.0)], [no], [yes], [yes], [yes],
+    )
+    #v(2pt)
+    #text(6.2pt, fill: gray)[Today = `data/rooms_ff.csv` V10.0. L1–L3 = pages 1–3 (the suite bath stopped at y 10.0 under the strict hood rule; with the relaxed rule it may run to 10.45 as in K1–K3, + ≈ 1.3 m²). The master's priorities: 1 the bedroom (the same 25.02 in every re-design, +1.42 on today), 2 the bath, 3 the dressing, 4 the court (untouched everywhere). K3's bedroom 1 and bath are A′ of `studies/kids_room.typ` with the bath's west wall on x 10.3 (the straight lobby line) instead of 10.15.]
+    #v(3pt)
+    #H[Privacy and noise between the two]
+    #text(6.6pt)[
+      - *No layout puts a kids' wall against the master bedroom:* the suite bedroom (y 13–19.25) is three rooms away from bedroom 1 in every one; its only shared walls are with the dressing (y 13, on B7) and the court / office.
+      - *K1:* the kids' bath's walls are the lobby's (x 10.3) and the suite bath's (y 8.0): wet against wet, the best pairing; the kids' bath door opens into bedroom 1, so its noise stays on the children's side. Build the y 8.0 wall as a 0.20 block wall (or two leaves with 50 mm wool) with the pipes in the kids' side; no door between the two baths.
+      - *K2:* the kids' bath's south wall (y 7.4) is the suite bath's, its west wall the suite's linen cupboard and the link: again wet against wet / cupboard; the 2.0 m gap in the y 6.5 wall is closed by the bath's own walls.
+      - *K3:* the kids' bath and the suite bath are back to back on the y 6.5 wall over B6, the stack common: wet against wet.
+      - *All:* the link and the lobby are the buffer between bedroom 1's door and the suite door (two doors, 1.2 m apart on the y 6.5 line); acoustic door seals on both; the kids' bath's fan ducted to the east wall, not into the suite.
+    ]
+  ],
+  [
+    #box(fill: accent.lighten(86%), stroke: 1pt + accent, inset: 6pt, radius: 3pt, width: 100%)[
+      #text(9.5pt, weight: "bold", fill: accent)[Recommendation: K2 · with K1 if bedroom 1 must stay exactly as today] \
+      #text(7pt)[
+        *K2* answers the owner's direction with every wall straight: bedroom 1 keeps #r2(C(K2, "Bedroom 1")) m² clear as a four-sided room (today's L of #r2(C(T, "Bedroom 1")) held the wardrobe in its 1.2 m entry strip; the strip is now the bath and a built-in closet), the kids' bath #r2(C(K2, "Bedroom 1 bath")) m² has its shower over the stack, and the master keeps a separate bath of #r2(C(K2, "Suite bath")) m² (today's #r2(MW(T)) with the closet) and the full dressing #r2(C(K2, "Suite dressing")) m² (today #r2(MD(T))), the bedroom #r2(C(K2, "Suite bedroom")) m². Its price: the WC closet, and a 2.0 m break in the y 6.5 wall over B6 for the engineer to note.
+        \ *K1* keeps bedroom 1 to the centimetre but takes the whole depth from the master: its bath falls to #r2(C(K1, "Suite bath")) m², 2.25 m deep with the tub, the shower and a screened WC in a row: workable, not generous, for priority 2. *K3* costs the master nothing and bedroom 1 #r2(C(T, "Bedroom 1") - C(K3, "Bedroom 1")) m²: the owner's earlier choice, kept as the reference.
+        \ *Either way the suite keeps:* the bedroom the whole south bay, the dressing the full width as the hub, the one stack, the court untouched, every column and beam in place, the windows still to be set with the facades.
+      ]
+    ]
+    #v(4pt)
+    #box(fill: rgb("#f4efe3"), stroke: 0.6pt + luma(170), inset: 6pt, radius: 3pt, width: 100%)[
+      #ah[
+        #text(9pt, weight: "bold", fill: accent)[الخلاصة بالعربية · خيارات حمّام الأطفال] \
+        #text(7.4pt)[
+          توجيه المالك: تحتفظ غرفة الأطفال (غرفة النوم 1) بحجمها قدر الإمكان، ويوضع حمّامها المدمج (مرحاض ومغسلة ودُش بخلاط على الجدار، ≈ 3.3 م²) بأحد ثلاثة أشكال؛ قاعدة الشفّاط المخففة: لا مصرف فوق شفّاط المطبخ، والتجهيزات الجافة مسموحة. \
+          *K1 (كله داخل الجناح):* غرفة الأطفال كما هي (#r2(C(K1, "Bedroom 1")) م²)، والحمّام في الشريط الشمالي من الجناح (#r2(C(K1, "Bedroom 1 bath")) م²) وبابه من الغرفة تحت الجسر B6؛ يصغر حمّام الوالدين إلى #r2(C(K1, "Suite bath")) م² ويفقد غرفة المرحاض؛ غرفة الملابس #r2(C(K1, "Suite dressing")) م² وغرفة النوم #r2(C(K1, "Suite bedroom")) م². \
+          *K2 (نصف ونصف، الموصى به):* الحمّام عبر خط y 6.5 (#r2(C(K2, "Bedroom 1 bath")) م²)، نصفه من شريط مدخل غرفة الأطفال ونصفه من الجناح؛ تصير غرفة الأطفال بأربعة جدران مستقيمة (#r2(C(K2, "Bedroom 1")) م²) مع خزانة مدمجة، ويبقى لحمّام الوالدين #r2(C(K2, "Suite bath")) م² منفصلًا وغرفة الملابس كاملة #r2(C(K2, "Suite dressing")) م². \
+          *K3 (المرجع A′):* الحمّام كله داخل غرفة الأطفال (#r2(C(K3, "Bedroom 1")) م² للغرفة)، والجناح بغرفة مرحاضه كما هو (#r2(MW(K3)) م²). \
+          لا جدار مشترك بين غرفة الأطفال وغرفة نوم الوالدين في أي خيار؛ الجدران المشتركة بين الحمّامين رطب إلى رطب. *التوصية: K2*، وK1 إن وجب بقاء غرفة الأطفال كما هي تمامًا.
+        ]
+      ]
     ]
   ],
 )
