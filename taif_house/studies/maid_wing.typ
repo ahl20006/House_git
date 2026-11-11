@@ -1,5 +1,6 @@
 // maid_wing.typ · Taif / Palm House V10.0 · the maid's wing re-planned (the owner's brief of 10 Nov 2026) · LAYOUT D ADOPTED by the owner on 10 Nov 2026 and applied to
-// data/rooms_gf.csv, design_gf.typ, studies/east_wing.typ and the presentation (sheets 02 and 08); the 3D, the DXFs, the plumbing and structure notes follow at the next release.
+// data/rooms_gf.csv, design_gf.typ, studies/east_wing.typ and the presentation (sheets 02 and 08); the 3D, the DXFs, the plumbing and structure not
+// 11 Nov 2026 (owner, the straight-walls rule): the laundry / kitchen wall moved from y 7.0 onto the structural line y 6.5 (one line with the women's majlis wall): the laundry 1.8 m deep, re-fitted; the maid room and bath unchangedes follow at the next release.
 // The north part of the east service block (CSV x 8.95–13.311, y 0–7.0; the cut wall from (10.461, 0) to (13.311, 5.245)): ONE roof span, no columns, the inner walls light
 // partitions (100 mm block or aluminium) placed freely. Order along the kitchen wall: kitchen → LAUNDRY → MAID BATH → MAID ROOM; no store; her room one door (not from the kitchen);
 // the bath private, door only from her room; the escape window kept (its size); the LAUNDRY has priority: two washers, a dryer (stacked), a steam ironing station, a folding / ironing
@@ -99,23 +100,28 @@
 )
 // ---------- D (the owner, 10 Nov 2026): the bath against the SOUTH part of the cut wall next to the laundry (its drains straight out, its own window), the room north of it ----------
 #let Dl = (
-  name: "D · ADOPTED (owner, 10 Nov 2026) and refined the same day: the bath a 1.5 m deep wet room, the bed in the north corner",
+  name: "D · ADOPTED (owner, 10 Nov 2026), refined the same day; 11 Nov 2026: the laundry 1.8 m deep, the kitchen wall on the structural line y 6.5",
+  depth: 6.5,
   rooms: (
     ("Maid room", ((0, 0), (1.511, 0), (cut(3.2), 3.2), (1.7, 3.2), (1.7, 4.7), (0, 4.7)), "room"),
     ("Maid bath", ((1.7, 3.2), (cut(3.2), 3.2), (cut(4.7), 4.7), (1.7, 4.7)), "bath"),
-    ("Laundry", ((0, 4.7), (cut(4.7), 4.7), (W, 5.245), (W, D), (0, D)), "laundry"),
+    ("Laundry", ((0, 4.7), (cut(4.7), 4.7), (W, 5.245), (W, 6.5), (0, 6.5)), "laundry"),   // 11 Nov 2026 (owner): the kitchen wall on the structural line y 6.5, in line with the women's majlis wall (no jog): 1.8 m deep
   ),
   fixtures: (
     (0.1, 0.1, 1.0, 2.1, [bed 0.9 × 2.0, head north]), (0.1, 2.3, 0.7, 3.65, [wardrobe 1.35 × 0.6]), (1.75, 2.3, 2.55, 2.8, [desk 0.8 × 0.5]),
     (2.75, 3.3, 3.2, 3.9, [WC]), (1.8, 4.0, 2.2, 4.4, [basin]), (2.7, 3.9, 3.6, 4.6, [shower · wet room, no tray]),
-  ) + laundry-fix(5.3, 4.8),
+    // the 1.8 m laundry (11 Nov 2026): one 0.65 run on the kitchen wall (solid, under beam B6), the table on the majlis wall, a 1.0 m passage
+    (1.75, 5.75, 2.35, 6.4, [washer 1]), (2.4, 5.75, 3.0, 6.4, [washer 2 + dryer stacked]), (3.05, 5.8, 3.65, 6.4, [cupboards (tall, 0.6)]), (3.7, 5.8, 4.23, 6.4, [steam station]),
+    (0.1, 4.8, 0.7, 6.3, [folding · ironing table 1.5 × 0.6]), (2.9, 5.0, 4.2, 5.6, [ceiling drying rack]),
+  ),
   wedge: ((1.7, 0.35), (cut(1.4), 1.4), (1.7, 1.4)), wedge-label: [shelves],   // the narrow north tip inside the room, as built-in shelves
   niche: (),
-  doors: (((1.8, 3.2), (2.5, 3.2), [bath 0.70, from the room only]), ((0.4, 4.7), (1.3, 4.7), [room 0.90, from the laundry]), ((0.75, 7.0), (1.65, 7.0), [laundry 0.90 from the kitchen])),
-  windows: (((cut(1.5), 1.5), (cut(2.5), 2.5), [escape casement 1.14 × 1.0 on the cut's north part, sill +1.10]), ((cut(3.35), 3.35), (cut(3.95), 3.95), [bath window on the cut above the WC (obscured, sill +1.5)]), ((W, 5.4), (W, 6.4), [laundry window 1.0 (insect screen)])),
-  esc-moved: true, labels: ("Maid bath": (2.15, 3.62), "Maid room": (1.0, 4.1), "Laundry": (1.9, 5.85)),
+  doors: (((1.8, 3.2), (2.5, 3.2), [bath 0.70, from the room only]), ((0.75, 4.7), (1.65, 4.7), [room 0.90, from the laundry (moved 0.35 east: the table's end clear)]), ((0.75, 6.5), (1.65, 6.5), [laundry 0.90 from the kitchen, on y 6.5])),
+  windows: (((cut(1.5), 1.5), (cut(2.5), 2.5), [escape casement 1.14 × 1.0 on the cut's north part, sill +1.10]), ((cut(3.35), 3.35), (cut(3.95), 3.95), [bath window on the cut above the WC (obscured, sill +1.5)]), ((W, 5.35), (W, 6.25), [laundry window 0.9 (insect screen)])),
+  esc-moved: true, labels: ("Maid bath": (2.15, 3.62), "Maid room": (1.0, 4.1), "Laundry": (2.0, 5.3)),
 )
 #let layouts = (A, B, C, Dl)
+#let blk-of(L) = { let d = L.at("depth", default: D); ((0, 0), (1.511, 0), (W, 5.245), (W, d), (0, d)) }   // 11 Nov 2026: D's block ends at the kitchen wall y 6.5 (the structural line); A–C keep y 7.0
 
 // ---------- checks: inside the block, no overlaps (sampled), the three rooms tile the block, every fixture and wedge inside the walls ----------
 #let sample(P, step: 0.2) = range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); let n = calc.max(1, int(calc.ceil(calc.sqrt(calc.pow(b.at(0) - a.at(0), 2) + calc.pow(b.at(1) - a.at(1), 2)) / step))); range(n + 1).map(k => (a.at(0) + (b.at(0) - a.at(0)) * k / n, a.at(1) + (b.at(1) - a.at(1)) * k / n)) }).join()
@@ -126,6 +132,7 @@
 #let within(p, P) = ray(p, P) or bd(p, P) < 0.002
 #let issues(L) = {
   let out = ()
+  let blk = blk-of(L)
   for (n, P, c) in L.rooms { if not sample(P).all(p => within(p, blk)) { out.push(n + " leaves the block") } }
   for i in range(L.rooms.len()) { for j in range(i + 1, L.rooms.len()) { let (na, A, _) = L.rooms.at(i); let (nb, B, _) = L.rooms.at(j); if sample(A).any(p => strict(p, B)) or sample(B).any(p => strict(p, A)) { out.push(na + " overlaps " + nb) } } }
   let tot = L.rooms.map(r => area(r.at(1))).sum()
@@ -143,8 +150,9 @@
 #let plan(L, length: 1.0cm) = cetz.canvas(length: length, {
   import cetz.draw: *
   let T(p, t, size: 4pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, t))
-  rect(q((-0.4, -0.3)), q((W + 0.3, D + 0.5)), fill: rgb("#f3efe6"), stroke: none)
-  rect(q((0, D)), q((W, D + 0.5)), fill: luma(232), stroke: none); T((W / 2, D + 0.25), [kitchen (y 7.0–13.0)], size: 3.6pt, fill: gray)
+  let D = L.at("depth", default: D); let blk = blk-of(L)
+  rect(q((-0.4, -0.3)), q((W + 0.3, 7.5)), fill: rgb("#f3efe6"), stroke: none)
+  rect(q((0, D)), q((W, 7.5)), fill: luma(232), stroke: none); T((W / 2, D + 0.25), [kitchen (y #r1(D)–13.0)], size: 3.6pt, fill: gray)
   rect(q((-0.4, 0)), q((0, D)), fill: luma(232), stroke: none); T((-0.2, 3.5), [women's majlis · courtyard], size: 3.4pt, fill: gray, angle: 90deg)
   for (n, P, c) in L.rooms { line(..P.map(q), close: true, fill: col.at(c), stroke: 0.9pt + ink) }
   if L.wedge.len() > 0 { line(..L.wedge.map(q), close: true, fill: rgb("#d8c39a"), stroke: 0.4pt + ink); let cxy = (L.wedge.map(p => p.at(0)).sum() / L.wedge.len() + 0.1, L.wedge.map(p => p.at(1)).sum() / L.wedge.len()); T(cxy, L.wedge-label, size: 3.1pt) }
@@ -161,14 +169,14 @@
   for (a, b, l) in L.windows { line(q(a), q(b), stroke: 3pt + blue) }
   if L.esc-moved { line(q(esc.at(0)), q(esc.at(1)), stroke: (paint: blue, thickness: 0.8pt, dash: "dashed")) }
   for (n, P, c) in L.rooms { T(L.labels.at(n), [*#n*\ #r2(area(P)) m² axes · ≈ #r2(clear(P)) clear], size: if n == "Maid bath" { 2.9pt } else { 3.3pt }) }
-  line(q((0, D + 0.75)), q((1, D + 0.75)), stroke: 1pt + ink); T((0.5, D + 0.95), [1 m], size: 3.4pt)
+  line(q((0, 7.75)), q((1, 7.75)), stroke: 1pt + ink); T((0.5, 7.95), [1 m], size: 3.4pt)
 })
 #let list-of(items) = items.map(((a, b, l)) => l).join([ · ])
 
 // ====================================================================================== PAGE 1
 #text(14pt, weight: "bold", fill: green)[The maid's wing re-planned · laundry first · Taif / Palm House V10.0]
 #v(1pt)
-#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt, width: 100%)[#text(8.5pt, weight: "bold", fill: green)[LAYOUT D ADOPTED (owner, 10 Nov 2026)] #text(7pt)[· the bath against the south part of the cut wall next to the laundry (its drains straight out through the cut wall to the east branch, its own window), the room north of it with the shelf wedge in the north tip, the bed, the wardrobe and a small desk, the escape casement on the cut's north part; no store (G21 removed). *Refined the same day (owner):* the bath a simple 1.5 m deep wet room like the guest WC (a wall-mounted shower and mixer over a floor drain with falls, tanked and tiled, no tray, no cubicle), shrunk in one direction (y 3.2–4.7); the gained strip to the room: the bed in the north corner with its head on the north wall, the wardrobe on the majlis wall south of it. Applied to `data/rooms_gf.csv`, `design_gf.typ`, `studies/east_wing.typ` and the presentation (sheets 02 and 08). Round 1 (A–C, C recommended) is kept below as the record; C's wedge, drawn outside the cut wall in round 1, is corrected.]]
+#block(fill: rgb("#e4eedf"), inset: 4pt, radius: 2pt, width: 100%)[#text(8.5pt, weight: "bold", fill: green)[LAYOUT D ADOPTED (owner, 10 Nov 2026)] #text(7pt, weight: "bold")[· 11 Nov 2026 (owner, the straight-walls rule): the laundry 1.8 m deep (y 4.7–6.5), its kitchen wall on the structural line y 6.5 in line with the women's majlis wall; the maid room and bath unchanged ·] #text(7pt)[· the bath against the south part of the cut wall next to the laundry (its drains straight out through the cut wall to the east branch, its own window), the room north of it with the shelf wedge in the north tip, the bed, the wardrobe and a small desk, the escape casement on the cut's north part; no store (G21 removed). *Refined the same day (owner):* the bath a simple 1.5 m deep wet room like the guest WC (a wall-mounted shower and mixer over a floor drain with falls, tanked and tiled, no tray, no cubicle), shrunk in one direction (y 3.2–4.7); the gained strip to the room: the bed in the north corner with its head on the north wall, the wardrobe on the majlis wall south of it. Applied to `data/rooms_gf.csv`, `design_gf.typ`, `studies/east_wing.typ` and the presentation (sheets 02 and 08). Round 1 (A–C, C recommended) is kept below as the record; C's wedge, drawn outside the cut wall in round 1, is corrected.]]
 #v(2pt)
 #text(7.4pt, fill: gray)[The owner's brief (10 Nov 2026): one roof span, no columns, light partitions placed freely; the order along the kitchen wall *kitchen → laundry → maid bath → maid room*; no store; her room one door (not from the kitchen), bed, wardrobe, small desk, the escape window kept; her bath private, door only from her room; the laundry the priority. Block #r2(W) × #r2(D) m, #r2(area(blk)) m² on axes (the cut wall from (1.511, 0) to (#r2(W), 5.245)); local x = CSV x − 8.95; the dashed blue line = the escape window's place before D.]
 #v(2pt)
@@ -194,12 +202,12 @@
 #v(3pt)
 #grid(columns: (1.1fr, 1fr), gutter: 12pt,
   [
-    #H[1 · The laundry (D; 2.3 m deep, the whole width, y 4.7–7.0; ≈ #r2(clear(room-of(Dl, "Laundry"))) m² clear)]
-    - *Machines* on the west wall (the women's majlis wall, 0.20; anti-vibration feet, the wall lined): *washer 1* and *washer 2 with the dryer stacked on it*, 0.65 deep, from y 5.3 (the 0.6 m in front of the room's door kept free); the water and drain points behind them, the floor drain (an anti-odour membrane trap, a trap primer) under the stacked column; a tap and a hose point beside it.
-    - *The folding / ironing table* 1.8 × 0.6 along the kitchen wall with the *steam ironing station* at its east end (0.6 × 0.6: the generator on a shelf below, the board stored folded) and a socket group above the table; the passage between the machines and the table ≈ 1.0 m.
-    - *Cupboards* 1.0 m tall-and-deep (0.6) on the room's north partition east of the door; open shelves above the table.
-    - *The ceiling drying rack* (a pulley rack 1.3 × 0.7) over the east end in front of the *window* 1.0 × 1.0 on the straight east wall (sill +1.1, an insect screen); above it the *extract fan* (≈ 150–200 m³/h, a humidity sensor and a timer, a backdraught shutter outside); *finishes:* porcelain floor to a drain, washable walls to the ceiling, a moisture-resistant ceiling, the machines on a drip tray.
-    - *Doors:* the laundry's door 0.90 from the kitchen (today an open entrance: a door keeps the humidity and the noise out of the kitchen); the maid room's door 0.90 at the west end of the partition, from the laundry (her only door; not from the kitchen). *No sink* (the kitchen's sink is 2 m away; optional); *no yard door* (the straight east wall is 1.75 m and the window takes it; the kitchen's service door is a step away round the corner).
+    #H[1 · The laundry (D, 11 Nov 2026: 1.8 m deep, the whole width, y 4.7–6.5; ≈ #r2(clear(room-of(Dl, "Laundry"))) m² clear)]
+    - *The kitchen wall on the structural line y 6.5* (the owner's straight-walls rule, 11 Nov 2026): one line with the women's majlis wall across the courtyard's corner, under beam B6; the laundry a 1.8 m galley (≈ 1.65 clear) with *one 0.65 m run on the kitchen wall* (solid, 0.20: anti-vibration feet, the wall lined) and a *1.0 m passage* in front of it.
+    - *Machines* east of the kitchen entrance: *washer 1* and *washer 2 with the dryer stacked on it* (x 1.75–3.0), then the *tall cupboards* 0.6 and the *steam ironing station* 0.55 × 0.6 at the east end (the generator on a shelf below, the board stored folded); the water and drain points behind the machines, the floor drain (an anti-odour membrane trap, a trap primer) under the stacked column; a tap and a hose point beside it; a socket group above the run.
+    - *The folding / ironing table* 1.5 × 0.6 across the west end on the women's majlis wall (its end 0.05 m from the maid door's jamb), open shelves above it; the ironing board folds out from the cupboard.
+    - *The ceiling drying rack* (a pulley rack 1.3 × 0.6) over the passage's east end in front of the *window* 0.9 × 1.0 on the straight east wall (y 5.35–6.25, sill +1.1, an insect screen); above it the *extract fan* (≈ 150–200 m³/h, a humidity sensor and a timer, a backdraught shutter outside); *finishes:* porcelain floor to a drain, washable walls to the ceiling, a moisture-resistant ceiling, the machines on a drip tray.
+    - *Doors:* the laundry's door 0.90 from the kitchen on y 6.5 (x 0.75–1.65; today an open entrance: a door keeps the humidity and the noise out of the kitchen); the maid room's door 0.90 moved 0.35 m east to the same x (x 0.75–1.65, its east jamb at the bath's partition), from the laundry (her only door; not from the kitchen); the 0.6 m in front of both doors kept free. *The maid room and bath unchanged.* *No sink* (the kitchen's sink is 2 m away; optional); *no yard door* (the straight east wall is 1.75 m and the window takes it; the kitchen's service door is a step away round the corner).
     #H[2 · The maid bath (D refined; 1.5 m deep, ≈ #r2(clear(room-of(Dl, "Maid bath"))) m² clear)]
     - Against the south part of the cut wall, x 1.7 to the cut, y 3.2–4.7 (≈ 1.4 m clear deep, 1.3–2.2 m wide): *a simple wet room like the guest WC:* a *wall-mounted shower and mixer* in the wide south-east corner (the obtuse corner against the cut) over a *floor drain with falls*, the whole floor and the walls *tanked and tiled*, *no shower tray, no cubicle wall* (a short 10 cm block wall of 0.6 m between the shower and the WC only if the owner wants the WC kept dry); the *WC* against the cut wall under its *window* (y 3.35–3.95 on the cut, obscured, sill +1.5); the *basin* on the west partition beside the door; the door 0.70 on its north wall, *from her room only*, opening in. The drains leave straight through the cut wall (≈ 1 m) to the east branch and the yard manhole: short, one slope; the extract fan beside the window.
     #H[3 · The maid room (D; #r2(area(room-of(Dl, "Maid room"))) m² on axes, ≈ #r2(room-clear(Dl)) m² clear ≥ #r2(min-clear))]
