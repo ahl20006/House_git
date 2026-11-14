@@ -175,7 +175,7 @@
 #let L-rooms(L) = L.rooms.filter(r => reflex(r.at(1))).map(r => r.at(0))
 #let bath-rect-ok(L) = { let P = P-of(L, "Suite bath"); let C = P-of(L, "Suite WC (closet)"); C == none or not reflex(P + ()) or (bbox(P) == bbox(P + C) and calc.abs(area(P) + area(C) - (bbox(P).at(2) - bbox(P).at(0)) * (bbox(P).at(3) - bbox(P).at(1))) < 1e-6) }
 #let escape-ok(L) = L.rooms.filter(r => r.at(2) == "bed").all(r => has-outer-edge(r.at(1)))
-#let vent-ok(L) = wet-rooms(L).all(r => has-outer-edge(r.at(1)))   // every wet room touches an outer wall (a window or an extract fan through it)
+#let vent-ok(L) = wet-rooms(L).all(r => has-outer-edge(r.at(1)) or L.at("fans", default: ()).contains(r.at(0)))   // every wet room touches an outer wall (a window or an extract fan through it), or is listed for a ducted fan
 #let stack-d(L) = calc.min(..L.fixtures.filter(f => f.at(5).contains("bath") or f.at(5).contains("WC")).map(f => dist(((f.at(0) + f.at(2)) / 2, (f.at(1) + f.at(3)) / 2), east-stack)))
 #let stack-max(L) = calc.max(..(L.fixtures.filter(f => f.at(5).contains("bath") or f.at(5).contains("WC")).map(f => dist(((f.at(0) + f.at(2)) / 2, (f.at(1) + f.at(3)) / 2), east-stack)) + L.showers.map(s => { let b = bbox(s.at(0)); dist(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), east-stack) })))
 #let checks(L) = (
@@ -499,6 +499,115 @@
           *K2 (نصف ونصف، الموصى به):* الحمّام عبر خط y 6.5 (#r2(C(K2, "Bedroom 1 bath")) م²)، نصفه من شريط مدخل غرفة الأطفال ونصفه من الجناح؛ تصير غرفة الأطفال بأربعة جدران مستقيمة (#r2(C(K2, "Bedroom 1")) م²) مع خزانة مدمجة، ويبقى لحمّام الوالدين #r2(C(K2, "Suite bath")) م² منفصلًا وغرفة الملابس كاملة #r2(C(K2, "Suite dressing")) م². \
           *K3 (المرجع A′):* الحمّام كله داخل غرفة الأطفال (#r2(C(K3, "Bedroom 1")) م² للغرفة)، والجناح بغرفة مرحاضه كما هو (#r2(MW(K3)) م²). \
           لا جدار مشترك بين غرفة الأطفال وغرفة نوم الوالدين في أي خيار؛ الجدران المشتركة بين الحمّامين رطب إلى رطب. *التوصية: K2*، وK1 إن وجب بقاء غرفة الأطفال كما هي تمامًا.
+        ]
+      ]
+    ]
+  ],
+)
+
+// ======================= PAGE 7 · the owner's direction (14 Nov 2026): none of L1–L3 / K1–K3; start from TODAY with MINIMAL changes: M1 the link only · M2 the link + a slice of the suite · M3 the best =======================
+// the suite keeps today's arrangement (lobby, bedroom with its step, bath, WC closet, dressing; no walk-through); bedroom 1 as today as far as possible; its door at a right angle to the suite door (on the link's east wall), the link a simple passage;
+// the kids' bath ≈ 3.3 m² clear beside the suite's wet rooms on a shared wet wall, no triangular bath in the cut's corner; every leftover of bedroom 1 a built-in wardrobe (10 cm block sides, a lintel, sliding doors, ≥ 0.60 deep); no drain over the hood.
+#let suite-today-fix(tub-west: true) = ((12.536, 6.95, 13.186, 7.4, [WC], "Suite WC (closet)"), (12.086, 8.1, 13.186, 9.5, [shower 1.1 × 1.4], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75 (moved west: its drain off the hood)], "Suite bath"), (10.4, 8.3, 11.0, 9.5, [2 basins], "Suite bath"))
+#let suite-rest = (("Suite lobby", pts-of("Suite lobby"), "circ"), ("Suite dressing", pts-of("Suite dressing"), "dry"), ("Suite bedroom", pts-of("Suite bedroom"), "bed"))   // untouched in M1–M3
+#let suite-rest-doors = (((9.0, 6.5), (10.1, 6.5), (0, 1), [suite door 1.10, as today]), ((10.3, 10.6), (10.3, 11.6), (1, 0), [dressing, as today]), ((9.05, 11.9), (10.05, 11.9), (0, 1), [bedroom, as today]), ((9.05, 19.25), (9.95, 19.25), (0, 0), [court, sliding, as today]))
+#let suite-rest-furn = bedroom-S(13.9) + ((11.4, 10.55, 13.186, 11.15, [wardrobes], "Suite dressing"), (12.586, 11.3, 13.186, 13.05, [wardrobes], "Suite dressing"), (10.4, 13.2, 12.4, 13.8, [wardrobes], "Suite dressing"))
+#let bed1-today-x = ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))
+#let M1 = (
+  name: [M1 · the link only: the kids' bath over the laundry, west of the cut's corner; the link 1.8 m deep · BREAKS the door rule], short: "M1",
+  rooms: (("Bedroom 1", ((8.95, 0), (10.461, 0), (cut-x(4.7), 4.7), (8.95, 4.7)), "bed"), ("Family link", rect-pts(8.95, 4.7, 10.15, 6.5), "circ"), ("Bedroom 1 bath", rect-pts(10.15, 4.7, 12.4, 6.5), "wet"),
+    ("Suite bath", pts-of("Suite bath"), "wet"), ("Suite WC (closet)", pts-of("Suite WC (closet)"), "wet")) + suite-rest,
+  furniture: ((9.05, 0.15, 10.25, 2.15, [bed 1.2 × 2.0], "Bedroom 1"), (9.05, 2.5, 9.65, 3.7, [desk 1.2 × 0.6], "Bedroom 1"), (10.4, 3.5, 11.6, 4.1, [desk 2 · or shelves], "Bedroom 1")) + suite-rest-furn,
+  fixtures: ((10.25, 5.7, 10.7, 6.3, [basin], "Bedroom 1 bath"), (11.0, 5.8, 11.4, 6.4, [WC], "Bedroom 1 bath"), (11.5, 4.8, 12.3, 6.4, [shower 0.8 × 1.6], "Bedroom 1 bath")) + suite-today-fix(), showers: (),
+  cupboards: ((12.4, 4.7, 13.311, 6.5, [deep cupboard 0.7 × 1.6, not a wardrobe]),),
+  doors: (((9.05, 4.7), (10.05, 4.7), (0, -1), [bedroom 1 door 1.00: on the link's north wall, FACING the suite door 1.8 m away]), ((10.3, 4.7), (11.1, 4.7), (0, 1), [kids' bath 0.80, from the bedroom]), ((10.3, 6.65), (10.3, 7.65), (1, 0), [bath, as today]), ((12.211, 6.8), (12.211, 7.8), (0, 0), [WC sliding, as today])) + suite-rest-doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 5.6), (W, 6.2), [cupboard · a fan for the bath]), ((W, 8.4), (W, 9.1), [suite bath]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.75, 2.9), "Family link": (9.62, 5.55), "Bedroom 1 bath": (11.3, 5.3), "Suite lobby": (9.62, 9.2), "Suite bath": (11.4, 8.9), "Suite WC (closet)": (12.76, 7.75), "Suite dressing": (11.8, 12.2), "Suite bedroom": (11.0, 16.6)),
+  walls-off: ("y 4.7 (over the GF laundry wall)", "x 10.15 (y 4.7–6.5)", "x 12.4 (the bath / the cupboard)", "y 8.0 / x 12.211 (closet, as today)"),
+  fans: ("Bedroom 1 bath",),
+)
+#let M2 = (
+  name: [M2 · the link + a slice of the suite: the kids' bath in the suite's north strip (the WC closet's place) · bedroom 1 untouched], short: "M2",
+  rooms: (("Bedroom 1", bed1-today-x, "bed"), ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"), ("Bedroom 1 bath", rect-pts(10.3, 6.5, 13.311, 8.0), "wet"), ("Suite bath", rect-pts(10.3, 8.0, 13.311, 10.45), "wet")) + suite-rest,
+  furniture: ((9.05, 0.15, 10.25, 2.15, [bed 1.2 × 2.0], "Bedroom 1"), (9.05, 2.5, 9.65, 3.7, [desk 1.2 × 0.6], "Bedroom 1"), (11.4, 5.8, 13.186, 6.4, [built-in wardrobe · sliding · 1.7 × 0.6 clear], "Bedroom 1"))
+    + suite-rest-furn,
+  fixtures: ((10.4, 7.45, 10.85, 7.9, [basin], "Bedroom 1 bath"), (11.5, 7.3, 11.9, 7.9, [WC], "Bedroom 1 bath"), (12.286, 6.6, 13.186, 7.9, [shower 0.9 × 1.3 · over the stack], "Bedroom 1 bath"),
+    (10.4, 8.1, 12.0, 8.7, [2 basins], "Suite bath"), (12.6, 8.1, 13.186, 8.75, [WC · screened], "Suite bath"), (12.286, 8.9, 13.186, 9.9, [shower 0.9 × 1.0], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75], "Suite bath")), showers: (),
+  cupboards: (),
+  doors: (((10.15, 5.4), (10.15, 6.4), (1, 0), [bedroom 1 door 1.00 on the link's east wall, at a right angle to the suite door]), ((10.45, 6.5), (11.25, 6.5), (0, 1), [kids' bath 0.80, from the entry strip, opens into the bath, under B6]), ((10.3, 8.8), (10.3, 9.6), (1, 0), [suite bath 0.80, from the lobby (moved 2.2 m south)])) + suite-rest-doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 7.3), (W, 7.8), [kids' bath · or a fan]), ((W, 9.0), (W, 9.5), [suite bath · or a fan]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.75, 3.0), "Family link": (9.55, 5.9), "Bedroom 1 bath": (11.6, 6.85), "Suite lobby": (9.62, 9.2), "Suite bath": (11.5, 9.2), "Suite dressing": (11.8, 12.2), "Suite bedroom": (11.0, 16.6)),
+  walls-off: ("x 10.15 / 10.3 (as today)", "y 5.3 (as today)", "y 8.0 (kids' bath / suite bath, the closet's line as today)"),
+)
+#let M3 = (
+  name: [M3 · the best: the kids' bath across the y 6.5 line in the suite's corner (x 11.8–13.311, y 5.3–8.0) · the suite keeps a WC closet], short: "M3",
+  rooms: (("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 5.3), (11.8, 5.3), (11.8, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3)), "bed"), ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"), ("Bedroom 1 bath", rect-pts(11.8, 5.3, 13.311, 8.0), "wet"),
+    ("Suite WC (closet)", rect-pts(10.3, 6.5, 11.8, 8.0), "wet"), ("Suite bath", rect-pts(10.3, 8.0, 13.311, 10.45), "wet")) + suite-rest,
+  furniture: ((9.05, 0.15, 10.25, 2.15, [bed 1.2 × 2.0], "Bedroom 1"), (9.05, 2.5, 9.65, 3.7, [desk 1.2 × 0.6], "Bedroom 1"), (11.8, 4.6, 12.9, 5.2, [built-in wardrobe · sliding · 0.9 × 0.6 clear], "Bedroom 1"), (9.05, 3.9, 9.65, 5.2, [built-in wardrobe · sliding · 1.1 × 0.6 clear], "Bedroom 1")) + suite-rest-furn,
+  fixtures: ((12.6, 5.45, 13.186, 5.85, [WC], "Bedroom 1 bath"), (11.9, 6.45, 12.35, 7.0, [basin], "Bedroom 1 bath"), (11.9, 7.0, 13.186, 7.9, [shower 1.3 × 0.9 · over the stack], "Bedroom 1 bath"),
+    (10.85, 6.6, 11.25, 7.2, [WC], "Suite WC (closet)"), (11.2, 8.1, 12.6, 8.7, [2 basins], "Suite bath"), (12.286, 8.9, 13.186, 9.9, [shower 0.9 × 1.0], "Suite bath"), (10.4, 9.6, 12.1, 10.35, [tub 1.7 × 0.75], "Suite bath")), showers: (),
+  cupboards: (),
+  doors: (((10.15, 5.4), (10.15, 6.4), (1, 0), [bedroom 1 door 1.00 on the link's east wall, at a right angle to the suite door]), ((11.8, 5.5), (11.8, 6.3), (1, 0), [kids' bath 0.80, from the entry strip, opens into the bath]), ((10.4, 8.0), (11.1, 8.0), (0, 0), [WC closet, sliding, from the bath]), ((10.3, 8.8), (10.3, 9.6), (1, 0), [suite bath 0.80, from the lobby (moved 2.2 m south)])) + suite-rest-doors,
+  windows: (((11.33, 1.6), (12.2, 3.2), [bedroom 1 escape (the cut)]), ((9.2, 0), (10.2, 0), [bedroom 1 north]), ((W, 6.0), (W, 6.6), [kids' bath · or a fan]), ((W, 9.0), (W, 9.5), [suite bath · or a fan]), ((W, 16.2), (W, 18.2), [suite bedroom escape])),
+  labels: ("Bedroom 1": (10.6, 3.0), "Family link": (9.55, 5.9), "Bedroom 1 bath": (12.5, 6.2), "Suite lobby": (9.62, 9.2), "Suite WC (closet)": (11.0, 7.6), "Suite bath": (11.5, 9.2), "Suite dressing": (11.8, 12.2), "Suite bedroom": (11.0, 16.6)),
+  walls-off: ("x 10.15 / 10.3 (as today)", "y 5.3 (as today, continued east of x 11.8)", "x 11.8 (y 5.3–8.0)", "y 8.0 (the closet's line as today)"),
+  fans: ("Suite WC (closet)",),
+)
+#let M-layouts = (M1, M2, M3)
+#let door-rule(L) = L.doors.at(0).at(2) == (1, 0)   // bedroom 1's door on the link's east wall (a right angle to the suite door on y 6.5)
+#let bath-tri(L) = { let P = P-of(L, "Bedroom 1 bath"); P.any(p => calc.abs(p.at(0) - cut-x(p.at(1))) < 0.02 and p.at(1) < 5.245 - 1e-6) }   // a bath corner on the slanted wall
+#let checks-M(L) = checks(L) + (([bedroom 1's door at a right angle to the suite door (on the link's east wall), not facing it], door-rule(L)), ([no triangular bath: no corner of the kids' bath on the slanted wall], not bath-tri(L)))
+#let all-ok-M(L) = checks-M(L).all(c => c.at(1))
+#let WR(L) = L.furniture.filter(f => repr(f.at(4)).contains("built-in")).map(f => [#f.at(4)]).join([; ])
+
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[Minimal change from today: M1 the link only · M2 + a slice of the suite · M3 the best] #h(1fr) #text(6.4pt, fill: gray)[the owner's direction, 14 Nov 2026 · the suite and bedroom 1 as today · m² on axes · ≈ clear]
+#v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+#grid(columns: (4.3cm, 4.3cm, 4.3cm, 1fr), column-gutter: 5pt,
+  ..M-layouts.map(L => [#block(height: 2.6em, text(6.3pt, weight: "bold", fill: accent)[#L.name]) #plan(L, length: 0.7cm)]),
+  [
+    #let tbl(..cells) = table(columns: (1.5fr, 1fr, 1fr, 1fr, 1fr), stroke: 0.3pt + luma(190), inset: 2pt, align: (left, right, right, right, right), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") }, ..cells)
+    #text(6.0pt)[
+      #tbl(
+        table.header([*Clear m²*], [*Today*], [*M1*], [*M2*], [*M3*]),
+        [1 · Suite bedroom], [#r2(C(T, "Suite bedroom"))], [#r2(C(M1, "Suite bedroom"))], [#r2(C(M2, "Suite bedroom"))], [#r2(C(M3, "Suite bedroom"))],
+        [2 · Suite bath + WC], [#r2(MW(T))], [#r2(MW(M1))], [#r2(MW(M2))], [#r2(MW(M3))],
+        [… the WC closet], [#r2(C(T, "Suite WC (closet)"))], [#r2(C(M1, "Suite WC (closet)"))], [—], [#r2(C(M3, "Suite WC (closet)"))],
+        [3 · Suite dressing], [#r2(MD(T))], [#r2(MD(M1))], [#r2(MD(M2))], [#r2(MD(M3))],
+        [Suite lobby], [#r2(C(T, "Suite lobby"))], [#r2(C(M1, "Suite lobby"))], [#r2(C(M2, "Suite lobby"))], [#r2(C(M3, "Suite lobby"))],
+        [Bedroom 1], [#r2(C(T, "Bedroom 1"))], [#r2(C(M1, "Bedroom 1"))], [#r2(C(M2, "Bedroom 1"))], [#r2(C(M3, "Bedroom 1"))],
+        [Kids' bath], [—], [#r2(C(M1, "Bedroom 1 bath"))], [#r2(C(M2, "Bedroom 1 bath"))], [#r2(C(M3, "Bedroom 1 bath"))],
+        [Family link], [#r2(C(T, "Family link"))], [#r2(C(M1, "Family link"))], [#r2(C(M2, "Family link"))], [#r2(C(M3, "Family link"))],
+        [Kids' bath over], [—], [laundry], [kitchen N], [laundry + kitchen N],
+        [Drain farthest from the stack], [≈ 3.7 m], [#r1(stack-max(M1)) m], [#r1(stack-max(M2)) m], [#r1(stack-max(M3)) m],
+        [Wall lines off the beam lines], [#T.walls-off.len()], [#M1.walls-off.len()], [#M2.walls-off.len()], [#M3.walls-off.len()],
+      )
+      #v(2pt)
+      *Checks (the seven of page 2 + the door rule + no triangular bath):* #for L in M-layouts [*#L.short:* #if all-ok-M(L) [passed (#checks-M(L).len())] else [FAILED: #checks-M(L).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · ]
+      \ *Built-in wardrobes (10 cm block sides, a lintel, sliding doors):* M1: #WR(M1) — the leftover east of the bath (x 12.4–13.311 × 1.8, the cut's corner) is only a *deep cupboard 0.7 × 1.6*, not a wardrobe. M2: #WR(M2) (in the entry strip against the kids' bath wall). M3: #WR(M3) (one against the kids' bath's north wall under the cut, one on the west wall).
+      \ \ *M1 · the link only* (no slice of the suite). The kids' bath over the laundry, x 10.15–12.4 × y 4.7–6.5 (#r2(C(M1, "Bedroom 1 bath")) m², 1.6 wide, the shower 0.8 × 1.6 at its east end, the slanted corner kept OUT of it), the link 1.2 × 1.8. *It breaks the door rule:* bedroom 1's door can only sit on the link's north wall, facing the suite door 1.8 m away (on the link's east wall it would open into the bath; a bath east of the entry strip runs into the cut's corner). Bedroom 1 #r2(C(M1, "Bedroom 1")) m², four straight walls. The suite untouched (only the tub's drain moved west of the hood, needed in every variant).
+      \ *M2 · the link + a slice of the suite.* Bedroom 1 and the link as today (#r2(C(M2, "Bedroom 1")) m²); *bedroom 1's door on the link's east wall* (x 10.15, a right angle to the suite door; nothing at the link's start). The kids' bath = *the suite's north strip x 10.3–13.311 × 6.5–8.0* (#r2(C(M2, "Bedroom 1 bath")) m², 1.3 wide, the shower over the stack, the WC on the shared wall y 8.0), its door in the y 6.5 wall from the entry strip, under B6. *The suite:* the bath loses its WC closet and north band (#r2(MW(T)) → #r2(MW(M2)) m²; the WC screened at the stack corner, the basins on the north wall, the door 2.2 m south); lobby, dressing, bedroom untouched. Wardrobe 1.7 × 0.6 in the entry strip.
+      \ *M3 · the best.* Bedroom 1 as today but for the corner x 11.8–13.311 × 5.3–6.5 of its entry strip (#r2(C(M3, "Bedroom 1")) m², #r2(C(T, "Bedroom 1") - C(M3, "Bedroom 1")) less); its door as M2. The kids' bath *x 11.8–13.311 × 5.3–8.0* (#r2(C(M3, "Bedroom 1 bath")) m², 1.3 × 2.5: the WC at the north end, the basin, the shower at the south end over the stack), *half in bedroom 1's strip, half in the suite's old WC closet*, its door on its west wall, its north wall on the y 5.3 line, no corner on the slanted wall. *The suite keeps a WC closet,* re-made at x 10.3–11.8 × 6.5–8.0 (#r2(C(M3, "Suite WC (closet)")) m², 1.3 × 1.3, a sliding door from the bath, a ducted fan); the bath #r2(C(M3, "Suite bath")) m² (basins north, shower east, tub south, the door 2.2 m south); lobby, dressing, bedroom untouched. The three wet rooms tile the rectangle x 10.3–13.311 × 6.5–10.45, no L in any. Wardrobes 0.9 × 0.6 under the cut and 1.1 × 0.6 on the west wall.
+    ]
+  ],
+)
+#v(2pt)
+#grid(columns: (1fr, 1fr), column-gutter: 10pt,
+  [
+    #box(fill: accent.lighten(86%), stroke: 1pt + accent, inset: 5pt, radius: 3pt, width: 100%)[
+      #text(8.5pt, weight: "bold", fill: accent)[Recommendation: M3] #h(6pt)
+      #text(6.6pt)[The only one of the three that keeps every rule: the suite's arrangement as today with a WC closet (#r2(MW(M3)) m² wet in all, today #r2(MW(T))), the dressing and the bedroom untouched, bedroom 1 at #r2(C(M3, "Bedroom 1")) m² with its door at a right angle to the suite door, a 1.3 × 2.5 kids' bath on the shared wet walls with its shower over the stack, no triangle, no jog, every column and beam in place. *M2* keeps bedroom 1 to the centimetre but costs the suite its WC closet. *M1* takes nothing from the suite and fails the door rule. *What lies below, all three:* the laundry and the kitchen's north band (service); every drain north of the hood; one stack. *Structure, all three:* the new partitions are 0.10 block on the slab (x 11.8 and y 8.0 in M3 over the sunken zone); the y 6.5 wall keeps its line (M3 interrupts it 1.5 m over B6 for the kids' bath, as today's closet door did not: for the engineer's list).]
+    ]
+  ],
+  [
+    #box(fill: rgb("#f4efe3"), stroke: 0.6pt + luma(170), inset: 5pt, radius: 3pt, width: 100%)[
+      #ah[
+        #text(8.5pt, weight: "bold", fill: accent)[الخلاصة · التغيير الأدنى M1–M3] \
+        #text(6.9pt)[
+          الجناح كما هو اليوم (ردهة، غرفة نوم، حمّام، غرفة مرحاض، غرفة ملابس؛ لا ممر عبر غرفة الملابس)، وغرفة الأطفال كما هي قدر الإمكان، وبابها من الجدار الشرقي للممر بزاوية قائمة مع باب الجناح، ولا حمّام مثلث في زاوية الجدار المائل، وكل فراغ متبقٍ خزانة مدمجة بأبواب منزلقة. \
+          *M1 (الممر فقط):* حمّام الأطفال فوق الغسيل غرب الزاوية المائلة (#r2(C(M1, "Bedroom 1 bath")) م²)، غرفة الأطفال #r2(C(M1, "Bedroom 1")) م²؛ يخالف قاعدة الباب (بابها يقابل باب الجناح). \
+          *M2 (الممر + شريحة من الجناح):* غرفة الأطفال كاملة (#r2(C(M2, "Bedroom 1")) م²) وحمّامها في الشريط الشمالي للجناح (#r2(C(M2, "Bedroom 1 bath")) م²)؛ يخسر حمّام الوالدين غرفة مرحاضه (#r2(MW(T)) ← #r2(MW(M2)) م²). \
+          *M3 (الموصى به):* حمّام الأطفال في الزاوية x 11.8–13.311 × y 5.3–8.0 (#r2(C(M3, "Bedroom 1 bath")) م²)، نصفه من شريط مدخل غرفة الأطفال ونصفه من غرفة المرحاض القديمة؛ غرفة الأطفال #r2(C(M3, "Bedroom 1")) م² بخزانتين مدمجتين؛ يحتفظ الجناح بغرفة مرحاض جديدة (1.3 × 1.3 م) وحمّام #r2(C(M3, "Suite bath")) م²، وغرفة الملابس وغرفة النوم كما هما. كل القواعد محفوظة.
         ]
       ]
     ]
