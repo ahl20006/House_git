@@ -358,7 +358,7 @@
 #let g-c = 25.0                          // kN/m³ reinforced concrete
 #let tw2 = 0.20                          // the core's RC walls
 // the V-c core on its wall centre lines: the shaft x 4.40–5.80, y 6.5–7.5 (outer 4.30–5.90 × 6.4–7.6); the foot chamber to the arcade column line y 8.667
-#let cx0 = 4.40; #let cx1 = 5.80; #let cy0 = 6.5; #let cy1 = 7.5; #let cy2 = 8.667
+#let cx0 = 4.25; #let cx1 = 5.80; #let cy0 = 6.5; #let cy1 = 7.5; #let cy2 = 8.667   // 14 Nov 2026: the west wall on x 4.25 (the riwaq's straight line, 11 Nov 2026), the same footprint from the pad to the head
 #let z-fdn = -0.6; #let z-ff = 3.52; #let z-roof = 7.2; #let z-crown = 13.2
 #let perim = 2 * ((cx1 - cx0) + (cy1 - cy0))
 #let w-shaft = perim * tw2 * g-c * (z-roof - z-fdn) - (cx1 - cx0 - tw2) * tw2 * g-c * (z-ff - z-fdn)   // the shaft's south wall starts at the FF slab (a 1.2 m lintel over the chamber)
@@ -395,7 +395,7 @@
 #pagebreak()
 #text(12pt, weight: "bold", fill: green)[Phase 2 · structure · the L5 core as an independent RC core, the fourth support of the west projection]
 #v(1pt)
-#text(7pt, fill: gray)[The owner's Phase 1 answers applied: *V-c*, the shaft 1.2 × 0.8 m clear (the gallery's turn kept at 1.5 m); the riwaq's first glass panel solid; the carved door on the chamber's south face; *the winter late mornings added* (Dec–Jan 10:00–13:00: ≈ 61 % pleasant, ≈ 113 h a year more, ≈ #(year-hours + 113) h in all); *no stone* (render and paint). Every figure #ASSUMED (no soil report, no SBC 301 site data): concept values for the structural engineer.]
+#text(7pt, fill: gray)[The owner's Phase 1 answers applied: *V-c*, the shaft 1.35 × 0.8 m clear since 14 Nov 2026 (the west wall on x 4.25; the gallery's turn kept at 1.5 m); the riwaq's first glass panel solid; the carved door on the chamber's south face; *the winter late mornings added* (Dec–Jan 10:00–13:00: ≈ 61 % pleasant, ≈ 113 h a year more, ≈ #(year-hours + 113) h in all); *no stone* (render and paint). Every figure #ASSUMED (no soil report, no SBC 301 site data): concept values for the structural engineer.]
 #v(3pt)
 #grid(columns: (auto, auto, 1fr), gutter: 10pt,
   cetz.canvas(length: 0.95cm, {
@@ -778,7 +778,7 @@
   [
     #H[4.1 · The two paths after the head]
     - *The head* (Phase 5): four faces of slender openings +#str(head4.z0) … +#str(head4.z1) behind a 20 mm *bird / leaf mesh*; inside, the + divider and the four *back-draught flaps* (the windward quarter feeds, the leeward quarters shut).
-    - *(a) The breeze path:* the head → *D1*, the top damper at the shaft's head (+7.75, 1.2 × 0.8) → the shaft (0.84 m²) → the *dust trap* (a 0.8 × 0.7 × 0.3 basin under the shaft, a lift-out grating, a drain) → the foot chamber → the *courtyard outlet* 1.4 × 1.0 with its louvres and *D2* behind them → the seating. *Provision only (owner):* the gallery's carved grille, closed and sealed behind a removable panel, no damper now. *No filter:* mesh only, by design (D3 of the owner).
+    - *(a) The breeze path:* the head → *D1*, the top damper at the shaft's head (+7.75, 1.35 × 0.8 since 14 Nov 2026) → the shaft (1.08 m²) → the *dust trap* (a 0.8 × 0.7 × 0.3 basin under the shaft, a lift-out grating, a drain) → the foot chamber → the *courtyard outlet* 1.4 × 1.0 with its louvres and *D2* behind them → the seating. *Provision only (owner):* the gallery's carved grille, closed and sealed behind a removable panel, no damper now. *No filter:* mesh only, by design (D3 of the owner).
     - *(b) The filtered path:* its *inlet never closes:* a downward-facing hood (0.6 × 0.6, a bird mesh) *under the head's south overhang* (+7.6; rain- and dust-shadowed, 3.4 m below the breeze openings), a Ø315 duct down the chamber's south-east corner → the *filter cabinet* (#filt4.pre → #filt4.fine) → the *EC fan* (#fan4.q m³/h at #fan4.dp Pa, ≈ #fan4.w W) → a *silencer* (a 0.9 m lined attenuator, ≈ −15 dB) → a sealed Ø250 riser in the shaft's west side → high grilles into the *family living* and the *gallery* (+6.4), and at the GF the *riwaq* and the *women's majlis* (+2.7); the other GF rooms through the riwaq (door undercuts / transfer grilles, as the house's air moves anyway). *The kitchen hood's interlocked make-up inlet is mandatory* (owner; ≈ #str(calc.round(q-hood)) m³/h, `studies/air_system.typ`).
     #H[4.2 · The dampers (two, insulated, low-leakage, spring-return)]
     - *D1* at the shaft's head and *D2* behind the outlet's louvres: both insulated, low-leakage, *spring-return (they close on power loss)*, driven together by the one wall switch *MALQAF open / closed* and closed by the dust relay. *No D3* (the gallery grille is a sealed provision). *D4:* a passive gravity louvre Ø160 from the chamber to the outlet (no motor). The hood's make-up damper: its own, interlocked with the hood (*mandatory*).
@@ -897,13 +897,13 @@
     rect((X(4.30), 7.3), (X(4.50), 13.2), fill: sand, stroke: 0.4pt + ink); rect((X(5.70), 7.3), (X(5.90), 13.2), fill: sand, stroke: 0.4pt + ink)
     rect((X(4.24), 10.6), (X(5.96), 10.75), fill: honey, stroke: none); rect((X(4.2), 12.9), (X(6.0), 13.2), fill: honey, stroke: none)
     content((X(5.1), 9.0), text(3.4pt)[the head's W and E walls\ on R3 and R11])
-    line((X(4.4), 7.3), (X(4.4), 6.9), stroke: 0.5pt + red); line((X(5.8), 7.3), (X(5.8), 6.9), stroke: 0.5pt + red)
+    line((X(4.25), 7.3), (X(4.25), 6.9), stroke: 0.5pt + red); line((X(5.8), 7.3), (X(5.8), 6.9), stroke: 0.5pt + red)
     content((X(5.1), 13.75), text(4.4pt, weight: "bold", fill: green)[E–W section · y ≈ 8.2 · 1 m = 1.24 cm])
     content((X(5.1), 5.1), text(3pt)[the south wall (y 8.7) on a new 1.55 m beam R-L5\ (0.25 × 0.45) between R3 and R11])
   }),
   [
     #H[5.1 · F3 on the existing roof beams (the owner's condition)]
-    - *East wall* (centre x 5.80): on *R11* as it is (0.25 × 0.45, C21 → C22). *West wall* (centre x 4.40): on *R3* (x 4.25, 0.25 wide) *widened to 0.40* (faces 4.125–4.525) over y 6.5–8.8, cast with the roof slab: the wall (4.30–4.50) then bears fully. *South wall* (y 8.6–8.8): on a *new short beam R-L5* (1.55 m, 0.25 × 0.45) between R3 and R11 under the slab. *North part* (y 6.4–7.6): the core's own walls from the foundation.
+    - *East wall* (centre x 5.80): on *R11* as it is (0.25 × 0.45, C21 → C22). *West wall* (centre x 4.25 since 14 Nov 2026, over the GF chamber's wall on the riwaq's line): on *R3* (x 4.25, 0.25 wide; the 0.20 wall's faces 4.15–4.35 inside it, or R3 *widened to 0.40* if the engineer wants a bedding margin) over y 6.5–8.8, cast with the roof slab: the wall (4.30–4.50) then bears fully. *South wall* (y 8.6–8.8): on a *new short beam R-L5* (1.55 m, 0.25 × 0.45) between R3 and R11 under the slab. *North part* (y 6.4–7.6): the core's own walls from the foundation.
     - *Verdict:* F3 stands on the existing beams with *two small additions* (0.15 m more on R3 over 2.3 m, one 1.55 m beam). If the engineer refuses them, *F2* (the head 1.6 × 1.6 on the core alone, the north overhang) is the fall-back; nothing else changes.
     #H[5.2 · Openings and mesh]
     - #n-short slots on the short faces, #n-long on the long: free ≈ #str(calc.round(free-n, digits: 2)) / #str(calc.round(free-w, digits: 2)) m² per face (the W face the main catcher); 20 mm bird mesh in galvanised frames behind the slots, the + divider and the four back-draught flaps inside; a 0.5 m hatch in the head's west face (+7.6 … +8.1) from the roof for the mesh, once a year.

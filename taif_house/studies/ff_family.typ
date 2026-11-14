@@ -22,7 +22,7 @@
   (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
-  (name: "Air tower", pts: ((4.4, 6.5), (5.8, 6.5), (5.8, 7.5), (4.4, 7.5))),   // V10.0 (L5): the malqaf shaft at the gallery's north end (1.2 × 0.8 clear), the head above the roof; the gallery's turn past bedroom 2's bath 1.5 m   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
+  (name: "Air tower", pts: ((4.25, 6.5), (5.8, 6.5), (5.8, 7.5), (4.25, 7.5))),   // 14 Nov 2026: the malqaf shaft ≈ 1.35 × 0.8 clear, its west wall on x 4.25 directly over the GF chamber's west wall (design_gf.typ tower-csv, 11 Nov 2026), in line with the family living's west wall: one RC core, the same footprint from the pad to the head, no jog   // V10.0 (L5): the malqaf shaft at the gallery's north end, the head above the roof; the gallery's turn past bedroom 2's bath 1.5 m   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
 )
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
@@ -63,8 +63,8 @@
 // ---------- Rooms ----------
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
-  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (4.4, 6.5), (4.4, 7.5), (5.8, 7.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
-    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 6.5, 4.4, 7.5), rect-pts(4.25, 7.5, 5.8, 19.25))),   // V10.0: the jog round the malqaf shaft
+  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (4.25, 7.5), (5.8, 7.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
+    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 7.5, 5.8, 19.25))),   // 14 Nov 2026: the shaft's west wall on x 4.25 (the 0.15 m jog of V10.0 removed)
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
   R("Family WC (gallery)", rect-pts(0, 7.9, 2.75, 9.2), "wet"),   // 3 Nov 2026 (owner): the F-b bath split: the family WC (WC + basin) on the strip by the shaft, its door from the gallery; the WC behind a screen wall
   R("Bedroom 2 bath (en-suite)", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4)), "wet",   // bedroom 2's en-suite: shower, WC, basin; its door from inside bedroom 2; the former wardrobe niche is its vanity niche
