@@ -1,4 +1,6 @@
-// west_wing_ff.typ · Taif / Palm House · STUDY, rev 3 (14 Nov 2026, owner): the first-floor WEST BAND, bedrooms 2 and 3 with their baths BACK TO BACK between
+// west_wing_ff.typ · Taif / Palm House · STUDY, rev 4 (14 Nov 2026, owner): rev 4 = NO entrance nib (the gym's east wall on x 4.25 like every west room, nothing built east of x 4.25
+// south of the gallery, the double-height living's clerestory windows unshaded), the gallery's end the shared entry point (a glass door onto the suite court, the gym door beside it on the court's
+// west wall; bedroom 3's door paired there too in N-best); options N0 / N1 / N1-b / N-best against G1; the sun on the clerestory with and without the nib. Rev 3 (14 Nov 2026, owner): the first-floor WEST BAND, bedrooms 2 and 3 with their baths BACK TO BACK between
 // the two bedrooms (one shared wet wall, one stack). Rev 2 (X1–X3): the strip beside the shaft is bedroom 2's ENTRY with its gallery door inside y 9.2–10.4; two big equal
 // bedrooms first, the baths may shrink; both WCs at the SOUTH end of the shared wet wall so the stack lands inside the GF powder room's WC compartment. Rev 3: X3 ADOPTED
 // as the base; a strip taken from the GYM (bedroom 3's south wall, the acoustic double wall, moved 0.5 / 0.8 m south: G1 / G2 against G0), studied with the gym's entrance,
@@ -63,7 +65,7 @@
 
 // ---------- the option builder: D = the bath pair's depth on axes; yg = the gym's north line (bedroom 3's south wall); yb = the pair's north wall, solved so that the two bedrooms' clear areas match ----------
 // clear areas: bedroom 2 = 4.025 (yb − 10.6) + 2.55 × 1.2 (the entry strip); bedroom 3 = 4.025 (yg − 0.2 − yb − D)  →  yb = (yg + 10.4 − D) / 2 − 0.38
-#let option(short, name, D, sh, bw, note, yg: YG0) = {
+#let option(short, name, D, sh, bw, note, yg: YG0, b3: "x3") = {
   let yb = calc.round(((yg + 10.4 - D) / 2 - 0.38) * 20) / 20   // to 0.05
   let ys = yb + D
   let rooms = (("Bedroom 2", ((1.5, 9.2), (X1, 9.2), (X1, yb), (0, yb), (0, 10.4), (1.5, 10.4)), "bed"), ("Bedroom 2 bath", rect-pts(0, yb, xw, ys), "wet"), ("Bedroom 3 bath", rect-pts(xw, yb, X1, ys), "wet"), ("Bedroom 3", rect-pts(0, ys, X1, yg), "bed"))
@@ -74,8 +76,8 @@
     (0.125, yb - 1.0, 0.725, yb - 0.1, [desk 0.9 × 0.6], "Bedroom 2"), (0.8, yb - 0.85, 1.25, yb - 0.4, [], "Bedroom 2"), (2.0, yb - 0.7, 3.8, yb - 0.1, [wardrobe 1.8 × 0.6], "Bedroom 2"),
     // bedroom 3: the bed's head on the west wall (away from the gym's double wall), the desk at the west window south of it, the wardrobe on the gallery wall south of the door
     (0.125, ys + 0.6, 2.125, ys + 2.0, [bed 1.4 × 2.0], "Bedroom 3"), (0.125, ys + 0.15, 0.525, ys + 0.55, [], "Bedroom 3"), (0.125, ys + 2.05, 0.525, ys + 2.45, [], "Bedroom 3"),
-    (0.125, yg - 1.25, 0.725, yg - 0.15, [desk 1.1 × 0.6], "Bedroom 3"), (0.8, yg - 0.95, 1.25, yg - 0.5, [], "Bedroom 3"), (3.55, yg - 1.95, 4.15, yg - 0.15, [wardrobe 1.8 × 0.6], "Bedroom 3"),
-  )
+    (0.125, yg - 1.25, 0.725, yg - 0.15, [desk 1.1 × 0.6], "Bedroom 3"),
+  ) + (if b3 == "end" { ((0.8, yg - 1.45, 1.25, yg - 1.0, [], "Bedroom 3"), (1.0, yg - 0.75, 2.8, yg - 0.15, [wardrobe 1.8 × 0.6 · on the gym wall], "Bedroom 3")) } else { ((0.8, yg - 0.95, 1.25, yg - 0.5, [], "Bedroom 3"), (3.55, yg - 1.95, 4.15, yg - 0.15, [wardrobe 1.8 × 0.6], "Bedroom 3")) })
   let fixtures = (
     (0.125, yb + 0.1, 0.125 + sw, yb + 0.1 + sd, [shower #r1(sw) × #r1(sd) · screen], "Bedroom 2 bath"), (0.125, ys - 0.1 - bw, 0.475, ys - 0.1, [basin], "Bedroom 2 bath"), (1.4, ys - 0.5, 2.0, ys - 0.1, [WC], "Bedroom 2 bath"),
     (2.2, yb + 0.1, 2.2 + sw, yb + 0.1 + sd, [shower #r1(sw) × #r1(sd) · screen], "Bedroom 3 bath"), (2.2, ys - 0.5, 2.8, ys - 0.1, [WC], "Bedroom 3 bath"), (3.8, yb + 0.3, 4.15, yb + 0.3 + bw, [basin], "Bedroom 3 bath"),
@@ -85,8 +87,7 @@
     ((X1, 9.35), (X1, 10.25), (-1, 0), [bedroom 2 door 0.90, from the gallery, in the entry strip], "Bedroom 2"),
     ((1.2, yb), (1.9, yb), (0, 1), [bath 2 door 0.70, from bedroom 2, opens into the bath], "Bedroom 2 bath"),
     ((3.0, ys), (3.7, ys), (0, -1), [bath 3 door 0.70, from bedroom 3, opens into the bath], "Bedroom 3 bath"),
-    ((X1, ys + 0.3), (X1, ys + 1.2), (-1, 0), [bedroom 3 door 0.90, from the gallery], "Bedroom 3"),
-  )
+  ) + (if b3 == "end" { (((X1, yg - 1.1), (X1, yg - 0.2), (-1, 0), [bedroom 3 door 0.90, at the gallery's end, paired with the glass door], "Bedroom 3"),) } else { (((X1, ys + 0.3), (X1, ys + 1.2), (-1, 0), [bedroom 3 door 0.90, from the gallery], "Bedroom 3"),) })
   let windows = (((0, 10.7), (0, 11.8), [bedroom 2 escape window, at the bed]), ((0, yb - 1.0), (0, yb - 0.2), [bedroom 2, at the desk]), ((0, yb + 0.15), (0, yb + 0.1 + sd - 0.05), [bath 2 · small, high, obscure]), ((0, ys + 0.7), (0, ys + 1.9), [bedroom 3 escape window, at the bed]), ((0, yg - 1.15), (0, yg - 0.25), [bedroom 3, at the desk]))
   let stack = (xw, ys - 0.3)   // in the shared wet wall between the two WCs, at its south end
   (short: short, name: name, yb: yb, D: D, sh: sh, bw: bw, yg: yg, note: note, rooms: rooms, furniture: furniture, fixtures: fixtures, fronts: fronts, doors: doors, windows: windows, stack: stack, gym: none)
@@ -116,6 +117,40 @@
 #let G1 = with-gym(option("G1", [G1 · bedroom 3's south wall (the double wall) moved 0.5 m south to y 19.75; the gym's north line one line across the band and the nib], 1.4, (0.8, 0.8), 0.4, [choice (c): the gallery extended to y 19.75, the gym door on it, the nib kept 1.3 m deep, the court door and the ladder recess 0.5 m south], yg: 19.75), [the gym −0.5 m])
 #let G2 = with-gym(option("G2", [G2 · the double wall moved 0.8 m south to y 20.05; the gym's north line one line across the band and the nib], 1.4, (0.8, 0.8), 0.4, [choice (c): the gallery extended to y 20.05, the gym door on it, the nib kept 1.3 m deep, the court door and the ladder recess 0.8 m south, the strip's west end widened], yg: 20.05), [the gym −0.8 m])
 #let G-options = (G0, G1, G2)
+// ---------- rev 4: NO nib. The gym = the band x 0–4.25 × yg–24 only; its east wall x 4.25 the straight line of all the west rooms; the former nib's floor is court. The gallery ends at y 19.25 as today;
+// at its end a GLASS DOOR onto the court (x 4.4–5.5 on y 19.25, hinged, opening into the court) and the gym door on the court's west wall right beside it (x 4.25, y yg+0.1 … yg+1.0, opening into the gym):
+// "عاشق ومعشوق", two doors at one point: the family reaches the gym from the gallery through the glass door and one step of court; the owner from the court. N1-b: no glass door (a window), the gym's only door from the court.
+#let with-nonib(L, label, glass: true) = {
+  let yg = L.yg
+  let poly = rect-pts(0, yg, X1, YS)
+  let clear-box = (0.125, yg + 0.1, X1 - 0.1, YS - 0.125)
+  let furniture = ((0.6, 21.675, 1.4, 23.675, [treadmill 2.0 × 0.8 → S]), (1.6, 22.5, 2.2, 23.7, [bike]), (2.6, 22.4, 4.1, 23.8, [free-weights rack 1.5 × 1.4]), (1.6, 21.25, 3.6, 22.25, [mat 2.0 × 1.0]), (0.45, 23.775, 1.65, 23.875, [TV]))
+  let zone = (0.6, 21.175, 1.4, 21.675)
+  let walk = (1.5, yg + 0.1, X1 - 0.1, yg + 1.1)                       // the 1.0 m path from the gym door (on the east wall at the north end) west into the band
+  let gym-door = ((X1, yg + 0.1), (X1, yg + 1.0), (-1, 0), [gym door 0.90, from the court, opens into the gym], "Gym")
+  let glass-door = if glass { ((4.4, YG0), (5.5, YG0), (0, 1), [glass door 1.10 at the gallery's end, opens into the court], "Suite court") } else { none }
+  let ladder = (4.35, yg + 1.1, 4.70, yg + 2.4)                         // the ladder recess on the gym's east wall, 0.1 south of the gym door
+  (..L, gym: (label: label, nib: false, poly: poly, clear-box: clear-box, furniture: furniture, zone: zone, walk: walk, gym-door: gym-door, court-door: gym-door, glass-door: glass-door, ladder: ladder, yn: yg))
+}
+#let N0 = with-nonib(option("N0", [N0 · no nib; bedroom 3 / gym wall on y 19.25 (on the beams B22 + B8); the glass door at the gallery's end, the gym door beside it from the court], 1.4, (0.8, 0.8), 0.4, [X3; the gym's east wall on x 4.25, nothing east of it south of the gallery]), [no nib, y 19.25])
+#let N1 = with-nonib(option("N1", [N1 · no nib; the wall on y 19.75 (−0.5, a light double gypsum acoustic wall on the slab, Rw ≥ 55); the glass door at the gallery's end, the gym door beside it], 1.4, (0.8, 0.8), 0.4, [X3; the gym 0.5 m shallower], yg: 19.75), [no nib, y 19.75])
+#let N1b = with-nonib(option("N1-b", [N1-b · as N1, but NO glass door at the gallery's end (a window): the gym's only door from the suite court], 1.4, (0.8, 0.8), 0.4, [for comparison: the gym reached only through the suite], yg: 19.75), [no nib, y 19.75, court only], glass: false)
+#let Nb = with-nonib(option("N-best", [N-best · N1 + bedroom 3's door moved to the gallery's end: three doors at one point (bedroom 3 west, the glass door south, the gym just beyond it)], 1.4, (0.8, 0.8), 0.4, [X3; the gallery's end the one entry point of the south-west corner], yg: 19.75, b3: "end"), [no nib, y 19.75, paired doors])
+#let N-options = (N0, N1, N1b, Nb)
+#let court-area(L) = if L.gym.at("nib", default: true) { 5.75 * 4.75 - 1.55 * 1.3 } else { 5.75 * 4.75 }
+#let glass-of(L) = L.gym.at("glass-door", default: none)
+#let glass-ok(L) = { let g = L.gym; if glass-of(L) == none { true } else { let sw = swing-box(glass-of(L)); (court-furn.map(bx) + (g.ladder, swing-box(g.gym-door))).all(b => not overlap(b, sw)) } }
+#let family-ok(L) = glass-of(L) != none   // the family reaches the gym without passing through the suite
+// ---------- the sun on the double-height living's clerestory windows (the court's north wall y 19.25; x 6.0–7.0 and 7.6–8.6; sill +5.00, head +6.00 = 1.40–2.40 above the court floor +3.60; studies/sections.typ) ----------
+// the nib (x 4.25–5.8 × y 19.25–20.55, its roof +7.2 = 3.6 m above the court floor) stands WEST of the windows: its shadow falls on them when the sun is west of south (the afternoon).
+// shadow of the nib's south-east top corner (5.8, 20.55, 3.6) on the plane y 19.25: x = 5.8 + 1.3 tan A, z = 3.6 − 1.3 tan h / cos A (A = the sun's azimuth west of south, h its altitude); the shaded part of a window = the rectangle below z and west of x (an estimate: the real edge is slanted)
+#let lat = 21.4deg
+#let sun(dec, hour) = { let Hh = (hour - 12) * 15deg; let sh = calc.sin(lat) * calc.sin(dec) + calc.cos(lat) * calc.cos(dec) * calc.cos(Hh); let h = calc.asin(sh); let ca = (sh * calc.sin(lat) - calc.sin(dec)) / (calc.cos(h) * calc.cos(lat)); let A = calc.acos(calc.max(-1, calc.min(1, ca))); (h, A) }   // h altitude, A azimuth from south (positive = west, by the afternoon hour)
+#let nib-h = 3.6; #let nib-d = 1.3; #let cl = ((6.0, 7.0), (7.6, 8.6)); #let cl-z = (1.4, 2.4)
+#let shade(dec, hour, win) = { let (h, A) = sun(dec, hour); if h <= 0deg or A >= 90deg { 0 } else { let reach = 5.8 + nib-d * calc.tan(A); let top = nib-h - nib-d * calc.tan(h) / calc.cos(A); let fx = calc.max(0, calc.min(win.at(1), reach) - win.at(0)) / (win.at(1) - win.at(0)); let fz = calc.max(0, calc.min(cl-z.at(1), top) - cl-z.at(0)) / (cl-z.at(1) - cl-z.at(0)); fx * fz } }
+#let sun-rows = ((-23.44deg, 12, [21 Dec, solar noon]), (-23.44deg, 13, [21 Dec, 13:00]), (-23.44deg, 14, [21 Dec, 14:00]), (-23.44deg, 15, [21 Dec, 15:00]), (-23.44deg, 16, [21 Dec, 16:00]), (0deg, 15, [21 Mar / Sep, 15:00]), (23.44deg, 12, [21 Jun, solar noon]), (23.44deg, 15, [21 Jun, 15:00]))
+#let direct(dec, hour) = { let (h, A) = sun(dec, hour); h > 0deg and A < 90deg }   // the south-facing windows see the sun only while it is south of east–west
+
 
 // ---------- checks ----------
 #let band-of(L) = rect-pts(0, Y0, X1, L.yg)
@@ -138,7 +173,7 @@
   ([the two bedrooms within 0.3 m² clear (#r2(Cz(L, "Bedroom 2")) / #r2(Cz(L, "Bedroom 3")))], equal-ok(L)),
   ([the stack lands inside the GF powder room's WC compartment (y > 14.55)], stack-ok(L)),
 )
-#let gym-clear(G) = { let g = G.gym; let b = g.clear-box; (b.at(2) - b.at(0)) * (b.at(3) - b.at(1)) + (XN - 0.1 - (X1 + 0.1)) * (g.yn - 0.1 - (G.yg + 0.1)) }
+#let gym-clear(G) = { let g = G.gym; let b = g.clear-box; (b.at(2) - b.at(0)) * (b.at(3) - b.at(1)) + (if g.at("nib", default: true) { (XN - 0.1 - (X1 + 0.1)) * (g.yn - 0.1 - (G.yg + 0.1)) } else { 0 }) }
 #let gym-checks(G) = { let g = G.gym; let boxes = g.furniture.map(bx); (
   ([the gym furniture inside the band's clear box, no overlaps], boxes.all(b => box-in(b, rect-pts(..g.clear-box))) and no-overlaps(boxes)),
   ([the 0.5 m zone behind the treadmill free], boxes.all(b => not overlap(b, g.zone))),
@@ -168,11 +203,14 @@
   poly(gf-compartment, fill: rgb("#f0d9c0").transparentize(60%), stroke: (paint: brown, dash: "dotted", thickness: 0.5pt)); T((1.4, 14.45), [GF WC compartment y 14.55–16.1 (below)], size: 3pt, fill: brown)
   rect(q((0, 7.9)), q((2.75, 9.2)), fill: luma(236), stroke: 0.8pt + ink); T((1.4, 8.55), [family WC], size: 4pt, fill: gray)
   rect(q((2.75, 7.9)), q((4.25, 9.2)), fill: rgb("#f2efe8"), stroke: 0.8pt + ink)
-  rect(q((4.25, 7.9)), q((5.8, L.yg)), fill: rgb("#f2efe8"), stroke: 0.8pt + ink); T((5.02, 13.5), [gallery (on the projection) · 1.55 · ends at y #r2(L.yg)], size: 4pt, fill: gray, angle: 90deg)
+  let yend = if L.gym == none or L.gym.at("nib", default: true) { L.yg } else { YG0 }
+  rect(q((4.25, 7.9)), q((5.8, yend)), fill: rgb("#f2efe8"), stroke: 0.8pt + ink); T((5.02, 13.5), [gallery (on the projection) · 1.55 · ends at y #r2(yend)], size: 4pt, fill: gray, angle: 90deg)
   if has-gym {
     let g = L.gym
-    rect(q((5.8, 19.25)), q((7.6, 24.0)), fill: rgb("#eef5e8"), stroke: 0.8pt + ink); T((6.9, 23.3), [suite court (to x 10)], size: 4pt, fill: gray)
-    R(court-strip, fill: none, stroke: (paint: accent, thickness: 0.4pt, dash: "dotted")); if L.yg > YG0 { R(g.strip-west, fill: rgb("#eef5e8"), stroke: (paint: accent, thickness: 0.4pt, dash: "dotted")) }
+    let nib = g.at("nib", default: true)
+    rect(q((if nib { 5.8 } else { 4.25 }, 19.25)), q((7.6, 24.0)), fill: rgb("#eef5e8"), stroke: 0.8pt + ink); T((6.9, 23.3), [suite court (to x 10)], size: 4pt, fill: gray)
+    if not nib { T((5.0, 20.1), [court · the nib's place], size: 3.2pt, fill: accent) }
+    R(court-strip, fill: none, stroke: (paint: accent, thickness: 0.4pt, dash: "dotted")); if L.yg > YG0 and nib { R(g.strip-west, fill: rgb("#eef5e8"), stroke: (paint: accent, thickness: 0.4pt, dash: "dotted")) }
     T((6.5, 19.5), [the 1.2 m strip], size: 3.2pt, fill: accent)
     poly(g.poly, fill: rgb("#d9e4f2"), stroke: 0.9pt + ink)
     line(q((0, L.yg)), q((X1, L.yg)), stroke: 3.2pt + red); T((2.1, L.yg - 0.18), [the double wall Rw ≈ 55 · y #r2(L.yg)], size: 3.4pt, fill: red)
@@ -181,8 +219,14 @@
     for (x0, y0, x1, y1, l) in g.furniture { R((x0, y0, x1, y1), fill: rgb("#fbf6ea"), stroke: 0.45pt + rgb("#8a7a5a")); T(((x0 + x1) / 2, (y0 + y1) / 2), l, size: 3.3pt, angle: if (y1 - y0) > (x1 - x0) * 1.4 { 90deg } else { 0deg }) }
     for (x0, y0, x1, y1, l) in court-furn { R((x0, y0, x1, y1), fill: white, stroke: (paint: luma(140), thickness: 0.4pt, dash: "dashed")); T(((x0 + x1) / 2, (y0 + y1) / 2), l, size: 3pt, fill: gray) }
     R(g.ladder, fill: rgb("#c9a86a"), stroke: 0.5pt + ink); T((g.ladder.at(2) + 0.08, (g.ladder.at(1) + g.ladder.at(3)) / 2), [ladder recess], size: 3pt, fill: brown, anchor: "west", angle: 90deg)
-    let gd = g.gym-door; line(q(gd.at(0)), q(gd.at(1)), stroke: 1.8pt + red); T((4.9, L.yg - 0.2), [gym door (sliding)], size: 3.2pt, fill: red)
-    let cd = g.court-door; line(q(cd.at(0)), q(cd.at(1)), stroke: 3pt + red); R(swing-box(cd), stroke: (paint: red, thickness: 0.35pt, dash: "dashed"))
+    if nib {
+      let gd = g.gym-door; line(q(gd.at(0)), q(gd.at(1)), stroke: 1.8pt + red); T((4.9, L.yg - 0.2), [gym door (sliding)], size: 3.2pt, fill: red)
+      let cd = g.court-door; line(q(cd.at(0)), q(cd.at(1)), stroke: 3pt + red); R(swing-box(cd), stroke: (paint: red, thickness: 0.35pt, dash: "dashed"))
+    } else {
+      let gd = g.gym-door; line(q(gd.at(0)), q(gd.at(1)), stroke: 3pt + red); R(swing-box(gd), stroke: (paint: red, thickness: 0.35pt, dash: "dashed")); T((3.6, L.yg + 1.25), [gym door, from the court], size: 3.2pt, fill: red)
+      if g.glass-door != none { let gl = g.glass-door; line(q(gl.at(0)), q(gl.at(1)), stroke: 3pt + blue); R(swing-box(gl), stroke: (paint: blue, thickness: 0.35pt, dash: "dashed")); T((5.0, 19.05), [glass door → court], size: 3.2pt, fill: blue) } else { line(q((4.5, YG0)), q((5.5, YG0)), stroke: (paint: blue, thickness: 2.2pt, dash: "dashed")); T((5.0, 19.05), [window · no door], size: 3.2pt, fill: blue) }
+      line(q((4.25, 19.25)), q((4.25, YS)), stroke: 1.2pt + ink)
+    }
     T((2.1, 22.9), [*Gym* #r2(area(g.poly)) · ≈ #r2(gym-clear(L)) clear], size: 4.4pt)
     line(q((0, 7.9)), q((0, YS)), stroke: 2pt + ink); line(q((0, YS)), q((7.6, YS)), stroke: 2pt + ink)
     for (a, b) in (((0, 19.6 + L.yg - YG0), (0, 20.9 + L.yg - YG0)), ((0, 22.0), (0, 23.5)), ((2.0, YS), (3.9, YS))) { line(q(a), q(b), stroke: (paint: blue, thickness: 2.2pt, dash: "dashed")) }
@@ -208,8 +252,154 @@
 #let AC(L, n) = { let P = P-of(L, n); if P == none { [—] } else { [#r2(area(P)) · *#r2(clear(P))*] } }
 #let gain(L, n) = { let v = Cz(L, n) - Cz(today, n); [#if v >= 0 [+] #r2(v)] }
 
-// ======================= PAGE 1 · rev 3: the gym strip G0–G2 on the X3 base =======================
-#text(13pt, weight: "bold", fill: accent)[First-floor west band, rev 3 · X3 adopted + a strip from the gym: G0 / G1 / G2 · the gym's entrance and the gallery's end] #h(1fr) #text(6.6pt, fill: gray)[study · 14 Nov 2026 · nothing in the design files changed · m² on axes · *clear* inside the walls]
+// ======================= PAGE 1 · rev 4: no nib, the paired doors at the gallery's end, the sun on the clerestory =======================
+#let NT = (G1, N0, N1, N1b, Nb)
+#let col-head = ([*Today*], [*G1*], [*N0*], [*N1*], [*N1-b*], [*N-best*])
+#let nib-of(L) = L.gym.at("nib", default: true)
+#let w-shade(L) = if nib-of(L) { shade(-23.44deg, 15, cl.at(0)) } else { 0 }
+#text(13pt, weight: "bold", fill: accent)[First-floor west band, rev 4 · no entrance nib · paired doors at the gallery's end · the sun on the clerestory] #h(1fr) #text(6.6pt, fill: gray)[study · 14 Nov 2026 · nothing in the design files changed · m² on axes · *clear* inside the walls]
+#v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+#grid(columns: (1.25fr, 1fr), column-gutter: 10pt,
+  [
+    #table(columns: (1.45fr, 0.8fr, 0.9fr, 0.9fr, 0.9fr, 0.9fr, 1fr), stroke: 0.3pt + luma(190), inset: 2.2pt, align: (left, right, right, right, right, right, right), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") },
+      table.header([*axes · clear m²*], ..col-head),
+      [Bedroom 3 / gym wall on y], [19.25], ..NT.map(L => [#r2(L.yg)]),
+      [Nib x 4.25–5.8], [yes], ..NT.map(L => if nib-of(L) [yes] else [*no*]),
+      [Bedroom 2 (with its entry strip)], AC(today, "Bedroom 2"), ..NT.map(L => AC(L, "Bedroom 2")),
+      [Bedroom 3], AC(today, "Bedroom 3"), ..NT.map(L => AC(L, "Bedroom 3")),
+      [… gains over today (clear)], [—], ..NT.map(L => [#gain(L, "Bedroom 2") · #gain(L, "Bedroom 3")]),
+      [Baths 2 · 3 (clear)], [#r2(Cz(today, "Bedroom 2 bath")) · #r2(Cz(today, "Bedroom 3 bath"))], ..NT.map(L => [#r2(Cz(L, "Bedroom 2 bath")) · #r2(Cz(L, "Bedroom 3 bath"))]),
+      [Gym, axes · clear], [22.20 · 19.70], ..NT.map(L => [#r2(area(L.gym.poly)) · *#r2(gym-clear(L))*]),
+      [Gym band, clear w × d], [4.03 × 4.53], ..NT.map(L => [4.03 × #r2(YS - 0.125 - L.yg - 0.1)]),
+      [Gallery ends at y · its length], [19.25 · 18.55], ..NT.map(L => if nib-of(L) [#r2(L.yg) · #r2(L.yg - 0.7)] else [19.25 · 18.55]),
+      [Gym door], [sliding, from the gallery (nib)], ..NT.map(L => if nib-of(L) [sliding, from the gallery (nib)] else [x 4.25, y #r2(L.yg + 0.1)–#r2(L.yg + 1.0), from the court]),
+      [Glass door at the gallery's end], [—], ..NT.map(L => if nib-of(L) [— (the nib's door)] else if glass-of(L) == none [none (a window)] else [1.10, y 19.25]),
+      [Bedroom 3's door (x 4.25) at y], [15.2–16.2], ..NT.map(L => { let d = L.doors.at(3); [#r2(d.at(0).at(1))–#r2(d.at(1).at(1))] }),
+      [The family reaches the gym], [from the gallery], ..NT.map(L => if nib-of(L) [from the gallery] else if family-ok(L) [glass door + 1 step of court] else [*through the suite only*]),
+      [Suite court, axes], [25.30], ..NT.map(L => [#r2(court-area(L))]),
+      [Ladder recess on the gym's east wall, y], [20.65–21.95], ..NT.map(L => [#r2(L.gym.ladder.at(1))–#r2(L.gym.ladder.at(3))]),
+      [West clerestory window shaded, 21 Dec 15:00], [#calc.round(shade(-23.44deg, 15, cl.at(0)) * 100)%], ..NT.map(L => [#calc.round(w-shade(L) * 100)%]),
+      [The double wall stands on], [B22 + B8], ..NT.map(L => if L.yg == YG0 [B22 + B8] else [the slab, #r2(L.yg - YG0) off]),
+      [Checks: bedrooms (6) · gym (5) · doors], [—], ..NT.map(L => [#if all-ok(L) [ok] else [FAIL] · #if gym-all-ok(L) [ok] else [#gym-checks(L).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])] · #if glass-ok(L) [ok] else [clash]]),
+    )
+    #v(2pt)
+    #text(6.3pt, fill: gray)[Today / G1 = pages 7–10 (the nib kept). N0–N-best carry X3 (the bath pair 1.4 m deep, the stack into the GF WC compartment, bedroom 2's entry by the shaft), the pair re-centred. Gym checks: the furniture inside the band, the 0.5 m zone behind the treadmill free, a 1.0 m path from the door, the court door's swing clear of the court's furniture and the ladder, the court door within the 1.2 m strip. Doors: the glass door's swing clear of the gym door's swing, the ladder and the court's furniture. Shading = the share of the west clerestory window's area in the nib's shadow (page 6).]
+    #v(2pt)
+    #H[The gallery's end (عاشق ومعشوق)]
+    #text(6.6pt)[
+      - *Without the nib* the gym cannot have a door from the gallery: the gallery ends at y 19.25 on the court's edge, and the gym is west of x 4.25 south of that line, so the two only touch at the column C19. The one straight way in is *through the court's corner*: a glass door at the gallery's end onto the court and the gym door on the court's west wall right beside it (one step of court, 0.6 m, under the sky and the first-floor roof edge: a small canopy or the mashrabiya's shade, to detail). The family: gallery → glass door → gym; the owner: court → gym. N1-b shows the alternative without the glass door: the gym is then reached only through the suite bedroom or the office, which is no family gym.
+      - *N-best* moves bedroom 3's door to the gallery's end as well (x 4.25, y 18.65–19.55): three doors at one point, no vestibule, no corridor; bedroom 3's wardrobe goes onto the gym wall and the door opens on the bed's foot side (the head is on the west wall). The gallery keeps its full 1.55 m to the glass door; nothing is built east of x 4.25 south of it; the court gains the nib's 2.0 m².
+    ]
+  ],
+  [
+    #box(fill: accent.lighten(86%), stroke: 1pt + accent, inset: 6pt, radius: 3pt, width: 100%)[
+      #text(9.5pt, weight: "bold", fill: accent)[The study's view (the owner decides): N-best] \
+      #text(6.9pt)[
+        Removing the nib does three things at once: the gym's east wall becomes the one straight line x 4.25 of all the west rooms; the west clerestory window of the double-height living gets its winter afternoon sun back (today the nib covers #calc.round(shade(-23.44deg, 15, cl.at(0)) * 100)% of it at 15:00 on 21 Dec, #calc.round(shade(-23.44deg, 14, cl.at(0)) * 100)% at 14:00; the east window and the noon sun were never touched); the court gains 2.0 m². The price is the gym's door: from the court's corner through the glass door, one step outside. N-best adds bedroom 3's door at the same point, so the gallery's end is the whole south-west corner's entry and the gallery's last 3 m has no door on its west wall but that one. With the wall on y 19.75 the bedrooms reach #r2(Cz(Nb, "Bedroom 2")) and #r2(Cz(Nb, "Bedroom 3")) m² clear (+#r2(Cz(Nb, "Bedroom 2") - Cz(today, "Bedroom 2")) and +#r2(Cz(Nb, "Bedroom 3") - Cz(today, "Bedroom 3"))) and the gym keeps #r2(gym-clear(Nb)) m² with the owner's list fitted. *N0* is the same with the wall on its beams (the bedrooms #r2(Cz(N0, "Bedroom 2")) / #r2(Cz(N0, "Bedroom 3")), the gym #r2(gym-clear(N0))). *G1* keeps the nib and its shade.
+      ]
+    ]
+    #v(3pt)
+    #box(fill: rgb("#f4efe3"), stroke: 0.6pt + luma(170), inset: 5pt, radius: 3pt, width: 100%)[
+      #ah[
+        #text(8.5pt, weight: "bold", fill: accent)[الخلاصة بالعربية] \
+        #text(7.0pt)[
+          نقاط المالك (14 نوفمبر 2026): عتبة مدخل النادي (x 4.25–5.8) تحجب شمس نوافذ الصالة العلوية على فناء الجناح، فتُدرس إزالتها: جدار النادي الشرقي على x 4.25 كبقية الغرف الغربية؛ ونهاية الممر نقطة الدخول المشتركة: باب زجاجي على الفناء وباب النادي بجانبه ("عاشق ومعشوق"). \
+          *N0:* بلا عتبة، الجدار على y 19.25 فوق الجسرين؛ الغرفتان #r2(Cz(N0, "Bedroom 2")) و#r2(Cz(N0, "Bedroom 3")) م²، النادي #r2(gym-clear(N0)) م²؛ باب النادي من الفناء بجانب الباب الزجاجي. \
+          *N1:* بلا عتبة، الجدار على y 19.75 (جدار جبسي مزدوج عازل على البلاطة)؛ الغرفتان #r2(Cz(N1, "Bedroom 2")) و#r2(Cz(N1, "Bedroom 3")) م²، النادي #r2(gym-clear(N1)) م². \
+          *N1-b:* كما N1 بلا باب زجاجي: لا تصل العائلة إلى النادي إلا عبر الجناح؛ للمقارنة فقط. \
+          *N-best (رأي الدراسة):* N1 مع باب غرفة النوم 3 عند نهاية الممر أيضًا: ثلاثة أبواب في نقطة واحدة بلا ممر ضائع؛ نافذة الصالة الغربية تستعيد شمس بعد الظهر شتاءً (العتبة تحجب #calc.round(shade(-23.44deg, 15, cl.at(0)) * 100)% منها الساعة 15:00 في 21 ديسمبر).
+        ]
+      ]
+    ]
+  ],
+)
+
+// ======================= PAGES 2–5 · N0, N1, N1-b, N-best =======================
+#for L in N-options [
+  #pagebreak()
+  #text(12pt, weight: "bold", fill: accent)[#L.name] #h(1fr) #text(6.6pt, fill: gray)[1 : 100 (1.0 cm / m, as sheet 04) · CSV frame, north up · #L.note]
+  #v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+  #grid(columns: (auto, 1fr), column-gutter: 12pt,
+    plan(L),
+    [
+      #let ys = L.yb + L.D
+      #let g = L.gym
+      #let d3 = L.doors.at(3)
+      #set text(6.6pt)
+      #H[Clear sizes and areas]
+      #table(columns: (1.4fr, 1fr, 1fr, 1fr, 1fr), stroke: 0.3pt + luma(190), inset: 2.2pt, align: (left, right, right, right, right), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") },
+        table.header([*Room*], [*axes w × d*], [*clear w × d*], [*axes m²*], [*clear m²*]),
+        [Bedroom 2 (+ the entry strip 2.55 × 1.20)], [4.25 × #r2(L.yb - 10.4) (L)], [4.03 × #r2(L.yb - 10.6)], [#r2(Az(L, "Bedroom 2"))], [*#r2(Cz(L, "Bedroom 2"))* (today #r2(Cz(today, "Bedroom 2")): #gain(L, "Bedroom 2"))],
+        [Bedroom 3], [4.25 × #r2(L.yg - ys)], [4.03 × #r2(L.yg - ys - 0.2)], [#r2(Az(L, "Bedroom 3"))], [*#r2(Cz(L, "Bedroom 3"))* (today #r2(Cz(today, "Bedroom 3")): #gain(L, "Bedroom 3"))],
+        [Bath 2 · bath 3 (X3)], [2.10 · 2.15 × 1.40], [1.88 · 1.95 × 1.20], [#r2(Az(L, "Bedroom 2 bath")) · #r2(Az(L, "Bedroom 3 bath"))], [*#r2(Cz(L, "Bedroom 2 bath")) · #r2(Cz(L, "Bedroom 3 bath"))*],
+        [Gym (no nib)], [4.25 × #r2(YS - L.yg)], [4.03 × #r2(YS - 0.125 - L.yg - 0.1)], [#r2(area(g.poly))], [*#r2(gym-clear(L))*],
+        [Suite court (the nib's place now court)], [5.75 × 4.75], [5.55 × 4.53], [#r2(court-area(L))], [—],
+      )
+      *Checks:* bedrooms #if all-ok(L) [passed (#checks(L).len())] else [FAILED: #checks(L).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]; gym #if gym-all-ok(L) [passed (#gym-checks(L).len())] else [FAILED: #gym-checks(L).filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]; the doors at the gallery's end #if glass-ok(L) [clear of each other, the ladder and the court's furniture] else [CLASH]. The bath pair y #r2(L.yb)–#r2(ys), the stack at y #r2(L.stack.at(1)) inside the GF WC compartment.
+      #H[The gallery's end and its doors]
+      - *The gallery* ends at y 19.25 as today (18.55 m from the linen cupboard), its full 1.55 m to the end wall; #if g.glass-door != none [in that wall the *glass door 1.10* (x 4.4–5.5, hinged, opening into the court; its swing 4.4–5.5 × 19.25–20.35 on the court's corner, clear of the gym door's swing, the ladder recess and the winter armchair at x 7.1).] else [that wall is solid with a window: no door onto the court.]
+      - *The gym door 0.90* on the court's west wall (the gym's east wall x 4.25), y #r2(g.gym-door.at(0).at(1))–#r2(g.gym-door.at(1).at(1)), opening into the gym; #if g.glass-door != none [#r2(g.gym-door.at(0).at(1) - YG0 - 0.1) m south of the glass door's jamb: the two doors at one point, one step of court between them (a canopy or the mashrabiya's shade over that step, to detail); the family: gallery → glass door → gym; the owner: court → gym.] else [reached from the court only: the family passes through the suite bedroom or the office: no family gym.] Inside, a 1.0 m path along the north wall to the equipment (checked).
+      - *Bedroom 3's door 0.90* at y #r2(d3.at(0).at(1))–#r2(d3.at(1).at(1)) on x 4.25, opening into the room (the leaf against the bath wall side); the bed's head on the west wall, so no door faces it. #if L.doors.at(3).at(3) == [bedroom 3 door 0.90, at the gallery's end, paired with the glass door] [*Paired at the gallery's end:* bedroom 3 (west), the glass door (south) and, one step beyond, the gym: no vestibule, no wasted corridor; its wardrobe 1.8 × 0.6 on the gym wall, the desk at the south-west window.] else [As in X3, beside the bath pair.]
+      - *The court:* its north strip y 19.35–20.55 keeps the bedroom's and the office's doors and gains the glass door and the gym door at its west end (both within the strip); the ladder recess slides to y #r2(g.ladder.at(1))–#r2(g.ladder.at(3)) on the gym's east wall (0.1 m south of the gym door); the winter armchairs, the table and the seating do not move; the court grows by the nib's 2.0 m² (#r2(court-area(L)) m² on axes).
+      #H[Sun on the clerestory · structure]
+      - *Sun:* without the nib nothing stands west of the clerestory windows: the west window (x 6.0–7.0) keeps its direct sun on 21 Dec from noon to sunset (with the nib: #calc.round(shade(-23.44deg, 14, cl.at(0)) * 100)% shaded at 14:00, #calc.round(shade(-23.44deg, 15, cl.at(0)) * 100)% at 15:00, #calc.round(shade(-23.44deg, 16, cl.at(0)) * 100)% at 16:00); the east window and the noon sun were never shaded; in summer the south-facing windows see no direct sun at all (the sun stands north of east–west at noon and in the afternoon). Page 6.
+      - *Structure:* #if L.yg == YG0 [the double wall on the beams B22 (x 0–2.75) and B8 (x 2.75–4.25) on the column line C6 – C13 – C19, as designed.] else [the acoustic wall #r2(L.yg - YG0) m south of the beams B22 / B8 as a *light double gypsum wall* (two independent stud leaves with mineral wool, Rw ≥ 55, ≈ 0.8 kN/m) on the men's majlis roof slab (ribbed 0.30 spanning N–S): a small line load near the support, no thickened rib needed in the engineer's first view; the beams stay on y 19.25 and carry the slab edge.] The nib's two partitions and its roof edge R21 are *not built* (R21 was a cantilever from C23: one less item for the engineer); the gym's east wall x 4.25 stands on B19 (C19 – C20) as today; no column or beam moved.
+    ],
+  )
+]
+
+// ======================= PAGE 6 · the sun on the clerestory windows: the nib today vs no nib =======================
+#pagebreak()
+#text(12pt, weight: "bold", fill: accent)[The sun on the double-height living's clerestory windows · the nib today vs no nib] #h(1fr) #text(6.6pt, fill: gray)[Taif #calc.round(lat / 1deg, digits: 1)° N · solar time · a plan estimate: the nib's roof 3.6 m above the court floor (+7.2 / +3.6), the windows 1.40–2.40 above it (sill +5.00, head +6.00), x 6.0–7.0 and 7.6–8.6 on the court's north wall y 19.25 (studies/sections.typ, studies/ff_suite.typ)]
+#v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
+#grid(columns: (1fr, 1fr), column-gutter: 14pt,
+  [
+    #table(columns: (1.3fr, 0.6fr, 0.7fr, 0.9fr, 0.9fr, 0.8fr, 0.8fr), stroke: 0.3pt + luma(190), inset: 2.4pt, align: (left, right, right, right, right, right, right), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") },
+      table.header([*When*], [*alt.*], [*azimuth*], [*shadow reach, x*], [*shadow top, m*], [*west window shaded*], [*east window*]),
+      ..sun-rows.map(((dec, hr, l)) => { let (h, A) = sun(dec, hr); let on = direct(dec, hr); let reach = if on { 5.8 + nib-d * calc.tan(A) } else { 0 }; let top = if on { nib-h - nib-d * calc.tan(h) / calc.cos(A) } else { 0 }
+        ([#l], [#calc.round(h / 1deg)°], [#if on [#calc.round(A / 1deg)° W] else [#calc.round(A / 1deg)° (N of E–W)]], [#if on [#r2(reach)] else [—]], [#if on [#r2(top)] else [—]], [#if on [#calc.round(shade(dec, hr, cl.at(0)) * 100)%] else [no direct sun]], [#if on [#calc.round(shade(dec, hr, cl.at(1)) * 100)%] else [no direct sun]]) }).join(),
+    )
+    #v(2pt)
+    #text(6.4pt, fill: gray)[Altitude and azimuth from the latitude, the declination (21 Dec −23.44°, 21 Jun +23.44°) and the hour angle; the shadow of the nib's south-east roof corner on the window plane: x = 5.8 + 1.3 tan A, top = 3.6 − 1.3 tan h / cos A; "shaded" = the share of the window's area west of x and below the top (the true edge is slanted: an estimate within ≈ 10 %). Without the nib every value is 0 %: nothing else stands west of the windows (the gym's east wall x 4.25 is in line with the gallery's end wall).]
+    #v(3pt)
+    #H[What the nib shades, what is gained]
+    #text(6.8pt)[
+      - *Winter (the season that matters for these windows):* at noon the sun is due south, 45° high: the nib casts no shadow eastwards and the court's south frame is too far to matter; both windows are in full sun with or without the nib. From about 13:00 the sun moves west and the nib's shadow walks east along the north wall: the west window is #calc.round(shade(-23.44deg, 13, cl.at(0)) * 100)% shaded at 13:00, #calc.round(shade(-23.44deg, 14, cl.at(0)) * 100)% at 14:00, #calc.round(shade(-23.44deg, 15, cl.at(0)) * 100)% at 15:00, #calc.round(shade(-23.44deg, 16, cl.at(0)) * 100)% at 16:00; the east window is touched only after 15:30 (#calc.round(shade(-23.44deg, 16, cl.at(1)) * 100)% at 16:00). *Removing the nib gives the west window its whole winter afternoon*, ≈ 3 h of low, warm sun into the double-height living, and the court's north-west corner the same.
+      - *Equinox:* the sun at 15:00 is high (#calc.round(sun(0deg, 15).at(0) / 1deg)°): the nib's shadow stays below the sills: no loss, no gain.
+      - *Summer:* at noon the sun stands slightly north (altitude #calc.round(sun(23.44deg, 12).at(0) / 1deg)°) and at 15:00 north of west: the south-facing windows receive no direct sun in either case; the nib changes nothing. The owner's concern is a winter one, and it is real.
+      - *The office wall* (x 10) east of the windows shades them symmetrically in the winter *morning*: 4.75 m deep, its shadow top on the north wall stays below the sills until the sun is low (≈ 09:00); that is as designed and unchanged here.
+    ]
+  ],
+  [
+    #cetz.canvas(length: 1.0cm, {
+      import cetz.draw: *
+      let T(p, body, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content((p.at(0), -p.at(1)), anchor: anchor, angle: angle, text(size, fill: fill, body))
+      rect((3.8, -24.5), (11.6, -17.6), fill: rgb("#f3efe6"), stroke: none)
+      rect((4.25, -24.0), (10.0, -19.25), fill: rgb("#eef5e8"), stroke: 0.8pt + ink); T((7.1, 23.6), [suite court], size: 4pt, fill: gray)
+      rect((4.25, -20.55), (5.8, -19.25), fill: rgb("#d9e4f2"), stroke: 0.9pt + ink); T((5.0, 19.9), [nib today], size: 3.8pt)
+      line((4.25, -24.0), (4.25, -19.25), stroke: 1.2pt + ink); T((4.1, 21.7), [gym], size: 4pt, angle: 90deg, anchor: "center")
+      line((5.8, -19.25), (10.0, -19.25), stroke: 2pt + ink); T((7.9, 17.85), [the double-height living's south wall · the two clerestory windows (sill +1.40 above the court)], size: 3.4pt)
+      for (a, b) in cl { line((a, -19.25), (b, -19.25), stroke: 3pt + blue) }
+      T((6.5, 18.1), [W 6.0–7.0], size: 3.4pt, fill: blue); T((8.1, 18.1), [E 7.6–8.6], size: 3.4pt, fill: blue)
+      // the shadow of the nib's SE corner on the court floor and the reach on the wall, 21 Dec 13–16 h
+      let k = 0
+      for (hr, c) in ((13, rgb("#e8b84a")), (14, rgb("#d99a2b")), (15, rgb("#c47a1f")), (16, rgb("#a85e18"))) {
+        let (h, A) = sun(-23.44deg, hr); let reach = 5.8 + nib-d * calc.tan(A); let top = nib-h - nib-d * calc.tan(h) / calc.cos(A)
+        line((5.8, -20.55), (reach, -19.25), stroke: (paint: c, thickness: 0.8pt, dash: "dashed"))
+        line((5.8, -19.25 + 0.35 + k * 0.22), (reach, -19.25 + 0.35 + k * 0.22), stroke: 1.6pt + c); T((reach + 0.1, 19.25 - 0.35 - k * 0.22), [#hr:00 · to x #r2(reach) · up to #r2(top) m], size: 3.2pt, fill: c, anchor: "west")
+        k += 1
+      }
+      line((10.0, -24.0), (10.0, -19.25), stroke: 1.2pt + ink); T((10.15, 21.7), [office wall x 10], size: 3.6pt, angle: 90deg)
+      T((7.1, 24.2), [the sun's direction on 21 Dec: 13:00 from the SSW, 16:00 from the WSW; the dashed lines = the nib's roof-corner shadow on the court floor, the bars = its reach on the wall], size: 3.4pt, fill: gray)
+    })
+    #v(2pt)
+    #text(6.4pt, fill: gray)[Plan of the court's north-west corner (1 : 100). Without the nib the gym's east wall ends at the gallery's end wall (y 19.25) 1.75 m west of the first window; it stands in the plane of the gallery's end wall and, being west of the gallery and the court's north edge, casts nothing onto the windows.]
+  ],
+)
+
+// ======================= PAGE 7 · rev 3: the gym strip G0–G2 on the X3 base =======================
+#pagebreak()
+#text(13pt, weight: "bold", fill: accent)[Rev 3 · X3 adopted + a strip from the gym: G0 / G1 / G2 · the gym's entrance and the gallery's end (the nib kept)] #h(1fr) #text(6.6pt, fill: gray)[study · 14 Nov 2026 · nothing in the design files changed · m² on axes · *clear* inside the walls]
 #v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
 #grid(columns: (1.15fr, 1fr), column-gutter: 12pt,
   [
@@ -298,7 +488,7 @@
 
 // ======================= PAGE 5 · rev 2: X1 / X2 / X3 by bath size (the comparison) =======================
 #pagebreak()
-#text(13pt, weight: "bold", fill: accent)[Rev 2 · X1 / X2 / X3 by bath size (X3 adopted, 14 Nov 2026)] #h(1fr) #text(6.6pt, fill: gray)[the gym as today (y 19.25) · m² on axes · *clear* inside the walls (west wall 0.125, others 0.10 a side)]
+#text(13pt, weight: "bold", fill: accent)[Rev 2 · X1 / X2 / X3 by bath size (X3 adopted, 14 Nov 2026)] #h(1fr) #text(6.6pt, fill: gray)[pages 11–14 · the gym as today (y 19.25) · m² on axes · *clear* inside the walls (west wall 0.125, others 0.10 a side)]
 #v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
 #grid(columns: (1.15fr, 1fr), column-gutter: 12pt,
   [
@@ -330,7 +520,7 @@
     #box(fill: accent.lighten(86%), stroke: 1pt + accent, inset: 6pt, radius: 3pt, width: 100%)[
       #text(9.5pt, weight: "bold", fill: accent)[The study's view was X2 · the owner adopted X3 (14 Nov 2026)] \
       #text(7pt)[
-        Each 0.2 m taken from the pair's depth gives each bedroom 0.1 m, about 0.4 m² clear: X1 → X2 → X3 is #r2(Cz(X1o, "Bedroom 2")) → #r2(Cz(X2o, "Bedroom 2")) → #r2(Cz(X3o, "Bedroom 2")) m² for bedroom 2 and #r2(Cz(X1o, "Bedroom 3")) → #r2(Cz(X2o, "Bedroom 3")) → #r2(Cz(X3o, "Bedroom 3")) for bedroom 3. *X2* (1.6 m deep, 1.4 clear) is where the bath still feels like a room. *X3* (1.4 m deep, 1.2 clear) passes every rule with nothing to spare: the shower, the WC and the basin touch in a row, the door leaf stops 0.1 m from the shower screen. The owner chose the bedrooms: X3 is the base of rev 3 (pages 1–4).
+        Each 0.2 m taken from the pair's depth gives each bedroom 0.1 m, about 0.4 m² clear: X1 → X2 → X3 is #r2(Cz(X1o, "Bedroom 2")) → #r2(Cz(X2o, "Bedroom 2")) → #r2(Cz(X3o, "Bedroom 2")) m² for bedroom 2 and #r2(Cz(X1o, "Bedroom 3")) → #r2(Cz(X2o, "Bedroom 3")) → #r2(Cz(X3o, "Bedroom 3")) for bedroom 3. *X2* (1.6 m deep, 1.4 clear) is where the bath still feels like a room. *X3* (1.4 m deep, 1.2 clear) passes every rule with nothing to spare: the shower, the WC and the basin touch in a row, the door leaf stops 0.1 m from the shower screen. The owner chose the bedrooms: X3 is the base of rev 3 and rev 4 (pages 1–10).
       ]
     ]
     #v(4pt)
@@ -406,7 +596,7 @@
       - *W1:* the bath pair 1.8 m deep side by side across the band, bedroom 2's north wall straight on y 10.4 (the shaft's south face, a GF wall), the strip x 1.5–4.25 × y 9.2–10.4 a store off the gallery.
       - *W2 (the owner's idea then):* as W1, the strip given to bedroom 2 with a deep wardrobe beside the shaft, its face flush with the shaft's face.
       - *W3:* as W2 with the pair's walls on y 14.4–16.1: y 14.4 is no longer a GF wall (the GF powder room runs 12.9–16.1, its compartment partition is at 14.55), the baths fell under 3.0 m² and the rooms differed by 6.5 m².
-      - *What the owner kept for rev 2:* the pair back to back between the bedrooms on one wet wall and one stack, bath 2 west with a window, bath 3 east with a fan, straight walls, equal rooms. *What changed:* no store and no wardrobe in the strip (it is bedroom 2's entry, the gallery door inside it); the bedrooms first, the baths may shrink; both WCs at the south end of the wet wall so the stack lands in the GF WC compartment. *Rev 3:* X3 adopted; the gym strip G0–G2 (pages 1–4).
+      - *What the owner kept for rev 2:* the pair back to back between the bedrooms on one wet wall and one stack, bath 2 west with a window, bath 3 east with a fan, straight walls, equal rooms. *What changed:* no store and no wardrobe in the strip (it is bedroom 2's entry, the gallery door inside it); the bedrooms first, the baths may shrink; both WCs at the south end of the wet wall so the stack lands in the GF WC compartment. *Rev 3:* X3 adopted; the gym strip G0–G2 (pages 7–10). *Rev 4:* no nib, the paired doors at the gallery's end, the sun on the clerestory (pages 1–6).
     ]
   ],
 )
