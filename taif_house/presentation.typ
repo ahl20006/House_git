@@ -127,7 +127,7 @@
   "Living (normal height) · dining": "Dining", "Guest basins (trough · 3 taps)": "Basins (3)",
   "Serving passage (2 doors)": "Serving", "Family powder room (WC · 2 basins)": "Powder room", "Upper gallery (on the west projection)": "Gallery",
   "Kids' room (study + gaming)": "Kids' room", "Suite court (open to the sky)": "Suite court", "Wardrobe niche (bedroom 2)": "niche",
-  "Suite WC (closet)": "WC", "Air tower": "malqaf", "Malqaf chamber": "malqaf chamber",
+  "Suite WC (closet)": "WC", "Bedroom 1 bath": "Bath 1", "Air tower": "malqaf", "Malqaf chamber": "malqaf chamber",
 )
 #let mk(prefix, rows, extra) = rows.enumerate().map(((i, r)) => (id: prefix + (if i < 9 { "0" } else { "" }) + str(i + 1), name: r.name, kind: kind-of(r.name, r.colour), P: poly-of(r))) + extra
 #let tower = fam.fixed.find(f => f.name == "Air tower").pts
@@ -359,8 +359,8 @@
 )
 #let fill-in(s) = { let t = s; for (k, v) in vals { t = t.replace("{" + k + "}", v) }; t }
 #let ff-label-at = (
-  "Upper gallery (on the west projection)": (sec.pj-edge - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.3, 8.9),
-  "Bedroom 1": (11.0, 4.6), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
+  "Upper gallery (on the west projection)": (sec.pj-edge - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.2, 9.35), "Suite WC (closet)": (10.9, 7.6), "Bedroom 1 bath": (12.4, 6.75),
+  "Bedroom 1": (10.6, 3.0), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
 #let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.45), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (7.2, 9.55))
@@ -518,7 +518,7 @@
     #en[
       *West projection:* #n2(sec.pj.depth) m over the courtyard and the double-height void, on an edge beam on x #n2(sec.pj.col-x) and #sec.pj.columns columns; the first-floor west wall stands on the GF west wall. Gallery #n2(sec.pj.gallery) m (≈ #n3(sec.pj.gallery-clear) m clear), west rooms #n2(sec.pj.room) m (≈ #n3(sec.pj.room-clear) m clear), courtyard sky #n3(sec.pj.sky) m (≈ #n3(sec.pj.sky-clear) m clear).
 
-      *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m², the young children's room next to the master suite (no en-suite: they are bathed in the suite's bathroom; owner, V9.0).
+      *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m², the young children's room next to the master suite, *with its own compact bath F20* #ffa("Bedroom 1 bath") m² (14 Nov 2026, the east wing's M3 adopted with the owner's adjustments: the bath in the corner beside the suite's wet rooms, its shower over the east stack back to back with the suite's; bedroom 1's door on the link's east wall at a right angle to the suite door; two built-in wardrobes; the suite's WC closet re-made 1.0 × 1.3 clear on the shared wall with a glass door into the bath, the suite's shower on its north wall, the basins east, the tub south).
 
       *West band:* the family WC (WC + basin) off the gallery, bedroom 2 with its en-suite, bedroom 3 with its own bath; every door from the gallery.
 
@@ -528,7 +528,7 @@
       #ah[البروز الغربي والممر العلوي]
       بروز #n2(sec.pj.depth) م فوق الفناء وفراغ الصالة على جسر حافة على x #n2(sec.pj.col-x) و#sec.pj.columns أعمدة، والجدار الغربي للدور الأول فوق الجدار الغربي للأرضي. الممر #n2(sec.pj.gallery) م (نحو #n3(sec.pj.gallery-clear) م صافي)، والغرف #n2(sec.pj.room) م (نحو #n3(sec.pj.room-clear) م صافي)، والسماء فوق الفناء #n3(sec.pj.sky) م.
       #ah[الشريط الشمالي]
-      غرفة الأطفال #ffa("Kids' room (study + gaming)") م² وجلسة العائلة #ffa("Family living") م² على حافة الفناء، وغرفة النوم 1 #ffa("Bedroom 1") م² للأطفال الصغار بجوار الجناح (بلا حمام خاص: يستحمون في حمام الجناح).
+      غرفة الأطفال #ffa("Kids' room (study + gaming)") م² وجلسة العائلة #ffa("Family living") م² على حافة الفناء، وغرفة النوم 1 #ffa("Bedroom 1") م² للأطفال الصغار بجوار الجناح مع حمامها المدمج F20 (#ffa("Bedroom 1 bath") م²؛ قرار المالك 14 نوفمبر 2026: الحمام في الزاوية بجانب حمامات الجناح ودُشّه فوق ماسورة الصرف ظهرًا لظهر مع دُش الجناح، وبابها على الجدار الشرقي للممر بزاوية قائمة مع باب الجناح، وخزانتان مدمجتان؛ وغرفة مرحاض الجناح أعيدت 1.0 × 1.3 م على الجدار المشترك بباب زجاجي إلى الحمام).
       #ah[الشريط الغربي]
       دورة مياه العائلة (مرحاض ومغسلة) من الممر، وغرفة النوم 2 مع حمامها، وغرفة النوم 3 مع حمامها؛ كل الأبواب من الممر ولا باب على بسطة الدرج.
       #ah[الجنوب والشرق]
@@ -540,7 +540,7 @@
 // ===================================================================================== SHEET 04 · first floor family part
 #pagebreak()
 #sheet-head([First floor / the family part], [Kids' room, family living, bedrooms 1–3, family bath, gallery on the west projection | furnished test from studies/ff_family.typ])
-#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Bedroom 2 bath (en-suite)", "Family WC (gallery)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
+#let fam-focus = ("Upper gallery (on the west projection)", "Linen cupboard", "Bedroom 2 bath (en-suite)", "Family WC (gallery)", "Bedroom 2", "Bedroom 3 bath", "Bedroom 3", "Kids' room (study + gaming)", "Family living", "Family link", "Bedroom 1", "Bedroom 1 bath", "Stair (arrives at its south end)", "Lift shaft", "West shaft", "Air tower", "Courtyard (open to the sky)", "Double-height living (void)")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 1.0cm, {
     import cetz.draw: *
@@ -554,9 +554,9 @@
     #en[
       *Kids' room* #wd(ff-rooms, "Kids' room (study + gaming)") m: two study desks and a PC desk under the north window, a gaming corner; solid door from the gallery. *Family living* #wd(ff-rooms, "Family living") m on the courtyard edge: a view, not a path.
 
-      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with its own bath beside the shaft (3 Nov 2026; the family WC next to it, from the gallery); *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m², one room without a bath.
+      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with its own bath beside the shaft (3 Nov 2026; the family WC next to it, from the gallery); *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m² with its own compact bath F20 #ffa("Bedroom 1 bath") m² in the corner beside the suite's wet rooms (14 Nov 2026; its door on the link's east wall; two built-in wardrobes).
 
-      *Bedroom 2's bath* #wd(ff-rooms, "Bedroom 2 bath (en-suite)") m and the *family WC* #wd(ff-rooms, "Family WC (gallery)") m by the west shaft (3 Nov 2026: the F-b bath split; every fixture on one service wall into the shaft), the family WC's door from the gallery, for bedroom 1, the family living and the kids' room.
+      *Bedroom 2's bath* #wd(ff-rooms, "Bedroom 2 bath (en-suite)") m and the *family WC* #wd(ff-rooms, "Family WC (gallery)") m by the west shaft (3 Nov 2026: the F-b bath split; every fixture on one service wall into the shaft), the family WC's door from the gallery, for the family living and the kids' room.
     ]
     #ar[
       #ah[غرفة الأطفال: دراسة وألعاب]
@@ -564,7 +564,7 @@
       #ah[جلسة العائلة]
       #wd(ff-rooms, "Family living") م = #ffa("Family living") م² على حافة الفناء: إطلالة لا ممر، والطريق إلى جناح الوالدين خلف الكنبة.
       #ah[غرف النوم]
-      النوم 2: #wd(ff-rooms, "Bedroom 2") م بتجويف دولاب بجانب الشفت. النوم 3: #ffa("Bedroom 3") م² مع حمام خاص #wd(ff-rooms, "Bedroom 3 bath") م فوق دورة العائلة. النوم 1: #ffa("Bedroom 1") م² غرفة واحدة بلا حمام.
+      النوم 2: #wd(ff-rooms, "Bedroom 2") م بتجويف دولاب بجانب الشفت. النوم 3: #ffa("Bedroom 3") م² مع حمام خاص #wd(ff-rooms, "Bedroom 3 bath") م فوق دورة العائلة. النوم 1: #ffa("Bedroom 1") م² مع حمامها المدمج F20 (#ffa("Bedroom 1 bath") م²) في الزاوية بجانب حمامات الجناح (14 نوفمبر 2026).
       #ah[حمام العائلة]
       حمام غرفة النوم 2 #wd(ff-rooms, "Bedroom 2 bath (en-suite)") م ودورة المياه العائلية #wd(ff-rooms, "Family WC (gallery)") م بجوار الشفت الغربي (3 نوفمبر 2026)، وباب دورة المياه من الممر.
       #ah[التخزين]
@@ -576,7 +576,7 @@
 // ===================================================================================== SHEET 05 · the south wing v2 and the master suite (V8.0)
 #pagebreak()
 #sheet-head([First floor / the south wing and the master suite], [South wing v2 (owner, V8.0): the gym on the west band, the suite court from the gym to the office, the office on the east | furnished test from studies/ff_suite.typ | orange = the treadmill's clear zones, red = the double wall to bedroom 3 | the three court doors on a 1.2 m strip])
-#let l-focus = ("Owner's office", "Gym", "Suite court (open to the sky)", "Suite lobby", "Suite bath", "Suite WC (closet)", "Suite dressing", "Suite bedroom")
+#let l-focus = ("Owner's office", "Gym", "Suite court (open to the sky)", "Suite lobby", "Suite bath", "Suite WC (closet)", "Suite dressing", "Suite bedroom", "Bedroom 1 bath")
 #grid(columns: (auto, 1fr), column-gutter: 18pt,
   cetz.canvas(length: 0.82cm, {
     import cetz.draw: *
@@ -591,7 +591,7 @@
   }),
   [
     #en[
-      *Master suite* #n2(suite-area) m² (unchanged): a lobby from the family link opens to the bath, the dressing and the bedroom (the bed is not seen from the suite door). Luxury bath #n2(suite-bath) m²; walk-in dressing #wd(ff-rooms, "Suite dressing") m; bedroom #ffa("Suite bedroom") m². *No door to the office.* Its court door (sliding glass) opens onto an entry zone formed by a full-height wardrobe: the sight-line test (doors open, from the gym and office doors and from the court seating) keeps the bed out of view.
+      *Master suite* #n2(suite-area) m² (14 Nov 2026, the east wing's M3 adopted with the owner's adjustments): the lobby, the dressing #wd(ff-rooms, "Suite dressing") m and the bedroom #ffa("Suite bedroom") m² as before (the bed is not seen from the suite door); *the wet rooms re-planned:* the bath #wd(ff-rooms, "Suite bath") m (#n2(suite-bath) m² with the closet) with the shower on its north wall back to back with bedroom 1's shower over the one stack, the two basins on the east wall (wastes north of the hood), the tub south, its door from the lobby moved 2.2 m south; the *WC closet* 1.0 × 1.3 clear on the shared wall to bedroom 1 (a wall-hung WC on its north wall, a hinged fluted-glass door opening out into the bath, a ducted fan, an acoustic north wall); the corner x 11.5–13.311 × y 6.5–8.0 given to *bedroom 1's bath F20* #ffa("Bedroom 1 bath") m². *No door to the office.* Its court door (sliding glass) opens onto an entry zone formed by a full-height wardrobe: the sight-line test (doors open, from the gym and office doors and from the court seating) keeps the bed out of view.
 
       *Suite court* #ffa("Suite court (open to the sky)") m² on axes (≈ #n2(suite.court-clear-area) m² clear), open to the sky, from the gym to the office: the three court doors (bedroom, gym, office) on a 1.2 m strip along its north edge, the seating (a sofa, two armchairs, a table, plants) in the south part; the floor falls south to a box gutter with an overflow, linear drains at the near-flush doors. Its south side is the facade frame: a 1.10 m base under R8, the cornice and the parapet; the infill is the owner's choice (a mashrabiya screen recommended). The clerestory windows of the living get the winter noon sun on #sec.pc(sec.light.winter) of their height.
 
@@ -603,7 +603,7 @@
     ]
     #ar[
       #ah[جناح النوم الرئيسي · #n2(suite-area) م²]
-      كما هو: ردهة من وصلة العائلة إلى الحمام والملابس والنوم. لا باب بين غرفة النوم والمكتب. باب الفناء الزجاجي المنزلق يفتح على منطقة دخول يكوّنها دولاب كامل الارتفاع، فلا يُرى السرير من باب النادي أو المكتب أو من جلسة الفناء والأبواب مفتوحة.
+      الردهة وغرفة الملابس وغرفة النوم كما هي؛ حمامات الجناح أعيد تخطيطها (قرار المالك 14 نوفمبر 2026، M3): الدُش على الجدار الشمالي للحمام ظهرًا لظهر مع دُش غرفة الأطفال فوق ماسورة واحدة، والمغسلتان على الجدار الشرقي، وحوض الاستحمام جنوبًا؛ وغرفة المرحاض 1.0 × 1.3 م على الجدار المشترك مع غرفة الأطفال بمرحاض معلق وباب زجاجي مخطط يفتح إلى الحمام وشفّاط؛ والزاوية x 11.5–13.311 أُعطيت لحمام غرفة الأطفال F20. لا باب بين غرفة النوم والمكتب. باب الفناء الزجاجي المنزلق يفتح على منطقة دخول يكوّنها دولاب كامل الارتفاع، فلا يُرى السرير من باب النادي أو المكتب أو من جلسة الفناء والأبواب مفتوحة.
       #ah[فناء الجناح]
       #ffa("Suite court (open to the sky)") م² مفتوح للسماء من النادي إلى المكتب: الأبواب الثلاثة على ممر بعرض 1.2 م في طرفه الشمالي والجلسة في الجنوب، والأرضية تميل جنوبا إلى مزراب مع فائض، ومصارف خطية أمام الأبواب شبه المستوية. جهته الجنوبية إطار الواجهة بجدار سفلي 1.10 م، والحشوة اختيار المالك (المشربية مقترحة).
       #ah[النادي]
@@ -708,7 +708,9 @@
     #v(3pt)
     #text(6.8pt, fill: soft)[The owner's review, 10 Nov 2026: G13 is one room with the low part under the stair's half landing (≈ 3.7 m² at 1.65 m headroom, counted in the stair's footprint G12) and one door; its polygon wraps round the west shaft (1.5 × 1.2 m, not counted). G15 redrawn (10 Nov 2026): the WC compartment across the full width (2.75 × 1.55) with only the WC and one basin; two basins outside. G17 1.5 × 1.9 with only the WC and a shower mixer on the wall, its door from the basins room (11 Nov 2026); G18 1.5 × 2.0 next to it, the three basins in one straight row behind a 1.8 m opening. *The maid's wing, layout D (`studies/maid_wing.typ`, adopted):* G07 the laundry across the whole width (y 4.7–6.5, 1.8 m deep since 11 Nov 2026: its kitchen wall on the structural line y 6.5, no jog with the majlis wall; the machines on the kitchen wall, the table on the majlis wall), G05 the maid bath on the cut wall's south part, 1.5 m deep, a simple wet room (refined 10 Nov 2026), G06 the maid room north of it (the bed in the north corner, the wardrobe on the majlis wall, the shelf wedge in the tip, the desk under the escape casement); G21 the store removed. The malqaf chamber (#n2(area(tower-csv)) m² on axes) is not a room.]],
   [#text(12pt, weight: "bold")[First floor] #sched(ff-rooms.filter(r => r.id != ""), ff-walls)
-    #v(6pt)
+    #v(3pt)
+    #text(6.8pt, fill: soft)[*The east wing, 14 Nov 2026 (M3 adopted with the owner's adjustments, `studies/east_wing_ff.typ` page 7):* F20 bedroom 1's own compact bath (1.811 × 2.40 on axes, ≈ 1.6 × 2.2 clear) in the corner x 11.5–13.311 × y 5.6–8.0, half from F11's entry strip and half from the suite's old WC closet; F11 keeps its shape otherwise, its door on the link's east wall, two built-in wardrobes (1.15 × 0.60 and 2.40 × 0.60 clear). F17 the suite's WC closet re-made 1.2 × 1.5 on axes (1.0 × 1.3 clear) on the shared wall; F16 the suite bath 3.011 × 2.45 (shower north, basins east, tub south). F15, F18, F20 unchanged.]
+    #v(3pt)
     #grid(columns: (1fr, 1fr), column-gutter: 8pt, row-gutter: 8pt,
       kpi[#n2(footprint) m²][outside footprint, incl. courtyard], kpi[#n2(area(court-r.P)) m²][courtyard on axes (#court-clear clear)],
       kpi[#n2(gf-area) m²][ground floor rooms (axes)], kpi[#n2(ff-area) m²][first floor rooms (axes), + suite court #n2(area(ff-rooms.find(r => r.kind == "open").P)) m²],

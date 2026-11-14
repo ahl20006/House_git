@@ -5,6 +5,9 @@
 // suite court only (V8.1; visitors are met in the men's majlis). The maintenance
 // ladder to the roof stands in the court on the gym's east wall (studies/roof.typ page 2). The three court doors (bedroom, gym, office) on the court's north edge along a 1.2 m movement strip; the seating in the south part.
 // One fixed TV in the office and one in the gym (no pivoting panel). First floor, part 2 of 2 (part 1: studies/ff_family.typ) · stand-alone: all data is in this file.
+// 14 Nov 2026 (owner): the east wing's M3 adopted with adjustments (studies/east_wing_ff.typ page 7): the suite's WC closet re-made at x 10.3–11.5 × y 6.5–8.0 (1.0 × 1.3 clear, the wall-hung WC on its north wall,
+// a hinged fluted-glass door on its south wall opening OUT into the bath, a ducted fan, an acoustic north wall to bedroom 1); the bath x 10.3–13.311 × y 8.0–10.45 (the shower on its north wall back to back with the kids' shower
+// over the one stack, the two basins on the east wall, the tub south, its door from the lobby at y 8.8–9.6); the corner x 11.5–13.311 × y 6.5–8.0 given to bedroom 1's bath (studies/ff_family.typ). Lobby, dressing, bedroom unchanged.
 // Local coordinates (metres, x east, y SOUTH) = the main first-floor CSV coordinates (../data/rooms_ff.csv): no conversion.
 // The room list is also in ../data/rooms_ff.csv (whole floor: design_ff.typ, which checks that both agree).
 #import "@preview/cetz:0.4.2"
@@ -14,12 +17,13 @@
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- The focus zone (wall centre lines): the suite east of the courtyard / double-height living (x 8.95–13.311, y 6.5–24) + the south wing on the men's majlis roof / the guest block ----------
-#let zone = ((8.95, 6.5), (13.311, 6.5), (13.311, 24.0), (0, 24.0), (0, 19.25), (8.95, 19.25))
+#let zone = ((8.95, 6.5), (11.5, 6.5), (11.5, 8.0), (13.311, 8.0), (13.311, 24.0), (0, 24.0), (0, 19.25), (8.95, 19.25))   // 14 Nov 2026: the corner x 11.5–13.311 × y 6.5–8.0 is bedroom 1's bath
 #let plan-scale = 0.62cm
 
 // ---------- Neighbours (grey; the family part, fixed by studies/ff_family.typ) ----------
 #let neighbours = (
-  ("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))),
+  ("Bedroom 1", ((8.95, 0), (10.461, 0), (13.311, 5.245), (13.311, 5.6), (11.5, 5.6), (11.5, 6.5), (10.15, 6.5), (10.15, 5.3), (8.95, 5.3))),
+  ("Bedroom 1 bath", rect-pts(11.5, 5.6, 13.311, 8.0)),
   ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5)),
   ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)),
   ("Courtyard sky (void)", rect-pts(5.8, 6.5, 8.95, 13.0)),
@@ -38,7 +42,7 @@
 // ---------- Interfaces with the family part (fixed by studies/ff_family.typ) ----------
 #let interfaces = (
   (pts: ((8.95, 6.5), (10.15, 6.5)), label: [① suite door: from the family link], at: (8.85, 6.2), anchor: "east"),
-  (pts: ((10.15, 6.5), (13.311, 6.5)), label: [② straight wall to bedroom 1 (y 6.5, on the GF kitchen wall)], at: (13.45, 6.5), anchor: "west"),
+  (pts: ((10.15, 6.5), (11.5, 6.5)), label: [② the closet's north wall to bedroom 1 (y 6.5, on B6; acoustic); bedroom 1's bath east of it to y 8.0], at: (13.45, 6.5), anchor: "west"),
   (pts: ((4.25, 19.25), (5.6, 19.25)), label: [③ the gallery's south end → the gym's entrance nib (sliding door)], at: (4.4, 18.75), anchor: "west"),
   (pts: ((0, 19.25), (4.25, 19.25)), label: [④ bedroom 3's south wall: a double wall to the gym (Rw ≈ 55 dB)], at: (0.1, 18.4), anchor: "west"),
   (pts: ((13.311, 19.25), (13.311, 24.0)), label: [⑤ the office's east wall: a window only (V8.1)], at: (13.45, 22.2), anchor: "west"),
@@ -52,9 +56,8 @@
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
   R("Suite lobby", rect-pts(8.95, 6.5, 10.3, 11.9), "circ"),
-  R("Suite bath", ((10.3, 6.5), (12.211, 6.5), (12.211, 8.0), (13.311, 8.0), (13.311, 10.45), (10.3, 10.45)), "wet",
-    parts: (rect-pts(10.3, 6.5, 12.211, 10.45), rect-pts(12.211, 8.0, 13.311, 10.45))),
-  R("Suite WC (closet)", rect-pts(12.211, 6.5, 13.311, 8.0), "wet"),
+  R("Suite bath", rect-pts(10.3, 8.0, 13.311, 10.45), "wet"),   // 14 Nov 2026 (M3 adopted): 3.011 × 2.45 on axes, one rectangle
+  R("Suite WC (closet)", rect-pts(10.3, 6.5, 11.5, 8.0), "wet"),   // 14 Nov 2026: 1.2 × 1.5 on axes = 1.0 × 1.3 clear, on the shared wall to bedroom 1
   R("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9), "suite"),
   R("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25)), "suite",
     parts: (rect-pts(8.95, 11.9, 10.3, 13.9), rect-pts(8.95, 13.9, 13.311, 19.25))),
@@ -70,8 +73,8 @@
 #let D(a, b, label, room, into, from: "circ", open: false, out: false, lock: none) = (a: a, b: b, label: label, room: room, into: into, from: from, open: open, out: out, lock: lock)
 #let doors = (
   D((9.0, 6.5), (10.1, 6.5), [suite door], "Suite lobby", (0, 1), from: "outside"),
-  D((10.3, 6.65), (10.3, 7.65), [bath], "Suite bath", (1, 0)),
-  D((12.211, 6.8), (12.211, 7.8), [WC (sliding)], "Suite WC (closet)", (1, 0), from: "Suite bath", open: true),   // 1.00 m opening (V6.3); v2: SLIDING (as the study text says): a hinged leaf opening into the bath clashed with the bath door's swing
+  D((10.3, 8.8), (10.3, 9.6), [bath (0.80)], "Suite bath", (1, 0)),   // 14 Nov 2026: 2.2 m south of its old place, between the closet door's swing and the tub
+  D((10.5, 8.0), (11.2, 8.0), [WC closet: hinged fluted-glass door 0.70, slim black frame, opens OUT into the bath], "Suite WC (closet)", (0, -1), from: "Suite bath", out: true),   // 14 Nov 2026 (owner): in front of the WC, closing tight; its swing (checked) clear of the shower, the basins and the bath door
   D((10.3, 10.6), (10.3, 11.6), [dressing], "Suite dressing", (1, 0)),
   D((9.05, 11.9), (10.05, 11.9), [bedroom], "Suite bedroom", (0, 1)),
   D((4.35, 19.25), (5.45, 19.25), [gym, from the gallery end (sliding)], "Gym", (0, 1), from: "outside", open: true),
@@ -154,9 +157,9 @@
 
 // ---------- Furniture and fixtures (x0, y0, x1, y1, label) ----------
 #let furniture = (
-  // luxury bath, compact: WC in its own closet by the drain stack, walk-in glass shower on the east wall, freestanding tub by the east window, double vanity on the west (lobby) wall facing the east light, towel cupboard; the north wall kept clear as the path from the door to the WC closet
-  (12.536, 6.95, 13.186, 7.4, [WC · shattaf]), (12.086, 8.1, 13.186, 9.5, [walk-in shower 1.1 × 1.4 (glass)]), (11.486, 9.6, 13.186, 10.35, [freestanding tub 1.7 × 0.75]),
-  (10.4, 7.75, 10.95, 9.35, [double vanity 1.6 m · mirror]), (10.4, 9.75, 10.95, 10.35, [towels]),
+  // the suite bath (14 Nov 2026, M3 adopted): the WC closet on the shared wall to bedroom 1 (the wall-hung WC on its north wall, concealed cistern; a ducted extract fan); the shower on the bath's north wall back to back with the kids' shower over the one stack; the two basins on the east wall (their wastes north of the hood zone, the vanity's south end dry over it); the tub south
+  (10.7, 6.6, 11.1, 7.15, [WC · wall-hung · shattaf]), (11.9, 8.1, 13.186, 9.0, [shower 1.3 × 0.9 (glass) · back to back with the kids']), (12.586, 9.1, 13.186, 10.05, [2 basins 0.95 · wastes north]), (12.586, 10.05, 13.186, 10.35, [vanity end (dry)]),
+  (10.4, 9.6, 12.1, 10.35, [freestanding tub 1.7 × 0.75]), (11.3, 8.1, 11.8, 8.45, [towels]),
   // dressing: wardrobes for two, make-up table and full mirror
   (12.586, 10.55, 13.186, 13.8, [his wardrobes 3.25 m (sliding)]), (10.4, 13.2, 12.5, 13.8, [her wardrobes 2.1 m (sliding)]), (11.3, 10.55, 12.5, 10.95, [shoes · bags display]), (10.4, 11.7, 10.95, 12.9, [make-up · full mirror]), (11.5, 11.85, 12.0, 12.35, [ottoman]),
   // bedroom: king bed on the dressing wall facing south; the entry wardrobe east of the court door (the entry zone, the bed out of sight); the sitting corner by the east window
@@ -177,10 +180,10 @@
 #let windows = (((0, 19.6), (0, 20.9)), ((0, 22.0), (0, 23.5)), ((2.0, 24), (3.9, 24)), ((10.5, 24), (12.8, 24)), ((13.311, 22.8), (13.311, 23.7)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
   ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))   // gym: west (two) and south; office: south and (V8.1) a 0.90 east window at its south-east corner (morning light, cross-ventilation with the court door; a mashrabiya, non-escape); the clerestory windows of the living on the court's north wall
 #let drains = (
-  (((12.86, 7.17), (13.311, 7.0)), [suite bath: WC, shower, tub and vanity to one stack outside the east wall]),
-  (((12.6, 8.8), (13.05, 8.3), (13.05, 7.6), (13.311, 7.1)), []),
-  (((12.3, 10.0), (13.1, 9.7), (13.1, 7.7), (13.311, 7.1)), []),
-  (((10.7, 8.5), (11.6, 8.2), (12.4, 7.75), (13.311, 7.1)), []),
+  (((10.9, 7.15), (11.4, 7.55), (12.9, 7.55), (13.311, 7.1)), [suite bath (14 Nov 2026): the closet's WC under the kids' shower zone, the shower, the basins and the tub along the east wall, all to the one stack outside the east wall (y 7.05)]),
+  (((12.6, 8.6), (13.1, 8.3), (13.311, 7.1)), []),
+  (((12.9, 9.4), (13.15, 9.0), (13.15, 8.2), (13.311, 7.1)), []),
+  (((11.2, 10.0), (12.4, 9.3), (13.15, 8.6), (13.15, 8.2), (13.311, 7.1)), []),
   (((7.1, 20.6), (7.1, 23.6)), [suite court: the floor falls SOUTH, away from the doors, to the box gutter]),
 )
 
@@ -192,9 +195,9 @@
 )
 #let paths = (
   ("Suite door → bedroom door", ((9.55, 6.5), (9.5, 11.9))),
-  ("Suite door → bath door", ((9.55, 6.5), (9.55, 7.1), (10.3, 7.1))),
+  ("Suite door → bath door", ((9.55, 6.5), (9.55, 9.2), (10.3, 9.2))),
   ("Suite door → dressing door", ((9.55, 6.5), (9.55, 11.05), (10.3, 11.05))),
-  ("Bedroom door → bath door", ((9.5, 11.9), (9.6, 7.1), (10.3, 7.1))),
+  ("Bedroom door → bath door", ((9.5, 11.9), (9.6, 9.2), (10.3, 9.2))),
   ("Bed → court door", ((11.8, 16.0), (9.5, 17.0), (9.5, 19.25))),
   ("Gallery end → gym → court → office door", ((4.9, 19.25), (4.9, 19.95), (xn, 19.95), (xo, 19.95))),
   ("Bed → court → ladder", ((11.8, 16.0), (9.5, 17.0), (9.5, 19.95), (5.9, 19.95), (5.2, 21.3), (4.75, 21.3))),
@@ -315,7 +318,7 @@
 #text(15pt, weight: "bold", fill: green)[First floor · the south wing v2 (gym west, the suite court, the office east) and the master suite]
 #h(8pt) #text(8pt, fill: gray)[Taif / Palm House · CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor, part 2 of 2 (part 1: studies/ff_family.typ) · owner's decision 1 Nov 2026 (south wing v2): the gym on the west band, the suite court from the gym to the office, the office on the east, the three court doors on a 1.2 m strip; the master suite unchanged]
+#text(10pt, weight: "bold")[First floor, part 2 of 2 (part 1: studies/ff_family.typ) · owner's decision 1 Nov 2026 (south wing v2): the gym on the west band, the suite court from the gym to the office, the office on the east, the three court doors on a 1.2 m strip; 14 Nov 2026: the suite's wet rooms re-planned (M3 adopted), lobby, dressing and bedroom unchanged]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -333,7 +336,7 @@
       rect(q((x0, y0)), q((x1, y1)), fill: white.transparentize(25%), stroke: (paint: luma(110), thickness: 0.4pt, dash: "dashed"))
       content(q(((x0 + x1) / 2, (y0 + y1) / 2)), angle: if (y1 - y0) > (x1 - x0) * 1.3 { 90deg } else { 0deg }, text(4.0pt, fill: luma(80), l))
     }
-    let label-at = ("Suite lobby": (9.62, 10.6), "Suite bath": (11.5, 8.9), "Suite WC (closet)": (12.66, 7.75), "Suite dressing": (11.75, 12.85), "Suite bedroom": (11.5, 17.3), "Suite court (open to the sky)": (7.6, 21.05), "Gym": (3.05, 19.85), "Owner's office": (11.65, 22.75))
+    let label-at = ("Suite lobby": (9.62, 10.6), "Suite bath": (11.2, 9.35), "Suite WC (closet)": (10.9, 7.6), "Suite dressing": (11.75, 12.85), "Suite bedroom": (11.5, 17.3), "Suite court (open to the sky)": (7.6, 21.05), "Gym": (3.05, 19.85), "Owner's office": (11.65, 22.75))
     for r in rooms {
       let (x0, y0, x1, y1) = bbox(r.pts)
       let c = label-at.at(r.name, default: ((x0 + x1) / 2, (y0 + y1) / 2))
@@ -406,8 +409,9 @@
 #v(4pt)
 #grid(columns: (1fr, 1fr), column-gutter: 18pt,
   [
-    #H[Suite lobby, bath, dressing (unchanged)]
-    - The suite door (from the family link) opens into a distributor: bath, dressing and bedroom each open off it; the bedroom door at the lobby's south end (a bent entry). Luxury bath #r2(area(room("Suite bath").pts) + area(room("Suite WC (closet)").pts)) m² with tub, walk-in shower, double vanity and a WC closet; walk-in dressing #wd("Suite dressing") m.
+    #H[Suite lobby, bath, dressing · the wet rooms re-planned (14 Nov 2026, M3 adopted with the owner's adjustments)]
+    - The suite door (from the family link) opens into a distributor: bath, dressing and bedroom each open off it; the bedroom door at the lobby's south end (a bent entry). The lobby, the dressing (#wd("Suite dressing") m) and the bedroom are untouched.
+    - *The bath* #wd("Suite bath") m on axes (≈ #r2(clear-approx(room("Suite bath").pts)) m² clear), its door from the lobby at y 8.8–9.6: the *shower 1.3 × 0.9 on its north wall*, back to back with bedroom 1's shower on the shared wet wall y 8.0 over the one east stack; the *two basins on the east wall* (0.95 m with their wastes north of y 10.05; the vanity's south end stands dry over the kitchen hood's zone: no drain over it); the *tub* 1.7 × 0.75 along the south wall. *The WC closet* #wd("Suite WC (closet)") m on axes (1.0 × 1.3 clear) on the shared wall to bedroom 1: the wall-hung WC with a concealed cistern on its north wall, a *hinged fluted-glass door 0.70 with a slim black frame on its south wall, opening out into the bath*, closing tight; a ducted extract fan; the north wall acoustic (dense block, insulation, no sockets back to back: bedroom 1 behind it). The glass door's swing (y 8.0–8.7) is clear of the shower, the basins and the bath door's swing (checked). *Lost from today:* the walk-in shower on the east wall and the 1.6 m vanity on the west wall; the bath 3.95 → 2.45 m deep.
     #v(2pt)
     #H[Suite bedroom · #r2(area(room("Suite bedroom").pts)) m² · privacy without a screen]
     - *King bed* on the dressing wall facing south; the sitting corner by the east (escape) window; *no door to the office* (owner).

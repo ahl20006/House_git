@@ -561,10 +561,10 @@
 #let WR(L) = L.furniture.filter(f => repr(f.at(4)).contains("built-in")).map(f => [#f.at(4)]).join([; ])
 
 #pagebreak()
-#text(12pt, weight: "bold", fill: accent)[Minimal change from today: M1 the link only · M2 + a slice of the suite · M3 the best] #h(1fr) #text(6.4pt, fill: gray)[the owner's direction, 14 Nov 2026 · the suite and bedroom 1 as today · m² on axes · ≈ clear]
+#text(12pt, weight: "bold", fill: accent)[Minimal change from today: M1 the link only · M2 + a slice of the suite · M3 the best] #h(8pt) #text(9pt, weight: "bold", fill: red)[M3 ADOPTED (owner's adjustments, 14 Nov 2026)] #h(1fr) #text(6.4pt, fill: gray)[the owner's direction, 14 Nov 2026 · the suite and bedroom 1 as today · m² on axes · ≈ clear]
 #v(1pt) #line(length: 100%, stroke: 0.6pt + accent)
-#grid(columns: (4.3cm, 4.3cm, 4.3cm, 1fr), column-gutter: 5pt,
-  ..M-layouts.map(L => [#block(height: 2.6em, text(6.3pt, weight: "bold", fill: accent)[#L.name]) #plan(L, length: 0.7cm)]),
+#grid(columns: (4.0cm, 4.0cm, 4.0cm, 1fr), column-gutter: 5pt,
+  ..M-layouts.map(L => [#block(height: 2.6em, text(6.3pt, weight: "bold", fill: accent)[#L.name]) #plan(L, length: 0.62cm)]),
   [
     #let tbl(..cells) = table(columns: (1.5fr, 1fr, 1fr, 1fr, 1fr), stroke: 0.3pt + luma(190), inset: 2pt, align: (left, right, right, right, right), fill: (_, y) => if y == 0 { rgb("#e1e9e3") } else if calc.even(y) { rgb("#efece4") }, ..cells)
     #text(6.0pt)[
@@ -595,7 +595,8 @@
 #grid(columns: (1fr, 1fr), column-gutter: 10pt,
   [
     #box(fill: accent.lighten(86%), stroke: 1pt + accent, inset: 5pt, radius: 3pt, width: 100%)[
-      #text(8.5pt, weight: "bold", fill: accent)[Recommendation: M3] #h(6pt)
+      #text(8.5pt, weight: "bold", fill: accent)[Recommendation: M3 · ADOPTED with the owner's adjustments (14 Nov 2026)] #h(6pt)
+      #text(6.3pt, fill: red)[*Adopted 14 Nov 2026 with the owner's adjustments* (the closet 1.0 × 1.3 clear with a fluted-glass door out into the bath; the kids' bath ≈ 1.6 × 2.2 clear at y 5.6–8.0, a 0.70 door on its west wall; the suite's shower north, basins east, tub south): applied in the CSV, the two first-floor studies and sheets 03–05, 08; the plan above is the study's M3, the applied one is sheet 03.] \
       #text(6.6pt)[The only one of the three that keeps every rule: the suite's arrangement as today with a WC closet (#r2(MW(M3)) m² wet in all, today #r2(MW(T))), the dressing and the bedroom untouched, bedroom 1 at #r2(C(M3, "Bedroom 1")) m² with its door at a right angle to the suite door, a 1.3 × 2.5 kids' bath on the shared wet walls with its shower over the stack, no triangle, no jog, every column and beam in place. *M2* keeps bedroom 1 to the centimetre but costs the suite its WC closet. *M1* takes nothing from the suite and fails the door rule. *What lies below, all three:* the laundry and the kitchen's north band (service); every drain north of the hood; one stack. *Structure, all three:* the new partitions are 0.10 block on the slab (x 11.8 and y 8.0 in M3 over the sunken zone); the y 6.5 wall keeps its line (M3 interrupts it 1.5 m over B6 for the kids' bath, as today's closet door did not: for the engineer's list).]
     ]
   ],
