@@ -360,7 +360,7 @@
 #let fill-in(s) = { let t = s; for (k, v) in vals { t = t.replace("{" + k + "}", v) }; t }
 #let ff-label-at = (
   "Upper gallery (on the west projection)": (sec.pj-edge - 0.68, 12.2), "Bedroom 3": (1.725, 17.6), "Suite bedroom": (11.4, 16.6), "Suite bath": (11.2, 9.35), "Suite WC (closet)": (10.9, 7.6), "Bedroom 1 bath": (12.4, 6.75),
-  "Bedroom 1": (10.6, 3.0), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (1.4, 8.55), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
+  "Bedroom 1": (10.6, 3.0), "Bedroom 2 bath (en-suite)": (2.9, 10.1), "Family WC (gallery)": (2.15, 8.8), "Owner's office": (11.65, 22.4), "Gym": (2.1, 21.4), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
 #let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Maid room": (9.95, 3.5), "Maid bath": (11.15, 3.6), "Laundry": (10.9, 5.45), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (7.2, 9.55))
@@ -520,7 +520,7 @@
 
       *North band:* kids' room #ffa("Kids' room (study + gaming)") m² and family living #ffa("Family living") m² on the courtyard edge; bedroom 1 #ffa("Bedroom 1") m², the young children's room next to the master suite, *with its own compact bath F20* #ffa("Bedroom 1 bath") m² (14 Nov 2026, the east wing's M3 adopted with the owner's adjustments: the bath in the corner beside the suite's wet rooms, its shower over the east stack back to back with the suite's; bedroom 1's door on the link's east wall at a right angle to the suite door; two built-in wardrobes; the suite's WC closet re-made 1.0 × 1.3 clear on the shared wall with a glass door into the bath, the suite's shower on its north wall, the basins east, the tub south).
 
-      *West band:* the family WC (WC + basin) off the gallery, bedroom 2 with its en-suite, bedroom 3 with its own bath; every door from the gallery.
+      *West band:* the family WC (14 Nov 2026, as the GF powder room: a basin zone open to the gallery through a 0.90 opening with no door, then a 0.70 door into a WC-only compartment behind a partition on x 1.5; a high window above the WC), bedroom 2 with its en-suite, bedroom 3 with its own bath; every door from the gallery.
 
       *South wing v2 (V8.0):* the gym on the west band #ffa("Gym") m² (the treadmill with its manufacturer zone), the suite court #ffa("Suite court (open to the sky)") m² open to the sky from the gym to the office — *the family's winter sun room (owner, 10 Nov 2026, the courtyard haven study): two armchairs with backs and a small table in the court's middle band north part (x 7.0–9.5, y 20.6–21.4, out of the doors' strip: ≈ 2 h of direct January sun on the north strip and ≈ 3 h through the mashrabiya), a socket pair and a wall light by the office door; the mashrabiya's middle panels made to open in winter (hinged or sliding, closing tight in dust; non-structural)* — the owner's office #ffa("Owner's office") m² on the east (no door to the bedroom; reached from the court only); master suite #n2(suite-area) m².
     ]
@@ -554,9 +554,9 @@
     #en[
       *Kids' room* #wd(ff-rooms, "Kids' room (study + gaming)") m: two study desks and a PC desk under the north window, a gaming corner; solid door from the gallery. *Family living* #wd(ff-rooms, "Family living") m on the courtyard edge: a view, not a path.
 
-      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with its own bath beside the shaft (3 Nov 2026; the family WC next to it, from the gallery); *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m² with its own compact bath F20 #ffa("Bedroom 1 bath") m² in the corner beside the suite's wet rooms (14 Nov 2026; its door on the link's east wall; two built-in wardrobes).
+      *Bedroom 2* #wd(ff-rooms, "Bedroom 2") m with its own bath beside the shaft (3 Nov 2026; the family WC next to it, open to the gallery); *bedroom 3* #ffa("Bedroom 3") m² with its own bath #wd(ff-rooms, "Bedroom 3 bath") m over the GF family WC; *bedroom 1* #ffa("Bedroom 1") m² with its own compact bath F20 #ffa("Bedroom 1 bath") m² in the corner beside the suite's wet rooms (14 Nov 2026; its door on the link's east wall; two built-in wardrobes).
 
-      *Bedroom 2's bath* #wd(ff-rooms, "Bedroom 2 bath (en-suite)") m and the *family WC* #wd(ff-rooms, "Family WC (gallery)") m by the west shaft (3 Nov 2026: the F-b bath split; every fixture on one service wall into the shaft), the family WC's door from the gallery, for the family living and the kids' room.
+      *Bedroom 2's bath* #wd(ff-rooms, "Bedroom 2 bath (en-suite)") m and the *family WC* #wd(ff-rooms, "Family WC (gallery)") m by the west shaft (14 Nov 2026, as the GF powder room: a basin zone open to the gallery, one basin on the stair wall, no door; a 100 mm partition on x 1.5 with a 0.70 door opening out into the basin zone; a WC-only compartment ≈ 1.33 × 1.10 clear, the wall-hung WC on the west outer wall, its waste to the west shaft, a fan, a high obscure window), for the family living and the kids' room.
     ]
     #ar[
       #ah[غرفة الأطفال: دراسة وألعاب]
@@ -566,7 +566,7 @@
       #ah[غرف النوم]
       النوم 2: #wd(ff-rooms, "Bedroom 2") م بتجويف دولاب بجانب الشفت. النوم 3: #ffa("Bedroom 3") م² مع حمام خاص #wd(ff-rooms, "Bedroom 3 bath") م فوق دورة العائلة. النوم 1: #ffa("Bedroom 1") م² مع حمامها المدمج F20 (#ffa("Bedroom 1 bath") م²) في الزاوية بجانب حمامات الجناح (14 نوفمبر 2026).
       #ah[حمام العائلة]
-      حمام غرفة النوم 2 #wd(ff-rooms, "Bedroom 2 bath (en-suite)") م ودورة المياه العائلية #wd(ff-rooms, "Family WC (gallery)") م بجوار الشفت الغربي (3 نوفمبر 2026)، وباب دورة المياه من الممر.
+      حمام غرفة النوم 2 #wd(ff-rooms, "Bedroom 2 bath (en-suite)") م ودورة المياه العائلية #wd(ff-rooms, "Family WC (gallery)") م بجوار الشفت الغربي (14 نوفمبر 2026، مثل دورة المياه الأرضية: منطقة مغسلة مفتوحة على الممر بلا باب، ثم باب 0.70 يفتح إلى الخارج إلى حجرة المرحاض وحده خلف قاطع على x 1.5؛ المرحاض معلق على الجدار الغربي، ونافذة صغيرة عالية فوقه).
       #ah[التخزين]
       دولاب البياضات في نهاية الممر الشمالية (#wd(ff-rooms, "Linen cupboard") م). الدواليب المدمجة صناديق نجارة مثبتة بين الجدارين.
     ]

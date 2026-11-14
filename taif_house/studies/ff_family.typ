@@ -66,7 +66,7 @@
   R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (4.25, 7.5), (5.8, 7.5), (5.8, 19.25), (4.25, 19.25), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
     parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 7.5, 5.8, 19.25))),   // 14 Nov 2026: the shaft's west wall on x 4.25 (the 0.15 m jog of V10.0 removed)
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
-  R("Family WC (gallery)", rect-pts(0, 7.9, 2.75, 9.2), "wet"),   // 3 Nov 2026 (owner): the F-b bath split: the family WC (WC + basin) on the strip by the shaft, its door from the gallery; the WC behind a screen wall
+  R("Family WC (gallery)", rect-pts(0, 7.9, 2.75, 9.2), "wet"),   // 14 Nov 2026 (owner): like the GF powder room: a basin zone open to the gallery (no door) east of a 100 mm partition on x 1.5 (the shaft's east face line continued), a WC-only compartment west of it behind a 0.70 door   // 3 Nov 2026: the F-b bath split: the family WC on the strip by the shaft
   R("Bedroom 2 bath (en-suite)", ((1.5, 9.2), (4.25, 9.2), (4.25, 11.0), (0, 11.0), (0, 10.4), (1.5, 10.4)), "wet",   // bedroom 2's en-suite: shower, WC, basin; its door from inside bedroom 2; the former wardrobe niche is its vanity niche
     parts: (rect-pts(1.5, 9.2, 4.25, 11.0), rect-pts(0, 10.4, 1.5, 11.0))),
   R("Bedroom 2", rect-pts(0, 11.0, 4.25, 14.4), "family"),
@@ -90,7 +90,8 @@
   D((2.45, 0.7), (4.05, 0.7), [linen], "Linen cupboard", (0, -1), open: true),
   D((4.25, 1.9), (4.25, 2.9), [kids' room], "Kids' room (study + gaming)", (1, 0)),
   D((4.25, 3.1), (4.25, 4.5), [living, open to the gallery], "Family living", (1, 0), open: true),
-  D((2.75, 8.2), (2.75, 9.1), [family WC], "Family WC (gallery)", (-1, 0)),
+  D((2.75, 8.2), (2.75, 9.1), [family WC: an open passage 0.90, no door], "Family WC (gallery)", (-1, 0), open: true),   // 14 Nov 2026 (owner): the basin zone open to the gallery
+  D((1.5, 8.4), (1.5, 9.1), [WC compartment 0.70, hinged on its south jamb, opens OUT into the basin zone], "Family WC (gallery)", (1, 0), from: "Family WC (gallery)"),   // 14 Nov 2026: the leaf folds back against the south wall (y 9.2), clear of the basin (checked)
   D((1.7, 11.0), (2.6, 11.0), [bath (en-suite)], "Bedroom 2 bath (en-suite)", (0, -1), from: "Bedroom 2"),
   D((4.25, 11.1), (4.25, 12.1), [bed 2], "Bedroom 2", (-1, 0)),
   D((4.25, 15.2), (4.25, 16.2), [bed 3], "Bedroom 3", (-1, 0)),
@@ -107,8 +108,8 @@
   (6.4, 1.55, 7.15, 2.85, [2-seat sofa / bean bags]), (8.45, 1.6, 8.85, 2.8, [TV ≤ 50"]),
   // family living on the courtyard edge: TV on the west wall, a sofa facing it (courtyard on its left), a loveseat facing the courtyard
   (4.35, 4.6, 4.75, 6.1, [TV wall]), (6.6, 4.3, 7.45, 6.3, [sofa · faces TV]), (5.4, 4.15, 6.4, 4.95, [loveseat · faces courtyard]), (5.25, 5.35, 6.25, 6.05, [table]),
-  // family WC (3 Nov 2026): the wall-hung WC in the west cell behind a screen wall (x 1.5, y 8.5–9.2), the basin on the screen's east face; the service wall on y 9.2 is shared with the en-suite
-  (0.45, 8.5, 1.25, 9.05, [WC]), (1.55, 8.55, 1.85, 9.05, [basin]), (1.45, 8.5, 1.55, 9.15, [screen]),
+  // family WC (14 Nov 2026, owner: as the GF powder room): the 100 mm partition on x 1.5 (y 7.9–9.2, the shaft's east face line continued) with the compartment's 0.70 door; the wall-hung WC on the WEST outer wall facing east (the concealed cistern frame in that wall, ≈ 0.7 m clear in front); ONE basin with its mirror on the NORTH wall (y 7.9, the stair wall) of the basin zone; the south wall plain; an exhaust fan from the compartment to the west shaft
+  (0.125, 8.3, 0.725, 8.8, [WC · wall-hung]), (1.85, 8.0, 2.4, 8.4, [basin · mirror]), (1.45, 7.9, 1.55, 8.4, [partition 100]), (1.45, 9.1, 1.55, 9.2, []),
   // bedroom 2's en-suite: the shower at the east end with its channel along the service wall, the wall-hung WC on the service wall, the vanity in the west niche under the shaft's south wall
   (3.15, 9.3, 4.15, 10.9, [shower 1.0 × 1.6]), (1.9, 9.3, 2.7, 9.85, [WC]), (0.125, 10.45, 1.4, 10.9, [vanity · basin]),
   // bedroom 2 (4.25 m wide): desk under the west window, wardrobe on the east wall, bed head to the south wall
@@ -127,12 +128,12 @@
 )
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
 #let escape-windows = (("Bedroom 1", (11.33, 1.6), (12.2, 3.2)), ("Bedroom 2", (0, 11.3), (0, 12.6)), ("Bedroom 3", (0, 17.2), (0, 18.2)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
-#let windows = (((5.3, 0), (8.7, 0)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)), ((11.33, 1.6), (12.2, 3.2)), ((12.442, 3.645), (13.039, 4.745)), ((9.2, 0), (10.2, 0)), ((13.311, 6.5), (13.311, 6.95)),   // V10.0: bedroom 1's north window in the freed tip; 14 Nov 2026: bedroom 1's bath, a PROVISIONAL east window (or a fan): the owner sets the windows with the facades
+#let windows = (((5.3, 0), (8.7, 0)), ((0, 8.3), (0, 8.8)), ((0, 11.3), (0, 12.6)), ((0, 14.6), (0, 15.2)), ((0, 17.2), (0, 18.2)),   // 14 Nov 2026: the family WC compartment's small high window in the west outer wall above the WC (≈ 0.5 × 0.4, sill ≥ +1.70, obscure glass) ((11.33, 1.6), (12.2, 3.2)), ((12.442, 3.645), (13.039, 4.745)), ((9.2, 0), (10.2, 0)), ((13.311, 6.5), (13.311, 6.95)),   // V10.0: bedroom 1's north window in the freed tip; 14 Nov 2026: bedroom 1's bath, a PROVISIONAL east window (or a fan): the owner sets the windows with the facades
   ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60; V10.0: W1-1 (y 6.783–8.383) replaced by a BLIND arched recess beside the malqaf shaft (studies/malqaf_L5.typ Phase 3, F3)
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60
 #let drains = (
-  (((0.85, 9.05), (0.85, 9.2), (1.0, 9.5)), [family WC: the wall-hung pan on the service wall y 9.2 straight into the west shaft]),
-  (((1.7, 9.05), (1.55, 9.15), (1.5, 9.5)), []),
+  (((0.5, 8.55), (0.5, 9.2), (0.6, 9.5)), [family WC (14 Nov 2026): the wall-hung pan's waste in the floor build-up ≈ 0.5 m south to the west shaft; the basin's waste in the floor build-up / a chase in the partition to the shaft]),
+  (((2.1, 8.4), (1.5, 8.6), (1.5, 9.2), (1.3, 9.5)), []),
   (((3.6, 9.3), (3.6, 9.2), (1.5, 9.2), (1.4, 9.5)), [bedroom 2 bath: the channel's trap in the service wall, the WC and the channel west in the wall to the shaft; the vanity into the shaft's south wall]),
   (((2.3, 9.3), (2.3, 9.2), (1.5, 9.2)), []),
   (((0.75, 10.45), (0.75, 10.4), (0.75, 10.0)), []),
@@ -290,7 +291,7 @@
       rect(q((x0, y0)), q((x1, y1)), fill: white.transparentize(25%), stroke: (paint: luma(110), thickness: 0.4pt, dash: "dashed"))
       content(q(((x0 + x1) / 2, (y0 + y1) / 2)), angle: if (y1 - y0) > (x1 - x0) * 1.3 { 90deg } else { 0deg }, text(4.2pt, fill: luma(80), l))
     }
-    let label-at = ("Gallery (north part + on the projection)": (4.25, 11.0), "Bedroom 3": (2.225, 16.75), "Bedroom 2": (1.225, 11.6), "Bedroom 3 bath (en-suite)": (0.425, 15.75), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Bedroom 2 bath (en-suite)": (2.95, 10.05), "Linen cupboard": (3.25, 0.35), "Family WC (gallery)": (2.2, 8.2), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
+    let label-at = ("Gallery (north part + on the projection)": (4.25, 11.0), "Bedroom 3": (2.225, 16.75), "Bedroom 2": (1.225, 11.6), "Bedroom 3 bath (en-suite)": (0.425, 15.75), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Bedroom 2 bath (en-suite)": (2.95, 10.05), "Linen cupboard": (3.25, 0.35), "Family WC (gallery)": (2.15, 8.8), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
     let short = ("Bedroom 2 bath (en-suite)": "Bath 2", "Bedroom 3 bath (en-suite)": "Bath 3", "Kids' room (study + gaming)": "Kids' room", "Linen cupboard": "Linen", "Family link": "Link", "Gallery (north part + on the projection)": "Gallery", "Family WC (gallery)": "Family WC")
     for r in rooms {
       let (x0, y0, x1, y1) = bbox(r.pts)
@@ -346,7 +347,7 @@
     - *Courtyard sky* and *double-height void* #str(calc.round(8.95 - proj-x, digits: 3)) m on axes (the GF courtyard is 4.70); the ground-floor courtyard and living keep their full floor.
     - *West rooms* #r2(bbox(room("Bedroom 2").pts).at(2) - bbox(room("Bedroom 2").pts).at(0)) m on axes. *Gallery on the projection:* #r2(proj-x - bbox(room("Bedroom 2").pts).at(2)) m (½ wall + ½ railing off); wider at the stair top. *Circulation in the zone:* #r2(circ-area) m² (landing, gallery, family link); the walk through the living is not counted.
     - *Family living:* #r2(area(seating.pts)) m², on the courtyard edge, no separate route. *Kids' room:* #r2(area(room("Kids").pts)) m².
-    - *Bedrooms:* 2 · #r2(area(room("Bedroom 2").pts)) m² · 3 · #r2(area(room("Bedroom 3").pts)) m² + its own bath #r2(area(room("Bedroom 3 bath").pts)) m² · 1 · #r2(area(room("Bedroom 1").pts)) m² + its own bath #r2(area(room("Bedroom 1 bath").pts)) m² (≈ #r2(clear-approx(room("Bedroom 1 bath").pts)) clear; 14 Nov 2026, M3 adopted). *Bedroom 2's bath* #r2(area(room("Bedroom 2 bath").pts)) m² and the *family WC* #r2(area(room("Family WC").pts)) m² (3 Nov 2026; the family WC serves the family living and the kids' room).
+    - *Bedrooms:* 2 · #r2(area(room("Bedroom 2").pts)) m² · 3 · #r2(area(room("Bedroom 3").pts)) m² + its own bath #r2(area(room("Bedroom 3 bath").pts)) m² · 1 · #r2(area(room("Bedroom 1").pts)) m² + its own bath #r2(area(room("Bedroom 1 bath").pts)) m² (≈ #r2(clear-approx(room("Bedroom 1 bath").pts)) clear; 14 Nov 2026, M3 adopted). *Bedroom 2's bath* #r2(area(room("Bedroom 2 bath").pts)) m² and the *family WC* #r2(area(room("Family WC").pts)) m² (14 Nov 2026: a basin zone open to the gallery and a WC compartment behind a 0.70 door, as the GF powder room; it serves the family living and the kids' room).
     - *Walked to a bathroom door:* bedroom 2 → its own bath ≈ #r1(path-len("Bedroom 2 door → its own bath door")) m · bedroom 3 → its own bath ≈ #r1(path-len("Bedroom 3 door → its own bath door")) m · family living → the family WC ≈ #r1(path-len("Family living → family WC door")) m · bedroom 1 → its own bath ≈ #r1(path-len("Bedroom 1 door → its own bath door")) m (the family WC ≈ #r1(path-len("Bedroom 1 door → family WC door")) m).
     #v(2pt)
     #text(6pt, fill: gray)[Plan: red = doors (thin = opening without a leaf) with swing line · blue = windows · blue dashed = drains · green = interfaces · brown dotted = ground floor below (the full courtyard and living floors) · grey dashed = the edge beam (x 5.6) and the three ground-floor columns · grey = neighbours · dashed boxes = furniture and fixtures.]
@@ -375,8 +376,8 @@
     - *Family living* #r2(area(seating.pts)) m²: a view, not a path; the walk to the family link passes behind and beside the sofa.
     - *Bedroom 1 (14 Nov 2026, the east wing's M3 adopted with the owner's adjustments, `studies/east_wing_ff.typ` page 7):* the young children's room keeps its shape but for the corner x 11.5–13.311 × y 5.6–6.5 of its entry strip; its *door on the link's east wall* (x 10.15, at a right angle to the suite door, not facing it; nothing at the link's start); its *own compact bath* x 11.5–13.311 × y 5.6–8.0 (#r2(area(room("Bedroom 1 bath").pts)) m², ≈ 1.6 × 2.2 clear): the 0.70 door on the bath's west wall from the entry strip, the basin by it, the wall-hung WC on the east wall, the wall-mixer shower at the south end over the east stack, back to back with the suite's shower on the shared wall y 8.0; a provisional east window or a fan. *Built-in wardrobes* (10 cm block sides, a lintel, sliding doors): W1 1.15 × 0.60 clear against the bath's north wall under the cut, W2 2.40 × 0.60 on the west wall. The suite's WC closet (x 10.3–11.5) is behind the y 6.5 wall: an acoustic wall (dense block, no sockets back to back).
     #v(3pt)
-    #H[Family WC · #r3(fwc.at(2) - fwc.at(0)) × #r2(fwc.at(3) - fwc.at(1)) m, by the west shaft, its door from the gallery]
-    - *3 Nov 2026 (owner):* the F-b bath is split. The north strip (y 7.9–9.2, ≈ 2.8 m² clear) is a *family WC*: a wall-hung WC in the west cell on the service wall y 9.2 (straight into the shaft), hidden behind a *screen wall* at x 1.5 (y 8.5–9.2) so it is not seen from the gallery when the door (x 2.75, y 8.2–9.1, hinged north, opening in) stands open; a wall-hung basin with its mirror on the screen's east face, seen from the door; the wall on y 7.9 (B12) still closes the stair opening's south side; the gallery and the guard round the opening are untouched.
+    #H[Family WC · #r3(fwc.at(2) - fwc.at(0)) × #r2(fwc.at(3) - fwc.at(1)) m, by the west shaft · as the GF powder room (14 Nov 2026)]
+    - *14 Nov 2026 (owner):* the family WC works like the ground-floor powder room: a *basin zone open to the gallery* (x 1.5–2.75, ≈ 1.15 × 1.10 clear) through a 0.90 m opening with *no door* (x 2.75, y 8.2–9.1), ONE basin with its mirror on the north wall (y 7.9, the stair wall), the south wall plain; then a *100 mm partition on x 1.5* (y 7.9–9.2, the shaft's east face line continued, replacing the screen wall) with a *0.70 door hinged on its south jamb, opening OUT* into the basin zone so the leaf folds back against the south wall and clears the basin (checked); behind it the *WC compartment* (x 0–1.5, ≈ 1.33 × 1.10 clear): a wall-hung WC only, on the west outer wall facing east (the concealed cistern frame in that wall, ≈ 0.7 m clear in front), its waste in the floor build-up ≈ 0.5 m south to the west shaft; an exhaust fan to the shaft; a small high window in the west outer wall above the WC (≈ 0.5 × 0.4, sill ≥ +1.70, obscure glass). The wall on y 7.9 (B12) still closes the stair opening's south side; the gallery and the guard round the opening are untouched. *3 Nov 2026:* the F-b bath split into this strip and bedroom 2's en-suite.
   ],
   [
     #H[Bedroom 2 · #r2(bed2.at(2) - bed2.at(0)) × #r2(bed2.at(3) - bed2.at(1)) m + its own bath #r2(area(room("Bedroom 2 bath").pts)) m² (3 Nov 2026)]
@@ -424,7 +425,7 @@
     - The GF riwaq wall x 2.75 carries the floor; the rooms span over the riwaq.
     #v(3pt)
     #H[Drains (blue dashed)]
-    - *Family WC and bedroom 2's bath (3 Nov 2026):* every fixture on the shared service wall y 9.2 (the shaft's north wall continued): the two WCs and the basin straight into the shaft, the shower channel's trap in the wall and its outlet west in the wall, the vanity into the shaft's south wall: no pipe in the floor; the floor over the GF utility room and hospitality kitchen (service / wet), nothing in their ceilings.
+    - *Family WC (14 Nov 2026):* the wall-hung pan on the west outer wall, its waste in the floor build-up ≈ 0.5 m south to the west shaft; the basin's waste in the floor build-up or a chase in the x 1.5 partition to the shaft; both over the GF utility room (service). *Bedroom 2's bath (3 Nov 2026):* every fixture on the service wall y 9.2 (the shaft's north wall continued): the WC straight into the shaft, the shower channel's trap in the wall and its outlet west in the wall, the vanity into the shaft's south wall: no pipe in the floor; the floor over the GF utility room and hospitality kitchen (service / wet), nothing in their ceilings.
     - *Bedroom 3 bath:* exactly over the GF family WC: WC straight into its stack, shower and basin in the floor build-up. Wet room on a wet room.
     - *Bedroom 1's bath (14 Nov 2026):* over the GF laundry (y 5.6–6.5) and the kitchen's north band (y 6.5–8.0), both service rooms; the shower's floor drain, the WC and the basin run east to the *one stack outside the east wall at y 7.05* (≤ 2 m each), the same stack as the suite's; no drain over the kitchen hood (y ≥ 10.1). No east duct.
     #v(3pt)
