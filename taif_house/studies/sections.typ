@@ -40,7 +40,7 @@
 #let ff-west = calc.min(..ff.map(r => calc.min(..r.P.map(p => p.at(0)))))      // FF west wall
 #let pj-wall = calc.max(..xs("Bedroom 2"))                                      // rooms / gallery wall
 #let y-court = calc.min(..ys("Upper gallery (on the west projection)").filter(y => y > 3))   // the courtyard's north edge (projection start)
-#let y-living = calc.max(..ys("Upper gallery (on the west projection)"))        // the living's south wall (projection end)
+#let y-living = calc.min(..ys("Suite court (open to the sky)"))                 // the living's south wall = the suite court's north edge (y 19.25); 15 Nov 2026: the gallery runs 1.3 m further south over the old nib, so its end no longer marks this wall
 #let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the suite court's south edge = the south facade (y 24.0, v2)
 #let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the office's west wall = the court's east edge (x 10.0)
 #let columns = fam.columns
