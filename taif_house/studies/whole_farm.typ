@@ -129,11 +129,48 @@
 )
 #let all-ok = checks.all(c => c.at(1))
 
+// ---------- PREVIEW (17 Nov 2026): the house 1.3 m further SOUTH along the M line + the ONE-STEP north-east corner (studies/step_corner.typ option 6: the step at x 11.275 / y 3.2) ----------
+// A preview page only (page 3): pages 1–2 and every number above use the current position. pv-s = 0 would draw the house where it stands today.
+#let pv-s = 1.3; #let pv-step = (11.275, 3.2)
+#let Pv(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1) + pv-s)
+#let house-pv = ((-0.125, -0.125), (pv-step.at(0) + 0.125, -0.125), (pv-step.at(0) + 0.125, pv-step.at(1) - 0.125), (13.436, pv-step.at(1) - 0.125), (13.436, 24.125), (-0.125, 24.125)).map(Pv)
+#let court-pv = court.map(p => (p.at(0), p.at(1) + pv-s)); #let scourt-pv = scourt.map(p => (p.at(0), p.at(1) + pv-s))
+#let house-pv-long = house-pv.map(p => if p.at(1) > house-pv.at(0).at(1) + 20 { (p.at(0), p.at(1) + 0.95) } else { p })   // the future lengthening (+0.95 m, the twins' 4.0 m rooms)
+#let closest-on(pt, segs) = segs.map(((a, b)) => { let dx = b.at(0) - a.at(0); let dy = b.at(1) - a.at(1); let l2 = dx * dx + dy * dy
+  let u = if l2 == 0 { 0 } else { calc.max(0, calc.min(1, ((pt.at(0) - a.at(0)) * dx + (pt.at(1) - a.at(1)) * dy) / l2)) }; (a.at(0) + u * dx, a.at(1) + u * dy) }).sorted(key: c => dist(pt, c)).first()
+#let env-segs = edges(env).filter(((a, b)) => not (calc.abs(a.at(0)) < 0.01 and calc.abs(b.at(0)) < 0.01))   // the setback lines (the M line has no setback)
+#let lane-segs = range(1, 8).map(i => (plot.at(i), plot.at(i + 1)))                                           // the lane boundary, corners 2 → 9 (the model's lane line)
+#let built-offset = 0.62; #let setback-built = 2.0                 // SITE_SETOUT.md § 5: the wall as built ≈ 0.62 m inside the model's lane line; the rule 2.0 m from it
+#let deed-d(pt) = calc.min(..env-segs.map(((a, b)) => pseg(pt, a, b))); #let lane-d(pt) = calc.min(..lane-segs.map(((a, b)) => pseg(pt, a, b)))
+#let pv-faces = sample(house-pv, step: 0.05); #let td-faces = sample(house, step: 0.05)
+#let pv-deed-pt = pv-faces.sorted(key: p => deed-d(p)).first(); #let pv-deed = deed-d(pv-deed-pt); #let pv-deed-to = closest-on(pv-deed-pt, env-segs)
+#let pv-lane-pt = pv-faces.sorted(key: p => lane-d(p)).first(); #let pv-lane = lane-d(pv-lane-pt); #let pv-built = pv-lane - built-offset - setback-built; #let pv-lane-to = closest-on(pv-lane-pt, lane-segs)
+#let td-deed = deed-d(td-faces.sorted(key: p => deed-d(p)).first()); #let td-built = lane-d(td-faces.sorted(key: p => lane-d(p)).first()) - built-offset - setback-built
+#let B1 = house-pv.at(0); #let pv-b1 = dist(B1, M1); #let td-b1 = dist(house.at(0), M1)
+#let north-y(x) = -x * 1.595 / 8.634                                 // the plot's north boundary between M1 and corner 2
+#let strip-at(x, H) = H.at(0).at(1) - north-y(x)                      // the north strip's depth: the north wall face to the boundary
+#let pv-strip = strip-at(B1.at(0), house-pv); #let td-strip = strip-at(house.at(0).at(0), house)
+#let pv-strip-mid = strip-at(6.0, house-pv)
+#let pv-palm = (T1, T2).map(Tp => (closest-on(Tp, edges(house-pv)), seg-poly-dist((Tp, Tp), house-pv) - 0.265)); #let td-palm = (T1, T2).map(Tp => seg-poly-dist((Tp, Tp), house) - 0.265)
+#let long-palm = (T1, T2).map(Tp => seg-poly-dist((Tp, Tp), house-pv-long) - 0.265)
+#let SE = house-pv.at(4); #let SW = house-pv.at(5)
+#let pv-south = (closest-on(SE, (south-line,)), pseg(SE, ..south-line), closest-on(SW, (south-line,)), pseg(SW, ..south-line))   // the south wall's corners to the illustrative south line
+#let td-south = (pseg(house.at(3), ..south-line), pseg(house.at(4), ..south-line))
+#let long-south = (pseg(house-pv-long.at(4), ..south-line), pseg(house-pv-long.at(5), ..south-line))
+#let pv-S = (closest-on(S, edges(house-pv)), seg-poly-dist((S, S), house-pv)); #let td-S = seg-poly-dist((S, S), house)
+#let pv-R = (closest-on(R, edges(house-pv)), seg-poly-dist((R, R), house-pv)); #let td-R = seg-poly-dist((R, R), house)
+#let pv-D = (closest-on(D, edges(house-pv)), seg-poly-dist((D, D), house-pv)); #let td-D = seg-poly-dist((D, D), house)
+#let box-poly-dist(b, H) = calc.min(..sample(H, step: 0.05).map(p => box-pt-dist(b, p)))
+#let pv-carport = box-poly-dist(carport, house-pv); #let td-carport = box-poly-dist(carport, house)
+#let pv-tank = box-poly-dist(tank-old, house-pv); #let td-tank = box-poly-dist(tank-old, house)
+#let pv-old = poly-dist(old-house, house-pv); #let td-old = poly-dist(old-house, house); #let pv-annex = poly-dist(annex, house-pv); #let td-annex = poly-dist(annex, house)
+#let pv-in-env = sample(house-pv, step: 0.1).all(p => inside(p, env))
+
 // ---------- drawing ----------
 #let ink = rgb("#3d4a45"); #let accent = rgb("#5a7d2a"); #let red = rgb("#b5452f"); #let blue = rgb("#2f5f8a"); #let brown = rgb("#8a5a2b"); #let amber = rgb("#b58a1f"); #let violet = rgb("#6a3d9a")
 #let q(p) = (p.at(0), -p.at(1))
 #let north = (0.364, 0.931)
-#let farm(length: 2.2mm, box: (-28, -6, 62, 134), zone: false) = cetz.canvas(length: length, {
+#let farm(length: 2.2mm, box: (-28, -6, 62, 134), zone: false, preview: false) = cetz.canvas(length: length, {
   import cetz.draw: *
   let T(p, body, size: 5pt, fill: ink, anchor: "center", angle: 0deg) = content(q(p), anchor: anchor, angle: angle, text(size, fill: fill, body))
   let poly(P, fill: none, stroke: none, close: true) = line(..P.map(q), close: close, fill: fill, stroke: stroke)
@@ -169,10 +206,38 @@
   circle(q(well-sk), radius: 0.4, fill: none, stroke: 0.6pt + red)
   // the palms
   for Tp in (T1, T2) { circle(q(Tp), radius: 1.0, fill: rgb("#cfdfc3"), stroke: 0.4pt + accent); circle(q(Tp), radius: 0.265, fill: accent, stroke: none) }
-  // the new house
-  poly(house, fill: rgb("#ddd3ea"), stroke: 1pt + violet)
-  poly(court, fill: white, stroke: 0.5pt + violet)
-  poly(scourt, fill: white, stroke: 0.5pt + violet)
+  // the new house (the preview page: today's outline dashed underneath, the house 1.3 m south with the one-step corner solid, the dimensions)
+  if preview {
+    poly(house, fill: none, stroke: (paint: violet, thickness: 0.8pt, dash: "dashed"))
+    poly(house-pv-long, fill: none, stroke: (paint: amber, thickness: 0.6pt, dash: "dotted"))
+    poly(house-pv, fill: rgb("#ddd3ea").transparentize(20%), stroke: 1.2pt + violet)
+    poly(court-pv, fill: white, stroke: 0.5pt + violet)
+    poly(scourt-pv, fill: white, stroke: 0.5pt + violet)
+    let dim(a, b, l, c: red, off: (0, 0), size: 4.6pt, angle: 0deg, anchor: "center") = { line(q(a), q(b), stroke: (paint: c, thickness: 0.7pt), mark: (start: "|", end: "|", scale: 0.5)); T(((a.at(0) + b.at(0)) / 2 + off.at(0), (a.at(1) + b.at(1)) / 2 + off.at(1)), l, size: size, fill: c, angle: angle, anchor: anchor) }
+    dim(M1, B1, [B1 from M1 #r2(pv-b1) (today #r2(td-b1))], c: red, off: (-0.6, 0), angle: -83deg)
+    dim(B1, (B1.at(0), north-y(B1.at(0))), [north strip #r2(pv-strip) at B1 (today #r2(td-strip))], c: blue, off: (3.6, -0.4), angle: 0deg)
+    dim((6.0, house-pv.at(0).at(1)), (6.0, north-y(6.0)), [#r2(pv-strip-mid) at x 6], c: blue, off: (1.6, 0), angle: -90deg)
+    dim(pv-deed-pt, pv-deed-to, [deed line #r2(pv-deed) (today #r2(td-deed))], c: accent, off: (1.4, -0.8), angle: 0deg, anchor: "west")
+    dim(pv-lane-pt, pv-lane-to, [lane line #r2(pv-lane) = wall as built #r2(pv-lane - built-offset): #r2(pv-built) beyond the 2.0 m (today #r2(td-built))], c: accent, off: (1.2, 1.2), angle: 0deg, anchor: "west")
+    dim(T1, pv-palm.at(0).at(0), [T1 #r2(pv-palm.at(0).at(1)) to the east wall], c: accent, off: (0, -0.9))
+    dim(T2, pv-palm.at(1).at(0), [T2 #r2(pv-palm.at(1).at(1)) to the SE corner (today #r2(td-palm.at(1)))], c: accent, off: (0.4, 1.2))
+    dim(SE, pv-south.at(0), [SE corner → south line #r2(pv-south.at(1)) (today #r2(td-south.at(0))); after +0.95: #r2(long-south.at(0))], c: brown, off: (3.2, 0.8), angle: -80deg)
+    dim(SW, pv-south.at(2), [SW corner → south line #r2(pv-south.at(3)) (today #r2(td-south.at(1)))], c: brown, off: (-1.2, 0), angle: -90deg, anchor: "center")
+    dim(S, pv-S.at(0), [peg S #r2(pv-S.at(1))], c: brown, off: (1.2, 0.8))
+    dim(R, pv-R.at(0), [peg R #r2(pv-R.at(1)) (today #r2(td-R))], c: brown, off: (-2.4, 1.0))
+    dim(D, pv-D.at(0), [dakka corner D #r2(pv-D.at(1)) (unchanged)], c: brown, off: (0, -0.8))
+    dim((carport.at(2), SW.at(1)), SW, [carport #r2(pv-carport) (unchanged)], c: luma(90), off: (0, -0.8))
+    dim((tank-old.at(2), tank-old.at(1)), SW, [tanks #r2(pv-tank) (today #r2(td-tank))], c: luma(90), off: (0.8, 1.0))
+    T((B1.at(0) - 0.6, B1.at(1) - 0.5), [B1], size: 5.5pt, fill: violet, anchor: "east")
+    T((house-pv.at(1).at(0) + 0.3, house-pv.at(1).at(1) - 0.5), [the step: x #r2(pv-step.at(0)) / y #r2(pv-step.at(1))], size: 4.6pt, fill: violet, anchor: "west")
+    T((7.0, house-pv.at(0).at(1) + 13.5), [NEW HOUSE\ 1.3 m south + one step (preview)], size: 6pt, fill: violet)
+    T((7.0, house.at(0).at(1) + 1.4), [today's outline (dashed)], size: 4.6pt, fill: violet)
+    T((7.0, house-pv.at(5).at(1) + 1.5), [+0.95 m lengthening (dotted): the twins' 4.0 m rooms], size: 4.4pt, fill: amber)
+  } else {
+    poly(house, fill: rgb("#ddd3ea"), stroke: 1pt + violet)
+    poly(court, fill: white, stroke: 0.5pt + violet)
+    poly(scourt, fill: white, stroke: 0.5pt + violet)
+  }
   // the pegs
   for p in Ms { rect(q((p.at(0) - 0.35, p.at(1) - 0.35)), q((p.at(0) + 0.35, p.at(1) + 0.35)), fill: accent, stroke: none) }
   for (p, n) in ((D, [D]), (R, [R]), (S, [S])) { circle(q(p), radius: 0.45, fill: brown, stroke: none) }
@@ -188,7 +253,7 @@
     T((T1.at(0) + 1.4, T1.at(1)), [palm 1], size: 5.5pt, fill: accent, anchor: "west"); T((T2.at(0) + 1.4, T2.at(1)), [palm 2], size: 5.5pt, fill: accent, anchor: "west")
     T((-2.0, 12.0), [DRIVEWAY 4.00 m], size: 5.5pt, fill: blue, angle: 90deg)
     T((-2.0, 0.6), [MAIN GATE 4 m], size: 5.5pt, fill: red, anchor: "west", angle: 0deg)
-    T((7.5, 17.0), [NEW HOUSE ±0.00\ (V8.3, moved south 4 Nov 2026)], size: 6pt, fill: violet)
+    if not preview { T((7.5, 17.0), [NEW HOUSE ±0.00\ (V8.3, moved south 4 Nov 2026)], size: 6pt, fill: violet) }
     T((-12.0, 17.0), [OLD HOUSE\ one-storey RC (deed sketch)\ ± 1–3 m, to be measured\ the old majlis INSIDE it (owner)], size: 5.5pt, fill: brown, angle: -85deg)
     T((-7.3, 22.5), [annex / dakka\ (deed sketch)], size: 5pt, fill: brown, angle: -85deg)
     for (l, b) in assumed { if b.at(3) <= box.at(3) and b.at(1) >= box.at(1) { T(((b.at(0) + b.at(2)) / 2, (b.at(1) + b.at(3)) / 2), [#l\ to be measured], size: if b.at(2) - b.at(0) < 4 { 3.4pt } else { 4.5pt }, fill: luma(90)) } }
@@ -227,8 +292,8 @@
 })
 
 // the view: the canvas clipped to `box` (the world extent is -60 … 80 × -20 … 140 m)
-#let view(length: 2.2mm, box: (-28, -6, 62, 134), zone: false) = std.box(width: (box.at(2) - box.at(0)) * length, height: (box.at(3) - box.at(1)) * length, clip: true,
-  move(dx: -(box.at(0) + 60) * length, dy: -(box.at(1) + 20) * length, farm(length: length, box: box, zone: zone)))
+#let view(length: 2.2mm, box: (-28, -6, 62, 134), zone: false, preview: false) = std.box(width: (box.at(2) - box.at(0)) * length, height: (box.at(3) - box.at(1)) * length, clip: true,
+  move(dx: -(box.at(0) + 60) * length, dy: -(box.at(1) + 20) * length, farm(length: length, box: box, zone: zone, preview: preview)))
 
 // ====================================================================================== PAGE 1 · the whole farm
 #set page(paper: "a3", flipped: false, margin: 9mm, fill: rgb("#fbfaf6"))
@@ -295,5 +360,46 @@
     ]
     #v(3pt)
     #text(7pt, fill: gray)[Whole-farm study #if all-ok [checks passed] else [CHECKS FAILED] (#checks.len()): #checks.map(c => c.at(0)).join([ · ]).]
+  ],
+)
+
+// ====================================================================================== PAGE 3 · PREVIEW: 1.3 m south + one step (17 Nov 2026)
+#pagebreak()
+#text(13pt, weight: "bold", fill: accent)[Preview: 1.3 m south + one step (17 Nov 2026) · the whole farm with the house moved #r2(pv-s) m straight south along the M line and the NE corner as ONE step] #h(1fr) #text(7pt, fill: gray)[1:220 on A3 · y −6 … 52 m · preview only: nothing in the design files moved · `studies/step_corner.typ` option 6 (d097e62)]
+#v(2pt)
+#grid(columns: (auto, 1fr), column-gutter: 8pt,
+  view(length: 4.4mm, box: (-27, -6, 30, 52), zone: true, preview: true),
+  [
+    #text(9pt, weight: "bold", fill: accent)[What moved] \
+    #text(7pt)[The whole house (its outer faces) #r2(pv-s) m south: every corner the same x, y + #r2(pv-s). The slanted cut wall (10.461, 0) → (13.311, 5.245) replaced by one orthogonal step: the north wall ends at x #r2(pv-step.at(0)), the east wall starts at y #r2(pv-step.at(1)) (CSV frame); the corner given up 2.04 × 3.2 = 6.52 m² per floor against the slant's 7.47. Today's outline dashed underneath; the dotted outline is the future lengthening of 0.95 m (the twin bedrooms' 4.0 m main rooms, `studies/west_wing_ff.typ`). Outline only, no room detail.]
+    #v(3pt)
+    #text(9pt, weight: "bold", fill: accent)[Dimensions (m)] \
+    #text(7pt, table(columns: (1.6fr, auto, auto, auto), stroke: 0.4pt + luma(150), inset: 2.8pt, align: (left, right, right, right), fill: (_, y) => if y == 0 { rgb("#e4eedf") } else if calc.even(y) { rgb("#f1efe8") },
+      table.header([*From … to*], [*today*], [*preview*], [*after +0.95*]),
+      [B1 (the north-west corner) from M1 (the gate's east post)], [#r2(td-b1)], [*#r2(pv-b1)*], [#r2(pv-b1)],
+      [The north strip for the car: the north wall face to the plot's north line, at B1], [#r2(td-strip)], [*#r2(pv-strip)*], [#r2(pv-strip)],
+      [The north strip at x 6 (the middle of the north wall)], [#r2(strip-at(6.0, house))], [#r2(pv-strip-mid)], [#r2(pv-strip-mid)],
+      [Tightest margin to the deed setback line (at the step's north corner)], [#r2(td-deed)], [*#r2(pv-deed)*], [#r2(pv-deed)],
+      [Tightest margin to 2.0 m from the wall as built (the lane line #r2(pv-lane) − 0.62 − 2.0)], [#r2(td-built)], [*#r2(pv-built)*], [#r2(pv-built)],
+      [Palm T1 (trunk face) to the east wall], [#r2(td-palm.at(0))], [*#r2(pv-palm.at(0).at(1))*], [#r2(long-palm.at(0))],
+      [Palm T2 (trunk face) to the nearest wall (the south-east corner)], [#r2(td-palm.at(1))], [*#r2(pv-palm.at(1).at(1))*], [#r2(long-palm.at(1))],
+      [The south wall's SE corner to the illustrative south line (the plot's south edge of the build land)], [#r2(td-south.at(0))], [*#r2(pv-south.at(1))*], [#r2(long-south.at(0))],
+      [The south wall's SW corner to the illustrative south line], [#r2(td-south.at(1))], [*#r2(pv-south.at(3))*], [#r2(long-south.at(1))],
+      [Peg S (east of the south wall, in the build land) to the house], [#r2(td-S)], [#r2(pv-S.at(1))], [—],
+      [Peg R (on the driveway) to the house], [#r2(td-R)], [#r2(pv-R.at(1))], [—],
+      [The dakka corner D (the annex's south corner) to the west wall], [#r2(td-D)], [#r2(pv-D.at(1))], [—],
+      [The old house (deed sketch, ± 1–3 m) to the house · its annex], [#r1(td-old) · #r1(td-annex)], [#r1(pv-old) · #r1(pv-annex)], [—],
+      [The covered parking (owner, to be measured) to the SW corner], [#r2(td-carport)], [#r2(pv-carport)], [—],
+      [The existing tank (to be measured) to the SW corner], [#r2(td-tank)], [#r2(pv-tank)], [—],
+      [The driveway's east edge (the M line) to the west wall face], [#r2(house.at(0).at(0))], [#r2(B1.at(0))], [—],
+    ))
+    #v(3pt)
+    #text(9pt, weight: "bold", fill: accent)[Reading it] \
+    #text(7pt)[
+      - *The gate and the north strip:* the house moves #r2(pv-s) m away from the gate (B1 #r2(pv-b1) m from M1); the car's strip deepens by the same #r2(pv-s) m (#r2(pv-strip) m at B1, #r2(pv-strip-mid) m at the middle). Nothing north of the house comes closer.
+      - *The setback:* both readings improve (deed #r2(pv-deed) m, wall as built #r2(pv-built) m beyond the 2.0 m; today #r2(td-deed) / #r2(td-built)); the house stays inside the buildable envelope: #if pv-in-env [yes] else [NO].
+      - *South of the house:* the illustrative south line is #r2(pv-south.at(1)) m from the SE corner and #r2(pv-south.at(3)) m from the SW corner (the line runs south-west); after the 0.95 m lengthening #r2(long-south.at(0)) / #r2(long-south.at(1)) m remain. Palm T2's trunk is #r2(pv-palm.at(1).at(1)) m from the SE corner (#r2(long-palm.at(1)) m after the lengthening: the palm then stands beside the east wall, not past the south wall); T1 keeps #r2(pv-palm.at(0).at(1)) m to the east wall. Peg S is #r2(pv-S.at(1)) m from the SE corner, peg R #r2(pv-R.at(1)) m from the SW corner: both are pegs, not features.
+      - *The old house, the driveway, the carport, the tanks:* the west wall stays #r2(B1.at(0)) m east of the M line (the driveway untouched); the old house and its annex are #r1(pv-old) / #r1(pv-annex) m away (today #r1(td-old) / #r1(td-annex)), the dakka corner D #r2(pv-D.at(1)) m (unchanged); the carport is level with the SW corner (#r2(pv-carport) m, unchanged); the existing tank comes #r2(td-tank - pv-tank) m closer (#r2(pv-tank) m). Nothing else of the farm lies south of the build land (owner, 5 Nov 2026); the south line, the carport, the tanks and the old house are still to be measured.
+    ]
   ],
 )
