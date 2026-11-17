@@ -75,7 +75,7 @@ else:
     problems.append("site_and_setout: the page counts could not be read (pdftotext / pypdf missing)")
 
 print("2. The DXFs (regenerated from the current data)")
-for tool, name in (("make_dxf.py", "taif_ground_floor_V10.0.dxf"), ("make_dxf_ff.py", "taif_first_floor_V10.0.dxf"), ("make_dxf_roof.py", "taif_roof_V10.0.dxf")):
+for tool, name in (("make_dxf.py", "taif_ground_floor_V11.0.dxf"), ("make_dxf_ff.py", "taif_first_floor_V11.0.dxf"), ("make_dxf_roof.py", "taif_roof_V11.0.dxf")):
     ok = run([sys.executable, str(ROOT / "tools" / tool)], f"tools/{tool}")
     src = ROOT / "output" / name
     if src.exists():
@@ -94,8 +94,8 @@ n = pages(PKG / "06_decisions_summary.pdf")
 if n > 2:
     problems.append(f"06_decisions_summary.pdf has {n} pages (max 2)")
 
-print("4. The 3D renders (NOT rebuilt: outdated, before 15 Nov 2026)")
-renders = sorted(p for p in (ROOT / "3d" / "output").glob("*.png") if p.name.startswith(("char_", "malqaf_L5_", "eye")))
+print("4. The 3D renders (3d/render_views.py; V11.0: rebuilt 17 Nov 2026)")
+renders = sorted(p for p in (ROOT / "3d" / "output").glob("*.png") if p.name.startswith(("char_", "eye", "view_", "plan_")))
 for p in renders:
     shutil.copy2(p, PKG / "3d" / p.name)
 print(f"  ok  {len(renders)} renders copied")

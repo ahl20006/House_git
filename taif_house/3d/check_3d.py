@@ -162,7 +162,8 @@ for floor in ("GF", "FF"):
 print("3. Slab areas against the CSVs")
 def mesh_area(name, t):
     return meshes[name].volume / t
-gf_csv = sum(area(r["pts"]) for r in GF)            # 22 CSV rooms incl. the courtyard + the air tower
+SHAFT_GF = Polygon(ns["ast"].literal_eval(ns["re"].search(r"#let shaft-csv\s*=\s*(\(\(.*?\)\))", ns["gf_text"]).group(1)))   # V11.0: the west shaft is a void inside the utility room's polygon (10 Nov 2026)
+gf_csv = sum(area(r["pts"]) for r in GF) + SHAFT_GF.area            # 22 CSV rooms incl. the courtyard + the air tower + the west shaft void
 ff_csv = sum(area(r["pts"]) for r in FF)            # 21 CSV rooms incl. the suite court + the 4 fixed elements
 def level_area(level):   # V6.3: a slab is several meshes (its bays with their own thickness)
     return sum(meshes[s["name"]].volume / s["t"] for s in summary["slabs"] if s["level"] == level)
@@ -420,8 +421,8 @@ if core.touches(court_poly) and core.touches(riwaq_poly) and core.touches(maj_po
     ok(f"the malqaf core at the courtyard's north-west corner: x {core.bounds[0]}–{core.bounds[2]}, y {core.bounds[1]}–{core.bounds[3]} ({core.area:.2f} m² on axes), against the women's majlis wall, the riwaq and the courtyard; the shaft {shaft.area:.2f} m² inside it; no bedroom touches it (D10)")
 else:
     bad(f"the malqaf core's position: {core.bounds}")
-if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 0.9 < TOWER_HOLE.area < 1.0:
-    ok(f"the shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m² (1.2 × 0.8 clear)")
+if abs(summary["voids"]["ff"]["tower_shaft"] - TOWER_HOLE.area) < 1e-4 and 1.0 < TOWER_HOLE.area < 1.1:   # V11.0: the shaft on x 4.25 (14 Nov 2026): 1.35 × 0.8 clear
+    ok(f"the shaft open through the first-floor and roof slabs: {TOWER_HOLE.area:.2f} m² (1.35 × 0.8 clear, the shaft on x 4.25)")
 else:
     bad(f"shaft opening {TOWER_HOLE.area}")
 gm = meshes.get("gf_air_grille")

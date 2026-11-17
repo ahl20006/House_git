@@ -81,9 +81,11 @@
 #let lift-raise-max = coping-top - roof            // a raised shaft head stays hidden behind the cornice up to this (0.45 above the slab top → +7.65)
 
 // ---------- Outline, blocks, holes, attic ----------
-#let outline = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0))
+#import "../design_gf.typ": outline-csv-gf
+#let outline = outline-csv-gf                       // V11.0 (17 Nov 2026): the SAME outline as the plans (design_gf.typ): the north-east corner as ONE orthogonal step, the house 1.3 m further south
+#let step-x = outline.at(1).at(0); #let step-y = outline.at(2).at(1)   // the step: the north wall ends at x 11.275, the step's wall on y 3.2
 #let y-step = 19.25                                // the north block / south wing line (the men's majlis north wall, beams B8 / R5)
-#let block-n = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, y-step), (0, y-step))
+#let block-n = ((0, 0), (step-x, 0), (step-x, step-y), (13.311, step-y), (13.311, y-step), (0, y-step))
 #let block-s = ((0, y-step), (13.311, y-step), (13.311, 24), (0, 24))
 #let sky-hole = (5.8, 6.5, 8.95, 13.0)            // the courtyard sky (V6.4, enclosure A)
 #let court-hole = (4.25, 19.25, 10.0, 24.0)        // the suite court v2 (1 Nov 2026): from the gym to the office, open to the sky to the south facade (its bbox)
@@ -91,19 +93,16 @@
 #let tower = ((4.4, 6.5), (5.8, 6.5), (5.8, 8.7), (4.4, 8.7))   // V10.0 (owner, L5): the malqaf head 1.6 × 2.4 (outer x 4.30–5.90, y 6.4–8.8) at the courtyard's north-west corner: on the shaft and the gallery roof (R3 widened, R11, the new beam R-L5)
 #let hatch = ((4.4, 6.9), (4.4, 7.4))          // the 0.50 m hatch in the head's west face (+7.6 … +8.1): the bird-mesh frames on their cords, the flaps
 #let tower-top = 13.2                              // V10.0: the malqaf's crown (F3), 4.52 m above the attic coping (studies/malqaf_L5.typ Phase 5)
-#let cut-k = 3.26 / 6.0
-#let cut-cos = 6.0 / calc.sqrt(3.26 * 3.26 + 36.0)
 #let in-off = setback - 0.125                      // the attic line from the wall centre lines: 0.875
-#let cut-x(y, off) = 10.461 + cut-k * y - off / cut-cos   // 8 Nov 2026: the cut wall a further 0.24 m out (V9.0 10.188; 6 Nov 2026: 10.051 → 10.188)
 #let attic-e = 13.311 - in-off
-#let attic-yc = (attic-e - 10.461 + in-off / cut-cos) / cut-k
-#let attic = ((in-off, in-off), (cut-x(in-off, in-off), in-off), (attic-e, attic-yc), (attic-e, y-step), (in-off, y-step))   // 1 Nov 2026: a plain pentagon, set back 1.0 m on all four sides (no stair room notch any more)
-#let attic-len = (cut-x(in-off, in-off) - in-off) + calc.sqrt(calc.pow(attic-e - cut-x(in-off, in-off), 2) + calc.pow(attic-yc - in-off, 2)) + (y-step - attic-yc) + (attic-e - in-off) + (y-step - in-off)
+#let attic-yc = step-y + in-off                    // V11.0: the attic follows the step (its east wall from y 4.075; the stepped part on x 10.4)
+#let attic = ((in-off, in-off), (step-x - in-off, in-off), (step-x - in-off, attic-yc), (attic-e, attic-yc), (attic-e, y-step), (in-off, y-step))   // V11.0: set back 1.0 m on every side, the step included (a plain hexagon)
+#let attic-len = range(attic.len()).map(i => { let a = attic.at(i); let b = attic.at(calc.rem(i + 1, attic.len())); calc.sqrt(calc.pow(b.at(0) - a.at(0), 2) + calc.pow(b.at(1) - a.at(1), 2)) }).sum()
 #let strip-area = area(block-n) - area(attic)   // the malqaf stands inside the attic (V10.0)
 
 // ---------- Reserved zones ----------
 // V10.0: no HRV and no plant room (the filtered fan sits in the malqaf's foot chamber at the ground floor)
-#let z-plant = if attic-yc < 5.6 { ((9.6, 5.6), (attic-e, 5.6), (attic-e, 9.0), (9.6, 9.0)) } else { ((9.6, 5.6), (cut-x(5.6, in-off), 5.6), (attic-e, attic-yc), (attic-e, 9.0), (9.6, 9.0)) }   // 8 Nov 2026: with the cut a further 0.24 m out the attic's cut line meets its east side at y ≈ 5.47, north of the zone: a plain rectangle   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
+#let z-plant = ((9.6, 5.6), (attic-e, 5.6), (attic-e, 9.0), (9.6, 9.0))   // V11.0: the attic's east wall runs from y 4.075 (the step), so the plant zone is a rectangle   // 8 Nov 2026: with the cut a further 0.24 m out the attic's cut line meets its east side at y ≈ 5.47, north of the zone: a plain rectangle   // AC outdoor units behind the cut / east attic, south of the plant room (kept off the intake's wind side)
 #let z-tank = rect-pts(2.85, 1.0, 4.15, 3.5)       // water tank(s) between the roof beams R10 (x 2.75) and R3 (x 4.25)
 #let z-pv1 = rect-pts(0.9, 20.3, 3.2, 23.0)        // V8.1: PV on the gym roof INSIDE the set-back guardrail (x ≥ 0.875, y ≤ 23.125), west of the ladder's walkway (x 3.25–4.15); it never shades the clerestory windows
 #let z-pv1b = rect-pts(10.1, 20.2, 11.4, 23.0)     // V8.1: PV on the office roof inside the guardrail, west of its walkway (x 11.5–12.4)
@@ -244,7 +243,7 @@
   T((12.95, 15.0), [strip], size: 3.8pt, angle: 90deg)
   T((2.0, 20.0), [SOUTH WING · parapet #lv(south-top) · guardrail 1.10 set back 1.0 (red)], size: 3.6pt)
   T((6.7, 17.6), [north block roof #lv(roof) · falls 1.5 % to the outlets ○ · walkways - - -], size: 4.2pt)
-  T((11.6, 2.0), [cut (lane) side], size: 3.6pt, angle: -61deg)
+  T((12.3, 1.5), [the step\ (lane side)], size: 3.4pt)
   T((6.6, -0.7), [N ↑ up the page · the plan at the roof · 1 m = 0.62 cm], size: 4.2pt, fill: gray)
 })
 #grid(columns: (auto, 1fr), gutter: 12pt,
@@ -447,10 +446,10 @@
   let T(p, t, size: 4.2pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
   let x0 = -0.125; let x1 = 13.436
   elev-common(T, x0, x1)
-  line((10.16, ground), (10.16, cornice.z0), stroke: (paint: ink, thickness: 0.4pt, dash: "dotted")); T((11.8, 1.8), [cut wall\ (seen obliquely)], size: 3.6pt, fill: gray)
+  rect((step-x + 0.125, ground), (x1, cornice.z0), fill: cream.darken(6%), stroke: 0.5pt + ink); T((12.4, 1.8), [the step: set back\ #r2(step-y) m (V11.0)], size: 3.4pt, fill: gray)
   // the coping of the north block (all of it: the south wing is behind)
   rect((x0, cornice.z0 + cornice.h), (x1, coping-top), fill: stone-l, stroke: 0.4pt + ink)
-  // the attic behind (north wall x 0.875–9.53, then the cut-offset line to x 12.436 at y 6.22 — all seen above the coping)
+  // the attic behind (the north wall x 0.875–10.4, then the stepped part to x 12.436 — all seen above the coping)
   rect((in-off, coping-top), (attic-e, attic-top), fill: cream.darken(6%), stroke: 0.6pt + ink); T((6.5, roof + 0.85), [attic screen · set back 1.0 · #lv(attic-top) (#r2(attic-vis) above the finish)], size: 4pt)
   // V10.0: the malqaf head (L5) at the courtyard's north-west corner, seen above the attic: render and paint (sand; the band and the crown in the honey tone)
   rect((4.30, attic-top), (5.90, 10.6), fill: rgb("#efe3c8"), stroke: 0.6pt + ink); rect((4.24, 10.6), (5.96, 10.75), fill: rgb("#d8b47a"), stroke: 0.5pt + ink); rect((4.30, 10.75), (5.90, 12.9), fill: rgb("#efe3c8"), stroke: 0.6pt + ink)
@@ -488,13 +487,13 @@
   let T(p, t, size: 3.6pt, fill: ink, anchor: "center", angle: 0deg) = content(p, anchor: anchor, angle: angle, text(size, fill: fill, t))
   let X(y) = 24.125 - y          // seen from the east (the lane side): north on the right
   // behind: the attic (set back 1.0), the malqaf head (V10.0) at the courtyard's north-west corner, the set-back guardrail on the south wing (dashed)
-  rect((X(y-step), coping-top), (X(attic-yc), attic-top), fill: cream.darken(6%), stroke: 0.5pt + ink); T((X(12.5), attic-top + 0.3), [attic #lv(attic-top) (set back 1.0)], size: 3.2pt)
+  rect((X(y-step), coping-top), (X(attic-yc), attic-top), fill: cream.darken(6%), stroke: 0.5pt + ink); rect((X(attic-yc), coping-top), (X(in-off), attic-top), fill: cream.darken(10%), stroke: 0.5pt + ink); T((X(12.5), attic-top + 0.3), [attic #lv(attic-top) (set back 1.0; the step behind)], size: 3.2pt)
   rect((X(8.8), attic-top), (X(6.4), 10.6), fill: rgb("#efe3c8"), stroke: 0.5pt + ink); rect((X(8.8) - 0.06, 10.6), (X(6.4) + 0.06, 10.75), fill: rgb("#d8b47a"), stroke: 0.4pt + ink); rect((X(8.8), 10.75), (X(6.4), 12.9), fill: rgb("#efe3c8"), stroke: 0.5pt + ink); for k in range(5) { let cx = X(8.8) + 0.3 + 0.1 + k * 0.4; rect((cx - 0.1, 11.2), (cx + 0.1, 12.5), fill: rgb("#2b2b2d"), stroke: none); circle((cx, 12.5), radius: 0.1, fill: rgb("#2b2b2d"), stroke: none) }; rect((X(8.8) - 0.1, 12.9), (X(6.4) + 0.1, tower-top), fill: rgb("#d8b47a"), stroke: 0.4pt + ink); T((X(7.6), tower-top + 0.35), [malqaf #lv(tower-top) (L5, behind the attic's line)], size: 3.2pt)
   line((X(y-step), roof-fin + rail-h), (X(y-rail), roof-fin + rail-h), stroke: (paint: ink, thickness: 0.5pt, dash: "dashed")); T((X(21.2), roof-fin + rail-h + 0.3), [guardrail 1.10 set back 1.0 (hidden at eye level)], size: 3pt)
-  // the facade: the straight east wall y 6–24 and the cut y 0–6 (oblique)
+  // the facade: the east wall from the step (y 3.075 face) to the south; the step's north part (x 11.4 face, 2.04 m back) seen behind it
   line((X(-0.125) - 0.8, ground), (X(24.125) + 0.8, ground), stroke: 0.8pt + ink)
-  rect((X(24.125), ground), (X(6.0), cornice.z0), fill: cream, stroke: 0.6pt + ink)
-  rect((X(6.0), ground), (X(-0.125), cornice.z0), fill: cream.darken(4%), stroke: 0.6pt + ink); T((X(3.0), 1.8), [cut wall (oblique)], size: 3pt, fill: gray)
+  rect((X(24.125), ground), (X(step-y - 0.125), cornice.z0), fill: cream, stroke: 0.6pt + ink)
+  rect((X(step-y - 0.125), ground), (X(-0.125), cornice.z0), fill: cream.darken(6%), stroke: 0.6pt + ink); T((X(1.5), 1.8), [the step (set back #r2(13.311 - step-x) m, V11.0)], size: 2.8pt, fill: gray)
   rect((X(24.125), ground), (X(-0.125), 0.6), fill: stone-l, stroke: 0.3pt + ink)
   rect((X(24.125) - band.proj, band.z0), (X(-0.125) + band.proj, band.z0 + band.h), fill: stone, stroke: 0.3pt + ink)
   rect((X(24.125) - cornice.proj, cornice.z0), (X(-0.125) + cornice.proj, cornice.z0 + cornice.h), fill: stone, stroke: 0.4pt + ink)
@@ -574,7 +573,7 @@
     #v(2pt)
     #H[9 · What this study changes in the files]
     - `studies/structure.typ`: R16–R18 and the stair-well voids dropped (V8.0), X16 superseded; X20 the ladder recess / pilaster, X17 the lowered attic, the 0.70 parapet and the guardrail loads; `studies/fire_escape.typ`: the first floor's exits are the main stair and the escape windows, the court a fresh-air area, not an exit; `3d/params.yaml`: the attic / parapet / ladder / guardrail data (V8.1).
-    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_ITEMS.md`, `PROJECT_V10.md` (V8.1).
+    - `docs/DESIGN_LANGUAGE.md`, `docs/OPEN_LIST.md`, `PROJECT_V10.md` (V8.1).
     - `data/decisions.csv`: the roof by a maintenance ladder, the roofline lowered (V8.1).
     #v(2pt)
     #text(8pt)[#if all-ok [*Study checks passed* (#checks.len())] else [*STUDY CHECKS FAILED:* #checks.filter(c => not c.at(1)).map(c => c.at(0)).join([; ])]]

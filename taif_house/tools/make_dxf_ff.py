@@ -1,7 +1,7 @@
 """make_dxf_ff.py · Taif / Palm House V10.0 · writes the DXF of the first floor (site, outline, rooms, voids, doors, windows, furniture).
 
 Run from anywhere:   python taif_house/tools/make_dxf_ff.py
-Output:              taif_house/output/taif_first_floor_V10.0.dxf   (units: metres, north up, same frame as the ground-floor DXF)
+Output:              taif_house/output/taif_first_floor_V11.0.dxf   (units: metres, north up, same frame as the ground-floor DXF)
 
 Nothing is typed in twice: the geometry is the <ff-data> metadata of design_ff.typ (rooms from data/rooms_ff.csv placed on the
 site, doors, windows and furniture from studies/ff_family.typ and studies/ff_suite.typ), read with `typst eval`; the site from base.typ.
@@ -19,7 +19,7 @@ from pathlib import Path
 import ezdxf
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
-OUT = ROOT / "output" / "taif_first_floor_V10.0.dxf"
+OUT = ROOT / "output" / "taif_first_floor_V11.0.dxf"
 
 typst = shutil.which("typst")
 if not typst:

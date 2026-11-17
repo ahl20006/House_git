@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461354.9341550926
+2461362.9345717593
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461354.9341550926
+2461362.9345717593
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-19E
+188
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{7A91FCE6-AEE5-4097-878C-1ACB186AFB00}
+{131DC037-3FAB-4474-AEC7-8B01769C70C8}
   9
 $VERSIONGUID
   2
-{4BD9F1CB-C88C-488D-B82E-9DBA044BBA62}
+{45C411F5-B5A6-4FF8-A30C-0B1D2904A691}
   9
 $EXTNAMES
 290
@@ -2233,7 +2233,7 @@ LAYER
 100
 AcDbSymbolTable
  70
-25
+26
   0
 LAYER
   5
@@ -2475,6 +2475,36 @@ AcDbSymbolTableRecord
 100
 AcDbLayerTableRecord
   2
+SITE-PEGS
+ 70
+0
+ 62
+94
+  6
+CONTINUOUS
+370
+-3
+390
+13
+347
+21
+1001
+AcAecLayerStandard
+1000
+
+1000
+M1–M4 survey pegs on the M line
+  0
+LAYER
+  5
+93
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
 BUILDING-OUTLINE
  70
 0
@@ -2493,37 +2523,7 @@ AcAecLayerStandard
 1000
 
 1000
-first-floor outline, wall centre lines
-  0
-LAYER
-  5
-93
-330
-1
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-GF-OUTLINE
- 70
-0
- 62
-8
-  6
-DASHED
-370
--3
-390
-13
-347
-21
-1001
-AcAecLayerStandard
-1000
-
-1000
-ground-floor outline below
+ground-floor outline, wall centre lines
   0
 LAYER
   5
@@ -2535,7 +2535,7 @@ AcDbSymbolTableRecord
 100
 AcDbLayerTableRecord
   2
-VOIDS
+COURTYARD
  70
 0
  62
@@ -2553,7 +2553,7 @@ AcAecLayerStandard
 1000
 
 1000
-courtyard (open to the sky) and the double-height living (no floor)
+courtyard, open to the sky
   0
 LAYER
   5
@@ -2613,7 +2613,7 @@ AcAecLayerStandard
 1000
 
 1000
-master suite
+guest rooms
   0
 LAYER
   5
@@ -2643,7 +2643,7 @@ AcAecLayerStandard
 1000
 
 1000
-baths, office, linen
+service and wet rooms
   0
 LAYER
   5
@@ -2685,66 +2685,6 @@ AcDbSymbolTableRecord
 100
 AcDbLayerTableRecord
   2
-ROOMS-OPEN
- 70
-0
- 62
-3
-  6
-CONTINUOUS
-370
--3
-390
-13
-347
-21
-1001
-AcAecLayerStandard
-1000
-
-1000
-suite court, open to the sky
-  0
-LAYER
-  5
-9A
-330
-1
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-ROOMS-GYM
- 70
-0
- 62
-4
-  6
-CONTINUOUS
-370
--3
-390
-13
-347
-21
-1001
-AcAecLayerStandard
-1000
-
-1000
-gym
-  0
-LAYER
-  5
-9B
-330
-1
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
 ROOMS-CORE
  70
 0
@@ -2763,11 +2703,11 @@ AcAecLayerStandard
 1000
 
 1000
-stair, lift shaft, west shaft, air tower (rising from the ground floor)
+lift, stair, utility
   0
 LAYER
   5
-9C
+9A
 330
 1
 100
@@ -2793,11 +2733,41 @@ AcAecLayerStandard
 1000
 
 1000
-room number, name and area
+room name and area
   0
 LAYER
   5
-9D
+9B
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AIR-TOWER
+ 70
+0
+ 62
+4
+  6
+CONTINUOUS
+370
+-3
+390
+13
+347
+21
+1001
+AcAecLayerStandard
+1000
+
+1000
+the malqaf core at the courtyard's north-west corner (V10.0, L5)
+  0
+LAYER
+  5
+9C
 330
 1
 100
@@ -2827,7 +2797,7 @@ doors
   0
 LAYER
   5
-9E
+9D
 330
 1
 100
@@ -2853,11 +2823,11 @@ AcAecLayerStandard
 1000
 
 1000
-openings and sliding doors
+open entrances and openings, no door
   0
 LAYER
   5
-9F
+9E
 330
 1
 100
@@ -2887,6 +2857,36 @@ windows
   0
 LAYER
   5
+9F
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+WALLS-SPECIAL
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+370
+-3
+390
+13
+347
+21
+1001
+AcAecLayerStandard
+1000
+
+1000
+solid walls, coffee / basins wall, screen wall, living low partition, family / guest line
+  0
+LAYER
+  5
 A0
 330
 1
@@ -2895,7 +2895,7 @@ AcDbSymbolTableRecord
 100
 AcDbLayerTableRecord
   2
-FURNITURE
+FIXTURES
  70
 0
  62
@@ -2913,7 +2913,7 @@ AcAecLayerStandard
 1000
 
 1000
-furniture and fixtures from the two first-floor studies
+counters, machines, bed, wardrobe, shower, WC, basins (east block); hospitality counter, basin counter, trough, shoe cabinet (west block)
   0
 LAYER
   5
@@ -2943,11 +2943,41 @@ AcAecLayerStandard
 1000
 
 1000
-the edge beam of the west projection (x 5.6) and the three columns below it
+shaft, under-stair store, the three columns, ceiling-height change, the first-floor edge beam above
   0
 LAYER
   5
 A2
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+ENTRIES
+ 70
+0
+ 62
+30
+  6
+CONTINUOUS
+370
+-3
+390
+13
+347
+21
+1001
+AcAecLayerStandard
+1000
+
+1000
+entry arrows
+  0
+LAYER
+  5
+A3
 330
 1
 100
@@ -3803,7 +3833,7 @@ AcAecLayerStandard
   0
 APPID
   5
-19B
+185
 330
 3
 100
@@ -3817,7 +3847,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-19C
+186
 330
 3
 100
@@ -5929,7 +5959,7 @@ ENTITIES
   0
 LWPOLYLINE
   5
-A3
+A4
 330
 17
 100
@@ -5985,7 +6015,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-A4
+A5
 330
 17
 100
@@ -6045,7 +6075,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-A5
+A6
 330
 17
 100
@@ -6077,7 +6107,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-A6
+A7
 330
 17
 100
@@ -6125,7 +6155,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-A7
+A8
 330
 17
 100
@@ -6149,7 +6179,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-A8
+A9
 330
 17
 100
@@ -6173,26 +6203,6 @@ AcDbPolyline
   0
 CIRCLE
   5
-A9
-330
-17
-100
-AcDbEntity
-  8
-SITE-PALMS
-100
-AcDbCircle
- 10
-20.6
- 20
--28.09
- 30
-0.0
- 40
-0.265
-  0
-CIRCLE
-  5
 AA
 330
 17
@@ -6209,11 +6219,55 @@ AcDbCircle
  30
 0.0
  40
-1.0
+0.265
   0
 CIRCLE
   5
 AB
+330
+17
+100
+AcDbEntity
+  8
+SITE-PALMS
+100
+AcDbCircle
+ 10
+20.6
+ 20
+-28.09
+ 30
+0.0
+ 40
+1.0
+  0
+MTEXT
+  5
+AC
+330
+17
+100
+AcDbEntity
+  8
+SITE-PALMS
+100
+AcDbMText
+ 10
+21.900000000000002
+ 20
+-28.09
+ 30
+0.0
+ 40
+0.35
+ 71
+4
+  1
+Palm 1
+  0
+CIRCLE
+  5
+AD
 330
 17
 100
@@ -6233,7 +6287,7 @@ AcDbCircle
   0
 CIRCLE
   5
-AC
+AE
 330
 17
 100
@@ -6251,79 +6305,7 @@ AcDbCircle
  40
 1.0
   0
-LWPOLYLINE
-  5
-AD
-330
-17
-100
-AcDbEntity
-  8
-BUILDING-OUTLINE
-100
-AcDbPolyline
- 90
-5
- 70
-1
- 10
-0.9100000000000001
- 20
--6.0733999999999995
- 10
-11.371
- 20
--6.0733999999999995
- 10
-14.221
- 20
--11.3184
- 10
-14.221
- 20
--30.0734
- 10
-0.9100000000000001
- 20
--30.0734
-  0
-LWPOLYLINE
-  5
-AE
-330
-17
-100
-AcDbEntity
-  8
-GF-OUTLINE
-100
-AcDbPolyline
- 90
-5
- 70
-1
- 10
-0.9100000000000001
- 20
--6.0733999999999995
- 10
-11.371
- 20
--6.0733999999999995
- 10
-14.221
- 20
--11.3184
- 10
-14.221
- 20
--30.0734
- 10
-0.9100000000000001
- 20
--30.0734
-  0
-LWPOLYLINE
+MTEXT
   5
 AF
 330
@@ -6331,31 +6313,23 @@ AF
 100
 AcDbEntity
   8
-VOIDS
+SITE-PALMS
 100
-AcDbPolyline
- 90
+AcDbMText
+ 10
+22.69
+ 20
+-31.87
+ 30
+0.0
+ 40
+0.35
+ 71
 4
- 70
-1
- 10
-6.71
- 20
--12.5734
- 10
-9.86
- 20
--12.5734
- 10
-9.86
- 20
--19.0734
- 10
-6.71
- 20
--19.0734
+  1
+Palm 2
   0
-MTEXT
+CIRCLE
   5
 B0
 330
@@ -6363,23 +6337,19 @@ B0
 100
 AcDbEntity
   8
-ROOM-LABELS
+SITE-PEGS
 100
-AcDbMText
+AcDbCircle
  10
-8.284999999999998
+0.0
  20
--15.8234
+0.0
  30
 0.0
  40
 0.18
- 71
-5
-  1
-Courtyard (open to the sky)
   0
-LWPOLYLINE
+MTEXT
   5
 B1
 330
@@ -6387,31 +6357,23 @@ B1
 100
 AcDbEntity
   8
-VOIDS
+SITE-PEGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-6.71
+-0.6
  20
--19.0734
- 10
-9.86
- 20
--19.0734
- 10
-9.86
- 20
--25.3234
- 10
-6.71
- 20
--25.3234
+0.0
+ 30
+0.0
+ 40
+0.35
+ 71
+6
+  1
+M1
   0
-MTEXT
+CIRCLE
   5
 B2
 330
@@ -6419,23 +6381,19 @@ B2
 100
 AcDbEntity
   8
-ROOM-LABELS
+SITE-PEGS
 100
-AcDbMText
+AcDbCircle
  10
-8.285
+0.0
  20
--22.198400000000003
+-6.36
  30
 0.0
  40
 0.18
- 71
-5
-  1
-Double-height living (void)
   0
-LWPOLYLINE
+MTEXT
   5
 B3
 330
@@ -6443,31 +6401,23 @@ B3
 100
 AcDbEntity
   8
-ROOMS-CORE
+SITE-PEGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-0.9100000000000001
+-0.6
  20
--8.2734
- 10
-3.66
- 20
--8.2734
- 10
-3.66
- 20
--13.973400000000002
- 10
-0.9100000000000001
- 20
--13.973400000000002
+-6.36
+ 30
+0.0
+ 40
+0.35
+ 71
+6
+  1
+M2
   0
-MTEXT
+CIRCLE
   5
 B4
 330
@@ -6475,23 +6425,19 @@ B4
 100
 AcDbEntity
   8
-ROOM-LABELS
+SITE-PEGS
 100
-AcDbMText
+AcDbCircle
  10
-2.285
+0.0
  20
--11.1234
+-18.52
  30
 0.0
  40
-0.12
- 71
-5
-  1
-Stair (arrives at its north end · flipped)
+0.18
   0
-LWPOLYLINE
+MTEXT
   5
 B5
 330
@@ -6499,31 +6445,23 @@ B5
 100
 AcDbEntity
   8
-ROOMS-CORE
+SITE-PEGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-0.9100000000000001
+-0.6
  20
--6.0733999999999995
- 10
-3.16
- 20
--6.0733999999999995
- 10
-3.16
- 20
--8.2734
- 10
-0.9100000000000001
- 20
--8.2734
+-18.52
+ 30
+0.0
+ 40
+0.35
+ 71
+6
+  1
+M3
   0
-MTEXT
+CIRCLE
   5
 B6
 330
@@ -6531,23 +6469,19 @@ B6
 100
 AcDbEntity
   8
-ROOM-LABELS
+SITE-PEGS
 100
-AcDbMText
+AcDbCircle
  10
-2.0349999999999997
+0.0
  20
--7.173400000000001
+-28.8
  30
 0.0
  40
-0.12
- 71
-5
-  1
-Lift shaft
+0.18
   0
-LWPOLYLINE
+MTEXT
   5
 B7
 330
@@ -6555,29 +6489,21 @@ B7
 100
 AcDbEntity
   8
-ROOMS-CORE
+SITE-PEGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-0.9100000000000001
+-0.6
  20
--15.273399999999999
- 10
-2.41
- 20
--15.273399999999999
- 10
-2.41
- 20
--16.4734
- 10
-0.9100000000000001
- 20
--16.4734
+-28.8
+ 30
+0.0
+ 40
+0.35
+ 71
+6
+  1
+M4
   0
 MTEXT
   5
@@ -6587,23 +6513,23 @@ B8
 100
 AcDbEntity
   8
-ROOM-LABELS
+SITE-DRIVEWAY
 100
 AcDbMText
  10
-1.6600000000000026
+-2.5
  20
--15.873400000000014
+-9.0
  30
 0.0
  40
-0.12
+0.4
  71
 5
   1
-West shaft
+Driveway
   0
-LWPOLYLINE
+MTEXT
   5
 B9
 330
@@ -6611,31 +6537,23 @@ B9
 100
 AcDbEntity
   8
-ROOMS-CORE
+SITE-LANE
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-5.3100000000000005
+4.0
  20
--12.5734
- 10
-6.71
- 20
--12.5734
- 10
-6.71
- 20
--13.5734
- 10
-5.3100000000000005
- 20
--13.5734
+1.7
+ 30
+0.0
+ 40
+0.4
+ 71
+5
+  1
+North street
   0
-MTEXT
+LWPOLYLINE
   5
 BA
 330
@@ -6643,21 +6561,37 @@ BA
 100
 AcDbEntity
   8
-ROOM-LABELS
+BUILDING-OUTLINE
 100
-AcDbMText
+AcDbPolyline
+ 90
+6
+ 70
+1
  10
-6.010000000000009
+0.9100000000000001
  20
--13.073400000000033
- 30
-0.0
- 40
-0.12
- 71
-5
-  1
-Air tower
+-7.3734
+ 10
+12.185
+ 20
+-7.3734
+ 10
+12.185
+ 20
+-10.5734
+ 10
+14.221
+ 20
+-10.5734
+ 10
+14.221
+ 20
+-31.3734
+ 10
+0.9100000000000001
+ 20
+-31.3734
   0
 LWPOLYLINE
   5
@@ -6667,75 +6601,43 @@ BB
 100
 AcDbEntity
   8
-ROOMS-CIRC
+COURTYARD
 100
 AcDbPolyline
  90
-14
+6
  70
 1
  10
-3.16
- 20
--6.7734000000000005
- 10
 5.16
  20
--6.7734000000000005
- 10
-5.16
- 20
--9.0734
- 10
-5.16
- 20
--12.5734
- 10
-5.3100000000000005
- 20
--12.5734
- 10
-5.3100000000000005
- 20
--13.5734
+-16.040399999999998
  10
 6.71
  20
--13.5734
+-16.040399999999998
  10
 6.71
  20
--25.3234
+-13.8734
+ 10
+9.86
+ 20
+-13.8734
+ 10
+9.86
+ 20
+-20.3734
  10
 5.16
  20
--25.3234
- 10
-5.16
- 20
--15.273399999999999
- 10
-3.66
- 20
--15.273399999999999
- 10
-3.66
- 20
--13.973400000000002
- 10
-3.66
- 20
--8.2734
- 10
-3.16
- 20
--8.2734
+-20.3734
 1001
 HOUSE
 1000
-Upper gallery (on the west projection)
+Courtyard
 1040
-31.8625
+27.1912
   0
 MTEXT
   5
@@ -6749,215 +6651,21 @@ ROOM-LABELS
 100
 AcDbMText
  10
-5.262030207924676
+7.704555535532699
  20
--15.76636783052176
+-17.391021947766095
  30
 0.0
  40
-0.13
+0.25
  71
 5
   1
-F01 Upper gallery (on the west projection)\P31.86 m²
+COURTYARD\P27.19 m²
   0
 LWPOLYLINE
   5
 BD
-330
-17
-100
-AcDbEntity
-  8
-ROOMS-SERVICE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-3.16
- 20
--6.0733999999999995
- 10
-5.16
- 20
--6.0733999999999995
- 10
-5.16
- 20
--6.7734000000000005
- 10
-3.16
- 20
--6.7734000000000005
-1001
-HOUSE
-1000
-Linen cupboard
-1040
-1.4
-  0
-MTEXT
-  5
-BE
-330
-17
-100
-AcDbEntity
-  8
-ROOM-LABELS
-100
-AcDbMText
- 10
-4.160000000000003
- 20
--6.423400000000003
- 30
-0.0
- 40
-0.13
- 71
-5
-  1
-F02 Linen cupboard\P1.40 m²
-  0
-LWPOLYLINE
-  5
-BF
-330
-17
-100
-AcDbEntity
-  8
-ROOMS-SERVICE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-0.9100000000000001
- 20
--13.973400000000002
- 10
-3.66
- 20
--13.973400000000002
- 10
-3.66
- 20
--15.273399999999999
- 10
-0.9100000000000001
- 20
--15.273399999999999
-1001
-HOUSE
-1000
-Family WC (gallery)
-1040
-3.575
-  0
-MTEXT
-  5
-C0
-330
-17
-100
-AcDbEntity
-  8
-ROOM-LABELS
-100
-AcDbMText
- 10
-2.285
- 20
--14.6234
- 30
-0.0
- 40
-0.13
- 71
-5
-  1
-F03 Family WC (gallery)\P3.57 m²
-  0
-LWPOLYLINE
-  5
-C1
-330
-17
-100
-AcDbEntity
-  8
-ROOMS-SERVICE
-100
-AcDbPolyline
- 90
-6
- 70
-1
- 10
-2.41
- 20
--15.273399999999999
- 10
-5.16
- 20
--15.273399999999999
- 10
-5.16
- 20
--17.0734
- 10
-0.9100000000000001
- 20
--17.0734
- 10
-0.9100000000000001
- 20
--16.4734
- 10
-2.41
- 20
--16.4734
-1001
-HOUSE
-1000
-Bedroom 2 bath (en-suite)
-1040
-5.85
-  0
-MTEXT
-  5
-C2
-330
-17
-100
-AcDbEntity
-  8
-ROOM-LABELS
-100
-AcDbMText
- 10
-3.4580769230769235
- 20
--16.2657076923077
- 30
-0.0
- 40
-0.13
- 71
-5
-  1
-F04 Bedroom 2 bath (en-suite)\P5.85 m²
-  0
-LWPOLYLINE
-  5
-C3
 330
 17
 100
@@ -6971,27 +6679,213 @@ AcDbPolyline
  70
 1
  10
-0.9100000000000001
+5.16
  20
--17.0734
+-7.3734
+ 10
+9.86
+ 20
+-7.3734
+ 10
+9.86
+ 20
+-13.8734
  10
 5.16
  20
--17.0734
- 10
-5.16
- 20
--20.4734
- 10
-0.9100000000000001
- 20
--20.4734
+-13.8734
 1001
 HOUSE
 1000
-Bedroom 2
+Women's majlis
 1040
-14.45
+30.55
+  0
+MTEXT
+  5
+BE
+330
+17
+100
+AcDbEntity
+  8
+ROOM-LABELS
+100
+AcDbMText
+ 10
+7.509999999999999
+ 20
+-10.623399999999998
+ 30
+0.0
+ 40
+0.14
+ 71
+5
+  1
+Women's majlis\P30.55 m²
+  0
+LWPOLYLINE
+  5
+BF
+330
+17
+100
+AcDbEntity
+  8
+ROOMS-FAMILY
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+5.16
+ 20
+-20.3734
+ 10
+9.86
+ 20
+-20.3734
+ 10
+9.86
+ 20
+-26.6234
+ 10
+5.16
+ 20
+-26.6234
+1001
+HOUSE
+1000
+Living (double height)
+1040
+29.375
+  0
+MTEXT
+  5
+C0
+330
+17
+100
+AcDbEntity
+  8
+ROOM-LABELS
+100
+AcDbMText
+ 10
+7.5100000000000025
+ 20
+-23.498400000000007
+ 30
+0.0
+ 40
+0.14
+ 71
+5
+  1
+Living (double height)\P29.37 m²
+  0
+LWPOLYLINE
+  5
+C1
+330
+17
+100
+AcDbEntity
+  8
+ROOMS-GUEST
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3.66
+ 20
+-26.6234
+ 10
+14.221
+ 20
+-26.6234
+ 10
+14.221
+ 20
+-31.3734
+ 10
+3.66
+ 20
+-31.3734
+1001
+HOUSE
+1000
+Men's majlis
+1040
+50.1648
+  0
+MTEXT
+  5
+C2
+330
+17
+100
+AcDbEntity
+  8
+ROOM-LABELS
+100
+AcDbMText
+ 10
+8.9405
+ 20
+-28.998399999999986
+ 30
+0.0
+ 40
+0.14
+ 71
+5
+  1
+Men's majlis\P50.16 m²
+  0
+LWPOLYLINE
+  5
+C3
+330
+17
+100
+AcDbEntity
+  8
+ROOMS-SERVICE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+12.185
+ 20
+-10.5734
+ 10
+14.221
+ 20
+-10.5734
+ 10
+14.221
+ 20
+-12.0734
+ 10
+12.185
+ 20
+-12.0734
+1001
+HOUSE
+1000
+Maid bath
+1040
+3.054
   0
 MTEXT
   5
@@ -7005,17 +6899,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-3.0349999999999997
+13.20299999999996
  20
--18.7734
+-11.323399999999966
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F05 Bedroom 2\P14.45 m²
+Maid bath\P3.05 m²
   0
 LWPOLYLINE
   5
@@ -7033,27 +6927,27 @@ AcDbPolyline
  70
 1
  10
-0.9100000000000001
+9.86
  20
--20.4734
+-7.3734
  10
-3.1100000000000003
+12.185
  20
--20.4734
+-7.3734
  10
-3.1100000000000003
+12.185
  20
--22.1734
+-12.0734
  10
-0.9100000000000001
+9.86
  20
--22.1734
+-12.0734
 1001
 HOUSE
 1000
-Bedroom 3 bath
+Maid room
 1040
-3.74
+10.9275
   0
 MTEXT
   5
@@ -7067,17 +6961,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-2.0100000000000007
+11.022500000000004
  20
--21.323399999999985
+-9.723399999999998
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F06 Bedroom 3 bath\P3.74 m²
+Maid room\P10.93 m²
   0
 LWPOLYLINE
   5
@@ -7087,43 +6981,35 @@ C7
 100
 AcDbEntity
   8
-ROOMS-FAMILY
+ROOMS-SERVICE
 100
 AcDbPolyline
  90
-6
+4
  70
 1
  10
-3.1100000000000003
+9.86
  20
--20.4734
+-12.0734
  10
-5.16
+14.221
  20
--20.4734
+-12.0734
  10
-5.16
+14.221
  20
--25.3234
+-13.8734
  10
-0.9100000000000001
+9.86
  20
--25.3234
- 10
-0.9100000000000001
- 20
--22.1734
- 10
-3.1100000000000003
- 20
--22.1734
+-13.8734
 1001
 HOUSE
 1000
-Bedroom 3
+Laundry
 1040
-16.8725
+7.8498
   0
 MTEXT
   5
@@ -7137,17 +7023,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-3.262204030226701
+12.040499999999998
  20
--23.247518387909324
+-12.973400000000007
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F07 Bedroom 3\P16.87 m²
+Laundry\P7.85 m²
   0
 LWPOLYLINE
   5
@@ -7157,7 +7043,7 @@ C9
 100
 AcDbEntity
   8
-ROOMS-FAMILY
+ROOMS-SERVICE
 100
 AcDbPolyline
  90
@@ -7165,27 +7051,27 @@ AcDbPolyline
  70
 1
  10
-5.16
+9.86
  20
--6.0733999999999995
+-13.8734
+ 10
+14.221
+ 20
+-13.8734
+ 10
+14.221
+ 20
+-20.3734
  10
 9.86
  20
--6.0733999999999995
- 10
-9.86
- 20
--9.0734
- 10
-5.16
- 20
--9.0734
+-20.3734
 1001
 HOUSE
 1000
-Kids' room (study + gaming)
+Kitchen
 1040
-14.1
+28.3465
   0
 MTEXT
   5
@@ -7199,17 +7085,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-7.509999999999998
+12.0405
  20
--7.5734
+-17.123399999999993
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F08 Kids' room (study + gaming)\P14.10 m²
+Kitchen\P28.35 m²
   0
 LWPOLYLINE
   5
@@ -7227,27 +7113,27 @@ AcDbPolyline
  70
 1
  10
-5.16
+9.86
  20
--9.0734
+-20.3734
+ 10
+14.221
+ 20
+-20.3734
+ 10
+14.221
+ 20
+-26.6234
  10
 9.86
  20
--9.0734
- 10
-9.86
- 20
--12.5734
- 10
-5.16
- 20
--12.5734
+-26.6234
 1001
 HOUSE
 1000
-Family living
+Living (normal height) · dining
 1040
-16.45
+27.2562
   0
 MTEXT
   5
@@ -7261,17 +7147,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-7.51
+12.040499999999996
  20
--10.823400000000001
+-23.498400000000007
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F09 Family living\P16.45 m²
+Living (normal height) · dining\P27.26 m²
   0
 LWPOLYLINE
   5
@@ -7281,7 +7167,7 @@ CD
 100
 AcDbEntity
   8
-ROOMS-CIRC
+ROOMS-CORE
 100
 AcDbPolyline
  90
@@ -7289,27 +7175,27 @@ AcDbPolyline
  70
 1
  10
-9.86
+0.9100000000000001
  20
--11.3734
+-7.3734
  10
-11.06
+3.16
  20
--11.3734
+-7.3734
  10
-11.06
+3.16
  20
--12.5734
+-9.5734
  10
-9.86
+0.9100000000000001
  20
--12.5734
+-9.5734
 1001
 HOUSE
 1000
-Family link
+Lift (shaft placeholder)
 1040
-1.44
+4.95
   0
 MTEXT
   5
@@ -7323,17 +7209,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-10.460000000000004
+2.0349999999999997
  20
--11.973400000000012
+-8.4734
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F10 Family link\P1.44 m²
+Lift (shaft placeholder)\P4.95 m²
   0
 LWPOLYLINE
   5
@@ -7343,47 +7229,43 @@ CF
 100
 AcDbEntity
   8
-ROOMS-FAMILY
+ROOMS-CIRC
 100
 AcDbPolyline
  90
-7
+6
  70
 1
  10
-9.86
+3.16
  20
--6.0733999999999995
+-7.3734
  10
-11.371
+5.16
  20
--6.0733999999999995
+-7.3734
  10
-14.221
+5.16
  20
--11.3184
+-26.6234
  10
-14.221
+3.66
  20
--12.5734
+-26.6234
  10
-11.06
+3.66
  20
--12.5734
+-9.5734
  10
-11.06
+3.16
  20
--11.3734
- 10
-9.86
- 20
--11.3734
+-9.5734
 1001
 HOUSE
 1000
-Bedroom 1
+Family lobby + riwaq
 1040
-19.4324
+29.975
   0
 MTEXT
   5
@@ -7397,17 +7279,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-11.684342257444085
+4.373302752293579
  20
--9.704601184878324
+-16.68555596330276
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F11 Bedroom 1\P19.43 m²
+Family lobby + riwaq\P29.97 m²
   0
 LWPOLYLINE
   5
@@ -7417,7 +7299,7 @@ D1
 100
 AcDbEntity
   8
-ROOMS-SERVICE
+ROOMS-CORE
 100
 AcDbPolyline
  90
@@ -7425,27 +7307,27 @@ AcDbPolyline
  70
 1
  10
-10.91
+0.9100000000000001
  20
--25.3234
+-9.5734
  10
-14.221
+3.66
  20
--25.3234
+-9.5734
  10
-14.221
+3.66
  20
--30.0734
+-15.2734
  10
-10.91
+0.9100000000000001
  20
--30.0734
+-15.2734
 1001
 HOUSE
 1000
-Owner's office
+Stair
 1040
-15.7273
+15.675
   0
 MTEXT
   5
@@ -7459,17 +7341,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-12.565499999999997
+2.2849999999999997
  20
--27.69839999999998
+-12.423399999999997
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F12 Owner's office\P15.73 m²
+Stair\P15.68 m²
   0
 LWPOLYLINE
   5
@@ -7479,7 +7361,7 @@ D3
 100
 AcDbEntity
   8
-ROOMS-GYM
+ROOMS-CORE
 100
 AcDbPolyline
  90
@@ -7489,33 +7371,33 @@ AcDbPolyline
  10
 0.9100000000000001
  20
--25.3234
+-15.2734
  10
-6.71
+3.66
  20
--25.3234
+-15.2734
  10
-6.71
+3.66
  20
--26.6234
+-17.773400000000002
  10
-5.16
+2.41
  20
--26.6234
+-17.773400000000002
  10
-5.16
+2.41
  20
--30.0734
+-16.5734
  10
 0.9100000000000001
  20
--30.0734
+-16.5734
 1001
 HOUSE
 1000
-Gym
+Utility room (shaft inside)
 1040
-22.2025
+5.075
   0
 MTEXT
   5
@@ -7529,17 +7411,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-3.298191082085351
+2.5066748768472933
  20
--27.541846683932
+-16.29285812807883
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F13 Gym\P22.20 m²
+Utility room (shaft inside)\P5.07 m²
   0
 LWPOLYLINE
   5
@@ -7549,43 +7431,35 @@ D5
 100
 AcDbEntity
   8
-ROOMS-OPEN
+ROOMS-SERVICE
 100
 AcDbPolyline
  90
-6
+4
  70
 1
  10
-5.16
+0.9100000000000001
  20
--26.6234
+-17.773400000000002
  10
-6.71
+3.66
  20
--26.6234
+-17.773400000000002
  10
-6.71
+3.66
  20
--25.3234
+-20.273400000000002
  10
-10.91
+0.9100000000000001
  20
--25.3234
- 10
-10.91
- 20
--30.0734
- 10
-5.16
- 20
--30.0734
+-20.273400000000002
 1001
 HOUSE
 1000
-Suite court (open to the sky)
+Hospitality kitchen
 1040
-25.2975
+6.875
   0
 MTEXT
   5
@@ -7599,17 +7473,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-8.202269493032906
+2.2849999999999997
  20
--27.83579994070561
+-19.023399999999995
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F14 Suite court (open to the sky)\P25.30 m²
+Hospitality kitchen\P6.88 m²
   0
 LWPOLYLINE
   5
@@ -7619,7 +7493,7 @@ D7
 100
 AcDbEntity
   8
-ROOMS-CIRC
+ROOMS-SERVICE
 100
 AcDbPolyline
  90
@@ -7627,27 +7501,27 @@ AcDbPolyline
  70
 1
  10
-9.86
+0.9100000000000001
  20
--12.5734
+-20.273400000000002
  10
-11.21
+3.66
  20
--12.5734
+-20.273400000000002
  10
-11.21
+3.66
  20
--17.9734
+-23.4734
  10
-9.86
+0.9100000000000001
  20
--17.9734
+-23.4734
 1001
 HOUSE
 1000
-Suite lobby
+Family powder room (WC · 2 basins)
 1040
-7.29
+8.8
   0
 MTEXT
   5
@@ -7661,17 +7535,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-10.534999999999991
+2.285
  20
--15.273399999999981
+-21.873400000000004
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F15 Suite lobby\P7.29 m²
+Family powder room (WC · 2 basins)\P8.80 m²
   0
 LWPOLYLINE
   5
@@ -7681,43 +7555,35 @@ D9
 100
 AcDbEntity
   8
-ROOMS-GUEST
+ROOMS-SERVICE
 100
 AcDbPolyline
  90
-6
+4
  70
 1
  10
-11.21
+0.9100000000000001
  20
--12.5734
+-23.4734
  10
-13.121
+3.66
  20
--12.5734
+-23.4734
  10
-13.121
+3.66
  20
--14.0734
+-24.8734
  10
-14.221
+0.9100000000000001
  20
--14.0734
- 10
-14.221
- 20
--16.5234
- 10
-11.21
- 20
--16.5234
+-24.8734
 1001
 HOUSE
 1000
-Suite bath
+Serving passage (2 doors)
 1040
-10.2434
+3.85
   0
 MTEXT
   5
@@ -7731,17 +7597,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-12.561589452284155
+2.2849999999999975
  20
--14.745721215020346
+-24.17339999999999
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F16 Suite bath\P10.24 m²
+Serving passage (2 doors)\P3.85 m²
   0
 LWPOLYLINE
   5
@@ -7759,27 +7625,27 @@ AcDbPolyline
  70
 1
  10
-13.121
+2.16
  20
--12.5734
+-24.8734
  10
-14.221
+3.66
  20
--12.5734
+-24.8734
  10
-14.221
+3.66
  20
--14.0734
+-26.7734
  10
-13.121
+2.16
  20
--14.0734
+-26.7734
 1001
 HOUSE
 1000
-Suite WC (closet)
+Guest WC
 1040
-1.65
+2.85
   0
 MTEXT
   5
@@ -7793,17 +7659,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-13.670999999999985
+2.9100000000000015
  20
--13.323399999999976
+-25.823400000000007
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F17 Suite WC (closet)\P1.65 m²
+Guest WC\P2.85 m²
   0
 LWPOLYLINE
   5
@@ -7821,27 +7687,27 @@ AcDbPolyline
  70
 1
  10
-11.21
+2.16
  20
--16.5234
+-26.7734
  10
-14.221
+3.66
  20
--16.5234
+-26.7734
  10
-14.221
+3.66
  20
--19.9734
+-28.7734
  10
-11.21
+2.16
  20
--19.9734
+-28.7734
 1001
 HOUSE
 1000
-Suite dressing
+Guest basins (trough · 3 taps)
 1040
-10.388
+3.0
   0
 MTEXT
   5
@@ -7855,17 +7721,17 @@ ROOM-LABELS
 100
 AcDbMText
  10
-12.715499999999993
+2.910000000000001
  20
--18.248399999999993
+-27.773400000000017
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F18 Suite dressing\P10.39 m²
+Guest basins (trough · 3 taps)\P3.00 m²
   0
 LWPOLYLINE
   5
@@ -7879,39 +7745,31 @@ ROOMS-GUEST
 100
 AcDbPolyline
  90
-6
+4
  70
 1
  10
-9.86
+0.9100000000000001
  20
--17.9734
+-24.8734
  10
-11.21
+2.16
  20
--17.9734
+-24.8734
  10
-11.21
+2.16
  20
--19.9734
+-28.7734
  10
-14.221
+0.9100000000000001
  20
--19.9734
- 10
-14.221
- 20
--25.3234
- 10
-9.86
- 20
--25.3234
+-28.7734
 1001
 HOUSE
 1000
-Suite bedroom
+Guest passage
 1040
-26.0313
+4.875
   0
 MTEXT
   5
@@ -7925,19 +7783,19 @@ ROOM-LABELS
 100
 AcDbMText
  10
-11.884347898783588
+1.5350000000000001
  20
--22.267224993709515
+-26.8234
  30
 0.0
  40
-0.13
+0.14
  71
 5
   1
-F19 Suite bedroom\P26.03 m²
+Guest passage\P4.88 m²
   0
-LINE
+LWPOLYLINE
   5
 E1
 330
@@ -7945,23 +7803,37 @@ E1
 100
 AcDbEntity
   8
-OPENINGS
+ROOMS-GUEST
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-3.16
+0.9100000000000001
  20
--6.973400000000002
- 30
-0.0
- 11
-3.16
- 21
--7.9734
- 31
-0.0
+-28.7734
+ 10
+3.66
+ 20
+-28.7734
+ 10
+3.66
+ 20
+-31.3734
+ 10
+0.9100000000000001
+ 20
+-31.3734
+1001
+HOUSE
+1000
+Foyer + entry
+1040
+7.15
   0
-LINE
+MTEXT
   5
 E2
 330
@@ -7969,23 +7841,23 @@ E2
 100
 AcDbEntity
   8
-OPENINGS
+ROOM-LABELS
 100
-AcDbLine
+AcDbMText
  10
-3.3600000000000003
+2.2850000000000006
  20
--6.7734000000000005
+-30.073400000000017
  30
 0.0
- 11
-4.96
- 21
--6.7734000000000005
- 31
-0.0
+ 40
+0.14
+ 71
+5
+  1
+Foyer + entry\P7.15 m²
   0
-LINE
+LWPOLYLINE
   5
 E3
 330
@@ -7993,23 +7865,31 @@ E3
 100
 AcDbEntity
   8
-DOORS
+AIR-TOWER
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
 5.16
  20
--7.9734
- 30
-0.0
- 11
+-13.8734
+ 10
+6.71
+ 20
+-13.8734
+ 10
+6.71
+ 20
+-16.040399999999998
+ 10
 5.16
- 21
--8.9734
- 31
-0.0
+ 20
+-16.040399999999998
   0
-LINE
+MTEXT
   5
 E4
 330
@@ -8017,23 +7897,23 @@ E4
 100
 AcDbEntity
   8
-OPENINGS
+AIR-TOWER
 100
-AcDbLine
+AcDbMText
  10
-5.16
+6.01
  20
--9.1734
+-14.9734
  30
 0.0
- 11
-5.16
- 21
--10.5734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+Malqaf
   0
-LINE
+LWPOLYLINE
   5
 E5
 330
@@ -8041,23 +7921,31 @@ E5
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+0.9100000000000001
+ 20
+-13.9234
  10
 3.66
  20
--14.273399999999999
- 30
-0.0
- 11
+-13.9234
+ 10
 3.66
- 21
--15.1734
- 31
-0.0
+ 20
+-15.2734
+ 10
+0.9100000000000001
+ 20
+-15.2734
   0
-LINE
+MTEXT
   5
 E6
 330
@@ -8065,23 +7953,23 @@ E6
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-2.6099999999999994
+2.285
  20
--17.0734
+-14.5984
  30
 0.0
- 11
-3.5100000000000002
- 21
--17.0734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+utility · low part under the half landing (1.65 m): batteries + inverter
   0
-LINE
+LWPOLYLINE
   5
 E7
 330
@@ -8089,23 +7977,31 @@ E7
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-5.16
+1.0350000000000001
  20
--17.1734
- 30
-0.0
- 11
-5.16
- 21
--18.1734
- 31
-0.0
+-9.6734
+ 10
+2.2974999999999994
+ 20
+-9.6734
+ 10
+2.2974999999999994
+ 20
+-11.1234
+ 10
+1.0350000000000001
+ 20
+-11.1234
   0
-LINE
+MTEXT
   5
 E8
 330
@@ -8113,23 +8009,23 @@ E8
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-5.16
+1.6662499999999998
  20
--21.2734
+-10.3984
  30
 0.0
- 11
-5.16
- 21
--22.2734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+coat cupboard · full height
   0
-LINE
+LWPOLYLINE
   5
 E9
 330
@@ -8137,23 +8033,31 @@ E9
 100
 AcDbEntity
   8
-OPENINGS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-3.1100000000000003
+6.5600000000000005
  20
--21.0734
- 30
-0.0
- 11
-3.1100000000000003
- 21
--22.0734
- 31
-0.0
+-13.7234
+ 10
+6.86
+ 20
+-13.7234
+ 10
+6.86
+ 20
+-14.0234
+ 10
+6.5600000000000005
+ 20
+-14.0234
   0
-LINE
+MTEXT
   5
 EA
 330
@@ -8161,23 +8065,23 @@ EA
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-9.96
+6.710000000000001
  20
--11.3734
+-13.8734
  30
 0.0
- 11
-10.96
- 21
--11.3734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+col 1
   0
-LINE
+LWPOLYLINE
   5
 EB
 330
@@ -8185,23 +8089,31 @@ EB
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-9.91
+6.5600000000000005
  20
--12.5734
- 30
-0.0
- 11
-11.01
- 21
--12.5734
- 31
-0.0
+-20.223399999999998
+ 10
+6.86
+ 20
+-20.223399999999998
+ 10
+6.86
+ 20
+-20.523400000000002
+ 10
+6.5600000000000005
+ 20
+-20.523400000000002
   0
-LINE
+MTEXT
   5
 EC
 330
@@ -8209,23 +8121,23 @@ EC
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-11.21
+6.710000000000001
  20
--12.723400000000002
+-20.3734
  30
 0.0
- 11
-11.21
- 21
--13.723400000000002
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+col 2
   0
-LINE
+LWPOLYLINE
   5
 ED
 330
@@ -8233,23 +8145,31 @@ ED
 100
 AcDbEntity
   8
-OPENINGS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.121
+6.5600000000000005
  20
--12.8734
- 30
-0.0
- 11
-13.121
- 21
--13.8734
- 31
-0.0
+-26.4734
+ 10
+6.86
+ 20
+-26.4734
+ 10
+6.86
+ 20
+-26.7734
+ 10
+6.5600000000000005
+ 20
+-26.7734
   0
-LINE
+MTEXT
   5
 EE
 330
@@ -8257,23 +8177,23 @@ EE
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-11.21
+6.710000000000001
  20
--16.6734
+-26.6234
  30
 0.0
- 11
-11.21
- 21
--17.6734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+col 3
   0
-LINE
+LWPOLYLINE
   5
 EF
 330
@@ -8281,23 +8201,31 @@ EF
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-9.96
+5.26
  20
--17.9734
- 30
-0.0
- 11
-10.96
- 21
--17.9734
- 31
-0.0
+-21.8734
+ 10
+5.96
+ 20
+-21.8734
+ 10
+5.96
+ 20
+-22.1234
+ 10
+5.26
+ 20
+-22.1234
   0
-LINE
+MTEXT
   5
 F0
 330
@@ -8305,23 +8233,23 @@ F0
 100
 AcDbEntity
   8
-OPENINGS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-5.26
+5.609999999999999
  20
--25.3234
+-21.9984
  30
 0.0
- 11
-6.36
- 21
--25.3234
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+TV niche pier
   0
-LINE
+LWPOLYLINE
   5
 F1
 330
@@ -8329,23 +8257,31 @@ F1
 100
 AcDbEntity
   8
-OPENINGS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-9.96
+5.26
  20
--25.3234
- 30
-0.0
- 11
-10.86
- 21
--25.3234
- 31
-0.0
+-22.1234
+ 10
+5.96
+ 20
+-22.1234
+ 10
+5.96
+ 20
+-26.5234
+ 10
+5.26
+ 20
+-26.5234
   0
-LINE
+MTEXT
   5
 F2
 330
@@ -8353,23 +8289,23 @@ F2
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-6.71
+5.609999999999999
  20
--25.5734
+-24.3234
  30
 0.0
- 11
-6.71
- 21
--26.473399999999998
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+TV niche 4.40 × 0.70
   0
-LINE
+LWPOLYLINE
   5
 F3
 330
@@ -8377,23 +8313,31 @@ F3
 100
 AcDbEntity
   8
-DOORS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-10.91
+6.835
  20
--25.5734
- 30
-0.0
- 11
-10.91
- 21
--26.4234
- 31
-0.0
+-14.4734
+ 10
+9.76
+ 20
+-14.4734
+ 10
+9.76
+ 20
+-19.6734
+ 10
+6.835
+ 20
+-19.6734
   0
-LINE
+MTEXT
   5
 F4
 330
@@ -8401,23 +8345,23 @@ F4
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-6.21
+8.2975
  20
--6.0733999999999995
+-17.0734
  30
 0.0
- 11
-9.61
- 21
--6.0733999999999995
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+seating · level · 6 seats facing the olive and the water
   0
-LINE
+LWPOLYLINE
   5
 F5
 330
@@ -8425,23 +8369,31 @@ F5
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-0.9100000000000001
+5.26
  20
--17.3734
- 30
-0.0
- 11
-0.9100000000000001
- 21
--18.6734
- 31
-0.0
+-17.6734
+ 10
+6.835
+ 20
+-17.6734
+ 10
+6.835
+ 20
+-19.6734
+ 10
+5.26
+ 20
+-19.6734
   0
-LINE
+MTEXT
   5
 F6
 330
@@ -8449,23 +8401,23 @@ F6
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-0.9100000000000001
+6.047499999999999
  20
--20.6734
+-18.6734
  30
 0.0
- 11
-0.9100000000000001
- 21
--21.2734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+seating · covered pocket · 2-seat sofa
   0
-LINE
+LWPOLYLINE
   5
 F7
 330
@@ -8473,23 +8425,31 @@ F7
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-0.9100000000000001
+7.3100000000000005
  20
--23.2734
- 30
-0.0
- 11
-0.9100000000000001
- 21
--24.2734
- 31
-0.0
+-14.7234
+ 10
+8.31
+ 20
+-14.7234
+ 10
+8.31
+ 20
+-15.7234
+ 10
+7.3100000000000005
+ 20
+-15.7234
   0
-LINE
+MTEXT
   5
 F8
 330
@@ -8497,23 +8457,23 @@ F8
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-12.24
+7.8100000000000005
  20
--7.673400000000001
+-15.2234
  30
 0.0
- 11
-13.11
- 21
--9.2734
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+olive · fixed pot Ø 1.0 · in the jet
   0
-LINE
+LWPOLYLINE
   5
 F9
 330
@@ -8521,23 +8481,31 @@ F9
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.352
+6.5600000000000005
  20
--9.7184
- 30
-0.0
- 11
-13.949
- 21
--10.8184
- 31
-0.0
+-13.7234
+ 10
+6.86
+ 20
+-13.7234
+ 10
+6.86
+ 20
+-16.1404
+ 10
+6.5600000000000005
+ 20
+-16.1404
   0
-LINE
+MTEXT
   5
 FA
 330
@@ -8545,23 +8513,23 @@ FA
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-10.11
+6.710000000000001
  20
--6.0733999999999995
+-14.931899999999999
  30
 0.0
- 11
-11.11
- 21
--6.0733999999999995
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+core east wall 0.30 on the column line
   0
-LINE
+LWPOLYLINE
   5
 FB
 330
@@ -8569,23 +8537,31 @@ FB
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-6.71
+8.81
  20
--15.023399999999999
- 30
-0.0
- 11
-6.71
- 21
--16.6234
- 31
-0.0
+-14.6734
+ 10
+9.76
+ 20
+-14.6734
+ 10
+9.76
+ 20
+-16.773400000000002
+ 10
+8.81
+ 20
+-16.773400000000002
   0
-LINE
+MTEXT
   5
 FC
 330
@@ -8593,21 +8569,21 @@ FC
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-6.71
+9.285
  20
--17.1904
+-15.7234
  30
 0.0
- 11
-6.71
- 21
--18.7904
- 31
-0.0
+ 40
+0.12
+ 71
+5
+  1
+water trough under the sink window
   0
 LINE
   5
@@ -8617,23 +8593,23 @@ FD
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
 AcDbLine
  10
-6.71
+9.86
  20
--19.3154
+-20.3734
  30
 0.0
  11
-6.71
+9.86
  21
--20.9154
+-26.6234
  31
 0.0
   0
-LINE
+MTEXT
   5
 FE
 330
@@ -8641,21 +8617,21 @@ FE
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-6.71
+10.01
  20
--21.3984
+-23.4984
  30
 0.0
- 11
-6.71
- 21
--22.9984
- 31
-0.0
+ 40
+0.12
+ 71
+4
+  1
+ceiling height change
   0
 LINE
   5
@@ -8665,23 +8641,23 @@ FF
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
 AcDbLine
  10
 6.71
  20
--23.4814
+-13.8734
  30
 0.0
  11
 6.71
  21
--25.0814
+-26.6234
  31
 0.0
   0
-LINE
+MTEXT
   5
 100
 330
@@ -8689,21 +8665,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+MARKS
 100
-AcDbLine
+AcDbMText
  10
-6.91
+6.86
  20
--12.5734
+-20.2484
  30
 0.0
- 11
-8.209999999999999
- 21
--12.5734
- 31
-0.0
+ 40
+0.12
+ 71
+4
+  1
+FF projection edge (beam + window W1) above
   0
 LINE
   5
@@ -8713,23 +8689,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-8.459999999999999
+3.16
  20
--12.5734
+-8.2734
  30
 0.0
  11
-9.76
+3.16
  21
--12.5734
+-9.2734
  31
 0.0
   0
-LINE
+MTEXT
   5
 102
 330
@@ -8737,21 +8713,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
-AcDbLine
+AcDbMText
  10
-0.9100000000000001
+3.26
  20
--25.6734
+-8.8934
  30
 0.0
- 11
-0.9100000000000001
- 21
--26.973399999999998
- 31
-0.0
+ 40
+0.08
+ 71
+1
+  1
+lift door (sliding landing door; the lift is installed at construction, V6.3)
   0
 LINE
   5
@@ -8761,23 +8737,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-0.9100000000000001
+1.0099999999999998
  20
--28.0734
+-15.2734
  30
 0.0
  11
-0.9100000000000001
+3.56
  21
--29.5734
+-15.2734
  31
 0.0
   0
-LINE
+MTEXT
   5
 104
 330
@@ -8785,21 +8761,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
-AcDbLine
+AcDbMText
  10
-2.91
+2.385
  20
--30.0734
+-15.3934
  30
 0.0
- 11
-4.81
- 21
--30.0734
- 31
-0.0
+ 40
+0.08
+ 71
+1
+  1
+10 Nov 2026 (owner): the store's door onto the riwaq removed; the store under the half landing joins the utility room (ONE door, from the riwaq at y 8.2–9.0)
   0
 LINE
   5
@@ -8809,23 +8785,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-11.41
+3.66
  20
--30.0734
+-15.5734
  30
 0.0
  11
-13.71
+3.66
  21
--30.0734
+-16.3734
  31
 0.0
   0
-LINE
+MTEXT
   5
 106
 330
@@ -8833,21 +8809,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
-AcDbLine
+AcDbMText
  10
-14.221
+3.7600000000000002
  20
--28.8734
+-16.0934
  30
 0.0
- 11
-14.221
- 21
--29.7734
- 31
-0.0
+ 40
+0.08
+ 71
+1
+  1
+utility door
   0
 LINE
   5
@@ -8857,23 +8833,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-9.86
+0.9100000000000001
  20
--13.6734
+-16.5734
  30
 0.0
  11
-9.86
+0.9100000000000001
  21
--15.6734
+-17.773400000000002
  31
 0.0
   0
-LINE
+MTEXT
   5
 108
 330
@@ -8881,21 +8857,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
-AcDbLine
+AcDbMText
  10
-14.221
+1.0099999999999998
  20
--15.5734
+-17.2934
  30
 0.0
- 11
-14.221
- 21
--16.1234
- 31
-0.0
+ 40
+0.08
+ 71
+1
+  1
+the west service shaft (x 0–1.5, y 9.2–10.4, unchanged): its own sealed walls, the maintenance door on its east face
   0
 LINE
   5
@@ -8905,23 +8881,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-14.221
+2.41
  20
--21.0734
+-16.773400000000002
  30
 0.0
  11
-14.221
+2.41
  21
--24.6734
+-17.5734
  31
 0.0
   0
-LINE
+MTEXT
   5
 10A
 330
@@ -8929,21 +8905,21 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
-AcDbLine
+AcDbMText
  10
-6.91
+2.51
  20
--25.3234
+-17.2934
  30
 0.0
- 11
-7.91
- 21
--25.3234
- 31
-0.0
+ 40
+0.08
+ 71
+1
+  1
+shaft door · 0.9 m clear in front
   0
 LINE
   5
@@ -8953,23 +8929,23 @@ LINE
 100
 AcDbEntity
   8
-WINDOWS
+DOORS
 100
 AcDbLine
  10
-8.51
+5.51
  20
--25.3234
+-16.040399999999998
  30
 0.0
  11
-9.51
+6.51
  21
--25.3234
+-16.040399999999998
  31
 0.0
   0
-LWPOLYLINE
+MTEXT
   5
 10C
 330
@@ -8977,31 +8953,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+6.109999999999999
+ 20
+-16.1604
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-6.0600000000000005
- 20
--6.1983999999999995
- 10
-7.26
- 20
--6.1983999999999995
- 10
-7.26
- 20
--6.798400000000001
- 10
-6.0600000000000005
- 20
--6.798400000000001
+  1
+V10.0 (L5): the carved door of the malqaf's foot chamber onto the covered strip
   0
-MTEXT
+LINE
   5
 10D
 330
@@ -9009,23 +8977,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbMText
+AcDbLine
  10
-6.66
+6.71
  20
--6.4984
+-14.2734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-study desk
+ 11
+6.71
+ 21
+-15.6734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 10E
 330
@@ -9033,31 +9001,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+6.81
+ 20
+-15.0934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-7.26
- 20
--6.1983999999999995
- 10
-8.459999999999999
- 20
--6.1983999999999995
- 10
-8.459999999999999
- 20
--6.798400000000001
- 10
-7.26
- 20
--6.798400000000001
+  1
+H2 (10 Nov 2026): the breeze outlet 1.4 × 1.0 centred in the first arcade bay, raised, the louvres fixed 15° SE (11 Nov 2026: outlet → olive → water) at the trough: a low door (head 1.55) onto the riwaq (stair flip, V8.1 work)
   0
-MTEXT
+LINE
   5
 10F
 330
@@ -9065,23 +9025,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbMText
+AcDbLine
  10
-7.859999999999999
+0.9100000000000001
  20
--6.4984
+-14.0734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-study desk
+ 11
+0.9100000000000001
+ 21
+-14.9734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 110
 330
@@ -9089,31 +9049,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+1.0099999999999998
+ 20
+-14.6434
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-8.56
- 20
--6.1983999999999995
- 10
-9.76
- 20
--6.1983999999999995
- 10
-9.76
- 20
--6.798400000000001
- 10
-8.56
- 20
--6.798400000000001
+  1
+the half landing's small west window (sill +2.60, head +3.30, 0.9 wide, obscured glass, a deep shaded reveal): lights the whole well
   0
-MTEXT
+LINE
   5
 111
 330
@@ -9121,23 +9073,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbMText
+AcDbLine
  10
-9.16
+3.3100000000000005
  20
--6.4984
+-7.3734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-PC desk
+ 11
+3.81
+ 21
+-7.3734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 112
 330
@@ -9145,31 +9097,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+3.66
+ 20
+-7.493400000000001
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-6.41
- 20
--6.923400000000001
- 10
-6.91
- 20
--6.923400000000001
- 10
-6.91
- 20
--7.423400000000001
- 10
-6.41
- 20
--7.423400000000001
+  1
+the family entrance's glazed side light (obscured glass, sill +0.30, head +2.10) west of the door: daylight at the stair foot
   0
-LWPOLYLINE
+LINE
   5
 113
 330
@@ -9177,31 +9121,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-7.61
+3.66
  20
--6.923400000000001
- 10
-8.11
- 20
--6.923400000000001
- 10
-8.11
- 20
--7.423400000000001
- 10
-7.61
- 20
--7.423400000000001
+-17.973399999999998
+ 30
+0.0
+ 11
+3.66
+ 21
+-20.0734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 114
 330
@@ -9209,31 +9145,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+3.7600000000000002
+ 20
+-19.1434
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-8.91
- 20
--6.923400000000001
- 10
-9.41
- 20
--6.923400000000001
- 10
-9.41
- 20
--7.423400000000001
- 10
-8.91
- 20
--7.423400000000001
+  1
+hospitality kitchen, open to the riwaq
   0
-LWPOLYLINE
+LINE
   5
 115
 330
@@ -9241,29 +9169,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-7.3100000000000005
+3.66
  20
--7.6234
- 10
-8.06
- 20
--7.6234
- 10
-8.06
- 20
--8.9234
- 10
-7.3100000000000005
- 20
--8.9234
+-20.4234
+ 30
+0.0
+ 11
+3.66
+ 21
+-21.773400000000002
+ 31
+0.0
   0
 MTEXT
   5
@@ -9273,23 +9193,25 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-7.6850000000000005
+3.7600000000000002
  20
--8.2734
+-21.218400000000003
  30
 0.0
  40
 0.08
  71
-5
+1
+  3
+10 Nov 2026 (owner): the powder room has NO outer door: a 1.35 m open opening onto the riwaq (the old 1.00 door); 10 Nov 2026 (owner): the WC in its own compartment with a hand basin, the two basins + mirror in the open zone in front of the entrance;
   1
-2-seat sofa / bean bags
+ no shower
   0
-LWPOLYLINE
+LINE
   5
 117
 330
@@ -9297,29 +9219,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-9.36
+0.9100000000000001
  20
--7.673400000000001
- 10
-9.76
- 20
--7.673400000000001
- 10
-9.76
- 20
--8.8734
- 10
-9.36
- 20
--8.8734
+-21.9234
+ 30
+0.0
+ 11
+3.66
+ 21
+-21.9234
+ 31
+0.0
   0
 MTEXT
   5
@@ -9329,23 +9243,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
 AcDbMText
  10
-9.559999999999999
+2.385
  20
--8.2734
+-22.0434
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-TV ≤ 50 
+the WC compartment's 100 mm partitions (x 1.3–2.75, y 14.55–16.1: ≈ 1.3 × 1.4 clear)
   0
-LWPOLYLINE
+LINE
   5
 119
 330
@@ -9353,29 +9267,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-5.26
+2.51
  20
--10.6734
- 10
-5.66
- 20
--10.6734
- 10
-5.66
- 20
--12.1734
- 10
-5.26
- 20
--12.1734
+-21.9234
+ 30
+0.0
+ 11
+3.21
+ 21
+-21.9234
+ 31
+0.0
   0
 MTEXT
   5
@@ -9385,23 +9291,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-5.46
+2.96
  20
--11.4234
+-22.0434
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-TV wall
+WC door 0.70
   0
-LWPOLYLINE
+LINE
   5
 11B
 330
@@ -9409,29 +9315,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-7.51
+0.9100000000000001
  20
--10.3734
- 10
-8.36
- 20
--10.3734
- 10
-8.36
- 20
--12.3734
- 10
-7.51
- 20
--12.3734
+-20.273400000000002
+ 30
+0.0
+ 11
+3.66
+ 21
+-20.273400000000002
+ 31
+0.0
   0
 MTEXT
   5
@@ -9441,23 +9339,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-7.935
+2.385
  20
--11.3734
+-20.3934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-sofa · faces TV
+hospitality kitchen / powder room wall, full height
   0
-LWPOLYLINE
+LINE
   5
 11D
 330
@@ -9465,29 +9363,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-6.3100000000000005
+3.66
  20
--10.223400000000002
- 10
-7.3100000000000005
- 20
--10.223400000000002
- 10
-7.3100000000000005
- 20
--11.0234
- 10
-6.3100000000000005
- 20
--11.0234
+-23.6234
+ 30
+0.0
+ 11
+3.66
+ 21
+-24.5234
+ 31
+0.0
   0
 MTEXT
   5
@@ -9497,23 +9387,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-6.8100000000000005
+3.7600000000000002
  20
--10.6234
+-24.1934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-loveseat · faces courtyard
+serving door 1 (0.90), to the riwaq, lockable from the riwaq side; opposite: the living's solid west wall (the TV wall, V6.3)
   0
-LWPOLYLINE
+LINE
   5
 11F
 330
@@ -9521,29 +9411,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-6.16
+1.0099999999999998
  20
--11.4234
- 10
-7.16
- 20
--11.4234
- 10
-7.16
- 20
--12.1234
- 10
-6.16
- 20
--12.1234
+-24.8734
+ 30
+0.0
+ 11
+2.0600000000000005
+ 21
+-24.8734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9553,23 +9435,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-6.66
+1.6349999999999998
  20
--11.7734
+-24.9934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-table
+serving door 2 (1.05, guest side), lockable from inside the passage
   0
-LWPOLYLINE
+LINE
   5
 121
 330
@@ -9577,29 +9459,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-1.3600000000000003
+1.0099999999999998
  20
--14.5734
- 10
-2.16
- 20
--14.5734
- 10
-2.16
- 20
--15.1234
- 10
-1.3600000000000003
- 20
--15.1234
+-23.4734
+ 30
+0.0
+ 11
+3.5100000000000002
+ 21
+-23.4734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9609,23 +9483,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-1.7600000000000002
+2.3600000000000003
  20
--14.8484
+-23.593400000000003
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-WC
+the powder room's south service wall (the WC's frame, bath 3's stack)
   0
-LWPOLYLINE
+LINE
   5
 123
 330
@@ -9633,29 +9507,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-2.46
+0.9100000000000001
  20
--14.6234
- 10
-2.76
- 20
--14.6234
- 10
-2.76
- 20
--15.1234
- 10
-2.46
- 20
--15.1234
+-24.8734
+ 30
+0.0
+ 11
+3.66
+ 21
+-24.8734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9665,23 +9531,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
 AcDbMText
  10
-2.61
+2.385
  20
--14.8734
+-24.9934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-basin
+family / guest line
   0
-LWPOLYLINE
+LINE
   5
 125
 330
@@ -9689,29 +9555,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-2.3599999999999994
+2.26
  20
--14.5734
- 10
-2.46
- 20
--14.5734
- 10
-2.46
- 20
--15.223400000000002
- 10
-2.3599999999999994
- 20
--15.223400000000002
+-26.7734
+ 30
+0.0
+ 11
+3.16
+ 21
+-26.7734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9721,23 +9579,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-2.4099999999999997
+2.8100000000000005
  20
--14.8984
+-26.8934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-screen
+11 Nov 2026 (owner): the door back on the WC's south wall, from the basins room (as before the redraw of 10 Nov); hinged at the west jamb, opens in, its swing clear of the WC (x 2.2–2.65)
   0
-LWPOLYLINE
+LINE
   5
 127
 330
@@ -9745,29 +9603,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-4.06
+2.16
  20
--15.3734
- 10
-5.0600000000000005
- 20
--15.3734
- 10
-5.0600000000000005
- 20
--16.9734
- 10
-4.06
- 20
--16.9734
+-26.8734
+ 30
+0.0
+ 11
+2.16
+ 21
+-28.6734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9777,23 +9627,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
 AcDbMText
  10
-4.5600000000000005
+2.26
  20
--16.1734
+-27.8934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-shower 1.0 × 1.6
+10 Nov 2026 (owner, redrawn): the basins room open to the passage through a wide opening
   0
-LWPOLYLINE
+LINE
   5
 129
 330
@@ -9801,29 +9651,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-2.8100000000000005
+0.9100000000000001
  20
--15.3734
- 10
-3.6100000000000003
- 20
--15.3734
- 10
-3.6100000000000003
- 20
--15.9234
- 10
-2.8100000000000005
- 20
--15.9234
+-28.8734
+ 30
+0.0
+ 11
+0.9100000000000001
+ 21
+-30.2734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9833,23 +9675,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-3.2100000000000004
+1.0099999999999998
  20
--15.6484
+-29.6934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-WC
+guest entrance, double door 1.40 m (two leaves), opens in, north end of the foyer's west wall
   0
-LWPOLYLINE
+LINE
   5
 12B
 330
@@ -9857,29 +9699,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-1.0350000000000001
+3.66
  20
--16.5234
- 10
-2.3100000000000005
- 20
--16.5234
- 10
-2.3100000000000005
- 20
--16.9734
- 10
-1.0350000000000001
- 20
--16.9734
+-29.5234
+ 30
+0.0
+ 11
+3.66
+ 21
+-31.3234
+ 31
+0.0
   0
 MTEXT
   5
@@ -9889,23 +9723,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+OPENINGS
 100
 AcDbMText
  10
-1.6725000000000003
+3.7600000000000002
  20
--16.7484
+-30.5434
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-vanity · basin
+open passage into the men's majlis, 1.80 m, no door, south end of the foyer's east wall
   0
-LWPOLYLINE
+LINE
   5
 12D
 330
@@ -9913,29 +9747,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-1.0350000000000001
+5.16
  20
--17.3734
- 10
-1.6349999999999998
- 20
--17.3734
- 10
-1.6349999999999998
- 20
--18.5734
- 10
-1.0350000000000001
- 20
--18.5734
+-20.473399999999998
+ 30
+0.0
+ 11
+5.16
+ 21
+-21.8734
+ 31
+0.0
   0
 MTEXT
   5
@@ -9945,23 +9771,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
 AcDbMText
  10
-1.335
+5.26
  20
--17.973399999999998
+-21.2934
  30
 0.0
  40
 0.08
  71
-5
+1
   1
-desk
+living room: arched entrance from the riwaq, 1.40 m, no door (head ≈ 2.60); V6.3: the rest of the west wall (y 14.5–19.25) is solid and full height, the TV wall
   0
-LWPOLYLINE
+LINE
   5
 12F
 330
@@ -9969,31 +9795,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-1.7599999999999998
+10.61
  20
--17.7234
- 10
-2.21
- 20
--17.7234
- 10
-2.21
- 20
--18.1734
- 10
-1.7599999999999998
- 20
--18.1734
+-13.8734
+ 30
+0.0
+ 11
+11.46
+ 21
+-13.8734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 130
 330
@@ -10001,31 +9819,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+11.135
+ 20
+-13.993400000000001
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-2.1099999999999994
- 20
--18.3734
- 10
-3.5100000000000002
- 20
--18.3734
- 10
-3.5100000000000002
- 20
--20.3734
- 10
-2.1099999999999994
- 20
--20.3734
+  1
+open entrance kitchen ↔ laundry (no door); 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
   0
-MTEXT
+LINE
   5
 131
 330
@@ -10033,23 +9843,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbMText
+AcDbLine
  10
-2.8099999999999996
+10.61
  20
--19.3734
+-12.0734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-bed 1.4 × 2.0
+ 11
+11.46
+ 21
+-12.0734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 132
 330
@@ -10057,31 +9867,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+11.135
+ 20
+-12.1934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-1.6600000000000001
- 20
--19.9734
- 10
-2.0600000000000005
- 20
--19.9734
- 10
-2.0600000000000005
- 20
--20.3734
- 10
-1.6600000000000001
- 20
--20.3734
+  1
+laundry ↔ maid room 0.90 (layout D; 11 Nov 2026: 0.35 m east, in line with the kitchen entrance, the table's end clear; her only door, not from the kitchen)
   0
-LWPOLYLINE
+LINE
   5
 133
 330
@@ -10089,31 +9891,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-3.56
+12.185
  20
--19.9734
- 10
-3.96
- 20
--19.9734
- 10
-3.96
- 20
--20.3734
- 10
-3.56
- 20
--20.3734
+-11.0734
+ 30
+0.0
+ 11
+12.185
+ 21
+-11.7734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 134
 330
@@ -10121,31 +9915,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+12.285
+ 20
+-11.543400000000002
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-4.46
- 20
--18.2734
- 10
-5.0600000000000005
- 20
--18.2734
- 10
-5.0600000000000005
- 20
--20.2734
- 10
-4.46
- 20
--20.2734
+  1
+maid room ↔ maid bath 0.70 on the bath's west wall (17 Nov 2026, the step: the bath x 11.275–13.311 × y 3.2–4.7 east of the room; its door from her room only)
   0
-MTEXT
+LINE
   5
 135
 330
@@ -10153,23 +9939,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbMText
+AcDbLine
  10
-4.76
+14.221
  20
--19.2734
+-12.7234
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-wardrobe
+ 11
+14.221
+ 21
+-13.6234
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 136
 330
@@ -10177,31 +9963,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+14.321
+ 20
+-13.2934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-1.0350000000000001
- 20
--20.5734
- 10
-1.9350000000000005
- 20
--20.5734
- 10
-1.9350000000000005
- 20
--21.4734
- 10
-1.0350000000000001
- 20
--21.4734
+  1
+the laundry's window 0.9 onto the east yard (insect screen; the extract fan above it); 11 Nov 2026: the straight east wall now 1.255 m
   0
-MTEXT
+LINE
   5
 137
 330
@@ -10209,23 +9987,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbMText
+AcDbLine
  10
-1.4850000000000003
+10.31
  20
--21.023400000000002
+-20.3734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-shower
+ 11
+11.41
+ 21
+-20.3734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 138
 330
@@ -10233,31 +10011,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+10.959999999999999
+ 20
+-20.4934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-2.3100000000000005
- 20
--20.5734
- 10
-2.76
- 20
--20.5734
- 10
-2.76
- 20
--21.2234
- 10
-2.3100000000000005
- 20
--21.2234
+  1
+kitchen ↔ dining
   0
-MTEXT
+LINE
   5
 139
 330
@@ -10265,23 +10035,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbMText
+AcDbLine
  10
-2.535
+14.221
  20
--20.898400000000002
+-14.5734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-WC
+ 11
+14.221
+ 21
+-15.4734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 13A
 330
@@ -10289,31 +10059,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+DOORS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+14.321
+ 20
+-15.1434
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-1.0350000000000001
- 20
--21.5734
- 10
-1.5099999999999998
- 20
--21.5734
- 10
-1.5099999999999998
- 20
--22.0734
- 10
-1.0350000000000001
- 20
--22.0734
+  1
+kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
   0
-MTEXT
+LINE
   5
 13B
 330
@@ -10321,23 +10083,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbMText
+AcDbLine
  10
-1.2725
+9.86
  20
--21.8234
+-14.6734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-basin
+ 11
+9.86
+ 21
+-16.273400000000002
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 13C
 330
@@ -10345,31 +10107,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+9.959999999999999
+ 20
+-15.593399999999999
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-3.21
- 20
--20.5734
- 10
-4.26
- 20
--20.5734
- 10
-4.26
- 20
--21.1734
- 10
-3.21
- 20
--21.1734
+  1
+sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): the water trough right under it, the olive's trunk 1.95 m beyond with its crown in the window's top (11 Nov 2026); no TV on this wall (owner, 10 Nov 2026)
   0
-MTEXT
+LINE
   5
 13D
 330
@@ -10377,23 +10131,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbMText
+AcDbLine
  10
-3.735
+14.221
  20
--20.8734
+-16.0734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-wardrobe
+ 11
+14.221
+ 21
+-17.473399999999998
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 13E
 330
@@ -10401,31 +10155,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+14.321
+ 20
+-16.8934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-1.0350000000000001
- 20
--23.0734
- 10
-3.035
- 20
--23.0734
- 10
-3.035
- 20
--24.473399999999998
- 10
-1.0350000000000001
- 20
--24.473399999999998
+  1
+kitchen window, east
   0
-MTEXT
+LINE
   5
 13F
 330
@@ -10433,23 +10179,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbMText
+AcDbLine
  10
-2.035
+12.185
  20
--23.7734
+-8.5734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-bed 1.4 × 2.0
+ 11
+12.185
+ 21
+-9.6734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 140
 330
@@ -10457,31 +10203,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+12.285
+ 20
+-9.243400000000001
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-1.0350000000000001
- 20
--22.6234
- 10
-1.4350000000000005
- 20
--22.6234
- 10
-1.4350000000000005
- 20
--23.0234
- 10
-1.0350000000000001
- 20
--23.0234
+  1
+maid room escape window on the step's east face (17 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
   0
-LWPOLYLINE
+LINE
   5
 141
 330
@@ -10489,31 +10227,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-1.0350000000000001
+13.41
  20
--24.5234
- 10
-1.4350000000000005
- 20
--24.5234
- 10
-1.4350000000000005
- 20
--24.9234
- 10
-1.0350000000000001
- 20
--24.9234
+-10.5734
+ 30
+0.0
+ 11
+13.91
+ 21
+-10.5734
+ 31
+0.0
   0
-LWPOLYLINE
+MTEXT
   5
 142
 330
@@ -10521,31 +10251,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+WINDOWS
 100
-AcDbPolyline
- 90
-4
- 70
+AcDbMText
+ 10
+13.76
+ 20
+-10.6934
+ 30
+0.0
+ 40
+0.08
+ 71
 1
- 10
-4.46
- 20
--22.3734
- 10
-5.0600000000000005
- 20
--22.3734
- 10
-5.0600000000000005
- 20
--23.973399999999998
- 10
-4.46
- 20
--23.973399999999998
+  1
+maid bath window on the step's north face (17 Nov 2026), obscured, sill +1.5, above the WC
   0
-MTEXT
+LINE
   5
 143
 330
@@ -10553,21 +10275,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+WALLS-SPECIAL
 100
-AcDbMText
+AcDbLine
  10
-4.76
+9.86
  20
--23.1734
+-7.3734
  30
 0.0
- 40
-0.08
- 71
-5
-  1
-wardrobe
+ 11
+9.86
+ 21
+-13.8734
+ 31
+0.0
   0
 LWPOLYLINE
   5
@@ -10577,7 +10299,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -10585,21 +10307,21 @@ AcDbPolyline
  70
 1
  10
-3.21
+9.959999999999999
  20
--24.6234
+-14.8734
  10
-4.41
+10.559999999999999
  20
--24.6234
+-14.8734
  10
-4.41
+10.559999999999999
  20
--25.223399999999998
+-16.273400000000002
  10
-3.21
+9.959999999999999
  20
--25.223399999999998
+-16.273400000000002
   0
 MTEXT
   5
@@ -10609,21 +10331,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-3.81
+10.259999999999998
  20
--24.9234
+-15.5734
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-desk
+sink
   0
 LWPOLYLINE
   5
@@ -10633,7 +10355,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -10641,23 +10363,23 @@ AcDbPolyline
  70
 1
  10
-3.56
+9.959999999999999
  20
--24.0734
+-16.273400000000002
  10
-4.06
+10.559999999999999
  20
--24.0734
+-16.273400000000002
  10
-4.06
+10.559999999999999
  20
--24.5234
+-16.8734
  10
-3.56
+9.959999999999999
  20
--24.5234
+-16.8734
   0
-LWPOLYLINE
+MTEXT
   5
 147
 330
@@ -10665,31 +10387,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-9.96
+10.259999999999998
  20
--6.423400000000001
- 10
-11.36
- 20
--6.423400000000001
- 10
-11.36
- 20
--8.4234
- 10
-9.96
- 20
--8.4234
+-16.5734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+d/w
   0
-MTEXT
+LWPOLYLINE
   5
 148
 330
@@ -10697,31 +10411,7 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
-100
-AcDbMText
- 10
-10.66
- 20
--7.423400000000001
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-bed 1.4 × 2.0
-  0
-LWPOLYLINE
-  5
-149
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -10729,21 +10419,45 @@ AcDbPolyline
  70
 1
  10
-11.41
+9.959999999999999
  20
--8.0234
+-16.8734
  10
-11.81
+10.559999999999999
  20
--8.0234
+-16.8734
  10
-11.81
+10.559999999999999
  20
--8.4234
+-20.273400000000002
  10
-11.41
+9.959999999999999
  20
--8.4234
+-20.273400000000002
+  0
+MTEXT
+  5
+149
+330
+17
+100
+AcDbEntity
+  8
+FIXTURES
+100
+AcDbMText
+ 10
+10.259999999999998
+ 20
+-18.5734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+counter 0.6
   0
 LWPOLYLINE
   5
@@ -10753,7 +10467,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -10761,21 +10475,21 @@ AcDbPolyline
  70
 1
  10
-11.81
+13.495999999999999
  20
--9.9734
+-15.5734
  10
-12.91
+14.096
  20
--9.9734
+-15.5734
  10
-12.91
+14.096
  20
--10.5734
+-17.5734
  10
-11.81
+13.495999999999999
  20
--10.5734
+-17.5734
   0
 MTEXT
   5
@@ -10785,21 +10499,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-12.36
+13.796
  20
--10.273399999999999
+-16.5734
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-desk
+cooking counter 0.6
   0
 LWPOLYLINE
   5
@@ -10809,7 +10523,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -10817,23 +10531,23 @@ AcDbPolyline
  70
 1
  10
-12.11
+13.495999999999999
  20
--9.4234
+-17.5734
  10
-12.56
+14.096
  20
--9.4234
+-17.5734
  10
-12.56
+14.096
  20
--9.8734
+-18.5734
  10
-12.11
+13.495999999999999
  20
--9.8734
+-18.5734
   0
-LWPOLYLINE
+MTEXT
   5
 14D
 330
@@ -10841,31 +10555,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.21
+13.796
  20
--11.9234
- 10
-13.81
- 20
--11.9234
- 10
-13.81
- 20
--12.473400000000002
- 10
-11.21
- 20
--12.473400000000002
+-18.0734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+hob + hood · extract through the east wall
   0
-MTEXT
+LWPOLYLINE
   5
 14E
 330
@@ -10873,23 +10579,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-12.510000000000002
+13.495999999999999
  20
--12.198400000000001
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-wardrobe wall 2.6 m
+-18.5734
+ 10
+14.096
+ 20
+-18.5734
+ 10
+14.096
+ 20
+-20.273400000000002
+ 10
+13.495999999999999
+ 20
+-20.273400000000002
   0
-LWPOLYLINE
+MTEXT
   5
 14F
 330
@@ -10897,31 +10611,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-13.446
+13.796
  20
--13.0234
- 10
-14.096
- 20
--13.0234
- 10
-14.096
- 20
--13.473400000000002
- 10
-13.446
- 20
--13.473400000000002
+-19.4234
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+fridge + tall storage
   0
-MTEXT
+LWPOLYLINE
   5
 150
 330
@@ -10929,23 +10635,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.771
+11.61
  20
--13.2484
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-WC · shattaf
+-13.1234
+ 10
+12.209999999999999
+ 20
+-13.1234
+ 10
+12.209999999999999
+ 20
+-13.7734
+ 10
+11.61
+ 20
+-13.7734
   0
-LWPOLYLINE
+MTEXT
   5
 151
 330
@@ -10953,31 +10667,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-12.996
+11.91
  20
--14.1734
- 10
-14.096
- 20
--14.1734
- 10
-14.096
- 20
--15.5734
- 10
-12.996
- 20
--15.5734
+-13.4484
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+washer 1
   0
-MTEXT
+LWPOLYLINE
   5
 152
 330
@@ -10985,23 +10691,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.546
+12.26
  20
--14.8734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-walk-in shower 1.1 × 1.4 (glass)
+-13.1234
+ 10
+12.86
+ 20
+-13.1234
+ 10
+12.86
+ 20
+-13.7734
+ 10
+12.26
+ 20
+-13.7734
   0
-LWPOLYLINE
+MTEXT
   5
 153
 330
@@ -11009,31 +10723,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-12.396
+12.559999999999999
  20
--15.6734
- 10
-14.096
- 20
--15.6734
- 10
-14.096
- 20
--16.4234
- 10
-12.396
- 20
--16.4234
+-13.4484
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+washer 2 + dryer
   0
-MTEXT
+LWPOLYLINE
   5
 154
 330
@@ -11041,23 +10747,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.246
+12.91
  20
--16.0484
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-freestanding tub 1.7 × 0.75
+-13.1734
+ 10
+13.51
+ 20
+-13.1734
+ 10
+13.51
+ 20
+-13.7734
+ 10
+12.91
+ 20
+-13.7734
   0
-LWPOLYLINE
+MTEXT
   5
 155
 330
@@ -11065,31 +10779,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.31
+13.21
  20
--13.8234
- 10
-11.86
- 20
--13.8234
- 10
-11.86
- 20
--15.4234
- 10
-11.31
- 20
--15.4234
+-13.4734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+cupboards
   0
-MTEXT
+LWPOLYLINE
   5
 156
 330
@@ -11097,23 +10803,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-11.585
+13.559999999999999
  20
--14.6234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-double vanity 1.6 m · mirror
+-13.1734
+ 10
+14.09
+ 20
+-13.1734
+ 10
+14.09
+ 20
+-13.7734
+ 10
+13.559999999999999
+ 20
+-13.7734
   0
-LWPOLYLINE
+MTEXT
   5
 157
 330
@@ -11121,31 +10835,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.31
+13.825
  20
--15.8234
- 10
-11.86
- 20
--15.8234
- 10
-11.86
- 20
--16.4234
- 10
-11.31
- 20
--16.4234
+-13.4734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+steam station
   0
-MTEXT
+LWPOLYLINE
   5
 158
 330
@@ -11153,23 +10859,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-11.585
+9.959999999999999
  20
--16.1234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-towels
+-12.1734
+ 10
+10.559999999999999
+ 20
+-12.1734
+ 10
+10.559999999999999
+ 20
+-13.6734
+ 10
+9.959999999999999
+ 20
+-13.6734
   0
-LWPOLYLINE
+MTEXT
   5
 159
 330
@@ -11177,31 +10891,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-13.496
+10.259999999999998
  20
--16.6234
- 10
-14.096
- 20
--16.6234
- 10
-14.096
- 20
--19.8734
- 10
-13.496
- 20
--19.8734
+-12.9234
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+folding · ironing table
   0
-MTEXT
+LWPOLYLINE
   5
 15A
 330
@@ -11209,23 +10915,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-13.796
+12.76
  20
--18.2484
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-his wardrobes 3.25 m (sliding)
+-12.3734
+ 10
+14.059999999999999
+ 20
+-12.3734
+ 10
+14.059999999999999
+ 20
+-12.9734
+ 10
+12.76
+ 20
+-12.9734
   0
-LWPOLYLINE
+MTEXT
   5
 15B
 330
@@ -11233,31 +10947,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-11.31
- 20
--19.2734
+AcDbMText
  10
 13.41
  20
--19.2734
- 10
-13.41
- 20
--19.8734
- 10
-11.31
- 20
--19.8734
+-12.6734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+ceiling drying rack
   0
-MTEXT
+LWPOLYLINE
   5
 15C
 330
@@ -11265,23 +10971,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-12.36
+13.309999999999999
  20
--19.5734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-her wardrobes 2.1 m (sliding)
+-10.6984
+ 10
+14.096
+ 20
+-10.6984
+ 10
+14.096
+ 20
+-11.4734
+ 10
+13.309999999999999
+ 20
+-11.4734
   0
-LWPOLYLINE
+MTEXT
   5
 15D
 330
@@ -11289,31 +11003,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-12.21
+13.703
  20
--16.6234
- 10
-13.41
- 20
--16.6234
- 10
-13.41
- 20
--17.0234
- 10
-12.21
- 20
--17.0234
+-11.0859
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+shower · wet room
   0
-MTEXT
+LWPOLYLINE
   5
 15E
 330
@@ -11321,23 +11027,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-12.81
+12.76
  20
--16.8234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-shoes · bags display
+-10.6984
+ 10
+13.16
+ 20
+-10.6984
+ 10
+13.16
+ 20
+-11.2984
+ 10
+12.76
+ 20
+-11.2984
   0
-LWPOLYLINE
+MTEXT
   5
 15F
 330
@@ -11345,31 +11059,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.31
+12.96
  20
--17.7734
- 10
-11.86
- 20
--17.7734
- 10
-11.86
- 20
--18.9734
- 10
-11.31
- 20
--18.9734
+-10.9984
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+WC
   0
-MTEXT
+LWPOLYLINE
   5
 160
 330
@@ -11377,23 +11083,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-11.585
+12.76
  20
--18.3734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-make-up · full mirror
+-11.5734
+ 10
+13.16
+ 20
+-11.5734
+ 10
+13.16
+ 20
+-11.9734
+ 10
+12.76
+ 20
+-11.9734
   0
-LWPOLYLINE
+MTEXT
   5
 161
 330
@@ -11401,31 +11115,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-12.41
+12.96
  20
--17.9234
- 10
-12.91
- 20
--17.9234
- 10
-12.91
- 20
--18.4234
- 10
-12.41
- 20
--18.4234
+-11.7734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+basin
   0
-MTEXT
+LWPOLYLINE
   5
 162
 330
@@ -11433,23 +11139,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-12.66
+9.959999999999999
  20
--18.1734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-ottoman
+-7.4984
+ 10
+10.86
+ 20
+-7.4984
+ 10
+10.86
+ 20
+-9.4984
+ 10
+9.959999999999999
+ 20
+-9.4984
   0
-LWPOLYLINE
+MTEXT
   5
 163
 330
@@ -11457,31 +11171,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.81
+10.41
  20
--20.0734
- 10
-13.61
- 20
--20.0734
- 10
-13.61
- 20
--22.0734
- 10
-11.81
- 20
--22.0734
+-8.4984
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+bed 0.9 × 2.0
   0
-MTEXT
+LWPOLYLINE
   5
 164
 330
@@ -11489,31 +11195,7 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
-100
-AcDbMText
- 10
-12.71
- 20
--21.0734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-king bed 1.8 × 2.0
-  0
-LWPOLYLINE
-  5
-165
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11521,21 +11203,45 @@ AcDbPolyline
  70
 1
  10
-11.31
+9.959999999999999
  20
--20.0734
+-9.6734
  10
-11.76
+10.559999999999999
  20
--20.0734
+-9.6734
  10
-11.76
+10.559999999999999
  20
--20.5234
+-11.0234
  10
-11.31
+9.959999999999999
  20
--20.5234
+-11.0234
+  0
+MTEXT
+  5
+165
+330
+17
+100
+AcDbEntity
+  8
+FIXTURES
+100
+AcDbMText
+ 10
+10.259999999999998
+ 20
+-10.3484
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+wardrobe 1.35 × 0.6
   0
 LWPOLYLINE
   5
@@ -11545,7 +11251,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11553,23 +11259,23 @@ AcDbPolyline
  70
 1
  10
-13.66
+11.459999999999999
  20
--20.0734
+-8.5734
  10
-14.096
+12.059999999999999
  20
--20.0734
+-8.5734
  10
-14.096
+12.059999999999999
  20
--20.5234
+-9.6734
  10
-13.66
+11.459999999999999
  20
--20.5234
+-9.6734
   0
-LWPOLYLINE
+MTEXT
   5
 167
 330
@@ -11577,31 +11283,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-10.91
+11.759999999999998
  20
--22.9234
- 10
-11.51
- 20
--22.9234
- 10
-11.51
- 20
--25.223399999999998
- 10
-10.91
- 20
--25.223399999999998
+-9.1234
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+desk
   0
-MTEXT
+LWPOLYLINE
   5
 168
 330
@@ -11609,23 +11307,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-11.21
+11.01
  20
--24.0734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-wardrobe · entry zone
+-8.8734
+ 10
+11.36
+ 20
+-8.8734
+ 10
+11.36
+ 20
+-9.2234
+ 10
+11.01
+ 20
+-9.2234
   0
-LWPOLYLINE
+MTEXT
   5
 169
 330
@@ -11633,31 +11339,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.81
+11.184999999999999
  20
--24.0734
- 10
-13.31
- 20
--24.0734
- 10
-13.31
- 20
--25.1734
- 10
-11.81
- 20
--25.1734
+-9.0484
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+
   0
-MTEXT
+LWPOLYLINE
   5
 16A
 330
@@ -11665,23 +11363,31 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbMText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-12.56
+1.0099999999999998
  20
--24.6234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-sitting
+-17.8734
+ 10
+3.41
+ 20
+-17.8734
+ 10
+3.41
+ 20
+-18.473399999999998
+ 10
+1.0099999999999998
+ 20
+-18.473399999999998
   0
-LWPOLYLINE
+MTEXT
   5
 16B
 330
@@ -11689,31 +11395,23 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-11.51
+2.21
  20
--26.973399999999998
- 10
-13.11
- 20
--26.973399999999998
- 10
-13.11
- 20
--27.7734
- 10
-11.51
- 20
--27.7734
+-18.1734
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+counter · sink · fridge · microwave
   0
-MTEXT
+LWPOLYLINE
   5
 16C
 330
@@ -11721,31 +11419,7 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
-100
-AcDbMText
- 10
-12.309999999999999
- 20
--27.373399999999997
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-desk 1.6 × 0.8 · faces S
-  0
-LWPOLYLINE
-  5
-16D
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11753,21 +11427,45 @@ AcDbPolyline
  70
 1
  10
-12.06
+1.0099999999999998
  20
--26.4234
+-18.473399999999998
  10
-12.56
+1.6099999999999994
  20
--26.4234
+-18.473399999999998
  10
-12.56
+1.6099999999999994
  20
--26.9234
+-20.1734
  10
-12.06
+1.0099999999999998
  20
--26.9234
+-20.1734
+  0
+MTEXT
+  5
+16D
+330
+17
+100
+AcDbEntity
+  8
+FIXTURES
+100
+AcDbMText
+ 10
+1.3100000000000005
+ 20
+-19.3234
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+counter · trays
   0
 LWPOLYLINE
   5
@@ -11777,7 +11475,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11785,23 +11483,23 @@ AcDbPolyline
  70
 1
  10
-11.61
+1.0099999999999998
  20
--27.973399999999998
+-20.3734
  10
-12.11
+1.5600000000000005
  20
--27.973399999999998
+-20.3734
  10
-12.11
+1.5600000000000005
  20
--28.473399999999998
+-21.8234
  10
-11.61
+1.0099999999999998
  20
--28.473399999999998
+-21.8234
   0
-LWPOLYLINE
+MTEXT
   5
 16F
 330
@@ -11809,29 +11507,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbMText
  10
-12.41
+1.2850000000000001
  20
--27.973399999999998
- 10
-12.91
- 20
--27.973399999999998
- 10
-12.91
- 20
--28.473399999999998
- 10
-12.41
- 20
--28.473399999999998
+-21.098399999999998
+ 30
+0.0
+ 40
+0.07
+ 71
+5
+  1
+vanity · 2 basins · mirror
   0
 LWPOLYLINE
   5
@@ -11841,7 +11531,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11849,21 +11539,21 @@ AcDbPolyline
  70
 1
  10
-13.696
+2.8599999999999994
  20
--25.5234
+-22.7234
  10
-14.096
+3.41
  20
--25.5234
+-22.7234
  10
-14.096
+3.41
  20
--28.7734
+-23.2234
  10
-13.696
+2.8599999999999994
  20
--28.7734
+-23.2234
   0
 MTEXT
   5
@@ -11873,21 +11563,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-13.896
+3.135
  20
--27.1484
+-22.9734
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-bookshelves
+wall-hung WC
   0
 LWPOLYLINE
   5
@@ -11897,7 +11587,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11905,21 +11595,21 @@ AcDbPolyline
  70
 1
  10
-11.86
+1.0099999999999998
  20
--25.5234
+-22.2234
  10
-13.56
+1.4100000000000001
  20
--25.5234
+-22.2234
  10
-13.56
+1.4100000000000001
  20
--26.1234
+-22.7234
  10
-11.86
+1.0099999999999998
  20
--26.1234
+-22.7234
   0
 MTEXT
   5
@@ -11929,21 +11619,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-12.71
+1.21
  20
--25.8234
+-22.4734
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-sofa 1.7
+basin
   0
 LWPOLYLINE
   5
@@ -11953,7 +11643,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -11961,21 +11651,21 @@ AcDbPolyline
  70
 1
  10
-11.91
+2.8599999999999994
  20
--29.3734
+-24.8734
  10
-13.21
+2.96
  20
--29.3734
+-24.8734
  10
-13.21
+2.96
  20
--29.8734
+-24.9734
  10
-11.91
+2.8599999999999994
  20
--29.8734
+-24.9734
   0
 MTEXT
   5
@@ -11985,21 +11675,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-12.56
+2.91
  20
--29.6234
+-24.9234
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-cabinet
+shower mixer (on the wall)
   0
 LWPOLYLINE
   5
@@ -12009,7 +11699,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -12017,21 +11707,21 @@ AcDbPolyline
  70
 1
  10
-11.01
+3.1100000000000003
  20
--27.0734
+-25.9734
  10
-11.11
+3.56
  20
--27.0734
+-25.9734
  10
-11.11
+3.56
  20
--28.2734
+-26.6734
  10
-11.01
+3.1100000000000003
  20
--28.2734
+-26.6734
   0
 MTEXT
   5
@@ -12041,21 +11731,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-11.059999999999999
+3.335
  20
--27.6734
+-26.323400000000003
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-TV (office)
+WC · hand spray
   0
 LWPOLYLINE
   5
@@ -12065,7 +11755,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -12073,21 +11763,21 @@ AcDbPolyline
  70
 1
  10
-6.91
+3.1100000000000003
  20
--29.0234
+-26.8734
  10
-9.11
+3.56
  20
--29.0234
+-26.8734
  10
-9.11
+3.56
  20
--29.8734
+-28.6734
  10
-6.91
+3.1100000000000003
  20
--29.8734
+-28.6734
   0
 MTEXT
   5
@@ -12097,21 +11787,21 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-8.01
+3.335
  20
--29.4484
+-27.7734
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-3-seat sofa 2.2 × 0.85
+3 basins in a row · mirror
   0
 LWPOLYLINE
   5
@@ -12121,7 +11811,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbPolyline
  90
@@ -12129,21 +11819,21 @@ AcDbPolyline
  70
 1
  10
-5.91
+3.16
  20
--27.7734
+-28.823400000000003
  10
-6.66
+3.56
  20
--27.7734
+-28.823400000000003
  10
-6.66
+3.56
  20
--28.5234
+-29.4734
  10
-5.91
+3.16
  20
--28.5234
+-29.4734
   0
 MTEXT
   5
@@ -12153,23 +11843,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+FIXTURES
 100
 AcDbMText
  10
-6.285
+3.3600000000000003
  20
--28.1484
+-29.148400000000002
  30
 0.0
  40
-0.08
+0.07
  71
 5
   1
-armchair
+shoes · hooks
   0
-LWPOLYLINE
+LINE
   5
 17C
 330
@@ -12177,29 +11867,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+ENTRIES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-9.36
+4.41
  20
--27.7734
- 10
-10.11
- 20
--27.7734
- 10
-10.11
- 20
--28.5234
- 10
-9.36
- 20
--28.5234
+-4.7734000000000005
+ 30
+0.0
+ 11
+4.41
+ 21
+-7.3734
+ 31
+0.0
   0
 MTEXT
   5
@@ -12209,23 +11891,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+ENTRIES
 100
 AcDbMText
  10
-9.735
+4.41
  20
--28.1484
+-4.7734000000000005
  30
 0.0
  40
-0.08
+0.25
  71
-5
+8
   1
-armchair
+Family entry
   0
-LWPOLYLINE
+LINE
   5
 17E
 330
@@ -12233,29 +11915,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+ENTRIES
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-7.41
+-1.69
  20
--28.0234
- 10
-8.61
- 20
--28.0234
- 10
-8.61
- 20
--28.723399999999998
- 10
-7.41
- 20
--28.723399999999998
+-29.5734
+ 30
+0.0
+ 11
+0.9100000000000001
+ 21
+-29.5734
+ 31
+0.0
   0
 MTEXT
   5
@@ -12265,23 +11939,23 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+ENTRIES
 100
 AcDbMText
  10
-8.01
+-1.69
  20
--28.373399999999997
+-29.5734
  30
 0.0
  40
-0.08
+0.25
  71
-5
+8
   1
-table 1.2 × 0.7
+Guest entry
   0
-LWPOLYLINE
+LINE
   5
 180
 330
@@ -12289,29 +11963,21 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FURNITURE
+ANNOTATION
 100
-AcDbPolyline
- 90
-4
- 70
-1
+AcDbLine
  10
-5.3100000000000005
+24.0
  20
--29.2734
- 10
-5.91
- 20
--29.2734
- 10
-5.91
- 20
--29.8734
- 10
-5.3100000000000005
- 20
--29.8734
+-2.0
+ 30
+0.0
+ 11
+24.803
+ 21
+0.048200000000000465
+ 31
+0.0
   0
 MTEXT
   5
@@ -12321,649 +11987,25 @@ MTEXT
 100
 AcDbEntity
   8
-FURNITURE
+ANNOTATION
 100
 AcDbMText
  10
-5.61
+24.949
  20
--29.5734
+0.4206000000000003
  30
 0.0
  40
-0.08
+0.6
  71
-5
+1
   1
-tree pot
+N
   0
-LWPOLYLINE
+LINE
   5
 182
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-10.16
- 20
--29.2734
- 10
-10.76
- 20
--29.2734
- 10
-10.76
- 20
--29.8734
- 10
-10.16
- 20
--29.8734
-  0
-MTEXT
-  5
-183
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-10.46
- 20
--29.5734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-plant
-  0
-LWPOLYLINE
-  5
-184
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-5.26
- 20
--26.723399999999998
- 10
-5.61
- 20
--26.723399999999998
- 10
-5.61
- 20
--28.0234
- 10
-5.26
- 20
--28.0234
-  0
-MTEXT
-  5
-185
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-5.4350000000000005
- 20
--27.373399999999997
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-ladder pilaster · recess + panel
-  0
-LWPOLYLINE
-  5
-186
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-5.61
- 20
--27.8234
- 10
-5.65
- 20
--27.8234
- 10
-5.65
- 20
--28.723399999999998
- 10
-5.61
- 20
--28.723399999999998
-  0
-MTEXT
-  5
-187
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-5.630000000000001
- 20
--28.2734
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-panel open
-  0
-LWPOLYLINE
-  5
-188
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-1.5350000000000001
- 20
--27.6684
- 10
-2.375
- 20
--27.6684
- 10
-2.375
- 20
--29.6984
- 10
-1.5350000000000001
- 20
--29.6984
-  0
-MTEXT
-  5
-189
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-1.955
- 20
--28.6834
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-treadmill → S
-  0
-LWPOLYLINE
-  5
-18A
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-1.3600000000000003
- 20
--29.848399999999998
- 10
-2.5600000000000005
- 20
--29.848399999999998
- 10
-2.5600000000000005
- 20
--29.9484
- 10
-1.3600000000000003
- 20
--29.9484
-  0
-MTEXT
-  5
-18B
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-1.9600000000000004
- 20
--29.8984
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-TV (gym)
-  0
-LWPOLYLINE
-  5
-18C
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-2.96
- 20
--28.4234
- 10
-5.0600000000000005
- 20
--28.4234
- 10
-5.0600000000000005
- 20
--29.8234
- 10
-2.96
- 20
--29.8234
-  0
-MTEXT
-  5
-18D
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-4.01
- 20
--29.1234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-power rack · barbell · pull-up bar
-  0
-LWPOLYLINE
-  5
-18E
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-3.01
- 20
--27.3734
- 10
-3.66
- 20
--27.3734
- 10
-3.66
- 20
--28.0234
- 10
-3.01
- 20
--28.0234
-  0
-MTEXT
-  5
-18F
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-3.335
- 20
--27.6984
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-kettlebells
-  0
-LWPOLYLINE
-  5
-190
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-4.41
- 20
--27.1234
- 10
-5.01
- 20
--27.1234
- 10
-5.01
- 20
--28.3234
- 10
-4.41
- 20
--28.3234
-  0
-MTEXT
-  5
-191
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-4.71
- 20
--27.723399999999998
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-bike
-  0
-LWPOLYLINE
-  5
-192
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-3.01
- 20
--26.5234
- 10
-4.81
- 20
--26.5234
- 10
-4.81
- 20
--27.1234
- 10
-3.01
- 20
--27.1234
-  0
-MTEXT
-  5
-193
-330
-17
-100
-AcDbEntity
-  8
-FURNITURE
-100
-AcDbMText
- 10
-3.9099999999999997
- 20
--26.8234
- 30
-0.0
- 40
-0.08
- 71
-5
-  1
-pilates mat 1.8 × 0.6
-  0
-LINE
-  5
-194
-330
-17
-100
-AcDbEntity
-  8
-MARKS
-100
-AcDbLine
- 10
-6.71
- 20
--12.5734
- 30
-0.0
- 11
-6.71
- 21
--25.3234
- 31
-0.0
-  0
-LWPOLYLINE
-  5
-195
-330
-17
-100
-AcDbEntity
-  8
-MARKS
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-6.56
- 20
--12.423399999999999
- 10
-6.86
- 20
--12.423399999999999
- 10
-6.86
- 20
--12.7234
- 10
-6.56
- 20
--12.7234
-  0
-LWPOLYLINE
-  5
-196
-330
-17
-100
-AcDbEntity
-  8
-MARKS
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-6.56
- 20
--18.9234
- 10
-6.86
- 20
--18.9234
- 10
-6.86
- 20
--19.223399999999998
- 10
-6.56
- 20
--19.223399999999998
-  0
-LWPOLYLINE
-  5
-197
-330
-17
-100
-AcDbEntity
-  8
-MARKS
-100
-AcDbPolyline
- 90
-4
- 70
-1
- 10
-6.56
- 20
--25.1734
- 10
-6.86
- 20
--25.1734
- 10
-6.86
- 20
--25.473399999999998
- 10
-6.56
- 20
--25.473399999999998
-  0
-LINE
-  5
-198
 330
 17
 100
@@ -12987,7 +12029,7 @@ AcDbLine
   0
 MTEXT
   5
-199
+183
 330
 17
 100
@@ -13011,7 +12053,7 @@ AcDbMText
   0
 MTEXT
   5
-19A
+184
 330
 17
 100
@@ -13033,9 +12075,9 @@ AcDbMText
  71
 1
   3
-Taif / Palm House · First floor V10.0 (south wing v2; west projection on an edge beam and three columns; FF west face 0.785 m from the M line)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room ou
+Taif / Palm House · Ground floor V10.0 (the courtyard layout, three columns at x 5.80, site option Z4)\PUnits: metres. Origin = peg M1; x east, square to the M line; y along the M line (drawn north up). Room outlines on wall centre lines. Generated b
   1
-tlines on wall centre lines. Generated by tools/make_dxf_ff.py from design_ff.typ, data/rooms_ff.csv, base.typ and the first-floor studies.
+y tools/make_dxf.py from design_gf.typ, data/rooms_gf.csv, base.typ and studies/.
   0
 ENDSEC
   0
@@ -14127,7 +13169,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-19D
+187
   0
 DICTIONARYVAR
   5
@@ -14139,7 +13181,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-09T19:25:11.719512+00:00
+1.4.4 @ 2026-11-17T19:25:47.042019+00:00
   0
 VISUALSTYLE
   5
@@ -14843,7 +13885,7 @@ X-Ray
   0
 DICTIONARYVAR
   5
-19D
+187
 330
 2D
 100
@@ -14851,7 +13893,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-11-09T19:25:11.735256+00:00
+1.4.4 @ 2026-11-17T19:25:47.060027+00:00
   0
 ENDSEC
   0

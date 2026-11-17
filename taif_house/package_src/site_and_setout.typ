@@ -10,6 +10,8 @@
 #pagebreak()
 #image("../output/site_plan.pdf", page: 5, width: 100%, height: 100%, fit: "contain")
 #pagebreak()
+#image("../output/site_plan.pdf", page: 6, width: 100%, height: 100%, fit: "contain")
+#pagebreak()
 #image("../output/setout.pdf", page: 1, width: 100%, height: 100%, fit: "contain")
 #pagebreak()
 #image("../output/setout.pdf", page: 2, width: 100%, height: 100%, fit: "contain")

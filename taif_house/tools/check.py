@@ -1,4 +1,4 @@
-"""check.py · Taif / Palm House V10.0 · one command to check the whole design before you stop or push.
+"""check.py · Taif / Palm House V11.0 · one command to check the whole design before you stop or push.
 
 Run from anywhere:   python taif_house/tools/check.py
 It
@@ -7,7 +7,7 @@ It
   2. checks the presentation: A3, 12 sheets;
   3. compares every room of studies/guest_wing.typ and studies/east_wing.typ with data/rooms_gf.csv;
   4. rebuilds the three DXFs (tools/make_dxf.py, make_dxf_ff.py, make_dxf_roof.py) and reads the floor ones back: same rooms, same areas as the two CSVs;
-  5. checks that every open item of data/open_items.csv is in docs/OPEN_ITEMS.md, and that the active files carry no old version label;
+  5. checks that every open item of data/open_items.csv is in docs/OPEN_LIST.md, and that the active files carry no old version label;
   6. rebuilds the 3D model (3d/build_3d.py) and runs its own checks (3d/check_3d.py: rooms enclosed, walls, slab areas, outline, levels);
 and ends with "ALL CHECKS PASSED" or a list of problems (exit code 1). Needs typst, pdftotext (or pypdf) and ezdxf.
 """
@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
 OUTPUT = ROOT / "output"
-VERSION = "V10.0"
+VERSION = "V11.0"
 problems = []
 
 
@@ -66,33 +66,16 @@ PRESENTATION = OUTPUT / f"Taif_House_{VERSION}_presentation.pdf"
 jobs = [   # (source, output, lines the PDF must contain)
     ("design_gf.typ", OUTPUT / "design_gf.pdf", ["All checks passed"]),
     ("design_ff.typ", OUTPUT / "design_ff.pdf", ["All checks passed", "matches the two studies room for room"]),
-    ("studies/site_test.typ", OUTPUT / "site_test.pdf", []),
     ("studies/setout.typ", OUTPUT / "setout.pdf", ["Set-out sheet checks: status OK"]),   # 4 Nov 2026: the set-out sheet (the status from the tightest point on ANY wall); site_test.typ is superseded
-    ("studies/whole_farm.typ", OUTPUT / "whole_farm.pdf", ["Whole-farm study checks passed"]),   # 5 Nov 2026: the whole farm on the site baseline v2 (data/site_v2.csv) with the old buildings from the deed sketch
     ("studies/guest_wing.typ", OUTPUT / "guest_wing.pdf", ["All rooms inside the block, no overlaps, no gaps"]),
     ("studies/east_wing.typ", OUTPUT / "east_wing.pdf", ["All rooms inside the block, no overlaps"]),
     ("studies/ff_family.typ", OUTPUT / "ff_family.pdf", ["All rooms inside the zone"]),
     ("studies/ff_suite.typ", OUTPUT / "ff_suite.pdf", ["All rooms inside the zone"]),
     ("studies/structure.typ", OUTPUT / "structure.pdf", ["Preliminary structural study"]),
     ("studies/air_system.typ", OUTPUT / "air_system.pdf", ["Air system study v4", "checks passed"]),
-    ("studies/south_wing.typ", OUTPUT / "south_wing.pdf", ["South wing study", "checks passed"]),
-    ("studies/courtyard_enclosure.typ", OUTPUT / "courtyard_enclosure.pdf", ["Courtyard enclosure study", "Study checks passed"]),
-    ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),
-    ("studies/fire_escape.typ", OUTPUT / "fire_escape.pdf", ["Fire safety for a family home", "Study checks passed"]),
-    ("studies/courtyard_layout.typ", OUTPUT / "courtyard_layout.pdf", ["Courtyard layout", "Study checks passed"]),
-    ("studies/stair_flip.typ", OUTPUT / "stair_flip.pdf", ["Stair flip study", "Study checks passed"]),   # the stair flip study (adopted 2 Nov 2026: the record)
-    ("studies/bedroom1_bath.typ", OUTPUT / "bedroom1_bath.pdf", ["design review F-05", "Study checks passed"]),   # study only: awaiting the owner's decision
-    ("studies/gf_shower.typ", OUTPUT / "gf_shower.pdf", ["A ground-floor shower", "Study checks passed"]),   # deferred to the plumbing study (owner, 2 Nov 2026): the record
+    ("studies/roof.typ", OUTPUT / "roof.pdf", ["Roof study", "Study checks passed"]),   # V11.0: the outline from design_gf.typ (the stepped corner)
+    # V11.0 (17 Nov 2026): the studies that the build does not need are removed from `work` (they stay in the archive branch, docs/BRANCHES.md); only the jobs above remain
     ("studies/site_plan.typ", OUTPUT / "site_plan.pdf", ["Site and services plan", "Study checks passed"]),   # every site position proposed, to confirm with the survey and the engineers
-    ("studies/plumbing.typ", OUTPUT / "plumbing.pdf", ["Plumbing and wet-room study", "Study checks passed"]),
-    ("studies/rotation_b2.typ", OUTPUT / "rotation_b2.pdf", ["Rotation about B2 study", "Study checks passed"]),   # 5 Nov 2026: study only (the owner's idea), nothing moved; the owner decides   # rounds 1–2, study only: every size assumed, to be designed by the plumbing engineer
-    ("studies/placement_steps.typ", OUTPUT / "placement_steps.pdf", ["Placement in three steps", "Study checks passed"]),   # 5 Nov 2026: study only (the owner's three steps), nothing moved; the owner decides step by step
-    ("studies/shift_south.typ", OUTPUT / "shift_south.pdf", ["Shift south study", "Study checks passed"]),   # 6 Nov 2026: study only (the house 0.40–0.60 m south), nothing moved; the owner decides
-    ("studies/cut_wall.typ", OUTPUT / "cut_wall.pdf", ["Cut wall study", "Study checks passed"]),   # 6 Nov 2026: short study only (the cut wall moved outwards), the design files unchanged
-    ("studies/bedroom1_ensuite.typ", OUTPUT / "bedroom1_ensuite.pdf", ["Bedroom 1 en-suite study", "Study checks passed"]),   # 6 Nov 2026: short study only, NOT applied; the owner decides
-    ("studies/malqaf_tower.typ", OUTPUT / "malqaf_tower.pdf", ["Malqaf tower study", "Study checks passed"]),   # 8 Nov 2026: study only (the slim shaft, the plant room, six tower variants; renders by 3d/malqaf_variants.py), the design files unchanged
-    ("studies/ne_corner.typ", OUTPUT / "ne_corner.pdf", ["The north-east corner, simplified", "Study checks passed"]),   # 8 Nov 2026: short study only (bedroom 1 a rectangle, the maid rooms A / B), the design files unchanged
-    ("studies/malqaf_L5.typ", OUTPUT / "malqaf_L5.pdf", ["Malqaf L5", "Phase 0 checks passed", "Phase 1 checks passed", "Phase 2 checks passed", "Phase 3 checks passed", "Phase 4 checks passed", "Phase 5 checks passed", "Phase 6 checks passed"]),   # 9 Nov 2026: L5 study in phases (study only); Phase 0 the geometry check and the climate basis (tools/climate_taif.py)
     ("presentation.typ", PRESENTATION, []),
     ("docs/review/review_status.typ", OUTPUT / "Design_Review_status_V10.0.pdf", ["Review status", "V10.0"]),   # V10.0: the malqaf (L5): E-01 resolved, E-02 updated, the stone rows re-read in render   # V9.2: the review status is unchanged since V9.1 (small fixes only)   # V9.0: every critical and major finding of the V6 review and the interim V&V review with its status
 ]
@@ -222,15 +205,15 @@ for tool, out, csv_name in (("make_dxf.py", f"taif_ground_floor_{VERSION}.dxf", 
 
 # ---------- 5: open items and version labels ----------
 print("5. Open items and version labels")
-items_md = (ROOT / "docs" / "OPEN_ITEMS.md").read_text(encoding="utf-8") if (ROOT / "docs" / "OPEN_ITEMS.md").exists() else ""
+items_md = (ROOT / "docs" / "OPEN_LIST.md").read_text(encoding="utf-8") if (ROOT / "docs" / "OPEN_LIST.md").exists() else ""   # V11.0: the one open list
 items = read_csv("open_items.csv")
 lost = [o["key"] for o in items if o["key"].lower() not in items_md.lower()]
 if not items_md:
-    bad("docs/OPEN_ITEMS.md is missing")
+    bad("docs/OPEN_LIST.md is missing")
 elif lost:
-    bad(f"open items not in docs/OPEN_ITEMS.md: {lost}")
+    bad(f"open items not in docs/OPEN_LIST.md: {lost}")
 else:
-    ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_ITEMS.md")
+    ok(f"all {len(items)} open items of data/open_items.csv are in docs/OPEN_LIST.md")
 # active files: no V3.x / V4.x / V5.x label, except where the line names the V5.0 columns solution (restored in V6.1), the reverted split projection or a decision's version
 active = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in (".typ", ".py", ".md", ".csv") and "archive" not in p.parts and p.name not in ("PROJECT_V10.md", "decisions.csv", "review_status.typ")]
 active.append(ROOT.parent / "README.md")

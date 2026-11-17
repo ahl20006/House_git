@@ -1,7 +1,7 @@
 """make_dxf.py · Taif / Palm House V10.0 · writes the DXF of the ground floor (site, building, rooms, doors, fixtures).
 
 Run from anywhere:   python taif_house/tools/make_dxf.py
-Output:              taif_house/output/taif_ground_floor_V10.0.dxf   (units: metres, north up as on the Typst plan)
+Output:              taif_house/output/taif_ground_floor_V11.0.dxf   (units: metres, north up as on the Typst plan)
 The first floor has its own tool: tools/make_dxf_ff.py.
 
 Everything is read from the same sources as the Typst drawing, nothing is typed in twice:
@@ -24,7 +24,7 @@ from pathlib import Path
 import ezdxf
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
-OUT = ROOT / "output" / "taif_ground_floor_V10.0.dxf"
+OUT = ROOT / "output" / "taif_ground_floor_V11.0.dxf"
 
 
 # ---------- reading the Typst sources ----------

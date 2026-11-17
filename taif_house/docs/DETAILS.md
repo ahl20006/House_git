@@ -8,7 +8,7 @@
 
 *V7.0 / V8.0:* the courtyard enclosure windows W1–W3, the main cornice, the band, the attic and the parapets (`studies/courtyard_enclosure.typ`, `studies/roof.typ`); V8.1: the maintenance ladder (`studies/roof.typ` page 2); V8.0: the air system's channel and the HRV base (`studies/air_system.typ`), the courtyard layout (`studies/courtyard_layout.typ`) and the fire safety equipment (`studies/fire_escape.typ`); `PROJECT_V10.md` §4.25–4.36. Their details join this file at the detail round.
 
-House-wide building rules and details, for the engineer, the carpenter and the contractor. The layout decisions and their reasons are in `PROJECT_V10.md`, and the open items in `OPEN_ITEMS.md`. *Concept notes, to be confirmed by the engineers.*
+House-wide building rules and details, for the engineer, the carpenter and the contractor. The layout decisions and their reasons are in `PROJECT_V10.md`, and the open items in `OPEN_LIST.md` (V11.0: the one open list). *Concept notes, to be confirmed by the engineers.*
 
 ## Structure
 

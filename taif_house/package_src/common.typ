@@ -6,7 +6,7 @@
 #let soft = luma(120)
 #let red = rgb("#b5452f")
 #let paper = rgb("#f9f8f4")
-#let VERSION = "V10.1-preview"
+#let VERSION = "V11.0"
 #let DATE = "17 Nov 2026"
 #let STATUS = "design development, not for construction"
 

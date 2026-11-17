@@ -28,7 +28,7 @@ git checkout work
 git log --oneline -3
 ```
 
-`main` holds the releases (the last one V10.0, 9 Nov 2026). **`work` holds everything since** (the owner's ground-floor review rounds, the courtyard H2, the kids'-room and east-wing studies). The backup tag `backup-2026-11-12` marks the last commit made on the old computer. Set your name and email once: `git config user.name "…"` and `git config user.email "…"`.
+`main` holds the DELIVERY PACKAGE only (V11.0, 17 Nov 2026; `docs/BRANCHES.md`); `archive` the full history and every study. **`work` holds everything since** (the owner's ground-floor review rounds, the courtyard H2, the kids'-room and east-wing studies). The backup tag `backup-2026-11-12` marks the last commit made on the old computer. Set your name and email once: `git config user.name "…"` and `git config user.email "…"`.
 
 The design lives in `taif_house/`. Open that folder in VS Code (or the repository root; the compile commands below are written for the root).
 
@@ -37,7 +37,7 @@ The design lives in `taif_house/`. Open that folder in VS Code (or the repositor
 Every drawing compiles on its own with `--root taif_house` (the files read `/data/*.csv` from that root):
 
 ```
-typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V10.0_presentation.pdf
+typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V11.0_presentation.pdf
 typst compile --root taif_house taif_house/design_gf.typ taif_house/output/design_gf.pdf
 typst compile --root taif_house taif_house/studies/east_wing_ff.typ taif_house/output/east_wing_ff.pdf
 ```
@@ -71,6 +71,6 @@ python taif_house/tools/check.py
 ## 5 · How we work (the short version)
 
 - Work on `work`; `main` only at a release. Commit often with a one-line message; push after every round.
-- Every change not yet folded into the documentation, the presentation, the DXFs or the 3D is one row in `taif_house/docs/PENDING_CHANGES.md`. Clear the table at the release.
-- "LEAN" rounds touch only the files the owner lists, compile only those, and record the rest in `PENDING_CHANGES.md`.
-- Start a session by reading `taif_house/docs/NEXT_SESSION.md`.
+- Every change not yet folded into the documentation, the presentation, the DXFs or the 3D, every open question and the next work are in ONE file, `taif_house/docs/OPEN_LIST.md` (V11.0; it replaced `PENDING_CHANGES.md`, `OPEN_ITEMS.md` and `NEXT_SESSION.md`).
+- "LEAN" rounds touch only the files the owner lists, compile only those, and record the rest in `OPEN_LIST.md`.
+- Start a session by reading `taif_house/docs/OPEN_LIST.md`.

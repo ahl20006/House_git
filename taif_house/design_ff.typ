@@ -107,7 +107,7 @@
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Where the detail is]
   - *Furniture, doors, windows, drains, walking distances, routes ≥ 1.0 m and room checks:* studies/ff_family.typ (part 1) and studies/ff_suite.typ (part 2).
-  - *Decisions with reasons, construction notes, changelog:* docs/PROJECT_V6.md · *open items:* docs/OPEN_ITEMS.md.
+  - *Decisions with reasons, construction notes, changelog:* docs/PROJECT_V6.md · *open items:* docs/OPEN_LIST.md (V11.0: the one open list).
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Open items (first floor)]
   - Engineer: the edge beam (spans #sec.pj.spans.map(num).join(" and ") m) and the #sec.pj.columns columns at x #num(sec.pj-edge): sizes and foundations.

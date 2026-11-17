@@ -531,7 +531,7 @@ def build(g):
     if ssd.get("chosen") == "b":
         scn = ssd["screen"]
         sx0, sx1 = P["suite_court"]["south_x"]
-        ya_ = OUTLINE[3][1]                                               # the south wall's centre line (y 24.0)
+        ya_ = max(p[1] for p in OUTLINE)                                 # the south wall's centre line (y 24.0; V11.0: by value, the outline has six corners)
         a_, b_ = (sx0 + T_IN / 2, ya_), (sx1 - T_IN / 2, ya_)
         z0_, z1_ = summary["suite_court"]["base_top"], summary["suite_court"]["frame_soffit"]
         (ux_, uy_), L_ = unit(a_, b_)

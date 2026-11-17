@@ -127,7 +127,7 @@ def read_ff_openings(paths):
     doors, windows = [], []
     for path in paths:
         text = (ROOT / path).read_text(encoding="utf-8")
-        for m in re.finditer(r"D\(\s*" + PAIR + r"\s*,\s*" + PAIR + r"\s*,\s*\[([^\]]*)\]\s*,\s*\"([^\"]+)\"(.*?)\),?\s*$", live(grab(text, "doors")), re.M):
+        for m in re.finditer(r"D\(\s*" + PAIR + r"\s*,\s*" + PAIR + r"\s*,\s*\[([^\]]*)\]\s*,\s*\"([^\"]+)\"([^/\n]*?)\)\s*,?\s*(?://.*)?$", live(grab(text, "doors")), re.M):   # V11.0: a trailing // comment no longer hides the door
             label, room, rest = m.group(5), m.group(6), m.group(7)
             is_open = "open: true" in rest
             kind = "hinged" if not is_open else ("sliding" if "sliding" in label.lower() else "open")
@@ -285,6 +285,9 @@ def wall_pieces(rooms, open_edges, floor):
     for r in rooms:
         for p, q in edges(r["pts"]):
             add(p, q, "room", r["name"])
+    for s in P.get("partitions", []):   # V11.0: the 100 mm partitions inside a room (params.yaml), built as walls so their doors have a wall
+        if s["floor"] == floor:
+            add(tuple(float(v) for v in s["a"]), tuple(float(v) for v in s["b"]), "room", "partition: " + s.get("note", ""))
     for p, q in edges(OUTLINE):
         add(p, q, "outline")
     for o in open_edges:
@@ -523,7 +526,8 @@ def on_open_edge(o, floor):
 
 # V8.0 · south wing v2: the suite court's south side (y 24, between the gym's east wall x 4.25 and the office's west wall x 10.0) in the first-floor outer wall
 _sc = P["suite_court"]
-COURT_SOUTH = box(_sc["south_x"][0] + T_IN / 2, OUTLINE[3][1] - T_OUT, _sc["south_x"][1] - T_IN / 2, OUTLINE[3][1] + T_OUT)
+Y_SOUTH = max(p[1] for p in OUTLINE)   # V11.0: the south wall's centre line by value (the stepped outline has six corners)
+COURT_SOUTH = box(_sc["south_x"][0] + T_IN / 2, Y_SOUTH - T_OUT, _sc["south_x"][1] - T_IN / 2, Y_SOUTH + T_OUT)
 skipped, open_doors, PLAN_CUTS = [], [], {}
 for floor, rooms, doors, windows in (("GF", GF, GF_DOORS, GF_WINDOWS), ("FF", FF, FF_DOORS, FF_WINDOWS)):
     pieces, walls = wall_pieces(rooms, OPEN, floor)

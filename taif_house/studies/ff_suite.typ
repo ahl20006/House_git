@@ -122,7 +122,7 @@
   // V8.1: the maintenance ladder's stone pilaster on the gym's east wall (studies/roof.typ page 2) and its walnut panel in the open position (180°, on the south jamb)
   (4.35, 21.65, 4.70, 22.95, [ladder pilaster · recess + panel]), (4.70, 22.75, 4.74, 23.65, [panel open]),   // 15 Nov 2026: 1.0 m south (y 21.65–22.95), south of the gym's door; studies/roof.typ and 3d/params.yaml to follow at the release
 )
-#let court-path = (court-strip, (xn + 0.1, 20.55, xo - 0.1, 21.6), court-landing)   // the strip + the approach band to the seating (≥ 1.0 m) + the west landing (the glass door, the gym door)
+#let court-path = (court-strip, (xn + 0.1, 20.55, 7.0, 21.65), court-landing)   // V11.0 (17 Nov 2026): the strip + a 1.0 m approach band from the strip to the seating along the WEST side (x 5.9–7.0: the winter armchairs and their table of 10 Nov 2026 stand east of it, x 7.1–9.5) + the west landing (the glass door, the gym door)
 #let court-drains = (((xn + 0.1, 19.45), (xn + 0.1, 20.45)), ((9.0, 19.4), (10.0, 19.4)), ((xo - 0.15, 19.45), (xo - 0.15, 20.4)))   // linear drains in front of the three doors (near-flush thresholds)
 #let court-gutter = ((xg + 0.2, 23.75), (xo - 0.2, 23.75))          // the box gutter along the south side; the overflow spout through the south wall at x 7.1
 

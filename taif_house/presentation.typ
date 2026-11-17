@@ -1,5 +1,5 @@
-// presentation.typ · Taif / Palm House V10.0 (the malqaf at L5) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
-//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V10.0_presentation.pdf
+// presentation.typ · Taif / Palm House V11.0 (17 Nov 2026: the north-east corner as one step and the house 1.3 m south, the twin bedrooms, the 3D rebuilt) · presentation set, A3, 12 sheets (ground floor, first floor, roof, elevations) · compile THIS file
+//   typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V11.0_presentation.pdf
 // Every number comes from the project files: data/rooms_gf.csv, data/rooms_ff.csv, data/decisions.csv, data/open_items.csv, the design files
 // (placement, gaps) and the studies (doors, windows, furniture, fixtures, the treadmill, the sections and the light check). Walls are drawn with
 // thickness from the room outlines (250 mm outer, 200 mm inner, 100 mm dry partitions, the steel windows W1 / W2 on the courtyard edges since V7.0). Ground-floor doors and
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V10.0 · layout freeze · the malqaf (L5)])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V11.0 · the stepped corner, the twin bedrooms, the 3D rebuilt (17 Nov 2026)])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -189,7 +189,7 @@
   G((13.311, 7.2), (13.311, 8.1), (1, 0), "hinged"),     // kitchen service door to the east yard, lockable (owner decision)
   G((9.7, 6.5), (10.55, 6.5), (0, -1), "open"),          // kitchen ↔ laundry (11 Nov 2026: the wall on the structural line y 6.5)
   G((9.7, 4.7), (10.55, 4.7), (0, -1), "hinged"),       // laundry ↔ maid room 0.90 (layout D; 11 Nov 2026: 0.35 m east; her only door, from the laundry)
-  G((10.8, 3.2), (11.5, 3.2), (0, 1), "hinged"),        // maid room ↔ maid bath 0.70 (D refined: the bath 1.5 m deep; from her room only)
+  G((11.275, 3.7), (11.275, 4.4), (1, 0), "hinged"),   // maid room ↔ maid bath 0.70 on the bath's west wall (17 Nov 2026, the step; from her room only)
   G((4.6, 8.667), (5.6, 8.667), (0, 1), "hinged"),     // V10.0 (L5): the malqaf foot chamber's carved door onto the covered strip
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
@@ -734,7 +734,7 @@
 
 // ===================================================================================== SHEET 10 · open items
 #pagebreak()
-#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_ITEMS.md) | orange = the edge beam and the #sec.pj.columns columns, red = the acoustic wall gym ↔ bedroom 3 | the roof ladder in the suite court])
+#sheet-head([Open items / for the owner and the engineers], [From data/open_items.csv (the same list as docs/OPEN_LIST.md) | orange = the edge beam and the #sec.pj.columns columns, red = the acoustic wall gym ↔ bedroom 3 | the roof ladder in the suite court])
 #let items = csv("data/open_items.csv", row-type: dictionary)
 #let item-no(key) = items.position(o => o.key == key) + 1
 #grid(columns: (auto, 1fr), column-gutter: 18pt,

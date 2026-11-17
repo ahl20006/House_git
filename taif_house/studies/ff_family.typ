@@ -435,7 +435,7 @@
     - *Family WC (14 Nov 2026):* the wall-hung pan on the west outer wall, its waste in the floor build-up ≈ 0.5 m south to the west shaft; the basin's waste in the floor build-up or a chase in the x 1.5 partition to the shaft; both over the GF utility room (service). *The X3 bath pair (15 Nov 2026):* both wall-hung WCs on the shared wet wall x 2.10 at its south end into the *one stack at (2.10, 15.23)*, which drops straight into the GF powder room's WC compartment (y 14.55–16.1, x ≤ 2.75: the stack 0.67 m south of the compartment's partition) and on to the buried west run; the two showers and the two basins in the floor build-up to the stack, ≤ 2 m each, over the GF powder room (wet). The old bedroom 3 bath stack over the GF family WC is no longer needed.
     - *Bedroom 1's bath (14 Nov 2026):* over the GF laundry (y 5.6–6.5) and the kitchen's north band (y 6.5–8.0), both service rooms; the shower's floor drain, the WC and the basin run east to the *one stack outside the east wall at y 7.05* (≤ 2 m each), the same stack as the suite's; no drain over the kitchen hood (y ≥ 10.1). No east duct.
     #v(3pt)
-    #H[Open items (all in docs/OPEN_ITEMS.md)]
+    #H[Open items (all in docs/OPEN_LIST.md)]
     - *Engineer:* the edge beam and the #columns.len() columns at x #r2(proj-x) (sizes and foundations); walls off the GF lines.
     - *Gallery window W1* on the B3 upstand and *W2* on the family living's edge (black steel, divided lites, laminated glass below +4.70): the courtyard stays open to the sky, the house is closed round it (V6.4).
     - *Built-in cupboards in niches* (the linen cupboard; bedroom 2's vanity niche): joinery boxes scribed to the walls; decide with the carpenter.

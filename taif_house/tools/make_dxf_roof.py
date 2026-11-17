@@ -2,7 +2,7 @@
 the malqaf head, the reserved zones, the outlets, the walkways, the guards and the set-back guardrails, the attic doors).
 
 Run from anywhere:   python taif_house/tools/make_dxf_roof.py
-Output:              taif_house/output/taif_roof_V10.0.dxf   (units: metres, north up, the same site frame as the floor DXFs)
+Output:              taif_house/output/taif_roof_V11.0.dxf   (units: metres, north up, the same site frame as the floor DXFs)
 
 Nothing is typed in twice: the geometry is the <roof-data> metadata of studies/roof.typ (read with `typst eval`), placed on the site with the
 shift of design_gf.typ; the site from base.typ. Coordinates: the Typst frame has y pointing south; the DXF uses y up, so (x, y) becomes (x, -y).
@@ -19,7 +19,7 @@ from pathlib import Path
 import ezdxf
 
 ROOT = Path(__file__).resolve().parent.parent          # taif_house
-OUT = ROOT / "output" / "taif_roof_V10.0.dxf"
+OUT = ROOT / "output" / "taif_roof_V11.0.dxf"
 
 typst = shutil.which("typst")
 if not typst:

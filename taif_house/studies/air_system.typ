@@ -22,8 +22,8 @@
 #let d3(a, b) = calc.sqrt(calc.pow(a.at(0) - b.at(0), 2) + calc.pow(a.at(1) - b.at(1), 2) + calc.pow(a.at(2) - b.at(2), 2))
 
 // ---------- the system, as data (CSV frame; levels from the finished ground floor; ALL ASSUMED) · the `air-*` names are read by 3d/build_3d.py ----------
-#let air-core = ((4.4, 6.5), (5.8, 6.5), (5.8, 8.667), (4.4, 8.667))   // the GF foot chamber on the wall centre lines (outer faces x 4.30–5.90, y 6.4–8.767): RC walls 0.20; its north wall is the majlis's wall rebuilt in RC
-#let air-shaft = ((4.4, 6.5), (5.8, 6.5), (5.8, 7.5), (4.4, 7.5))      // the FF shaft (1.2 × 0.8 clear) and the opening through the FF and roof slabs; the gallery's turn past bedroom 2's bath keeps 1.5 m
+#let air-core = ((4.25, 6.5), (5.8, 6.5), (5.8, 8.667), (4.25, 8.667))   // 14 Nov 2026: the west wall on x 4.25 (design_gf.typ tower-csv, the riwaq's straight line)   // the GF foot chamber on the wall centre lines (outer faces x 4.30–5.90, y 6.4–8.767): RC walls 0.20; its north wall is the majlis's wall rebuilt in RC
+#let air-shaft = ((4.25, 6.5), (5.8, 6.5), (5.8, 7.5), (4.25, 7.5))   // 14 Nov 2026: on x 4.25 over the chamber (studies/ff_family.typ Air tower)      // the FF shaft (1.2 × 0.8 clear) and the opening through the FF and roof slabs; the gallery's turn past bedroom 2's bath keeps 1.5 m
 #let air-head = (4.3, 6.4, 5.9, 8.8)            // the head above the roof, OUTER faces: F3, 1.6 × 2.4, the overhang south over the gallery roof (its walls on R3 widened and R11, a new beam R-L5 under the south wall)
 #let air-head-z = (7.3, 10.6, 10.75, 11.2, 12.6, 12.9, 13.2)   // the roof finish · the band (bottom, top) · the openings (sill, top) · the crown's base · the top (+13.20 = 4.52 above the attic coping)
 #let air-slots = (3, 5, 0.2, 0.2, 0.3)          // slots per short / long face, their width, the ribs, the corner piers: 1.6 = 0.3 + 3 × 0.2 + 2 × 0.2 + 0.3; 2.4 = 0.3 + 5 × 0.2 + 4 × 0.2 + 0.3 (the 20 cm module)
@@ -35,7 +35,7 @@
 #let air-inlet = (4.6, 8.5, 7.6)                // the filtered path's inlet: a downward-facing hood under the head's south overhang (x, y, z), a bird mesh, NEVER closes
 #let air-damper-top = 7.75                      // D1 at the shaft's head (1.2 × 0.8): insulated blades, low-leakage, spring-return (closes on power loss)
 #let air-sunken = (0.0, 5.925, 7.1, 8.85, 12.3) // the seating zone on the LEVEL courtyard floor (studies/courtyard_layout.typ): floor level, x0, y0, x1, y1
-#let air-grilles = ((4.4, 6.5, 6.4), (5.1, 7.5, 6.4), (4.4, 7.6, 2.7), (5.1, 6.5, 2.7))   // the filtered-air grilles (x, y, z): the family living (the core's N face, FF), the gallery (S face, FF), the riwaq (W face, GF), the women's majlis (N face, GF)
+#let air-grilles = ((4.25, 6.5, 6.4), (5.1, 7.5, 6.4), (4.25, 7.6, 2.7), (5.1, 6.5, 2.7))   // the filtered-air grilles (x, y, z): the family living (the core's N face, FF), the gallery (S face, FF), the riwaq (W face, GF), the women's majlis (N face, GF)
 #let air-gallery-grille = (4.7, 5.5, 7.5, 4.2, 5.8)   // the carved arched timber grille on the shaft's south face (x0, x1, y, z0, z1): a sealed PROVISION (owner, 9 Nov 2026), no damper now
 #let air-base = (-0.08, -0.38)                  // the dust trap's basin: from the ground-slab top to its floor (a gully with a trap and a trap primer; NO pit, no entry)
 #let riser = 0.12                               // the filtered path's sealed riser (Ø250) in the shaft's west side: taken from the breeze section
