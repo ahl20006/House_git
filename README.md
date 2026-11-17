@@ -1,70 +1,47 @@
-# House_git · Taif / Palm House
+# Taif / Palm House · delivery package V10.1-preview
 
-Concept design of a two-storey courtyard house in Taif, drawn with [Typst](https://typst.app) from CSV room data.
+**Status: V10.1-preview · design development, not for construction.** The site study (the step instead of the slanted wall, the length, the south shift) is still open. Issued 17 Nov 2026 from the design files of the `work` branch (commit 6d8ddda and the package sources). Every size is a design value until the engineers confirm it.
 
-**Current version: V10.0, the malqaf (L5)** (git tag `v10.0`, GitHub Release "V10.0", 9 Nov 2026).
-- **V10.0:** the malqaf moved to the courtyard's north-west corner (L5): breeze at the seating ≈ 4 × L1, a foot chamber with the dust trap, the filters, the fan and a cooler's space, the head F3 on the first bay's axis, the core as the fourth support of the west projection; the HRV replaced by a filtered supply fan; the north-east corner restored; no stone anywhere (render and paint; porcelain floors); simple controls (two switches and a dust relay). `taif_house/studies/malqaf_L5.typ` (adopted).
-- **V9.3** (superseded by V10.0): the L1 malqaf tower: at the north-east corner a slim shaft along the cut wall with straight room walls (a store off the maid bath, a cupboard in bedroom 1), a honey-stone tower on the attic's corner with a head of slender arched openings 3.5 m above the attic and a Hijazi cornice; the HRV in a hidden plant room behind the attic; the breeze channel at full width (`studies/malqaf_tower.typ`).
-- **V9.2:** small fixes: the utility room's label; the air tower back to a rectangle of 0.90 m² clear, the wedge beside it to the maid bath and bedroom 1; the HRV base at its V9.0 footprint; the attic 2 cm lower, hidden again from the north boundary.
-- **V9.1:** the final site position, **B1 6.00 m from M1** (the owner's car test: a full forward turn into the north strip in one move); the cut wall shortened again (6.08 m, 0.42 m from the boundary wall as built, 0.91 m from the deed setback line); the set-out sheet re-issued; the site items updated (the swept path drawn, the parking bay on the turning line, the soakaways moved); the levels to be set from the official survey. The layout stays frozen (V9.0).
-- **V9.0:** the layout frozen (room positions, sizes, stairs, wet rooms, the site position); the house set out on site by the owner (day 1, the diagonals exact) and its final position (1.24 + 0.50 m further south, B1 5.49 m from peg M1); the cut wall 0.12 m shorter after the field reading of 2.30 m (0.42 m from the boundary wall as built, 0.90 m from the deed setback line); the whole-farm base v2 (the deed is the boundary authority) with the old house and its majlis, the covered parking, the water tanks and the septic placed (approximate, to be measured); bedroom 1 the young children's room without an en-suite. The review status is `Design_Review_status_V9.1.pdf`; the field record `taif_house/docs/SITE_SETOUT.md`.
-- **V8.3:** bedroom 2's en-suite and a family WC upstairs; the ground-floor powder room (no ground-floor shower); the level courtyard with movable seating, the fountain and tree in front of the kitchen window, the TV moved south; the outdoor kitchen by the service door; the plumbing decisions (external east stack, trap primers, rain / sewage separate); the facade principle R-37; bedroom 1's hotel en-suite studied, not applied. The interim V&V review is `output/VV_Review_V8.3.pdf`; the review status `output/Design_Review_status_V8.3.pdf`.
-- **V8.2:** the main stair flipped (option B) with the larger family bath F-b, the coat cupboard and the lobby; bedroom 1 without a private bath; the ground-floor shower deferred to the plumbing study (P1 preferred); the suite court's south side a mashrabiya; the clerestories openable; the food route accepted; the site and services plan (`taif_house/studies/site_plan.typ`: single 4 m gate, the north parking kept, the guest stone path, the south family garden, the service yard and gas cabinet, the existing water tank and the reserved tank east of peg R, the existing septic outside the wall near C1, PV provision without a generator, intercom and cameras); the plumbing study rounds 1–2 (`taif_house/studies/plumbing.typ`, proposals). The review status is in `output/Design_Review_status_V8.2.pdf`.
-- **V8.1:** the roof by a maintenance ladder in a recess of the gym's east wall in the suite court (behind a locked walnut panel); the office for the owner only, reached from the suite court (visitors are met in the men's majlis); the roofline lowered and balanced (the attic 1.40 m, the south-wing parapet 0.70 m with a set-back 1.10 m guardrail); the outdoor kitchen relocated; one site entry (the farm's 4 m main gate); the fire study updated (the main stair plus the escape windows). The stair flip study (`taif_house/studies/stair_flip.typ`) was adopted in V8.2.
-- **V8.0 (six owner decisions of 1 Nov 2026):** fire safety at home level; the courtyard layout (the seating one step down, the TV wall with a stone surround and the malqaf grille below it, a water and tree enclosure, no pergola) and the kitchen sink window moved north; the air system v3.1 (one tower, two separate paths: the courtyard breeze and the HRV's intake with the unit in the tower's base on the roof); the internal stair stops at the first floor; the south wing v2 (the gym on the west band, a 25 m² suite court, the office on the east).
-- **V7.1:** the arched courtyard enclosure windows and the three-arch courtyard arcade. **V7.0:** the courtyard enclosure (option A), the maid room to the municipal minimum, the flat roof with the main cornice and the set-back attic, the design language. **V6.3:** the quick fixes of the design review.
-- **Both floors are designed:** the 1.55 m west projection over the courtyard and the double-height void on an edge beam and three columns at x 5.80; walls on walls (0.785 m from the M line).
-- **Start here:** `taif_house/docs/NEXT_SESSION.md`. The whole house is described in `taif_house/docs/PROJECT_V10.md`; the open items in `taif_house/docs/OPEN_ITEMS.md`.
+This branch (`main`) holds the package only. The full history, every study and the source files are on the `archive` branch; the daily work is on `work`.
 
-**For engineers and anyone without git:** open the **[Releases](../../releases)** page and download **V10.0** (the presentation, the review status, the malqaf L5 study, the set-out sheet and the DXFs):
-- the A3 presentation set `Taif_House_V10.0_presentation.pdf` (12 sheets: the site and services plan, both floors, the family part, the south wing and the master suite, the two ground-floor blocks, sections and light, area schedules, decisions log, open items, the roof plan, the elevations);
-- the review status `Design_Review_status_V10.0.pdf`, the malqaf study `malqaf_L5.pdf` (six phases: the climate, the variants, the structure, the facade, the air system, the head, the decision sheet) and the set-out sheet `setout.pdf` (the tapes for the site);
-- the whole farm `whole_farm.pdf`, the site and services plan `site_plan.pdf` and the plumbing study `plumbing.pdf` (studies, proposals);
-- the three DXFs (`taif_ground_floor_V10.0.dxf`, `taif_first_floor_V10.0.dxf`, `taif_roof_V10.0.dxf`).
+| File | What it is | For whom | Status |
+|---|---|---|---|
+| `package/01_presentation.pdf` | The A3 presentation set, 12 sheets: the site, the two floors, the family part, the south wing and the suite, the wash and service blocks, the sections and the light, the room schedules, the decisions log, the open items, the roof, the elevations | reviewer · both engineers | current (17 Nov 2026) |
+| `package/02_ground_floor_plan.pdf` | The dimensioned ground-floor plan on the site with its checks and the furniture studies (5 pages) | reviewer · structural · MEP | current |
+| `package/03_first_floor_plan.pdf` | The dimensioned first-floor plan, the room schedule with clear areas, the light check, the west projection sections (5 pages) | reviewer · structural · MEP | current |
+| `package/04_site_and_setout.pdf` | The site and services plan (5 pages: the gate, the parking, the paths, the drainage, the chambers, the soakaways, the tanks) + the set-out sheet (2 pages: the corners from the gate post M1 and the dakka corner D) | reviewer · MEP · the surveyor | current; the services positions proposed, to confirm with the survey |
+| `package/dxf/taif_ground_floor_V10.0.dxf` | The ground floor in DXF (metres, north up): the site, the outline, every room, doors, windows, fixtures, the first-floor edges above | both engineers | regenerated 17 Nov 2026 from the current data |
+| `package/dxf/taif_first_floor_V10.0.dxf` | The first floor in DXF: the outline, every room with its number, the voids, doors, windows, furniture | both engineers | regenerated 17 Nov 2026 |
+| `package/dxf/taif_roof_V10.0.dxf` | The roof plan in DXF: the holes, the attic line, the ladder, the guardrails, the reserved zones, the outlets | both engineers | regenerated 17 Nov 2026 (the ladder recess still at its 8 Nov position) |
+| `package/05_room_schedule.pdf` · `05_room_schedule.csv` | Every room of both floors: axis size, area on axes, clear area | reviewer · both engineers | current |
+| `package/06_decisions_summary.pdf` | The adopted decisions that still stand, in plain English with an Arabic line each (2 pages) | reviewer | current |
+| `package/07_structural_brief.pdf` | One list for the structural engineer: the scheme, the grid and columns, the long spans, the malqaf core, the projection and its edge beam, the south wing, the light partitions on the slab, the soil report, the open questions | structural engineer | current |
+| `package/08_mep_brief.pdf` | One list for the MEP engineer: the air system (two switches, the dust relay, the filtered fan, no HRV), AC by inverter splits per zone, the drainage stacks, the courtyard and roof rain, the water supply and heaters, greywater from the first floor only, the open questions | MEP engineer | current |
+| `package/3d/` | The existing 3D renders (the courtyard, the gate, the suite court, the aerials, the malqaf L5 views) | reviewer | **outdated, before 15 Nov 2026** (the 3D was not rebuilt: it shows the first floor before the east-wing and west-band changes of 14–15 Nov 2026) |
 
-Each release is a frozen version; `main` always holds the latest work.
+There is no separate site DXF: the site (the land, the envelope, the driveway, the lane, the north wall, the palms, the set-out pegs) is a layer group in the ground-floor and roof DXFs.
 
-## How the repo is organised
-```
-taif_house/
-  base.typ                 site, envelope, palms, checks, drawing engine (fixed)
-  design_gf.typ            ground floor  ← data/rooms_gf.csv        (also the building placement, used by the first floor)
-  design_ff.typ            first floor   ← data/rooms_ff.csv        (checked room for room against the two first-floor studies)
-  presentation.typ         the A3 presentation set, 12 sheets, English + Arabic notes, every number from the files
-  data/                    rooms_gf.csv, rooms_ff.csv (one row per room; # at the start of a name switches a row off),
-                           decisions.csv (decisions log), open_items.csv (open items)
-  studies/                 ff_family.typ (first floor: family part), ff_suite.typ (the south wing and the master suite),
-                           fire_escape.typ, courtyard_layout.typ, air_system.typ (v4, the malqaf at L5), malqaf_L5.typ (adopted), malqaf_tower.typ and ne_corner.typ (superseded studies), south_wing.typ, roof.typ, structure.typ, courtyard_enclosure.typ, stair_flip.typ,
-                           bedroom1_bath.typ, gf_shower.typ, site_plan.typ, plumbing.typ (studies),
-                           guest_wing.typ (west wash block), east_wing.typ (east service block),
-                           sections.typ (levels, the west projection and its columns, light check, sections; imported, not compiled alone),
-                           setout.typ (the set-out sheet), whole_farm.typ (the farm on the site base v2), shift_south.typ, cut_wall.typ (the final position),
-                           site_test.typ + building.csv (superseded by setout.typ)
-  tools/                   check.py (check everything), make_dxf.py / make_dxf_ff.py / make_dxf_roof.py (the three DXFs),
-                           schedule.py (ground-floor room schedule in Markdown)
-  docs/                    NEXT_SESSION.md (start here), PROJECT_V10.md (master document), SITE_SETOUT.md (the field record), DETAILS.md (construction notes), OPEN_ITEMS.md, README_DXF.md,
-                           REQUIREMENTS.md, DESIGN_LANGUAGE.md, AIR_SYSTEM.md, STRUCTURE_STUDY.md, PENDING_CHANGES.md, review/ (the design review and its status)
-  output/                  all PDFs and the three DXFs (generated, committed)
-  3d/                      the 3D model, generated from the project files (build_3d.py → GLB, viewer.html, check_3d.py, README_3D.md)
-  archive/                 superseded files: earlier drawings, PDFs, DXFs, room lists and docs (archive/docs/)
-```
+**How to read the drawings.** Coordinates in the briefs are the plans' frame: x east, y south, metres, wall centre lines; the outer walls 250 mm, the inner walls 200 mm, partitions 100 mm. Levels GF ±0.00, FF +3.60, roof +7.20 (to confirm). The building stands on the ground-floor outline; the house was set out on site with two tapes (see the set-out sheet).
 
-## Compile, check, regenerate
-- **Tools:** Typst 0.15 (`typst`), Python 3.12 with `pip install ezdxf`, and `pdftotext` (on Windows it comes with Git for Windows in `C:\Program Files\Git\ucrt64\bin`) or `pip install pypdf` as the PDF text reader, all on PATH.
-- **Compile one file** (the `--root` lets the studies reach `../base.typ` and `../data`):
-  ```
-  typst compile --root taif_house taif_house/design_ff.typ taif_house/output/design_ff.pdf
-  typst compile --root taif_house taif_house/presentation.typ taif_house/output/Taif_House_V10.0_presentation.pdf
-  ```
-- **Check everything:** `python taif_house/tools/check.py` must end with **ALL CHECKS PASSED**. It:
-  - compiles every drawing, the studies, the presentation and the archived first-floor drawing;
-  - reads the PDFs' check lines and confirms the presentation has 12 A3 sheets;
-  - compares the ground-floor studies with the CSV;
-  - rebuilds the three DXFs and compares their areas with the CSVs;
-  - checks the open items against `docs/OPEN_ITEMS.md`, and that no old version label is left in the active files;
-  - rebuilds the 3D model and runs its checks (`3d/check_3d.py`).
-- **DXFs only:** `python taif_house/tools/make_dxf.py`, `make_dxf_ff.py` and `make_dxf_roof.py` (see `taif_house/docs/README_DXF.md`).
+**What is not in this package:** the studies (the structure, the air system, the plumbing, the roof, the malqaf, the courtyard, the first-floor options), the 3D model and its sources, the tools, the room data and the documentation. They are on the `archive` branch of the same repository, where this package can be rebuilt with `taif_house/package_src/build_package.py` on `work`.
 
-## Versions
-- **Tags:** `v3.1` … `v3.4`, `v4.0` (ground floor final), `v4.1` (first-floor baseline), `v5.0` (first floor designed), `v5.1` (split projection), `v6.0` (clean release), `v6.1` (the split projection reverted to the V5.0 columns solution), `v6.2` (the L-shaped gym), `v6.3` (the quick fixes from the design review), `v7.0` (the courtyard enclosure, the maid room, roof access and the attic, the design language), `v7.1` (the arched enclosure windows and the courtyard arcade), `v8.0` (fire safety, the courtyard layout, the air system, the south wing v2), `v8.1` (a checkpoint: the roof ladder, the lowered roofline, the office from the suite court), `v8.2` (a checkpoint: the stair flip, the site plan, the plumbing studies), `v8.3` (a checkpoint: bedroom 2's en-suite, the powder room, the level courtyard, the outdoor kitchen, the plumbing decisions), `v9.0` (the layout freeze: the site set out and the final position, the cut wall −0.12 m, the whole farm, bedroom 1 for young children), `v9.1` (the final site position, B1 6.00 m from M1), `v9.2` (small fixes), `v9.3` (the L1 malqaf tower), `v10.0` (current: the malqaf at L5). The changelog is in `taif_house/docs/PROJECT_V10.md` §7. Work tags: `3d-p2`, `struct-p1`, `struct-p1b`, `3d-p3`, `air-p1`, `air-p2`, `3d-char1`, `3d-char2`, `review-1`; the branch `work` carries the work between releases (reset to `main` after each release).
-- **Study branches, kept for reference:** `v5-split-projection` (the split projection: merged in V5.1, reverted in V6.1) and `v5-gym-L` (the L-shaped gym study, rejected in V5.1, adopted in V6.2, replaced by the south wing v2 in V8.0).
+---
+
+# بيت الطائف / بيت النخيل · حزمة التسليم V10.1-preview
+
+**الحالة: نسخة تطوير التصميم، ليست للتنفيذ.** دراسة الموقع (درجة بدل الجدار المائل، طول المبنى، الإزاحة جنوبًا) ما زالت مفتوحة. أُصدرت في 17 نوفمبر 2026 من ملفات التصميم على فرع `work`. كل المقاسات تصميمية حتى يؤكدها المهندسون.
+
+| الملف | ما هو | لمن | الحالة |
+|---|---|---|---|
+| `01_presentation.pdf` | مجموعة العرض A3، 12 لوحة: الموقع والدوران وجزء العائلة والجناح الجنوبي وكتل الخدمات والقطاعات والمساحات والقرارات والبنود المفتوحة والسطح والواجهات | المراجع والمهندسان | حديث (17 نوفمبر 2026) |
+| `02_ground_floor_plan.pdf` | مخطط الدور الأرضي بالأبعاد على الموقع مع فحوصه | المراجع والمهندسان | حديث |
+| `03_first_floor_plan.pdf` | مخطط الدور الأول بالأبعاد وجدول الغرف وفحص الإضاءة وقطاعات البروز الغربي | المراجع والمهندسان | حديث |
+| `04_site_and_setout.pdf` | مخطط الموقع والخدمات + لوحة التوقيع في الموقع | المراجع ومهندس الخدمات والمساح | حديث؛ مواضع الخدمات مقترحة تُؤكَّد بالرفع |
+| `dxf/` | الدور الأرضي والدور الأول والسطح بصيغة DXF (بالمتر، الشمال للأعلى) | المهندسان | مُعاد توليدها في 17 نوفمبر 2026 |
+| `05_room_schedule.pdf` و `.csv` | جدول كل الغرف في الدورين: المقاس على المحاور والمساحة على المحاور والمساحة الصافية | المراجع والمهندسان | حديث |
+| `06_decisions_summary.pdf` | ملخص القرارات المعتمدة السارية بالإنجليزية مع سطر عربي لكل قرار (صفحتان) | المراجع | حديث |
+| `07_structural_brief.pdf` | قائمة واحدة للمهندس الإنشائي: الهيكل والشبكة والأعمدة والبحور الطويلة ونواة الملقف والبروز وجسر الحافة والقواطع الخفيفة وتقرير التربة والأسئلة المفتوحة | المهندس الإنشائي | حديث |
+| `08_mep_brief.pdf` | قائمة واحدة لمهندس الخدمات: نظام الهواء والتكييف والصرف والأمطار وتغذية المياه والمياه الرمادية من الدور الأول فقط والأسئلة المفتوحة | مهندس الخدمات | حديث |
+| `3d/` | صور النموذج ثلاثي الأبعاد الموجودة | المراجع | **قديمة، قبل 15 نوفمبر 2026** (لم يُعَد بناء النموذج) |
+
+الإحداثيات في الملخصات بإطار المخططات: x شرقًا و y جنوبًا بالمتر على محاور الجدران؛ الجدران الخارجية 25 سم والداخلية 20 سم والقواطع 10 سم. الدراسات والنموذج ثلاثي الأبعاد والأدوات على فرع `archive`.
