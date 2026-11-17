@@ -1,6 +1,6 @@
 // setout.typ · Taif / Palm House · BUILDING TEST + SET-OUT SHEET · V9.1 (re-issued 8 Nov 2026) with the owner's site decisions of 4 Nov 2026 (B1 5.00 m from M1), 6 Nov 2026 (B1 5.49 m) and 8 Nov 2026 (B1 6.00 m, the car test; the cut wall a further 0.24 m out)
 // Supersedes studies/site_test.typ (V6.3, building.csv). The building = design_gf.typ's outline + shift (outer wall faces); the site = base.typ.
-// The STATUS comes from the tightest point on ANY wall (every edge sampled at 5 cm), not only from the corners: the lane notch bites the cut wall between B2 and B3.
+// The STATUS comes from the tightest point on ANY wall (every edge sampled at 5 cm), not only from the corners (until 17 Nov 2026 the lane notch bit the cut wall; now the north wall's end B2 is the tightest).
 // Design frame: origin = peg M1 (the gate's east post) · y = metres along the M line, southwards · x = metres square to the M line, east (towards the lane).
 // Field instructions: docs/SITE_SETOUT.md. Concept only – not for permit.
 #import "@preview/cetz:0.4.2"
@@ -15,11 +15,11 @@
 // INPUT – the building from the design files (nothing to edit here: move the house in design_gf.typ)
 // =====================================================================
 #let S(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
-#let expected = ((0, 0), (10.461, 0), (13.311, 5.245), (13.311, 24.0), (0, 24.0))
+#let expected = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 24.0), (0, 24.0))   // 17 Nov 2026: the NE corner as one step (studies/step_corner.typ option 6)
 #assert(outline-csv-gf.len() == expected.len() and outline-csv-gf.zip(expected).all(((a, b)) => calc.abs(a.at(0) - b.at(0)) + calc.abs(a.at(1) - b.at(1)) < 1e-6),
   message: "the ground-floor outline changed: update the outer-face corners in setout.typ")
-// the OUTER wall faces of the 13.311 × 24.0 m centre-line pentagon (250 mm outer walls, the cut corner mitred): B1 NW, B2 cut north, B3 cut east, B4 SE, B5 SW
-#let building = ((-0.125, -0.125), (10.535, -0.125), (13.436, 5.214), (13.436, 24.125), (-0.125, 24.125)).map(S)
+// the OUTER wall faces of the 13.311 × 24.0 m centre-line outline with the stepped NE corner (250 mm outer walls): B1 NW, B2 the north wall's end, B3 the step's inner corner, B4 the step's east corner, B5 SE, B6 SW (17 Nov 2026)
+#let building = ((-0.125, -0.125), (11.4, -0.125), (11.4, 3.075), (13.436, 3.075), (13.436, 24.125), (-0.125, 24.125)).map(S)
 #let courtyards = (((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(S),)   // the open courtyard, clear opening (4.50 × 6.30)
 #let spare = 0.5                 // the spare you want to keep from the setback lines until the official survey
 #let lane-stop = 2.0             // field rule: less than this from the tightest point to the lane wall = stop and report
@@ -119,7 +119,7 @@
 #let palm-check(t) = if inside(t, building) { -1 } else { edge-dist(t, building) - r-palm }
 #let b1-m1 = dist(building.at(0), M1)
 #let sides = range(building.len()).map(i => ([B#(i + 1)–B#(calc.rem(i + 1, building.len()) + 1)], dist(building.at(i), building.at(calc.rem(i + 1, building.len())))))
-#let diags = (([B1–B4], dist(building.at(0), building.at(3))), ([B2–B5], dist(building.at(1), building.at(4))), ([B1–B3 (the cut's check)], dist(building.at(0), building.at(2))))
+#let diags = (([B1–B5], dist(building.at(0), building.at(4))), ([B2–B6], dist(building.at(1), building.at(5))), ([B1–B4 (the step's check)], dist(building.at(0), building.at(3))), ([B2–B4 (the step's diagonal)], dist(building.at(1), building.at(3))))
 #let perimeter = sides.map(e => e.at(1)).sum()
 
 // ---------- Colours and drawing helpers ----------
@@ -182,7 +182,7 @@
   plan,
   [
     #text(14pt, weight: "bold", fill: accent)[Taif / Palm House] \
-    #text(10pt, weight: "bold")[Building test on the land · V9.1 · B1 6.00 m from M1 (owner's car test, 8 Nov 2026: a full forward turn into the north strip) · the cut wall a further 0.24 m out (0.42 m from the wall as built)] \
+    #text(10pt, weight: "bold")[Building test on the land · 17 Nov 2026 · the house 1.3 m further south (B1 #f2(b1-m1) m from M1) and the north-east corner as ONE orthogonal step (x 11.275 / y 3.2) instead of the slanted cut wall · V9.1 (8 Nov 2026): B1 6.00 m, the owner's car test] \
     #text(7pt, fill: gray)[Frame: origin M1 (the gate's east post) · y along the M line southwards · x east, square to it · the house = the room CSVs + (#f2(shift.at(0)), #f2(shift.at(1))) · B1 #f2(b1-m1) m from M1]
     #v(2pt) #line(length: 100%, stroke: 0.6pt + accent)
 
@@ -191,7 +191,7 @@
       #text(7.5pt)[
         #if status == "ERROR" [Part of the building is outside the buildable envelope.]
         #if status == "CAUTION" [Inside the envelope, but a wall comes closer than #f2(spare) m to a setback line (#f2(edge-m) m on #edge-wall).]
-        #if status == "OK" [Every wall inside the envelope with at least #f2(spare) m spare: the tightest point #f2(edge-m) m, on #edge-wall at the lane notch.]
+        #if status == "OK" [Every wall inside the envelope with at least #f2(spare) m spare: the tightest point #f2(edge-m) m, on #edge-wall (17 Nov 2026: the step's north face, beside the lane).]
       ]
     ]
 
@@ -216,7 +216,7 @@
       [Envelope corners poking into the building], [#env-in-building.len()],
       [Palm 1: building to trunk face], [#if palm-check(T1) < 0 [INSIDE] else [#f2(palm-check(T1)) m]],
       [Palm 2: building to trunk face], [#if palm-check(T2) < 0 [INSIDE] else [#f2(palm-check(T2)) m]],
-      [B1 from M1 (the owner's rule: 4 Nov 5.00 m, 6 Nov 5.49, 8 Nov 2026 the car test: 6.00)], [#f2(b1-m1) m],
+      [B1 from M1 (the owner's rule: 4 Nov 5.00 m, 6 Nov 5.49, 8 Nov 2026 the car test: 6.00; 17 Nov 2026 the step: 7.29)], [#f2(b1-m1) m],
     )
 
     #sub-head[First, check the frame on the ground]

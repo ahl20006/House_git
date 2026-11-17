@@ -137,7 +137,7 @@
 // ---------- PAGE 5: the west projection · the two east–west sections · against the reverted split projection ----------
 #pagebreak()
 #text(15pt, fill: accent, weight: "bold")[First floor V8.1 · the west projection on three columns]
-#h(8pt) #text(8pt, fill: gray)[sections looking north, CSV x · the column on x #num(sec.pj-edge) is beyond the cut (columns at y #sec.columns.map(c => num(c.at(1))).join(", "))]
+#h(8pt) #text(8pt, fill: gray)[sections looking north, CSV x · the column on x #num(sec.pj-edge) is beyond the stepped corner (columns at y #sec.columns.map(c => num(c.at(1))).join(", "))]
 #v(3pt)
 #grid(columns: (1fr, 1fr), column-gutter: 10pt,
   [#text(8pt, weight: "bold")[A–A · through the courtyard (y 12.0)] #sec.section("court", length: 0.62cm)],

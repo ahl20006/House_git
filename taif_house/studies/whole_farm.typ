@@ -41,7 +41,7 @@
 #assert(old-house.len() == 4 and annex.len() == 4, message: "deed_sketch.csv: the old house and the annex need 4 corners each")
 // the new house (outer wall faces) at the current position
 #let P(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1))
-#let house = ((-0.125, -0.125), (10.535, -0.125), (13.436, 5.214), (13.436, 24.125), (-0.125, 24.125)).map(P)
+#let house = ((-0.125, -0.125), (11.4, -0.125), (11.4, 3.075), (13.436, 3.075), (13.436, 24.125), (-0.125, 24.125)).map(P)   // 17 Nov 2026: the stepped NE corner (option 6 applied)
 #let court = ((4.35, 6.6), (8.85, 6.6), (8.85, 12.9), (4.35, 12.9)).map(P)
 #let scourt = ((4.25, 20.55), (5.8, 20.55), (5.8, 19.25), (10.0, 19.25), (10.0, 24.0), (4.25, 24.0)).map(P)
 #let west-wall = (house.at(0), house.at(4))
@@ -131,7 +131,7 @@
 
 // ---------- PREVIEW (17 Nov 2026): the house 1.3 m further SOUTH along the M line + the ONE-STEP north-east corner (studies/step_corner.typ option 6: the step at x 11.275 / y 3.2) ----------
 // A preview page only (page 3): pages 1–2 and every number above use the current position. pv-s = 0 would draw the house where it stands today.
-#let pv-s = 1.3; #let pv-step = (11.275, 3.2)
+#let pv-s = 0.0; #let pv-step = (11.275, 3.2)   // APPLIED 17 Nov 2026 (design_gf.typ shift y 7.3734): the preview now equals the current position (pv-s 0); it was the 1.3 m test of 5c58f7c
 #let Pv(p) = (p.at(0) + shift.at(0), p.at(1) + shift.at(1) + pv-s)
 #let house-pv = ((-0.125, -0.125), (pv-step.at(0) + 0.125, -0.125), (pv-step.at(0) + 0.125, pv-step.at(1) - 0.125), (13.436, pv-step.at(1) - 0.125), (13.436, 24.125), (-0.125, 24.125)).map(Pv)
 #let court-pv = court.map(p => (p.at(0), p.at(1) + pv-s)); #let scourt-pv = scourt.map(p => (p.at(0), p.at(1) + pv-s))

@@ -1,3 +1,4 @@
+// 17 Nov 2026: the slanted cut wall is replaced by ONE orthogonal step (x 11.275 / y 3.2; studies/step_corner.typ option 6, applied to the design files): the maid room 2.325 × 4.7 and the bath east of it are now rectangles. This study is the RECORD of layouts A–D on the cut and is not redrawn.
 // maid_wing.typ · Taif / Palm House V10.0 · the maid's wing re-planned (the owner's brief of 10 Nov 2026) · LAYOUT D ADOPTED by the owner on 10 Nov 2026 and applied to
 // data/rooms_gf.csv, design_gf.typ, studies/east_wing.typ and the presentation (sheets 02 and 08); the 3D, the DXFs, the plumbing and structure not
 // 11 Nov 2026 (owner, the straight-walls rule): the laundry / kitchen wall moved from y 7.0 onto the structural line y 6.5 (one line with the women's majlis wall): the laundry 1.8 m deep, re-fitted; the maid room and bath unchangedes follow at the next release.

@@ -5,8 +5,8 @@
 #set page(paper: "a4", margin: 12mm, fill: rgb("#fbfaf6"))
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 
-// ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: NE corner cut by the lane wall ----------
-#let block = ((0, 0), (1.511, 0), (4.361, 5.245), (4.361, 13.0), (0, 13.0))   // wall centre lines; one slope to y 6.0, then straight
+// ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: the NE corner stepped (17 Nov 2026, studies/step_corner.typ option 6: the slant replaced by ONE orthogonal step) ----------
+#let block = ((0, 0), (2.325, 0), (2.325, 3.2), (4.361, 3.2), (4.361, 13.0), (0, 13.0))   // wall centre lines; the north wall to x 2.325 (CSV 11.275), the step's wall on y 3.2, then the east wall
 #let scale = 1.15cm
 
 // ---------- V10.0: the malqaf moved to the courtyard's north-west corner (L5): no air tower in this block; the cut tip is the maid's store ----------
@@ -17,13 +17,12 @@
   ("Kitchen",   2.1805, 9.75,  4.361, 6.5,   "kitchen"),   // y 6.5–13.0 (11 Nov 2026, owner: the north wall ON the structural line y 6.5, in line with the women's majlis wall; was y 7.0, V6.4)
 )
 
-// ---------- Rooms along the cut wall: polygons (name, corner points, colour) so they run up to the sloped wall ----------
-// cut wall (8 Nov 2026: a further 0.24 m out; 6 Nov 2026: 0.12 m): x = 1.511 + y × 3.26 / 6.0 (y 0–5.245) · at y 1.0 → 2.054, at y 2.8 → 3.032, at y 5.245 → 4.361
+// ---------- Rooms at the stepped corner: polygons (name, corner points, colour) · 17 Nov 2026: every room a clean rectangle (the maid room and bath as option 6) ----------
 #let poly-rooms = (
   // 10 Nov 2026 (owner): the maid's wing LAYOUT D (studies/maid_wing.typ, adopted): kitchen → laundry (y 4.7–7.0, the whole width) → maid bath (the cut wall's south part) → maid room (north); no store
-  ("Maid bath", ((1.7, 3.2), (3.2496, 3.2), (4.0648, 4.7), (1.7, 4.7)), "wc"),   // D refined (10 Nov 2026): 1.5 m deep, a simple wet room
-  ("Maid room", ((0, 0), (1.511, 0), (3.2496, 3.2), (1.7, 3.2), (1.7, 4.7), (0, 4.7)), "maid"),
-  ("Laundry", ((0, 4.7), (4.0648, 4.7), (4.361, 5.245), (4.361, 6.5), (0, 6.5)), "laundry"),   // 11 Nov 2026: 1.8 m deep (studies/maid_wing.typ D)
+  ("Maid bath", ((2.325, 3.2), (4.361, 3.2), (4.361, 4.7), (2.325, 4.7)), "wc"),   // 17 Nov 2026 (the step): east of the maid room under the step's wall, 2.036 × 1.5 on axes (1.86 × 1.28 clear), a simple wet room; its door from her room
+  ("Maid room", ((0, 0), (2.325, 0), (2.325, 4.7), (0, 4.7)), "maid"),             // 17 Nov 2026: a clean rectangle 2.325 × 4.7 on axes = 2.13 × 4.48 clear (≥ 2.10 wide, ≥ 6.5 m²: V6.4)
+  ("Laundry", ((0, 4.7), (4.361, 4.7), (4.361, 6.5), (0, 6.5)), "laundry"),         // 11 Nov 2026: 1.8 m deep (studies/maid_wing.typ D); 17 Nov 2026: a rectangle (the cut's end gone)
 )
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
@@ -41,15 +40,15 @@
   (3.7, 5.8, 4.23, 6.4, [steam station]),
   (0.1, 4.8, 0.7, 6.3, [folding · ironing table]),
   (2.9, 5.0, 4.2, 5.6, [ceiling drying rack]),
-  // the maid bath on the cut wall's south part
-  (2.7, 3.9, 3.6, 4.6, [shower · wet room]),   // a wall-mounted shower over the floor drain, no tray, no cubicle
-  (2.75, 3.3, 3.2, 3.9, [WC]),
-  (1.8, 4.0, 2.2, 4.4, [basin]),
-  // the maid room north of it
-  (0.1, 0.1, 1.0, 2.1, [bed 0.9 × 2.0]),   // in the north corner, its head on the north wall
-  (0.1, 2.3, 0.7, 3.65, [wardrobe]),       // on the majlis wall south of the bed
-  (1.7, 0.9, 2.0, 1.4, [shelves]),   // the shelf wedge in the north tip (drawn as its rectangular core)
-  (1.75, 2.3, 2.55, 2.8, [desk]),
+  // the maid bath east of the room under the step's wall (17 Nov 2026, option 6): the shower in the east corner, the WC on the north (step) wall, the basin on the south wall
+  (3.45, 3.325, 4.236, 4.1, [shower · wet room]),   // a wall-mounted shower over the floor drain, no tray, no cubicle
+  (2.9, 3.325, 3.3, 3.925, [WC]),
+  (2.9, 4.2, 3.3, 4.6, [basin]),
+  // the maid room: a clean rectangle on the majlis wall
+  (0.1, 0.125, 1.0, 2.125, [bed 0.9 × 2.0]),   // in the north corner, its head on the north wall
+  (0.1, 2.3, 0.7, 3.65, [wardrobe 1.35 × 0.6]),       // on the majlis wall south of the bed
+  (1.6, 1.2, 2.2, 2.3, [desk]),   // under the escape casement on the step's east face
+  (1.15, 1.5, 1.5, 1.85, []),
 )
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
@@ -58,13 +57,13 @@
   ((4.361, 7.2), (4.361, 8.1), [service door 0.90 · east yard · lockable]),   // owner decision: north end of the kitchen's east wall, near the laundry (V6.4: moved 0.5 with the wall)
   ((0.75, 6.5), (1.65, 6.5), [open entrance kitchen ↔ laundry (no door)]),   // 11 Nov 2026: on y 6.5
   ((0.75, 4.7), (1.65, 4.7), [laundry ↔ maid room 0.90 (D; 11 Nov 2026: 0.35 m east)]),
-  ((1.8, 3.2), (2.5, 3.2), [maid room ↔ maid bath · 0.70, from her room only (D)]),
+  ((2.325, 3.7), (2.325, 4.4), [maid room ↔ maid bath · 0.70, from her room only (D)]),
 )
 #let windows = (
   ((0.0, 7.3), (0.0, 8.9), [sink window (courtyard)]),   // moved north over the sink (owner, 1 Nov 2026)
   ((4.361, 8.7), (4.361, 10.1), [kitchen window (east)]),
-  ((2.326, 1.5), (2.869, 2.5), [maid room escape window\ 1.14 × 1.00, sill +1.10 (D: the cut's north part)]),   // one casement, obscured glass below +1.60, no screen (fire safety, owner 1 Nov 2026)
-  ((3.331, 3.35), (3.657, 3.95), [maid bath window (D)]),
+  ((2.325, 1.2), (2.325, 2.3), [maid room escape window\ 1.14 × 1.00, sill +1.10]),   // one casement, obscured glass below +1.60, no screen (fire safety, owner 1 Nov 2026)
+  ((3.55, 3.2), (4.05, 3.2), [maid bath window]),
   ((4.361, 5.35), (4.361, 6.25), [laundry window 0.9 (east yard)]),
 )
 
@@ -113,9 +112,10 @@
 
 // ---------- Checks (polygon-aware: rectangles and the sloped rooms) ----------
 #let issues = ()
-#let convex-parts = ("Maid room": (((0, 0), (1.511, 0), (3.2496, 3.2), (1.7, 3.2), (0, 3.2)), ((0, 3.2), (1.7, 3.2), (1.7, 4.7), (0, 4.7))))   // D: the maid room is an L: tested as two convex parts
+#let convex-parts = (:)   // 17 Nov 2026: every room a rectangle (the maid room was an L on the cut until the step)
 #let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join()
-#for (n, P) in shapes { if not P.all(p => inside(p, block)) { issues.push(n + " leaves the block") } }
+#let block-parts = (((0, 0), (2.325, 0), (2.325, 13.0), (0, 13.0)), ((2.325, 3.2), (4.361, 3.2), (4.361, 13.0), (2.325, 13.0)))   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
+#for (n, P) in shapes { if not P.all(p => block-parts.any(B => inside(p, B))) { issues.push(n + " leaves the block") } }
 #for i in range(shapes.len()) {
   for j in range(i + 1, shapes.len()) {
     if shapes.at(i).at(0) != shapes.at(j).at(0) and overlap(shapes.at(i).at(1), shapes.at(j).at(1)) { issues.push(shapes.at(i).at(0) + " overlaps " + shapes.at(j).at(0)) }
@@ -126,7 +126,7 @@
 
 // ---------- Page ----------
 #text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · kitchen, laundry, maid wing · layout study (V10.0; the maid's wing layout D, 10 Nov 2026)]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor V7.1 · block = CSV x 8.95–13.311, y 0–13.0 (NE corner cut) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor V10.0 · block = CSV x 8.95–13.311, y 0–13.0 (the NE corner stepped, 17 Nov 2026) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -143,8 +143,8 @@
     }
     for (n, P, c) in poly-rooms {
       line(..P.map(p => q(..p)), close: true, fill: colours.at(c, default: luma(230)), stroke: 0.6pt + rgb("#3d4a45"))
-      let m = if n == "Maid room" { (0.85, 3.6) } else if n == "Maid bath" { (2.2, 3.55) } else { let c = centroid(P); (c.at(0) + 0.2, c.at(1)) }
-      content(q(..m), align(center, text(6.5pt)[*#n*\ sloped · #r2(area(P)) m²]))
+      let m = if n == "Maid room" { (1.2, 3.1) } else if n == "Maid bath" { (3.4, 4.45) } else { let c = centroid(P); (c.at(0) + 0.2, c.at(1)) }
+      content(q(..m), align(center, text(6.5pt)[*#n*\ #r2(area(P)) m²]))
     }
     for (x0, y0, x1, y1, l) in fixtures {
       rect(q(x0, y0), q(x1, y1), fill: white.transparentize(30%), stroke: 0.4pt + gray)
@@ -172,9 +172,9 @@
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[Rooms]
     #table(columns: (auto, auto, auto), stroke: none, inset: 3pt,
       [*Room*], [*w × d (m)*], [*m²*],
-      ..poly-rooms.map(((n, P, c)) => ([#n], [sloped (to the cut wall)], [#r2(area(P))])).flatten(),
+      ..poly-rooms.map(((n, P, c)) => ([#n], [rectangle (the stepped corner)], [#r2(area(P))])).flatten(),
       ..rows.map(r => ([#r.name], [#r2(r.w) × #r2(r.d)], [#r2(r.w * r.d)])).flatten(),
-      [Leftover slivers along the cut], [], [#r2(leftover)],
+      [Leftover slivers at the corner], [], [#r2(leftover)],
       [*Block*], [], [*#r2(area(block))*],
     )
     #v(6pt)
@@ -189,12 +189,12 @@
     - Kitchen isolated: doors only to the dining area (south) and the laundry (north). No door to the courtyard, riwaq or women's majlis.
     - Kitchen 4.361 × 6.0 m on axes (26.17 m², ≈ 24.0 m² clear, ≈ 4.136 m clear wide), y 7.0–13.0 (V6.4: its north wall is a non-load-bearing partition 0.5 m south of the structural line y 6.5, so the maid room reaches the municipal minimum). No island: two parallel counter runs, the sink run 5.4 m on the courtyard wall and the cooking run 3.0 m (y 8.2–11.2, the hob and hood at y 10.2–11.2 south of the east window) plus the fridge and tall storage on the east outside wall; ≈ 2.94 m between the counter fronts. The heavy (dirty) kitchen; the hospitality kitchen in the west block is the light one.
     - *Laundry (layout D, 10 Nov 2026; `studies/maid_wing.typ` adopted):* across the whole width from the kitchen, y 4.7–6.5 (11 Nov 2026, owner: the kitchen wall on the structural line y 6.5, in line with the majlis wall; 1.8 m deep, ≈ 6.6 m² clear): two washers and a stacked dryer, the tall cupboards and the steam station in one run on the kitchen wall (x 1.75–4.23), the folding / ironing table 1.5 × 0.6 on the majlis wall, a 1.0 m passage, the ceiling drying rack at the east window (y 5.35–6.25, insect screen) with the extract fan (humidity sensor) above it, a floor drain; the door 0.90 from the kitchen on y 6.5 (was an open entrance); no sink, no yard door.
-    - *Maid room (D):* north of the bath, the north tip and the majlis wall: the bed 0.9 × 2.0 on the majlis wall, the main wardrobe 1.35 × 0.6 on the north wall, the shelf wedge in the north tip (front on x 1.7), the bed in the north corner with its head on the north wall, the wardrobe on the majlis wall south of it, the small desk under the escape casement on the cut's north part (y 1.5–2.5: 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen); its one door 0.90 from the laundry at the south-west; ≈ 10.2 m² on axes, ≈ 8.9 m² clear (≥ the 7.28 the house adopted as the municipal minimum; the bath 1.5 m deep since the refinement of 10 Nov 2026).
-    - *Maid bath (D):* against the south part of the cut wall next to the laundry (x 1.7 to the cut, y 3.2–4.7; ≈ 2.8 m² on axes, ≈ 2.5 m² clear): a simple wet room like the guest WC: a wall-mounted shower and mixer in the obtuse south-east corner over a floor drain with falls (tanked and tiled, no tray, no cubicle; a short 10 cm wall only if the WC needs keeping dry), the WC under the window on the cut (y 3.35–3.95, obscured), the basin on the west partition; the door 0.70 from her room only; the drains straight out through the cut wall (≈ 1 m) to the east branch; an extract fan.
+    - *Maid room (D; the step, 17 Nov 2026):* a clean rectangle x 8.95–11.275 × y 0–4.7 on the majlis wall (2.325 × 4.7 on axes, *2.13 × 4.48 clear = 9.51 m²*: ≥ 2.10 m wide and ≥ 6.5 m², the municipal rule of V6.4): the bed 0.9 × 2.0 in the north corner with its head on the north wall, the wardrobe 1.35 × 0.6 on the majlis wall south of it, the small desk under the escape casement on the step's east face (y 1.2–2.3: 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen); its one door 0.90 from the laundry at the south-west; no wedge, no sliver.
+    - *Maid bath (D; the step, 17 Nov 2026):* east of the maid room under the step's wall (x 11.275–13.311 × y 3.2–4.7; 3.05 m² on axes, *1.86 × 1.28 clear = 2.37 m²*): a simple wet room like the guest WC: a wall-mounted shower and mixer in the east corner over a floor drain with falls (tanked and tiled, no tray, no cubicle), the WC on the step's wall under its small obscured window (x 12.5–13.0 on y 3.2), the basin on the south wall; the door 0.70 on its west wall from her room only; the drains straight out through the east wall (≈ 1 m) to the east branch; an extract fan.
     - Main cross walls: y 6.5 (kitchen / laundry, 11 Nov 2026: ON the structural line, under beam B6, one straight line with the women's majlis wall; the V6.4 partition at y 7.0 and its 0.5 m jog are gone) and y 13.0 (dining). Exterior walls and the air tower fixed; all interior walls straight and square. Walls: the maid bath block with waterproofing (wet room); 100 mm for the dry laundry / maid partition; 150–200 mm for walls carrying pipes (maid bath, laundry sink wall).
     - Solid wall (no door, no window) between the maid wing and the women's majlis.
     - The malqaf (V10.0, L5) is at the courtyard's north-west corner: nothing of the air system in this block; no breeze channel under the maid wing.
-    - No store (D): the cut tip is inside the maid room (the shelf wedge).
+    - No store (D); 17 Nov 2026: the slanted cut wall is gone (one orthogonal step at x 11.275 / y 3.2), so there is no tip and no wedge: every room of the block is a rectangle.
     - Plumbing: kitchen, laundry and maid bath drain under the slab straight out to the east, to a manhole in the east service yard; no east duct; the vent stack runs up the outside face of the east wall and the kitchen extract leaves straight through the east wall at the hood. Coordinate drain depths with the air tunnel (also under the east side).
     - Service door (owner decision): a lockable 0.90 m door in the kitchen's east wall at its north end (y 7.2–8.1, V6.4), near the laundry, to the east service yard (rubbish, deliveries, gas); the cooking counter starts 0.1 m south of it (y 8.2); the stack outside the east wall sits between the door and the kitchen window (y 8.1–8.7, 0.6 m: MEP to confirm); the hood (y 10.2–11.2) is clear of the door and of column C32 (y 5.7–6.3). Gas (if used): cylinder cabinet outside the east wall in the service yard.
   ],
