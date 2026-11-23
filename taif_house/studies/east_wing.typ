@@ -7,7 +7,7 @@
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 
 // ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: the NE corner stepped (17 Nov 2026, studies/step_corner.typ option 6: the slant replaced by ONE orthogonal step) ----------
-#let block = ((0, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0))   // idea-ne-corner: the kitchen alone; the corner north of y 6.5 is open ground (the first floor above it)
+#let block = ((0, 4.9), (1.6, 4.9), (1.6, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0))   // GF step 1: the kitchen (an L) + the distribution lobby (x 0–1.6, y 4.9–8.3, a 1.6 × 1.6 piece of the corner); the rest of the corner is open ground
 #let scale = 1.15cm
 
 // ---------- V10.0: the malqaf moved to the courtyard's north-west corner (L5): no air tower in this block; the cut tip is the maid's store ----------
@@ -15,36 +15,37 @@
 // ---------- Rooms: (name, x, y, w, d, colour) · x, y = centre ----------
 // put // in front of a line to switch a room off
 #let rooms-data = (
-  ("Kitchen",   2.1805, 9.75,  4.361, 6.5,   "kitchen"),   // y 6.5–13.0 (11 Nov 2026, owner: the north wall ON the structural line y 6.5, in line with the women's majlis wall; was y 7.0, V6.4)
+  // GF step 1: the kitchen is an L (poly-rooms); no rectangle rooms
 )
 
 // ---------- Rooms at the stepped corner: polygons (name, corner points, colour) · 17 Nov 2026: every room a clean rectangle (the maid room and bath as option 6) ----------
 #let poly-rooms = (
-  // idea-ne-corner: no room north of the kitchen: the corner is outside the ground floor
+  ("Distribution lobby", ((0, 4.9), (1.6, 4.9), (1.6, 6.5), (1.6, 8.3), (0, 8.3)), "lobby"),   // GF step 1: 1.6 × 3.4 on axes (≈ 1.4 × 3.2 clear): four doors (the courtyard, the laundry, the kitchen, the back garden)
+  ("Kitchen", ((0, 8.3), (1.6, 8.3), (1.6, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0)), "kitchen"),   // GF step 1: shorter by the lobby's piece (1.6 × 1.8): 25.47 m² on axes
 )
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
-  (0.1, 7.5, 0.7, 8.9, [sink]),   // the sink moved north with its window (owner, 1 Nov 2026): the window y 7.3–8.9 looks at the fountain and the tree
-  (0.1, 8.9, 0.7, 9.5, [d/w]),
-  (0.1, 9.5, 0.7, 12.9, [counter 0.6]),   // the outdoor TV on the courtyard face of this wall
-  (3.636, 8.2, 4.236, 10.2, [cooking counter 0.6]),   // starts 0.1 south of the service door (V6.4)
-  (3.636, 10.2, 4.236, 11.2, [hob + hood · extract through the east wall]),   // the hood south of the east window (y 8.7–10.1), 2.1 m from the service door, 4.2 m from C32
-  (3.636, 11.2, 4.236, 12.9, [fridge + tall storage]),
-  // idea-ne-corner: the laundry's, the maid bath's and the maid room's fixtures and furniture removed with the rooms
+  (0.1, 8.4, 0.7, 9.9, [sink · d/w]),   // GF step 1: the sink moved 1.2 m south with its courtyard window (y 8.5–10.1)
+  (0.1, 9.9, 0.7, 12.9, [counter 0.6]),
+  (3.636, 6.6, 4.236, 8.1, [fridge + tall storage]),   // the kitchen's north-east part (the old service door's wall, now closed)
+  (3.636, 8.2, 4.236, 10.2, [cooking counter 0.6]),
+  (3.636, 10.2, 4.236, 11.2, [hob + hood · extract through the east wall]),
+  (3.636, 11.2, 4.236, 12.9, [tall storage]),
+  (1.7, 6.6, 3.5, 7.2, [counter 0.6 on the north wall]),
 )
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
   ((0.45, 13.0), (1.55, 13.0), [kitchen ↔ dining]),
-  ((4.361, 7.2), (4.361, 8.1), [service door 0.90 · east yard · lockable]),   // owner decision: north end of the kitchen's east wall, near the laundry (V6.4: moved 0.5 with the wall)
-  ((0.75, 6.5), (1.65, 6.5), [kitchen north door 0.90 · closed · to the open ground]),   // idea-ne-corner: was the open entrance to the laundry; now an outside door
-  // idea-ne-corner: laundry ↔ maid room and maid room ↔ maid bath removed with the rooms
+  ((0.35, 8.3), (1.25, 8.3), [kitchen back door 0.90 → lobby]),
+  ((0.0, 6.9), (0.0, 7.8), [lobby ← courtyard 0.90]),
+  ((0.0, 5.2), (0.0, 6.1), [lobby ← laundry 0.90]),
+  ((1.6, 5.3), (1.6, 6.2), [lobby → back garden 0.90 · the only door]),
 )
 #let windows = (
-  ((0.0, 7.3), (0.0, 8.9), [sink window (courtyard)]),   // moved north over the sink (owner, 1 Nov 2026)
+  ((0.0, 8.5), (0.0, 10.1), [sink window (courtyard), moved south]),
   ((4.361, 8.7), (4.361, 10.1), [kitchen window (east)]),
-  // idea-ne-corner: the maid room's escape casement, the maid bath's window and the laundry's window removed with the rooms
 )
 
 // ---------- Walls that must stay solid ----------
@@ -55,13 +56,15 @@
 // ---------- Neighbours (grey) ----------
 #let neighbours = (
   ((-2.2, 0), (0, 6.5), [Women's majlis]),
-  ((0, 0), (4.361, 6.5), [OPEN GROUND · first floor above on columns]),   // idea-ne-corner: the corner outside the ground floor (the step at (2.325, 3.2) belongs to the first floor's outline)
+  ((0, 0), (4.361, 4.9), [OPEN GROUND · first floor above on columns]),   // idea-ne-corner: the corner outside the ground floor
+  ((1.6, 4.9), (4.361, 6.5), [open ground]),
+  ((-1.8, 2.4), (0, 6.5), [Laundry (in the majlis corner)]),
   ((-2.2, 6.5), (0, 13.0), [Courtyard]),
   ((0, 13.0), (4.361, 14.7), [Living (normal height) · dining]),
 )
 
 // ---------- Helpers ----------
-#let colours = (wc: rgb("#d9e6ec"), maid: rgb("#e4e9d6"), laundry: rgb("#dfe3e6"), kitchen: rgb("#d9e6ec"), empty: rgb("#f3efe6"))
+#let colours = (wc: rgb("#d9e6ec"), maid: rgb("#e4e9d6"), laundry: rgb("#dfe3e6"), kitchen: rgb("#d9e6ec"), empty: rgb("#f3efe6"), lobby: rgb("#f2efe8"))
 #let rows = rooms-data.map(((n, x, y, w, d, c)) => (name: n, x: x, y: y, w: w, d: d, colour: c))
 #let box(r) = (r.x - r.w / 2, r.y - r.d / 2, r.x + r.w / 2, r.y + r.d / 2)
 #let corners(r) = { let (a, b, c, d) = box(r); ((a, b), (c, b), (c, d), (a, d)) }
@@ -93,9 +96,9 @@
 
 // ---------- Checks (polygon-aware: rectangles and the sloped rooms) ----------
 #let issues = ()
-#let convex-parts = (:)
+#let convex-parts = ("Kitchen": (((0, 8.3), (1.6, 8.3), (1.6, 13.0), (0, 13.0)), ((1.6, 6.5), (4.361, 6.5), (4.361, 13.0), (1.6, 13.0))))   // the kitchen is an L: its two convex parts
 #let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join()
-#let block-parts = (block,)   // idea-ne-corner: the kitchen block is a rectangle   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
+#let block-parts = (((0, 4.9), (1.6, 4.9), (1.6, 13.0), (0, 13.0)), ((1.6, 6.5), (4.361, 6.5), (4.361, 13.0), (1.6, 13.0)))   // GF step 1: the block's two convex parts   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
 #for (n, P) in shapes { if not P.all(p => block-parts.any(B => inside(p, B))) { issues.push(n + " leaves the block") } }
 #for i in range(shapes.len()) {
   for j in range(i + 1, shapes.len()) {
@@ -106,8 +109,8 @@
 #let leftover = area(block) - used
 
 // ---------- Page ----------
-#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out: the corner outside the ground floor, the first floor above it on columns; the kitchen alone]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = CSV x 8.95–13.311, y 6.5–13.0 (the kitchen; the corner y 0–6.5 is open ground) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
+#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 1: the distribution lobby, the kitchen an L; the laundry in the majlis corner; the maid room next step]\
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the kitchen + the lobby, CSV x 8.95–13.311 (the lobby x 8.95–10.55 from y 4.9; the rest of the corner is open ground) · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -161,11 +164,11 @@
     #v(6pt)
     #if issues.len() == 0 { text(fill: rgb("#2f6b4f"), weight: "bold")[✓ All rooms inside the block, no overlaps] } else { std.block(fill: rgb("#fbe3dd"), inset: 5pt, radius: 2pt)[#text(fill: rgb("#b5452f"), weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(8pt)
-    #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[The idea (23 Nov 2026, branch idea-ne-corner)]
-    - The north-east corner, x 8.95–13.311 × y 0–6.5 with the step (the maid room G06, the maid bath G05 and the laundry G07 of V11.0), is *outside the ground floor*: open ground, 21.83 m² on axes. Its outer walls (the north wall east of x 8.95, the step's two walls, the east wall from the step to y 6.5) and every inner wall, door, window, fixture and piece of furniture are gone.
-    - *The ground-floor outline* now runs (0, 0) → (8.95, 0) → (8.95, 6.5) → (13.311, 6.5) → (13.311, 24) → (0, 24): the women's majlis east wall (x 8.95, y 0–6.5) and the kitchen's north wall (y 6.5, x 8.95–13.311) are outside walls. Straight lines, nothing else changes.
-    - *The first floor is unchanged:* bedroom 1, its bath F20, the link and the suite's WC closet stand over the open ground on the existing corner columns; the slab's underside insulated; its outline is drawn dashed over the open ground on the ground-floor plan.
-    - *Doors that changed:* the kitchen's open entrance on y 6.5 (x 9.7–10.6) is now a normal closed door 0.90 to the open ground. Nothing else in the kitchen changes (its east service door, its east window, its sink window on the courtyard, its dining door).
-    - *Not in this idea:* the fire study, the plumbing study, the 3D, the DXFs, `tools/check.py` (the block's total is the kitchen's 28.35 m² now).
+    #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 1 (23 Nov 2026, branch idea-ne-corner)]
+    - *Distribution lobby* x 8.95–10.55 × y 4.9–8.3 (1.6 × 3.4 on axes = 5.44 m², ≈ 1.4 × 3.2 = 4.5 m² clear), covered, inside the house, at the courtyard's north-east: the kitchen's north-west part (1.6 × 1.8) plus a 1.6 × 1.6 piece of the old corner, so that it touches the courtyard (x 8.95, y 6.5–8.3), the laundry (x 8.95, y 4.9–6.5), the kitchen (y 8.3 and x 10.55 south of 6.5) and the back garden (y 4.9 and x 10.55 north of 6.5). Its four doors, all 0.90: from the courtyard (x 8.95, y 6.9–7.8), from the laundry (x 8.95, y 5.2–6.1), the kitchen's back door (y 8.3, x 9.3–10.2) and the ONLY outside door of the house to the back garden (x 10.55, y 5.3–6.2). The kitchen's east service door and the closed door on y 6.5 are removed.
+    - *Laundry* in the women's majlis's south-east corner, x 7.15–8.95 × y 2.4–6.5 (1.8 × 4.1 on axes = 7.38 m², ≈ 1.6 × 3.9 = 6.2 m² clear): the washer and the dryer on the east wall x 8.95 (away from the majlis), the sink and the folding counter on the south wall; its door into the lobby; a window onto the back garden (x 8.95, y 2.8–3.8) for air; its west and north walls to the majlis acoustic. *The majlis's courtyard window on y 6.5 is shortened from x 6.0–8.1 to x 6.0–7.1* (the laundry takes that wall from x 7.15): the one change to the majlis's openings; its riwaq door and north window unchanged.
+    - *Kitchen* an L: x 8.95–13.311 × y 6.5–13 minus the lobby's 1.6 × 1.8 = 25.47 m² on axes (≈ 23.3 m² clear; was 28.35 / 26.06): the sink and its courtyard window moved 1.2 m south (y 8.5–10.1; the water trough moves with it, H2 to re-check), the cooking run on the east wall as before, the fridge and tall storage in the north-east part, a counter on the north wall; its doors: the dining (south) and the lobby (north-west).
+    - *Women's majlis* an L: 4.7 × 6.5 minus the laundry = 23.17 m² on axes (≈ 21.0 m² clear; was 30.55 / 28.24).
+    - *Maid room: next step* (a note on the plan near the kitchen; not drawn). The first floor does not change (bedroom 1 still over the back garden); the back garden shrinks to 19.27 m² on axes.
   ],
 )
