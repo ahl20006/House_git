@@ -121,20 +121,23 @@
 )
 // east service block (studies/east_wing.typ: local + (8.95, 0) = CSV)
 #let east-lines = (
-  ((9.7, 6.5), (10.55, 6.5), []),             // open entrance kitchen ↔ laundry (no door); 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
-  ((9.7, 4.7), (10.55, 4.7), []),             // laundry ↔ maid room 0.90 (layout D; 11 Nov 2026: 0.35 m east, in line with the kitchen entrance, the table's end clear; her only door, not from the kitchen)
-  ((11.275, 3.7), (11.275, 4.4), []),         // maid room ↔ maid bath 0.70 on the bath's west wall (17 Nov 2026, the step: the bath x 11.275–13.311 × y 3.2–4.7 east of the room; its door from her room only)
-  ((13.311, 5.35), (13.311, 6.25), []),       // the laundry's window 0.9 onto the east yard (insect screen; the extract fan above it); 11 Nov 2026: the straight east wall now 1.255 m
+  // 23 Nov 2026 · IDEA (branch idea-ne-corner): the maid room (G06), the maid bath (G05) and the laundry (G07) removed; their inner walls, doors, windows, fixtures and furniture gone;
+  // the space stays EMPTY inside the outline (the outer walls, the NE step and the columns unchanged), one row "Empty: for discussion" in data/rooms_gf.csv. LEFT AS IT WAS: the
+  // kitchen's open entrance on y 6.5 (it opened into the laundry; now it opens into the empty space).
+  ((9.7, 6.5), (10.55, 6.5), []),             // the KITCHEN's open entrance (no door) on y 6.5: it opened into the laundry, LEFT (idea-ne-corner); was: open entrance kitchen ↔ laundry; 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
+  // (idea-ne-corner) laundry ↔ maid room 0.90: removed with the rooms (layout D; 11 Nov 2026: 0.35 m east, in line with the kitchen entrance, the table's end clear; her only door, not from the kitchen)
+  // (idea-ne-corner) maid room ↔ maid bath 0.70: removed with the rooms on the bath's west wall (17 Nov 2026, the step: the bath x 11.275–13.311 × y 3.2–4.7 east of the room; its door from her room only)
+  // (idea-ne-corner) the laundry's east window 0.9: removed with the room onto the east yard (insect screen; the extract fan above it); 11 Nov 2026: the straight east wall now 1.255 m
   ((9.4, 13.0), (10.5, 13.0), []),            // kitchen ↔ dining
   ((13.311, 7.2), (13.311, 8.1), []),         // kitchen service door 0.90 to the east yard, lockable (owner decision), north end of the east wall (V6.4: moved 0.5 m with the wall)
   ((8.95, 7.3), (8.95, 8.9), []),             // sink window onto the courtyard, moved north over the sink (owner, 1 Nov 2026): the water trough right under it, the olive's trunk 1.95 m beyond with its crown in the window's top (11 Nov 2026); no TV on this wall (owner, 10 Nov 2026)
   ((13.311, 8.7), (13.311, 10.1), []),        // kitchen window, east
-  ((11.275, 1.2), (11.275, 2.3), []),         // maid room escape window on the step's east face (17 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
-  ((12.5, 3.2), (13.0, 3.2), []),             // maid bath window on the step's north face (17 Nov 2026), obscured, sill +1.5, above the WC
+  // (idea-ne-corner) the maid room's escape casement on the step: removed with the room (17 Nov 2026): one casement 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen (fire safety, 1 Nov 2026)
+  // (idea-ne-corner) the maid bath's window on the step: removed with the room (17 Nov 2026), obscured, sill +1.5, above the WC
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
-#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((9.6, 1.6), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
+#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- The malqaf (V10.0, owner: L5, studies/malqaf_L5.typ): the foot chamber at the courtyard's NORTH-WEST corner, inside the covered strip under the first-floor projection, against the women's majlis's wall, on the wall centre lines (x 4.25–5.80 on axes, 11 Nov 2026: the west wall on the riwaq's straight line, the east wall 0.30 on the column line; y 6.4–8.767; RC 0.20); the shaft above it (y 6.5–7.5) and the head on the roof; drawn blue with the air list ----------
@@ -182,7 +185,7 @@
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor V10.0 · the north-east corner stepped (17 Nov 2026)]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner (empty)* (23 Nov 2026, branch idea-ne-corner: the maid room, the maid bath and the laundry removed; the space left empty for discussion) · the north-east corner stepped (17 Nov 2026)]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
