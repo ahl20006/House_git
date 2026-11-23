@@ -6,7 +6,7 @@
 // windows outside the two studied blocks are indicative.
 #import "@preview/cetz:0.4.2"
 #import "base.typ": land, env, drv, lane, nwall, south, T1, T2, Ms, north, accent, edges, seg-dist, sample
-#import "design_gf.typ": shift, env-gap, outline-csv-gf, outline-gf, tower-csv, shaft-csv
+#import "design_gf.typ": shift, env-gap, outline-csv-gf, outline-csv-gf-floor, outline-gf, tower-csv, shaft-csv
 #import "studies/ff_family.typ" as fam
 #import "studies/ff_suite.typ" as suite
 #import "studies/east_wing.typ" as ew
@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V11-idea · NE corner (empty)])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V11-idea · NE corner out])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -104,7 +104,8 @@
   rect-pts(x - w / 2, y - d / 2, x + w / 2, y + d / 2)
 }
 #let segs(P) = range(P.len()).map(i => (P.at(i), P.at(calc.rem(i + 1, P.len()))))
-#let outer-segs = segs(outline-csv-gf)   // the first floor stands on the ground-floor outline
+#let outer-segs = segs(outline-csv-gf)   // the first floor's outline (unchanged)
+#let outer-segs-gf = outer-segs + segs(outline-csv-gf-floor)   // idea-ne-corner: the ground floor's outside walls (the corner out: x 8.95 and y 6.5 are outside walls now)
 
 // ================= colours by use =================
 #let fills = (
@@ -145,7 +146,8 @@
 #let gf-walls = (
   open: (((sec.x-east, 13.0), (sec.x-east, sec.y-living)),),          // living ↔ dining: one room, ceiling change only
   rail: (),
-  light: (((1.25, 19.4), (2.75, 19.4)), ((11.275, 3.2), (11.275, 4.7)), ((8.95, 4.7), (13.0148, 4.7)), ((1.5, 9.2), (1.5, 10.4)), ((0, 9.2), (1.5, 9.2)), ((0, 10.4), (1.5, 10.4))),   // 100 mm partitions: the maid's wing (layout D, 10 Nov 2026; 17 Nov 2026: the bath's west wall x 11.275 at the step); the shaft's own walls
+  outer: outer-segs-gf,
+  light: (((1.25, 19.4), (2.75, 19.4)), ((1.5, 9.2), (1.5, 10.4)), ((0, 9.2), (1.5, 9.2)), ((0, 10.4), (1.5, 10.4))),   // 100 mm partitions: the maid's wing (layout D, 10 Nov 2026; 17 Nov 2026: the bath's west wall x 11.275 at the step); the shaft's own walls
 )
 #let ff-walls = (
   open: (((2.75, 7.9), (2.75, 9.2)), ((0, 7.9), (2.75, 7.9)), ((sec.pj-wall, sec.y-living), (sec.pj-edge, sec.y-living)), ((8.95, 5.3), (8.95, 6.5)), ((sec.pj-edge, 13.0), (sec.x-east, 13.0)), ((sec.x-court, sec.y-court), (sec.pj-edge, sec.y-court))),   // V7.1: the family living open to the gallery's north end
@@ -154,7 +156,7 @@
 )
 #let wall-t(a, b, spec) = {
   let hit(list) = list.any(s => on-seg(a, ..s) and on-seg(b, ..s))
-  if hit(spec.open) { 0.0 } else if hit(outer-segs) { 0.25 } else if hit(spec.rail) { 0.06 } else if hit(spec.light) { 0.1 } else { 0.2 }
+  if hit(spec.open) { 0.0 } else if hit(spec.at("outer", default: outer-segs)) { 0.25 } else if hit(spec.rail) { 0.06 } else if hit(spec.light) { 0.1 } else { 0.2 }
 }
 #let half-ts(P, spec) = range(P.len()).map(i => wall-t(P.at(i), P.at(calc.rem(i + 1, P.len())), spec) / 2)
 #let clear-poly(r, spec) = offset-poly(r.P, half-ts(r.P, spec))
@@ -367,7 +369,7 @@
   "Bedroom 1": (10.6, 3.0), "Bedroom 2 bath (en-suite)": (1.1, 14.55), "Family WC (gallery)": (2.15, 8.8), "Owner's office": (11.65, 22.4), "Gym": (2.9, 21.15), "Suite court (open to the sky)": (7.4, 22.1),
   "Kids' room (study + gaming)": (5.6, 2.2), "Family living": (5.3, 5.9), "Courtyard (open to the sky)": (7.3, 9.75), "Double-height living (void)": (7.3, 16.0),
 )
-#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Empty: for discussion (2.10 × 6.28 + 2.04 × 3.08 clear)": (10.9, 4.0), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (7.2, 9.55))
+#let gf-label-at = ("Family lobby + riwaq": (3.5, 4.0), "Living (double height)": (6.6, 14.2), "Living (normal height) · dining": (11.1, 14.0), "Men's majlis": (8.0, 22.6), "Women's majlis": (6.6, 4.6), "Kitchen": (11.1, 12.2), "Utility room (shaft inside)": (2.1, 8.5), "Malqaf chamber": (5.1, 8.0), "Family powder room (WC · 2 basins)": (1.75, 13.75), "Guest WC": (1.75, 18.75), "Courtyard": (7.2, 9.55))
 #let plan-len = 0.8cm
 #let okit = yaml("3d/params.yaml").outdoor_kitchen   // V8.1: the outdoor kitchen (the counter at the east wall, the grill and tannour apart), drawn on the site and the ground floor
 #let draw-okit(shift: (0, 0), label: true) = {
@@ -475,6 +477,9 @@
     rect(q((7.9, 7.3)), q((8.85, 9.4)), fill: rgb("#c9a86a"), stroke: 0.5pt + dark); rect(q((8.05, 7.45)), q((8.8, 9.25)), fill: rgb("#bcd9ea"), stroke: none); content(q((8.4, 8.35)), angle: 90deg, text(5pt)[water trough])
     circle(q((6.9, 7.85)), radius: 1.0, fill: rgb("#7fa25a").transparentize(70%), stroke: (paint: rgb("#5a7d2a"), thickness: 0.4pt, dash: "dashed")); circle(q((6.9, 7.85)), radius: 0.5, fill: rgb("#e9d6b8"), stroke: 0.5pt + rgb("#9c6b3c")); content(q((6.9, 7.85)), text(4.4pt)[olive])
     for (x0, y0, x1, y1, k) in ((6.5, 11.3, 8.15, 12.15, "sofa"), (4.45, 10.5, 5.3, 12.1, "sofa"), (7.65, 10.1, 8.4, 10.85, "armchair"), (6.9, 10.4, 7.4, 11.0, "table")) { rect(q((x0, y0)), q((x1, y1)), fill: if k == "table" { rgb("#fbf4e6") } else { rgb("#e9d6b8") }, stroke: 0.5pt + rgb("#9c6b3c")) }
+    // idea-ne-corner: the first floor's outline dashed over the open ground of the north-east corner, with the note
+    line(q((8.95, 0)), q((11.275, 0)), q((11.275, 3.2)), q((13.311, 3.2)), q((13.311, 6.5)), stroke: (paint: dark, thickness: 0.9pt, dash: "dashed"))
+    content(q((11.1, 2.0)), align(center, text(5.2pt, fill: dark)[OPEN GROUND\ first floor above, on columns;\ the slab's underside insulated]))
     north-arrow((17.4, 1.0))
     scale-bar((0, 25.6))
   }),
@@ -484,7 +489,7 @@
 
       *Straight walls (owner, 11 Nov 2026):* no jogs between rooms unless structural; the riwaq's line and the laundry / kitchen wall straightened. *West band (the owner's review, 10 Nov 2026):* the lift (installed at construction), the open stair (flipped, V8.2, the coat cupboard in its start strip); *one utility room with one door from the riwaq*: the west service *shaft* (x 0–1.5, y 9.2–10.4, unchanged; its maintenance door with 0.9 m clear in front), the panel, the heater and the manifold on the walls, and the *low part under the stair's half landing* (1.65 m) for the future batteries and inverter (the wall between them opened: a note for the engineer; the store's door removed); then the west wash block (sheet 06): the *family powder room* redrawn, *open to the riwaq (a 1.35 m opening, no door)*: *two basins under a large mirror* straight ahead, the *WC compartment across the full width* at the far end (only the WC and one basin, the only door, seen from the riwaq only obliquely); the guest side two rectangles side by side onto the guest passage: the *guest WC* (1.5 × 1.9, its door from the basins room as before; only the WC and a shower mixer on the wall) and next to it the *three guest basins in one straight row* with a mirror (1.5 × 2.0, a 1.8 m opening); all drains into the west run. The riwaq #wd(gf-rooms, "Family lobby + riwaq") m runs along the courtyard.
 
-      *East block · V11-idea · NE corner (empty), 23 Nov 2026 (branch `idea-ne-corner`):* the maid room, the maid bath and the laundry are removed with their inner walls, doors, windows, fixtures and furniture; the space they leave stays *empty inside the outline* (the outer walls, the north-east step and the columns exactly as they are): #gfa("Empty: for discussion (2.10 × 6.28 + 2.04 × 3.08 clear)") m² on axes, *2.10 × 6.28 m on the majlis wall plus 2.04 × 3.08 m east of the step = 19.44 m² clear*, labelled "empty: for discussion". Nothing else changes: the kitchen with its doors and windows, the courtyard, the first floor (bedroom 1 and everything above it stand over the space as before), the site. Left as it was: the kitchen's open entrance on y 6.5, which opened into the laundry.
+      *East block · V11-idea · NE corner out, 23 Nov 2026 (branch `idea-ne-corner`):* the north-east corner, x 8.95–13.311 × y 0–6.5 with the step (the maid room, the maid bath and the laundry of V11.0), is *outside the ground floor*: open ground, 21.83 m² on axes, 2.10 × 6.28 + 2.04 × 3.08 = 19.44 m² inside the former wall faces. Its outer walls (the north wall east of x 8.95, the step's two walls, the east wall from the step to y 6.5) are gone; the ground-floor outline runs (0, 0) → (8.95, 0) → (8.95, 6.5) → (13.311, 6.5) → (13.311, 24) → (0, 24): the women's majlis east wall and the kitchen's north wall are outside walls, straight lines. *The first floor does not change:* bedroom 1, its bath F20, the link and the suite's WC closet stand over the open ground on the existing corner columns (its outline dashed on the plan; the slab's underside insulated). *The one door that changed:* the kitchen's open entrance on y 6.5 (x 9.7–10.6) is a normal closed door 0.90 to the open ground; nothing else in the kitchen changes.
 
       *Courtyard (H2, owner 11 Nov 2026):* level, *no TV*; *outlet → olive → water:* the malqaf outlet raised (+0.60…+1.60, louvres fixed 15° SE), the *olive in a fixed pot in the jet's path*, the *trough* under the sink window; *6 seats with backs* facing the olive and the water, the zone extended under the projection with a 1.1 m path from the riwaq door. *Winter sun-seat: the suite court (sheet 03).* *Outside (V8.3):* the outdoor counter and sink next to the kitchen service door (canopy optional), the grill and tannour a little apart in the yard's south part (≥ 3 m from every opening, downwind); the yard screen, the gas cabinet at its north end, the bins north of the door.
     ]
@@ -494,7 +499,7 @@
       #ah[الشريط الغربي والرواق]
       المصعد والدرج المفتوح (معكوس الاتجاه في V8.2: الجزء السفلي يصعد جنوبا من الردهة خلف درابزين أسود، ودولاب المعاطف في النصف الغربي من شريط البداية)، ثم (مراجعة المالك 10 نوفمبر 2026) غرفة خدمات واحدة بباب واحد من الرواق: الشفت الغربي بحجمه ومكانه (بابه وأمامه 0.9 م)، واللوحة والسخان والمجمّع على الجدران، والجزء المنخفض تحت بسطة الدرج للبطاريات والعاكس مستقبلا (يُفتح الجدار بينهما، ملاحظة للمهندس، ويُلغى باب المخزن). وفي كتلة المغاسل (أعيد رسمها): مغاسل العائلة مفتوحة على الرواق بفتحة 1.35 م بلا باب، وحجرة المرحاض بكامل العرض (مرحاض ومغسلة واحدة، بابها الوحيد لا يُرى من الرواق إلا بزاوية) ومغسلتان بمرآة أمام المدخل؛ وللضيوف مستطيلان متجاوران على الممر: دورة مياه (مرحاض وخلاط دش على الجدار، بابها من المغاسل) وبجوارها ثلاث مغاسل في صف مستقيم خلف فتحة واسعة. الرواق #wd(gf-rooms, "Family lobby + riwaq") م على طول الفناء.
       #ah[الكتلة الشرقية ومجلس الرجال]
-      فكرة 23 نوفمبر 2026 (الفرع idea-ne-corner): تُحذف غرفة الخادمة وحمامها والغسيل بجدرانها الداخلية وأبوابها ونوافذها وتجهيزاتها، ويبقى مكانها فارغًا داخل الحدود (الجدران الخارجية والدرجة والأعمدة كما هي): #gfa("Empty: for discussion (2.10 × 6.28 + 2.04 × 3.08 clear)") م² على المحاور، 2.10 × 6.28 + 2.04 × 3.08 = 19.44 م² صافية، «فارغ: للنقاش». لا يتغير شيء آخر: المطبخ بأبوابه ونوافذه والفناء والدور الأول والموقع؛ ومدخل المطبخ المفتوح على y 6.5 يبقى كما هو. مجلس الرجال بكامل العرض جنوبًا.
+      فكرة 23 نوفمبر 2026 (الفرع idea-ne-corner): الركن الشمالي الشرقي x 8.95–13.311 × y 0–6.5 بدرجته (غرفة الخادمة وحمامها والغسيل) خارج الدور الأرضي: أرض مكشوفة 21.83 م² على المحاور (19.44 م² صافية) تحت الدور الأول القائم على أعمدة الركن (عزل أسفل البلاطة). تُزال جدرانه الخارجية؛ ويصير حد الدور الأرضي: جدار مجلس النساء الشرقي (x 8.95) وجدار المطبخ الشمالي (y 6.5) جدارين خارجيين بخطوط مستقيمة. الدور الأول لا يتغير. الباب الوحيد المتغير: مدخل المطبخ على y 6.5 يصبح بابًا مغلقًا 0.90 م إلى الأرض المكشوفة. مجلس الرجال بكامل العرض جنوبًا.
       #ah[الأعمدة والرواق]
       #sec.pj.columns أعمدة على x #n2(sec.pj.col-x) (في جدار مجلس النساء الجنوبي، وبين زجاج الفناء والصالة، وفي جدار الصالة الجنوبي) تحمل جسر حافة البروز في الدور الأول (الخط البرتقالي المتقطع)، فيصبح على حافة الفناء رواق بأعمدة وثلاثة أقواس.
       #ah[الفناء (معدل V8.3)]
@@ -653,7 +658,7 @@
 
       Guest side (owner, 11 Nov 2026): the guest WC with its 0.90 door from the basins room, back on its south wall as before the redraw (inside only the WC and a shower mixer on the wall: no shower zone, no floor marking), and next to it the three basins in one row, open to the guest passage through a 1.8 m opening; the guest passage and the foyer with a #dw((0, 21.5)) m double door and a #dw((2.75, 22.15)) m opening into the men's majlis (a bent entry, partial).
 
-      *East service block:* kitchen #wd(gf-rooms, "Kitchen") m on the courtyard lines (two parallel runs, no island, door to the dining only); the sink under its courtyard window (y 7.3–8.9, V8.0) with the dishwasher south of it, the outdoor TV on the other face of the wall further south; *V11-idea · NE corner (empty), 23 Nov 2026: the maid room, the maid bath and the laundry are removed with their inner walls, doors, windows, fixtures and furniture; the space they leave stays empty inside the outline (the outer walls, the step and the columns unchanged): #gfa("Empty: for discussion (2.10 × 6.28 + 2.04 × 3.08 clear)") m² on axes, 2.10 × 6.28 + 2.04 × 3.08 = 19.44 m² inside the wall faces, for discussion; the kitchen's open entrance on y 6.5 is left as it was and now opens into the empty space.* *The malqaf (V10.0, L5)* is no longer in this block: its core stands at the courtyard's north-west corner (the breeze outlet in the first arch, the filtered supply fan in the foot chamber, the head 1.6 × 2.4 on the roof).
+      *East service block:* kitchen #wd(gf-rooms, "Kitchen") m on the courtyard lines (two parallel runs, no island, door to the dining only); the sink under its courtyard window (y 7.3–8.9, V8.0) with the dishwasher south of it, the outdoor TV on the other face of the wall further south; *V11-idea · NE corner out, 23 Nov 2026: the north-east corner (the maid room, the maid bath and the laundry) is outside the ground floor: open ground 21.83 m² on axes under the first floor, which stands on the corner columns (the slab's underside insulated); the kitchen's north wall and the women's majlis east wall are outside walls; the kitchen's open entrance on y 6.5 is a closed 0.90 door to the open ground.* *The malqaf (V10.0, L5)* is no longer in this block: its core stands at the courtyard's north-west corner (the breeze outlet in the first arch, the filtered supply fan in the foot chamber, the head 1.6 × 2.4 on the roof).
     ]
     #ar[
       #ah[كتلة المغاسل الغربية]
@@ -663,7 +668,7 @@
       #ah[جهة الضيوف]
       دورة الضيوف بابها من غرفة المغاسل كما كان (قرار المالك 11 نوفمبر 2026؛ داخلها المرحاض وخلاط دش على الجدار فقط، بلا منطقة دش)، وبجوارها ثلاث مغاسل في صف مفتوحة على الممر بفتحة 1.8 م، وممر الضيوف، والبهو بباب مزدوج #dw((0, 21.5)) م وفتحة #dw((2.75, 22.15)) م إلى المجلس (مدخل منكسر جزئي).
       #ah[الكتلة الشرقية]
-      المطبخ #wd(gf-rooms, "Kitchen") م على خطوط الفناء بخطي خزائن وبلا جزيرة وبابه إلى الطعام فقط، والحوض تحت نافذته على الفناء (y 7.3–8.9) وغسالة الصحون جنوبه؛ وفكرة 23 نوفمبر 2026: تُحذف غرفة الخادمة وحمامها والغسيل بجدرانها الداخلية وأبوابها ونوافذها وتجهيزاتها، ويبقى مكانها فارغًا داخل الحدود (#gfa("Empty: for discussion (2.10 × 6.28 + 2.04 × 3.08 clear)") م² على المحاور، 19.44 م² صافية) للنقاش، ومدخل المطبخ المفتوح على y 6.5 يبقى كما هو؛ والملقف (V10.0) انتقل إلى الركن الشمالي الغربي للفناء: غرفة قاعدته داخل الممر المسقوف، وفتحة النسيم في أول قوس من الرواق مقابل الجلسة، ورأسه 1.6 × 2.4 م فوق السطح.
+      المطبخ #wd(gf-rooms, "Kitchen") م على خطوط الفناء بخطي خزائن وبلا جزيرة وبابه إلى الطعام فقط، والحوض تحت نافذته على الفناء (y 7.3–8.9) وغسالة الصحون جنوبه؛ وفكرة 23 نوفمبر 2026: الركن الشمالي الشرقي (غرفة الخادمة وحمامها والغسيل) خارج الدور الأرضي: أرض مكشوفة 21.83 م² تحت الدور الأول القائم على أعمدة الركن، وجدار المطبخ الشمالي وجدار مجلس النساء الشرقي جداران خارجيان، ومدخل المطبخ على y 6.5 باب مغلق 0.90 م؛ والملقف (V10.0) انتقل إلى الركن الشمالي الغربي للفناء: غرفة قاعدته داخل الممر المسقوف، وفتحة النسيم في أول قوس من الرواق مقابل الجلسة، ورأسه 1.6 × 2.4 م فوق السطح.
     ]
   ],
 )

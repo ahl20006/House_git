@@ -45,8 +45,11 @@
 // ---------- Building outline (wall centre lines, CSV coordinates) ----------
 // 8 Nov 2026 (owner): after the house moved 0.5104 m further south the cut wall moved outwards a further 0.24 m, parallel (B2 10.188 → 10.461, B3 y 5.749 → 5.245; 0.42 m from the wall as built again, the same 2 cm cushion at the 2.30 field reading). 6 Nov 2026 (owner, field 2.30 m to the wall at the tightest point): the cut wall moved outwards 0.12 m, parallel (B2 10.051 → 10.188, B3 y 6.0 → 5.749; ≈ 0.42 m from the wall as built). pentagon: north-east corner cut parallel to the lane from (10.461, 0) to (13.311, 5.245), then the east wall straight south; south wall at y 24.0
 // 17 Nov 2026 (owner, studies/step_corner.typ option 6): the slanted cut wall replaced by ONE orthogonal step: the north wall ends at x 11.275, the step's wall on y 3.2, the east wall from y 3.2; with the house 1.3 m further south the margins are 1.06 m (deed line) and 0.44 m (2.0 m from the wall as built), both better than the slant's.
-#let outline-csv-gf = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 24.0), (0, 24.0))
-#let outline-gf = outline-csv-gf.map(place)
+#let outline-csv-gf = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 24.0), (0, 24.0))   // the FIRST floor's outline (unchanged: design_ff.typ, sections.typ, the 3D and the DXFs read it)
+// 23 Nov 2026 · IDEA (branch idea-ne-corner): the north-east corner x 8.95–13.311 × y 0–6.5 (with the step) is OUTSIDE the ground floor: open ground under the first floor, which stands
+// on the existing corner columns (the slab's underside insulated). The ground-floor outline runs along the women's majlis east wall (x 8.95, y 0–6.5) and the kitchen's north wall (y 6.5).
+#let outline-csv-gf-floor = ((0, 0), (8.95, 0), (8.95, 6.5), (13.311, 6.5), (13.311, 24.0), (0, 24.0))
+#let outline-gf = outline-csv-gf-floor.map(place)   // the GROUND floor as drawn and checked here
 
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
 #let outer-wall = 0.125
@@ -89,7 +92,8 @@
 }).fold((), (acc, m) => acc + m)
 
 // ceiling-height change inside the living room (one open room, no wall), and the first-floor edges above this floor
-#let level-marks = (((place((8.95, 13.0)), place((8.95, 19.25))), [ceiling height change]), ((place((5.8, 6.5)), place((5.8, 19.25))), [FF projection edge (beam + window W1) above]))
+#let level-marks = (((place((8.95, 0)), place((11.275, 0))), [first floor above, on columns; the slab's underside insulated]), ((place((11.275, 0)), place((11.275, 3.2))), []), ((place((11.275, 3.2)), place((13.311, 3.2))), []), ((place((13.311, 3.2)), place((13.311, 6.5))), []),   // idea-ne-corner: the first-floor outline over the open ground
+  ((place((8.95, 13.0)), place((8.95, 19.25))), [ceiling height change]), ((place((5.8, 6.5)), place((5.8, 19.25))), [FF projection edge (beam + window W1) above]))
 
 // ---------- Doors, openings, windows and special walls (CSV): ((x1, y1), (x2, y2), label) · the // comment names each line ----------
 // labels left empty at this scale; output/guest_wing.pdf and output/east_wing.pdf carry the full labels
@@ -121,10 +125,9 @@
 )
 // east service block (studies/east_wing.typ: local + (8.95, 0) = CSV)
 #let east-lines = (
-  // 23 Nov 2026 · IDEA (branch idea-ne-corner): the maid room (G06), the maid bath (G05) and the laundry (G07) removed; their inner walls, doors, windows, fixtures and furniture gone;
-  // the space stays EMPTY inside the outline (the outer walls, the NE step and the columns unchanged), one row "Empty: for discussion" in data/rooms_gf.csv. LEFT AS IT WAS: the
-  // kitchen's open entrance on y 6.5 (it opened into the laundry; now it opens into the empty space).
-  ((9.7, 6.5), (10.55, 6.5), []),             // the KITCHEN's open entrance (no door) on y 6.5: it opened into the laundry, LEFT (idea-ne-corner); was: open entrance kitchen ↔ laundry; 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
+  // 23 Nov 2026 · IDEA (branch idea-ne-corner): the maid room (G06), the maid bath (G05) and the laundry (G07) removed, and the north-east corner taken OUT of the ground floor
+  // (open ground under the first floor on the corner columns); the kitchen's north wall and the women's majlis east wall are outside walls now.
+  ((9.7, 6.5), (10.6, 6.5), []),              // the kitchen's NORTH DOOR 0.90, a normal closed door to the open ground (idea-ne-corner; was the open entrance to the laundry on y 6.5); 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
   // (idea-ne-corner) laundry ↔ maid room 0.90: removed with the rooms (layout D; 11 Nov 2026: 0.35 m east, in line with the kitchen entrance, the table's end clear; her only door, not from the kitchen)
   // (idea-ne-corner) maid room ↔ maid bath 0.70: removed with the rooms on the bath's west wall (17 Nov 2026, the step: the bath x 11.275–13.311 × y 3.2–4.7 east of the room; its door from her room only)
   // (idea-ne-corner) the laundry's east window 0.9: removed with the room onto the east yard (insect screen; the extract fan above it); 11 Nov 2026: the straight east wall now 1.255 m
@@ -185,7 +188,7 @@
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner (empty)* (23 Nov 2026, branch idea-ne-corner: the maid room, the maid bath and the laundry removed; the space left empty for discussion) · the north-east corner stepped (17 Nov 2026)]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out* (23 Nov 2026, branch idea-ne-corner: the north-east corner x 8.95–13.311 × y 0–6.5 is outside the ground floor, open ground; the first floor above it on the corner columns, the slab's underside insulated; the maid room, the maid bath and the laundry removed)]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
