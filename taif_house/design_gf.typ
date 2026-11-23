@@ -49,7 +49,7 @@
 #let outline-csv-gf = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 24.0), (0, 24.0))
 // 23 Nov 2026 · IDEA (branch idea-ne-corner): the north-east corner x 8.95–13.311 × y 0–6.5 (with the step) is OUTSIDE the ground floor: open ground under the first floor, which stands
 // on the existing corner columns (the slab's underside insulated). The ground-floor outline runs along the women's majlis east wall (x 8.95, y 0–6.5) and the kitchen's north wall (y 6.5).
-#let outline-csv-gf-floor = ((0, 0), (8.95, 0), (8.95, 3.3), (10.55, 3.3), (10.55, 6.5), (13.311, 6.5), (13.311, 24.0), (0, 24.0))   // GF step 2: the distribution lobby runs y 3.3–8.3 (a 1.6 × 3.2 piece of the corner); two re-entrant steps in the outside wall
+#let outline-csv-gf-floor = ((0, 0), (11.275, 0), (11.275, 6.5), (13.311, 6.5), (13.311, 24.0), (0, 24.0))   // GF step 3: the lobby and the maid room run to the north facade (x 8.95–11.275, under the first floor's north wall); ONE re-entrant step at (11.275, 6.5)
 #let outline-gf = outline-csv-gf-floor.map(place)   // the GROUND floor as drawn and checked here
 
 // ---------- Building against the envelope: outer wall face = centre line + 0.125 m (250 mm outer walls) ----------
@@ -129,18 +129,18 @@
   // 23 Nov 2026 · IDEA (branch idea-ne-corner): the maid room (G06), the maid bath (G05) and the laundry (G07) removed, and the north-east corner taken OUT of the ground floor
   // (open ground under the first floor on the corner columns); the kitchen's north wall and the women's majlis east wall are outside walls now.
   // GF step 1 (23 Nov 2026): a DISTRIBUTION LOBBY x 8.95–10.55 × y 4.9–8.3 (the kitchen's north-west part + a 1.6 × 1.6 piece of the corner) between the courtyard, the laundry, the kitchen and the back garden;
-  // GF step 2 (24 Nov 2026): the MAID ROOM (x 6.6–8.95 × y 1.55–4.9) and her BATH (y 0–1.55) a north–south strip on the majlis's east wall, taken from its width; the majlis keeps its whole
-  // south side on the courtyard (an L: the corner x 6.6–8.95 × y 4.9–6.5 stays majlis, its courtyard window back to full length); the LAUNDRY beside the lobby on the kitchen's north side
-  // (x 10.55–13.311 × y 6.5–8.6) with its window onto the back garden; the lobby y 3.3–8.3 with five doors
+  // GF step 3 (24 Nov 2026): the LOBBY x 8.95–11.275 widened and run to the north facade, the MAID ROOM in its north end (y 0–3.35, her escape casement on the facade, her door into the lobby);
+  // the strip from the majlis as narrow as possible (x 7.25–8.95, 1.5 m clear) the full depth: the MAID BATH at its north end (y 0–1.9, from her room only), the LAUNDRY in the rest down to the
+  // courtyard wall (an exhaust fan, the machines on its east wall, the majlis wall acoustic); the majlis a clean rectangle x 4.25–7.25; the kitchen's north-east part back
   ((8.95, 6.9), (8.95, 7.8), []),             // lobby ← COURTYARD door 0.90 on the courtyard's east wall
-  ((8.95, 3.7), (8.95, 4.6), []),             // lobby ← MAID ROOM door 0.90 (her only door)
-  ((10.55, 7.0), (10.55, 7.9), []),           // lobby → LAUNDRY door 0.90
-  ((7.0, 1.55), (7.7, 1.55), []),             // maid room ↔ her bath 0.70 (from her room only)
+  ((9.6, 3.35), (10.5, 3.35), []),            // lobby ← MAID ROOM door 0.90 (her only door), in the lobby's north wall
+  ((8.95, 5.3), (8.95, 6.2), []),             // lobby ← LAUNDRY door 0.90
+  ((8.95, 0.6), (8.95, 1.3), []),             // maid room → her bath 0.70 (from her room only)
   ((9.3, 8.3), (10.2, 8.3), []),              // lobby ← KITCHEN back door 0.90 (the kitchen's east service door and the closed door on y 6.5 are removed)
-  ((10.55, 5.3), (10.55, 6.2), []),           // lobby → BACK GARDEN: the ONLY outside door of the house to the back garden (0.90, in the lobby's east wall)
-  ((8.95, 2.3), (8.95, 3.4), []),             // the maid room's escape casement on the east wall onto the back garden, 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen
-  ((8.95, 0.5), (8.95, 1.1), []),             // the maid bath's small window on the east wall, obscured, sill +1.5
-  ((11.5, 6.5), (12.4, 6.5), []),             // the laundry's window onto the back garden (air), in its north wall 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
+  ((11.275, 4.5), (11.275, 5.4), []),         // lobby → BACK GARDEN: the ONLY outside door of the house to the back garden (0.90, in the lobby's east wall under the first floor)
+  ((9.5, 0), (10.64, 0), []),                 // the maid room's escape casement on the north facade, 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen
+  ((7.7, 0), (8.3, 0), []),                   // the maid bath's small window on the north facade, obscured, sill +1.5
+  // the laundry: no window (an exhaust fan); the kitchen's north-east part back where the step-2 laundry was 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
   // (idea-ne-corner) laundry ↔ maid room 0.90: removed with the rooms (layout D; 11 Nov 2026: 0.35 m east, in line with the kitchen entrance, the table's end clear; her only door, not from the kitchen)
   // (idea-ne-corner) maid room ↔ maid bath 0.70: removed with the rooms on the bath's west wall (17 Nov 2026, the step: the bath x 11.275–13.311 × y 3.2–4.7 east of the room; its door from her room only)
   // (idea-ne-corner) the laundry's east window 0.9: removed with the room onto the east yard (insect screen; the extract fan above it); 11 Nov 2026: the straight east wall now 1.255 m
@@ -153,7 +153,7 @@
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
-#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((7.8, 3.8), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
+#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((10.1, 2.6), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- The malqaf (V10.0, owner: L5, studies/malqaf_L5.typ): the foot chamber at the courtyard's NORTH-WEST corner, inside the covered strip under the first-floor projection, against the women's majlis's wall, on the wall centre lines (x 4.25–5.80 on axes, 11 Nov 2026: the west wall on the riwaq's straight line, the east wall 0.30 on the column line; y 6.4–8.767; RC 0.20); the shaft above it (y 6.5–7.5) and the head on the roof; drawn blue with the air list ----------
@@ -201,7 +201,7 @@
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 2* (24 Nov 2026, branch idea-ne-corner: the corner outside the ground floor, the first floor above it on columns; the maid room and her bath a strip on the women's majlis's east side; the laundry beside the distribution lobby on the kitchen's north side; the lobby's five doors)]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 3* (24 Nov 2026, branch idea-ne-corner: the lobby to the north facade with the maid room in its north end; the laundry and the maid bath in a 1.5 m strip from the majlis; the majlis a rectangle; the kitchen's north-east part back; one step in the outside wall at (11.275, 6.5))]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
