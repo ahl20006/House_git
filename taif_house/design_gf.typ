@@ -133,9 +133,8 @@
   // the strip from the majlis as narrow as possible (x 7.25–8.95, 1.5 m clear) the full depth: the MAID BATH at its north end (y 0–1.9, from her room only), the LAUNDRY in the rest down to the
   // courtyard wall (an exhaust fan, the machines on its east wall, the majlis wall acoustic); the majlis a clean rectangle x 4.25–7.25; the kitchen's north-east part back
   ((8.95, 6.9), (8.95, 7.8), []),             // lobby ← COURTYARD door 0.90 on the courtyard's east wall
-  ((9.6, 3.35), (10.5, 3.35), []),            // lobby ← MAID ROOM door 0.90 (her only door), in the lobby's north wall
-  ((8.95, 5.3), (8.95, 6.2), []),             // lobby ← LAUNDRY door 0.90
-  ((8.95, 0.6), (8.95, 1.3), []),             // maid room → her bath 0.70 (from her room only)
+  // GF step 5 (24 Nov 2026): the maid bath, the laundry, the maid room and the lobby ONE OPEN SPACE with no inner partitions (to be planned later): the three inner doors (the maid room's,
+  // the laundry's, the bath's) removed; the boundary kept exactly: the outside walls with their windows, the majlis wall x 7.25 (no door), the courtyard wall, the kitchen's north wall y 8.3
   ((9.3, 8.3), (10.2, 8.3), []),              // lobby ← KITCHEN back door 0.90 (the kitchen's east service door and the closed door on y 6.5 are removed)
   // GF step 4 (24 Nov 2026): the lobby / kitchen wall y 8.3 runs to the east wall: the kitchen a rectangle x 8.95–13.311 × y 8.3–13, the lobby an L reaching the east wall with a window there
   ((11.8, 6.5), (12.7, 6.5), []),             // lobby → BACK GARDEN: the ONLY outside door of the house to the back garden (0.90), moved to the lobby's north wall y 6.5 in its east arm (GF step 4; was on x 11.275)
@@ -155,7 +154,7 @@
 )
 #let door-marks = (west-lines + east-lines).map(((a, b, l)) => ((place(a), place(b)), l))
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): interconnected mains smoke alarms (S), the kitchen heat alarm (H), one CO alarm (CO), the gas detector (G), extinguishers (E), the fire blanket (B): drawn as short marks
-#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((10.1, 2.6), [S · maid room]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
+#let safety = (((3.4, 3.0), [S · stair foot]), ((6.5, 16.1), [S · void ceiling]), ((11.0, 16.1), [S · dining]), ((11.0, 10.0), [H · kitchen]), ((9.9, 11.5), [CO]), ((13.0, 10.7), [G · hob]), ((12.8, 8.5), [E · kitchen]), ((12.2, 12.6), [B · blanket]), ((2.95, 4.3), [E · stair]))
 #let safety-marks = safety.map(((p, l)) => ((place(p), place((p.at(0) + 0.3, p.at(1)))), l))
 
 // ---------- The malqaf (V10.0, owner: L5, studies/malqaf_L5.typ): the foot chamber at the courtyard's NORTH-WEST corner, inside the covered strip under the first-floor projection, against the women's majlis's wall, on the wall centre lines (x 4.25–5.80 on axes, 11 Nov 2026: the west wall on the riwaq's straight line, the east wall 0.30 on the column line; y 6.4–8.767; RC 0.20); the shaft above it (y 6.5–7.5) and the head on the roof; drawn blue with the air list ----------
@@ -203,7 +202,7 @@
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 4* (24 Nov 2026, branch idea-ne-corner: the lobby / kitchen wall y 8.3 to the east wall: the kitchen an exact rectangle, the lobby an L with a window on the east wall and the only outside door in its north wall; the maid room in the lobby's north end, the laundry and the maid bath in the 1.5 m strip, the majlis a rectangle; one step in the outside wall at (11.275, 6.5))]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 5* (24 Nov 2026, branch idea-ne-corner: the whole service area, from the women's majlis wall x 7.25 to the east wall, north of the kitchen and the courtyard, ONE OPEN SPACE with no inner partitions, to be planned later; the kitchen an exact rectangle; one step in the outside wall at (11.275, 6.5))]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
