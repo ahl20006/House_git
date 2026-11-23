@@ -137,7 +137,9 @@
   ((8.95, 5.3), (8.95, 6.2), []),             // lobby ← LAUNDRY door 0.90
   ((8.95, 0.6), (8.95, 1.3), []),             // maid room → her bath 0.70 (from her room only)
   ((9.3, 8.3), (10.2, 8.3), []),              // lobby ← KITCHEN back door 0.90 (the kitchen's east service door and the closed door on y 6.5 are removed)
-  ((11.275, 4.5), (11.275, 5.4), []),         // lobby → BACK GARDEN: the ONLY outside door of the house to the back garden (0.90, in the lobby's east wall under the first floor)
+  // GF step 4 (24 Nov 2026): the lobby / kitchen wall y 8.3 runs to the east wall: the kitchen a rectangle x 8.95–13.311 × y 8.3–13, the lobby an L reaching the east wall with a window there
+  ((11.8, 6.5), (12.7, 6.5), []),             // lobby → BACK GARDEN: the ONLY outside door of the house to the back garden (0.90), moved to the lobby's north wall y 6.5 in its east arm (GF step 4; was on x 11.275)
+  ((13.311, 7.0), (13.311, 7.9), []),         // the lobby's window on the east outside wall (light), GF step 4)
   ((9.5, 0), (10.64, 0), []),                 // the maid room's escape casement on the north facade, 1.14 × 1.00, sill +1.10, obscured below +1.60, no screen
   ((7.7, 0), (8.3, 0), []),                   // the maid bath's small window on the north facade, obscured, sill +1.5
   // the laundry: no window (an exhaust fan); the kitchen's north-east part back where the step-2 laundry was 11 Nov 2026 (owner, the straight-walls rule): the kitchen's north wall ON the structural line y 6.5, one line with the women's majlis wall (was y 7.0, V6.4)
@@ -201,7 +203,7 @@
 #pagebreak()
 #text(17pt, fill: accent, weight: "bold")[Design idea and philosophy]
 #v(2pt)
-#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 3* (24 Nov 2026, branch idea-ne-corner: the lobby to the north facade with the maid room in its north end; the laundry and the maid bath in a 1.5 m strip from the majlis; the majlis a rectangle; the kitchen's north-east part back; one step in the outside wall at (11.275, 6.5))]
+#text(9pt, fill: gray)[Taif / Palm House · Ground floor · *V11-idea · NE corner out, GF step 4* (24 Nov 2026, branch idea-ne-corner: the lobby / kitchen wall y 8.3 to the east wall: the kitchen an exact rectangle, the lobby an L with a window on the east wall and the only outside door in its north wall; the maid room in the lobby's north end, the laundry and the maid bath in the 1.5 m strip, the majlis a rectangle; one step in the outside wall at (11.275, 6.5))]
 #v(4pt)
 #line(length: 100%, stroke: 0.7pt + accent)
 #v(8pt)
