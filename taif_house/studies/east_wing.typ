@@ -7,7 +7,7 @@
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 
 // ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: the NE corner stepped (17 Nov 2026, studies/step_corner.typ option 6: the slant replaced by ONE orthogonal step) ----------
-#let block = ((-1.7, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0), (0, 6.5), (-1.7, 6.5))   // GF step 5: the open space (from the majlis wall, CSV x 7.25 = local −1.7, to the east wall, north of the kitchen and the courtyard) and the kitchen
+#let block = ((-1.7, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0), (0, 6.5), (-1.7, 6.5))   // GF step 6: the malqaf chamber inside the block's SW corner (local x −1.7–0 × y 4.3–6.5) · GF step 5: the open space (from the majlis wall, CSV x 7.25 = local −1.7, to the east wall, north of the kitchen and the courtyard) and the kitchen
 #let scale = 1.15cm
 
 // ---------- V10.0: the malqaf moved to the courtyard's north-west corner (L5): no air tower in this block; the cut tip is the maid's store ----------
@@ -20,12 +20,13 @@
 
 // ---------- Rooms at the stepped corner: polygons (name, corner points, colour) · 17 Nov 2026: every room a clean rectangle (the maid room and bath as option 6) ----------
 #let poly-rooms = (
-  ("Open space: to be planned (3.80 × 6.28 + 4.14 × 1.80 clear)", ((-1.7, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 8.3), (0, 8.3), (0, 6.5), (-1.7, 6.5)), "lobby"),   // GF step 5: one open space, no inner partitions: 34.01 m² on axes
+  ("Open space: to be planned", ((-1.7, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 8.3), (0, 8.3), (0, 4.3), (-1.7, 4.3)), "lobby"),   // GF step 6: minus the malqaf chamber: 30.27 m² on axes · GF step 5: one open space, no inner partitions
+  ("Malqaf chamber", ((-1.7, 4.3), (0, 4.3), (0, 6.5), (-1.7, 6.5)), "tower"),   // GF step 6 (draft): the foot chamber 1.7 × 2.2 on axes (≈ 1.5 × 1.95 clear), its courtyard wall 0.30, the outlet in it
 )
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
-  (0.1, 8.4, 0.7, 9.9, [sink · d/w]),   // on the courtyard wall under its window (y 8.5–10.1)
+  (0.1, 8.4, 0.7, 9.9, [sink · d/w]),   // GF step 6: on the blind courtyard wall (the sink window removed: the liwan's back wall)
   (0.1, 9.9, 0.7, 12.9, [counter 0.6]),
   (3.636, 8.4, 4.236, 10.2, [cooking counter 0.6]),
   (3.636, 10.2, 4.236, 11.2, [hob + hood · extract through the east wall]),
@@ -40,9 +41,10 @@
   ((0.65, 8.3), (1.55, 8.3), [kitchen back door 0.90 → the open space]),
   ((0.0, 6.9), (0.0, 7.8), [open space ← courtyard 0.90]),
   ((2.85, 6.5), (3.75, 6.5), [open space → back garden 0.90 · the only outside door]),
+  ((-1.35, 4.3), (-0.45, 4.3), [malqaf chamber: maintenance door 0.90 from the open space]),
 )
 #let windows = (
-  ((0.0, 8.5), (0.0, 10.1), [sink window (courtyard)]),
+  ((-1.55, 6.5), (-0.15, 6.5), [outlet 1.4 × 1.0 · raised]),   // GF step 6: into the courtyard, +0.60…+1.60, louvres as L5
   ((4.361, 8.7), (4.361, 10.1), [kitchen window (east)]),
   ((4.361, 7.0), (4.361, 7.9), [window (east)]),
   ((0.55, 0.0), (1.69, 0.0), [escape casement 1.14 × 1.00 (north facade)]),
@@ -65,7 +67,7 @@
 )
 
 // ---------- Helpers ----------
-#let colours = (wc: rgb("#d9e6ec"), maid: rgb("#e4e9d6"), laundry: rgb("#dfe3e6"), kitchen: rgb("#d9e6ec"), empty: rgb("#f3efe6"), lobby: rgb("#f2efe8"))
+#let colours = (wc: rgb("#d9e6ec"), maid: rgb("#e4e9d6"), laundry: rgb("#dfe3e6"), kitchen: rgb("#d9e6ec"), empty: rgb("#f3efe6"), lobby: rgb("#f2efe8"), tower: rgb("#8ccbe0"))
 #let rows = rooms-data.map(((n, x, y, w, d, c)) => (name: n, x: x, y: y, w: w, d: d, colour: c))
 #let box(r) = (r.x - r.w / 2, r.y - r.d / 2, r.x + r.w / 2, r.y + r.d / 2)
 #let corners(r) = { let (a, b, c, d) = box(r); ((a, b), (c, b), (c, d), (a, d)) }
@@ -97,7 +99,7 @@
 
 // ---------- Checks (polygon-aware: rectangles and the sloped rooms) ----------
 #let issues = ()
-#let convex-parts = ("Open space: to be planned (3.80 × 6.28 + 4.14 × 1.80 clear)": (((-1.7, 0), (2.325, 0), (2.325, 6.5), (-1.7, 6.5)), ((0, 6.5), (4.361, 6.5), (4.361, 8.3), (0, 8.3))))   // GF step 5: the open space's two convex parts
+#let convex-parts = ("Open space: to be planned": (((-1.7, 0), (2.325, 0), (2.325, 4.3), (-1.7, 4.3)), ((0, 4.3), (2.325, 4.3), (2.325, 6.5), (0, 6.5)), ((0, 6.5), (4.361, 6.5), (4.361, 8.3), (0, 8.3))))   // GF step 6: the open space's three convex parts (round the chamber)
 #let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join()
 #let block-parts = (((-1.7, 0), (2.325, 0), (2.325, 6.5), (-1.7, 6.5)), ((0, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0)))   // GF step 5: the block's two convex parts   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
 #for (n, P) in shapes { if not P.all(p => block-parts.any(B => inside(p, B))) { issues.push(n + " leaves the block") } }
@@ -110,7 +112,7 @@
 #let leftover = area(block) - used
 
 // ---------- Page ----------
-#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 5: the service area ONE OPEN SPACE (to be planned) north of the kitchen; the kitchen an exact rectangle]\
+#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 6 (draft): the malqaf chamber inside the open space, against the courtyard wall; the sink window gone (the liwan's back wall)]\
 #text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the open space (CSV x 7.25–11.275 × y 0–6.5 + x 8.95–13.311 × y 6.5–8.3) and the kitchen; the corner x 11.275–13.311 × y 0–6.5 is open ground · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
@@ -165,8 +167,11 @@
     #v(6pt)
     #if issues.len() == 0 { text(fill: rgb("#2f6b4f"), weight: "bold")[✓ All rooms inside the block, no overlaps] } else { std.block(fill: rgb("#fbe3dd"), inset: 5pt, radius: 2pt)[#text(fill: rgb("#b5452f"), weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(8pt)
+    #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 6 (24 Nov 2026, branch idea-ne-corner, DRAFT)]
+    - *The malqaf chamber moved from the courtyard's north-west corner to its north-EAST:* inside the open space, against the courtyard's north wall at its east end, CSV x 7.25–8.95 × y 4.3–6.5 (1.7 × 2.2 on axes, ≈ 1.5 × 1.95 clear; L5 was 1.2 × 1.97): its *maintenance door 0.90 in its north wall (y 4.3, x 7.6–8.5) from the open space*, not from the courtyard; its *breeze outlet 1.4 × 1.0 in its courtyard wall (y 6.5, x 7.4–8.8), raised +0.60…+1.60, louvres as L5*, blowing south over the olive onto the liwan. The open space keeps its boundary and its three doors; it loses the chamber's 3.74 m²: #r2(area(poly-rooms.at(0).at(1))) m² on axes (≈ 27.4 m² clear).
+    - *The kitchen's sink window on x 8.95 removed:* that wall is the liwan's back wall now (the liwan x 7.25–8.85 × y 8.0–12.9, bench +0.40, on the courtyard side); the sink stays on the blind wall, the kitchen keeps its east window (y 8.7–10.1). The courtyard door (x 8.95, y 6.9–7.8) stays. *The malqaf core rises at its new place: FF and roof to follow.*
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 5 (24 Nov 2026, branch idea-ne-corner)]
-    - *One open space, no inner partitions, to be planned later:* the maid bath, the laundry, the maid room and the distribution lobby of steps 3–4 together, from the women's majlis's east wall (x 7.25) to the east outside wall, north of the kitchen (y 8.3) and the courtyard (y 6.5): #r2(area(poly-rooms.at(0).at(1))) m² on axes; inside the wall faces *3.80 × 6.28 m (x 7.35–11.15, y 0.125–6.4) plus 4.14 × 1.80 m (x 9.05–13.19, y 6.4–8.2) ≈ 31.3 m²*. Every inner wall, inner door, fixture and piece of furniture removed.
+    - *One open space, no inner partitions, to be planned later:* the maid bath, the laundry, the maid room and the distribution lobby of steps 3–4 together, from the women's majlis's east wall (x 7.25) to the east outside wall, north of the kitchen (y 8.3) and the courtyard (y 6.5): 34.01 m² on axes; inside the wall faces *3.80 × 6.28 m (x 7.35–11.15, y 0.125–6.4) plus 4.14 × 1.80 m (x 9.05–13.19, y 6.4–8.2) ≈ 31.3 m²*. Every inner wall, inner door, fixture and piece of furniture removed.
     - *Its boundary kept exactly:* the outside walls with their windows (the escape casement x 9.5–10.64 and the small window x 7.7–8.3 on the north facade; the east window y 7.0–7.9), the majlis wall x 7.25 (no door in it), the courtyard wall, the kitchen's north wall y 8.3. *Doors kept in the boundary:* from the courtyard (x 8.95, y 6.9–7.8), the kitchen's back door (y 8.3, x 9.6–10.5), the only outside door to the back garden (y 6.5, x 11.8–12.7).
     - Nothing else changes; one step in the outside wall at (11.275, 6.5); the first floor unchanged.
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 4 (24 Nov 2026, branch idea-ne-corner)]
