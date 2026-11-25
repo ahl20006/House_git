@@ -39,17 +39,18 @@
 #assert(calc.abs(pj-edge - fam.proj-x) < 1e-6, message: "ERROR: the gallery edge in data/rooms_ff.csv and proj-x in studies/ff_family.typ differ.")
 #let ff-west = calc.min(..ff.map(r => calc.min(..r.P.map(p => p.at(0)))))      // FF west wall
 #let pj-wall = calc.max(..xs("Bedroom 2"))                                      // rooms / gallery wall
-#let y-court = calc.min(..ys("Upper gallery (on the west projection)").filter(y => y > 3))   // the courtyard's north edge (projection start)
+#let y-court = 6.5                                                             // step 7: the courtyard's north edge (the gallery no longer starts here)
+#let x-sky = x-court                                                           // step 7: the sky opening's west edge = the riwaq line (no projection over the courtyard)
 #let y-living = calc.min(..ys("Suite court (open to the sky)"))                 // the living's south wall = the suite court's north edge (y 19.25); 15 Nov 2026: the gallery runs 1.3 m further south over the old nib, so its end no longer marks this wall
 #let y-gym = calc.max(..ys("Suite court (open to the sky)"))                  // the suite court's south edge = the south facade (y 24.0, v2)
 #let arm-x = calc.max(..xs("Suite court (open to the sky)"))                    // the office's west wall = the court's east edge (x 10.0)
 #let columns = fam.columns
 #let ff-outline = outline-csv-gf                                                // the first floor stands on the ground-floor walls
-#let pj-void = (x-east - pj-edge) * (y-living - y-court)
+#let pj-void = (x-east - x-sky) * (13.0 - y-court) + (x-east - pj-edge) * (y-living - 13.0)   // step 7
 #let spans = range(columns.len() - 1).map(i => columns.at(i + 1).at(1) - columns.at(i).at(1))
 #let pj = (
-  depth: pj-edge - x-court, sky: x-east - pj-edge, sky-clear: x-east - pj-edge - 2 * inner-half,
-  room: pj-wall - ff-west, room-clear: pj-wall - ff-west - outer-half - inner-half, gallery: pj-edge - pj-wall, gallery-clear: pj-edge - pj-wall - inner-half - frame-half,
+  depth: pj-edge - x-court, sky: x-east - pj-edge, sky-clear: x-east - pj-edge - 2 * inner-half, sky-court: x-east - x-sky, sky-court-clear: x-east - x-sky - 2 * inner-half,   // step 7: sky = the void over the living, sky-court = the courtyard
+  room: pj-wall - ff-west, room-clear: pj-wall - ff-west - outer-half - inner-half, gallery: x-court - pj-wall, gallery-clear: x-court - pj-wall - inner-half - outer-half, gallery-pj: pj-edge - x-court,
   m-gap: ff-west - m-line - outer-half, columns: columns.len(), col-x: pj-edge, spans: spans,
   outline: area(ff-outline), void: pj-void, floor: area(ff-outline) - pj-void,
   indoor: ff.filter(r => r.colour not in ("open", "terrace")).map(r => area(r.P)).sum(), court: ff.filter(r => r.colour in ("open", "terrace")).map(r => area(r.P)).sum(),
@@ -165,6 +166,8 @@
 #let section(cut, length: 0.5cm, ink: rgb("#3d4a45"), sky: rgb("#2f5f8a"), red: rgb("#b5452f")) = cetz.canvas(length: length, {
   import cetz.draw: *
   let court = cut == "court"
+  let edge = if court { x-court } else { pj-edge }   // step 7: the first floor's east edge on this cut
+  let wallx = if court { pj-wall } else { x-court }   // the rooms / gallery wall
   let wall(x, y0, y1, t) = rect((x - t / 2, y0), (x + t / 2, y1), fill: ink, stroke: none)
   let fillc = rgb("#f6e3c0")
   let T(p, body, size: 5pt, fill: ink, anchor: "center") = content(p, anchor: anchor, text(size, fill: fill, body))
@@ -177,41 +180,43 @@
   rect((2.75, 0), (x-court, ff-level - slab), fill: rgb("#f2efe8"), stroke: none)
   rect((x-east, 0), (13.311, ff-level - slab), fill: if court { rgb("#d9e6ec") } else { fillc }, stroke: none)
   if court { rect((x-court, 0), (x-east, 0.05), fill: sky, stroke: none) } else { rect((x-court, 0), (x-east, roof-level - slab), fill: fillc.lighten(40%), stroke: none) }
-  rect((x-court, 0), (pj-edge, ff-level - slab), fill: rgb("#f2efe8").transparentize(30%), stroke: none)
+  if not court { rect((x-court, 0), (pj-edge, ff-level - slab), fill: rgb("#f2efe8").transparentize(30%), stroke: none) }
   T((1.375, 1.9), if court [hospitality\ kitchen (GF)] else [serving\ passage (GF)])
   T(((2.75 + x-court) / 2, 1.9), [riwaq])
-  T(((x-court + pj-edge) / 2, 2.6), [colonnade], size: 4.2pt)
-  T(((pj-edge + x-east) / 2, if court { 1.2 } else { 2.4 }), if court [COURTYARD (GF)] else [living · double height], fill: if court { sky } else { ink })
+  if not court { T(((x-court + pj-edge) / 2, 2.6), [colonnade], size: 4.2pt) }
+  T(((edge + x-east) / 2, if court { 1.2 } else { 2.4 }), if court [COURTYARD (GF)] else [living · double height], fill: if court { sky } else { ink })
   T((11.1, 1.9), if court [kitchen (GF)] else [living · dining (GF)])
   // GF walls
-  wall(0, 0, coping-top, 2 * outer-half); wall(2.75, 0, ff-level - slab, 2 * inner-half); wall(13.311, 0, coping-top, 2 * outer-half); wall(x-east, 0, roof-level, 2 * inner-half)
+  wall(0, 0, ff-level, 2 * outer-half); wall(ff-west, ff-level, coping-top, 2 * outer-half); wall(2.75, 0, ff-level - slab, 2 * inner-half); wall(13.311, 0, coping-top, 2 * outer-half); wall(x-east, 0, roof-level, 2 * inner-half)
   wall(attic-in, roof-level, attic-top, 0.2); wall(13.311 - attic-in, roof-level, attic-top, 0.2)   // V7.0: the attic screen, set back 1.0 m from the facade face
   T((attic-in + 0.2, roof-level + 1.0), [attic\ +#f2(attic-top)], size: 4pt, anchor: "west"); T((13.311 - attic-in - 0.2, roof-level + 1.0), [attic\ +#f2(attic-top)], size: 4pt, anchor: "east")
   if court { line((x-court, 0), (x-court, ff-level - slab), stroke: 1.6pt + rgb("#7fb8d0")) } else { wall(x-court, 0, ff-level - slab, 2 * inner-half); T((x-court + 0.15, 2.0), [TV wall · solid (V6.3)], size: 4.2pt, anchor: "west") }
   // the column beyond the cut (on the beam line) and the edge beam
-  rect((pj-edge - col-half, 0), (pj-edge + col-half, ff-level - slab - 0.45), fill: luma(170), stroke: 0.5pt + ink)
-  rect((pj-edge - col-half, ff-level - slab - 0.45), (pj-edge + col-half, ff-level), fill: ink, stroke: none)
-  T((pj-edge, -0.35), [column (beyond) · edge beam], size: 4.2pt, fill: red)
+  if not court {
+    rect((pj-edge - col-half, 0), (pj-edge + col-half, ff-level - slab - 0.45), fill: luma(170), stroke: 0.5pt + ink)
+    rect((pj-edge - col-half, ff-level - slab - 0.45), (pj-edge + col-half, ff-level), fill: ink, stroke: none)
+    T((pj-edge, -0.35), [column (beyond) · edge beam], size: 4.2pt, fill: red)
+  }
   // FF slab: west band to the projection edge, and the east part
-  rect((ff-west - outer-half, ff-level - slab), (pj-edge, ff-level), fill: ink, stroke: none)
+  rect((ff-west - outer-half, ff-level - slab), (edge, ff-level), fill: ink, stroke: none)   // step 7: the cantilever west of x 0
   rect((x-east, ff-level - slab), (13.311, ff-level), fill: ink, stroke: none)
   // FF rooms and walls
-  rect((ff-west, ff-level), (pj-wall, roof-level - slab), fill: fillc, stroke: none)
-  rect((pj-wall, ff-level), (pj-edge, roof-level - slab), fill: rgb("#f2efe8"), stroke: none)
+  rect((ff-west, ff-level), (wallx, roof-level - slab), fill: fillc, stroke: none)
+  rect((wallx, ff-level), (edge, roof-level - slab), fill: rgb("#f2efe8"), stroke: none)
   rect((x-east, ff-level), (13.311, roof-level - slab), fill: rgb("#efe0cf"), stroke: none)
-  T(((ff-west + pj-wall) / 2, 5.6), if court [bedroom 2] else [bedroom 3])
-  T(((ff-west + pj-wall) / 2, 5.15), [#r2(pj.room) axes · ≈ #r3(pj.room-clear) clear], size: 4.2pt)
-  T(((pj-wall + pj-edge) / 2, 5.6), [gallery], size: 4.6pt)
-  T(((pj-wall + pj-edge) / 2, 5.2), [#r2(pj.gallery)], size: 4.2pt)
+  T(((ff-west + wallx) / 2, 5.6), if court [bedroom 2] else [bedroom 3])
+  T(((ff-west + wallx) / 2, 5.15), [#r2(wallx - ff-west) axes · ≈ #r3(wallx - ff-west - outer-half - inner-half) clear], size: 4.2pt)
+  T(((wallx + edge) / 2, 5.6), [gallery], size: 4.6pt)
+  T(((wallx + edge) / 2, 5.2), [#r2(edge - wallx)], size: 4.2pt)
   T((11.1, 5.4), if court [suite lobby · dressing] else [suite bedroom])
-  wall(pj-wall, ff-level, roof-level - slab, 2 * inner-half); wall(x-east, ff-level, roof-level, 2 * inner-half)
+  wall(wallx, ff-level, roof-level - slab, 2 * inner-half); wall(x-east, ff-level, roof-level, 2 * inner-half)
   if court { line((x-east, roof-level), (x-east, roof-level + guard), stroke: (paint: ink, thickness: 0.8pt, dash: "dotted")) }
   // V7.0 (enclosure A): the gallery edge is a wall with the steel window W1 on the B3 upstand, head at the R11 / R2 soffit
-  wall(pj-edge, ff-level, w1.sill, 0.25); wall(pj-edge, w1.head, roof-level - slab, 0.25)
-  line((pj-edge, w1.sill), (pj-edge, w1.head), stroke: 2.4pt + rgb("#1f2a30"))
-  T((pj-edge + 0.12, w1.head + 0.2), [W1 arched · +#f2(w1.sill) … crown +#f2(w1.head)], size: 4.2pt, anchor: "west")
+  wall(edge, ff-level, w1.sill, 0.25); wall(edge, w1.head, roof-level - slab, 0.25)
+  line((edge, w1.sill), (edge, w1.head), stroke: 2.4pt + rgb("#1f2a30"))
+  T((edge + 0.12, w1.head + 0.2), [W1 arched · +#f2(w1.sill) … crown +#f2(w1.head)], size: 4.2pt, anchor: "west")
   // roof
-  rect((ff-west - outer-half, roof-level - slab), (pj-edge, roof-level), fill: ink, stroke: none)
+  rect((ff-west - outer-half, roof-level - slab), (edge, roof-level), fill: ink, stroke: none)
   rect((x-east, roof-level - slab), (13.311, roof-level), fill: ink, stroke: none)
   if not court { rect((pj-edge, roof-level - slab), (x-east, roof-level), fill: ink, stroke: none) }
   // dimensions
@@ -219,9 +224,10 @@
     line((x0, y), (x1, y), stroke: 0.5pt + col, mark: (start: "|", end: "|", scale: 0.4))
     T(((x0 + x1) / 2, y + 0.28), l, size: 4.6pt, fill: col)
   }
-  dimh(pj-edge, x-east, roof-level + 0.6, [#if court [sky] else [void] #r3(pj.sky) m axes · ≈ #r3(pj.sky-clear) clear], col: sky)
-  dimh(x-court, pj-edge, ff-level + 0.35, [#r2(pj.depth)], col: red)
-  dimh(m-line, ff-west - outer-half, -0.85, [#r3(pj.m-gap)], col: red)
+  dimh(edge, x-east, roof-level + 0.6, [#if court [sky] else [void] #r3(x-east - edge) m axes · ≈ #r3(x-east - edge - 2 * inner-half) clear], col: sky)
+  if not court { dimh(x-court, pj-edge, ff-level + 0.35, [#r2(pj.depth)], col: red) }
+  dimh(ff-west, 0, ff-level + 0.35, [cantilever #r2(0 - ff-west)], col: red)   // step 7
+  dimh(m-line, ff-west - outer-half, -0.85, [#r3(pj.m-gap) · beyond the M line], col: red)
   // levels
   for (h, l) in ((0, [±0.00]), (ff-level, [+#f2(ff-level)]), (roof-level, [+#f2(roof-level)])) { T((14.3, h), l, size: 4.4pt, fill: gray, anchor: "west") }
   T((-2.4, -0.5), [W], size: 5.5pt, anchor: "west"); T((14.4, -0.5), [E], size: 5.5pt, anchor: "east")

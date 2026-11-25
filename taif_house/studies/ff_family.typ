@@ -15,23 +15,23 @@
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- The focus zone (wall centre lines): everything but the courtyard / double-height void and the master suite; with the west projection (x 4.25–5.8, y 6.5–19.25; V6.4: 1.55 m, courtyard enclosure option A) on an edge beam and three columns ----------
-#let zone = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 8.0), (11.5, 8.0), (11.5, 6.5), (8.95, 6.5), (5.8, 6.5), (5.8, 20.55), (1.5, 20.55), (1.5, 19.25), (0, 19.25))   // 15 Nov 2026: the zone takes bedroom 3's entry strip and the gallery's end (x 1.5–5.8, y 19.25–20.55) from the gym and the old nib   // 14 Nov 2026: the zone takes bedroom 1's bath (x 11.5–13.311, y 6.5–8.0) from the suite
+#let zone = ((0, 0), (11.275, 0), (11.275, 3.2), (13.311, 3.2), (13.311, 8.0), (11.5, 8.0), (11.5, 6.5), (8.95, 6.5), (4.25, 6.5), (4.25, 13.0), (5.8, 13.0), (5.8, 20.55), (1.5, 20.55), (1.5, 19.25), (-1.55, 19.25), (-1.55, 9.2), (0, 9.2))   // STEP 7 (draft, 25 Nov 2026, branch idea-ne-corner): no projection over the courtyard (x 4.25 is the edge, y 6.5-13); the west CANTILEVER 1.55 m over the driveway from y 9.2 to the south facade   // 15 Nov 2026: the zone takes bedroom 3's entry strip and the gallery's end (x 1.5–5.8, y 19.25–20.55) from the gym and the old nib   // 14 Nov 2026: the zone takes bedroom 1's bath (x 11.5–13.311, y 6.5–8.0) from the suite
 #let plan-scale = 0.6cm
 #let proj-x = 5.8   // the projection's outer edge (edge beam B3, with the steel window W1 on its upstand): 1.55 m beyond the courtyard wall line x 4.25 (V6.4, enclosure option A)
 // the edge beam (x 5.8) on three columns, each in an existing wall / glass line (ground floor): the women's majlis south wall, the courtyard / living glass, the living's south wall
-#let columns = ((5.8, 6.5), (5.8, 13.0), (5.8, 19.25))
+#let columns = ((5.8, 13.0), (5.8, 19.25))   // step 7: column 1 (y 6.5) removed with the strip over the courtyard; the beam over the living only
 
 // ---------- Fixed inside the zone (rising from the ground floor) ----------
 #let fixed = (
   (name: "Stair (arrives at its north end · flipped)", pts: rect-pts(0, 2.2, 2.75, 7.9)),   // stair flip, option B (owner, 2 Nov 2026): the arrival strip y 2.3–3.75 opens onto the gallery beside the lift door
   (name: "Lift shaft", pts: rect-pts(0, 0, 2.25, 2.2)),
   (name: "West shaft", pts: rect-pts(0, 9.2, 1.5, 10.4)),
-  (name: "Air tower", pts: ((4.25, 6.5), (5.8, 6.5), (5.8, 7.5), (4.25, 7.5))),   // 14 Nov 2026: the malqaf shaft ≈ 1.35 × 0.8 clear, its west wall on x 4.25 directly over the GF chamber's west wall (design_gf.typ tower-csv, 11 Nov 2026), in line with the family living's west wall: one RC core, the same footprint from the pad to the head, no jog   // V10.0 (L5): the malqaf shaft at the gallery's north end, the head above the roof; the gallery's turn past bedroom 2's bath 1.5 m   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
+  // step 7: the old malqaf shaft (x 4.25-5.8, y 6.5-7.5) removed: the malqaf moved east in GF step 6; its new shaft to follow   // 14 Nov 2026: the malqaf shaft ≈ 1.35 × 0.8 clear, its west wall on x 4.25 directly over the GF chamber's west wall (design_gf.typ tower-csv, 11 Nov 2026), in line with the family living's west wall: one RC core, the same footprint from the pad to the head, no jog   // V10.0 (L5): the malqaf shaft at the gallery's north end, the head above the roof; the gallery's turn past bedroom 2's bath 1.5 m   // V9.3: the slim shaft along the cut wall (studies/air_system.typ); its polygon is not a box, so it takes no part in the box-overlap test (the rooms round it tile the zone)
 )
 
 // ---------- Neighbours (grey: the courtyard / void and the L, studies/ff_suite.typ) ----------
 #let neighbours = (
-  ("Courtyard sky (void)", rect-pts(5.8, 6.5, 8.95, 13.0)),
+  ("Courtyard sky (void)", rect-pts(4.25, 6.5, 8.95, 13.0)),   // step 7: open from the riwaq line
   ("Double-height living (void)", rect-pts(5.8, 13.0, 8.95, 19.25)),
   ("Suite lobby", rect-pts(8.95, 6.5, 10.3, 11.9)),
   ("Suite WC (closet)", rect-pts(10.3, 6.5, 11.5, 8.0)),
@@ -59,7 +59,7 @@
   (pts: ((8.95, 6.5), (10.15, 6.5)), label: [① suite door: family link → suite lobby], kind: "door", at: (8.85, 7.6), anchor: "east"),
   (pts: ((10.15, 6.5), (11.5, 6.5)), label: [② bedroom 1 / the suite's WC closet: the y 6.5 line (acoustic wall); the kids' bath east of it to y 8.0], kind: "line", at: (13.45, 6.5), anchor: "west"),
   (pts: ((4.4, 20.55), (5.5, 20.55)), label: [③ the gallery's end (y 20.55, over the old nib): a glass door 1.10 onto the suite court; the gym's door beside it on x 4.25 (15 Nov 2026)], kind: "door", at: (5.95, 20.9), anchor: "west"),
-  (pts: ((0, 19.25), (1.5, 19.25), (1.5, 20.55), (4.25, 20.55)), label: [④ bedroom 3 / the gym: the DOUBLE wall (Rw ≈ 55 dB) on B22 for x 0–1.5; then the entry strip's light walls x 1.5 and y 20.55 (15 Nov 2026)], kind: "line", at: (0.1, 20.9), anchor: "west"),
+  (pts: ((-1.55, 19.25), (1.5, 19.25), (1.5, 20.55), (4.25, 20.55)), label: [④ bedroom 3 / the gym: the DOUBLE wall (Rw ≈ 55 dB) on B22 for x 0–1.5; then the entry strip's light walls x 1.5 and y 20.55 (15 Nov 2026)], kind: "line", at: (0.1, 20.9), anchor: "west"),
 )
 
 // ---------- Ground-floor wall lines in this zone ----------
@@ -68,16 +68,16 @@
 // ---------- Rooms ----------
 #let R(name, pts, col, parts: none) = (name: name, pts: pts, col: col, parts: if parts == none { (pts,) } else { parts })
 #let rooms = (
-  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 3.0), (4.25, 6.5), (4.25, 7.5), (5.8, 7.5), (5.8, 20.55), (4.25, 20.55), (4.25, 9.2), (2.75, 9.2), (2.75, 7.9), (2.75, 2.2), (2.25, 2.2)), "circ",
-    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 9.2), rect-pts(4.25, 7.5, 5.8, 20.55))),   // 15 Nov 2026: extended south over the old nib footprint to y 20.55 (the glass door onto the court at its end; bedroom 3's door on its west wall)   // 14 Nov 2026: the shaft's west wall on x 4.25 (the 0.15 m jog of V10.0 removed)
+  R("Gallery (north part + on the projection)", ((2.25, 0.7), (4.25, 0.7), (4.25, 13.0), (5.8, 13.0), (5.8, 20.55), (4.25, 20.55), (4.25, 14.125), (2.75, 14.125), (2.75, 2.2), (2.25, 2.2)), "circ",   // step 7: along the courtyard on x 2.75-4.25 (W1 on x 4.25), onto the projection only south of y 13
+    parts: (rect-pts(2.25, 0.7, 2.75, 2.2), rect-pts(2.75, 0.7, 4.25, 14.125), rect-pts(4.25, 13.0, 5.8, 20.55))),   // 15 Nov 2026: extended south over the old nib footprint to y 20.55 (the glass door onto the court at its end; bedroom 3's door on its west wall)   // 14 Nov 2026: the shaft's west wall on x 4.25 (the 0.15 m jog of V10.0 removed)
   R("Linen cupboard", rect-pts(2.25, 0, 4.25, 0.7), "store"),
   R("Family WC (gallery)", rect-pts(0, 7.9, 2.75, 9.2), "wet"),   // 14 Nov 2026 (owner): like the GF powder room: a basin zone open to the gallery (no door) east of a 100 mm partition on x 1.5 (the shaft's east face line continued), a WC-only compartment west of it behind a 0.70 door   // 3 Nov 2026: the F-b bath split: the family WC on the strip by the shaft
-  R("Bedroom 2", ((1.5, 9.2), (4.25, 9.2), (4.25, 14.125), (0, 14.125), (0, 10.4), (1.5, 10.4)), "family",   // 15 Nov 2026 (twins): entered through its entry strip beside the shaft (x 1.5–4.25 × y 9.2–10.4, 2.55 × 1.10 clear; its 0.90 door on the gallery facing the shaft's wall); the main room 4.03 × 3.53 clear = 14.44 m²; no store
-    parts: (rect-pts(1.5, 9.2, 4.25, 10.4), rect-pts(0, 10.4, 4.25, 14.125))),
-  R("Bedroom 2 bath (en-suite)", rect-pts(0, 14.125, 2.1, 15.525), "wet"),   // 15 Nov 2026 (X3): the west half of the bath pair between the two bedrooms, 2.1 × 1.4 on axes; a small high window above the shower; its door from bedroom 2
+  R("Bedroom 2", ((1.5, 9.2), (2.75, 9.2), (2.75, 14.125), (-1.55, 14.125), (-1.55, 9.2), (0, 9.2), (0, 10.4), (1.5, 10.4)), "family",   // step 7: moved 1.55 m west into the cantilever; the entry strip x 1.5-2.75, a wardrobe nook x -1.55-0 beside the shaft   // 15 Nov 2026 (twins): entered through its entry strip beside the shaft (x 1.5–4.25 × y 9.2–10.4, 2.55 × 1.10 clear; its 0.90 door on the gallery facing the shaft's wall); the main room 4.03 × 3.53 clear = 14.44 m²; no store
+    parts: (rect-pts(1.5, 9.2, 2.75, 10.4), rect-pts(-1.55, 9.2, 0, 10.4), rect-pts(-1.55, 10.4, 2.75, 14.125))),
+  R("Bedroom 2 bath (en-suite)", rect-pts(-1.55, 14.125, 2.1, 15.525), "wet"),   // step 7: to the cantilever's west wall (its fixtures not re-planned)   // 15 Nov 2026 (X3): the west half of the bath pair between the two bedrooms, 2.1 × 1.4 on axes; a small high window above the shower; its door from bedroom 2
   R("Bedroom 3 bath (en-suite)", rect-pts(2.1, 14.125, 4.25, 15.525), "wet"),   // 15 Nov 2026 (X3): the east half, 2.15 × 1.4 on axes, by the gallery (a fan); its door from bedroom 3; the wet wall x 2.10 shared, both WCs at its south end over the one stack
-  R("Bedroom 3", ((0, 15.525), (4.25, 15.525), (4.25, 20.55), (1.5, 20.55), (1.5, 19.25), (0, 19.25)), "family",   // 15 Nov 2026 (twins): a full clean rectangle to y 19.25 (4.03 × 3.52 clear = 14.44 m²) + its entry strip taken from the gym (x 1.5–4.25 × y 19.25–20.55, 2.55 × 1.20 clear; its 0.90 door on x 4.25 from the gallery's end; a 2.55 opening, no leaf, on y 19.25)
-    parts: (rect-pts(0, 15.525, 4.25, 19.25), rect-pts(1.5, 19.25, 4.25, 20.55))),
+  R("Bedroom 3", ((-1.55, 15.525), (4.25, 15.525), (4.25, 20.55), (1.5, 20.55), (1.5, 19.25), (-1.55, 19.25)), "family",   // step 7: 1.55 m wider to the cantilever's west wall (not re-planned)   // 15 Nov 2026 (twins): a full clean rectangle to y 19.25 (4.03 × 3.52 clear = 14.44 m²) + its entry strip taken from the gym (x 1.5–4.25 × y 19.25–20.55, 2.55 × 1.20 clear; its 0.90 door on x 4.25 from the gallery's end; a 2.55 opening, no leaf, on y 19.25)
+    parts: (rect-pts(-1.55, 15.525, 4.25, 19.25), rect-pts(1.5, 19.25, 4.25, 20.55))),
   R("Kids' room (study + gaming)", rect-pts(4.25, 0, 8.95, 3.0), "kids"),
   R("Family living", rect-pts(4.25, 3.0, 8.95, 6.5), "family"),
   R("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), "circ"),
@@ -97,7 +97,7 @@
   D((4.25, 3.1), (4.25, 4.5), [living, open to the gallery], "Family living", (1, 0), open: true),
   D((2.75, 8.2), (2.75, 9.1), [family WC: an open passage 0.90, no door], "Family WC (gallery)", (-1, 0), open: true),   // 14 Nov 2026 (owner): the basin zone open to the gallery
   D((1.5, 8.4), (1.5, 9.1), [WC compartment 0.70, hinged on its south jamb, opens OUT into the basin zone], "Family WC (gallery)", (1, 0), from: "Family WC (gallery)"),   // 14 Nov 2026: the leaf folds back against the south wall (y 9.2), clear of the basin (checked)
-  D((4.25, 9.35), (4.25, 10.25), [bed 2 (0.90, from the gallery into its entry strip, facing the shaft's wall)], "Bedroom 2", (-1, 0)),   // 15 Nov 2026 (twins)
+  D((2.75, 9.35), (2.75, 10.25), [bed 2 (0.90, from the gallery into its entry strip beside the shaft; step 7)], "Bedroom 2", (-1, 0)),   // 15 Nov 2026 (twins)
   D((1.2, 14.125), (1.9, 14.125), [bath 2 (en-suite, 0.70, opening into the bath)], "Bedroom 2 bath (en-suite)", (0, 1), from: "Bedroom 2"),   // 15 Nov 2026 (X3)
   D((4.25, 19.4), (4.25, 20.3), [bed 3 (0.90, from the gallery's end into its entry strip, facing the strip's west wall)], "Bedroom 3", (-1, 0)),   // 15 Nov 2026 (twins)
   D((1.6, 19.25), (4.15, 19.25), [bedroom 3's strip → its room: an opening 2.55, no leaf (over the beams B22 + B8)], "Bedroom 3", (0, -1), from: "Bedroom 3", open: true),   // 15 Nov 2026
@@ -118,8 +118,8 @@
   // family WC (14 Nov 2026, owner: as the GF powder room): the 100 mm partition on x 1.5 (y 7.9–9.2, the shaft's east face line continued) with the compartment's 0.70 door; the wall-hung WC on the WEST outer wall facing east (the concealed cistern frame in that wall, ≈ 0.7 m clear in front); ONE basin with its mirror on the NORTH wall (y 7.9, the stair wall) of the basin zone; the south wall plain; an exhaust fan from the compartment to the west shaft
   (0.125, 8.3, 0.725, 8.8, [WC · wall-hung]), (1.85, 8.0, 2.4, 8.4, [basin · mirror]), (1.45, 7.9, 1.55, 8.4, [partition 100]), (1.45, 9.1, 1.55, 9.2, []),
   // bedroom 2 (15 Nov 2026, twins): the bed's head on the west wall under its window, the desk at the second west window, the 1.8 m wardrobe on the bath wall east of the bath door; the entry strip (x 1.5–4.25 × y 9.2–10.4) kept free
-  (0.125, 10.55, 2.125, 11.95, [bed 1.4 × 2.0]), (0.125, 12.0, 0.525, 12.4, []), (2.15, 10.55, 2.55, 10.95, []),
-  (0.125, 13.125, 0.725, 14.025, [desk 0.9 × 0.6]), (0.8, 13.275, 1.25, 13.725, []), (2.0, 13.425, 3.8, 14.025, [wardrobe 1.8 × 0.6]),
+  (-1.425, 10.55, 0.575, 11.95, [bed 1.4 × 2.0]), (-1.425, 12.0, -1.025, 12.4, []), (0.6, 10.55, 1.0, 10.95, []),   // step 7: bedroom 2 moved 1.55 m west
+  (-1.425, 13.125, -0.825, 14.025, [desk 0.9 × 0.6]), (-0.75, 13.275, -0.3, 13.725, []), (2.05, 10.5, 2.65, 12.3, [wardrobe 1.8 × 0.6]), (-1.425, 9.325, -0.025, 9.925, [wardrobe 1.4 × 0.6 · nook]),
   // the X3 bath pair (15 Nov 2026): bath 2 west (the shower NW under the high window, the basin SW, the wall-hung WC on the wet wall), bath 3 east (the shower NW, the WC on the wet wall, the basin by the gallery wall); both WCs on the wet wall x 2.10 over the one stack at (2.10, 15.23)
   (0.125, 14.225, 0.925, 15.025, [shower 0.8 × 0.8 · screen]), (0.125, 15.025, 0.475, 15.425, [basin]), (1.4, 15.025, 2.0, 15.425, [WC · wall-hung]),
   (2.2, 14.225, 3.0, 15.025, [shower 0.8 × 0.8 · screen]), (2.2, 15.025, 2.8, 15.425, [WC · wall-hung]), (3.8, 14.425, 4.15, 14.825, [basin]),
@@ -133,9 +133,9 @@
   (11.6, 6.5, 12.05, 7.1, [basin]), (12.6, 6.0, 13.186, 6.4, [WC]), (11.6, 7.1, 13.186, 7.9, [shower 1.6 × 0.8 · mixer on the south wall · floor drain]),
 )
 // fire safety (owner, 1 Nov 2026; studies/fire_escape.typ): the escape windows of the sleeping rooms: hinged casements opening fully from inside, no grille, bar or fixed mashrabiya
-#let escape-windows = (("Bedroom 1", (11.275, 1.4), (11.275, 2.4)), ("Bedroom 2", (0, 10.7), (0, 11.8)), ("Bedroom 3", (0, 16.225), (0, 17.425)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
-#let windows = (((5.3, 0), (8.7, 0)), ((0, 8.3), (0, 8.8)), ((0, 10.7), (0, 11.8)), ((0, 13.125), (0, 13.925)), ((0, 14.275), (0, 14.975)), ((0, 16.225), (0, 17.425)), ((0, 18.0), (0, 18.9)),   // 15 Nov 2026 (provisional marks; the owner sets the windows with the facades): bedroom 2's two west windows (the bed's, the desk's), bath 2's small high window above its shower (sill ≥ +1.70, obscure), bedroom 3's two (the bed's, the desk's)   // 14 Nov 2026: the family WC compartment's small high window in the west outer wall above the WC (≈ 0.5 × 0.4, sill ≥ +1.70, obscure glass) ((11.275, 1.4), (11.275, 2.4)), ((13.311, 3.7), (13.311, 4.7)), ((9.2, 0), (10.2, 0)), ((13.311, 6.5), (13.311, 6.95)),   // 17 Nov 2026: bedroom 1's escape casement on the step's east face (x 11.275) and a window on the east wall; V10.0: bedroom 1's north window in the freed tip; 14 Nov 2026: bedroom 1's bath, a PROVISIONAL east window (or a fan): the owner sets the windows with the facades
-  ((5.8, 8.95), (5.8, 10.55)), ((5.8, 11.117), (5.8, 12.717)), ((5.8, 13.242), (5.8, 14.842)), ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60; V10.0: W1-1 (y 6.783–8.383) replaced by a BLIND arched recess beside the malqaf shaft (studies/malqaf_L5.typ Phase 3, F3)
+#let escape-windows = (("Bedroom 1", (11.275, 1.4), (11.275, 2.4)), ("Bedroom 2", (-1.55, 10.7), (-1.55, 11.8)), ("Bedroom 3", (-1.55, 16.225), (-1.55, 17.425)), ("Kids' room (a bedroom later)", (5.3, 0), (8.7, 0)))
+#let windows = (((5.3, 0), (8.7, 0)), ((0, 8.3), (0, 8.8)), ((-1.55, 10.7), (-1.55, 11.8)), ((-1.55, 13.125), (-1.55, 13.925)), ((-1.55, 14.275), (-1.55, 14.975)), ((-1.55, 16.225), (-1.55, 17.425)), ((-1.55, 18.0), (-1.55, 18.9)),   // step 7: on the cantilever's west wall   // 15 Nov 2026 (provisional marks; the owner sets the windows with the facades): bedroom 2's two west windows (the bed's, the desk's), bath 2's small high window above its shower (sill ≥ +1.70, obscure), bedroom 3's two (the bed's, the desk's)   // 14 Nov 2026: the family WC compartment's small high window in the west outer wall above the WC (≈ 0.5 × 0.4, sill ≥ +1.70, obscure glass) ((11.275, 1.4), (11.275, 2.4)), ((13.311, 3.7), (13.311, 4.7)), ((9.2, 0), (10.2, 0)), ((13.311, 6.5), (13.311, 6.95)),   // 17 Nov 2026: bedroom 1's escape casement on the step's east face (x 11.275) and a window on the east wall; V10.0: bedroom 1's north window in the freed tip; 14 Nov 2026: bedroom 1's bath, a PROVISIONAL east window (or a fan): the owner sets the windows with the facades
+  ((4.25, 7.0), (4.25, 8.6)), ((4.25, 9.2), (4.25, 10.8)), ((4.25, 11.2), (4.25, 12.8)), ((5.8, 13.242), (5.8, 14.842)),   // step 7: three W1 windows on the gallery's courtyard wall x 4.25; ((5.8, 15.325), (5.8, 16.925)), ((5.8, 17.408), (5.8, 19.008)),   // V7.1: W1 as six arched windows 1.60 wide on the gallery edge (three per column bay, over the arcade bays), sill +3.82, springing +5.80, crown +6.60; V10.0: W1-1 (y 6.783–8.383) replaced by a BLIND arched recess beside the malqaf shaft (studies/malqaf_L5.typ Phase 3, F3)
   ((6, 6.5), (7.3, 6.5)), ((7.55, 6.5), (8.85, 6.5)))   // V7.1: W2 as two arched windows 1.30 wide on the family living's courtyard edge (east of C21), floor to the crown +6.60
 #let drains = (
   (((0.5, 8.55), (0.5, 9.2), (0.6, 9.5)), [family WC (14 Nov 2026): the wall-hung pan's waste in the floor build-up ≈ 0.5 m south to the west shaft; the basin's waste in the floor build-up / a chase in the partition to the shaft]),
@@ -154,7 +154,8 @@
 // ---------- Walking routes: (name, rect, wall allowance across it, what is deducted) ----------
 #let routes = (
   ("Gallery north (beside the stair)", rect-pts(2.75, 0.7, 4.25, 9.2), 0.2, [½ wall each side]),
-  ("Gallery on the projection", rect-pts(4.25, 6.5, 5.8, 20.55), 0.125, [½ wall (rooms side) + ½ window frame W1 on the B3 upstand (void side)]),
+  ("Gallery along the courtyard (step 7)", rect-pts(2.75, 9.2, 4.25, 13.0), 0.225, [½ wall (rooms side) + ½ outer wall with W1 (courtyard side)]),
+  ("Gallery on the projection", rect-pts(4.25, 13.0, 5.8, 20.55), 0.125, [½ wall (rooms side) + ½ window frame W1 on the B3 upstand (void side)]),
   ("Walk behind the sofa (in the living)", rect-pts(4.25, 3.0, 8.95, 4.1), 0.1, [½ wall on the kids' room side; the sofa side is open]),
   ("Walk beside the sofa to the family link", rect-pts(7.85, 4.1, 8.95, 6.5), 0.1, [½ wall on the bedroom 1 side; the sofa side is open]),
   ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5), 0.2, [½ wall each side (bedroom 1 to the north and east)]),
@@ -167,11 +168,11 @@
   ("Stair top → bedroom 1 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (10.15, 5.9))),
   ("Stair top → ① suite door", ((2.9, 3.05), (3.5, 3.05), (3.5, 3.55), (8.4, 3.55), (8.4, 5.9), (9.55, 5.9), (9.55, 6.5))),
   ("Stair top → family WC door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.65), (2.75, 8.65))),
-  ("Stair top → bedroom 2 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 9.8), (4.25, 9.8))),
-  ("Stair top → bedroom 3 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 19.85), (4.25, 19.85))),
-  ("Stair top → the gallery's end (the glass door to the court)", ((2.9, 3.05), (3.5, 3.05), (3.5, 8.3), (4.9, 8.3), (4.9, 20.55))),
+  ("Stair top → bedroom 2 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 9.8), (2.75, 9.8))),
+  ("Stair top → bedroom 3 door", ((2.9, 3.05), (3.5, 3.05), (3.5, 13.3), (4.9, 13.3), (4.9, 19.85), (4.25, 19.85))),
+  ("Stair top → the gallery's end (the glass door to the court)", ((2.9, 3.05), (3.5, 3.05), (3.5, 13.3), (4.9, 13.3), (4.9, 20.55))),
   ("Stair top → lift door", ((2.9, 3.05), (3.5, 3.05), (3.5, 1.4), (2.5, 1.4))),
-  ("Bedroom 2 door → its own bath door", ((4.25, 9.8), (3.0, 9.8), (3.0, 10.6), (1.55, 10.6), (1.55, 14.125))),
+  ("Bedroom 2 door → its own bath door", ((2.75, 9.8), (2.0, 9.8), (2.0, 10.6), (1.55, 10.6), (1.55, 14.125))),
   ("Family living → family WC door", ((4.25, 3.8), (3.5, 3.8), (3.5, 8.65), (2.75, 8.65))),
   ("Bedroom 3 door → its own bath door", ((4.25, 19.85), (2.9, 19.85), (2.9, 15.525))),
   ("Bedroom 1 door → family WC door", ((10.15, 5.9), (8.4, 5.9), (8.4, 3.55), (3.5, 3.55), (3.5, 8.65), (2.75, 8.65))),
@@ -205,12 +206,12 @@
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm outer walls (the building outline), ≈ 50 mm for the steel window W1 / W2 on the void edges (V6.4), nothing where the edge is open, 200 mm elsewhere
-#let open-edges = (((2.75, 2.2), (2.75, 3.75)), ((8.95, 5.3), (8.95, 6.5)), ((4.25, 6.5), (5.8, 6.5)))   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
-#let outer-edges = (((0, 0), (0, 24)), ((0, 0), (11.275, 0)), ((11.275, 0), (11.275, 3.2)), ((11.275, 3.2), (13.311, 3.2)), ((13.311, 3.2), (13.311, 24)), ((0, 24), (13.311, 24)))   // 17 Nov 2026: the stepped corner
+#let open-edges = (((2.75, 2.2), (2.75, 3.75)), ((8.95, 5.3), (8.95, 6.5)))   // step 7: the gallery no longer meets the family living on y 6.5   // V7.1: the family living open to the gallery's north end (W2 runs only over the courtyard, east of C21)
+#let outer-edges = (((0, 0), (0, 24)), ((-1.55, 9.2), (-1.55, 24)), ((-1.55, 9.2), (0, 9.2)), ((4.25, 6.5), (4.25, 13.0)), ((0, 0), (11.275, 0)), ((11.275, 0), (11.275, 3.2)), ((11.275, 3.2), (13.311, 3.2)), ((13.311, 3.2), (13.311, 24)), ((0, 24), (13.311, 24)))   // 17 Nov 2026: the stepped corner
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }
   else if outer-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.25 }
-  else if (calc.abs(a.at(0) - proj-x) < 1e-6 and calc.abs(b.at(0) - proj-x) < 1e-6 and calc.min(a.at(1), b.at(1)) >= 6.5 - 1e-6 and calc.max(a.at(1), b.at(1)) <= 19.25 + 1e-6) or (calc.abs(a.at(1) - 6.5) < 1e-6 and calc.abs(b.at(1) - 6.5) < 1e-6 and calc.min(a.at(0), b.at(0)) >= 4.25 - 1e-6 and calc.max(a.at(0), b.at(0)) <= 8.95 + 1e-6) { 0.05 }
+  else if (calc.abs(a.at(0) - proj-x) < 1e-6 and calc.abs(b.at(0) - proj-x) < 1e-6 and calc.min(a.at(1), b.at(1)) >= 13.0 - 1e-6 and calc.max(a.at(1), b.at(1)) <= 19.25 + 1e-6) or (calc.abs(a.at(1) - 6.5) < 1e-6 and calc.abs(b.at(1) - 6.5) < 1e-6 and calc.min(a.at(0), b.at(0)) >= 4.25 - 1e-6 and calc.max(a.at(0), b.at(0)) <= 8.95 + 1e-6) { 0.05 }
   else { 0.2 }
 }
 #let clear-approx(P) = area(P) - range(P.len()).map(i => { let a = P.at(i); let b = P.at(calc.rem(i + 1, P.len())); dist(a, b) * edge-t(a, b) / 2 }).sum()
@@ -274,7 +275,7 @@
 #text(15pt, weight: "bold", fill: green)[First floor · family part · focus study]
 #h(8pt) #text(8pt, fill: gray)[Taif / Palm House · first floor V6.3 · local = main CSV coordinates (x east, y south) · wall centre lines · north up]
 #v(-2pt)
-#text(10pt, weight: "bold")[First floor V7.1 · part 1 of 2 · W1 as six arched windows (V7.1): family part · west projection 1.55 m on three columns, the gallery and the family living glazed to the courtyard (W1, W2), west rooms 4.25 m wide; 15 Nov 2026: bedrooms 2 and 3 as twins with entry strips and the X3 bath pair between them · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
+#text(10pt, weight: "bold")[V11-idea · STEP 7 (draft, 25 Nov 2026): the courtyard open on its west side (no projection over it), the west rooms in a 1.55 m cantilever over the driveway · First floor V7.1 · part 1 of 2 · W1 as six arched windows (V7.1): family part · west projection 1.55 m on three columns, the gallery and the family living glazed to the courtyard (W1, W2), west rooms 4.25 m wide; 15 Nov 2026: bedrooms 2 and 3 as twins with entry strips and the X3 bath pair between them · part 2 (office, gym, suite court, master suite): studies/ff_suite.typ]
 #v(2pt)
 #grid(columns: (auto, 1fr), column-gutter: 14pt,
   cetz.canvas(length: plan-scale, {
@@ -297,7 +298,7 @@
       rect(q((x0, y0)), q((x1, y1)), fill: white.transparentize(25%), stroke: (paint: luma(110), thickness: 0.4pt, dash: "dashed"))
       content(q(((x0 + x1) / 2, (y0 + y1) / 2)), angle: if (y1 - y0) > (x1 - x0) * 1.3 { 90deg } else { 0deg }, text(4.2pt, fill: luma(80), l))
     }
-    let label-at = ("Gallery (north part + on the projection)": (4.25, 11.0), "Bedroom 3": (2.7, 18.6), "Bedroom 2": (3.2, 12.2), "Bedroom 3 bath (en-suite)": (3.45, 15.25), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Bedroom 2 bath (en-suite)": (1.45, 14.6), "Linen cupboard": (3.25, 0.35), "Family WC (gallery)": (2.15, 8.8), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
+    let label-at = ("Gallery (north part + on the projection)": (3.5, 11.6), "Bedroom 3": (1.35, 18.6), "Bedroom 2": (0.6, 12.6), "Bedroom 3 bath (en-suite)": (3.45, 15.25), "Kids' room (study + gaming)": (5.5, 2.25), "Family living": (5.6, 6.3), "Bedroom 2 bath (en-suite)": (0.4, 14.6), "Linen cupboard": (3.25, 0.35), "Family WC (gallery)": (2.15, 8.8), "Landing (stair top)": (1.4, 8.8), "Bedroom 1": (11.3, 5.0), "Family link": (9.55, 5.9))
     let short = ("Bedroom 2 bath (en-suite)": "Bath 2", "Bedroom 3 bath (en-suite)": "Bath 3", "Kids' room (study + gaming)": "Kids' room", "Linen cupboard": "Linen", "Family link": "Link", "Gallery (north part + on the projection)": "Gallery", "Family WC (gallery)": "Family WC")
     for r in rooms {
       let (x0, y0, x1, y1) = bbox(r.pts)
@@ -320,9 +321,9 @@
     for (P, l) in drains { line(..P.map(q), stroke: (paint: rgb("#1f7a99"), thickness: 0.8pt, dash: "dashed"), mark: (end: ">", fill: rgb("#1f7a99"), scale: 0.35)) }
     circle(q((2.1, 15.225)), radius: 0.12, fill: rgb("#8a5a2b"), stroke: none); content(q((2.1, 15.75)), text(4.2pt, fill: rgb("#8a5a2b"))[stack ↓ GF WC compartment])   // 15 Nov 2026: the one stack of the bath pair
     // the projection: edge beam on x 5.8 and the three ground-floor columns (grey dashed)
-    line(q((proj-x, 6.5)), q((proj-x, 19.25)), stroke: (paint: luma(120), thickness: 1.4pt, dash: "dashed"))
+    line(q((proj-x, 13.0)), q((proj-x, 19.25)), stroke: (paint: luma(120), thickness: 1.4pt, dash: "dashed"))   // step 7: over the living only
     for (x, y) in columns { rect(q((x - 0.18, y - 0.18)), q((x + 0.18, y + 0.18)), fill: luma(150), stroke: (paint: luma(90), dash: "dashed", thickness: 0.5pt)) }
-    content(q((7.0, 11.6)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[courtyard sky #str(calc.round(8.95 - proj-x, digits: 3)) m on axes (GF courtyard 4.70)])))
+    content(q((7.0, 11.6)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[courtyard sky 4.70 × 6.5 m on axes (step 7: open from the riwaq line)])))
     content(q((7.0, 17.8)), box(width: 2.2cm, align(center, text(4.6pt, fill: luma(90))[double-height void #str(calc.round(8.95 - proj-x, digits: 3)) m on axes])))
     content(q((5.05, 13.0)), anchor: "west", text(4.4pt, fill: luma(90))[◀ projection #r2(proj-x - 4.25) m · edge beam on #columns.len() columns])
     // walking line through the living to the family link (behind and beside the sofa)
@@ -350,11 +351,11 @@
     #if issues.len() == 0 { text(fill: green, weight: "bold")[✓ All rooms inside the zone · no overlaps · no unassigned area · furniture inside its room, not overlapping, out of the routes · door swings clear · every room has a door reached from circulation · routes ≥ 1.0 m clear · suite door and gallery end on circulation] } else { std.block(fill: rgb("#fbe3dd"), inset: 4pt, radius: 2pt)[#text(fill: red, weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(3pt)
     #H[Key numbers]
-    - *West projection:* #r2(proj-x - 4.25) m over the courtyard and the double-height void (x 4.25–#r2(proj-x), y 6.5–19.25) on an *edge beam and #columns.len() columns* at x #r2(proj-x); the first-floor west wall stands on the GF west wall. Stair, lift, landing and west shaft rise from the ground floor.
-    - *Courtyard sky* and *double-height void* #str(calc.round(8.95 - proj-x, digits: 3)) m on axes (the GF courtyard is 4.70); the ground-floor courtyard and living keep their full floor.
-    - *West rooms* #r2(bbox(room("Bedroom 2").pts).at(2) - bbox(room("Bedroom 2").pts).at(0)) m on axes. *Gallery on the projection:* #r2(proj-x - bbox(room("Bedroom 2").pts).at(2)) m (½ wall + ½ railing off); wider at the stair top. *Circulation in the zone:* #r2(circ-area) m² (landing, gallery, family link); the walk through the living is not counted.
+    - *Step 7 (draft):* the courtyard OPEN on its west side: no projection over it (the strip x 4.25–5.8 × y 6.5–13 and column 1 removed); the gallery runs along the courtyard on x 2.75–4.25 looking in through W1, and only south of y 13 on the #r2(proj-x - 4.25) m projection over the double-height void (edge beam on x #r2(proj-x), #columns.len() columns). *The first floor cantilevers 1.55 m WEST over the driveway from y 9.2 to the south facade* (one step in the west facade at y 9.2); the lift, the stair, the west shaft and the family WC stay where they are.
+    - *Courtyard sky* 4.70 × 6.5 m on axes (x 4.25–8.95 × y 6.5–13; was #str(calc.round(8.95 - proj-x, digits: 3)) × 5.5) and *double-height void* #str(calc.round(8.95 - proj-x, digits: 3)) m on axes; the ground-floor courtyard and living keep their full floor.
+    - *West rooms* #r2(bbox(room("Bedroom 2").pts).at(2) - bbox(room("Bedroom 2").pts).at(0)) m on axes. *Gallery along the courtyard:* #r2(4.25 - bbox(room("Bedroom 2").pts).at(2)) m (½ wall + ½ outer wall off); on the projection #r2(proj-x - 4.25) m. *Circulation in the zone:* #r2(circ-area) m² (landing, gallery, family link); the walk through the living is not counted.
     - *Family living:* #r2(area(seating.pts)) m², on the courtyard edge, no separate route. *Kids' room:* #r2(area(room("Kids").pts)) m².
-    - *Bedrooms (15 Nov 2026, twins):* 2 · #r2(area(room("Bedroom 2").pts)) m² (≈ #r2(clear-approx(room("Bedroom 2").pts)) clear: the main room 4.03 × 3.53 = 14.44 + its entry strip 2.55 × 1.10) · 3 · #r2(area(room("Bedroom 3").pts)) m² (≈ #r2(clear-approx(room("Bedroom 3").pts)) clear: the main room 4.03 × 3.52 = 14.44 + its entry strip 2.55 × 1.20) · their baths back to back between them: bath 2 #r2(area(room("Bedroom 2 bath").pts)) m², bath 3 #r2(area(room("Bedroom 3 bath").pts)) m² · 1 · #r2(area(room("Bedroom 1").pts)) m² + its own bath #r2(area(room("Bedroom 1 bath").pts)) m² (≈ #r2(clear-approx(room("Bedroom 1 bath").pts)) clear; 14 Nov 2026, M3 adopted). The *family WC* #r2(area(room("Family WC").pts)) m² (14 Nov 2026: a basin zone open to the gallery and a WC compartment behind a 0.70 door, as the GF powder room; it serves the family living and the kids' room).
+    - *Bedrooms (15 Nov 2026, twins):* 2 · #r2(area(room("Bedroom 2").pts)) m² (≈ #r2(clear-approx(room("Bedroom 2").pts)) clear: step 7: the main room 4.075 × 3.525 = 14.36 + its entry strip 1.05 × 1.10 + the nook 1.425 × 1.10 beside the shaft) · 3 · #r2(area(room("Bedroom 3").pts)) m² (≈ #r2(clear-approx(room("Bedroom 3").pts)) clear: the main room 4.03 × 3.52 = 14.44 + its entry strip 2.55 × 1.20) · their baths back to back between them: bath 2 #r2(area(room("Bedroom 2 bath").pts)) m², bath 3 #r2(area(room("Bedroom 3 bath").pts)) m² · 1 · #r2(area(room("Bedroom 1").pts)) m² + its own bath #r2(area(room("Bedroom 1 bath").pts)) m² (≈ #r2(clear-approx(room("Bedroom 1 bath").pts)) clear; 14 Nov 2026, M3 adopted). The *family WC* #r2(area(room("Family WC").pts)) m² (14 Nov 2026: a basin zone open to the gallery and a WC compartment behind a 0.70 door, as the GF powder room; it serves the family living and the kids' room).
     - *Walked to a bathroom door:* bedroom 2 → its own bath ≈ #r1(path-len("Bedroom 2 door → its own bath door")) m · bedroom 3 → its own bath ≈ #r1(path-len("Bedroom 3 door → its own bath door")) m · family living → the family WC ≈ #r1(path-len("Family living → family WC door")) m · bedroom 1 → its own bath ≈ #r1(path-len("Bedroom 1 door → its own bath door")) m (the family WC ≈ #r1(path-len("Bedroom 1 door → family WC door")) m).
     #v(2pt)
     #text(6pt, fill: gray)[Plan: red = doors (thin = opening without a leaf) with swing line · blue = windows · blue dashed = drains · green = interfaces · brown dotted = ground floor below (the full courtyard and living floors) · grey dashed = the edge beam (x 5.6) and the three ground-floor columns · grey = neighbours · dashed boxes = furniture and fixtures.]
@@ -371,10 +372,10 @@
 #v(4pt)
 #grid(columns: (1fr, 1fr), column-gutter: 18pt,
   [
-    #H[The west projection · #r2(proj-x - 4.25) m over the courtyard and the double-height void]
-    - *Where:* along the west edge of the courtyard and of the double-height living, x 4.25–#r2(proj-x), from the courtyard's north edge (y 6.5) to the living's south wall (y 19.25). The west rooms take the full band over the GF west band and riwaq; their west wall stands on the GF west wall.
-    - *Widths:* rooms #r2(bed2.at(2) - bed2.at(0)) m on axes (≥ 4.0 m clear), gallery #r2(proj-x - bed2.at(2)) m (≥ 1.0 m clear).
-    - *Carried on:* an edge beam along x #r2(proj-x) and #columns.len() columns, each in an existing wall or glass line, none free-standing in a room: column 1 in the women's majlis south wall (y 6.5), column 2 a pier in the glass between the courtyard and the living (y 13.0), column 3 in the living's south wall (y 19.25). On the ground floor it reads as a colonnade along the courtyard edge.
+    #H[Step 7 (draft): the courtyard open on its west side · the projection #r2(proj-x - 4.25) m over the double-height void only · the west cantilever 1.55 m]
+    - *Where:* the projection only along the double-height living, x 4.25–#r2(proj-x), y 13.0–19.25 (to 20.55 over the old nib); along the courtyard (y 6.5–13) the first floor stops on the riwaq line x 4.25 (an outer wall with W1), so the courtyard is open to the sky from x 4.25 to x 8.95. The west rooms' west wall is the cantilever's edge x −1.55 from y 9.2 south; north of it (the lift, the stair, the family WC) it stays on the GF west wall x 0.
+    - *Widths:* rooms #r2(bed2.at(2) - bed2.at(0)) m on axes (≥ 4.0 m clear), gallery #r2(4.25 - bed2.at(2)) m along the courtyard (≥ 1.0 m clear), #r2(proj-x - 4.25) m on the projection.
+    - *Carried on:* the projection on an edge beam along x #r2(proj-x) and #columns.len() columns (a pier in the glass between the courtyard and the living at y 13.0, one in the living's south wall at y 19.25); the cantilever on the first-floor beams extended 1.55 m beyond the GF west wall (the engineer: the back-span over the west band, the slab edge beam, the facade's step at y 9.2).
     - *Why columns and not a cantilever wall:* walls stand directly on walls; the earlier split projection (a west wall on cantilever beams, 0.11 m from the M line) was reverted.
     - *Gallery:* closed to the courtyard by the steel window W1 on the upstand of the edge beam (sill +3.82, guarding transom +4.70, head +6.75, four inward casements; V6.4, enclosure option A), the stair arrives at its north end beside the lift door (the flip, option B); every west room door opens from it. Clear 1.405 m (1.235 m at the three column sleeves Ø0.40).
     #v(3pt)
@@ -388,7 +389,7 @@
   ],
   [
     #H[Bedroom 2 · #r2(area(room("Bedroom 2").pts)) m² (≈ #r2(clear-approx(room("Bedroom 2").pts)) clear) + its bath #r2(area(room("Bedroom 2 bath").pts)) m² · twins (owner, 15 Nov 2026, `studies/west_wing_ff.typ`)]
-    - *Entered through its entry strip* beside the shaft (x 1.5–4.25 × y 9.2–10.4, 2.55 × 1.10 clear): the 0.90 door on the gallery inside it, facing the shaft's wall, then the main room *4.03 × 3.53 clear = 14.44 m²* (the 0.10 band beside the shaft apart). No store. *Bed 1.4 × 2.0* with its head on the west wall under its window, bedside tables both sides; *desk* at the second west window; *wardrobe 1.8 m* on the bath wall east of the bath door. No door faces the bed's head.
+    - *Step 7:* entered through its entry strip beside the shaft (x 1.5–2.75 × y 9.2–10.4, 1.05 × 1.10 clear; the 0.90 door on the gallery's wall x 2.75), then the main room *4.075 × 3.525 clear = 14.36 m²* (x −1.55–2.75 × y 10.4–14.125) and a *wardrobe nook* 1.425 × 1.10 west of the shaft (x −1.55–0 × y 9.2–10.4). *Bed 1.4 × 2.0* with its head on the new west wall under its window, *desk* at the second west window, *wardrobe 1.8 m* on the gallery wall and 1.4 m in the nook.
     - *En-suite bath (X3)* #r3(bath.at(2) - bath.at(0)) × #r2(bath.at(3) - bath.at(1)) m on axes (≈ #r2(clear-approx(room("Bedroom 2 bath").pts)) m² clear), the west half of the pair between the two bedrooms: its 0.70 door on y #r3(bath.at(1)) at x 1.2–1.9 from *inside* the bedroom, opening into the bath; the *shower 0.8 × 0.8* with a screen in the north-west corner under a *small high window*, the *basin* south-west, the *wall-hung WC* on the wet wall x 2.10 at its south end; ≈ #r1(path-len("Bedroom 2 door → its own bath door")) m from the bedroom door. *Result:* every bedroom has its own bathroom (the suite, bedrooms 1, 2 and 3) plus a family WC upstairs.
     #v(3pt)
     #H[Bedroom 3 · #r2(area(room("Bedroom 3").pts)) m² (≈ #r2(clear-approx(room("Bedroom 3").pts)) clear) + its bath #r2(area(room("Bedroom 3 bath").pts)) m² · the twin]
@@ -422,7 +423,7 @@
   ],
   [
     #H[Engineer]
-    - *Projection:* #r2(proj-x - 4.25) m slab beyond x 4.25 along y 6.5–19.25; an *edge beam* on x #r2(proj-x) (spans ≈ 6.5 m and 6.25 m, depth to confirm; seen from the courtyard and the living, expressed as the colonnade's beam); #columns.len() *columns* down to their own foundations (sizes and pads to confirm).
+    - *Projection (step 7):* #r2(proj-x - 4.25) m slab beyond x 4.25 along y 13.0–19.25 only; the *edge beam* on x #r2(proj-x) (span ≈ 6.25 m) on #columns.len() columns. *West cantilever:* 1.55 m beyond the GF west wall x 0 from y 9.2 to y 24.0 (≈ 14.8 m of facade), the slab's underside ≈ +3.35 over the driveway; the back-span, the edge beam and the step at y 9.2 to be sized; it crosses the M line (approval).
     - *Ground floor* changes only by the columns, their foundations, the beam line and the lower ceiling under the projection.
     #v(3pt)
     #H[Walls off the ground-floor lines]

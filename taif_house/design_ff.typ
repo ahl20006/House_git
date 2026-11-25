@@ -17,14 +17,14 @@
 
 // ---------- Outline, voids and fixed elements (CSV) ----------
 #let outline-csv = sec.ff-outline                                  // the first floor stands on the ground-floor walls
-#assert(sample(outline-csv.map(place), step: 0.1).all(p => inside(p, env)), message: "ERROR: the first-floor centre line leaves the envelope.")
-#let ff-env-gap = calc.min(..sample(outline-csv.map(place), step: 0.1).map(p => calc.min(..edges(env).map(e => seg-dist(p, ..e))))) - sec.outer-half
+#let ff-over-m = not sample(outline-csv.map(place), step: 0.1).all(p => inside(p, env))   // step 7 (draft): the west cantilever crosses the M line over the driveway: flagged (approval needed), not an error
+#let ff-env-gap = calc.min(..sample(outline-csv.map(place), step: 0.1).map(p => calc.min(..edges(env).filter(e => not (calc.abs(e.at(0).at(0)) < 0.01 and calc.abs(e.at(1).at(0)) < 0.01)).map(e => seg-dist(p, ..e))))) - sec.outer-half   // step 7: the M-line edge left out (the cantilever crosses it)
 #assert(ff-env-gap >= 0, message: "ERROR: the first-floor outer wall face crosses the envelope.")
 #let ff-m-gap = calc.min(..outline-csv.map(place).map(p => p.at(0))) - sec.outer-half
-#let court-sky = rect-csv(sec.pj-edge, sec.y-court, sec.x-east, 13.0)       // courtyard, open to the sky (its west 1.35 m is under the projection)
+#let court-sky = rect-csv(sec.x-sky, sec.y-court, sec.x-east, 13.0)   // step 7: from the riwaq line       // courtyard, open to the sky (its west 1.35 m is under the projection)
 #let living-void = rect-csv(sec.pj-edge, 13.0, sec.x-east, sec.y-living)    // double-height living, no floor
 #let fixed-csv = fam.fixed.filter(f => f.name != "Air tower").map(f => (f.name, f.pts))
-#let tower-csv = fam.fixed.find(f => f.name == "Air tower").pts           // the air tower rises to the roof
+#let tower-polys = fam.fixed.filter(f => f.name == "Air tower").map(f => f.pts)   // step 7: none (the malqaf moved east in GF step 6; its shaft to follow)
 #let as-row(n, P, colour) = {
   let xs = P.map(p => p.at(0)); let ys = P.map(p => p.at(1))
   (name: n, x: str((calc.min(..xs) + calc.max(..xs)) / 2), y: str((calc.min(..ys) + calc.max(..ys)) / 2),
@@ -47,7 +47,7 @@
 #let clear-of(r) = { let hit = match(r); if hit == none { none } else { let (s, m) = hit; (m.clear-approx)(s.pts) } }
 
 // ---------- Areas ----------
-#let available = area(outline-csv) - area(court-sky) - area(living-void) - fixed-csv.map(((n, P)) => area(P)).sum() - area(tower-csv)
+#let available = area(outline-csv) - area(court-sky) - area(living-void) - fixed-csv.map(((n, P)) => area(P)).sum() - tower-polys.map(area).sum(default: 0)
 #let used-in = ff-rooms.map(r => area(r.P)).sum(default: 0)
 #let used-out = ff-open.map(r => area(r.P)).sum(default: 0)
 #let circulation = ff-rooms.filter(r => r.colour == "circ").map(r => area(r.P)).sum(default: 0)
@@ -68,15 +68,15 @@
 
 // ---------- PAGE 1: plan in the site, with the framework checks ----------
 #render(
-  title: [First floor V8.1 · family part + the L (office, gym, suite court, master suite)],
+  title: [V11-idea · step 7 (draft): the courtyard open on its west side, the first floor cantilevered 1.55 m west · First floor V8.1],
   subtitle: [Taif / Palm House V7.1 · rooms in data/rooms_ff.csv · design and furniture in studies/ff_family.typ and studies/ff_suite.typ · schedule, light check and the split projection on the next pages],
   court: court-sky.map(place),
   extras: (("Void · double-height living", living-void.map(place)),) + ff-open.map(r => (r.name, r.P.map(place))),
   rooms: fixed + ff-rooms.map(r => as-row(r.name, r.P, r.colour)),
-  air: (("Air tower", tower-csv.map(place)),),
+  air: tower-polys.map(P => ("Air tower", P.map(place))),
   marks: all-doors.map(d => ((place(d.a), place(d.b)), [])) + sec.clerestory.map(((a, b)) => ((place(a), place(b)), [])) + safety-marks + night-marks + screen-marks,
   limit: outline-csv.map(place),
-  note: [*First floor V8.1.* The gallery runs on a *#num(sec.pj.depth) m west projection* along the courtyard and the double-height void (x #num(sec.x-court)–#num(sec.pj-edge), y #num(sec.y-court)–#num(sec.y-living)), on an *edge beam and #sec.pj.columns columns* at x #num(sec.pj-edge), each in an existing wall or glass line; the first-floor west wall stands on the GF west wall (#r3(ff-m-gap) m from the M line). Courtyard sky and void #r3(sec.pj.sky) m on axes. West rooms #num(sec.pj.room) m and gallery #num(sec.pj.gallery) m on axes: *bedrooms 2 and 3 as twins* (15 Nov 2026, `studies/west_wing_ff.typ` adopted: an entry strip each, their baths back to back between them on one stack into the GF powder room's WC compartment), the *family WC* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* with its own compact bath in the corner beside the suite's wet rooms (14 Nov 2026, the east wing's M3 adopted: `studies/east_wing_ff.typ` page 7; the suite's WC closet re-made on the shared wall, the shower back to back with the kids' over the one stack). The *south wing v2* (1 Nov 2026): the *gym* on the west band (15 Nov 2026: bedroom 3's entry strip taken from its north end, a pocket for the dumbbell rack, its door from the court beside the gallery's end, which now runs over the old nib to y 20.55 with a glass door onto the court), the *suite court* from the gym to the office (≈ 25 m², open to the sky, the three court doors on a 1.2 m strip along its north edge) in front of the clerestory windows, the *owner's office* on the east beside the suite (no door to the bedroom; reached from the court only; visitors are met in the men's majlis), and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair (its arrival at the north end since the flip), lift and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
+  note: [*V11-idea · step 7 (draft, 25 Nov 2026): the courtyard open on its west side; the first floor cantilevered 1.55 m west over the driveway (y 9.2–24.0, one step in the west facade at y 9.2; the lift and the stair stay on x 0).* The gallery runs along the courtyard on x 2.75–4.25 looking in through W1 (an outer wall on the riwaq line) and only south of y 13 on the 1.55 m projection over the double-height void (edge beam on x 5.8, #sec.pj.columns columns); bedroom 2 moved west into the cantilever (its door from the gallery at x 2.75, a wardrobe nook beside the shaft); bath 2, bedroom 3 and the gym 1.55 m wider, not re-planned; the family WC, the X3 stack (2.10, 15.23) and the west shaft stay. The FF west face #r3(ff-m-gap) m from the M line#if ff-over-m [ — *beyond it, over the driveway: approval needed*]. The old malqaf shaft removed. *Below, the V8.1 text as it stood.* The gallery runs on a *#num(sec.pj.depth) m west projection* along the courtyard and the double-height void (x #num(sec.x-court)–#num(sec.pj-edge), y #num(sec.y-court)–#num(sec.y-living)), on an *edge beam and #sec.pj.columns columns* at x #num(sec.pj-edge), each in an existing wall or glass line; the first-floor west wall stands on the GF west wall (#r3(ff-m-gap) m from the M line). Courtyard sky and void #r3(sec.pj.sky) m on axes. West rooms #num(sec.pj.room) m and gallery #num(sec.pj.gallery) m on axes: *bedrooms 2 and 3 as twins* (15 Nov 2026, `studies/west_wing_ff.typ` adopted: an entry strip each, their baths back to back between them on one stack into the GF powder room's WC compartment), the *family WC* by the west shaft. North band: *kids' room (study + gaming)* and the *family living* on the courtyard edge. *Bedroom 1* with its own compact bath in the corner beside the suite's wet rooms (14 Nov 2026, the east wing's M3 adopted: `studies/east_wing_ff.typ` page 7; the suite's WC closet re-made on the shared wall, the shower back to back with the kids' over the one stack). The *south wing v2* (1 Nov 2026): the *gym* on the west band (15 Nov 2026: bedroom 3's entry strip taken from its north end, a pocket for the dumbbell rack, its door from the court beside the gallery's end, which now runs over the old nib to y 20.55 with a glass door onto the court), the *suite court* from the gym to the office (≈ 25 m², open to the sky, the three court doors on a 1.2 m strip along its north edge) in front of the clerestory windows, the *owner's office* on the east beside the suite (no door to the bedroom; reached from the court only; visitors are met in the men's majlis), and the *master suite* (lobby, luxury bath with WC closet, walk-in dressing, bedroom). No east duct. Stair (its arrival at the north end since the flip), lift and west shaft rise from the ground floor. Colours: suite (beige) · family (yellow) · baths, office and linen (blue-grey) · gym (blue) · circulation (light) · fixed (grey) · courtyard, void and court (white / blue). Blue marks: doors and the clerestory windows. Areas: available #num(available) m² · rooms #num(used-in) m² (circulation #num(circulation) m²) · suite court #num(used-out) m².
     #linebreak()
     #if sync-issues.len() == 0 [*✓ data/rooms_ff.csv matches the two studies room for room.*] else [#text(fill: warn)[*CSV and studies differ:* #sync-issues.join("; ")]]],
 )
@@ -94,16 +94,16 @@
     ..ff-csv.map(r => ([#r.name], part-of(r.name), [#size-of(r.P)], [#num(area(r.P))], [#if r.colour in open-kinds or r.name.starts-with("Linen") or r.name.starts-with("Wardrobe") [–] else { let c = clear-of(r); if c == none [?] else [#num(c)] }])).flatten(),
     [*Rooms (indoor)*], [], [], [*#num(used-in)*], [],
     [*Suite court (open)*], [], [], [*#num(used-out)*], [],
-    [Stair, lift, west shaft, air tower], [], [], [#num(fixed-csv.map(((n, P)) => area(P)).sum() + area(tower-csv))], [],
+    [Stair, lift, west shaft, air tower], [], [], [#num(fixed-csv.map(((n, P)) => area(P)).sum() + tower-polys.map(area).sum(default: 0))], [],
   )
 ], [
   #set text(7.6pt)
   #text(10pt, weight: "bold", fill: accent)[Key numbers]
   - *Master suite:* #num(suite-area) m² indoors (lobby, bath + WC closet, dressing, bedroom), + the suite court #num(used-out) m².
   - *Circulation:* #num(circulation) m² (gallery, family link, suite lobby; the stair arrives on the gallery's north part since the flip).
-  - *Courtyard sky* #r3(sec.pj.sky) × #num(13.0 - sec.y-court) m and *double-height void* #r3(sec.pj.sky) × #num(sec.y-living - 13.0) m on axes; the ground-floor courtyard and living keep their full floor.
+  - *Courtyard sky* #r3(sec.pj.sky-court) × #num(13.0 - sec.y-court) m (step 7: open from the riwaq line) and *double-height void* #r3(sec.pj.sky) × #num(sec.y-living - 13.0) m on axes; the ground-floor courtyard and living keep their full floor.
   - *West rooms:* #num(sec.pj.room) m on axes (≈ #r3(sec.pj.room-clear) m clear); *gallery* #num(sec.pj.gallery) m (≈ #r3(sec.pj.gallery-clear) m clear); *bedroom 2's bath* #num(sec.pj.bath-w) m wide (3 Nov 2026).
-  - *Edge beam* on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns; the FF west wall on the GF west wall, #r3(ff-m-gap) m from the M line.
+  - *Edge beam* on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns; the FF west wall #r3(ff-m-gap) m from the M line (step 7: 1.55 m beyond the GF west wall, over the driveway).
   #v(4pt)
   #text(10pt, weight: "bold", fill: accent)[Where the detail is]
   - *Furniture, doors, windows, drains, walking distances, routes ≥ 1.0 m and room checks:* studies/ff_family.typ (part 1) and studies/ff_suite.typ (part 2).
@@ -136,7 +136,7 @@
 
 // ---------- PAGE 5: the west projection · the two east–west sections · against the reverted split projection ----------
 #pagebreak()
-#text(15pt, fill: accent, weight: "bold")[First floor V8.1 · the west projection on three columns]
+#text(15pt, fill: accent, weight: "bold")[First floor V8.1 · the west projection on #sec.pj.columns columns (step 7: over the double-height void only; the courtyard open)]
 #h(8pt) #text(8pt, fill: gray)[sections looking north, CSV x · the column on x #num(sec.pj-edge) is beyond the stepped corner (columns at y #sec.columns.map(c => num(c.at(1))).join(", "))]
 #v(3pt)
 #grid(columns: (1fr, 1fr), column-gutter: 10pt,
@@ -149,7 +149,7 @@
   #text(6pt, fill: gray)[V6.3 read from data/rooms_ff.csv; the split projection (V5.1–V6.0) from tag v6.0. Clear ≈ axes − ½ wall each side (250 outer, 200 inner, ≈ 50 mm for the steel window W1 on the void edge, V6.4); sky opening clear = axes − ½ of the east wall − the slab edge with its upstand.]
 ], [
   #set text(7.2pt)
-  - *Projection:* #num(sec.pj.depth) m over the courtyard and the double-height void; the west rooms (#num(sec.pj.room) m) and the gallery (#num(sec.pj.gallery) m) take the band over the GF west band and riwaq.
+  - *Projection (step 7):* #num(sec.pj.depth) m over the double-height void only (y 13–19.25); the courtyard open from the riwaq line, the west rooms in the 1.55 m west cantilever; the west rooms (#num(sec.pj.room) m) and the gallery (#num(sec.pj.gallery) m) take the band over the GF west band and riwaq.
   - *Structure:* an edge beam on x #num(sec.pj-edge) (spans #sec.pj.spans.map(num).join(" and ") m) on #sec.pj.columns columns, each in an existing wall or glass line: the women's majlis south wall, the courtyard / living glass, the living's south wall. On the ground floor it reads as a colonnade along the courtyard. Walls stand on walls; nothing hangs on cantilever beams.
   - *V6.1:* the split projection of V5.1–V6.0 (#num(sec.split.inward) m in + #num(sec.split.outward) m out, the west wall on cantilever beams #num(sec.split.m-gap) m from the M line) is reverted: a wall on cantilever beams along ≈ #num(sec.split.cant-wall) m costs more and is less direct than walls on walls, and the M-line projection needed municipal approval.
   - *Cost of the revert:* courtyard sky #r3(sec.split.sky) → #r3(sec.pj.sky) m; #sec.pj.columns columns on the courtyard edge.
@@ -161,7 +161,7 @@
 #metadata((
   outline: outline-csv.map(place), gf-outline: outline-gf,
   rooms: ff-csv.map(r => (name: r.name, id: ids.find(((n, i)) => n == r.name).at(1), colour: r.colour, pts: r.P.map(place), area: area(r.P))),
-  fixed: fixed-csv.map(((n, P)) => (name: n, pts: P.map(place))) + ((name: "Air tower", pts: tower-csv.map(place)),),
+  fixed: fixed-csv.map(((n, P)) => (name: n, pts: P.map(place))) + tower-polys.map(P => (name: "Air tower", pts: P.map(place))),
   voids: (("Courtyard (open to the sky)", court-sky), ("Double-height living (void)", living-void)).map(((n, P)) => (name: n, pts: P.map(place))),
   doors: all-doors.map(d => (a: place(d.a), b: place(d.b), label: plain(d.label), open: d.open)),
   windows: (fam.windows + suite.windows).map(((a, b)) => (place(a), place(b))),

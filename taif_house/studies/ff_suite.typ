@@ -20,7 +20,7 @@
 #let rect-pts(x0, y0, x1, y1) = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
 
 // ---------- The focus zone (wall centre lines): the suite east of the courtyard / double-height living (x 8.95–13.311, y 6.5–24) + the south wing on the men's majlis roof / the guest block ----------
-#let zone = ((8.95, 6.5), (11.5, 6.5), (11.5, 8.0), (13.311, 8.0), (13.311, 24.0), (0, 24.0), (0, 19.25), (1.5, 19.25), (1.5, 20.55), (5.8, 20.55), (5.8, 19.25), (8.95, 19.25))   // 15 Nov 2026: bedroom 3's entry strip and the gallery's end (x 1.5–5.8 × y 19.25–20.55) belong to the family part   // 14 Nov 2026: the corner x 11.5–13.311 × y 6.5–8.0 is bedroom 1's bath
+#let zone = ((8.95, 6.5), (11.5, 6.5), (11.5, 8.0), (13.311, 8.0), (13.311, 24.0), (-1.55, 24.0), (-1.55, 19.25), (1.5, 19.25), (1.5, 20.55), (5.8, 20.55), (5.8, 19.25), (8.95, 19.25))   // STEP 7 (draft, 25 Nov 2026): the west cantilever 1.55 m (x -1.55) · 15 Nov 2026: bedroom 3's entry strip and the gallery's end (x 1.5–5.8 × y 19.25–20.55) belong to the family part   // 14 Nov 2026: the corner x 11.5–13.311 × y 6.5–8.0 is bedroom 1's bath
 #let plan-scale = 0.62cm
 
 // ---------- Neighbours (grey; the family part, fixed by studies/ff_family.typ) ----------
@@ -29,10 +29,10 @@
   ("Bedroom 1 bath", rect-pts(11.5, 5.6, 13.311, 8.0)),
   ("Family link", rect-pts(8.95, 5.3, 10.15, 6.5)),
   ("Family living", rect-pts(4.25, 3.0, 8.95, 6.5)),
-  ("Courtyard sky (void)", rect-pts(5.8, 6.5, 8.95, 13.0)),
+  ("Courtyard sky (void)", rect-pts(4.25, 6.5, 8.95, 13.0)),   // step 7
   ("Double-height living (void)", rect-pts(5.8, 13.0, 8.95, 19.25)),
-  ("Gallery on the west projection", rect-pts(4.25, 6.5, 5.8, 20.55)),   // 15 Nov 2026: to y 20.55 over the old nib
-  ("Bedroom 3", ((0, 15.525), (4.25, 15.525), (4.25, 20.55), (1.5, 20.55), (1.5, 19.25), (0, 19.25))),   // 15 Nov 2026: with its entry strip taken from the gym
+  ("Gallery on the west projection", rect-pts(4.25, 13.0, 5.8, 20.55)),   // step 7: over the living only   // 15 Nov 2026: to y 20.55 over the old nib
+  ("Bedroom 3", ((-1.55, 15.525), (4.25, 15.525), (4.25, 20.55), (1.5, 20.55), (1.5, 19.25), (-1.55, 19.25))),   // step 7   // 15 Nov 2026: with its entry strip taken from the gym
 )
 // ground floor below (dotted)
 #let below = (
@@ -47,7 +47,7 @@
   (pts: ((8.95, 6.5), (10.15, 6.5)), label: [① suite door: from the family link], at: (8.85, 6.2), anchor: "east"),
   (pts: ((10.15, 6.5), (11.5, 6.5)), label: [② the closet's north wall to bedroom 1 (y 6.5, on B6; acoustic); bedroom 1's bath east of it to y 8.0], at: (13.45, 6.5), anchor: "west"),
   (pts: ((4.4, 20.55), (5.5, 20.55)), label: [③ the gallery's end (y 20.55, over the old nib): its glass door onto the court; the gym's door beside it on x 4.25 (15 Nov 2026)], at: (4.4, 18.75), anchor: "west"),
-  (pts: ((0, 19.25), (1.5, 19.25)), label: [④ bedroom 3's south wall: the double wall to the gym (Rw ≈ 55 dB) on B22 for x 0–1.5; east of it bedroom 3's entry strip (light walls x 1.5, y 20.55) taken from the gym, 15 Nov 2026], at: (0.1, 18.4), anchor: "west"),
+  (pts: ((-1.55, 19.25), (1.5, 19.25)), label: [④ bedroom 3's south wall: the double wall to the gym (Rw ≈ 55 dB) on B22 for x 0–1.5; east of it bedroom 3's entry strip (light walls x 1.5, y 20.55) taken from the gym, 15 Nov 2026], at: (0.1, 18.4), anchor: "west"),
   (pts: ((13.311, 19.25), (13.311, 24.0)), label: [⑤ the office's east wall: a window only (V8.1)], at: (13.45, 22.2), anchor: "west"),
 )
 
@@ -64,8 +64,8 @@
   R("Suite dressing", rect-pts(10.3, 10.45, 13.311, 13.9), "suite"),
   R("Suite bedroom", ((8.95, 11.9), (10.3, 11.9), (10.3, 13.9), (13.311, 13.9), (13.311, 19.25), (8.95, 19.25)), "suite",
     parts: (rect-pts(8.95, 11.9, 10.3, 13.9), rect-pts(8.95, 13.9, 13.311, 19.25))),
-  R("Gym", ((0, 19.25), (1.5, 19.25), (1.5, yn), (xg, yn), (xg, 24.0), (0, 24.0)), "gym",          // 15 Nov 2026: the west band south of y 20.55 + the pocket x 0–1.5 × y 19.25–20.55 (the dumbbell rack, by the west window); bedroom 3's entry strip and the nib given up   // v2: the west band + the entrance nib
-    parts: (rect-pts(0, yn, xg, 24.0), rect-pts(0, 19.25, 1.5, yn))),
+  R("Gym", ((-1.55, 19.25), (1.5, 19.25), (1.5, yn), (xg, yn), (xg, 24.0), (-1.55, 24.0)), "gym",   // step 7: 1.55 m wider to the cantilever's west wall (not re-planned)          // 15 Nov 2026: the west band south of y 20.55 + the pocket x 0–1.5 × y 19.25–20.55 (the dumbbell rack, by the west window); bedroom 3's entry strip and the nib given up   // v2: the west band + the entrance nib
+    parts: (rect-pts(-1.55, yn, xg, 24.0), rect-pts(-1.55, 19.25, 1.5, yn))),
   R("Suite court (open to the sky)", ((xg, yn), (xn, yn), (xn, 19.25), (xo, 19.25), (xo, 24.0), (xg, 24.0)), "open",   // v2: from the gym to the office; the gallery's end (the old nib) in its north-west corner
     parts: (rect-pts(xn, 19.25, xo, 24.0), rect-pts(xg, yn, xn, 24.0))),
   R("Owner's office", rect-pts(xo, 19.25, 13.311, 24.0), "office"),
@@ -95,14 +95,14 @@
 #let tm-behind = 0.5          // the zone behind the belt as drawn (owner, 15 Nov 2026)
 #let tm-side = 0.5            // each side
 #let tm-front = 0.25          // the treadmill's gap to the south wall
-#let west-clear = (0.125, yn + 0.1, xg - 0.1, 24.0 - 0.125)         // the gym's main room inside its walls (4.025 × 3.225); the pocket x 0.125–1.4 × y 19.35–20.55 north of it
+#let west-clear = (-1.425, yn + 0.1, xg - 0.1, 24.0 - 0.125)   // step 7: from the cantilever's west wall         // the gym's main room inside its walls (4.025 × 3.225); the pocket x 0.125–1.4 × y 19.35–20.55 north of it
 #let tm = (west-clear.at(0) + tm-side, west-clear.at(3) - tm-front - tm-len, west-clear.at(0) + tm-side + tm-wid, west-clear.at(3) - tm-front)
 #let tm-zones = (
   ("west side", (tm.at(0) - tm-side, tm.at(1), tm.at(0), tm.at(3)), west-clear),
   ("east side", (tm.at(2), tm.at(1), tm.at(2) + tm-side, tm.at(3)), west-clear),
   ("behind", (tm.at(0), tm.at(1) - tm-behind, tm.at(2), tm.at(1)), west-clear),
 )
-#let acoustic-wall = ((0, 19.25), (1.5, 19.25))   // shared with bedroom 3 for x 0–1.5 (on B22): a double wall, target Rw ≈ 55 dB airborne (200 dense block + an independent lined stud, DETAILS.md); east of it the strip's light walls
+#let acoustic-wall = ((-1.55, 19.25), (1.5, 19.25))   // step 7: to the cantilever's west wall   // shared with bedroom 3 for x 0–1.5 (on B22): a double wall, target Rw ≈ 55 dB airborne (200 dense block + an independent lined stud, DETAILS.md); east of it the strip's light walls
 #let arm-x0 = xo              // compatibility names (presentation.typ)
 #let long-y0 = yn
 #let arm-y0 = 19.25
@@ -182,7 +182,7 @@
 )
 // fire safety (studies/fire_escape.typ): the suite bedroom's east window is its escape window (hinged casements, no screen)
 #let escape-windows = (("Suite bedroom", (13.311, 15.0), (13.311, 18.6)),)   // V8.1: y 15.0–18.6
-#let windows = (((0, 19.6), (0, 20.4)), ((0, 22.0), (0, 23.5)), ((2.0, 24), (3.9, 24)), ((10.5, 24), (12.8, 24)), ((13.311, 22.8), (13.311, 23.7)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
+#let windows = (((-1.55, 19.6), (-1.55, 20.4)), ((-1.55, 22.0), (-1.55, 23.5)), ((2.0, 24), (3.9, 24)), ((10.5, 24), (12.8, 24)), ((13.311, 22.8), (13.311, 23.7)), ((8.95, 7.6), (8.95, 9.6)), ((13.311, 9.5), (13.311, 10.05)), ((13.311, 15.0), (13.311, 18.6)),
   ((6.0, 19.25), (7.0, 19.25)), ((7.6, 19.25), (8.6, 19.25)))   // gym: west (two) and south; office: south and (V8.1) a 0.90 east window at its south-east corner (morning light, cross-ventilation with the court door; a mashrabiya, non-escape); the clerestory windows of the living on the court's north wall
 #let drains = (
   (((10.9, 7.15), (11.4, 7.55), (12.9, 7.55), (13.311, 7.1)), [suite bath (14 Nov 2026): the closet's WC under the kids' shower zone, the shower, the basins and the tub along the east wall, all to the one stack outside the east wall (y 7.05)]),
@@ -236,7 +236,7 @@
 #let box-overlap(a, b, eps: 0.001) = calc.min(a.at(2), b.at(2)) - calc.max(a.at(0), b.at(0)) > eps and calc.min(a.at(3), b.at(3)) - calc.max(a.at(1), b.at(1)) > eps
 #let is-rect(P) = P.len() == 4 and calc.abs(P.at(0).at(1) - P.at(1).at(1)) < 1e-6 and calc.abs(P.at(1).at(0) - P.at(2).at(0)) < 1e-6
 // clear ≈ axes minus half a wall on every edge: 250 mm on the outer walls (x 13.311, y 24, x 0), nothing on open edges, 200 mm elsewhere
-#let outer-edges = (((13.311, 5.245), (13.311, 24.0)), ((0, 24.0), (13.311, 24.0)), ((0, 19.25), (0, 24.0)))
+#let outer-edges = (((13.311, 5.245), (13.311, 24.0)), ((-1.55, 24.0), (13.311, 24.0)), ((-1.55, 19.25), (-1.55, 24.0)))   // step 7
 #let open-edges = ()
 #let edge-t(a, b) = {
   if open-edges.any(e => on-seg(a, ..e) and on-seg(b, ..e)) { 0.0 }
