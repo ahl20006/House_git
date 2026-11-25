@@ -3,14 +3,14 @@ Courtyard,6.6,9.75,4.7,6.5,0,M,court,4.25 6.5; 8.95 6.5; 8.95 13; 4.25 13
 Women's majlis,5.75,3.25,3.0,6.5,0,M,family,
 Living (double height),6.6,16.125,4.7,6.25,0,M,family,
 Men's majlis,8.0305,21.625,10.561,4.75,0,M,guest,
-Small entry,9.75,6.9,1.6,2.8,0,M,circ,
+Small entry,9.75,6.7,1.6,2.4,0,M,circ,
 Corridor,10.1125,4.9,2.325,1.2,0,M,circ,
-Cupboard (corridor),10.9125,6.0,0.725,1.0,0,M,service,
 Maid room,8.55,2.15,2.6,4.3,0,M,service,
-Maid bath,10.5625,0.95,1.425,1.9,0,M,service,
-Laundry,10.5625,3.1,1.425,2.4,0,M,service,
-Kitchen,11.1305,9.75,4.361,6.5,0,M,service,8.95 8.3; 10.55 8.3; 10.55 6.5; 13.311 6.5; 13.311 13; 8.95 13
-Living (normal height) · dining,11.1305,16.125,4.361,6.25,0,M,family,
+Maid bath,10.5625,1.4,1.425,2.8,0,M,service,
+Store (linen),10.5625,3.55,1.425,1.5,0,M,service,
+Kitchen,11.1305,9.25,4.361,7.5,0,M,service,8.95 7.9; 10.55 7.9; 10.55 5.5; 11.275 5.5; 11.275 6.5; 13.311 6.5; 13.311 13; 8.95 13
+Laundry,11.9305,14.25,2.761,2.5,0,M,service,
+Living (normal height) · dining,11.1305,16.125,4.361,6.25,0,M,family,8.95 13; 10.55 13; 10.55 15.5; 13.311 15.5; 13.311 19.25; 8.95 19.25
 Lift (shaft placeholder),1.125,1.1,2.25,2.2,0,M,core,
 Family lobby + riwaq,3.25,9.625,2.0,19.25,0,M,circ,2.25 0; 4.25 0; 4.25 19.25; 2.75 19.25; 2.75 2.2; 2.25 2.2
 Stair,1.375,5.05,2.75,5.7,0,M,core,
