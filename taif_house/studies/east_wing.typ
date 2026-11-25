@@ -7,7 +7,7 @@
 #set text(font: ("Segoe UI", "Arial", "DejaVu Sans"), size: 8pt)
 
 // ---------- The block (local metres: origin = NW corner, x east, y SOUTH) · NOT a rectangle: the NE corner stepped (17 Nov 2026, studies/step_corner.typ option 6: the slant replaced by ONE orthogonal step) ----------
-#let block = ((-1.4, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 14.25), (1.6, 14.25), (1.6, 13.0), (0, 13.0), (0, 6.5), (-1.4, 6.5))   // GF step 10: the majlis wall at local −1.4 (CSV 7.55), the laundry x 1.6–4.361 × y 11.75–14.25   // GF step 9: + the laundry south of the kitchen (local x 1.6–4.361 × y 13–15.5)   // GF step 6: the malqaf chamber inside the block's SW corner (local x −1.7–0 × y 4.3–6.5) · GF step 5: the open space (from the majlis wall, CSV x 7.25 = local −1.7, to the east wall, north of the kitchen and the courtyard) and the kitchen
+#let block = ((0, 0), (2.325, 0), (2.325, 6.5), (4.361, 6.5), (4.361, 14.25), (1.6, 14.25), (1.6, 13.0), (0, 13.0))   // GF step 13: the strip x 7.55–8.95 (local −1.4–0) to the women's majlis: the block starts at local 0 (CSV 8.95)   // GF step 10: the majlis wall at local −1.4 (CSV 7.55), the laundry x 1.6–4.361 × y 11.75–14.25   // GF step 9: + the laundry south of the kitchen (local x 1.6–4.361 × y 13–15.5)   // GF step 6: the malqaf chamber inside the block's SW corner (local x −1.7–0 × y 4.3–6.5) · GF step 5: the open space (from the majlis wall, CSV x 7.25 = local −1.7, to the east wall, north of the kitchen and the courtyard) and the kitchen
 #let scale = 1.15cm
 
 // ---------- V10.0: the malqaf moved to the courtyard's north-west corner (L5): no air tower in this block; the cut tip is the maid's store ----------
@@ -20,10 +20,10 @@
 
 // ---------- Rooms at the stepped corner: polygons (name, corner points, colour) · 17 Nov 2026: every room a clean rectangle (the maid room and bath as option 6) ----------
 #let poly-rooms = (
-  // GF step 12 (25 Nov 2026, draft): the malqaf chamber OUT of the block (a free-standing tower in the courtyard, local x −1.4–0 × y 6.5–8.67, drawn below); its place and the corridor to the maid room; local = CSV − 8.95
-  ("Small entry", ((0, 5.5), (2.325, 5.5), (2.325, 6.5), (1.6, 6.5), (1.6, 7.9), (0, 7.9)), "lobby"),   // GF step 12: a clean L: the strip x 8.95–11.275 × y 5.5–6.5 (the garden door in its east wall y 5.5–6.4, the maid door in its north wall) + the bay x 8.95–10.55 × y 6.5–7.9 (the kitchen door south, the tower's door west); the courtyard door gone
-  ("Maid room", ((0, 0), (2.325, 0), (2.325, 5.5), (0, 5.5), (0, 6.5), (-1.4, 6.5), (-1.4, 2.2), (0, 2.2)), "maid"),   // GF step 12: x 8.95–11.275 × y 0–5.5 (2.10 × 5.275 clear) + the open alcove x 7.55–8.95 × y 2.2–6.5 (1.2 × 4.1 clear, storage later); her door from the entry (y 5.5), her escape casement on the facade
-  ("Maid bath", ((-1.4, 0), (0, 0), (0, 2.2), (-1.4, 2.2)), "wc"),   // GF step 11: 1.4 × 2.2 on axes = 1.2 × 1.975 clear at the north end of the strip: WC under its facade window, basin, a shower mixer over a floor drain (no tray); from her room only
+  // GF step 13 (25 Nov 2026, draft): the women's majlis takes local x −1.4–0 (CSV 7.55–8.95); the strip x 0–2.325 holds the bath (facade), the maid room (minimum) and the entry; local = CSV − 8.95
+  ("Small entry", ((0, 4.85), (2.325, 4.85), (2.325, 6.5), (1.6, 6.5), (1.6, 7.9), (0, 7.9)), "lobby"),   // GF step 13: the strip x 8.95–11.275 × y 4.85–6.5 (the garden door east, the maid door north) + the bay x 8.95–10.55 × y 6.5–7.9 (the kitchen door south, the tower's door west); the leftover of the strip (nothing reaches the kitchen without a jog)
+  ("Maid room", ((0, 1.5), (2.325, 1.5), (2.325, 4.85), (0, 4.85)), "maid"),   // GF step 13: the V6.4 minimum: 2.325 × 3.35 on axes = 2.10 × 3.15 clear (6.6 m²); her escape casement on the EAST wall onto the step notch (y 1.9–3.04), her door from the entry (y 4.85)
+  ("Maid bath", ((0, 0), (2.325, 0), (2.325, 1.5), (0, 1.5)), "wc"),   // GF step 13: on the facade north of her room, 2.325 × 1.5 on axes = 2.1 × 1.275 clear: WC at the west end, basin under the small facade window, a shower mixer over a floor drain at the east end (no tray); from her room only · position to review with the first floor
   ("Kitchen", ((0, 7.9), (1.6, 7.9), (1.6, 6.5), (4.361, 6.5), (4.361, 11.75), (1.6, 11.75), (1.6, 13.0), (0, 13.0)), "kitchen"),   // GF step 10: the main room x 10.55–13.311 × y 6.5–11.75 + the arm x 8.95–10.55 × y 7.9–13 (the circulation spine entry → dining)
   ("Laundry", ((1.6, 11.75), (4.361, 11.75), (4.361, 14.25), (1.6, 14.25)), "laundry"),   // GF step 10: half in the kitchen, half in the dining, centred on y 13: 2.761 × 2.5 on axes (≈ 2.54 × 2.3 clear): door from the kitchen's arm only, east window
 )
@@ -39,10 +39,9 @@
   // GF step 10: the fridge at the west end of the north counter, the pantry on the west wall by the entry door, tall storage on the laundry's wall
   (1.7, 6.625, 2.4, 7.325, [fridge]), (2.4, 6.625, 4.236, 7.225, [counter 0.6 on the north wall]), (1.7, 7.35, 2.3, 7.8, [pantry]),
   (1.7, 11.05, 4.236, 11.65, [tall storage 0.6 on the laundry wall]),
-  // GF step 12: the maid room to y 5.5, the wardrobe into the alcove
-  (0.8, 0.2, 2.2, 2.2, [bed 1.4 × 2.0]), (0.1, 0.2, 0.7, 1.0, [desk]), (-1.3, 2.3, -0.7, 3.5, [wardrobe 0.6 × 1.2]),
-  (-0.95, 0.15, -0.45, 0.85, [WC]), (-1.3, 1.1, -0.9, 1.6, [basin]), (-1.3, 1.75, -1.2, 2.05, [mixer · drain]),   // GF step 11: no shower tray
-  (-1.3, 3.6, -0.1, 6.4, [alcove: storage (later)]),
+  // GF step 13: the maid room 2.10 × 3.15 clear: the bed on the east wall under the casement, the desk and the wardrobe on the majlis wall; her bath on the facade
+  (0.8, 1.6, 2.2, 3.6, [bed 1.4 × 2.0]), (0.1, 1.6, 0.7, 2.6, [desk]), (0.1, 3.5, 0.7, 4.7, [wardrobe 0.6 × 1.2]),
+  (0.15, 0.4, 0.85, 0.9, [WC]), (1.0, 0.15, 1.5, 0.55, [basin]), (2.05, 0.5, 2.2, 0.8, [mixer · drain]),   // GF step 11: no shower tray
   // GF step 10: the laundry half-half: the machines and the sink on its north (kitchen) wall east of the door swing, the folding counter under the east window
   (2.55, 11.85, 3.15, 12.45, [washer]), (3.15, 11.85, 3.75, 12.45, [dryer]), (3.75, 11.85, 4.236, 12.45, [sink]), (3.636, 12.6, 4.236, 14.15, [folding counter 0.6])
 )
@@ -51,12 +50,11 @@
 #let doors = (
   ((0.45, 13.0), (1.55, 13.0), [kitchen ↔ dining]),
   ((0.6, 7.9), (1.5, 7.9), [entry → kitchen 0.90 on the kitchen's north wall (step 10, option a)]),
-  // GF step 12: the courtyard door (x 8.95, y 6.8–7.7) REMOVED: the tower stands in front of it; options for later in the step-12 text
+  // GF step 13 (owner): the courtyard door to the entry CANCELLED (the courtyard a closed family haven) · GF step 12: removed, the tower in front of it
   ((0.0, 6.7), (0.0, 7.4), [malqaf tower: maintenance door 0.70 from the entry through x 8.95]),
   ((2.325, 5.5), (2.325, 6.4), [entry → back garden 0.90 · the only outside door, under the first floor]),
-  ((0.35, 5.5), (1.15, 5.5), [maid room 0.80 from the entry (step 12: the corridor gone)]),
-  ((0.0, 1.1), (0.0, 1.8), [maid bath 0.70 from her room only]),
-  ((0.0, 2.2), (0.0, 5.5), [alcove: open to the maid room, no door]),
+  ((1.3, 4.85), (2.1, 4.85), [maid room 0.80 from the entry]),
+  ((1.35, 1.5), (2.05, 1.5), [maid bath 0.70 from her room only]),
   ((1.6, 11.95), (1.6, 12.75), [laundry 0.80 from the kitchen's arm only]),
 )
 #let windows = (
@@ -64,21 +62,20 @@
   ((0.0, 8.9), (0.0, 10.2), [sink window (courtyard wall) · back, step 12]),
   ((4.361, 8.7), (4.361, 10.1), [kitchen window (east)]),
   ((4.361, 7.0), (4.361, 7.9), [kitchen strip window (east)]),
-  ((0.65, 0.0), (1.79, 0.0), [escape casement 1.14 × 1.00 (north facade)]),
-  ((-1.0, 0.0), (-0.4, 0.0), [bath window (north facade)]),
+  ((2.325, 1.9), (2.325, 3.04), [escape casement 1.14 × 1.00 (east wall, onto the step notch)]),   // GF step 13
+  ((1.0, 0.0), (1.6, 0.0), [bath window (north facade)]),
   ((4.361, 12.5), (4.361, 13.5), [laundry window (east)]),
 )
 
 // ---------- Walls that must stay solid ----------
 #let solid = (
-  ((-1.4, 0.0), (-1.4, 6.5), [solid wall to the women's majlis (no door, no window)]),
-  ((0.0, 5.5), (0.0, 6.5), []),   // GF step 12: the alcove's south part / the entry: wall
+  ((0.0, 0.0), (0.0, 4.85), [solid wall to the women's majlis (no door, no window)]),   // GF step 13: the majlis's east wall is x 8.95 (local 0)
   ((1.6, 13.0), (1.6, 14.25), [acoustic wall to the dining]), ((1.6, 14.25), (4.361, 14.25), []),
 )
 
 // ---------- Neighbours (grey) ----------
 #let neighbours = (
-  ((-4.7, 0), (-1.4, 6.5), [Women's majlis]),
+  ((-4.7, 0), (0, 6.5), [Women's majlis · 4.5 clear wide (step 13)]),
   ((2.325, 0), (4.361, 3.2), [open: the step notch (outside both floors)]),   // the first floor's north wall also ends at x 11.275 and steps at y 3.2
   ((2.325, 3.2), (4.361, 6.5), [BACK GARDEN · first floor above]),
 
@@ -122,10 +119,9 @@
 // ---------- Checks (polygon-aware: rectangles and the sloped rooms) ----------
 #let issues = ()
 #let convex-parts = ("Kitchen": (((0, 7.9), (4.361, 7.9), (4.361, 11.75), (0, 11.75)), ((1.6, 6.5), (4.361, 6.5), (4.361, 7.9), (1.6, 7.9)), ((0, 11.75), (1.6, 11.75), (1.6, 13.0), (0, 13.0))),
-  "Small entry": (((0, 5.5), (2.325, 5.5), (2.325, 6.5), (0, 6.5)), ((0, 6.5), (1.6, 6.5), (1.6, 7.9), (0, 7.9))),
-  "Maid room": (((0, 0), (2.325, 0), (2.325, 5.5), (0, 5.5)), ((-1.4, 2.2), (0, 2.2), (0, 6.5), (-1.4, 6.5))))   // GF step 12: the maid room to y 5.5 with its alcove to y 6.5; the entry's L   // GF step 11: the maid room with its alcove   // GF step 10: the kitchen's and the entry's convex parts
+  "Small entry": (((0, 4.85), (2.325, 4.85), (2.325, 6.5), (0, 6.5)), ((0, 6.5), (1.6, 6.5), (1.6, 7.9), (0, 7.9))))   // GF step 13: the entry's L (the maid room a rectangle again)   // GF step 10: the kitchen's and the entry's convex parts
 #let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join()
-#let block-parts = (((-1.4, 0), (2.325, 0), (2.325, 6.5), (-1.4, 6.5)), ((0, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0)), ((1.6, 13.0), (4.361, 13.0), (4.361, 14.25), (1.6, 14.25)))   // GF step 5: the block's two convex parts   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
+#let block-parts = (((0, 0), (2.325, 0), (2.325, 6.5), (0, 6.5)), ((0, 6.5), (4.361, 6.5), (4.361, 13.0), (0, 13.0)), ((1.6, 13.0), (4.361, 13.0), (4.361, 14.25), (1.6, 14.25)))   // GF step 5: the block's two convex parts   // 17 Nov 2026: the stepped block is not convex: its two convex parts for the half-plane test
 #for (n, P) in shapes { if not P.all(p => block-parts.any(B => inside(p, B))) { issues.push(n + " leaves the block") } }
 #for i in range(shapes.len()) {
   for j in range(i + 1, shapes.len()) {
@@ -136,8 +132,8 @@
 #let leftover = area(block) - used
 
 // ---------- Page ----------
-#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 12 (draft): the malqaf a free-standing tower in the courtyard, its old place and the corridor to the maid room, the sink window back; step 11 otherwise stands]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the service rooms (CSV x 7.55–11.275 × y 0–6.5 + x 8.95–13.311 × y 6.5–8.3) and the kitchen with the laundry half in the dining (x 10.55–13.311 × y 11.75–14.25); the malqaf tower (x 7.55–8.95 × y 6.5–8.67) stands in the courtyard outside the block; the corner x 11.275–13.311 × y 0–6.5 is open ground · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
+#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 13 (draft): the women's majlis to the tower (x 8.95), the maid room at the V6.4 minimum, her bath on the facade, the entry takes the rest; the courtyard door cancelled]\
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the service rooms (CSV x 8.95–11.275 × y 0–6.5 + x 8.95–13.311 × y 6.5–8.3) and the kitchen with the laundry half in the dining (x 10.55–13.311 × y 11.75–14.25); the malqaf tower (x 7.55–8.95 × y 6.5–8.67) stands in the courtyard outside the block; the corner x 11.275–13.311 × y 0–6.5 is open ground · #r2(area(block)) m² · scale 1 m = 1.15 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -150,6 +146,7 @@
     // GF step 12: the malqaf TOWER in the courtyard (outside the block)
     line(..tower.map(p => q(..p)), close: true, fill: colours.tower, stroke: 0.9pt + rgb("#3d4a45"))
     content(q(-0.7, 7.6), align(center, text(5.5pt)[*Malqaf tower*\ 1.2 × 1.97 clear\ to the roof head]))
+    content(q(1.16, 1.1), align(center, text(4.6pt, fill: rgb("#b5452f"))[maid bath position:\ to review with the first floor]))   // GF step 13
     for r in rows {
       let (x0, y0, x1, y1) = box(r)
       rect(q(x0, y0), q(x1, y1), fill: colours.at(r.colour, default: luma(230)), stroke: 0.6pt + rgb("#3d4a45"))
@@ -194,10 +191,15 @@
     #v(6pt)
     #if issues.len() == 0 { text(fill: rgb("#2f6b4f"), weight: "bold")[✓ All rooms inside the block, no overlaps] } else { std.block(fill: rgb("#fbe3dd"), inset: 5pt, radius: 2pt)[#text(fill: rgb("#b5452f"), weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(8pt)
+    #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 13 (25 Nov 2026, branch idea-ne-corner, DRAFT): the women's majlis to the tower, the maid room at the minimum]
+    - *Women's majlis* (design_gf.typ) east to x 8.95, the tower's east face line: a clean rectangle x 4.25–8.95 × y 0–6.5, 30.55 m² on axes, *4.5 × 6.275 clear ≈ 28.2 m²* (was 3.1 × 6.275 = 19.5); its riwaq door, its north window and its two panes onto the liwan kept; the east part of its south wall (x 7.55–8.95) is solid against the tower's north wall; the seating on three walls. The *north liwan* already reaches the tower: *3.1 × 1.7 clear*, unchanged.
+    - *Maid room at the V6.4 minimum:* x 8.95–11.275 × y 1.5–4.85 (#r2(area(poly-rooms.at(1).at(1))) m² on axes, *2.10 × 3.15 clear = 6.6 m²*): the bed on the east wall under her *escape casement, now on the east wall* onto the step notch (open sky, y 1.9–3.04), the desk and the wardrobe on the majlis wall; her door 0.80 from the entry (y 4.85, x 10.25–11.05).
+    - *Her bath* in the simplest place: on the facade north of her room, x 8.95–11.275 × y 0–1.5 (#r2(area(poly-rooms.at(2).at(1))) m², *2.1 × 1.275 clear ≈ 2.7 m²*, ≈ the 1.2 × 1.8 asked, laid along the facade): the WC at the west end, the basin under the small facade window, the shower mixer over a floor drain at the east end, no tray; its door 0.70 from her room only (y 1.5). *Note on the plan: maid bath position to review with the first floor.* The alcove removed.
+    - *Leftover → the entry* (nothing in the strip can reach the kitchen without a jog: the piece x 10.55–11.275 × y 4.85–6.5 would be a 0.5 sliver with the garden door in it): the entry x 8.95–11.275 × y 4.85–6.5 + the bay x 8.95–10.55 × y 6.5–7.9 (#r2(area(poly-rooms.at(0).at(1))) m² on axes), its four doors: the garden (east), the maid room (north), the kitchen (the bay's south), the tower (the bay's west). *Kitchen unchanged* (22.66 m²). The *courtyard door to the entry cancelled* (owner): the courtyard a closed family haven.
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 12 (25 Nov 2026, branch idea-ne-corner, DRAFT): north liwan, the malqaf a tower in the courtyard]
     - *Malqaf tower:* fully out of the service zone, free-standing in the courtyard's north-east corner, CSV x 7.55–8.95 × y 6.5–8.67 (RC 0.20; *1.2 × 1.97 clear as L5*: the dust trap, the filters, the fan, the cooler space), rising to its roof head; its west wall continues the majlis's east wall line x 7.55, its east wall is the entry's wall x 8.95. Lengthwise (long side north–south) chosen: the 1.4 outlet needs a long side, and the liwan then equals the majlis's width. The *outlet* 1.4 × 1.0 in its west wall (y 6.8–8.2, +0.60…+1.60) faces the liwan, louvres turned south-west toward the olive and the trough. Its *maintenance door* 0.70 from the entry's bay through x 8.95 (y 6.7–7.4), never from the courtyard or the liwan. The tower is 0.37 deeper than the liwan (y 8.67 against 8.3).
     - *North liwan* (design_gf.typ): x 4.25–7.55 × y 6.5–8.3 in front of the women's majlis, *3.1 × 1.7 clear* (≈ 5.3 m²), a raised bench +0.40 facing south along the courtyard; a single-storey slab whose edge beam spans 3.3 m from the riwaq wall to the tower, *no middle column* (first floor above: next step). The east liwan and its bench removed: no overhang on the courtyard's east side; the kitchen's *sink window back* on x 8.95 (y 8.9–10.2), the sink under it, the counter south of it.
-    - *The chamber's place freed* (x 7.55–9.25 × y 4.3–6.5) and the corridor with it → the *maid room*: x 8.95–11.275 × y 0–5.5 (#r2(area(poly-rooms.at(1).at(1))) m² on axes with the alcove; *2.10 × 5.275 clear* + the alcove x 7.55–8.95 × y 2.2–6.5, *1.2 × 4.1 clear*, open to the room along y 2.2–5.5, its south metre behind the entry's wall for shelves); her door 0.80 from the entry on y 5.5 (x 9.3–10.1). The *entry* a clean L (#r2(area(poly-rooms.at(0).at(1))) m²: the strip x 8.95–11.275 × y 5.5–6.5 with the garden door and the maid door, the bay x 8.95–10.55 × y 6.5–7.9 with the kitchen door and the tower's door). No slivers: the lines x 8.95 (y 0–13), y 5.5 (x 8.95–11.275) and y 6.5 straight.
+    - *The chamber's place freed* (x 7.55–9.25 × y 4.3–6.5) and the corridor with it → the *maid room*: x 8.95–11.275 × y 0–5.5 (18.81 m² on axes with the alcove; *2.10 × 5.275 clear* + the alcove x 7.55–8.95 × y 2.2–6.5, *1.2 × 4.1 clear*, open to the room along y 2.2–5.5, its south metre behind the entry's wall for shelves); her door 0.80 from the entry on y 5.5 (x 9.3–10.1). The *entry* a clean L (4.57 m²: the strip x 8.95–11.275 × y 5.5–6.5 with the garden door and the maid door, the bay x 8.95–10.55 × y 6.5–7.9 with the kitchen door and the tower's door). No slivers: the lines x 8.95 (y 0–13), y 5.5 (x 8.95–11.275) and y 6.5 straight.
     - *Courtyard door to the entry: not forced, removed.* The tower stands in front of the old door (x 8.95, y 6.8–7.7) and the whole entry frontage y 6.5–7.9. Options for later: *(a) a door further south on x 8.95 into the kitchen's arm* (y 10.4–11.3, between the sink run and the dining door): short and direct, the arm is already the spine entry → dining; but the kitchen becomes a through-route from the courtyard, the counter under the window loses 0.9 m, smells and the maid's work in view of the women's courtyard. *(b) The route through the riwaq:* the courtyard's sliding door → riwaq → living → dining → kitchen → entry, no new opening: the courtyard stays a closed haven, service kept out of it; but ≈ 25 m and through the living. *(c) The tower 1.0 m west* (x 6.55–7.95) leaving a 0.8 clear slot x 7.95–8.95 to the old door: the door and the entry's role kept; but the x 7.55 line is broken, the liwan 2.3 instead of 3.3, the slot a dark 0.8 passage behind the tower.
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 11 (25 Nov 2026, branch idea-ne-corner, DRAFT): fixes]
     - *Maid bath shorter:* x 7.55–8.95 × y 0–2.2 (3.08 m² on axes, *1.2 × 1.975 clear*): the WC under its facade window, the basin on the majlis wall opposite the door (x 8.95, y 1.1–1.8, from her room only), a shower *mixer* on the wall over a floor drain, no tray, no screen.
