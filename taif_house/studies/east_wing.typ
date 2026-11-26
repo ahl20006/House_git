@@ -71,7 +71,7 @@
 // ---------- Walls that must stay solid ----------
 #let solid = (
   ((0.7, 0.0), (0.7, 5.1), [solid to the majlis]),   // GF step 20: the laundry's west wall x 9.65
-  ((0.0, 13.0), (0.0, 15.0), [solid to the living]),   // GF step 20: the kitchen's west part on the living's wall
+  ((0.0, 13.0), (0.0, 15.0), [solid 0.20 acoustic to the living (step 24)]),   // GF step 24: the maid room's south part and her bath on the living's wall: solid, acoustic, the bath's wet wall tiled on its side (the presentation had drawn it open: the old living / dining boundary)
 )
 
 // ---------- Neighbours (grey) ----------
