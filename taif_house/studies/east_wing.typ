@@ -47,7 +47,7 @@
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
-  ((2.55, 15.0), (3.65, 15.0), [kitchen ↔ dining 1.10]),   // GF step 21: back east
+  ((2.5, 15.0), (3.6, 15.0), [kitchen ↔ dining 1.10]),   // GF step 23: 0.05 west, its swing clear of the east counter · GF step 21: back east
   ((3.3, 6.5), (4.2, 6.5), [→ kitchen 0.90 (step 17)]),
   // GF step 13 (owner): the courtyard door to the entry CANCELLED (the courtyard a closed family haven) · GF step 12: removed, the tower in front of it
   ((0.45, 6.5), (1.15, 6.5), [malqaf door 0.70 from the passage]),
@@ -145,7 +145,7 @@
     line(..block.map(p => q(..p)), close: true, fill: rgb("#f3efe6"), stroke: none)   // leftover slivers would show in this tone
     // GF step 16: the malqaf CHAMBER inside the block (a poly-room in colours.tower): its size note under the centroid label
     content(q(1.085, 7.95), align(center, text(4.2pt)[1.97 × 1.6 clear · to the roof head]))   // GF step 22: widthwise
-    content(q(-0.1, 14.3), anchor: "east", align(right, text(4.6pt, fill: rgb("#b5452f"))[maid bath position:\ to review with the first floor]))   // GF step 21: the bath on the living's wall
+    // GF step 23 (clean-up): the stale "maid bath position" note removed
     for r in rows {
       let (x0, y0, x1, y1) = box(r)
       rect(q(x0, y0), q(x1, y1), fill: colours.at(r.colour, default: luma(230)), stroke: 0.6pt + rgb("#3d4a45"))

@@ -32,7 +32,7 @@
 #set text(font: ("Segoe UI", "Arial"), size: 10pt, fill: dark)
 
 #let sheet-head(title, subtitle) = {
-  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V11-idea · step 22: malqaf widthwise])
+  grid(columns: (1fr, auto), text(11pt, weight: "bold", fill: accent)[TAIF / PALM HOUSE], text(9pt, fill: soft)[V11-idea · step 23: clean-up])
   v(1pt)
   text(24pt, weight: "bold")[#title]
   linebreak()
@@ -188,7 +188,7 @@
   G((0, 21.5), (0, 22.9), (1, 0), "double"),             // guest entrance, two leaves
   G((2.75, 22.15), (2.75, 23.95), (1, 0), "open"),       // foyer → men's majlis
   G((4.25, 13.1), (4.25, 14.5), (1, 0), "open"),         // living entrance
-  G((11.5, 15.0), (12.6, 15.0), (0, -1), "hinged"),      // GF step 21: kitchen ↔ dining on y 15 back east (the maid bath west of it) · GF step 20: x 9.5–10.6
+  G((11.45, 15.0), (12.55, 15.0), (0, -1), "hinged"),    // GF step 23: 0.05 west, its swing clear of the east counter · GF step 21: kitchen ↔ dining on y 15 back east (the maid bath west of it) · GF step 20: x 9.5–10.6
   // GF step 1 (idea-ne-corner): the kitchen's east service door and the y 6.5 door removed; the distribution lobby's four doors:
   // GF step 12: the courtyard door (x 8.95, y 6.8–7.7) REMOVED: the malqaf tower stands in front of it (options listed in studies/east_wing.typ)
   // GF step 5: the inner doors of the service area (the maid room's, the laundry's, the bath's) removed: one open space
@@ -205,8 +205,15 @@
 )
 #let dw(p) = { let d = gf-doors.find(d => dist(d.a, p) < 1e-6); n2(dist(d.a, d.b)) }   // door width, by its first point
 #let gf-windows = (
-  ((13.311, 8.7), (13.311, 10.1)), ((13.311, 7.0), (13.311, 7.9)), ((8.95, 8.5), (8.95, 9.8)),   // GF step 22: the sink window north to y 8.5–9.8 · GF step 20: the laundry's high window gone with the laundry · GF step 15: the sink window y 8.9–10.2 again · GF step 14: south of the chamber · GF step 12: the sink window back on x 8.95 (y 8.9–10.2) · GF step 6: removed (the liwan's back wall) · ((11.275, 2.0), (11.275, 3.14)), ((8.95, 11.0), (8.95, 12.4)),   // GF step 21: the maid room's ONLY window on the courtyard wall, frosted, openable as the escape (the bath has none) · GF step 20: the laundry's east window (the old casement) ·    // GF step 17: the laundry's east window ((13.311, 12.5), (13.311, 13.5)) gone with the move · // GF step 13: the maid's casement on the east wall (onto the notch), her bath's window on the facade · GF step 10: the maid room east, her bath west, the laundry window on y 13 ·   // GF step 9: the laundry's east window · GF step 8: the maid room's escape casement and her bath's window on the facade, the laundry's east window ·   // GF step 4: the lobby's east window · GF step 3: the sink window; the maid room's escape casement and the bath's window on the north facade; the laundry has an exhaust fan   // studied (17 Nov 2026, the step: the escape casement on the step's east face, the bath window on the step's north face, the laundry window)
-  ((4.6, 5.1), (6.35, 5.1)), ((6.85, 5.1), (8.6, 5.1)),   // GF step 19: in the new majlis / liwan wall y 5.1 · GF step 16: the majlis's south wall on y 6.5 again, two panes onto the liwan · GF step 15: one pane on y 5.1 · GF step 10: the majlis +0.30, the east pane to x 7.4 ·   // GF step 6: the majlis's courtyard window full length again, two panes either side of column 1 · GF step 3: what fitted west of the laundry strip (1.15 m) · V10.0: the majlis's small west panel (x 5.1–5.6) is inside the malqaf core's north wall ((4.45, 13.0), (5.55, 13.0)), ((6.05, 13.0), (8.75, 13.0)), ((4.25, 10.7), (4.25, 12.7)),   // GF step 6: the outlet on x 5.8 removed · courtyard glass (indicative); V10.0: the riwaq's first panel (y 6.8–8.9) is the malqaf core's solid face with the bench; the malqaf outlet 1.4 × 1.0 in the first arch
+  // GF step 23 (clean-up): the list rewritten one window per line; four windows that had slipped behind a // comment in earlier steps are drawn again
+  ((13.311, 8.7), (13.311, 10.1)),   // kitchen window, east (over the cooking run)
+  ((13.311, 7.0), (13.311, 7.9)),    // kitchen window 2, east (the north part by the passage door)
+  ((8.95, 8.5), (8.95, 9.8)),        // GF step 22: the sink window on the courtyard wall, between the chamber and the maid room
+  ((11.275, 2.0), (11.275, 3.14)),   // GF step 20: the laundry's window on the east wall onto the notch (the old casement opening)
+  ((8.95, 11.0), (8.95, 12.4)),      // GF step 21: the maid room's ONLY window on the courtyard wall, frosted, openable as the escape (the bath has none)
+  ((4.6, 5.1), (6.35, 5.1)), ((6.85, 5.1), (8.6, 5.1)),   // GF step 19: the women's majlis's two panes onto the liwan in the wall y 5.1
+  ((4.45, 13.0), (5.55, 13.0)), ((6.05, 13.0), (8.75, 13.0)),   // the living's courtyard glass on y 13 (fixed), either side of column 2
+  ((4.25, 10.7), (4.25, 12.7)),      // the riwaq's window onto the courtyard (south of its sliding door)
   ((0, 6.7), (0, 7.6)), ((2.4, 0), (2.9, 0)),   // the stair's half-landing window (west, small, obscured) and the entrance side light (obscured), flip 2 Nov 2026
   ((4.6, 0), (6.6, 0)), ((7.3, 0), (9.3, 0)), ((3.6, 24), (6.2, 24)),   // GF step 20: the majlis's two north windows (x 4.25–9.65) · GF step 2: the majlis's north window shifted 1.0 m west (the maid bath takes x 6.6–8.95) ((7.2, 24), (9.8, 24)), ((10.8, 24), (12.6, 24)), ((13.311, 16.0), (13.311, 18.5)),          // outer (indicative)
 )
@@ -215,7 +222,7 @@
   ew.fixtures.map(((a, b, c, d, l)) => (a + 8.95, b, c + 8.95, d, l))
   + gw.fixtures.map(((a, b, c, d, l)) => (a, b + 10.4, c, d + 10.4, l))
   + (
-    (4.5, 0.2, 9.4, 0.9, [majlis seating]), (8.8, 0.9, 9.5, 4.7, [majlis seating]), (4.4, 1.9, 5.1, 4.7, [majlis seating]), (6.3, 2.3, 7.6, 3.5, [table]),   // GF step 20: the majlis x 4.25–9.65 × y 0–5.1 · GF step 13: the majlis 4.5 clear wide, seating on three walls                 // women's majlis (indicative) · GF step 11: inside the majlis x 4.25–7.55 (the old seating ran across the strip and cut the wall x 7.55)
+    (5.4, 0.2, 9.4, 0.9, [majlis seating]), (8.8, 0.9, 9.5, 4.7, [majlis seating]), (4.4, 1.9, 5.1, 4.7, [majlis seating]), (6.3, 2.3, 7.6, 3.5, [table]),   // GF step 20: the majlis x 4.25–9.65 × y 0–5.1 · GF step 13: the majlis 4.5 clear wide, seating on three walls                 // women's majlis (indicative) · GF step 11: inside the majlis x 4.25–7.55 (the old seating ran across the strip and cut the wall x 7.55)
     (3.3, 23.2, 12.9, 23.88, [majlis seating]), (3.6, 19.37, 12.9, 20.05, [majlis seating]), (6.0, 21.15, 10.0, 22.0, [table]),       // men's majlis (indicative)
     (7.55, 15.0, 8.45, 18.8, [sofa 3.8 · faces the TV]), (6.4, 16.1, 7.2, 17.7, [table]), (4.35, 14.5, 5.05, 14.75, [pier]), (4.35, 15.05, 4.85, 18.85, [TV cabinet 3.8 × 0.5]), (4.35, 15.95, 4.45, 17.85, [TV 85″]), (4.35, 14.75, 4.75, 15.05, [shelves]), (4.35, 18.85, 4.75, 19.15, [shelves]),   // living (V6.3: the arched TV niche 4.40 × 0.70 on the solid west wall; eye-to-screen ≈ 3.45 m)
     (10.4, 16.0, 12.0, 18.0, [dining table]), (9.85, 16.25, 10.3, 16.7, []), (9.85, 17.3, 10.3, 17.75, []), (12.1, 16.25, 12.55, 16.7, []), (12.1, 17.3, 12.55, 17.75, []),   // GF step 9: moved south of the laundry
@@ -478,8 +485,7 @@
     // GF step 6 (draft): the chamber's courtyard wall 0.30 (y 6.35–6.65) with the outlet in it, facing south
     // GF step 12: the tower's outlet in its WEST wall facing the liwan; the alcove to the courtyard wall
     // GF step 16: the chamber inside at the liwan's east end, its outlet in its west wall x 8.95 straight onto the liwan (drawn after the liwan, below)
-    content(q((10.1, 15.5)), align(center, text(3.6pt, fill: rgb("#b5452f"))[maid bath position: to review with the first floor]))   // GF step 21: the bath on the living's wall, the note in the dining's north strip
-    content(q((7.6, 11.7)), align(center, text(3.4pt, fill: rgb("#b5452f"))[frosted escape\ window (step 21)]))   // GF step 21: the maid room's only window
+    content(q((7.6, 11.7)), align(center, text(3.4pt, fill: rgb("#b5452f"))[frosted escape\ window]))   // GF step 21: the maid room's only window
     content(q((12.3, 4.62)), align(center, text(3.3pt, fill: rgb("#b5452f"))[malqaf chamber to its roof head:\ FF and roof to follow]))
     content(q((1.05, 15.75)), text(4.6pt, fill: soft)[WC compartment]); content(q((2.0, 17.8)), text(4.2pt, fill: soft)[shower mixer])
     for (a, b) in (((0.0, 14.55), (2.75, 14.55)),) { line(..cut(a, b, half: 0.05).map(q), close: true, fill: dark, stroke: none) }   // the WC compartment's partitions, the shower wall, the WC screen wall (100 mm)
@@ -488,7 +494,7 @@
     // GF step 12: the NORTH LIWAN across the courtyard's north end (x 4.25–7.55 × y 6.5–8.3), the bench +0.40 on the majlis wall facing south, the edge beam on y 8.3 spanning to the tower; the east liwan, the free seating and the covered pocket removed
     // GF step 14: the liwan across the courtyard's FULL width (x 4.25–8.95), the edge beam 4.7 m to the service wall
     rect(q((4.35, 5.2)), q((8.85, 8.3)), fill: rgb("#e9d6b8"), stroke: 0.6pt + rgb("#9c6b3c")); for k in range(1, 9) { line(q((4.35 + k * 0.5, 5.2)), q((4.35 + k * 0.5, 8.3)), stroke: 0.25pt + rgb("#9c6b3c")) }   // GF step 19: the liwan y 5.1–8.3
-    content(q((5.6, 5.6)), text(3.8pt, fill: rgb("#b5452f"))[bench: to re-plan (step 19)])   // GF step 19: the bench removed
+    content(q((5.6, 5.6)), text(3.8pt, fill: rgb("#b5452f"))[bench: to re-plan])   // GF step 19: the bench removed
     line(q((4.25, 8.3)), q((8.95, 8.3)), stroke: 1.6pt + dark)
     content(q((6.0, 6.9)), align(center, text(4.2pt, fill: dark)[*NORTH LIWAN* · 4.5 × 3.1 clear\ open to the passage at its east end]))
     line(q((8.95, 6.8)), q((8.95, 7.8)), stroke: 2.2pt + rgb("#9c6b3c")); content(q((8.15, 7.95)), align(center, text(3.3pt, fill: rgb("#9c6b3c"))[outlet 1.0 × 1.0\ +0.60…+1.60 → liwan]))
