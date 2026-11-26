@@ -1,6 +1,6 @@
 name,x,y,w,d,angle,frame,colour,pts
-Courtyard,6.6,9.75,4.7,6.5,0,M,court,
-Women's majlis,6.6,3.25,4.7,6.5,0,M,family,
+Courtyard,6.6,9.05,4.7,7.9,0,M,court,
+Women's majlis,6.6,2.55,4.7,5.1,0,M,family,
 Living (double height),6.6,16.125,4.7,6.25,0,M,family,
 Men's majlis,8.0305,21.625,10.561,4.75,0,M,guest,
 Service passage,11.1305,5.8,4.361,1.4,0,M,circ,
