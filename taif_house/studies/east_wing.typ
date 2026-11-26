@@ -22,40 +22,40 @@
 #let poly-rooms = (
   // GF step 13 (25 Nov 2026, draft): the women's majlis takes local x −1.4–0 (CSV 7.55–8.95); the strip x 0–2.325 holds the bath (facade), the maid room (minimum) and the entry; local = CSV − 8.95
   ("Service passage", ((0, 5.1), (4.361, 5.1), (4.361, 6.5), (0, 6.5)), "lobby"),   // GF step 16: to the east wall line x 13.311 (4.14 × 1.2 clear): the maid door north, the chamber's door and the kitchen door south, the one outside door east · GF step 15: ONE east–west passage x 8.95–11.275 × y 5.1–6.5, 2.125 × 1.2 clear: the chamber's door at its west end (x 8.95), the outside door at its east end (x 11.275) facing it, the maid room north (y 5.1), the kitchen south (y 6.5) · GF step 14: a clean rectangle x 8.95–11.275 × y 4.85–8.3 between the maid room (north), the outside door (east) and the chamber (south): 2.125 × 3.25 clear; its four doors: the maid room (y 4.85), the garden (x 11.275, y 5.5–6.4), the kitchen (x 11.275, y 6.9–7.8), the chamber (y 8.3) · GF step 13: the strip x 8.95–11.275 × y 4.85–6.5 (the garden door east, the maid door north) + the bay x 8.95–10.55 × y 6.5–7.9 (the kitchen door south, the tower's door west); the leftover of the strip (nothing reaches the kitchen without a jog)
-  ("Maid room", ((2.036, 11.65), (4.361, 11.65), (4.361, 15.0), (2.036, 15.0)), "maid"),   // GF step 20: the kitchen's south-east corner at the minimum, x 10.986–13.311 × y 11.65–15 (2.10 × 3.15 clear): casement + window east, door from the kitchen (west wall) · GF step 15: x 8.95–11.275 × y 1.75–5.1
-  ("Maid bath", ((2.036, 10.25), (4.361, 10.25), (4.361, 11.65), (2.036, 11.65)), "wc"),   // GF step 20: north of her room, x 10.986–13.311 × y 10.25–11.65 (2.1 × 1.2 clear), from her room only · GF step 15: on the facade
-  ("Kitchen", ((1.6, 6.5), (4.361, 6.5), (4.361, 10.25), (2.036, 10.25), (2.036, 15.0), (0, 15.0), (0, 8.67), (1.6, 8.67)), "kitchen"),   // GF step 20: the main room x 10.55–13.311 × y 6.5–10.25 + the west part x 8.95–10.986 × y 8.67–15 (the sink alcove and the old laundry strip) down to the dining door · GF step 18: down to y 15
+  ("Maid room", ((0, 10.3), (2.3, 10.3), (2.3, 13.6), (0, 13.6)), "maid"),   // GF step 21: on the courtyard wall south of the sink window, x 8.95–11.25 × y 10.3–13.6 (2.10 × 3.1 clear): ONE frosted escape window on the courtyard wall, door from the kitchen (east wall) · GF step 20: the kitchen's south-east corner
+  ("Maid bath", ((0, 13.6), (2.3, 13.6), (2.3, 15.0), (0, 15.0)), "wc"),   // GF step 21: south of her room on the living's wall, x 8.95–11.25 × y 13.6–15 (2.1 × 1.2 clear), from her room only, exhaust fan · GF step 20: north of the room in the south-east corner
+  ("Kitchen", ((1.6, 6.5), (4.361, 6.5), (4.361, 15.0), (2.3, 15.0), (2.3, 10.3), (0, 10.3), (0, 8.67), (1.6, 8.67)), "kitchen"),   // GF step 21: the north part x 10.55–13.311 × y 6.5–10.3, the south part x 11.25–13.311 × y 10.3–15 east of the maid suite, the sink alcove x 8.95–11.25 × y 8.67–10.3 · GF step 20: the south-east corner was the maid suite
   ("Laundry", ((0.7, 0), (2.325, 0), (2.325, 5.1), (0.7, 5.1)), "laundry"),   // GF step 20: the maid's old place, narrow against the east wall: x 9.65–11.275 × y 0–5.1 (1.4 × 4.875 clear), door from the passage, east window + fan · GF step 18: the strip's south end
   ("Malqaf chamber", ((0, 6.5), (1.6, 6.5), (1.6, 8.67), (0, 8.67)), "tower"),   // GF step 16: INSIDE the block at the liwan's east end, the kitchen's north-west corner (CSV x 8.95–10.55 × y 6.5–8.67; RC 0.20; 1.4 × 1.97 clear = L5 + 0.20): not a room, listed so that the block closes · GF step 15: in the majlis's corner · GF step 14: x 8.95–10.55 × y 8.3–10.47
 )
 
 // ---------- Fixtures inside rooms (drawn thin, not counted, on finished wall faces): (x0, y0, x1, y1, label) ----------
 #let fixtures = (
-  (0.1, 8.8, 0.7, 10.3, [sink · d/w · under the window]), (0.1, 10.3, 0.7, 13.8, [counter 0.6]),   // GF step 20: the west run continues down the old laundry strip, clear of the dining door's swing
+  (0.1, 8.8, 0.7, 10.2, [sink · d/w · under the window]),   // GF step 21: the sink alcove between the chamber and the maid room (y 8.67–10.3)
   (3.636, 7.5, 4.236, 8.7, [cooking counter 0.6]),   // GF step 20: the east run ends at the bath's wall y 10.25
-  (3.636, 8.7, 4.236, 9.7, [hob + hood · under the east window]), (3.636, 9.7, 4.236, 10.15, [counter]),   // GF step 20: the hob moved north under the window (the extract through the wall above it) · GF step 18: y 10.2–11.2
+  (3.636, 8.7, 4.236, 9.7, [hob + hood · under the east window]), (3.636, 9.7, 4.236, 14.9, [counter 0.6]),   // GF step 21: the east run down to the dining wall again
   // GF step 10: the fridge at the west end of the north counter, the pantry on the west wall by the entry door, tall storage on the laundry's wall
   // GF step 18: the fridge and the pantry on the north wall west of the kitchen door's swing, the tall storage and the ovens on the laundry's wall
   (1.7, 6.6, 2.4, 7.3, [fridge]), (2.4, 6.6, 3.0, 7.2, [ovens · tall]),   // GF step 20: no cupboards: a tall oven unit instead of the pantry
-  (1.336, 12.7, 1.936, 13.8, [tall unit 0.6 on the maid's wall]),   // GF step 20: south of the maid's door
+  (2.4, 10.4, 3.0, 12.3, [tall unit · ovens 0.6 on the maid's wall]),   // GF step 21: north of the maid's door
   // GF step 13: the maid room 2.10 × 3.15 clear: the bed on the east wall under the casement, the desk and the wardrobe on the majlis wall; her bath on the facade
-  (2.836, 12.9, 4.236, 14.9, [bed 1.4 × 2.0]), (2.136, 12.7, 2.736, 13.6, [desk]), (2.136, 13.7, 2.736, 14.9, [wardrobe 0.6 × 1.2]),   // GF step 20: the bed along the east wall under the casement, the desk and the wardrobe on the west wall south of the door
-  (2.2, 10.35, 2.7, 11.05, [WC]), (3.0, 10.35, 3.5, 10.75, [basin]), (4.1, 10.7, 4.236, 11.0, [mixer · drain]),   // GF step 20: the bath 2.1 × 1.2 laid across · GF step 11: no shower tray
+  (0.15, 10.45, 1.55, 12.45, [bed 1.4 × 2.0]), (1.6, 10.4, 2.2, 11.4, [desk]), (0.15, 12.9, 1.35, 13.5, [wardrobe 1.2 × 0.6]),   // GF step 21: the bed along the courtyard wall under the frosted window, the desk on the east wall, the wardrobe on the south wall clear of the door swing
+  (1.65, 13.7, 2.15, 14.4, [WC]), (1.05, 13.7, 1.5, 14.1, [basin]), (0.1, 14.55, 0.25, 14.85, [mixer · drain]),   // GF step 21: the bath 2.1 × 1.2 laid across, the door at its west end · GF step 11: no shower tray
   // GF step 18: the laundry 1.4 × 3.9 clear: the washer, the dryer and the sink in a row on the west wall under the high window, the folding counter on the living's wall; 0.8 in front
   (0.8, 0.2, 1.4, 0.85, [washer]), (0.8, 0.85, 1.4, 1.5, [dryer]), (0.8, 1.6, 1.4, 2.1, [sink]), (0.8, 2.2, 1.4, 4.2, [folding counter 0.6])   // GF step 20: the laundry 1.4 × 4.875 clear: one row on its west wall, the door swing at its south end
 )
 
 // ---------- Doors and windows: ((x1, y1), (x2, y2), label) ----------
 #let doors = (
-  ((0.55, 15.0), (1.65, 15.0), [kitchen ↔ dining 1.10 (west, step 20)]),
+  ((2.55, 15.0), (3.65, 15.0), [kitchen ↔ dining 1.10]),   // GF step 21: back east
   ((3.3, 6.5), (4.2, 6.5), [→ kitchen 0.90 (step 17)]),
   // GF step 13 (owner): the courtyard door to the entry CANCELLED (the courtyard a closed family haven) · GF step 12: removed, the tower in front of it
   ((0.45, 6.5), (1.15, 6.5), [malqaf door 0.70 from the passage]),
   ((4.361, 5.35), (4.361, 6.25), [→ east yard 0.90 · the only outside door]),
   ((1.15, 5.1), (1.95, 5.1), [laundry 0.80 from the passage]),
   ((0.0, 5.2), (0.0, 6.4), [OPEN to the liwan 1.2 · no door (step 19)]),   // GF step 19: the wall piece x 8.95, y 5.1–6.5 removed
-  ((3.45, 11.65), (4.15, 11.65), [bath 0.70 from her room]),
-  ((2.036, 11.8), (2.036, 12.6), [maid 0.80 (kitchen)]),
+  ((0.25, 13.6), (0.95, 13.6), [bath 0.70 from her room]),
+  ((2.3, 12.5), (2.3, 13.3), [maid 0.80 (kitchen)]),
 )
 #let windows = (
   ((0.0, 6.7), (0.0, 8.1), [outlet 1.4 × 1.0 → liwan]),   // GF step 16: in the chamber's WEST wall x 8.95, +0.60…+1.60, louvres as L5, no duct · GF step 15: in its south wall
@@ -63,8 +63,8 @@
   ((4.361, 8.7), (4.361, 10.1), [window (east)]),
   ((4.361, 7.0), (4.361, 7.9), [window 2 (east)]),
   ((2.325, 2.0), (2.325, 3.14), [laundry window (east) · onto the notch]),   // GF step 20: the old casement opening serves the laundry
-  ((4.361, 12.0), (4.361, 13.14), [escape casement 1.14 × 1.00 (east)]), ((4.361, 13.6), (4.361, 14.4), [window (east)]),   // GF step 20: the maid room on the east outside wall
-  ((4.361, 10.6), (4.361, 11.1), [bath window (east) · obscured, or a fan]),   // GF step 20
+  ((0.0, 11.0), (0.0, 12.4), [frosted ESCAPE window]),   // GF step 21: the maid room's only window, obscure glass, openable, ≥ 0.53 m² clear, sill ≤ 1.10, on the courtyard wall north of y 13
+  // GF step 21: the maid bath has no window (an exhaust fan)
   // GF step 20: the laundry's high courtyard window gone with the laundry
 )
 
@@ -119,7 +119,7 @@
 
 // ---------- Checks (polygon-aware: rectangles and the sloped rooms) ----------
 #let issues = ()
-#let convex-parts = ("Kitchen": (((1.6, 6.5), (4.361, 6.5), (4.361, 10.25), (1.6, 10.25)), ((0, 8.67), (2.036, 8.67), (2.036, 15.0), (0, 15.0))))   // GF step 20: the main room and the west part (they overlap in x 1.6–2.036 × y 8.67–10.25: the same room) · GF step 18: the rectangle and the sink alcove
+#let convex-parts = ("Kitchen": (((1.6, 6.5), (4.361, 6.5), (4.361, 10.3), (1.6, 10.3)), ((2.3, 10.3), (4.361, 10.3), (4.361, 15.0), (2.3, 15.0)), ((0, 8.67), (1.6, 8.67), (1.6, 10.3), (0, 10.3))))   // GF step 21: the north part, the south part east of the maid suite, the sink alcove · GF step 20: the main room and the west part
 #let shapes = rows.map(r => (r.name, corners(r))) + poly-rooms.map(((n, P, c)) => convex-parts.at(n, default: (P,)).map(Q => (n, Q))).join()
 #let block-parts = (((0.7, 0), (2.325, 0), (2.325, 5.1), (0.7, 5.1)), ((0, 5.1), (4.361, 5.1), (4.361, 15.0), (0, 15.0)))   // GF step 20: the laundry's strip and the rest · GF step 18: to y 15
 #for (n, P) in shapes { if not P.all(p => block-parts.any(B => inside(p, B))) { issues.push(n + " leaves the block") } }
@@ -132,8 +132,8 @@
 #let leftover = area(block) - used
 
 // ---------- Page ----------
-#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 20 (draft): the laundry ↔ maid swap: the laundry narrow in the north band against the east wall, the maid room and her bath at the minimum in the kitchen's south-east corner, the old laundry strip back to the kitchen]\
-#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the laundry in the north band's east part (CSV x 9.65–11.275 × y 0–5.1; the rest of the band is the women's majlis), the passage x 8.95–13.311 × y 5.1–6.5, the malqaf chamber (x 8.95–10.55 × y 6.5–8.67, blue, not a room), the kitchen down to y 15 with the maid room and her bath in its south-east corner (step 20); the corner x 11.275–13.311 × y 0–5.1 is open ground · #r2(area(block)) m² · scale 1 m = 1.05 cm · north up]
+#text(16pt, weight: "bold", fill: rgb("#2f6b4f"))[East service block · V11-idea · NE corner out, GF step 21 (draft): the maid room on the courtyard wall west of the kitchen with ONE frosted escape window, her bath south of it, the kitchen's south-east corner back to the kitchen]\
+#text(8pt, fill: gray)[Taif / Palm House · Ground floor · IDEA on the branch idea-ne-corner (23 Nov 2026) · block = the laundry in the north band's east part (CSV x 9.65–11.275 × y 0–5.1; the rest of the band is the women's majlis), the passage x 8.95–13.311 × y 5.1–6.5, the malqaf chamber (x 8.95–10.55 × y 6.5–8.67, blue, not a room), the kitchen down to y 15 with the maid room and her bath on its west side, on the courtyard / living wall (step 21); the corner x 11.275–13.311 × y 0–5.1 is open ground · #r2(area(block)) m² · scale 1 m = 1.05 cm · north up]
 #v(6pt)
 #grid(columns: (auto, 1fr), column-gutter: 20pt,
   cetz.canvas(length: scale, {
@@ -145,7 +145,7 @@
     line(..block.map(p => q(..p)), close: true, fill: rgb("#f3efe6"), stroke: none)   // leftover slivers would show in this tone
     // GF step 16: the malqaf CHAMBER inside the block (a poly-room in colours.tower): its size note under the centroid label
     content(q(0.8, 8.25), align(center, text(4.2pt)[1.4 × 1.97 clear · to the roof head]))
-    content(q(4.5, 10.95), anchor: "west", align(left, text(4.6pt, fill: rgb("#b5452f"))[maid bath position:\ to review with the first floor]))   // GF step 20: the bath in the kitchen's south-east corner
+    content(q(-0.1, 14.3), anchor: "east", align(right, text(4.6pt, fill: rgb("#b5452f"))[maid bath position:\ to review with the first floor]))   // GF step 21: the bath on the living's wall
     for r in rows {
       let (x0, y0, x1, y1) = box(r)
       rect(q(x0, y0), q(x1, y1), fill: colours.at(r.colour, default: luma(230)), stroke: 0.6pt + rgb("#3d4a45"))
@@ -190,11 +190,15 @@
     #v(6pt)
     #if issues.len() == 0 { text(fill: rgb("#2f6b4f"), weight: "bold")[✓ All rooms inside the block, no overlaps] } else { std.block(fill: rgb("#fbe3dd"), inset: 5pt, radius: 2pt)[#text(fill: rgb("#b5452f"), weight: "bold")[WARNING]\ #issues.map(i => [• #i]).join(linebreak())] }
     #v(8pt)
+    #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 21 (26 Nov 2026, branch idea-ne-corner, DRAFT): the maid room on the courtyard wall west of the kitchen, a frosted escape window]
+    - *Maid room* at the minimum on the courtyard wall, south of the sink window: x 8.95–11.25 × y 10.3–13.6 (#r2(area(poly-rooms.at(1).at(1))) m² on axes, *2.10 × 3.1 clear ≈ 6.5 m²*, V6.4; it takes 0.7 m of the kitchen's width east of the chamber's line x 10.55 to reach 2.10). Its *only window* on the courtyard wall, y 11.0–12.4 (1.4 wide), *frosted glass, openable as the emergency escape*: clear opening ≥ 0.53 m² (1.3 × 0.45 or more), sill ≤ 1.10 m, within the courtyard's length (north of y 13); no clear-glass window; ventilation by it plus an exhaust path / fan. The bed along the courtyard wall under the window, the desk on the east wall, the wardrobe on the south wall. Its *door 0.80 from the kitchen* on its east wall (x 11.25, y 12.5–13.3), away from the cooking run (east wall) and the sink (the alcove north of the room).
+    - *Her bath* south of the room, x 8.95–11.25 × y 13.6–15 (#r2(area(poly-rooms.at(2).at(1))) m² on axes, *2.1 × 1.2 clear ≈ 2.5 m²*, the 1.2 × 1.8 asked laid across): the WC at the east end, the basin in the middle, a wall mixer over a floor drain at the west end, an exhaust fan (no window); its door 0.70 from her room only (y 13.6, x 9.2–9.9); on the living's solid wall and the dining's north wall. Position to review with the first floor.
+    - *Kitchen* gets its south-east corner back: the north part x 10.55–13.311 × y 6.5–10.3 (2.54 × 3.7 clear), the south part x 11.25–13.311 × y 10.3–15 east of the maid suite (1.84 × 4.6 clear) and the sink alcove x 8.95–11.25 × y 8.67–10.3 between the malqaf and the maid room (the sink and the dishwasher under the courtyard window y 8.9–10.2): #r2(area(poly-rooms.at(3).at(1))) m² on axes (≈ 20.1 clear; step 20: 22.55 / 19.9). Its doors: from the passage (y 6.5, x 12.25–13.15), *to the dining kept*, back east on y 15 (x 11.5–12.6), and the maid's door. The cooking run and the hob under the east window, a counter south of them to the dining wall, the fridge and the ovens on the north wall, a tall unit on the maid's wall north of her door. The laundry, the women's majlis, the malqaf, the passage, the outside door, the liwan and the *dining unchanged*. Nothing smaller: the kitchen grows back.
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 20 (26 Nov 2026, branch idea-ne-corner, DRAFT): the laundry ↔ maid swap]
     - *Laundry* into the maid's old place, as narrow as possible against the east outside wall: x 9.65–11.275 × y 0–5.1 (#r2(area(poly-rooms.at(4).at(1))) m² on axes, *1.4 × 4.875 clear ≈ 6.8 m²*; was 1.4 × 3.9 = 5.5 in the strip): its only door 0.80 from the passage (y 5.1, x 10.1–10.9), its window on the east wall (y 2.0–3.14, onto the notch: the old casement opening) and an exhaust fan; the washer, the dryer, the sink and the folding counter in one row on its west wall, 0.8 m in front, the door swing at the south end.
     - *Women's majlis* (design_gf.typ) takes the rest of the band: x 4.25–9.65 × y 0–5.1, one clean rectangle, 27.54 m² on axes, *5.2 × 4.875 clear ≈ 25.4 m²* (was 4.5 × 4.875 = 21.9): two north windows 2.0 (x 4.6–6.6, 7.3–9.3), its riwaq door and its two panes onto the liwan kept; no store, no leftover.
-    - *Maid room* at the minimum in the kitchen's south-east corner against the east wall, x 10.986–13.311 × y 11.65–15 (#r2(area(poly-rooms.at(1).at(1))) m² on axes, *2.10 × 3.15 clear ≈ 6.6 m²*, V6.4): its *escape casement* (y 12.0–13.14) and its *window* (y 13.6–14.4) on the east outside wall, the bed along that wall under them, the desk and the wardrobe on the west wall; its door 0.80 *from the kitchen* on its west wall (x 10.986, y 11.8–12.6). *Her bath* north of the room, x 10.986–13.311 × y 10.25–11.65 (#r2(area(poly-rooms.at(2).at(1))) m² on axes, *2.1 × 1.2 clear ≈ 2.5 m²*: the 1.2 × 1.8 asked laid across the room's width, no leftover beside it): the WC at the west end, the basin in the middle, a wall mixer over a floor drain at the east end, a small east window or a fan; its door 0.70 from her room only (y 11.65, x 12.4–13.1). Position to review with the first floor. Neither needs the dining: the *dining unchanged*.
-    - *Kitchen* gets the old laundry strip back and *keeps its dining door*, moved west: the main room x 10.55–13.311 × y 6.5–10.25 (2.54 × 3.55 clear) and the west part x 8.95–10.986 × y 8.67–15 (1.84 clear wide: the sink alcove and the old strip, down to the *dining door* on y 15 at x 9.5–10.6): #r2(area(poly-rooms.at(3).at(1))) m² on axes together (≈ 19.9 clear; step 19: 27.20 / 24.5). The sink and the dishwasher under the courtyard window, a counter south of them on the courtyard / living wall, a tall unit on the maid's wall south of her door, the cooking run and the hob under the east window (y 8.7–9.7, the extract through the wall above it), the fridge and a tall oven unit on the north wall. *Smaller:* the kitchen (24.5 → ≈ 19.9 m² clear). The malqaf, the sink window, the passage, the outside door and the liwan unchanged.
+    - *Maid room* at the minimum in the kitchen's south-east corner against the east wall, x 10.986–13.311 × y 11.65–15 (7.79 m² on axes, *2.10 × 3.15 clear ≈ 6.6 m²*, V6.4): its *escape casement* (y 12.0–13.14) and its *window* (y 13.6–14.4) on the east outside wall, the bed along that wall under them, the desk and the wardrobe on the west wall; its door 0.80 *from the kitchen* on its west wall (x 10.986, y 11.8–12.6). *Her bath* north of the room, x 10.986–13.311 × y 10.25–11.65 (3.25 m² on axes, *2.1 × 1.2 clear ≈ 2.5 m²*: the 1.2 × 1.8 asked laid across the room's width, no leftover beside it): the WC at the west end, the basin in the middle, a wall mixer over a floor drain at the east end, a small east window or a fan; its door 0.70 from her room only (y 11.65, x 12.4–13.1). Position to review with the first floor. Neither needs the dining: the *dining unchanged*.
+    - *Kitchen* gets the old laundry strip back and *keeps its dining door*, moved west: the main room x 10.55–13.311 × y 6.5–10.25 (2.54 × 3.55 clear) and the west part x 8.95–10.986 × y 8.67–15 (1.84 clear wide: the sink alcove and the old strip, down to the *dining door* on y 15 at x 9.5–10.6): 22.55 m² on axes together (≈ 19.9 clear; step 19: 27.20 / 24.5). The sink and the dishwasher under the courtyard window, a counter south of them on the courtyard / living wall, a tall unit on the maid's wall south of her door, the cooking run and the hob under the east window (y 8.7–9.7, the extract through the wall above it), the fridge and a tall oven unit on the north wall. *Smaller:* the kitchen (24.5 → ≈ 19.9 m² clear). The malqaf, the sink window, the passage, the outside door and the liwan unchanged.
     #text(10pt, weight: "bold", fill: rgb("#2f6b4f"))[GF step 19 (26 Nov 2026, branch idea-ne-corner, DRAFT): the majlis wall to y 5.1, the passage open into the liwan]
     - *One change* (design_gf.typ): the wall between the women's majlis and the north liwan moved north from y 6.5 to *y 5.1*, onto the line of the passage's north wall: *one straight wall line from the riwaq (x 4.25) to the east wall (x 13.311)*. The wall piece on x 8.95 between the passage and the liwan (y 5.1–6.5) removed: a *covered opening 1.2 clear, no door* (local x 0, y 5.2–6.4), so the passage runs from the outside door on the east wall straight into the liwan (4.14 m).
     - *Liwan* x 4.25–8.95 × y 5.1–8.3: *4.5 × 3.1 clear ≈ 14.0 m²* (was 4.5 × 1.7 = 7.65); the edge beam on y 8.3 kept (4.7 m, no middle column); the bench removed: *bench to re-plan*; the chamber's outlet (y 6.7–8.1) opens into it as before. *Women's majlis* x 4.25–8.95 × y 0–5.1: *4.5 × 4.875 clear ≈ 21.9 m²* (was 4.5 × 6.275 = 28.2), left as it comes out; its riwaq door kept, its two panes 1.75 onto the liwan in the new wall (x 4.6–6.35, 6.85–8.6). The block (the chamber, the maid wing, the passage, the kitchen, the laundry) and the dining unchanged.
