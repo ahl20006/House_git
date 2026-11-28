@@ -1,12 +1,12 @@
 name,x,y,w,d,angle,frame,colour,pts
-Courtyard,6.6,9.05,4.7,7.9,0,M,court,
+Courtyard,6.6,9.05,4.7,7.9,0,M,court,4.25 5.1; 8.95 5.1; 8.95 6.5; 7.55 6.5; 7.55 8.67; 8.95 8.67; 8.95 13; 4.25 13
 Women's majlis,6.95,2.55,5.4,5.1,0,M,family,
 Living (double height),6.6,16.125,4.7,6.25,0,M,family,
 Men's majlis,8.3555,21.625,11.211,4.75,0,M,guest,
 Service passage,11.4555,5.8,5.011,1.4,0,M,circ,
-Maid room,12.7985,8.175,2.325,3.35,0,M,service,
-Maid bath,12.7985,10.55,2.325,1.4,0,M,service,
-Kitchen,11.4555,10.75,5.011,8.5,0,M,service,10.35 6.5; 11.636 6.5; 11.636 11.25; 13.961 11.25; 13.961 15; 8.95 15; 8.95 8.67; 10.35 8.67
+Maid room,12.2985,7.65,3.325,2.3,0,M,service,
+Maid bath,13.2485,9.8,1.425,2.0,0,M,service,
+Kitchen,11.4555,10.75,5.011,8.5,0,M,service,8.95 6.5; 10.636 6.5; 10.636 8.8; 12.536 8.8; 12.536 10.8; 13.961 10.8; 13.961 15; 8.95 15
 Laundry,10.4625,2.55,1.625,5.1,0,M,service,
 Living (normal height) · dining,11.4555,17.125,5.011,4.25,0,M,family,
 Lift (shaft placeholder),1.125,1.1,2.25,2.2,0,M,core,
